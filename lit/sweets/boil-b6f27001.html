@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Boiling Room · Miss Plunkett's Last Recipe</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lit.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="sweets.css">
+<style>
+  body{--bg:#2a120c;--accent:#ff9a4a;--font-display:'Henny Penny',cursive;--font-ui:'Goudy Bookletter 1911',serif;--font-body:'Alegreya',serif;
+    --tc-bg:rgba(40,16,10,.96);--tc-ink:#fdeedd;--cap-bg:rgba(44,18,10,.95);--panel:#3a1c12;--face-bg:#5a2a1a;--q-ink:#ffc890;--fade:#140604;--hud-bg:rgba(40,16,10,.82)}
+  .tc-room{font-size:clamp(44px,6vw,82px);color:#ffb070}
+  .sF{font-family:'Fredericka the Great',serif;text-anchor:middle}
+  .sG{font-family:'Goudy Bookletter 1911',serif;text-anchor:middle}
+  .sK{font-family:'Gochi Hand',cursive;text-anchor:middle}
+  .sH{font-family:'Henny Penny',cursive;text-anchor:middle}
+  .steam{animation:steam 6s ease-in infinite;opacity:0;transform-box:fill-box;transform-origin:center}
+  .steam.s2{animation-delay:-2s}.steam.s3{animation-delay:-4s}
+  @keyframes steam{0%{opacity:0;transform:translate(0,0) scale(.6)}20%{opacity:.5}100%{opacity:0;transform:translate(-30px,-220px) scale(1.6)}}
+  .flame{animation:flk .25s steps(2,end) infinite alternate;transform-box:fill-box;transform-origin:50% 100%}
+  @keyframes flk{to{transform:scaleY(.82)}}
+  #cocoon{display:none}#scene.spun #cocoon{display:inline}#scene.spun #spinlever{transform:rotate(50deg)}
+  #spinlever{transform-origin:400px 520px;transition:transform .4s}
+  #range.ready{animation:glowr 1.5s steps(1,end) infinite}
+  @keyframes glowr{50%{filter:brightness(1.3)}}
+  #pebbles{display:none}#scene.made #pebbles{display:inline}
+
+  .bn .knob,.bn .lev,.bn #lid{cursor:pointer}
+  .bn .knob:hover circle.face,.bn .lev:hover rect.handle{filter:brightness(1.2)}
+  .bn .bmsg{color:#fff0dc}
+  .bn .bn-foot .btn{--accent:#ffb070}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="brick" width="80" height="40" patternUnits="userSpaceOnUse"><rect width="80" height="40" fill="#8a3a24"/><path d="M0 1h80M0 21h80M1 0v20M41 20v20" stroke="#5a2214" stroke-width="3"/><rect x="6" y="5" width="28" height="12" fill="#9a4a2e" opacity=".5"/></pattern>
+  <pattern id="tiles" width="60" height="60" patternUnits="userSpaceOnUse"><rect width="60" height="60" fill="#d8c8a8"/><rect width="30" height="30" fill="#3a2a22"/><rect x="30" y="30" width="30" height="30" fill="#3a2a22"/></pattern>
+  <linearGradient id="copperG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7a3a14"/><stop offset=".35" stop-color="#e8945a"/><stop offset=".6" stop-color="#c06a32"/><stop offset="1" stop-color="#6a2e10"/></linearGradient>
+  <linearGradient id="ironG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a3a42"/><stop offset="1" stop-color="#16161c"/></linearGradient>
+  <radialGradient id="fireG"><stop offset="0" stop-color="#ffb060" stop-opacity=".55"/><stop offset="1" stop-color="#ff7020" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="48%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".65" stop-color="#1a0604" stop-opacity=".3"/><stop offset="1" stop-color="#0a0202" stop-opacity=".9"/></radialGradient>
+</defs>
+
+<!-- brick vault -->
+<rect x="-1000" y="-400" width="3600" height="1120" fill="url(#brick)"/>
+<g fill="#4a1a10" opacity=".55"><path d="M-1000 -400h3600v380q-200 -120 -400 0q-200 -120 -400 0q-200 -120 -400 0q-200 -120 -400 0q-200 -120 -400 0q-200 -120 -400 0q-200 -120 -400 0z"/></g>
+<g fill="none" stroke="#c8a060" stroke-width="10"><path d="M-200 0q200 -120 400 0q200 -120 400 0q200 -120 400 0q200 -120 400 0q200 -120 400 0"/></g>
+<!-- pipes overhead -->
+<g id="pipes" class="hot"><path d="M-1000 70h3600" stroke="#b8862e" stroke-width="22"/><path d="M-1000 70h3600" stroke="#f2c86a" stroke-width="5" opacity=".6"/>
+  <path d="M520 70v120M1140 70v120M1520 70v260" stroke="#b8862e" stroke-width="16"/><g fill="#7a5a1e"><rect x="508" y="98" width="24" height="12"/><rect x="1128" y="98" width="24" height="12"/></g>
+  <circle cx="1520" cy="330" r="34" fill="#f6efe2" stroke="#b8862e" stroke-width="8"/><path d="M1520 330l18 -14" stroke="#2a1a14" stroke-width="4"/><text x="1520" y="352" class="sG" font-size="9" fill="#2a1a14">STEAM</text>
+  <g id="catg" transform="translate(900 62)"></g></g>
+
+<!-- the colour chart and the shelf of pennies -->
+<g id="chart" class="hot"><rect x="1200" y="170" width="200" height="270" fill="#fdf3d8" stroke="#6a3a1a" stroke-width="4"/><text x="1300" y="196" class="sF" font-size="16" fill="#8a2a14">THE COLOURS</text><text x="1300" y="212" class="sG" font-size="10" fill="#6a4a2a" letter-spacing="2">OF BOILING SUGAR</text><g id="chartg"></g></g>
+<g id="shelf"><rect x="1420" y="436" width="170" height="12" fill="#6a3a1a"/><path d="M1436 448l10 20M1574 448l-10 20" stroke="#4a2a12" stroke-width="5"/></g>
+<g id="pennies" class="hot"><g id="penjar"></g></g>
+<g id="ladles" class="hot"></g>
+<!-- the page pinned on the hood -->
+<g id="hood"><path d="M560 180h560l70 150H490z" fill="#3a3a42"/><path d="M560 180h560" stroke="#6a6a72" stroke-width="6"/><path d="M640 180V70M1040 180V70" stroke="#3a3a42" stroke-width="40"/></g>
+<g id="page" class="hot" transform="rotate(-3 700 250)"><rect x="640" y="196" width="130" height="118" fill="#fbf4e2"/><circle cx="705" cy="202" r="6" fill="#d6457a"/>
+  <text x="705" y="226" class="sH" font-size="12.500" fill="#7a2a8a">How to read</text><text x="705" y="242" class="sH" font-size="12.500" fill="#7a2a8a">my recipes</text>
+  <g stroke="#3a3a6a" stroke-width="1.4"><path d="M652 256h106M652 266h96M652 276h106M652 286h80M652 296h100"/></g></g>
+<g transform="rotate(4 980 240)"><rect x="920" y="200" width="120" height="70" fill="#fdf6c8"/><text x="980" y="230" class="sK" font-size="17" fill="#b0402a">NEVER LEAVE</text><text x="980" y="254" class="sK" font-size="17" fill="#b0402a">A PAN ALONE</text></g>
+
+<!-- the floor -->
+<rect x="-1000" y="720" width="3600" height="800" fill="url(#tiles)"/><rect x="-1000" y="720" width="3600" height="800" fill="#2a0e06" opacity=".35"/>
+
+<!-- the range and its three copper pans -->
+<g id="range" class="hot"><rect x="480" y="560" width="720" height="200" rx="6" fill="url(#ironG)"/><rect x="470" y="546" width="740" height="20" rx="4" fill="#4a4a52"/>
+  <g fill="#c8a060"><rect x="520" y="600" width="140" height="90" rx="4" fill="#26262c" stroke="#c8a060" stroke-width="3"/><rect x="1020" y="600" width="140" height="90" rx="4" fill="#26262c" stroke="#c8a060" stroke-width="3"/></g>
+  <g id="knobs"></g><text x="840" y="742" class="sF" font-size="18" fill="#c8a060" letter-spacing="3">THE PLUNKETT RANGE · 1958</text></g>
+<g id="flames"></g>
+<g id="pans" class="hot"></g>
+<circle cx="840" cy="560" r="300" fill="url(#fireG)" pointer-events="none"/>
+<g id="steamg" pointer-events="none"></g>
+<g id="pebbles"><rect x="1212" y="640" width="150" height="40" rx="4" fill="#9aa4ac" stroke="#5a646c" stroke-width="3"/><g id="pebg"></g></g>
+
+<!-- the green book on its stand -->
+<g id="book" class="hot"><path d="M1260 840l20 -200h28l20 200z" fill="#6a3a1a"/><path d="M1220 640l74 -26 74 26 -74 18z" fill="#4a2a12"/>
+  <path d="M1226 634l68 -24v40l-68 10z" fill="#fffaf0"/><path d="M1362 634l-68 -24v40l68 10z" fill="#fffaf0"/><path d="M1294 610v40" stroke="#24553a" stroke-width="5"/>
+  <path d="M1236 630l48 -16M1236 640l48 -16M1306 614l48 16M1306 624l48 16" stroke="#3a4a3a" stroke-width="1.4"/></g>
+
+<!-- the Cloudspinner -->
+<g id="spinner" class="hot"><path d="M150 760l20 -260h260l20 260z" fill="#ff8ec0" stroke="#c8508a" stroke-width="5"/><ellipse cx="300" cy="500" rx="150" ry="40" fill="#ffb3d1" stroke="#c8508a" stroke-width="5"/>
+  <ellipse cx="300" cy="500" rx="110" ry="26" fill="#fff0f6"/><g fill="#fff4fa" opacity=".9"><circle cx="250" cy="470" r="30"/><circle cx="300" cy="450" r="40"/><circle cx="350" cy="470" r="30"/></g>
+  <path d="M160 600h280M156 680h288" stroke="#c8508a" stroke-width="4"/><text x="300" y="650" class="sF" font-size="24" fill="#fff">THE CLOUDSPINNER</text>
+  <rect x="210" y="696" width="180" height="40" fill="#fff8d0" stroke="#8a6a26" stroke-width="2"/><text x="300" y="714" class="sG" font-size="12" fill="#8a1a1a">DO NOT PULL</text><text x="300" y="730" class="sG" font-size="9" fill="#4a3a1a">READ THE GREEN BOOK FIRST</text>
+  <g id="spinlever"><path d="M400 520l70 -80" stroke="#4a4a52" stroke-width="10" stroke-linecap="round"/><circle cx="472" cy="438" r="16" fill="#d61e2a"/></g>
+  <rect x="150" y="560" width="40" height="70" rx="4" fill="url(#copperG)"/><circle cx="170" cy="580" r="6" fill="#f2d27a"/></g>
+<g id="cocoon" class="hot" transform="translate(300 880)"></g>
+
+<!-- the people -->
+<g id="gribble" class="hot" transform="translate(1000 884) scale(.96)"></g>
+<g id="mortlake" class="hot" transform="translate(1440 872) scale(.94)"></g>
+<g id="huxtable" class="hot" transform="translate(1560 880) scale(.95)"></g>
+
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Through to the wrapping hall</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="sweets.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told, lock = null, running = false;
+  var COL = [['straw', 'STRAW', '#f2e2a0'], ['gold', 'GOLD', '#f0c040'], ['amber', 'AMBER', '#e8962a'], ['copper', 'COPPER', '#b8622a'], ['mahogany', 'MAHOGANY', '#6e2c18'], ['cinder', 'CINDER', '#2a1a14']];
+  var PENNY = '#b0663a';
+
+  (function () {
+    var s = '', i, x;
+    COL.forEach(function (c, k) { s += '<rect x="1220" y="' + (224 + k * 34) + '" width="44" height="26" fill="' + c[2] + '" stroke="#6a3a1a" stroke-width="1.5"/><text x="1276" y="' + (243 + k * 34) + '" font-family="Goudy Bookletter 1911,serif" font-size="16" fill="#2a1a10">' + c[1] + '</text>'; });
+    $('#chartg').innerHTML = s; s = '';
+    s += '<path d="M1450 436v-60q0 -10 8 -12h44q8 2 8 12v60z" fill="#e8f4f6" fill-opacity=".35" stroke="#9ab6c0" stroke-width="2"/><rect x="1456" y="356" width="48" height="10" rx="3" fill="#b0402a"/>';
+    for (i = 0; i < 16; i++) s += '<ellipse cx="' + (1460 + (i * 13) % 40) + '" cy="' + (430 - Math.floor(i / 4) * 9) + '" rx="9" ry="3.5" fill="' + PENNY + '" stroke="#7a3e1a" stroke-width="1"/>';
+    s += '<rect x="1520" y="400" width="54" height="36" fill="#fdf6e4" stroke="#8a6a3a" stroke-width="1.5"/><text x="1547" y="414" font-family="Gochi Hand,cursive" font-size="10" fill="#3a1a10" text-anchor="middle">TEA</text><text x="1547" y="428" font-family="Gochi Hand,cursive" font-size="10" fill="#3a1a10" text-anchor="middle">MONEY</text>';
+    $('#penjar').innerHTML = s; s = '';
+    [[560, 300, 0], [600, 290, 1], [1080, 300, 2], [1120, 296, 3]].forEach(function (l) { s += '<path d="M' + l[0] + ' 190v' + (l[1] - 230) + '" stroke="#c8a060" stroke-width="3"/><ellipse cx="' + l[0] + '" cy="' + (l[1] - 30) + '" rx="' + (l[2] % 2 ? 9 : 14) + '" ry="10" fill="#c8a060" stroke="#7a5a1e" stroke-width="2"/>'; });
+    $('#ladles').innerHTML = s; s = '';
+    for (i = 0; i < 6; i++) s += '<circle cx="' + (560 + i * 112) + '" cy="652" r="12" fill="#c8a060" stroke="#7a5a1e" stroke-width="2"/><path d="M' + (560 + i * 112) + ' 652l0 -9" stroke="#2a1a14" stroke-width="3"/>';
+    $('#knobs').innerHTML = s; s = '';
+    [[620, 120, 46], [840, 160, 60], [1060, 120, 46]].forEach(function (p, k) {
+      s += '<g transform="translate(' + p[0] + ' 548)"><path class="flame" d="M-30 0q10 -26 20 -6q4 -24 14 0q8 -20 16 2z" fill="#4a8aff" opacity=".85"/></g>';
+    });
+    $('#flames').innerHTML = s; s = '';
+    [[620, 92, 70], [840, 130, 96], [1060, 92, 70]].forEach(function (p) {
+      s += '<path d="M' + (p[0] - p[1]) + ' 548v-' + p[2] + 'h' + (p[1] * 2) + 'v' + p[2] + 'q0 8 -10 8h-' + (p[1] * 2 - 20) + 'q-10 0 -10 -8z" fill="url(#copperG)" stroke="#5a2a0e" stroke-width="3"/>' +
+        '<ellipse cx="' + p[0] + '" cy="' + (548 - p[2]) + '" rx="' + p[1] + '" ry="12" fill="#5a2a0e"/><ellipse cx="' + p[0] + '" cy="' + (550 - p[2]) + '" rx="' + (p[1] - 8) + '" ry="8" fill="#e8962a"/>' +
+        '<path d="M' + (p[0] + p[1]) + ' ' + (520 - p[2] / 2) + 'h50" stroke="#5a2a0e" stroke-width="10" stroke-linecap="round"/>';
+    });
+    $('#pans').innerHTML = s; s = '';
+    for (i = 0; i < 9; i++) s += '<circle class="steam s' + (1 + i % 3) + '" cx="' + (600 + (i * 67) % 500) + '" cy="420" r="' + (24 + (i % 3) * 10) + '" fill="#fff"/>';
+    $('#steamg').innerHTML = s; s = '';
+    for (i = 0; i < 6; i++) s += '<ellipse cx="' + (1232 + i * 22) + '" cy="652" rx="9" ry="6" fill="#b8622a" stroke="#6a2e10" stroke-width="1.5"/>';
+    $('#pebg').innerHTML = s;
+    $('#catg').innerHTML = SW.fig('catsleep'); $('#cocoon').innerHTML = SW.fig('cocoon');
+    ['gribble', 'mortlake', 'huxtable'].forEach(function (w) { $('#' + w).innerHTML = SW.fig(w); });
+  })();
+
+  ER.init({
+    theme: 'lit', story: 'sweets', storyTitle: 'Miss Plunkett’s Last Recipe', id: 'boil', no: 'II', title: 'The Boiling Room',
+    go: 'Go in',
+    intro: [
+      'Twelve jars of words nobody had ever seen, taken to pieces. Snooze + -lets, little sweets for falling asleep, for Tilly&rsquo;s grandad. Un- + hiccups, which undoes them, for Omar&rsquo;s sister. Guffaw + waffles for Wen&rsquo;s baby, shiver + -lets for Rory&rsquo;s hot flat, and un- + scare + -able for Maisie at the dentist. The bell rang, and the till sprang open.',
+      'Miss Plunkett&rsquo;s last recipe has three parts: the Heart, the Paper and the Finish. Part One is made in the boiling room, the hottest place in the building, where her copper pans have been simmering for sixty-eight years.',
+      'You are carrying the green book. Behind you come Mr Gribble, writing, and three buyers who cannot read a word of it and would very much like to know what it says.'
+    ],
+    exit: {"next":"wrap","w":{"4f37f7e5":"ae8d5096"}}, tags: {"fl":["c3c8527d"],"su":["fe2c7709"],"st":["70c3d787"],"li":["123b22fb"],"co":["ad83620e"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = SW.told('b-told'); nextFile = ER.flag('b-file') || null;
+  function isBusy() { return busy; }
+  function ready() { return told.has('page') && told.has('book'); }
+  function paint() {
+    $('#scene').classList.toggle('spun', told.has('spun'));
+    $('#scene').classList.toggle('made', !!nextFile);
+    $('#range').classList.toggle('ready', ready() && !nextFile);
+    ER.pips((told.has('spun') ? 1 : 0) + (told.has('page') ? 1 : 0) + (told.has('book') ? 1 : 0) + (nextFile ? 1 : 0), 4);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Six copper hearts are cooling in the pebble tray. The wrapping hall is next: the button at the bottom of the screen.']];
+    if (lock && lock.parentNode) return ['stove', [
+      'Take the recipe one line at a time, and ask: what do the two things have in common? Each line is about one control: the flame, the sugar, the paddle, the lid, and last of all when to take the pan off.',
+      'A snail is small and slow: how loud would its sneeze be? A shy guest at a noisy party does not rush in. A waltz is a slow dance that goes round and round, and a gallop is fast. And nothing can breathe with a lid on it.',
+      'A thousand years is hyperbole: nobody means it. The real instruction is the colour. The jar of old pennies is in the top corner of the stove: take the pan off the heat when the syrup is the same colour as the pennies.'
+    ]];
+    if (!ready()) return ['read', [
+      'Two things to read before you touch the stove: the green book, open on its wooden stand to the right of the range, and the page pinned on the black hood above the pans.',
+      'The green book has Part One of the recipe. The pinned page, How to read my recipes, tells you how Miss Plunkett wrote it.'
+    ]];
+    return ['range', ['Everything is read. Click the big black range with the knobs on its front.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('Six copper hearts in the pebble tray, thinking about what they have done.'); return; }
+    if (told.has('spun')) { busy = false; ER.say('The boiling room. Somewhere inside the pink cloud, Mr Tuttle is still shouting.'); return; }
+    ER.narrate([
+      'The boiling room is the colour of the inside of a toffee. Copper pans as big as bathtubs sit on an iron range, blue flames purr under them, and the steam rises to a brick ceiling where a ginger cat is asleep on a pipe.',
+      'Mr Tuttle pushes past you. In the corner stands a tall pink machine like a drum on legs, with a red lever on its side and a notice: THE CLOUDSPINNER. DO NOT PULL. READ THE GREEN BOOK FIRST.',
+      '&ldquo;Read!&rdquo; says Mr Tuttle. &ldquo;Ha!&rdquo; And he pulls the lever.',
+      'The Cloudspinner gives a deep WHUMPF. Pink sugar floss pours out of the top like a waterfall going the wrong way, and wraps itself round Mr Tuttle, round and round, from his hat to his shoes, until all that can be seen of him is a moustache and a pair of brown boots.',
+      'Somewhere inside the machine a music box begins to play, and a brass plate on its side catches the light.'
+    ], function () {
+      told.set('spun'); paint(); SW.sfx.whoosh();
+      SW.verse('read', 'On the side of the Cloudspinner', function () {
+        ER.narrate(['Mr Gribble writes: <i>Item: one gentleman, pink.</i> &ldquo;It wears off by the morning, I expect,&rdquo; he says. &ldquo;Most things do.&rdquo; Then he looks at you, and at the book. &ldquo;Well? Read it, then.&rdquo;'], function () { busy = false; });
+      });
+    });
+  }
+
+  /* ---------- papers ---------- */
+  var PAGE = '<h4>How to read my recipes</h4><h5>pinned on the hood over the stove</h5>' +
+    '<p>I do not write &lsquo;medium heat&rsquo;. I write what it is like, because a cook remembers a picture better than a number.</p>' +
+    '<p>A <b>simile</b> says one thing is <i>like</i> another. It uses &lsquo;like&rsquo; or &lsquo;as&rsquo;: <span class="ex">as busy as a bee; it went off like a firework.</span></p>' +
+    '<p>A <b>metaphor</b> says one thing <i>is</i> another, with no &lsquo;like&rsquo;: <span class="ex">the kitchen was an oven.</span></p>' +
+    '<p><b>Personification</b> gives a thing a person&rsquo;s feelings or actions: <span class="ex">the kettle sulked.</span></p>' +
+    '<p><b>Hyperbole</b> is an exaggeration so big that nobody is meant to believe it: <span class="ex">I&rsquo;ve told you a million times.</span></p>' +
+    '<p>All four are <b>figures of speech</b>, and none of them is true word for word. So do not ask, &lsquo;Is it true?&rsquo; Ask, &lsquo;What do the two things have in common?&rsquo; and do that. &lsquo;The kitchen was an oven&rsquo; means it was very hot, not that you could bake bread in it.</p>';
+  var BOOK = '<h4>The green book &middot; the last page</h4><h3>The Last Sweet</h3>' +
+    '<p class="hand">Part One: the Heart</p>' +
+    '<p class="ln"><i>1</i>Light a flame as quiet as a snail&rsquo;s sneeze.</p>' +
+    '<p class="ln"><i>2</i>Sugar is a shy guest at a noisy party.</p>' +
+    '<p class="ln"><i>3</i>The spoon must waltz, not gallop.</p>' +
+    '<p class="ln"><i>4</i>Let the pan breathe.</p>' +
+    '<p class="ln"><i>5</i>Boil it for a thousand years, or until it is the colour of an old penny, whichever comes first.</p>' +
+    '<p class="ln"><i>6</i>Then pour it into the pebble tray, and let it think about what it has done.</p>' +
+    '<p class="hand">Part Two, the Paper, is made in the wrapping hall. Part Three, the Finish, I shall write in the cellar.</p>';
+  $('#page').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: PAGE, cls: 'page', clue: { id: 'recipes', title: 'How to read my recipes', kind: 'Over the stove' }, done: function () {
+      SW.terms(['simile', 'metaphor', 'personification', 'hyperbole', 'figure of speech']);
+      if (told.set('page')) { paint(); ER.say(told.has('book') ? 'Five lines, and not one of them is true word for word. The knobs are on the front of the range.' : 'Similes and metaphors. Now the recipe itself: the green book on its stand.'); }
+    } });
+  });
+  $('#book').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: BOOK, cls: 'green', clue: { id: 'heart', title: 'The Last Sweet: the Heart', kind: 'The green book' }, done: function () {
+      if (told.set('book')) { paint(); ER.say(told.has('page') ? 'A snail&rsquo;s sneeze. A shy guest. A waltz. Every line is a picture. The knobs are on the front of the range.' : 'A snail&rsquo;s sneeze? The page on the hood says how Miss Plunkett wrote her recipes.'); }
+    } });
+  });
+
+  /* ---------- things in the room ---------- */
+  SW.thing('#pennies', 'penny', 'A jam jar of old pennies on the shelf, labelled TEA MONEY. Old copper pennies are a dull reddish brown, the colour of a conker that has been in a pocket all week.', isBusy);
+  SW.thing('#chart', null, 'THE COLOURS OF BOILING SUGAR: straw, gold, amber, copper, mahogany, and last of all cinder, which is not a colour so much as a mistake.', isBusy);
+  SW.thing('#ladles', 'ladle', 'Ladles and spoons as long as your arm, hanging from the hood. One of them has teeth marks on the handle. The cat, probably.', isBusy);
+  SW.thing('#pipes', null, 'Brass pipes along the ceiling, and a gauge that says STEAM. On the warmest pipe, the cat. Her name, according to the collar, is Sherbet.', isBusy);
+  SW.thing('#pans', 'pan', 'Three copper pans as big as bathtubs. The middle one is empty and clean, and waiting.', isBusy);
+  SW.thing('#spinner', null, function () { return 'THE CLOUDSPINNER. DO NOT PULL. READ THE GREEN BOOK FIRST. Somebody did not.'; }, isBusy);
+  $('#cocoon').addEventListener('click', function (e) {
+    if (busy) return;
+    var L = ['&ldquo;MMMF!&rdquo; says the pink cloud. &ldquo;MMMF MMF!&rdquo; It may be &lsquo;Get me out&rsquo;. It may be a word that Mr Tuttle has never read.', 'The moustache twitches. The boots stamp. A little floss falls off the top, and the cat comes down from the pipe to eat it.', '&ldquo;Is it soft in there?&rdquo; asks Mrs Mortlake. &ldquo;MMMF,&rdquo; says the cloud, which sounds like yes.'];
+    ER.say(L[(told.has('c1') ? 1 : 0) + (told.has('c2') ? 1 : 0)]); if (!told.set('c1')) told.set('c2');
+  });
+  $('#gribble').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(told.has('book') ? '&ldquo;<i>Boil it for a thousand years,</i>&rdquo; reads Mr Gribble over your shoulder. &ldquo;The sale is at nine. I make that nine hundred and ninety-nine years too late. I shall write: Part One cannot be done.&rdquo;' : '&ldquo;Item: one range, iron,&rdquo; says Mr Gribble. &ldquo;Item: three pans, copper. Item: one cloud, with a gentleman in it.&rdquo;');
+  });
+  $('#mortlake').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(nextFile ? '&ldquo;Copper,&rdquo; says Mrs Mortlake, looking at the tray. &ldquo;Like my hair. My hair is famous, you know.&rdquo; Her hair is yellow.' : 'Mrs Mortlake is looking at herself in the side of a copper pan, which makes her face very wide. She seems to like it.');
+  });
+  $('#huxtable').addEventListener('click', function () {
+    if (busy) return;
+    ER.say('&ldquo;All that sugar,&rdquo; says Mr Huxtable. &ldquo;You could make twice as many sweets with half of it. If they were smaller. And mostly air.&rdquo;');
+  });
+  $('#range').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The middle pan is scraped clean. The range ticks as it cools.'); return; }
+    if (!ready()) { ER.say(told.has('book') || told.has('page') ? 'Six knobs on the range. Not yet: read ' + (told.has('book') ? 'the page pinned over the stove' : 'Part One in the green book') + ' first.' : 'Six brass knobs on the range. Mr Tuttle would have turned all of them by now. Read first: there is a page pinned over the stove, and the green book is on its stand.'); return; }
+    openLock();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the stove: a flame, a chute, a paddle, a lid, and a colour ---------- */
+  function openLock() {
+    var set = ER.flag('b-set') || { fl: 4, su: 'pour', st: 'fast', li: 'on' }, ci = -1, timer = 0, svg, m;
+    lock = ER.el('div', 'bn', '<svg viewBox="0 0 1000 600"></svg><div class="bn-foot"><p class="bmsg"></p><button type="button" class="btn" id="b-go">Light the stove</button></div>');
+    svg = lock.querySelector('svg'); m = lock.querySelector('.bmsg');
+    function msg(t) { m.innerHTML = ER.gloss(t); }
+    function keep() { ER.flag('b-set', set); }
+    function draw() {
+      var s = '', i, a, fl = set.fl, col = ci >= 0 ? COL[ci][2] : '#fdf8ec';
+      s += '<rect width="1000" height="600" fill="#3a1a10"/>';
+      for (i = 0; i < 15; i++) s += '<path d="M0 ' + (i * 40) + 'h1000" stroke="#4a2214" stroke-width="2"/>';
+      /* the shelf of pennies, top right */
+      s += '<rect x="800" y="70" width="180" height="10" fill="#6a3a1a"/><path d="M826 70v-56q0 -8 6 -10h40q6 2 6 10v56z" fill="#e8f4f6" fill-opacity=".3" stroke="#9ab6c0" stroke-width="2"/>';
+      for (i = 0; i < 14; i++) s += '<ellipse cx="' + (836 + (i * 11) % 34) + '" cy="' + (64 - Math.floor(i / 4) * 8) + '" rx="8" ry="3.2" fill="' + PENNY + '" stroke="#7a3e1a" stroke-width="1"/>';
+      s += '<text x="935" y="40" class="tK" font-size="17" fill="#ffe0b0" text-anchor="middle">tea money:</text><text x="935" y="60" class="tK" font-size="17" fill="#ffe0b0" text-anchor="middle">old pennies</text>';
+      /* the colour card */
+      s += '<rect x="800" y="100" width="180" height="250" rx="6" fill="#fdf3d8"/><text x="890" y="124" class="tF" font-size="15" fill="#8a2a14" text-anchor="middle">THE COLOURS</text>';
+      COL.forEach(function (c, k) { s += '<rect x="814" y="' + (136 + k * 34) + '" width="46" height="26" fill="' + c[2] + '" stroke="#6a3a1a" stroke-width="1.5"/><text x="870" y="' + (155 + k * 34) + '" class="tG" font-size="16" fill="#2a1a10">' + c[1] + '</text>' + (ci === k ? '<path d="M806 ' + (149 + k * 34) + 'l-14 -8v16z" fill="#ff5a2a"/>' : ''); });
+      /* the pan, the flame, the syrup */
+      s += '<rect x="130" y="478" width="420" height="40" rx="5" fill="#26262c"/>';
+      for (i = 0; i < 7; i++) { a = 8 + fl * 9; s += '<g transform="translate(' + (190 + i * 50) + ' 478)"><path class="flame" d="M-14 0q4 ' + (-a) + ' 10 ' + (-a * 0.3) + 'q4 ' + (-a * 0.9) + ' 8 0q6 ' + (-a * 0.7) + ' 10 0z" fill="' + (fl > 3 ? '#ff8a2a' : '#4a8aff') + '" opacity=".9"/></g>'; }
+      s += '<path d="M150 430v-190h380v190q0 12 -12 12h-356q-12 0 -12 -12z" fill="url(#cpr)" stroke="#5a2a0e" stroke-width="4"/>';
+      s += '<defs><linearGradient id="cpr" x1="0" x2="1"><stop offset="0" stop-color="#7a3a14"/><stop offset=".35" stop-color="#e8945a"/><stop offset=".6" stop-color="#c06a32"/><stop offset="1" stop-color="#6a2e10"/></linearGradient></defs>';
+      s += '<ellipse cx="340" cy="240" rx="190" ry="26" fill="#5a2a0e"/><ellipse cx="340" cy="244" rx="176" ry="19" fill="' + col + '"/>';
+      if (ci >= 0) for (i = 0; i < 6; i++) s += '<circle cx="' + (220 + i * 46) + '" cy="' + (240 + (i % 2) * 6) + '" r="5" fill="#fff" opacity=".5"/>';
+      /* the sugar chute */
+      s += '<path d="M380 30h120l-30 70h-60z" fill="#d8d0c0" stroke="#6a6a6a" stroke-width="3"/><path d="M410 100l-20 ' + (set.su === 'pour' ? 90 : 60) + '" stroke="#bdb6aa" stroke-width="' + (set.su === 'pour' ? 26 : 6) + '"/>' +
+        '<g class="lev" data-l="su"><rect class="handle" x="514" y="34" width="210" height="44" rx="6" fill="#26262c" stroke="#c8a060" stroke-width="2"/><text x="619" y="54" class="tG" font-size="13" fill="#c8a060" text-anchor="middle">THE SUGAR</text><text x="619" y="71" class="tF" font-size="15" fill="#fff" text-anchor="middle">' + (set.su === 'pour' ? 'ALL AT ONCE' : 'A LITTLE AT A TIME') + '</text></g>';
+      /* the paddle */
+      s += '<path d="M340 60v190" stroke="#8a6a3a" stroke-width="10"/><path d="M320 236h40v24h-40z" fill="#c8a060"/>' +
+        '<g class="lev" data-l="st"><rect class="handle" x="40" y="80" width="210" height="44" rx="6" fill="#26262c" stroke="#c8a060" stroke-width="2"/><text x="145" y="100" class="tG" font-size="13" fill="#c8a060" text-anchor="middle">THE PADDLE</text><text x="145" y="117" class="tF" font-size="15" fill="#fff" text-anchor="middle">' + { still: 'STILL', slow: 'SLOW CIRCLES', fast: 'FAST CIRCLES' }[set.st] + '</text></g>';
+      /* the lid: on the pan, or hanging on its hook */
+      s += set.li === 'on' ? '<g id="lid"><ellipse cx="340" cy="232" rx="196" ry="30" fill="#b06a3a" stroke="#5a2a0e" stroke-width="4"/><ellipse cx="340" cy="212" rx="24" ry="10" fill="#5a2a0e"/><text x="340" y="275" class="tG" font-size="14" fill="#ffe0b0" text-anchor="middle">LID ON · click to lift it</text></g>' :
+        '<g id="lid"><circle cx="640" cy="160" r="70" fill="#b06a3a" stroke="#5a2a0e" stroke-width="4"/><circle cx="640" cy="160" r="14" fill="#5a2a0e"/><path d="M640 90v-20" stroke="#8a8a92" stroke-width="5"/><text x="640" y="252" class="tG" font-size="14" fill="#ffe0b0" text-anchor="middle">LID OFF · on its hook</text></g>';
+      /* the flame knob */
+      s += '<g class="knob"><circle class="face" cx="130" cy="530" r="44" fill="#c8a060" stroke="#7a5a1e" stroke-width="4"/>';
+      for (i = 1; i <= 6; i++) { a = (-135 + (i - 1) * 54) * Math.PI / 180; s += '<text x="' + (130 + 62 * Math.sin(a)).toFixed(1) + '" y="' + (536 - 62 * Math.cos(a)).toFixed(1) + '" class="tF" font-size="17" fill="' + (i === fl ? '#ffcf5a' : '#c8a080') + '" text-anchor="middle">' + i + '</text>'; }
+      a = (-135 + (fl - 1) * 54) * Math.PI / 180;
+      s += '<path d="M130 530L' + (130 + 36 * Math.sin(a)).toFixed(1) + ' ' + (530 - 36 * Math.cos(a)).toFixed(1) + '" stroke="#2a1a14" stroke-width="7" stroke-linecap="round"/></g>' +
+        '<text x="200" y="568" class="tG" font-size="15" fill="#ffe0b0">THE FLAME</text><text x="200" y="588" class="tK" font-size="16" fill="#ffd0a0">click the knob to turn it</text>' +
+        '<text x="580" y="588" class="tK" font-size="17" fill="#ffd0a0">click the levers and the lid to change them</text>';
+      svg.innerHTML = s;
+      ER.$$('.lev', svg).forEach(function (l) { l.addEventListener('click', function () {
+        if (running || nextFile) return;
+        var k = l.getAttribute('data-l');
+        if (k === 'su') set.su = set.su === 'pour' ? 'trickle' : 'pour';
+        else set.st = { still: 'slow', slow: 'fast', fast: 'still' }[set.st];
+        keep(); SW.sfx.click(); draw();
+      }); });
+      svg.querySelector('.knob').addEventListener('click', function () { if (running || nextFile) return; set.fl = set.fl % 6 + 1; keep(); SW.sfx.click(); draw(); });
+      svg.querySelector('#lid').addEventListener('click', function () { if (running || nextFile) return; set.li = set.li === 'on' ? 'off' : 'on'; keep(); SW.sfx.clunk(); draw(); });
+    }
+    var goB = lock.querySelector('#b-go');
+    function ruin(t) {
+      running = false; clearInterval(timer); ci = -1; ER.sfx.no(); ER.mood('calm'); goB.textContent = 'Light the stove';
+      msg(t + ' <br>Mr Gribble writes: <i>Item: one burnt pan.</i> Somebody scrapes it out and fills it with fresh sugar.'); draw();
+    }
+    function light() {
+      var f = set.fl;
+      if (!ER.check('fl', f)) {
+        ruin(f >= 4 ? 'You light the stove at <b>' + f + '</b>. The flame roars up like a lion, and in ten seconds the sugar is foaming over the side and smells of bonfires. Was that a quiet flame?' :
+          'At <b>' + f + '</b> the flame is quieter, but not quiet enough: the edge of the sugar catches and goes brown before the middle has even melted. How loud is a snail&rsquo;s sneeze?'); return;
+      }
+      if (!ER.check('su', set.su)) { ruin('All the sugar goes in at once, like a crowd through one door, and sits at the bottom in a lump that will not melt. Is that how a shy guest comes into a noisy party?'); return; }
+      if (!ER.check('st', set.st)) { ruin(set.st === 'fast' ? 'The paddle gallops round and round, and the syrup goes cloudy and gritty, like sand in a jam jar. The book said waltz, not gallop.' : 'The paddle stands still, and the bottom of the pan catches. A waltz is a dance: it moves. But how fast?'); return; }
+      if (!ER.check('li', set.li)) { ruin('With the lid on, the steam has nowhere to go. It lifts the lid, rattles it, and the pan boils over. Can a pan breathe with a lid on it?'); return; }
+      running = true; ci = 0; draw(); ER.mood('tense'); goB.textContent = 'Off the heat!';
+      msg('A flame as small as a sneeze, sugar going in a spoonful at a time, the paddle waltzing slowly round, and no lid. The sugar melts, clears, and begins to change colour. Watch it, and take it off the heat at the right moment.');
+      timer = setInterval(function () {
+        ci++; SW.sfx.bubble();
+        if (ci >= COL.length) { ruin('CINDER. The heart is black, and smells like a chimney. A thousand years was a joke: nobody meant you to wait that long.'); return; }
+        draw(); msg('The syrup is <b>' + COL[ci][1] + '</b> now.');
+      }, 1900);
+    }
+    function off() {
+      var c = COL[ci][0], file;
+      clearInterval(timer); running = false; ER.mood('calm');
+      if (!ER.check('co', c)) {
+        ruin(ci < 3 ? 'Off the heat at <b>' + COL[ci][1] + '</b>. Pretty, but is that the colour of an old penny? Look at the jar on the shelf.' : 'Off the heat at <b>' + COL[ci][1] + '</b>: darker than any penny in the jar. A second too late.'); return;
+      }
+      file = ER.exitOk([[set.fl, set.su, set.st, set.li, c].join('-')]);
+      if (!file) { msg('The pan will not pour. Something is wrong with this page: tell your teacher.'); return; }
+      nextFile = file; ER.flag('b-file', file);
+      var s0 = ER.state(); s0.done = s0.done || {}; s0.done.boil = 1; ER.persist(true);
+      SW.sfx.hiss(); msg('Off the heat at <b>COPPER</b>, the colour of the pennies in the jar. The heart pours out like warm glass into the pebble tray, and lies there thinking about what it has done.');
+      setTimeout(function () {
+        ER.closeAll(); SW.solved(); paint(); busy = true;
+        SW.mine('heartdone', 'The Heart', '<p>Quiet as a snail&rsquo;s sneeze: the smallest flame, 1.</p><p>Sugar is a shy guest: a little at a time.</p><p>Waltz, not gallop: slow circles.</p><p>Let the pan breathe: lid off.</p><p>A thousand years is hyperbole. The colour of an old penny: copper.</p>');
+        ER.narrate([
+          'Six copper hearts, each small enough to hide in your fist, lie in the pebble tray. They look exactly like pebbles from a beach, if a beach could be warm and smell of burnt sugar.',
+          'Mr Gribble looks at the tray, and at his list, and at the tray. &ldquo;It did not take a thousand years,&rdquo; he says. &ldquo;Miss Plunkett wrote that it would take a thousand years.&rdquo; &ldquo;She wrote it as a joke,&rdquo; you say. Mr Gribble writes that down, too, very slowly, as if he has never written the word before.',
+          'Mrs Mortlake has already gone on ahead. Through the far door comes the clatter of the wrapping hall, and the sound of somebody saying &ldquo;Oh! Look at me!&rdquo;'
+        ], function () { busy = false; $('#go').classList.add('on'); });
+      }, 3600);
+    }
+    goB.addEventListener('click', function () { if (nextFile) return; if (running) off(); else light(); });
+    draw();
+    msg('The middle pan, a chute of sugar, a paddle, a lid, and a knob for the flame. Set each one as the recipe says, then light the stove. Part One is in your notebook.');
+    ER.open('ov-lock', lock, function () { if (running) { clearInterval(timer); running = false; ci = -1; ER.mood('calm'); } });
+  }
+})();
+</script>
+</body>
+</html>

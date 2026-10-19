@@ -1,0 +1,121 @@
+/* The Torn Pages of Wonderland - what every room shares: the pages of the book, the things in Wonderland that carry
+   a lesson, the frame round a piece of work, the notebook and the hints. Each room sets its own palette on <body>. */
+
+.tc-theme{font-family:'Goudy Bookletter 1911',serif;font-size:17px;letter-spacing:.26em}
+.tc-room{font-family:'Fredericka the Great',serif;letter-spacing:.02em;line-height:1.05}
+.tc-text{font-family:'EB Garamond',Georgia,serif;font-size:clamp(18px,1.5vw,22.5px);line-height:1.5}
+.tc-text p{margin:0 0 11px}
+.cap{font-family:'EB Garamond',Georgia,serif;font-size:clamp(19px,1.5vw,23px);line-height:1.45}
+.chip,.hbtn,.btn{font-family:'Goudy Bookletter 1911',serif;font-size:15px;letter-spacing:.12em}
+.gobtn{position:fixed;left:50%;bottom:5vh;transform:translateX(-50%);z-index:35;display:none;padding:12px 30px 11px;border:2px solid var(--accent,#e9c75a);
+  color:var(--accent,#e9c75a);background:var(--hud-bg,rgba(20,14,10,.9));font-family:'Fredericka the Great',serif;font-size:21px;letter-spacing:.04em;border-radius:4px}
+.gobtn.on{display:block}
+.gobtn:hover{background:var(--accent,#e9c75a);color:#1c140e}
+.tk-name{font-family:'Fredericka the Great',serif;letter-spacing:.02em;font-size:28px}
+.tk-role{font-family:'Goudy Bookletter 1911',serif;font-size:15px;letter-spacing:.14em}
+.tk-text{font-family:'EB Garamond',Georgia,serif;font-size:clamp(18.5px,1.42vw,21.5px);line-height:1.5}
+.tk-text .bk{font-style:normal}
+.tk-face svg{height:100%;min-height:300px}
+.hot{cursor:pointer}
+.hot:hover{filter:brightness(1.13)}
+/* a line taken word for word from the book: set like the book, so that the student can always tell Carroll's words from ours */
+.bk{font-family:'EB Garamond',Georgia,serif}
+.ch{display:block;margin-top:4px;font-family:'Goudy Bookletter 1911',serif;font-size:13px;letter-spacing:.2em;text-transform:uppercase;opacity:.7;font-style:normal}
+
+/* ---- a piece of work ---- */
+.bn-foot{display:flex;align-items:flex-start;gap:16px;margin-top:10px}
+.bmsg{flex:1;min-height:52px;margin:0;font-family:'EB Garamond',Georgia,serif;font-size:19.5px;line-height:1.36;color:#fbf2e4}
+.bmsg b{color:var(--accent,#e9c75a);font-weight:600}
+.bn-foot .btn{flex:0 0 auto;white-space:nowrap;background:rgba(0,0,0,.35)}
+
+/* ---- paper ---- */
+.doc h4{font-weight:normal}
+.doc svg{display:block;max-width:100%;height:auto}
+/* a page of the book itself */
+.doc.pg{width:min(700px,94vw);background:#f6efdc;color:#2a2018;font-family:'EB Garamond',Georgia,serif;font-size:20px;line-height:1.5;padding:26px 44px 22px;
+  box-shadow:0 26px 70px rgba(0,0,0,.6),inset 0 0 60px rgba(120,90,40,.18)}
+.doc.pg h4{margin:0 0 2px;text-align:center;font-family:'Goudy Bookletter 1911',serif;font-size:14px;letter-spacing:.3em;text-transform:uppercase;color:#7a6a4a}
+.doc.pg h3{margin:0 0 12px;text-align:center;font-family:'EB Garamond',serif;font-weight:normal;font-style:italic;font-size:26px;color:#3a2a1a}
+.doc.pg p{margin:0 0 10px;text-indent:1.4em}
+.doc.pg p.ni{text-indent:0}
+.doc.pg .poem{margin:6px 0 12px 2.2em;font-size:20px;line-height:1.5}
+.doc.pg .poem p{text-indent:0;margin:0}
+.doc.pg .poem .in{padding-left:1.6em}
+.doc.pg .note{font-family:'Caveat',cursive;font-size:22px;color:#7a2a2a;text-indent:0}
+/* the luggage label tied round the neck of a little bottle */
+.doc.label{width:min(600px,92vw);background:#efe0b8 radial-gradient(ellipse at 20% 10%,rgba(255,250,230,.7),rgba(150,110,50,.2));color:#2e2214;font-family:'EB Garamond',serif;font-size:19.5px;line-height:1.42;
+  padding:26px 34px 20px 60px;clip-path:polygon(34px 0,100% 0,100% 100%,34px 100%,0 50%);-webkit-clip-path:polygon(34px 0,100% 0,100% 100%,34px 100%,0 50%)}
+.doc.label:before{content:'';position:absolute;left:18px;top:50%;width:14px;height:14px;margin-top:-7px;border-radius:50%;background:#2a1a10;box-shadow:0 0 0 3px #b89a5a}
+.doc.label h4{margin:0 0 8px;font-family:'Cinzel',serif;font-size:30px;letter-spacing:.18em;color:#5a2a14}
+.doc.label p{margin:0 0 7px}
+.doc.label b{font-family:'Goudy Bookletter 1911',serif;font-weight:normal;color:#5a2a14;text-decoration:underline;text-underline-offset:3px}
+.doc.label ol{margin:2px 0 8px;padding-left:22px}
+.doc.label li{margin:0 0 4px}
+.doc.label .last{font-style:italic;color:#4a3a2a}
+/* a page of the Duchess's book of morals: black-letter-ish heading, pepper on it */
+.doc.morals{width:min(660px,93vw);background:#f3ead2;color:#2a1e14;font-family:'EB Garamond',serif;font-size:19.5px;line-height:1.45;padding:24px 38px 18px;border:2px solid #6a4a2a;
+  box-shadow:0 26px 70px rgba(0,0,0,.6),inset 0 0 0 6px #f3ead2,inset 0 0 0 7px #8a6a3a;background-image:radial-gradient(circle,rgba(60,40,20,.5) 1px,transparent 1.5px);background-size:37px 41px}
+.doc.morals h4{margin:0;text-align:center;font-family:'Goudy Bookletter 1911',serif;font-size:14px;letter-spacing:.3em;text-transform:uppercase;color:#6a4a2a}
+.doc.morals h3{margin:2px 0 10px;text-align:center;font-family:'Fredericka the Great',serif;font-weight:normal;font-size:31px;color:#3a1a0e}
+.doc.morals p{margin:0 0 8px}
+.doc.morals b{font-family:'Goudy Bookletter 1911',serif;font-weight:normal;color:#7a2a14}
+.doc.morals .moral{margin-top:10px;padding:8px 14px 6px;border-top:1px solid #8a6a3a;border-bottom:1px solid #8a6a3a;font-style:italic;text-align:center}
+/* the programme of the Queen's great concert */
+.doc.prog{width:min(760px,95vw);background:#fbf3e2;color:#2a1a1a;font-family:'EB Garamond',serif;font-size:18.5px;line-height:1.42;padding:20px 34px 16px;border:8px solid #b8202e;
+  box-shadow:0 26px 70px rgba(0,0,0,.6),inset 0 0 0 3px #e9c75a}
+.doc.prog h4{margin:0;text-align:center;font-family:'Cinzel',serif;font-size:15px;letter-spacing:.3em;color:#b8202e}
+.doc.prog h3{margin:2px 0 8px;text-align:center;font-family:'Fredericka the Great',serif;font-weight:normal;font-size:30px}
+.doc.prog p{margin:0 0 7px}
+.doc.prog b{font-family:'Goudy Bookletter 1911',serif;font-weight:normal;color:#b8202e}
+.doc.prog .two{display:flex;gap:14px;margin:6px 0 8px}
+.doc.prog .two>div{flex:1;background:#fff8ea;border:1px solid #d8b8a0;padding:6px 12px 4px;font-size:17.5px;line-height:1.4}
+.doc.prog .two small{display:block;font-family:'Goudy Bookletter 1911',serif;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#8a5a4a;margin-bottom:2px}
+.doc.prog .two i{color:#b8202e;font-style:normal;text-decoration:underline;text-underline-offset:3px}
+/* a playing card from the Queen's garden */
+.doc.qcard{width:min(620px,92vw);background:#fffdf6;color:#1e1414;font-family:'EB Garamond',serif;font-size:19px;line-height:1.42;padding:24px 40px 18px;border-radius:14px;border:2px solid #231a14;
+  box-shadow:0 26px 70px rgba(0,0,0,.6),inset 0 0 0 8px #fffdf6,inset 0 0 0 10px #c4202e}
+.doc.qcard h4{margin:0 0 2px;font-family:'Cinzel',serif;font-size:14px;letter-spacing:.26em;color:#c4202e;text-align:center}
+.doc.qcard h3{margin:0 0 10px;font-family:'Fredericka the Great',serif;font-weight:normal;font-size:28px;text-align:center}
+.doc.qcard p{margin:0 0 7px}
+.doc.qcard ol{margin:2px 0 6px;padding-left:22px}.doc.qcard li{margin:0 0 4px}
+.doc.qcard b{font-family:'Goudy Bookletter 1911',serif;font-weight:normal;color:#c4202e}
+/* what you worked out yourself */
+.doc.mine{width:min(600px,92vw);background:#f4efe2;color:#2a2018;font-family:'Caveat',cursive;font-size:24px;line-height:1.22;padding:22px 30px 20px;border-left:16px solid #5a3a6a;
+  background-image:linear-gradient(transparent 28px,rgba(90,58,106,.16) 28px);background-size:100% 29px}
+.doc.mine h4{font-family:'Goudy Bookletter 1911',serif;font-size:17px;letter-spacing:.22em;text-transform:uppercase;color:#5a3a6a;margin-bottom:8px}
+.doc.mine p{margin:0 0 8px}
+.doc.mine .bk{font-size:19px;line-height:1.4}
+.doc.statement{background:#f6efe2;font-family:'EB Garamond',Georgia,serif;font-size:19px;line-height:1.5;border-left:6px solid #7a5a3a}
+.doc.statement h4{font-family:'Goudy Bookletter 1911',serif;font-size:15px;letter-spacing:.22em;color:#7a5a3a}
+.doc.evid{width:min(560px,92vw);background:#fbf7ec;color:#2a2018;font-family:'EB Garamond',serif;font-size:19px;line-height:1.45;padding:20px 28px 16px;border:1px dashed #8a6a4a}
+.doc.evid h4{margin:0 0 6px;font-family:'Goudy Bookletter 1911',serif;font-size:15px;letter-spacing:.2em;text-transform:uppercase;color:#a01a2a}
+.doc.evid p{margin:0 0 6px}
+
+/* ---- the notebook: a small red book with gilt edges ---- */
+.nb{background:#3a1416 linear-gradient(140deg,#5a1e20,#2a0c0e);border:1px solid #b8902e;border-radius:6px;color:#f6ead6;box-shadow:0 30px 90px rgba(0,0,0,.75),inset 0 0 0 5px #220a0a}
+.nb-tabs{border-bottom-color:#b8902e}
+.nb-tabs button{font-family:'Goudy Bookletter 1911',serif;font-size:16px;letter-spacing:.16em;color:#e8d0a8}
+.nb-tabs button.on{background:#f6efdc;color:#3a1416;border-color:#b8902e}
+.nb-list{border-right-color:#b8902e}
+.nb-list button{font-family:'EB Garamond',serif;font-size:17px;color:#f6ead6}
+.nb-list button small{font-family:'Goudy Bookletter 1911',serif;font-size:12px;letter-spacing:.18em}
+.nb-list button.on{background:#f6efdc;color:#3a1416}
+.nb-view{background:#1e0a0a}
+.nb-empty{font-family:'EB Garamond',serif}
+.nb-words{background:#f6efdc;color:#2a2018}
+.nb-words b{font-family:'Goudy Bookletter 1911',serif;font-size:18px}
+.nb-words span{font-family:'EB Garamond',serif;font-size:17px;line-height:1.3;color:#5a4a3a}
+.nb-ko{border-color:#a88a6a;color:#5a4a3a}
+.nb-ko.on{background:#3a1416;color:#f2d6a8;border-color:#3a1416}
+.wtip,.wtag{background:#f6efdc;color:#2a2018;border-radius:2px;box-shadow:0 10px 26px rgba(0,0,0,.6),inset 5px 0 0 #a01a2a}
+.wtag{transform:rotate(-1deg);padding-left:20px}
+.wtag:before{display:none}
+.wtip{padding-left:19px}
+.wtip b,.wtag b{font-family:'Goudy Bookletter 1911',serif;font-size:18px}
+.wtip span,.wtag span{font-family:'EB Garamond',serif;font-size:17px;line-height:1.3;color:#5a4a3a}
+.hintbox{background:#f6efdc;color:#2a2018;border-top:6px solid #a01a2a;border-radius:2px}
+.hintbox h6{font-family:'Goudy Bookletter 1911',serif;font-size:16px;letter-spacing:.3em;color:#a01a2a}
+.hintbox p{font-family:'EB Garamond',serif;font-size:18.5px;line-height:1.36}
+.hintbox p i{background:#2a2018;color:#f6efdc;font-family:'Goudy Bookletter 1911',serif;font-size:13px}
+.hintbox p.hint-none{font-style:italic;color:#6a5a4a;font-size:17px}
+.toast{font-family:'Goudy Bookletter 1911',serif;font-size:15px;background:rgba(40,16,16,.95)}

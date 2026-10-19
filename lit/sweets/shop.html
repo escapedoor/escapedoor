@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Shop · Miss Plunkett's Last Recipe</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lit.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="sweets.css">
+<style>
+  body{--bg:#10241c;--accent:#f2b544;--font-display:'Henny Penny',cursive;--font-ui:'Goudy Bookletter 1911',serif;--font-body:'Alegreya',serif;
+    --tc-bg:rgba(14,32,26,.96);--tc-ink:#f6eedc;--cap-bg:rgba(16,36,28,.95);--panel:#1d3a2e;--face-bg:#2c5a48;--q-ink:#ffd27a;--fade:#071510;--hud-bg:rgba(14,32,26,.82)}
+  .tc-room{font-size:clamp(46px,6.4vw,86px);color:#ffcf5a}
+  .sF{font-family:'Fredericka the Great',serif;text-anchor:middle}
+  .sG{font-family:'Goudy Bookletter 1911',serif;text-anchor:middle}
+  .sK{font-family:'Gochi Hand',cursive;text-anchor:middle}
+  .sH{font-family:'Henny Penny',cursive;text-anchor:middle}
+  #lampg{animation:lampf 9s steps(1,end) infinite}
+  @keyframes lampf{0%{opacity:1}61%{opacity:.8}62%{opacity:1}64%{opacity:.85}65%{opacity:1}}
+  #rain path{animation:rain .9s linear infinite}
+  @keyframes rain{from{transform:translateY(-40px)}to{transform:translateY(40px)}}
+  #tail{animation:tail 4s ease-in-out infinite;transform-origin:770px 476px}
+  @keyframes tail{50%{transform:rotate(12deg)}}
+  #env{display:none}
+  #scene.found #env{display:inline}
+  #tillg.ready{animation:glowt 1.5s steps(1,end) infinite}
+  @keyframes glowt{50%{filter:brightness(1.35)}}
+  #bucket.ready{animation:bob 1.4s ease-in-out infinite}
+  @keyframes bob{50%{transform:translateY(-4px)}}
+  #drawer{transition:transform .8s}
+  #scene.open #drawer{transform:translateY(26px)}
+
+  /* the counter: twelve jars, five paper bags */
+  .ctr{width:min(1080px,95vw);background:#5a3a22 linear-gradient(#6e4a2c,#4a2e1a);border-radius:8px;padding:14px 16px 12px;box-shadow:0 26px 70px rgba(0,0,0,.7),inset 0 0 0 3px #8a6238}
+  .ctr h5{margin:0 0 6px;font-family:'Henny Penny',cursive;font-weight:normal;font-size:22px;color:#ffe6a8;text-align:center}
+  .shelf{display:grid;grid-template-columns:repeat(6,1fr);gap:6px 8px;padding:10px 10px 8px;background:#2c5a48 linear-gradient(#336650,#244a3a);border-radius:5px;border-bottom:10px solid #8a6238;min-height:120px}
+  .jarc{display:flex;flex-direction:column;align-items:center;padding:2px 2px 4px;border-radius:5px;background:transparent}
+  .jarc svg{width:58px;height:64px;display:block}
+  .jarc span{display:block;margin-top:2px;padding:2px 6px 1px;background:#fff8e4;border:1px solid #8a6a3a;border-radius:3px;font-family:'Fredericka the Great',serif;font-size:13.5px;letter-spacing:.02em;color:#3a1a10;text-align:center;line-height:1.15;white-space:nowrap}
+  .jarc:hover{background:rgba(255,255,255,.12)}
+  .jarc.held{outline:3px solid #ffcf5a;outline-offset:1px}
+  .bags{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:12px}
+  .bag{position:relative;min-height:168px;padding:30px 6px 8px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;
+    background:#d8b98a linear-gradient(170deg,#e8cfa0,#c9a36e);clip-path:polygon(0 12px,8% 0,16% 12px,24% 0,32% 12px,40% 0,48% 12px,56% 0,64% 12px,72% 0,80% 12px,88% 0,96% 12px,100% 0,100% 100%,0 100%);
+    -webkit-clip-path:polygon(0 12px,8% 0,16% 12px,24% 0,32% 12px,40% 0,48% 12px,56% 0,64% 12px,72% 0,80% 12px,88% 0,96% 12px,100% 0,100% 100%,0 100%)}
+  .bag b{position:absolute;left:6px;right:6px;top:18px;font-family:'Gochi Hand',cursive;font-weight:normal;font-size:19px;line-height:1.05;color:#1d2a5a;text-align:center}
+  .bag b small{display:block;font-size:15px;color:#6a4a2a}
+  .bag .jarc span{font-size:12.5px}
+  .bag.bad{background:#e8a08a}
+  .ctr .bn-foot .bmsg{color:#fff3dc}
+  .ctr .bn-foot .btn{--accent:#ffcf5a}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="paper" width="80" height="80" patternUnits="userSpaceOnUse"><rect width="80" height="80" fill="#2c5a48"/><rect width="40" height="80" fill="#326651"/><circle cx="20" cy="20" r="5" fill="#e8c460" opacity=".35"/><circle cx="60" cy="60" r="5" fill="#f08ab0" opacity=".35"/></pattern>
+  <pattern id="boards" width="140" height="40" patternUnits="userSpaceOnUse"><rect width="140" height="40" fill="#7a4e2a"/><path d="M0 0.500h140M0 20.500h140M30 0v20M100 20v20" stroke="#5a3418" stroke-width="2"/><path d="M8 8h40M60 30h30" stroke="#8e6038" stroke-width="2"/></pattern>
+  <linearGradient id="nightG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0c1430"/><stop offset="1" stop-color="#2a2e52"/></linearGradient>
+  <radialGradient id="lampG"><stop offset="0" stop-color="#ffe2a0" stop-opacity=".75"/><stop offset="1" stop-color="#ffe2a0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="poolG"><stop offset="0" stop-color="#fff0c8" stop-opacity=".4"/><stop offset=".6" stop-color="#ffd890" stop-opacity=".12"/><stop offset="1" stop-color="#ffd890" stop-opacity="0"/></radialGradient>
+  <linearGradient id="brassG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f2d27a"/><stop offset=".5" stop-color="#b8902e"/><stop offset="1" stop-color="#7e5e1e"/></linearGradient>
+  <linearGradient id="woodG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a5a30"/><stop offset="1" stop-color="#5a361a"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="46%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".65" stop-color="#06120c" stop-opacity=".28"/><stop offset="1" stop-color="#030806" stop-opacity=".88"/></radialGradient>
+  <clipPath id="winC"><rect x="46" y="176" width="356" height="372"/></clipPath>
+</defs>
+
+<!-- the wall, the frieze, the sign -->
+<rect x="-1000" y="-400" width="3600" height="1110" fill="url(#paper)"/>
+<rect x="-1000" y="-400" width="3600" height="500" fill="#17352a"/>
+<rect x="-1000" y="96" width="3600" height="14" fill="#e8c460"/><g id="frieze"></g>
+<g id="sign"><rect x="560" y="12" width="560" height="74" rx="8" fill="#5a1a2a" stroke="#e8c460" stroke-width="4"/><text x="840" y="62" class="sF" font-size="46" fill="#ffd56a" letter-spacing="4">PLUNKETT&#8217;S</text>
+  <text x="840" y="82" class="sG" font-size="13" fill="#f6dca0" letter-spacing="5">SWEET WORKS · SPOONHURST · SINCE 1958</text></g>
+
+<!-- the window on Treacle Lane -->
+<g id="win" class="hot">
+  <rect x="30" y="160" width="388" height="404" fill="#e8dcc0"/><rect x="46" y="176" width="356" height="372" fill="url(#nightG)"/>
+  <g clip-path="url(#winC)">
+    <path d="M46 440v-90h70v-40h60v60h50v-80h90v70h86v80z" fill="#0a1022"/>
+    <g fill="#ffd98a"><rect x="136" y="330" width="12" height="16"/><rect x="290" y="300" width="12" height="16" opacity=".7"/></g>
+    <path d="M330 548V300" stroke="#141a2e" stroke-width="6"/><path d="M314 300h32l-6 -18h-20z" fill="#2a3048"/><circle cx="330" cy="304" r="70" fill="url(#lampG)"/>
+    <g id="rain" stroke="#8a9ac8" stroke-width="1.4" opacity=".55"></g>
+    <rect x="46" y="440" width="356" height="108" fill="#3a1e14"/>
+    <g id="display"></g>
+  </g>
+  <g transform="translate(448 0) scale(-1 1)"><rect x="70" y="196" width="160" height="96" fill="#fdf6e4" opacity=".92"/><text x="150" y="226" class="sG" font-size="16" fill="#8a1a1a" letter-spacing="2">FOR SALE</text><text x="150" y="252" class="sF" font-size="22" fill="#2a1a10">BY ORDER</text><text x="150" y="276" class="sG" font-size="12" fill="#4a3a2a">TOMORROW AT 9 A.M.</text><text x="150" y="288" class="sG" font-size="9" fill="#6a5a4a">GRIBBLE &amp; GRIBBLE</text></g>
+  <path d="M46 176h356M224 176v372" stroke="#e8dcc0" stroke-width="6"/>
+</g>
+
+<!-- the door and its bell -->
+<g id="door" class="hot"><rect x="434" y="190" width="140" height="460" fill="#e8dcc0"/><rect x="446" y="202" width="116" height="448" fill="#7a2a3a"/><rect x="460" y="216" width="88" height="200" fill="url(#nightG)"/>
+  <rect x="460" y="436" width="88" height="190" fill="none" stroke="#5a1a28" stroke-width="5"/><circle cx="548" cy="470" r="7" fill="url(#brassG)"/>
+  <g transform="rotate(-4 504 300)"><rect x="472" y="282" width="64" height="30" rx="3" fill="#fdf6e4"/><text x="504" y="303" class="sG" font-size="16" fill="#7a1a1a" letter-spacing="2">NEPO</text></g>
+  <path d="M500 190v-20q16 -14 32 0" stroke="#8a6a26" stroke-width="3" fill="none"/><path d="M516 186q0 -16 12 -16t12 16z" fill="url(#brassG)"/></g>
+
+<!-- shelves behind the counter, and the jars on them -->
+<g id="jars" class="hot"><rect x="636" y="130" width="790" height="440" fill="#244a3a"/>
+  <g fill="url(#woodG)"><rect x="626" y="250" width="810" height="14"/><rect x="626" y="376" width="810" height="14"/><rect x="626" y="500" width="810" height="14"/></g>
+  <path d="M636 130v440M1426 130v440" stroke="#5a361a" stroke-width="12"/>
+  <g id="jarsg"></g></g>
+<!-- the page on the wall -->
+<g id="page" class="hot" transform="rotate(3 1508 210)"><rect x="1448" y="130" width="120" height="156" fill="#fbf4e2"/><path d="M1462 130v156" stroke="#d6457a" stroke-width="1.5"/>
+  <text x="1512" y="156" class="sH" font-size="14" fill="#7a2a8a">How I make</text><text x="1512" y="174" class="sH" font-size="14" fill="#7a2a8a">a word</text>
+  <g stroke="#3a3a6a" stroke-width="1.5"><path d="M1470 190h86M1470 200h80M1470 210h86M1470 220h70M1470 232h86M1470 242h76M1470 254h86M1470 264h60"/></g><circle cx="1508" cy="136" r="6" fill="#d6457a"/></g>
+
+<!-- the lamps -->
+<path d="M840 -400V160" stroke="#0c1a14" stroke-width="3"/>
+<circle id="lampg" cx="840" cy="230" r="420" fill="url(#poolG)" pointer-events="none"/>
+<g id="lamp" class="hot"><path d="M800 162q40 -30 80 0l18 50q-58 16 -116 0z" fill="#e8c460"/><path d="M820 162l-8 50M840 156v60M860 162l8 50" stroke="#b8902e" stroke-width="2"/><ellipse cx="840" cy="212" rx="58" ry="9" fill="#fff4d0"/></g>
+<path d="M260 -400V120" stroke="#0c1a14" stroke-width="3"/><path d="M234 122q26 -18 52 0l10 30q-36 10 -72 0z" fill="#d6457a"/><ellipse cx="260" cy="152" rx="36" ry="6" fill="#ffe6c8"/>
+<g id="garland"></g>
+
+<!-- the floor -->
+<rect x="-1000" y="700" width="3600" height="800" fill="url(#boards)"/><rect x="-1000" y="700" width="3600" height="800" fill="#1a0e06" opacity=".25"/>
+<ellipse cx="820" cy="840" rx="620" ry="150" fill="url(#poolG)" pointer-events="none"/>
+
+<!-- the counter -->
+<g id="counter"><rect x="600" y="566" width="2100" height="140" fill="url(#woodG)"/><rect x="590" y="548" width="2120" height="22" rx="4" fill="#a8743e"/><rect x="590" y="548" width="2120" height="6" fill="#c8945a"/>
+  <rect x="640" y="590" width="780" height="96" rx="4" fill="#132a20"/><rect x="646" y="596" width="768" height="84" fill="#e8f4f6" opacity=".12"/>
+  <g id="trays"></g><path d="M600 706h2100" stroke="#3a2210" stroke-width="6"/>
+  <g id="env" class="hot"><rect x="824" y="690" width="70" height="44" fill="#fdf6e4" stroke="#b8a888" stroke-width="2" transform="rotate(-6 859 712)"/><path d="M826 692l34 22 32 -26" fill="none" stroke="#b8a888" stroke-width="2" transform="rotate(-6 859 712)"/></g>
+</g>
+<!-- on the counter: scales and the cat, the bell, the spike, the till -->
+<g id="scales" class="hot"><path d="M720 548v-16h100v16z" fill="url(#brassG)"/><path d="M770 532v-40" stroke="#8a6a26" stroke-width="6"/><ellipse cx="770" cy="490" rx="64" ry="12" fill="url(#brassG)"/>
+  <g id="catg" transform="translate(772 486)"></g><path id="tail" d="M806 478q30 6 26 -20" fill="none" stroke="#e8913a" stroke-width="8" stroke-linecap="round"/></g>
+<g id="bell" class="hot"><ellipse cx="1080" cy="546" rx="30" ry="6" fill="#5a3a1a"/><path d="M1056 544q0 -36 24 -36t24 36z" fill="url(#brassG)"/><path d="M1080 508v-10" stroke="#8a6a26" stroke-width="4"/><circle cx="1080" cy="496" r="5" fill="#8a6a26"/></g>
+<g id="spike" class="hot"><rect x="1176" y="540" width="56" height="10" rx="3" fill="#3a2a1a"/><path d="M1204 540v-110" stroke="#4a4a52" stroke-width="3"/>
+  <g transform="rotate(-6 1204 500)"><rect x="1170" y="472" width="64" height="48" fill="#fff"/><path d="M1176 482h50M1176 490h44M1176 498h50M1176 506h38" stroke="#5a7ac8" stroke-width="1.5"/></g>
+  <g transform="rotate(5 1204 470)"><rect x="1174" y="444" width="60" height="44" fill="#fdf2c8"/><path d="M1180 454h46M1180 462h40M1180 470h46" stroke="#c84a6a" stroke-width="1.5"/></g>
+  <g transform="rotate(-2 1204 440)"><rect x="1172" y="418" width="62" height="40" fill="#e8f0ff"/><path d="M1178 428h48M1178 436h42M1178 444h48" stroke="#3a3a3a" stroke-width="1.5"/></g></g>
+<g id="tillg" class="hot"><path d="M1290 548v-46l16 -36h108l16 36v46z" fill="url(#brassG)"/><rect x="1316" y="402" width="88" height="44" rx="4" fill="#8a6a26"/><rect x="1324" y="408" width="72" height="28" fill="#fdf6e4"/><text x="1360" y="428" class="sG" font-size="16" fill="#2a1a10">NO SALE</text>
+  <g fill="#f6efe2" stroke="#6b5220" stroke-width="1"><circle cx="1316" cy="480" r="6"/><circle cx="1336" cy="480" r="6"/><circle cx="1356" cy="480" r="6"/><circle cx="1376" cy="480" r="6"/><circle cx="1396" cy="480" r="6"/><circle cx="1326" cy="498" r="6"/><circle cx="1346" cy="498" r="6"/><circle cx="1366" cy="498" r="6"/><circle cx="1386" cy="498" r="6"/></g>
+  <g id="drawer"><rect x="1300" y="516" width="120" height="30" fill="#6e521a"/><circle cx="1360" cy="531" r="5" fill="#f2d27a"/><rect id="gbook" x="1322" y="508" width="76" height="12" fill="#24553a" opacity="0"/></g></g>
+
+<!-- your mum's mop and bucket -->
+<g id="bucket" class="hot"><path d="M566 846l-8 -76h84l-8 76z" fill="#8a9aa6" stroke="#4a5a66" stroke-width="3"/><path d="M560 772q40 -40 80 0" fill="none" stroke="#4a5a66" stroke-width="4"/><ellipse cx="600" cy="772" rx="42" ry="8" fill="#5a7a8a"/>
+  <path d="M640 840l60 -300" stroke="#c8a060" stroke-width="9" stroke-linecap="round"/><path d="M620 846q20 -30 44 -10q-4 20 -24 22z" fill="#e8e0c8"/><path d="M622 840q8 -20 20 -16M636 846q6 -18 18 -18" stroke="#c8c0a8" stroke-width="3" fill="none"/></g>
+
+<!-- the people: Mrs Mortlake, Mr Gribble, Mr Huxtable, Mr Tuttle -->
+<g id="mortlake" class="hot" transform="translate(290 868) scale(.98)"></g>
+<g id="gribble" class="hot" transform="translate(470 880)"></g>
+<g id="huxtable" class="hot" transform="translate(1000 872)"></g>
+<g id="tuttle" class="hot" transform="translate(1500 884)"></g>
+
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Through to the boiling room</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="sweets.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told;
+
+  /* the jars: name, the colours of what is in them, and a note on the label */
+  var JARS = [
+    ['yawnless', 'YAWNLESS MINTS', ['#d8f4ec', '#b8e8dc', '#ffffff']],
+    ['snoozlets', 'SNOOZLETS', ['#9aa8e8', '#c8c8f8', '#7a88d0']],
+    ['unhiccups', 'UNHICCUPS', ['#f6a8c8', '#ffd0e0', '#e888b0']],
+    ['hiccuplets', 'HICCUPLETS', ['#ffd86a', '#ffb84a', '#fff0a8']],
+    ['guffawffles', 'GUFFAWFFLES', ['#e8b060', '#d89848', '#f6c878']],
+    ['groanuts', 'GROANUTS', ['#a87a4a', '#8a5a2a', '#c8946a']],
+    ['shiverlets', 'SHIVERLETS', ['#a8e0ff', '#e0f6ff', '#78c8f0']],
+    ['firesiders', 'FIRESIDERS', ['#f06a3a', '#ffa040', '#d84a2a']],
+    ['unscareables', 'UNSCAREABLES', ['#f8f8f8', '#e0f0e8', '#c8e8d8']],
+    ['shudderfudge', 'SHUDDERFUDGE', ['#5a3a2a', '#7a4a2a', '#3a2a2a']],
+    ['sploshberries', 'SPLOSHBERRIES', ['#c8204a', '#a01a6a', '#e83a5a']],
+    ['plinkers', 'PLINKERS', ['#fff6b0', '#b8f0a8', '#f8c8f0']]
+  ];
+  var JN = {}; JARS.forEach(function (j) { JN[j[0]] = j; });
+
+  /* frieze, rain, the window display, garland, jars, trays, the people */
+  (function () {
+    var s = '', i, x, y, n = 0, C = ['#f08ab0', '#ffd56a', '#8ad8c8', '#c8a8f0', '#ff9a5a'];
+    for (i = -8; i < 30; i++) s += '<circle cx="' + (i * 60 + 30) + '" cy="103" r="5" fill="' + C[(i + 40) % 5] + '"/>';
+    $('#frieze').innerHTML = s; s = '';
+    for (i = 0; i < 40; i++) s += '<path d="M' + (50 + (i * 47) % 350) + ' ' + (176 + (i * 31) % 270) + 'l-4 16"/>';
+    $('#rain').innerHTML = s; s = '';
+    s += '<path d="M80 548v-40h70v40zM100 508v-30h40v30z" fill="#e0447f"/><path d="M80 520h70M100 490h40" stroke="#ffd56a" stroke-width="4"/>' +
+      '<path d="M200 548v-60h60v60z" fill="#3e8a4a"/><path d="M200 510h60" stroke="#fff" stroke-width="5"/>' +
+      '<path d="M320 548v-90" stroke="#fff" stroke-width="5"/><circle cx="320" cy="440" r="34" fill="#ff5a8a"/><path d="M320 440m-28 0a28 28 0 1 0 56 0a20 20 0 1 0 -40 0a12 12 0 1 0 24 0" fill="none" stroke="#fff" stroke-width="5"/>';
+    $('#display').innerHTML = s; s = '';
+    for (i = 0; i < 26; i++) { x = 120 + i * 58; y = 128 + 18 * Math.sin(i * 1.3); s += '<path d="M' + x + ' ' + y.toFixed(0) + 'l-12 -8v16zM' + x + ' ' + y.toFixed(0) + 'l12 -8v16z" fill="' + C[i % 5] + '"/><circle cx="' + x + '" cy="' + y.toFixed(0) + '" r="7" fill="' + C[(i + 2) % 5] + '"/>'; }
+    $('#garland').innerHTML = '<path d="M100 120q370 50 740 0t740 0" fill="none" stroke="#e8c460" stroke-width="2"/>' + s; s = '';
+    JARS.forEach(function (j, k) {
+      var col = k % 4, row = Math.floor(k / 4), cx = 730 + col * 196, by = 248 + row * 126;
+      s += SW.jar(cx, by, 80, 100, j[2], '<text x="' + cx + '" y="' + (by - 40) + '" class="sF" font-size="' + (j[1].length > 12 ? 8.5 : 10) + '" fill="#3a1a10">' + j[1] + '</text>');
+    });
+    $('#jarsg').innerHTML = s; s = '';
+    for (i = 0; i < 12; i++) { x = 680 + i * 62; s += '<ellipse cx="' + x + '" cy="664" rx="24" ry="7" fill="#f6efe2" opacity=".7"/>'; for (n = 0; n < 6; n++) s += '<circle cx="' + (x - 14 + n * 6) + '" cy="' + (656 - (n % 2) * 6) + '" r="5" fill="' + C[(i + n) % 5] + '"/>'; }
+    $('#trays').innerHTML = s;
+    $('#catg').innerHTML = SW.fig('catsleep');
+    ['mortlake', 'gribble', 'huxtable', 'tuttle'].forEach(function (w) { $('#' + w).innerHTML = SW.fig(w); });
+  })();
+
+  ER.init({
+    theme: 'lit', story: 'sweets', storyTitle: 'Miss Plunkett’s Last Recipe', id: 'shop', no: 'I', title: 'The Shop',
+    go: 'Push the door',
+    intro: [
+      'Plunkett&rsquo;s Sweet Works has stood at the bottom of Treacle Lane in Spoonhurst since 1958. Every Tuesday its chimney puffs purple smoke, and the whole town sets its washing day by it.',
+      'Miss Ottoline Plunkett invented every sweet it ever made. She is ninety-three now, her eyes have gone, and she lives by the sea with her sister. At nine o&rsquo;clock tomorrow morning her factory will be sold.',
+      'Tonight the buyers are being shown round by Mr Gribble, of Gribble and Gribble, who writes everything down. Your mum has done the floors at Plunkett&rsquo;s for eleven years. Tonight she has flu.',
+      'So you have come instead, with her mop, her bucket and her key. It is half past nine at night. You are twelve years old, and nobody has noticed you at all.'
+    ],
+    exit: {"next":"boil","w":{"59bb56ad":"8d21db2b"}}, tags: {"b1":["fe81944c"],"b2":["0eca4b65"],"b3":["d5aafb13"],"b4":["5e1336df"],"b5":["4c5c7b70"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = SW.told('a-told'); nextFile = ER.flag('a-file') || null;
+  function isBusy() { return busy; }
+  function ready() { return told.has('note') && told.has('page') && told.has('kids'); }
+  function paint() {
+    $('#scene').classList.toggle('found', told.has('note'));
+    $('#scene').classList.toggle('open', !!nextFile);
+    $('#bucket').classList.toggle('ready', told.has('gribble') && !told.has('note'));
+    $('#tillg').classList.toggle('ready', ready() && !nextFile);
+    ER.pips((told.has('gribble') ? 1 : 0) + (told.has('note') ? 1 : 0) + (told.has('page') ? 1 : 0) + (told.has('kids') ? 1 : 0) + (nextFile ? 1 : 0), 5);
+  }
+  var lock = null;
+  function hints() {
+    if (nextFile) return ['go', ['The till is open, and the key in it says BOILING ROOM. Go through: the button is at the bottom of the screen.']];
+    if (lock && lock.parentNode) return ['jars', [
+      'Every name is made of pieces. Cover half of a name with your finger and read the other half. Then read the child&rsquo;s letter again (it is in your notebook): what exactly does the child want?',
+      'Watch the ends of the names: -less means without, and -let means small. Un- in front of a word can mean not (unhappy) or undo it (untie). The page on the wall, How I make a word, is in your notebook too.',
+      'Two of the five letters are traps. Tilly&rsquo;s grandad is not falling asleep: he cannot get to sleep. Wen&rsquo;s dad tells terrible jokes, but the baby needs to laugh, not to groan.'
+    ]];
+    if (!told.has('gribble')) return ['gribble', [
+      'Four grown-ups have come in out of the night. The tall grey one with the clipboard is in charge of the sale. Click Mr Gribble and hear him out.',
+      'Everybody in this shop is looking at the jars, or at themselves. Nobody is looking at the floor, and you came here to do the floor.'
+    ]];
+    if (!told.has('note')) return ['mop', [
+      'Your mum&rsquo;s mop and bucket are on the floor at the end of the counter. You came to do the floor, so do it.',
+      'Mum always starts under the counter, where nobody ever looks. Click the bucket.'
+    ]];
+    if (!told.has('page') || !told.has('kids')) return ['read', [
+      'Miss Plunkett&rsquo;s letter sends you to two things: the letters on the spike by the till, and the page pinned on the wall at the right, behind the counter. Read both.',
+      'The spike is the nail with papers stuck on it, on the counter between the bell and the till. The page is the one with How I make a word at the top.'
+    ]];
+    return ['counter', ['Everything is read. Click the jars on the shelves, or the till, and start putting sweets into bags.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('The till is open. In it there was a green book, and a key with a label: BOILING ROOM.'); return; }
+    if (told.has('in')) { busy = false; ER.say('The shop, a quarter to ten. Mr Tuttle is ringing the bell again.'); return; }
+    told.set('in');
+    ER.narrate([
+      'The shop at the front of Plunkett&rsquo;s is the size of a railway carriage and smells of warm sugar, even now. Jars climb the wall behind the counter to the ceiling, and every one of them has a name you have never heard before.',
+      'The door bangs open, and four grown-ups come in out of the rain: a tall grey man with a clipboard, a lady in pink with hair like a lighthouse, a small round man in a waistcoat, and a very large man in a very loud suit.',
+      'None of them looks at you. The lady looks at herself in the glass of the door. The round man starts counting the sweets in a jar. The large man rings the bell on the counter, for no reason, three times.',
+      '&ldquo;Ladies and gentlemen,&rdquo; says the grey man. &ldquo;Gribble, of Gribble and Gribble. Everything in this building will be on my list by nine o&rsquo;clock tomorrow. Please do not touch anything that is not on my list.&rdquo;',
+      'You are standing by the end of the counter with a mop. Mum would start on the floor. But first you would quite like to know what is going on.'
+    ], function () { busy = false; });
+  }
+
+  /* ---------- the grown-ups ---------- */
+  $('#gribble').addEventListener('click', function () {
+    if (busy) return;
+    if (told.has('gribble')) { ER.say(nextFile ? '&ldquo;Item,&rdquo; says Mr Gribble, writing. &ldquo;One notebook, green. Contents: nonsense. Value: nothing.&rdquo;' : '&ldquo;Item: one counter, wooden,&rdquo; says Mr Gribble. &ldquo;Item: one bell, brass. Item: one cat, asleep. Please do not move the cat. It is on my list.&rdquo;'); return; }
+    ER.talk({
+      who: 'Norbert Gribble', role: 'Valuer · Gribble and Gribble', face: window.FACE('gribble'),
+      lines: [
+        { note: 'A long, grey, careful man in a bowler hat, with a clipboard and a pencil behind each ear, in case one of them breaks.', a: '&ldquo;Gribble, of Gribble and Gribble. My brother is the other Gribble. He does the furniture. I do everything else.&rdquo;' },
+        { q: 'What are you writing?', a: 'Everything. At nine o&rsquo;clock tomorrow this building is sold, and the buyer gets what is on my list. Item: one counter, wooden. Item: twelve jars, full. If a thing is not on my list, it does not exist, and at nine o&rsquo;clock it goes in the skip.' },
+        { q: 'Who are they?', a: 'The three buyers. Mrs Mortlake has two hundred sweet shops. Mr Huxtable makes boxes of sweets that are mostly box. Mr Tuttle makes a fizzy drink, and wants the land for his lorries. Whoever pays most at nine o&rsquo;clock gets the factory. I do not have an opinion. Opinions are not on my list.' },
+        { q: 'Is there anything else?', a: 'There is Clause Nine.</p><p>He turns a page, and reads it out as if it hurt him.</p><p>&ldquo;<i>My green book is not for sale. It belongs to whoever can make the last recipe in it, before the bell at nine. If nobody can, throw it away.</i>&rdquo;' },
+        { q: 'Where is the green book?', a: 'Nobody knows. It is not in the safe in the cellar, which says SECRET RECIPES on the door, and which all three of them would like to open. If the book turns up, I shall write it down as what it is. Item: one notebook. Contents: nonsense. Miss Plunkett wrote in words that are not in my dictionary. I have looked.' },
+        { note: 'He looks down at your mop.', a: '&ldquo;Mind my shoes. And do not put the floor on my list. Floors are not furniture.&rdquo;' }
+      ],
+      clue: { id: 'gribble', title: 'Mr Gribble, and Clause Nine', kind: 'What he said' },
+      done: function (seen) { if (seen && told.set('gribble')) { paint(); ER.say('A book that belongs to whoever can make its last recipe. And nobody has seen the book.'); } }
+    });
+  });
+  $('#mortlake').addEventListener('click', function () {
+    if (busy) return;
+    if (told.has('mortlake')) { ER.say('Mrs Mortlake is looking at herself in the back of a spoon. &ldquo;I am the only thing in this shop worth looking at,&rdquo; she says to it, and the spoon does not argue.'); return; }
+    ER.talk({
+      who: 'Venetia Mortlake', role: 'Mortlake’s Marvels · 200 shops', face: window.FACE('mortlake'),
+      lines: [
+        { note: 'Tall, pink, and wearing sunglasses at half past nine at night. Her hair is about the height of a small chimney. She is looking at herself in the glass of the door.', a: '&ldquo;Venetia Mortlake. You&rsquo;ve seen my face. Everybody has. It is on two hundred shops.&rdquo;' },
+        { q: 'Why do you want a sweet factory?', a: 'For the wrappers, darling. Every sweet in this country will have my face on it. A sweet is only a sweet. A face is a brand.</p><p>She takes off the sunglasses, looks at herself in them, and puts them back on.' },
+        { a: '&ldquo;Is that a mop? Do not come near my shoes with it. They are older than you, and much better looked after.&rdquo;' }
+      ],
+      clue: { id: 'mortlake', title: 'Mrs Mortlake, by the door', kind: 'What she said' },
+      done: function (seen) { if (seen) told.set('mortlake'); }
+    });
+  });
+  $('#huxtable').addEventListener('click', function () {
+    if (busy) return;
+    if (told.has('huxtable')) { ER.say('Mr Huxtable has got to five hundred and twelve, in the jar of Groanuts. &ldquo;There should be six hundred,&rdquo; he says. &ldquo;If they were smaller.&rdquo;'); return; }
+    ER.talk({
+      who: 'Cuthbert Huxtable', role: 'Huxtable’s Value Selections', face: window.FACE('huxtable'),
+      lines: [
+        { note: 'A small round man in a waistcoat with eleven pockets. He is counting the sweets in a jar through the glass, and writing the number on his cuff.', a: '&ldquo;Huxtable. Bigger boxes, smaller sweets. The air in between is free, and nobody ever complains about air.&rdquo;' },
+        { q: 'Why do you want Plunkett&rsquo;s?', a: 'That safe in the cellar says SECRET RECIPES. A secret recipe can be made with half the sugar and sold at twice the price. I tried three hundred numbers on that dial at the first viewing, last week. Tonight I shall try three hundred more. Trying is free.' },
+        { a: '&ldquo;You wouldn&rsquo;t have a penny for the bus, I suppose? No? Never mind. Never mind.&rdquo;' }
+      ],
+      clue: { id: 'huxtable', title: 'Mr Huxtable, at the jars', kind: 'What he said' },
+      done: function (seen) { if (seen) told.set('huxtable'); }
+    });
+  });
+  $('#tuttle').addEventListener('click', function () {
+    if (busy) return;
+    if (told.has('tuttle')) { ER.say('&ldquo;What does that say?&rdquo; shouts Mr Tuttle, pointing at the sign over the counter. &ldquo;Don&rsquo;t tell me. I don&rsquo;t care.&rdquo;'); return; }
+    ER.talk({
+      who: 'Rex Tuttle', role: 'Tuttle’s Fizz', face: window.FACE('tuttle'),
+      lines: [
+        { note: 'A huge man in a suit of orange and green checks, with a moustache like the handlebars of a bicycle. He has rung the bell on the counter nine times since you came in.', a: '&ldquo;TUTTLE! Tuttle&rsquo;s Fizz! You&rsquo;ve drunk it! Everybody has! I&rsquo;m going to knock this place down and park my lorries on it!&rdquo;' },
+        { q: 'Have you read the sale papers?', a: 'Read? I don&rsquo;t READ. Never have. Reading is for people with no lorries. You look at a thing, you press its button, and you find out!</p><p>He rings the bell again, to show how it is done.' },
+        { a: '&ldquo;Gribble! What&rsquo;s in that cellar? Machines? Good. I like a machine with a button on it.&rdquo;' }
+      ],
+      clue: { id: 'tuttle', title: 'Mr Tuttle, ringing the bell', kind: 'What he said' },
+      done: function (seen) { if (seen) told.set('tuttle'); }
+    });
+  });
+
+  /* ---------- papers ---------- */
+  var NOTE = '<h4>To whoever mops the floor on the last night</h4>' +
+    '<p>Grown-ups never look under things. You do, because you have a mop. So this is for you.</p>' +
+    '<p>My green book is locked in the till. Everything I ever learnt is in it, in my own words, and on its last page is the one sweet I never made. If you can make it before the bell at nine, the book is yours. Clause Nine says so, and Mr Gribble will have to write it down.</p>' +
+    '<p>The till opens when the right sweets go to the right children. Five children wrote to me this year, and I never answered. Their letters are on the spike. Read them, read my jars, put each child&rsquo;s sweet into a paper bag on the counter, and ring the bell.</p>' +
+    '<p>Take my words to pieces. That is all they are: pieces.</p><p class="sig">O. Plunkett</p>';
+  var PAGE = '<h4>How I make a word</h4><h5>pinned behind the counter, in Miss Plunkett&rsquo;s hand</h5>' +
+    '<p>A new sweet needs a new name, and a new name is made out of old words.</p>' +
+    '<p><b>1. Join two words.</b> pepper + mint = peppermint. That is a <b>compound</b>.</p>' +
+    '<p><b>2. Squash two words together</b>, keeping the front of one and the back of the other: breakfast + lunch = brunch, smoke + fog = smog. That is a <b>portmanteau</b> word. Lewis Carroll gave it the name, after a travelling bag that opens into two halves. His &lsquo;chortle&rsquo; is chuckle + snort, and &lsquo;galumph&rsquo; is probably gallop + triumphant. Both are in the dictionary now.</p>' +
+    '<p><b>3. Stick a piece onto a real word</b> (the <b>root</b>): a <b>prefix</b> in front, a <b>suffix</b> behind. un- = not, or undo it &middot; -less = without &middot; -let = small &middot; -able = can be done &middot; -er = a person or a machine that does it &middot; -ery = a place where it is done.</p>' +
+    '<p><b>4. Make it sound like what it does:</b> fizz, crunch, splosh. That is <b>onomatopoeia</b>.</p>' +
+    '<p class="ex">To read a word that nobody has ever seen before, take it to pieces.</p>';
+  var KIDS = '<h4>Five letters on the spike</h4>' +
+    '<div class="k"><p>Dear Miss Plunkett,</p><p>My grandad reads me a story every night, but mine are better, so now I read him one. The trouble is, he gets so excited at the end that he can&rsquo;t get to sleep, and Gran says he walks about till two in the morning. Please send something for Grandad.</p><p class="from">Tilly, aged 7</p></div>' +
+    '<div class="k"><p>Dear Miss Plunkett,</p><p>My sister gets hiccups every time she laughs, and she laughs at everything I say, because I am very funny. She says I have to stop being funny. I am not going to. Can you help her instead?</p><p class="from">Omar, aged 9</p></div>' +
+    '<div class="k"><p>Dear Miss Plunkett,</p><p>Our baby has never laughed. Not once. Dad has tried all his best jokes. They are terrible, and Dad says that is the point. Have you got anything?</p><p class="from">Wen, aged 8</p></div>' +
+    '<div class="k"><p>Dear Miss Plunkett,</p><p>Our flat is right at the top of the building, under the roof, and in August it is like living inside a teapot. Is there a sweet for that?</p><p class="from">Rory, aged 10</p></div>' +
+    '<div class="k wide"><p>Dear Miss Plunkett,</p><p>I have to go to the dentist on Thursday and I am frightened of the chair that goes up and down. Mum says there is nothing to be scared of. Mum is not the one in the chair.</p><p class="from">Maisie, aged 6</p></div>';
+
+  function readNote() {
+    ER.read({ html: NOTE, cls: 'note', clue: { id: 'note', title: 'To whoever mops the floor', kind: 'Under the counter' }, done: function () {
+      if (told.set('note')) { paint(); ER.say('Five letters on the spike, and a page on the wall. And nobody in this shop has noticed that you are reading.'); }
+    } });
+  }
+  $('#bucket').addEventListener('click', function () {
+    if (busy) return;
+    if (told.has('note')) { ER.say('Mum&rsquo;s mop and bucket. The floor under the counter is cleaner than it has been since 1958.'); return; }
+    if (!told.has('gribble')) { ER.say('Mum would start on the floor. But first you would like to know what is going on. The man with the clipboard seems to be in charge.'); return; }
+    busy = true; SW.sfx.slosh();
+    ER.narrate([
+      'You start where Mum always starts: on your knees, under the counter, where nobody looks.',
+      'Fluff, three lost humbugs, a button, and a lot of 1958. And then the mop catches on something. Taped to the underneath of the counter, where only somebody with a mop could ever find it, is an envelope.',
+      'It says, in purple ink: <i>To whoever mops the floor on the last night.</i>'
+    ], function () { busy = false; told.set('found'); paint(); readNote(); });
+  });
+  $('#env').addEventListener('click', function () { if (!busy) readNote(); });
+  $('#page').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: PAGE, cls: 'page', clue: { id: 'page', title: 'How I make a word', kind: 'On the wall' }, done: function () {
+      SW.terms(['coined word', 'compound', 'portmanteau', 'root', 'prefix', 'suffix', 'onomatopoeia']);
+      if (told.set('page')) { paint(); ER.say(told.has('kids') ? 'Twelve jars of words, and five children. Take the words to pieces.' : 'Four ways to make a word. The letters on the spike are still waiting.'); }
+    } });
+  });
+  $('#spike').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.has('note')) { ER.say('A spike on the counter, with letters stuck on it. Children&rsquo;s writing. They do not look like orders.'); return; }
+    ER.read({ html: KIDS, cls: 'kids', clue: { id: 'kids', title: 'Five letters on the spike', kind: 'On the counter' }, done: function () {
+      if (told.set('kids')) { paint(); ER.say(told.has('page') ? 'Five children, and twelve jars. Take the words to pieces.' : 'Five children. The page on the wall tells you how Miss Plunkett made her names.'); }
+    } });
+  });
+
+  /* ---------- things in the shop ---------- */
+  SW.thing('#win', 'window', 'Treacle Lane in the rain. From inside, the notice in the window says ELAS ROF, REDRO YB. Mr Gribble has stuck it on the wrong side.', isBusy);
+  SW.thing('#door', null, 'From in here the sign on the door says NEPO. Mrs Mortlake is using the glass in it as a mirror.', isBusy);
+  SW.thing('#lamp', null, 'A lamp like an upside-down jelly mould. It is the only thing in the shop that is not for sale.', isBusy);
+  SW.thing('#scales', 'scales', 'Brass scales for weighing a quarter of sweets. On the scales, asleep, is a very large ginger cat. According to the scales, the cat weighs nine pounds and two ounces, and has not been told.', isBusy);
+  SW.thing('#bell', 'bell', 'A brass bell for calling the shopkeeper. Mr Tuttle has rung it twenty times. Nobody has come.', isBusy);
+  $('#jars').addEventListener('click', function (e) {
+    if (busy) return;
+    if (nextFile) { ER.say('Twelve jars of words. You will not look at a sweet the same way again.'); return; }
+    if (!ready()) { ER.wordAt(e.clientX, e.clientY, 'jar'); ER.say(told.has('note') ? 'YAWNLESS MINTS. SNOOZLETS. GUFFAWFFLES. Twelve names that are in no dictionary. Read the letters and the page first, and then come back to the jars.' : 'YAWNLESS MINTS. SNOOZLETS. GUFFAWFFLES. Twelve names, and not one of them is in any dictionary.'); return; }
+    openLock();
+  });
+  $('#tillg').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The drawer of the till is open, and empty. The green book is under your arm.'); return; }
+    if (!ready()) { ER.say('A brass till. The drawer will not move. Mr Huxtable has already tried it with a hairpin.'); return; }
+    openLock();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the counter: twelve jars and five bags ---------- */
+  var BAGS = [['Tilly, 7', 'for Grandad'], ['Omar, 9', 'for his sister'], ['Wen, 8', 'for the baby'], ['Rory, 10', 'for the flat'], ['Maisie, 6', 'for the dentist']];
+  var MEAN = {
+    yawnless: 'YAWNLESS MINTS: yawn + -less, without yawning. They keep you wide awake.',
+    snoozlets: 'SNOOZLETS: snooze + -lets, little sweets for dropping off to sleep.',
+    unhiccups: 'UNHICCUPS: un- + hiccups. Un- can undo a thing, as in untie.',
+    hiccuplets: 'HICCUPLETS: hiccup + -lets, small hiccups. Somebody has written on the jar: FOR PRACTISING.',
+    guffawffles: 'GUFFAWFFLES: guffaw + waffles. A guffaw is a big, loud laugh.',
+    groanuts: 'GROANUTS: groan + nuts. Something to groan with, after a terrible joke.',
+    shiverlets: 'SHIVERLETS: shiver + -lets, little sweets that give you a small cold shiver.',
+    firesiders: 'FIRESIDERS: fireside + -ers. They taste like sitting by a warm fire.',
+    unscareables: 'UNSCAREABLES: un- + scare + -able. Somebody who cannot be scared.',
+    shudderfudge: 'SHUDDERFUDGE: shudder + fudge. Fudge that makes you shudder, for ghost stories.',
+    sploshberries: 'SPLOSHBERRIES: splosh + berries. Splosh is a word that sounds like its noise: very juicy.',
+    plinkers: 'PLINKERS: plink + -ers. Hard little sweets that go plink when you drop them in a jar.'
+  };
+  var NEED = ['Tilly&rsquo;s grandad needs no help to stay awake. Staying awake is the trouble.', 'Omar is not going to stop being funny, and his sister does not need more hiccups.',
+    'Wen&rsquo;s baby has never laughed, and a groan is not a laugh.', 'Rory&rsquo;s flat is like the inside of a teapot.', 'Maisie is frightened of the chair at the dentist&rsquo;s.'];
+  function jarChip(j) {
+    var d = ER.el('div', 'jarc dnd-item'); d.setAttribute('data-j', j[0]);
+    d.innerHTML = '<svg viewBox="0 0 80 90">' + SW.jar(40, 88, 60, 80, j[2], '') + '</svg><span>' + j[1] + '</span>';
+    return d;
+  }
+  function openLock() {
+    var busyL = false, misses = 0;
+    lock = ER.el('div', 'ctr');
+    lock.innerHTML = '<h5>Five bags on the counter, and twelve jars of words</h5><div class="shelf"></div><div class="bags"></div>' +
+      '<div class="bn-foot"><p class="bmsg"></p><button type="button" class="btn" id="ring">Ring the bell</button></div>';
+    var shelf = lock.querySelector('.shelf'), bags = lock.querySelector('.bags'), m = lock.querySelector('.bmsg');
+    function msg(t) { m.innerHTML = ER.gloss(t); }
+    var put = ER.flag('a-put') || {};
+    BAGS.forEach(function (b, i) { var d = ER.el('div', 'bag'); d.setAttribute('data-b', i); d.innerHTML = '<b>' + b[0] + '<small>' + b[1] + '</small></b>'; bags.appendChild(d); });
+    JARS.forEach(function (j) { var c = jarChip(j), at = put[j[0]]; if (at != null && bags.children[at]) bags.children[at].appendChild(c); else shelf.appendChild(c); });
+    function keep() {
+      put = {}; ER.$$('.bag', bags).forEach(function (b) { var c = b.querySelector('.jarc'); if (c) put[c.getAttribute('data-j')] = +b.getAttribute('data-b'); });
+      ER.flag('a-put', put);
+    }
+    SW.swapIn(lock, '.jarc', '.bag', shelf);
+    ER.dnd(lock, { item: '.jarc', slot: '.bag', home: shelf, lock: function () { return busyL || !!nextFile; }, change: function () { keep(); ER.$$('.bag', bags).forEach(function (b) { b.classList.remove('bad'); }); } });
+    lock.querySelector('#ring').addEventListener('click', function () {
+      var i, c, got = [], file;
+      if (busyL || nextFile) return;
+      for (i = 0; i < 5; i++) { c = bags.children[i].querySelector('.jarc'); got.push(c ? c.getAttribute('data-j') : ''); }
+      var empty = got.filter(function (g) { return !g; }).length;
+      if (empty) { ER.sfx.no(); msg('Sherbet opens one eye. Five children, and ' + (empty === 5 ? 'not one of their bags has anything in it' : empty + (empty === 1 ? ' bag is' : ' bags are') + ' still empty') + '. Drag a jar onto a bag, or click a jar and then a bag.'); return; }
+      SW.sfx.ding();
+      for (i = 0; i < 5; i++) if (!ER.check('b' + (i + 1), got[i])) {
+        misses++; busyL = true;
+        setTimeout(function (k) {
+          return function () {
+            busyL = false; SW.sfx.clunk(); bags.children[k].classList.add('bad'); ER.shake(bags.children[k]);
+            msg('The bell rings, and the till gives a dull clunk and stays shut. In ' + BAGS[k][0].split(',')[0] + '&rsquo;s bag: ' + MEAN[got[k]] + ' ' + NEED[k] + (misses > 2 ? ' (Only the first wrong bag is ever shown. There may be others.)' : ''));
+          };
+        }(i), 600);
+        return;
+      }
+      file = ER.exitOk([got.join('-')]);
+      if (!file) { msg('The till will not open. Something is wrong with this page: tell your teacher.'); return; }
+      nextFile = file; ER.flag('a-file', file); busyL = true;
+      var s0 = ER.state(); s0.done = s0.done || {}; s0.done.shop = 1; ER.persist(true);
+      setTimeout(function () { SW.sfx.till(); msg('The bell rings, and goes on ringing. Somewhere inside the till a spring lets go, and the drawer shoots out with a bang that wakes the cat.'); }, 500);
+      setTimeout(function () {
+        ER.closeAll(); SW.solved(); paint(); busy = true;
+        SW.mine('bags', 'Five bags', '<p>Tilly&rsquo;s grandad: SNOOZLETS (snooze + -lets: little sweets for falling asleep).</p><p>Omar&rsquo;s sister: UNHICCUPS (un- undoes the hiccups).</p><p>Wen&rsquo;s baby: GUFFAWFFLES (guffaw + waffles).</p><p>Rory&rsquo;s flat: SHIVERLETS (shiver + -lets).</p><p>Maisie at the dentist: UNSCAREABLES (un- + scare + -able).</p>');
+        ER.narrate([
+          'In the drawer of the till, where the money ought to be, lies a fat green book with a brass clasp, and a key on a string. The label on the key says BOILING ROOM.',
+          'Mr Gribble is there at once, pencil out. &ldquo;Item,&rdquo; he says. &ldquo;One notebook, green.&rdquo; He opens it, reads a line, and closes it again. &ldquo;Contents: nonsense. <i>Take a scrimple of sugar and swirtle it slowly.</i> There is no such word as swirtle.&rdquo;',
+          'Mr Tuttle snatches the book, turns it upside down, and throws it back on the counter. &ldquo;Can&rsquo;t read it. Don&rsquo;t want to.&rdquo; Mr Huxtable picks it up, sniffs it and puts it down. &ldquo;No numbers in it. Worthless.&rdquo;',
+          'Mrs Mortlake looks at you properly for the first time. &ldquo;You read it, then, darling. Read it to us.&rdquo; She smiles with all of her teeth. &ldquo;And if there is a recipe in it worth having, we shall all be very interested.&rdquo;',
+          'You open the book at the last page. At the top, in purple ink, it says: <i>The Last Sweet. Part One: the Heart. Make it in the boiling room.</i> And all four of them follow you to the door.'
+        ], function () { busy = false; $('#go').classList.add('on'); });
+      }, 3400);
+    });
+    msg(misses ? '' : 'Twelve jars on the shelf, and five paper bags, one for each child. Drag a jar onto a bag, or click a jar and then a bag. When all five bags are filled, ring the bell.');
+    ER.open('ov-lock', lock);
+  }
+})();
+</script>
+</body>
+</html>

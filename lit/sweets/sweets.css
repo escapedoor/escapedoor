@@ -1,0 +1,145 @@
+/* Miss Plunkett's Last Recipe - what every room of the story shares: Miss Plunkett's papers, the green book, the
+   children's letters, the brass plates on her machines, the frame round a piece of work, the notebook and the hints.
+   Each room sets its own palette and lettering on <body>. */
+
+.tc-theme{font-family:'Goudy Bookletter 1911',serif;font-size:17px;letter-spacing:.26em}
+.tc-room{font-family:'Henny Penny',cursive;letter-spacing:.02em}
+.tc-text{font-family:'Alegreya',Georgia,serif;font-size:clamp(18px,1.48vw,22px);line-height:1.5}
+.tc-text p{margin:0 0 11px}
+.cap{font-family:'Alegreya',Georgia,serif;font-size:clamp(18.5px,1.48vw,22.5px);line-height:1.45}
+.chip,.hbtn{font-family:'Goudy Bookletter 1911',serif;font-size:15px;letter-spacing:.12em}
+.btn{font-family:'Goudy Bookletter 1911',serif;font-size:15px;letter-spacing:.12em}
+.gobtn{position:fixed;left:50%;bottom:5vh;transform:translateX(-50%);z-index:35;display:none;padding:12px 30px 11px;border:2px solid var(--accent,#f2b544);
+  color:var(--accent,#f2b544);background:var(--hud-bg,rgba(20,10,20,.9));font-family:'Henny Penny',cursive;font-size:21px;letter-spacing:.06em;border-radius:30px}
+.gobtn.on{display:block}
+.gobtn:hover{background:var(--accent,#f2b544);color:#1c1020}
+.tk-name{font-family:'Henny Penny',cursive;letter-spacing:.02em;font-size:28px}
+.tk-role{font-family:'Goudy Bookletter 1911',serif;font-size:15px;letter-spacing:.14em}
+.tk-text{font-family:'Alegreya',Georgia,serif;font-size:clamp(18px,1.4vw,21px);line-height:1.5}
+.tk-face svg{height:100%;min-height:300px}
+.hot:hover{filter:brightness(1.12)}
+
+/* ---- a piece of work: the frame round everything done with the hands ---- */
+.bn{width:min(1050px,95vw);-webkit-user-select:none;user-select:none}
+.bn>svg{display:block;width:100%;height:auto;border-radius:6px;box-shadow:0 26px 70px rgba(0,0,0,.7);touch-action:none}
+.bn-foot{display:flex;align-items:flex-start;gap:16px;margin-top:10px}
+.bmsg{flex:1;min-height:54px;margin:0;font-family:'Alegreya',Georgia,serif;font-size:19px;line-height:1.36;color:#fbf2e4}
+.bmsg b{color:var(--accent,#f2b544);font-weight:600}
+.bn-foot .btn{flex:0 0 auto;white-space:nowrap;background:rgba(0,0,0,.35)}
+.bn text{pointer-events:none}
+.bn .hit{cursor:pointer}
+.tG{font-family:'Goudy Bookletter 1911',serif}
+.tH{font-family:'Henny Penny',cursive}
+.tK{font-family:'Gochi Hand',cursive}
+.tA{font-family:'Alegreya',serif}
+.tF{font-family:'Fredericka the Great',serif}
+.tE{font-family:'Special Elite',monospace}
+.tO{font-family:'Oswald',sans-serif}
+.tC{font-family:'Caveat',cursive}
+.tX{font-family:'Stardos Stencil',serif;font-weight:700}
+
+/* ---- paper ---- */
+.doc h4{font-weight:normal}
+.doc svg{display:block;max-width:100%;height:auto}
+/* a page from Miss Plunkett's notebook, pinned up somewhere in the factory */
+.doc.page{width:min(760px,94vw);background:#fbf4e2;color:#2a1e3a;font-family:'Gochi Hand',cursive;font-size:21px;line-height:1.36;padding:22px 34px 18px 64px;
+  background-image:linear-gradient(90deg,transparent 44px,rgba(200,70,110,.45) 44px,rgba(200,70,110,.45) 46px,transparent 46px),linear-gradient(transparent 28px,rgba(90,120,190,.18) 28px);
+  background-size:100% 100%,100% 29px;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+.doc.page:before{content:'';position:absolute;left:50%;top:-6px;width:20px;height:20px;margin-left:-10px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#ff9fb8,#a8244a)}
+.doc.page h4{margin:0 0 2px;font-family:'Henny Penny',cursive;font-size:30px;line-height:1.1;color:#7a2a8a}
+.doc.page h5{margin:0 0 10px;font-family:'Goudy Bookletter 1911',serif;font-weight:normal;font-size:14px;letter-spacing:.2em;text-transform:uppercase;color:#8a7a6a}
+.doc.page p{margin:0 0 7px}
+.doc.page b{color:#7a2a8a;font-weight:normal;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px}
+.doc.page .ex{font-family:'Alegreya',serif;font-size:18.5px;font-style:italic;color:#4a3a5a}
+.doc.page .sig{text-align:right;font-family:'Caveat',cursive;font-size:26px;color:#7a2a8a;margin-top:4px}
+/* a page of the green book */
+.doc.green{width:min(720px,94vw);background:#fffaf0;color:#1c2a20;font-family:'Alegreya',Georgia,serif;font-size:20px;line-height:1.5;padding:24px 40px 22px 48px;
+  border:14px solid #24553a;border-left-width:26px;box-shadow:0 26px 70px rgba(0,0,0,.6),inset 0 0 0 2px #c9a23a}
+.doc.green h4{margin:0 0 2px;font-family:'Goudy Bookletter 1911',serif;font-size:15px;letter-spacing:.3em;text-transform:uppercase;color:#7a6a3a}
+.doc.green h3{margin:0 0 12px;font-family:'Henny Penny',cursive;font-weight:normal;font-size:32px;line-height:1.1;color:#24553a}
+.doc.green p{margin:0 0 9px}
+.doc.green .ln{padding-left:26px;text-indent:-26px}
+.doc.green .ln i{font-style:normal;font-family:'Fredericka the Great',serif;color:#b0402a;display:inline-block;width:26px;text-indent:0}
+.doc.green .poem{font-style:italic;font-size:21px;line-height:1.55;margin:4px 0 10px 18px}
+.doc.green .poem p{margin:0 0 10px}
+.doc.green .hand{font-family:'Caveat',cursive;font-size:25px;line-height:1.2;color:#7a2a8a}
+/* a child's letter, on paper from a school exercise book */
+.doc.kid{width:min(560px,92vw);background:#fff;color:#1d2a5a;font-family:'Gochi Hand',cursive;font-size:22px;line-height:30px;padding:28px 30px 20px 50px;
+  background-image:linear-gradient(90deg,transparent 36px,rgba(220,90,90,.5) 36px,rgba(220,90,90,.5) 37px,transparent 37px),linear-gradient(transparent 29px,rgba(80,140,210,.3) 29px);background-size:100% 100%,100% 30px}
+.doc.kid h4{margin:0 0 0;font-family:'Goudy Bookletter 1911',serif;font-size:14px;line-height:30px;letter-spacing:.2em;text-transform:uppercase;color:#8a8a8a}
+.doc.kid p{margin:0 0 0}
+.doc.kid .from{text-align:right;margin-top:6px}
+.doc.kids{width:min(780px,94vw);background:#e9dcc2;padding:18px 20px;display:grid;grid-template-columns:1fr 1fr;gap:14px;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+.doc.kids h4{grid-column:1/3;margin:0;font-family:'Henny Penny',cursive;font-size:26px;color:#5a2a1a}
+.doc.kids .k{background:#fff;color:#1d2a5a;font-family:'Gochi Hand',cursive;font-size:19px;line-height:25px;padding:10px 14px 10px 30px;
+  background-image:linear-gradient(90deg,transparent 20px,rgba(220,90,90,.5) 20px,rgba(220,90,90,.5) 21px,transparent 21px),linear-gradient(transparent 24px,rgba(80,140,210,.28) 24px);background-size:100% 100%,100% 25px;box-shadow:0 4px 10px rgba(0,0,0,.2)}
+.doc.kids .k:nth-child(odd){transform:rotate(.5deg)}.doc.kids .k:nth-child(even){transform:rotate(-.6deg)}
+.doc.kids .k p{margin:0}
+.doc.kids .k .from{text-align:right;color:#7a2a8a}
+.doc.kids .k.wide{grid-column:1/3}
+/* Miss Plunkett's own letter */
+.doc.note{width:min(640px,93vw);background:#f3e6c4 radial-gradient(ellipse at 30% 20%,rgba(255,250,230,.6),rgba(140,100,40,.2));color:#3a1e3a;font-family:'Caveat',cursive;font-size:25px;line-height:1.28;padding:30px 40px 24px;transform:rotate(-.6deg)}
+.doc.note h4{font-family:'Henny Penny',cursive;font-size:24px;color:#7a2a8a;margin:0 0 10px}
+.doc.note p{margin:0 0 8px}
+.doc.note .sig{text-align:right;font-size:30px}
+/* a brass plate on a machine, with a verse on it */
+.doc.verse{width:min(560px,92vw);background:linear-gradient(135deg,#7a5a1c,#e8c86a 24%,#b48a2a 50%,#f2dc8e 76%,#8a6a22);color:#3a2606;
+  font-family:'Goudy Bookletter 1911',serif;text-align:center;font-size:20px;line-height:1.5;padding:30px 40px 26px;border:3px solid #5f4410;border-radius:6px;text-shadow:0 1px 0 rgba(255,240,190,.7)}
+.doc.verse h4{font-family:'Fredericka the Great',serif;font-size:25px;letter-spacing:.06em;margin:0 0 12px}
+.doc.verse p{margin:0}
+.doc.verse .gap{height:12px}
+.doc.verse:before,.doc.verse:after{content:'';position:absolute;top:12px;width:13px;height:13px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#f7e7ae,#5f4410)}
+.doc.verse:before{left:12px}.doc.verse:after{right:12px}
+/* Mr Gribble's typed papers */
+.doc.list{width:min(640px,93vw)}
+/* an old printed card or poster */
+.doc.card{width:min(720px,94vw);background:#fdf3d8;color:#2a1a10;font-family:'Alegreya',Georgia,serif;font-size:19px;line-height:1.45;padding:20px 34px 18px;border:6px double #b0402a;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+.doc.card h4{margin:0 0 4px;font-family:'Fredericka the Great',serif;font-size:30px;color:#b0402a;text-align:center;letter-spacing:.03em}
+.doc.card h5{margin:0 0 12px;text-align:center;font-family:'Goudy Bookletter 1911',serif;font-weight:normal;font-size:14px;letter-spacing:.24em;text-transform:uppercase;color:#7a6a4a}
+.doc.card p{margin:0 0 8px}
+.doc.card b{font-family:'Fredericka the Great',serif;font-weight:normal;color:#b0402a;letter-spacing:.03em}
+.doc.card .ex{font-style:italic;color:#5a4a3a}
+.doc.card .rule{margin:8px 0 2px;padding:7px 12px 6px;background:#fff8e6;border-left:5px solid #b0402a}
+/* a book on the desk */
+.doc.bk{width:min(600px,92vw);background:#f4ecd8;color:#2a2018;font-family:'Goudy Bookletter 1911',serif;font-size:19px;line-height:1.5;padding:26px 36px 22px;border-left:22px solid #7a1e24}
+.doc.bk h4{font-family:'Fredericka the Great',serif;font-size:24px;margin:0 0 4px;color:#7a1e24}
+.doc.bk h5{margin:0 0 12px;font-weight:normal;font-size:14px;letter-spacing:.2em;text-transform:uppercase;color:#7a6a5a}
+.doc.bk p{margin:0 0 8px}
+.doc.bk .q{font-style:italic;font-size:21px;margin:8px 0 12px 20px;line-height:1.4}
+.doc.bk .hand{font-family:'Caveat',cursive;font-size:24px;color:#7a2a8a;line-height:1.2}
+/* what you worked out for yourself */
+.doc.mine{width:min(600px,92vw);background:#f6f0e4;color:#2a1e30;font-family:'Gochi Hand',cursive;font-size:21px;line-height:1.3;padding:24px 30px 22px;border-left:18px solid #7a2a8a;
+  background-image:linear-gradient(transparent 27px,rgba(122,42,138,.16) 27px);background-size:100% 28px}
+.doc.mine h4{font-family:'Goudy Bookletter 1911',serif;font-size:17px;letter-spacing:.22em;text-transform:uppercase;color:#7a2a8a;margin-bottom:8px}
+.doc.mine p{margin:0 0 8px}
+.doc.statement{background:#f6efe2;font-family:'Alegreya',Georgia,serif;font-size:19px;line-height:1.5;border-left:6px solid #7a2a8a}
+.doc.statement h4{font-family:'Goudy Bookletter 1911',serif;font-size:15px;letter-spacing:.22em;color:#7a2a8a}
+
+/* ---- the notebook: a purple sweet tin ---- */
+.nb{background:#2c1838 linear-gradient(140deg,#3e2250,#1a0e22);border:1px solid #7a4a8a;border-radius:8px;color:#f3e8f6;box-shadow:0 30px 90px rgba(0,0,0,.75),inset 0 0 0 5px #160a1c}
+.nb-tabs{border-bottom-color:#7a4a8a}
+.nb-tabs button{font-family:'Goudy Bookletter 1911',serif;font-size:16px;letter-spacing:.16em;color:#d4b9e0}
+.nb-tabs button.on{background:#fbf4e2;color:#2c1838;border-color:#7a4a8a}
+.nb-list{border-right-color:#7a4a8a}
+.nb-list button{font-family:'Alegreya',serif;font-size:17px;color:#f3e8f6}
+.nb-list button small{font-family:'Goudy Bookletter 1911',serif;font-size:12px;letter-spacing:.18em}
+.nb-list button.on{background:#fbf4e2;color:#2c1838}
+.nb-view{background:#170c1d}
+.nb-empty{font-family:'Alegreya',serif}
+.nb-words{background:#fbf4e2;color:#2a1e30}
+.nb-words b{font-family:'Goudy Bookletter 1911',serif;font-size:18px}
+.nb-words span{font-family:'Alegreya',serif;font-size:16.5px;line-height:1.3;color:#5a4a5e}
+.nb-ko{border-color:#a98ab8;color:#5a4a5e}
+.nb-ko.on{background:#2c1838;color:#f2c7ff;border-color:#2c1838}
+.wtip,.wtag{background:#fbf4e2;color:#2a1e30;border-radius:3px;box-shadow:0 10px 26px rgba(0,0,0,.6),inset 5px 0 0 #d6457a}
+.wtag{transform:rotate(-1deg);padding-left:20px}
+.wtag:before{display:none}
+.wtip{padding-left:19px}
+.wtip b,.wtag b{font-family:'Goudy Bookletter 1911',serif;font-size:18px}
+.wtip span,.wtag span{font-family:'Alegreya',serif;font-size:16.5px;line-height:1.3;color:#5a4a5e}
+.hintbox{background:#fbf4e2;color:#2a1e30;border-top:6px solid #d6457a;border-radius:3px}
+.hintbox h6{font-family:'Goudy Bookletter 1911',serif;font-size:16px;letter-spacing:.3em;color:#a8244a}
+.hintbox p{font-family:'Alegreya',serif;font-size:18px;line-height:1.36}
+.hintbox p i{background:#2a1e30;color:#fbf4e2;font-family:'Goudy Bookletter 1911',serif;font-size:13px}
+.hintbox p.hint-none{font-style:italic;color:#6a5a6e;font-size:17px}
+.toast{font-family:'Goudy Bookletter 1911',serif;font-size:15px;background:rgba(30,14,36,.95)}

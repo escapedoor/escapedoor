@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Christmas Morning · The Boy in Sunday Clothes</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lit.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="carol.css">
+<style>
+  body{--bg:#bcd6ee;--accent:#a8231c;--font-display:'Fredericka the Great',serif;--font-ui:'Goudy Bookletter 1911',serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(250,244,230,.97);--tc-ink:#2a1e16;--cap-bg:rgba(252,248,238,.96);--cap-ink:#2a1e16;--panel:#fbf6ea;--panel-ink:#2a1e16;--face-bg:#efe2c8;--q-ink:#a8231c;--fade:#fff8ea;
+    --hud-bg:rgba(252,248,238,.86);--hud-ink:#2a1e16;--hud-line:rgba(42,30,22,.3);--ov-bg:rgba(40,30,20,.55)}
+  .tc-room{font-family:'Fredericka the Great',serif;font-size:clamp(44px,6vw,84px);color:#a8231c}
+  .tc-theme{color:#7a2a1c}
+  .tk-role{color:#a8231c}
+  .hbtn.hnt{border-color:#a8231c;color:#a8231c}
+  .ov-x{background:rgba(252,248,238,.9);color:#2a1e16;border-color:rgba(42,30,22,.4)}
+  .sF{font-family:'Fredericka the Great',serif;text-anchor:middle}
+  .sG{font-family:'Goudy Bookletter 1911',serif;text-anchor:middle}
+  .bellsw{transform-box:fill-box;transform-origin:50% 0}
+  #scene.ring .bellsw{animation:swing .45s ease-in-out infinite alternate}
+  #scene.ring .ringmark{display:inline}
+  .ringmark{display:none}
+  @keyframes swing{from{transform:rotate(-28deg)}to{transform:rotate(28deg)}}
+  #sash{transition:opacity 1.2s}
+  #scene.open #sash{opacity:0}
+  #scrwin{opacity:0;transition:opacity 1s}
+  #scene.open #scrwin{opacity:1}
+  #turkeyman{display:none}#scene.turkey #turkeyman{display:inline}
+  #scene.turkey #prize{opacity:.25}
+  #smoke circle{animation:smoke 8s ease-out infinite;opacity:0;transform-box:fill-box;transform-origin:center}
+  #smoke circle:nth-child(2){animation-delay:-2.6s}#smoke circle:nth-child(3){animation-delay:-5.2s}
+  @keyframes smoke{0%{opacity:0;transform:translate(0,0) scale(.6)}20%{opacity:.5}100%{opacity:0;transform:translate(60px,-200px) scale(1.8)}}
+  #walker{animation:walk 30s linear infinite}
+  @keyframes walk{from{transform:translateX(-300px)}to{transform:translateX(1900px)}}
+
+  .lines{width:min(760px,94vw);padding:20px 26px 16px;background:#fbf6ea;color:#2a1e16;border-top:10px solid #a8231c;box-shadow:0 26px 70px rgba(0,0,0,.4)}
+  .lines h5{margin:0 0 4px;font-family:'Goudy Bookletter 1911',serif;font-weight:normal;font-size:14px;letter-spacing:.22em;text-transform:uppercase;color:#a8231c;text-align:center}
+  .lines .said{min-height:72px;margin:6px 0 12px;font-family:'EB Garamond',Georgia,serif;font-size:20px;line-height:1.42}
+  .lines .opts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+  .lines .opt{padding:10px 12px;background:#fff;border:2px solid #c8b890;border-radius:4px;font-family:'Fredericka the Great',serif;font-size:19px;color:#2a1e16;cursor:pointer;line-height:1.2}
+  .lines .opt:hover{border-color:#a8231c}
+  .lines .opt.bad{background:#f3c4b4}
+  .lines .pmsg{color:#5a4a3e;margin-top:10px;min-height:30px;font-size:17px}
+
+  .flyleaf{width:min(900px,95vw);padding:16px 22px 14px;background:#ece4d0 radial-gradient(ellipse at 70% 30%,rgba(255,255,255,.5),rgba(140,110,60,.18));color:#2a2016;border-left:18px solid #5a1a14;box-shadow:0 26px 70px rgba(0,0,0,.45)}
+  .flyleaf h5{margin:0 0 6px;font-family:'Goudy Bookletter 1911',serif;font-weight:normal;font-size:14px;letter-spacing:.22em;text-transform:uppercase;color:#5a1a14}
+  .flyleaf .sent{font-family:'Caveat',cursive;font-size:25px;line-height:1.25;color:#3a2a6a;margin:0 0 8px}
+  .flyleaf .sent u{text-decoration:none;border-bottom:2px dotted #3a2a6a;padding:0 4px}
+  .flyleaf .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+  .flyleaf .grid.ev{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .flyleaf .ch{padding:6px 10px;background:#fbf8ee;border:2px solid #c8b890;border-radius:3px;font-family:'EB Garamond',Georgia,serif;font-size:15.5px;line-height:1.25;cursor:pointer;text-align:left}
+  .flyleaf .ch:hover{border-color:#5a1a14}
+  .flyleaf .ch.on{border-color:#3a2a6a;background:#e8e2f6}
+  .flyleaf .ch.bad{background:#f3c4b4}
+  .flyleaf h6{margin:10px 0 4px;font-family:'Goudy Bookletter 1911',serif;font-weight:normal;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:#7a6a4a}
+  .flyleaf .foot{display:flex;gap:14px;align-items:flex-start;margin-top:10px}
+  .flyleaf .foot p{flex:1;margin:0;font-family:'EB Garamond',serif;font-size:17px;line-height:1.35;color:#5a3a2a;min-height:44px}
+  .flyleaf .btn{--accent:#5a1a14;background:#fbf8ee}.flyleaf .btn:hover:not([disabled]){color:#fbf8ee}
+
+  .done{position:fixed;right:2vw;top:60px;z-index:34;width:min(540px,94vw);max-height:calc(100vh - 76px);overflow:auto;padding:14px 26px 14px;display:none;background:#fffaf0;color:#2a1e16;border-top:10px solid #a8231c;box-shadow:0 20px 60px rgba(40,30,20,.4)}
+  .done.on{display:block}
+  .okstamp{display:inline-block;padding:4px 14px 1px;border:4px solid #a8231c;color:#a8231c;font-family:'Fredericka the Great',serif;font-size:22px;letter-spacing:.04em;transform:rotate(-3deg);margin-bottom:6px}
+  .done h6{margin:9px 0 4px;font-family:'Goudy Bookletter 1911',serif;font-weight:normal;font-size:15px;letter-spacing:.24em;text-transform:uppercase;color:#a8231c}
+  .done p{margin:0 0 3px;font-family:'Goudy Bookletter 1911',serif;font-size:15px;line-height:1.4}
+  .done ol{margin:0;padding-left:20px;font-family:'EB Garamond',serif;font-size:15px;line-height:1.3}
+  .done li{margin:0 0 3px}
+  .done ul{margin:0;padding-left:18px;font-family:'EB Garamond',serif;font-size:14.5px;line-height:1.3}
+  .done .row{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
+  .done .btn{--accent:#a8231c;font-size:14px;padding:7px 13px}
+  .done .btn:hover:not([disabled]){color:#fffaf0}
+  .done small{display:block;margin-top:8px;font-family:'Goudy Bookletter 1911',serif;font-size:13px;opacity:.75;line-height:1.5}
+  .done small button{text-decoration:underline;font:inherit}
+  .rp{width:min(780px,94vw);max-height:84vh;overflow:auto;background:#fffaf0;color:#2a1e16;padding:22px 34px 18px;box-shadow:0 26px 70px rgba(0,0,0,.5);-webkit-user-select:text;user-select:text;border-left:16px solid #a8231c}
+  .rp h4{margin:0 0 3px;font-family:'Goudy Bookletter 1911',serif;font-weight:normal;font-size:15px;letter-spacing:.24em;text-transform:uppercase;color:#a8231c}
+  .rp h3{margin:0 0 8px;font-family:'Fredericka the Great',serif;font-weight:normal;font-size:30px;line-height:1.1}
+  .rp p,.rp label{display:block;font-family:'EB Garamond',serif;font-size:18px;line-height:1.4;margin:0 0 6px;color:#2a1e16}
+  .rp textarea,.rp input[type=text]{width:100%;font-family:'Caveat',cursive;font-size:24px;line-height:30px;color:#2b3a66;background:#fff repeating-linear-gradient(transparent 0 29px,#e6d6c6 29px 30px);border:1px solid #c8a898;padding:0 12px;border-radius:0;resize:vertical;-webkit-user-select:text;user-select:text}
+  .rp textarea{min-height:184px}
+  .rp input[type=text]{height:32px}
+  .rp .count{font-family:'Goudy Bookletter 1911',serif;font-size:14px;letter-spacing:.14em;text-transform:uppercase;opacity:.7;text-align:right;margin-top:3px}
+  .rp .foot{display:flex;gap:10px;align-items:center;margin-top:10px}
+  .rp .foot span{flex:1;font-family:'Goudy Bookletter 1911',serif;font-size:13px;opacity:.75}
+  .rp .btn{--accent:#a8231c}.rp .btn:hover:not([disabled]){color:#fffaf0}
+  @media print{
+    body{overflow:visible;background:#fff}
+    body>*:not(.ov){display:none!important}
+    .ov{position:static!important;display:block!important;background:#fff!important;padding:0!important;overflow:visible!important}
+    .ov-bar,.rp .foot{display:none!important}
+    .rp{box-shadow:none;max-height:none;width:auto;overflow:visible}
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <filter id="rough" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="25"/><feDisplacementMap in="SourceGraphic" scale="3"/></filter>
+  <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8ec0ea"/><stop offset=".65" stop-color="#d8ecf8"/><stop offset="1" stop-color="#fff0d0"/></linearGradient>
+  <radialGradient id="sunG"><stop offset="0" stop-color="#fffbe0"/><stop offset=".35" stop-color="#ffe9a0" stop-opacity=".8"/><stop offset="1" stop-color="#ffd880" stop-opacity="0"/></radialGradient>
+  <pattern id="brk" width="44" height="22" patternUnits="userSpaceOnUse"><rect width="44" height="22" fill="#8a5a46"/><path d="M0 .5h44M0 11.5h44M22 0v11M0 11v11" stroke="#6a4232" stroke-width="2"/></pattern>
+  <pattern id="setts" width="40" height="20" patternUnits="userSpaceOnUse"><rect width="40" height="20" fill="#e6e8ee"/><path d="M0 .5h40M20 0v10M0 10v10M0 10.5h40" stroke="#c8ccd6" stroke-width="1.5"/></pattern>
+</defs>
+
+<rect x="-1000" y="-400" width="3600" height="1300" fill="url(#skyG)"/>
+<circle cx="1320" cy="150" r="200" fill="url(#sunG)"/><circle cx="1320" cy="150" r="46" fill="#fffbe6"/>
+<!-- the church towers, and their bells -->
+<g id="towers" class="hot">
+  <g transform="translate(180 0)"><rect x="0" y="120" width="110" height="420" fill="#c8b8a0" stroke="#7a6a54" stroke-width="3"/><path d="M-10 122l65 -110 65 110z" fill="#7a8aa0" stroke="#4a5a70" stroke-width="3"/><rect x="30" y="160" width="50" height="70" fill="#4a3a2a"/>
+    <g class="bellsw"><path d="M55 166v10" stroke="#3a2a1a" stroke-width="3"/><path d="M38 216q0 -40 17 -40t17 40z" fill="#c8a040" stroke="#5a4010" stroke-width="2"/></g>
+    <g class="ringmark" fill="none" stroke="#a8231c" stroke-width="3" stroke-linecap="round"><path d="M20 180q-14 20 0 40M90 180q14 20 0 40M8 170q-20 30 0 60M102 170q20 30 0 60"/></g></g>
+  <g transform="translate(980 40)"><rect x="0" y="140" width="90" height="340" fill="#d0c0a8" stroke="#7a6a54" stroke-width="3"/><path d="M-8 142l53 -90 53 90z" fill="#7a8aa0" stroke="#4a5a70" stroke-width="3"/><rect x="24" y="170" width="42" height="60" fill="#4a3a2a"/>
+    <g class="bellsw"><path d="M45 176v8" stroke="#3a2a1a" stroke-width="3"/><path d="M31 220q0 -34 14 -34t14 34z" fill="#c8a040" stroke="#5a4010" stroke-width="2"/></g>
+    <g class="ringmark" fill="none" stroke="#a8231c" stroke-width="3" stroke-linecap="round"><path d="M14 186q-12 18 0 36M76 186q12 18 0 36"/></g></g>
+</g>
+<!-- the street of houses -->
+<g fill="#b89880" stroke="#6a5444" stroke-width="2"><rect x="-1000" y="300" width="760" height="400"/><rect x="1180" y="280" width="1420" height="420"/></g>
+<g fill="#fbfcff"><rect x="-1000" y="292" width="760" height="14"/><rect x="1180" y="272" width="1420" height="14"/></g>
+<!-- Scrooge's house: the window, and the knocker on the door -->
+<g id="house"><rect x="-240" y="190" width="900" height="510" fill="url(#brk)" stroke="#4a2e22" stroke-width="3"/><rect x="-250" y="178" width="920" height="18" fill="#fbfcff"/>
+  <g id="smoke" fill="#e8ecf2"><circle cx="560" cy="120" r="20"/><circle cx="560" cy="120" r="26"/><circle cx="560" cy="120" r="22"/></g><rect x="540" y="120" width="40" height="70" fill="#7a5040"/>
+  <g fill="#30425a" stroke="#4a2e22" stroke-width="5"><rect x="30" y="250" width="150" height="190"/><rect x="420" y="250" width="150" height="190"/></g>
+  <!-- Scrooge's window: it flies up -->
+  <g id="win" class="hot"><rect x="230" y="236" width="150" height="210" fill="#ffe8b0" stroke="#4a2e22" stroke-width="5"/>
+    <g id="scrwin"><path d="M262 446q0 -80 48 -90q48 10 48 90z" fill="#6a4a5a" stroke="#2b2118" stroke-width="2.4"/><ellipse cx="306" cy="330" rx="26" ry="30" fill="#e6cfb4" stroke="#2b2118" stroke-width="2.4"/><path d="M284 318q4 -34 34 -32q28 4 30 40q8 18 22 24q-16 4 -24 -10q-6 -18 -26 -22z" fill="#f2ede2" stroke="#2b2118" stroke-width="1.8"/><circle cx="374" cy="352" r="6" fill="#f2ede2" stroke="#2b2118" stroke-width="1.4"/>
+      <path d="M296 330h7M312 330h7" stroke="#2b2118" stroke-width="2.4" stroke-linecap="round"/><path d="M294 344q12 12 24 0" fill="none" stroke="#2b2118" stroke-width="2.2"/><path d="M290 336l-12 8l12 4" fill="#e6cfb4" stroke="#2b2118" stroke-width="1.6"/><path d="M300 352q-2 6 0 12" stroke="#7ab0e0" stroke-width="2"/>
+      <path d="M262 400q-40 -30 -54 -70" fill="none" stroke="#2b2118" stroke-width="15" stroke-linecap="round"/><path d="M262 400q-40 -30 -54 -70" fill="none" stroke="#6a4a5a" stroke-width="11" stroke-linecap="round"/><circle cx="206" cy="328" r="8" fill="#e6cfb4" stroke="#2b2118" stroke-width="1.6"/></g>
+    <g id="sash"><rect x="236" y="242" width="138" height="198" fill="#30425a" opacity=".85"/><path d="M236 341h138M305 242v198" stroke="#4a2e22" stroke-width="5"/></g></g>
+  <!-- the door, and the knocker with an honest expression in its face -->
+  <rect x="250" y="500" width="120" height="200" fill="#2a3a2a" stroke="#1a2418" stroke-width="3"/><path d="M250 500a60 50 0 0 1 120 0z" fill="#fff0b8" stroke="#1a2418" stroke-width="3"/>
+  <g id="knocker" class="hot"><circle cx="310" cy="590" r="26" fill="#c8a040" stroke="#5a4010" stroke-width="3"/><circle cx="301" cy="584" r="3.4" fill="#3a2a10"/><circle cx="319" cy="584" r="3.4" fill="#3a2a10"/><path d="M300 598q10 8 20 0" fill="none" stroke="#3a2a10" stroke-width="2.6"/><circle cx="310" cy="630" r="16" fill="none" stroke="#c8a040" stroke-width="6"/></g>
+  <path d="M230 700h160v-12h-160z" fill="#d8dce4"/>
+</g>
+<!-- the Poulterer's, in the next street but one, at the corner -->
+<g id="shop" class="hot"><rect x="1220" y="380" width="380" height="320" fill="#5a2a2a" stroke="#2a1010" stroke-width="3"/><rect x="1210" y="350" width="400" height="44" fill="#2a3a5a"/><text x="1410" y="381" class="sF" font-size="24" fill="#f6e8c0" letter-spacing="2">POULTERER</text>
+  <rect x="1250" y="420" width="320" height="200" fill="#f6ead0"/>
+  <g id="prize"><path d="M1400 430v26" stroke="#4a3a2a" stroke-width="3"/><path d="M1340 560q-10 -80 60 -100q70 20 60 100q-10 30 -60 34q-50 -4 -60 -34z" fill="#e8c8a0" stroke="#6a4a2a" stroke-width="3"/><path d="M1352 590l-20 30M1448 590l20 30" stroke="#6a4a2a" stroke-width="6" stroke-linecap="round"/>
+    <rect x="1370" y="520" width="60" height="22" fill="#fff" stroke="#a8231c" stroke-width="2"/><text x="1400" y="536" class="sG" font-size="12" fill="#a8231c">PRIZE</text></g>
+  <g fill="#e8c8a0" stroke="#6a4a2a" stroke-width="2"><path d="M1280 470q-6 -40 24 -46q30 10 24 46q-4 14 -24 16q-20 -2 -24 -16z"/><path d="M1500 470q-6 -40 24 -46q30 10 24 46q-4 14 -24 16q-20 -2 -24 -16z"/></g></g>
+<!-- the snow in the street -->
+<rect x="-1000" y="700" width="3600" height="800" fill="url(#setts)"/><path d="M-1000 700h3600" stroke="#b8bcc8" stroke-width="4"/>
+<g fill="#fff"><ellipse cx="200" cy="760" rx="300" ry="20"/><ellipse cx="1100" cy="800" rx="360" ry="22"/></g>
+<!-- people in their best clothes, on the way to church -->
+<g id="walker"><g transform="translate(700 812)" class="ink" id="w1"></g><g transform="translate(760 816)" class="ink" id="w2"></g></g>
+<!-- the poulterer's man, with the Turkey -->
+<g id="turkeyman" class="hot"><g transform="translate(820 860)" class="ink" id="pman"></g>
+  <path d="M870 620q-10 -80 60 -100q70 20 60 100q-10 30 -60 34q-50 -4 -60 -34z" fill="#e8c8a0" stroke="#6a4a2a" stroke-width="3"/><path d="M882 650l-14 36M978 650l14 36" stroke="#6a4a2a" stroke-width="6" stroke-linecap="round"/></g>
+</svg>
+</div>
+<div class="done" id="done">
+  <div class="okstamp">Every stave in its place</div>
+  <p id="d-time"></p><p id="d-hints"></p><p id="d-words"></p>
+  <h6>What you now know</h6>
+  <ol>
+    <li><i>A Christmas Carol</i> came out on 19 December 1843. Dickens called its five chapters staves, because a carol is a song and a song has verses; each stave has a job: the set-up and the warning, the past, the present, a future that may be, and the change.</li>
+    <li>A writer can tell you what a person is like, or show you: by looks, by words, by actions, and by how other people behave towards them. Evidence is what is really on the page.</li>
+    <li>A flashback goes back in time to explain the present. Change in a character shows in small things first: a tear, a wish, a short answer, a plea to stop.</li>
+    <li>The order of telling is not the order of time. Stave Two&rsquo;s past happened first; Stave Four&rsquo;s future is a shadow of what may be, and it did not happen.</li>
+    <li>In Dickens&rsquo;s London 12 pence made a shilling and 20 shillings a pound. Bob Cratchit&rsquo;s fifteen shillings a week was six days&rsquo; work at half-a-crown a day.</li>
+    <li>After the Poor Law of 1834, poor people who asked for help were sent into Union workhouses, and debtors could be locked up. Dickens makes Scrooge&rsquo;s own words about prisons and workhouses come back at him.</li>
+    <li>The topic of a book is what it is about; its theme is what it says. You argue for a theme with evidence from the text.</li>
+  </ol>
+  <h6>If you liked this, read</h6>
+  <ul>
+    <li>Charles Dickens, <i>A Christmas Carol</i> (1843): the whole book is short enough to read in an evening or two, and much funnier than you expect.</li>
+    <li>Dickens&rsquo;s next Christmas books, <i>The Chimes</i> (1844) and <i>The Cricket on the Hearth</i> (1845): you have already met their first pages.</li>
+    <li>Roald Dahl, <i>Matilda</i> (1988): Matilda reads Dickens in the village library.</li>
+  </ul>
+  <div class="row"><button type="button" class="btn" id="b-task">Describe a person</button><button type="button" class="btn" id="b-book">Notebook</button><button type="button" class="btn" id="b-lobby">Back to the shelf</button></div>
+  <small>The Boy in Sunday Clothes &middot; <button type="button" id="b-reset">play it again from the start</button></small>
+</div>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="carol.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told;
+  (function () {
+    var F = CC.fig;
+    $('#w1').innerHTML = F({ h: 200, coat: '#2a3a5a', legs: '#3a3a44', hat: 'top', hairStyle: 'short', hair: '#4a3a2a', face: 'smile' });
+    $('#w2').innerHTML = F({ h: 186, kind: 'dress', coat: '#8a2a3a', hat: 'bonnet', hatc: '#3a2a4a', hairStyle: 'bun', hair: '#4a3a2a', face: 'smile', thin: true });
+    $('#pman').innerHTML = F({ h: 280, coat: '#efe6d0', legs: '#4a3a2a', hat: 'cap', hatc: '#3a3a3a', hairStyle: 'short', hair: '#8a5a2a', face: 'smile', armL: 'up', armR: 'up', extra: '<path d="M-30 -150h60l6 120h-72z" fill="#fbf8f0" stroke="#2b2118" stroke-width="2"/>' });
+  })();
+
+  ER.init({
+    theme: 'lit', story: 'carol', storyTitle: 'The Boy in Sunday Clothes', id: 'street', no: 'VI', title: 'Christmas Morning',
+    go: 'Into the street',
+    intro: [
+      'You laid Scrooge&rsquo;s life out in the order it happened, not the order it is told: the boy at school, little Fan, Fezziwig&rsquo;s ball, Belle&rsquo;s goodbye, the Christmas Eve when Marley lay dying, Christmas Eve seven years later, Christmas morning, and the morning after. The two shadows of the future, the jokes on &rsquo;Change and the quiet house in Camden Town, went back into the Phantom&rsquo;s shadow, because they are things that may be, only. Two of the reader&rsquo;s pencilled notes went back to her: the Spirits did it all in one night, and the book never says how Fan died.',
+      'Scrooge read his own name on the stone, and swore to live in the Past, the Present and the Future. The Phantom shrank, collapsed, and dwindled down into a bedpost. Every stave is in its place.',
+      'And you are back where you belong: in the street below Scrooge&rsquo;s window, in your Sunday clothes, on Christmas morning. No fog, no mist. Golden sunlight. All the church bells of London are about to ring.'
+    ],
+    exit: {"last":true,"rooms":6,"stars":4}, tags: {"t1":["6a7cec6f"],"t2":["e3cea910"],"t3":["c671c4ec"],"t4":["597fc5fb"],"t5":["80c8d6db"],"tp":["bfb26d4e","c541bf32"],"evh1":["6969f38a","6ec034e8","fad3fb88"],"evh2":["71c15809","19f0c424","1f850dd5"],"evh3":["5004fa99","9b761da0","9558939f"]},
+    hints: hints, onBegin: begin
+  });
+  told = CC.told('f-told');
+  var lk = null;
+  function hints() {
+    if (told.has('end')) return null;
+    if (lk && lk.parentNode && lk.classList.contains('lines')) return ['lines', ['You have said these lines every Christmas since 1843. Which one would a cheeky London boy really say? The page from Stave Five ends with all of them.', 'In order: EH?, then the day, then &lsquo;I should hope I did&rsquo;, then &lsquo;What, the one as big as me?&rsquo;, then &lsquo;Walk-ER!&rsquo;']];
+    if (lk && lk.parentNode) return ['theme', ['The inside cover says: the topic is what the book is about, the theme is what it says. Choose a sentence somebody could argue with.', 'Then choose two lines that prove that sentence: a line about change for change, a line about other people for other people, a line about happiness for kindness and money.']];
+    if (!told.has('lines')) return ['window', ['The window above you has just flown open. Click Scrooge at the window.']];
+    return null;
+  }
+  function paint() {
+    $('#scene').classList.toggle('open', told.has('in'));
+    $('#scene').classList.toggle('turkey', told.has('lines'));
+  }
+  function bells(ms) {
+    $('#scene').classList.add('ring'); CC.sfx.church();
+    setTimeout(function () { $('#scene').classList.remove('ring'); }, ms || 3200);
+  }
+
+  function begin() {
+    paint();
+    if (told.has('end')) { busy = false; finish(true); return; }
+    if (told.has('theme')) { busy = false; ending(); return; }
+    if (told.has('lines')) { busy = false; reader(); return; }
+    if (told.has('in')) { busy = false; ER.say('Scrooge is leaning out of his window, laughing, in his nightcap.'); return; }
+    bells(3600);
+    ER.narrate([
+      'Clash, clang, hammer; ding, dong, bell. Bell, dong, ding; hammer, clang, clash! Oh, glorious, glorious! (Every church tower you can see is swinging its bells.)',
+      'Then a window over your head flies up, and an old man puts out his head: a nightcap, a pointed nose, and a face wet with tears. He is laughing.',
+      'You know this moment. You have waited for it every Christmas since 1843.'
+    ], function () { told.set('in'); paint(); busy = false; setTimeout(openLines, 600); });
+  }
+
+  /* ---------- your lines ---------- */
+  var TURNS = [
+    ['&ldquo;What&rsquo;s to-day!&rdquo; cried Scrooge, calling downward to a boy in Sunday clothes, who perhaps had loitered in to look about him.', [['o1', 'EH?'], ['o2', 'Good morning, sir!'], ['o3', 'Humbug!']]],
+    ['&ldquo;What&rsquo;s to-day, my fine fellow?&rdquo; said Scrooge.', [['o4', 'Why, Boxing Day, sir.'], ['o5', 'To-day? The twenty-seventh.'], ['o6', 'To-day! Why, CHRISTMAS DAY.']]],
+    ['&ldquo;It&rsquo;s Christmas Day!&rdquo; said Scrooge to himself. &ldquo;I haven&rsquo;t missed it. The Spirits have done it all in one night.&rdquo; &hellip; &ldquo;Do you know the Poulterer&rsquo;s, in the next street but one, at the corner?&rdquo; Scrooge inquired.', [['o7', 'Never heard of it.'], ['o8', 'I should hope I did.'], ['o9', 'Which corner, sir?']]],
+    ['&ldquo;An intelligent boy!&rdquo; said Scrooge. &ldquo;A remarkable boy! Do you know whether they&rsquo;ve sold the prize Turkey that was hanging up there?&mdash;Not the little prize Turkey: the big one?&rdquo;', [['o10', 'The little one, sir?'], ['o11', 'What, the one as big as me?'], ['o12', 'Sold yesterday, sir.']]],
+    ['&ldquo;What a delightful boy!&rdquo; said Scrooge. &ldquo;It&rsquo;s a pleasure to talk to him. Yes, my buck!&rdquo; &ldquo;It&rsquo;s hanging there now,&rdquo; replied the boy. &ldquo;Is it?&rdquo; said Scrooge. &ldquo;Go and buy it.&rdquo;', [['o13', 'I&rsquo;d rather not.'], ['o14', 'Walk-ER!'], ['o15', 'How much will you pay me?']]]
+  ];
+  function openLines() {
+    if (told.has('lines')) return;
+    var t = ER.flag('f-turn') || 0;
+    lk = ER.el('div', 'lines');
+    lk.innerHTML = '<h5>Stave Five &middot; your lines</h5><div class="said"></div><div class="opts"></div><p class="pmsg"></p>';
+    var said = lk.querySelector('.said'), opts = lk.querySelector('.opts'), m = lk.querySelector('.pmsg');
+    function show() {
+      said.innerHTML = ER.gloss(TURNS[t][0]); opts.innerHTML = ''; m.innerHTML = '';
+      TURNS[t][1].forEach(function (o) { var b = ER.el('button', 'opt', o[1]); b.type = 'button'; b.setAttribute('data-o', o[0]); opts.appendChild(b); });
+    }
+    opts.addEventListener('click', function (e) {
+      var b = e.target.closest('.opt'); if (!b) return;
+      if (!ER.check('t' + (t + 1), b.getAttribute('data-o'))) { b.classList.add('bad'); ER.shake(b); ER.sfx.no(); m.innerHTML = ER.gloss('That is not your line. You have said it every Christmas since 1843: what does the boy in Sunday clothes really say?'); return; }
+      CC.sfx.pluck(); t++; ER.flag('f-turn', t);
+      if (t < TURNS.length) { show(); return; }
+      told.set('lines'); ER.closeAll(); turkey();
+    });
+    show();
+    ER.open('ov-lock', lk);
+  }
+  $('#win').addEventListener('click', function () { if (busy) return; if (!told.has('lines') && told.has('in')) openLines(); else ER.say('&ldquo;I don&rsquo;t know what day of the month it is!&rdquo; said Scrooge. &ldquo;I don&rsquo;t know anything. I&rsquo;m quite a baby. Never mind. I don&rsquo;t care.&rdquo;'); });
+
+  function turkey() {
+    busy = true; paint();
+    ER.addClue('yourlines', 'Your lines', CC.page('STAVE V', 'Your lines', '<p>&ldquo;What&rsquo;s to-day!&rdquo; cried Scrooge, calling downward to a boy in Sunday clothes, who perhaps had loitered in to look about him.</p><p>&ldquo;EH?&rdquo; returned the boy, with all his might of wonder.</p><p>&ldquo;What&rsquo;s to-day, my fine fellow?&rdquo; said Scrooge.</p><p>&ldquo;To-day!&rdquo; replied the boy. &ldquo;Why, CHRISTMAS DAY.&rdquo;</p><p class="gap">* * *</p><p>&ldquo;Is it?&rdquo; said Scrooge. &ldquo;Go and buy it.&rdquo;</p><p>&ldquo;Walk-ER!&rdquo; exclaimed the boy.</p><p>&ldquo;No, no,&rdquo; said Scrooge, &ldquo;I am in earnest. Go and buy it, and tell &rsquo;em to bring it here, that I may give them the direction where to take it. Come back with the man, and I&rsquo;ll give you a shilling. Come back with him in less than five minutes and I&rsquo;ll give you half-a-crown!&rdquo;</p>'), 'page', 'Stave Five');
+    ER.narrate([
+      '&ldquo;No, no,&rdquo; says Scrooge, &ldquo;I am in earnest. &hellip; Come back with the man, and I&rsquo;ll give you a shilling. Come back with him in less than five minutes and I&rsquo;ll give you half-a-crown!&rdquo;',
+      'You are off like a shot. Round the corner, into the Poulterer&rsquo;s, and back again with the poulterer&rsquo;s man and the Turkey, in well under five minutes.',
+      'It is a Turkey! He never could have stood upon his legs, that bird. &ldquo;I&rsquo;ll send it to Bob Cratchit&rsquo;s!&rdquo; whispers Scrooge. &ldquo;He sha&rsquo;n&rsquo;t know who sends it. It&rsquo;s twice the size of Tiny Tim.&rdquo;',
+      'At the door, waiting, the knocker catches his eye. <i>&ldquo;I shall love it, as long as I live!&rdquo; cried Scrooge, patting it with his hand. &ldquo;I scarcely ever looked at it before. What an honest expression it has in its face! It&rsquo;s a wonderful knocker!&rdquo;</i>',
+      '&ldquo;Why, it&rsquo;s impossible to carry that to Camden Town,&rdquo; says Scrooge. &ldquo;You must have a cab.&rdquo; He chuckles as he pays for the Turkey, and chuckles as he pays for the cab, and chuckles as he puts a half-crown into your hand.',
+      'Half-a-crown. Two shillings and sixpence: one whole day of Bob Cratchit&rsquo;s wages, for five minutes&rsquo; running. You put it in your Sunday pocket.'
+    ], function () { busy = false; reader(); });
+  }
+
+  /* ---------- far away, by the fire, the reader wakes: what the book says ---------- */
+  var COVER = '<h4>Inside the front cover</h4>' +
+    '<p>The <b>topic</b> of a book is what it is about, in a word or two: Christmas, ghosts, money.</p>' +
+    '<p>The <b>theme</b> is what the book says about its topic, in a sentence that somebody could argue with: &ldquo;Money cannot buy happiness.&rdquo;</p>' +
+    '<p>A theme is not true because you like it. It is true of the book if you can point to the words that show it.</p>' +
+    '<p>A great book can say several things at once. Choose one, and give your evidence: two lines from the text are better than one.</p>' +
+    '<p class="ink2">Read it again every Christmas. It says something new each time.</p>';
+  var TH = [['h1', 'People can change, even when they are old and set in their ways.'], ['h2', 'Other people&rsquo;s lives are everybody&rsquo;s business.'], ['h3', 'Kindness and company are worth more than money.'], ['h4', 'Christmas comes once a year, in December.'], ['h5', 'The book is about ghosts.']];
+  var EV = [['v1', '&ldquo;I am not the man I was.&rdquo; (Stave Four)'], ['v2', '&ldquo;Mankind was my business.&rdquo; (Stave One)'], ['v3', '&ldquo;The happiness he gives, is quite as great as if it cost a fortune.&rdquo; (Stave Two)'],
+    ['v4', 'Scrooge was better than his word. He did it all, and infinitely more (Stave Five)'], ['v5', '&ldquo;This boy is Ignorance. This girl is Want. Beware them both &hellip;&rdquo; (Stave Three)'], ['v6', 'But, they were happy, grateful, pleased with one another, and contented with the time (Stave Three)'],
+    ['v7', '&ldquo;Assure me that I yet may change these shadows you have shown me, by an altered life!&rdquo; (Stave Four)'], ['v8', '&ldquo;Are there no prisons?&rdquo; said the Spirit, turning on him for the last time with his own words. (Stave Three)'],
+    ['v9', '&ldquo;His wealth is of no use to him.&rdquo; (Stave Three)'], ['v10', 'The city clocks had only just gone three, but it was quite dark already (Stave One)']];
+  function reader() {
+    if (told.has('theme')) { ending(); return; }
+    busy = true;
+    ER.narrate([
+      'And far away, by a fire that has burnt low, the reader wakes up. The book is on her knee again, and it is whole: every stave in its place, from <i>Marley was dead</i> to <i>God bless Us, Every One!</i>',
+      'She turns to the front. Inside the cover, in faded ink, somebody who owned the book long before her has written something; and under it, a line has been left empty, for whoever reads it next.'
+    ], function () {
+      ER.read({ html: COVER, cls: 'cover', clue: { id: 'cover', title: 'Topic and theme', kind: 'Inside the cover' }, done: function () { CC.terms(['topic', 'theme']); busy = false; openTheme(); } });
+    });
+  }
+  function openTheme() {
+    var pick = { h: null, v: [] };
+    lk = ER.el('div', 'flyleaf');
+    lk.innerHTML = '<h5>On the empty line inside the cover</h5><p class="sent"><i>A Christmas Carol</i> is about <u>Christmas</u>. It says that <u class="s-h">&hellip;</u>, because <u class="s-v">&hellip;</u></p>' +
+      '<h6>What the book says</h6><div class="grid th"></div><h6>Two lines that show it</h6><div class="grid ev"></div>' +
+      '<div class="foot"><p class="pmsg">Choose one sentence that says what the book says, and two lines from the book that prove it.</p><button type="button" class="btn" id="th-go">Write it in</button></div>';
+    var th = lk.querySelector('.th'), ev = lk.querySelector('.ev'), m = lk.querySelector('.pmsg');
+    TH.forEach(function (h) { var b = ER.el('button', 'ch', h[1]); b.type = 'button'; b.setAttribute('data-h', h[0]); th.appendChild(b); });
+    EV.forEach(function (v) { var b = ER.el('button', 'ch', ER.gloss(v[1])); b.type = 'button'; b.setAttribute('data-v', v[0]); ev.appendChild(b); });
+    function draw() {
+      ER.$$('.th .ch', lk).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-h') === pick.h); });
+      ER.$$('.ev .ch', lk).forEach(function (b) { b.classList.toggle('on', pick.v.indexOf(b.getAttribute('data-v')) >= 0); });
+      var h = TH.filter(function (x) { return x[0] === pick.h; })[0];
+      lk.querySelector('.s-h').innerHTML = h ? h[1].replace(/\.$/, '').replace(/^./, function (c) { return c.toLowerCase(); }) : '&hellip;';
+      lk.querySelector('.s-v').innerHTML = pick.v.length ? pick.v.length + (pick.v.length === 1 ? ' line' : ' lines') + ' from the book' : '&hellip;';
+    }
+    lk.addEventListener('click', function (e) {
+      var b = e.target.closest('.ch'); if (!b) return;
+      ER.$$('.bad', lk).forEach(function (n) { n.classList.remove('bad'); });
+      if (b.getAttribute('data-h')) pick.h = b.getAttribute('data-h');
+      else { var v = b.getAttribute('data-v'), i = pick.v.indexOf(v); if (i >= 0) pick.v.splice(i, 1); else { pick.v.push(v); if (pick.v.length > 2) pick.v.shift(); } }
+      CC.sfx.quill(); draw();
+    });
+    lk.querySelector('#th-go').addEventListener('click', function () {
+      if (!pick.h) { ER.sfx.no(); m.innerHTML = 'First choose the sentence: what does the book say?'; return; }
+      if (ER.check('tp', pick.h)) { lk.querySelector('.ch[data-h="' + pick.h + '"]').classList.add('bad'); ER.sfx.no(); m.innerHTML = ER.gloss('True, but that is the topic, or a plain fact: nobody could argue with it. A theme says something about the topic.'); return; }
+      if (pick.v.length < 2) { ER.sfx.no(); m.innerHTML = 'Now two lines from the book that prove it.'; return; }
+      var badv = pick.v.filter(function (v) { return !ER.check('ev' + pick.h, v); });
+      if (badv.length) { badv.forEach(function (v) { lk.querySelector('.ch[data-v="' + v + '"]').classList.add('bad'); }); ER.sfx.no(); m.innerHTML = ER.gloss('That line is in the book, but does it prove <i>this</i>? Which line would you point to, if somebody said, &lsquo;Show me&rsquo;?'); return; }
+      told.set('theme'); CC.sfx.quill(); CC.solved();
+      var h = TH.filter(function (x) { return x[0] === pick.h; })[0][1], vs = pick.v.map(function (v) { return EV.filter(function (x) { return x[0] === v; })[0][1]; });
+      CC.mine('theme', 'What the book says', '<p><i>A Christmas Carol</i> is about Christmas. It says that ' + h.replace(/\.$/, '').replace(/^./, function (c) { return c.toLowerCase(); }) + '.</p><p>Because: ' + vs[0] + '</p><p>And: ' + vs[1] + '</p>');
+      m.innerHTML = ER.gloss('She reads it twice, nods, and writes it in, under all the others.');
+      setTimeout(function () { ER.closeAll(); ending(); }, 2000);
+    });
+    draw();
+    ER.open('ov-lock', lk);
+  }
+
+  /* ---------- the end of it ---------- */
+  function ending() {
+    if (told.has('end')) { finish(true); return; }
+    busy = true;
+    ER.narrate([
+      'Scrooge dresses himself all in his best, and goes out into the streets. Three or four good-humoured fellows say, &ldquo;Good morning, sir! A merry Christmas to you!&rdquo; And of all the blithe sounds he has ever heard, those are the blithest in his ears.',
+      'He meets the portly gentleman who came to the counting-house, and whispers something in his ear. &ldquo;Lord bless me!&rdquo; cries the gentleman. Scrooge says only: &ldquo;Not a farthing less. A great many back-payments are included in it, I assure you.&rdquo;',
+      'In the afternoon he passes his nephew&rsquo;s door a dozen times before he has the courage to knock. &ldquo;It&rsquo;s I. Your uncle Scrooge. I have come to dinner. Will you let me in, Fred?&rdquo;',
+      'Next morning Bob is full eighteen minutes and a half behind his time. Scrooge growls: &ldquo;I am not going to stand this sort of thing any longer.&rdquo; &hellip; &ldquo;and therefore I am about to raise your salary!&rdquo;',
+      '<i>Scrooge was better than his word. He did it all, and infinitely more; and to Tiny Tim, who did NOT die, he was a second father.</i>',
+      '<i>And so, as Tiny Tim observed, God bless Us, Every One!</i>',
+      'Next Christmas, somewhere, somebody will open the book again. And you will be in the street below the window, in your Sunday clothes, ready.'
+    ], function () { told.set('end'); busy = false; finish(false); });
+  }
+  function finish(quick) {
+    var st = ER.state(), mins = CC.minutesPlayed(), hn = ER.hintsUsed();
+    $('#d-time').textContent = 'From the counting-house to Christmas morning: ' + mins + (mins === 1 ? ' minute.' : ' minutes.');
+    $('#d-hints').textContent = hn ? 'Hints asked for: ' + hn + '.' : 'Hints asked for: none at all.';
+    $('#d-words').textContent = 'In your notebook: ' + st.clues.length + ' clues and ' + Object.keys(st.words).length + ' words.';
+    $('#done').classList.add('on');
+    if (quick) ER.say('Christmas morning. The bells have stopped, and the street smells of roast goose.');
+  }
+  CC.thing('#knocker', 'knocker', function () { return told.has('lines') ? '&ldquo;What an honest expression it has in its face! It&rsquo;s a wonderful knocker!&rdquo;' : 'The knocker. Last night, for one moment, it was Marley&rsquo;s face.'; }, function () { return busy; });
+  CC.thing('#shop', 'poulterer', function () { return told.has('lines') ? 'The hook where the prize Turkey hung is empty. It is on its way to Camden Town in a cab.' : 'The Poulterer&rsquo;s, in the next street but one, at the corner. The prize Turkey is hanging there now.'; }, function () { return busy; });
+  CC.thing('#towers', null, function () { bells(2600); return 'Clash, clang, hammer; ding, dong, bell. Every tower is swinging its bells.'; }, function () { return busy; });
+  CC.thing('#turkeyman', null, 'The poulterer&rsquo;s man, and a Turkey twice the size of Tiny Tim.', function () { return busy; });
+  $('#b-book').addEventListener('click', ER.notebook);
+  $('#b-lobby').addEventListener('click', function () { ER.leave('../index.html'); });
+  $('#b-reset').addEventListener('click', function () {
+    var b = $('#b-reset');
+    if (b.getAttribute('data-sure')) { ER.resetStory(); location.href = '../index.html'; return; }
+    b.setAttribute('data-sure', '1'); b.textContent = 'this empties your notebook. click again to do it';
+  });
+  $('#b-task').addEventListener('click', function () {
+    var saved = ER.flag('task') || {}, box = ER.el('div', 'rp');
+    box.innerHTML = '<h4>The Boy in Sunday Clothes &middot; in your own words</h4><h3>Describe a person by showing</h3>' +
+      '<p>Dickens never needs to stop telling you that Scrooge is mean: the coal-box, the ruler, the frosty rime and the blind men&rsquo;s dogs do it for him. Now you. Choose a person, real or invented, and describe them in 60 to 100 words, aloud or on paper, without ever naming the quality you want your reader to see.</p>' +
+      '<p><b>1</b> How they look (face, clothes, voice). <b>2</b> One thing they say, in speech marks. <b>3</b> One thing they do when nobody is watching. <b>4</b> How other people, or animals, behave when they are near.</p>' +
+      '<textarea id="r1"></textarea><div class="count"></div><label for="r2">The quality you never named (fold the paper over this line, and let your teacher guess)</label><input type="text" id="r2" maxlength="60">' +
+      '<div class="foot"><span>Nobody marks this. It is saved in this browser as you write.</span><button type="button" class="btn" id="r-print">Print</button><button type="button" class="btn" id="r-done">Done</button></div>';
+    ER.glossIn(box, '.rp > p');
+    box.querySelector('#r1').value = saved.r1 || ''; box.querySelector('#r2').value = saved.r2 || '';
+    function keep() {
+      var o = { r1: box.querySelector('#r1').value, r2: box.querySelector('#r2').value }, n = (o.r1.match(/[A-Za-z’']+/g) || []).length;
+      box.querySelector('.count').textContent = n + (n === 1 ? ' word' : ' words');
+      ER.flag('task', o);
+    }
+    box.addEventListener('input', keep);
+    box.addEventListener('keydown', function (e) { e.stopPropagation(); });
+    box.querySelector('#r-print').addEventListener('click', function () { keep(); window.print(); });
+    box.querySelector('#r-done').addEventListener('click', ER.close);
+    ER.open('ov-report', box); keep();
+  });
+})();
+</script>
+</body>
+</html>

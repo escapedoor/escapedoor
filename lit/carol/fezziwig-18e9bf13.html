@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Fezziwig's Warehouse · The Boy in Sunday Clothes</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lit.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="carol.css">
+<style>
+  body{--bg:#3a1e0e;--accent:#ffd36a;--font-display:'Henny Penny',cursive;--font-ui:'Goudy Bookletter 1911',serif;--font-body:'Alegreya',serif;
+    --tc-bg:rgba(58,30,14,.96);--tc-ink:#fff0d4;--cap-bg:rgba(62,32,14,.95);--panel:#4a2812;--face-bg:#6a3a1a;--q-ink:#ffd890;--fade:#1a0c04;--hud-bg:rgba(58,30,14,.84)}
+  .tc-room{font-family:'Henny Penny',cursive;font-size:clamp(42px,5.8vw,80px);color:#ffd36a}
+  .tc-text,.cap,.tk-text{font-family:'Alegreya',Georgia,serif}
+  .sH{font-family:'Henny Penny',cursive;text-anchor:middle}
+  .sG{font-family:'Goudy Bookletter 1911',serif;text-anchor:middle}
+  .flame{animation:flick 2s steps(1,end) infinite;transform-box:fill-box;transform-origin:50% 100%}
+  @keyframes flick{0%{transform:scaleY(1)}40%{transform:scaleY(.85)}70%{transform:scaleY(1.1)}}
+  .couple{animation:sway 1.4s ease-in-out infinite alternate}
+  .couple.c2{animation-delay:-.7s}.couple.c3{animation-delay:-.35s}
+  @keyframes sway{from{transform:translateX(-10px)}to{transform:translateX(10px)}}
+  #scene.still .couple{animation:none}
+  #scene.dance #fezz{animation:hop .7s ease-in-out infinite alternate}
+  @keyframes hop{from{transform:translateY(0)}to{transform:translateY(-14px)}}
+  #ghostlight{animation:pulse 3s steps(6,end) infinite}
+  @keyframes pulse{50%{opacity:.75}}
+  .shade.ready,#jot.ready,#ribbons.ready{animation:glow 1.5s steps(1,end) infinite}
+  @keyframes glow{50%{filter:brightness(1.45)}}
+  .shade{cursor:pointer}
+
+  /* the lock: ribbons from the shadows to Scrooge's words to Stave One */
+  .dance{position:relative;padding:12px 16px 12px;background:#f6e6c0 linear-gradient(170deg,#fbefd2,#e8d09c);border:1px solid #9a7a3a;box-shadow:0 26px 70px rgba(0,0,0,.7)}
+  .dance h5{margin:0 0 8px;font-family:'Henny Penny',cursive;font-weight:normal;font-size:22px;color:#7a2a12;text-align:center}
+  .cols{position:relative;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr) minmax(0,1fr);gap:0 64px}
+  .col{display:flex;flex-direction:column;gap:7px;position:relative;z-index:2}
+  .col>i{font-style:normal;font-family:'Goudy Bookletter 1911',serif;font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;color:#7a4a1a;text-align:center}
+  .cd{padding:7px 10px;background:#fffaf0;border:2px solid #c8a868;border-radius:4px;font-family:'Alegreya',Georgia,serif;font-size:14.5px;line-height:1.24;color:#2a1a0a;cursor:pointer}
+  .cd b{display:block;font-family:'Goudy Bookletter 1911',serif;font-weight:normal;font-size:14px;color:#7a2a12;margin-bottom:2px}
+  .cd small{display:block;font-style:italic;color:#5a4a3a;font-size:13.5px}
+  .cd:hover{border-color:#9a6a2a}
+  .cd.sel{border-color:#c0302a;box-shadow:0 0 0 3px rgba(192,48,42,.35)}
+  .cd.bad{background:#f6c8b4}
+  .cols svg.rib{position:absolute;left:0;top:0;width:100%;height:100%;z-index:1;overflow:visible}
+  .cols svg.rib path.hit{stroke:transparent;stroke-width:16;fill:none;cursor:pointer;pointer-events:stroke}
+  .cols svg.rib path.r{fill:none;stroke-width:5;stroke-linecap:round;pointer-events:none}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" class="still" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <filter id="rough" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="11"/><feDisplacementMap in="SourceGraphic" scale="3"/></filter>
+  <pattern id="brick" width="80" height="40" patternUnits="userSpaceOnUse"><rect width="80" height="40" fill="#8a4a26"/><path d="M0 .5h80M0 20.5h80M40 0v20M0 20v20" stroke="#6a3418" stroke-width="2.5"/></pattern>
+  <pattern id="boards" width="220" height="36" patternUnits="userSpaceOnUse"><rect width="220" height="36" fill="#a8743e"/><path d="M0 .5h220M80 0v18M170 18v18" stroke="#7a4e24" stroke-width="2"/><path d="M12 10h50M120 27h40" stroke="#c08a50" stroke-width="2"/></pattern>
+  <radialGradient id="lampG"><stop offset="0" stop-color="#fff0b0" stop-opacity=".6"/><stop offset="1" stop-color="#ffd070" stop-opacity="0"/></radialGradient>
+  <radialGradient id="ghostG"><stop offset="0" stop-color="#fffbe0" stop-opacity=".75"/><stop offset="1" stop-color="#fff0b0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="75%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".65" stop-color="#1a0a02" stop-opacity=".25"/><stop offset="1" stop-color="#0a0400" stop-opacity=".85"/></radialGradient>
+</defs>
+
+<rect x="-1000" y="-400" width="3600" height="1110" fill="url(#brick)"/>
+<rect x="-1000" y="-400" width="3600" height="470" fill="#4a2a14"/><path d="M-1000 70h3600" stroke="#2a1608" stroke-width="12"/>
+<g stroke="#5a3418" stroke-width="16"><path d="M200 70V0M800 70V0M1400 70V0"/></g>
+<rect x="-1000" y="690" width="3600" height="800" fill="url(#boards)"/><rect x="-1000" y="686" width="3600" height="8" fill="#5a3418"/>
+
+<!-- shuttered windows -->
+<g id="shut" class="hot"><g fill="#5a3a1e" stroke="#2a1608" stroke-width="3"><rect x="260" y="150" width="150" height="220"/><rect x="1180" y="150" width="150" height="220"/></g>
+  <g stroke="#3a2210" stroke-width="2"><path d="M335 150v220M260 205h150M260 260h150M260 315h150M1255 150v220M1180 205h150M1180 260h150M1180 315h150"/></g>
+  <g fill="#c8a040"><rect x="250" y="250" width="170" height="10"/><rect x="1170" y="250" width="170" height="10"/></g></g>
+
+<!-- the Ghost's light throws the shadows of the past on the walls -->
+<g id="sh1" class="shade"><rect x="470" y="104" width="150" height="110" rx="10" fill="#fff6d0" opacity=".85"/>
+  <g fill="#3a2a1a" opacity=".75"><rect x="500" y="170" width="70" height="8"/><path d="M520 178v28M560 178v28" stroke="#3a2a1a" stroke-width="4"/><circle cx="540" cy="140" r="9"/><path d="M528 152h24l4 26h-32z"/><rect x="532" y="156" width="22" height="14" fill="#fff6d0"/><path d="M590 200q6 -14 12 0" fill="#c86a2a"/></g>
+  <text x="545" y="230" class="sG" font-size="12" fill="#ffe8a8" letter-spacing="2">THE SCHOOL</text></g>
+<g id="sh2" class="shade"><rect x="650" y="104" width="150" height="110" rx="10" fill="#fff6d0" opacity=".85"/>
+  <g fill="#3a2a1a" opacity=".75"><circle cx="705" cy="132" r="10"/><path d="M693 144h24l6 56h-36z"/><circle cx="745" cy="150" r="8"/><path d="M736 160h18l10 40h-38z"/><path d="M717 152q14 2 22 8" stroke="#3a2a1a" stroke-width="5" fill="none"/></g>
+  <text x="725" y="230" class="sG" font-size="12" fill="#ffe8a8" letter-spacing="2">LITTLE FAN</text></g>
+<g id="sh3" class="shade"><rect x="830" y="104" width="150" height="110" rx="10" fill="#fff6d0" opacity=".85"/>
+  <g fill="#3a2a1a" opacity=".75"><circle cx="880" cy="134" r="9"/><path d="M868 146h24l2 54h-28z"/><circle cx="930" cy="134" r="9"/><path d="M918 146h24l14 54h-52z"/></g>
+  <text x="905" y="230" class="sG" font-size="12" fill="#ffe8a8" letter-spacing="2">A GOLDEN IDOL</text></g>
+<g id="sh4" class="shade"><rect x="1010" y="104" width="150" height="110" rx="10" fill="#fff6d0" opacity=".85"/>
+  <g fill="#3a2a1a" opacity=".75"><circle cx="1045" cy="140" r="9"/><path d="M1034 152h22l10 48h-42z"/><circle cx="1085" cy="132" r="9"/><path d="M1074 144h22l2 56h-26z"/><circle cx="1120" cy="160" r="6"/><path d="M1113 168h14l4 32h-22z"/><circle cx="1140" cy="166" r="5"/><path d="M1134 172h12l3 28h-18z"/><path d="M1150 196q6 -14 10 0" fill="#c86a2a"/></g>
+  <text x="1085" y="230" class="sG" font-size="12" fill="#ffe8a8" letter-spacing="2">BELLE&#8217;S HOUSE</text></g>
+
+<!-- lamps, the clock, the fire -->
+<g><path d="M520 0v40M1080 0v40" stroke="#2a1608" stroke-width="3"/><g fill="#e8c060"><path d="M504 40h32l-6 26h-20z"/><path d="M1064 40h32l-6 26h-20z"/></g>
+  <circle cx="520" cy="60" r="140" fill="url(#lampG)" pointer-events="none"/><circle cx="1080" cy="60" r="140" fill="url(#lampG)" pointer-events="none"/></g>
+<g id="clock" class="hot"><circle cx="1470" cy="200" r="42" fill="#f6e8c4" stroke="#4a2a10" stroke-width="6"/><path d="M1470 200v-26M1470 200l-20 12" stroke="#2a1608" stroke-width="4" stroke-linecap="round"/><circle cx="1470" cy="200" r="4" fill="#2a1608"/></g>
+<g id="hearth" class="hot"><rect x="40" y="420" width="170" height="270" fill="#3a1a0a"/><rect x="26" y="404" width="198" height="20" fill="#6a3a1a"/><g class="flame"><path d="M70 680q20 -80 40 -20q14 -50 30 0q14 -40 30 4z" fill="#ff8a2a"/><path d="M90 680q12 -40 24 -6q10 -26 20 4z" fill="#ffd060"/></g>
+  <circle cx="125" cy="620" r="160" fill="url(#lampG)" pointer-events="none"/></g>
+
+<!-- the high desk, with the fiddler on it -->
+<g id="desk" class="hot"><path d="M250 470h220v220h-220z" fill="#6a3a18" stroke="#2a1608" stroke-width="3"/><path d="M240 460h240v16h-240z" fill="#8a5428"/>
+  <g id="fiddler" transform="translate(360 462)"></g></g>
+<!-- the table: cake, negus, a great piece of Cold Roast, mince-pies -->
+<g id="table" class="hot"><rect x="1200" y="560" width="300" height="16" fill="#8a5a2a"/><path d="M1214 576v114M1486 576v114" stroke="#5a3418" stroke-width="10"/><rect x="1196" y="540" width="308" height="22" fill="#fbf2dc"/>
+  <ellipse cx="1260" cy="536" rx="34" ry="14" fill="#a0522a"/><path d="M1300 540v-34h40v34z" fill="#e8c890"/><path d="M1300 514h40" stroke="#c84a6a" stroke-width="5"/><g fill="#c8803a"><circle cx="1380" cy="532" r="10"/><circle cx="1402" cy="534" r="10"/><circle cx="1424" cy="532" r="10"/></g><path d="M1450 540v-30h22v30z" fill="#7a2a2a" opacity=".85"/></g>
+
+<!-- the dancers -->
+<g id="dancers"><g class="couple" id="cp1" transform="translate(620 690)"></g><g class="couple c2" id="cp2" transform="translate(800 680)"></g><g class="couple c3" id="cp3" transform="translate(990 690)"></g></g>
+<g id="fezz" class="hot"><g transform="translate(650 870)" id="fz1"></g><g transform="translate(760 872)" id="fz2"></g></g>
+
+<!-- the Ghost of Christmas Past, and old Scrooge, as still as a post -->
+<g id="ghost" class="hot"><circle id="ghostlight" cx="1180" cy="560" r="170" fill="url(#ghostG)"/><path d="M1180 520l-60 -380h120z" fill="#fff8d0" opacity=".18"/><g id="ghostfig" transform="translate(1180 860)"></g></g>
+<g id="scr" class="hot"><g id="scrfig" transform="translate(1340 866)"></g></g>
+<!-- Scrooge's words, lying on the floor like dropped ribbons -->
+<g id="ribbons" class="hot"><path d="M880 820q30 -20 60 0t60 0" fill="none" stroke="#c0302a" stroke-width="6" stroke-linecap="round"/><path d="M920 846q30 -16 70 6" fill="none" stroke="#2a7a3a" stroke-width="6" stroke-linecap="round"/><path d="M1000 830q20 20 50 0" fill="none" stroke="#c0302a" stroke-width="6" stroke-linecap="round"/>
+  <g fill="#fffaf0" stroke="#8a6a3a" stroke-width="1.5"><rect x="930" y="800" width="44" height="18" transform="rotate(-6 952 809)"/><rect x="1010" y="836" width="40" height="16" transform="rotate(8 1030 844)"/></g></g>
+<!-- a reader's notebook page, under the bench -->
+<g><rect x="430" y="760" width="200" height="16" fill="#6a3a18"/><path d="M444 776v44M616 776v44" stroke="#4a2810" stroke-width="10"/></g>
+<g id="jot" class="hot" transform="rotate(-10 520 820)"><rect x="480" y="800" width="80" height="56" fill="#fffdf5" stroke="#8a9ab0" stroke-width="1.5"/><path d="M486 812h66M486 822h60M486 832h66M486 842h46" stroke="#7a8aa8" stroke-width="1.3"/><path d="M492 800v56" stroke="#d65050" stroke-width="1" opacity=".6"/></g>
+
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Hold on to the Spirit: back to bed</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="carol.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told, nextFile = null, lock = null;
+  (function () {
+    var F = CC.fig;
+    $('#cp1').innerHTML = '<g class="ink"><g transform="translate(-30 0)">' + F({ h: 220, coat: '#2a4a6a', legs: '#d8d0c0', hairStyle: 'short', hair: '#4a2a14', face: 'smile', armR: 'out' }) + '</g><g transform="translate(34 0)">' + F({ h: 205, kind: 'dress', coat: '#c84a5a', hairStyle: 'bun', hair: '#6a3a1a', face: 'smile', armL: 'out', thin: true }) + '</g></g>';
+    $('#cp2').innerHTML = '<g class="ink"><g transform="translate(-30 0)">' + F({ h: 210, coat: '#5a6a2a', legs: '#4a3a2a', hairStyle: 'curls', hair: '#2a1a0a', face: 'smile', armR: 'out' }) + '</g><g transform="translate(34 0)">' + F({ h: 200, kind: 'dress', coat: '#e8c060', hairStyle: 'bun', hair: '#2a1a0a', face: 'smile', armL: 'out', thin: true, apron: '#fbf2dc' }) + '</g></g>';
+    $('#cp3').innerHTML = '<g class="ink"><g transform="translate(-30 0)">' + F({ h: 222, coat: '#6a2a2a', legs: '#d8d0c0', hairStyle: 'short', hair: '#8a5a2a', face: 'smile', armR: 'out', neck: 'cravat' }) + '</g><g transform="translate(34 0)">' + F({ h: 204, kind: 'dress', coat: '#4a7a8a', hairStyle: 'long', hair: '#a87a3a', face: 'smile', armL: 'out', thin: true }) + '</g></g>';
+    $('#fz1').innerHTML = '<g class="ink">' + F({ h: 300, w: 1.5, coat: '#7a3a2a', vest: '#e6b85a', legs: '#efe6d0', skin: '#f4c09a', hat: 'cap', hatc: '#f4f1ea', hairStyle: 'none', face: 'smile', cheeks: '#e8705a', armR: 'up', armL: 'out' }) + '</g>';
+    $('#fz2').innerHTML = '<g class="ink">' + F({ h: 270, w: 1.45, kind: 'dress', coat: '#8a3a6a', skin: '#f2c8a8', hat: 'bonnet', hatc: '#f6efe2', hairStyle: 'bun', hair: '#5a3a2a', face: 'smile', cheeks: '#e8705a', armL: 'up', armR: 'out', thin: true }) + '</g>';
+    $('#fiddler').innerHTML = '<g class="ink">' + F({ h: 170, coat: '#3a3a4a', legs: '#5a4a3a', hairStyle: 'short', hair: '#2a1a0a', face: 'smile', armL: 'up', armR: 'out', extra: '<path d="M-60 -260l50 30" stroke="#7a3a12" stroke-width="10" stroke-linecap="round"/><path d="M10 -240l70 -40" stroke="#efe6d0" stroke-width="3"/>' }) + '</g>';
+    $('#ghostfig').innerHTML = F({ h: 240, kind: 'tunic', coat: '#fffdf6', legs: '#fde8d6', skin: '#fde8d6', hairStyle: 'long', hair: '#fdfdf8', face: 'smile', armR: 'out', shoes: '#fde8d6', extra: '<path d="M0 -290v-60" stroke="#fff6b0" stroke-width="16" stroke-linecap="round"/><path d="M0 -290v-54" stroke="#fff" stroke-width="7" stroke-linecap="round"/><path d="M-34 -210q-30 -10 -40 -40" stroke="#2f6b2f" stroke-width="5" fill="none"/><g fill="#e85a7a"><circle cx="-20" cy="-140" r="5"/><circle cx="20" cy="-130" r="5"/></g>' });
+    $('#scrfig').innerHTML = '<g class="ink">' + F({ h: 300, kind: 'gown', coat: '#6a4a5a', sash: '#8a2a2a', skin: '#e6cfb4', hat: 'night', nose: 'pointed', face: 'plain', hairStyle: 'none', armL: 'down', armR: 'down', flip: true }) + '</g>';
+  })();
+
+  ER.init({
+    theme: 'lit', story: 'carol', storyTitle: 'The Boy in Sunday Clothes', id: 'fezziwig', no: 'III', title: 'Fezziwig’s Warehouse',
+    go: 'Through the wall, after them',
+    intro: [
+      'You forged the chain of the book link by link. Every stave picks up where the last one stops. Scrooge falls asleep, and wakes in the dark; he falls asleep again, and wakes with the bell &lsquo;again&rsquo; upon the stroke of One, so that stave comes second; a Phantom comes towards him, and the next stave begins with the Phantom; the Phantom dwindles into a bedpost, and the last stave begins, &lsquo;Yes! and the bedpost was his own.&rsquo; The kettle and the church belonged to two other Christmas books by Dickens, <i>The Cricket on the Hearth</i> and <i>The Chimes</i>.',
+      'At One the curtains of Scrooge&rsquo;s bed were drawn aside by a strange figure, like a child and like an old man at once, with a bright clear jet of light springing from the crown of its head: the Ghost of Christmas Past. It clasped him gently by the arm, and they passed through the wall. You went after them.',
+      'The Ghost has brought him to a warehouse in the city, on a Christmas Eve long ago, where young Ebenezer Scrooge was an apprentice. &ldquo;These are but shadows of the things that have been,&rdquo; it says. The shadows cannot see you either.'
+    ],
+    exit: {"next":"cratchit","w":{"82fd8a9c":"c9267612"}}, tags: {"a1b":["f7eb0412"],"a2b":["51eb01c5"],"a3b":["d56a28f4"],"a4b":["8bf4f75c"],"a1c":["1a842b88"],"a2c":["996c2ae2"],"a3c":["68c9fb78"],"a4c":["70e088d2"],"bd":["dea92d00","dc0f01ec"],"cd":["7b3ee355"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = CC.told('c-told'); nextFile = ER.flag('c-file') || null;
+  var NEED = ['jot', 'ghost', 'sh1', 'sh2', 'sh3', 'sh4'];
+  function isBusy() { return busy; }
+  function ready() { return NEED.every(function (k) { return told.has(k); }); }
+  function paint() {
+    var s = $('#scene');
+    s.classList.toggle('still', !nextFile);
+    s.classList.toggle('dance', !!nextFile);
+    $('#jot').classList.toggle('ready', !told.has('jot'));
+    ['sh1', 'sh2', 'sh3', 'sh4'].forEach(function (k) { $('#' + k).classList.toggle('ready', told.has('jot') && told.has('ghost') && !told.has(k)); });
+    $('#ribbons').classList.toggle('ready', ready() && !nextFile);
+    ER.pips(NEED.filter(function (k) { return told.has(k); }).length + (nextFile ? 1 : 0), 7);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The flashback has done its work. The button at the bottom takes you back with Scrooge.']];
+    if (lock && lock.parentNode) return ['ribbons', [
+      'Start with the shadows on the left. Each one&rsquo;s page in your notebook ends with the Ghost asking Scrooge something, or with somebody saying something about him. Which of his words, in the middle, answers it?',
+      'Two of the middle lines are Scrooge&rsquo;s, but from later staves, when other Spirits are with him. Then, for the right-hand ribbons: whom in Stave One is he thinking of? The boy at the school makes him think of another boy; Fan&rsquo;s child is his nephew; Fezziwig makes him think of his own clerk.',
+      'Belle&rsquo;s husband saw Scrooge &lsquo;quite alone in the world&rsquo;; on Christmas Eve Scrooge told the gentlemen he wished to be left alone. The carol singer was chased off with a ruler; Fred asked &lsquo;why cannot we be friends?&rsquo;; Bob was threatened with losing his situation.'
+    ]];
+    if (!told.has('jot')) return ['jot', ['Readers leave things in books. Under the bench at the front, on the left, there is a page from somebody&rsquo;s notebook.', 'Click the page under the bench.']];
+    if (!told.has('ghost')) return ['ghost', ['The Ghost of Christmas Past is standing by old Scrooge, on the right, in its own light. Click it.']];
+    if (!ready()) return ['shadows', [
+      'The Ghost&rsquo;s light throws the shadows of Scrooge&rsquo;s past on the walls: four bright pictures high up between the lamps. Read every one.',
+      'Read all four: the school, little Fan, the golden idol and Belle&rsquo;s house. Notice how each page ends.'
+    ]];
+    return ['all', ['Everything is read. Click the ribbons lying on the floor, or old Scrooge, and tie his words back where they belong.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('The fiddler is playing Sir Roger de Coverley, and old Scrooge is acting like a man out of his wits.'); return; }
+    if (told.has('in')) { busy = false; ER.say('Fezziwig&rsquo;s ball, and old Scrooge as still as a post.'); return; }
+    told.set('in');
+    ER.narrate([
+      '&ldquo;Why, it&rsquo;s old Fezziwig! Bless his heart; it&rsquo;s Fezziwig alive again!&rdquo; An old gentleman in a Welsh wig, at a desk so high that two inches more would knock his head on the ceiling, looks up at the clock. It points to the hour of seven.',
+      '&ldquo;Yo ho, my boys!&rdquo; says Fezziwig. &ldquo;No more work to-night. Christmas Eve, Dick. Christmas, Ebenezer!&rdquo; Two apprentices charge into the street with the shutters, one, two, three, and the warehouse becomes a ball-room.',
+      'In comes a fiddler with a music-book, and goes up to the lofty desk, and makes an orchestra of it. In comes Mrs. Fezziwig, one vast substantial smile. In they all come, one after another.',
+      'Then you look at old Scrooge, in his dressing-gown and nightcap, among the dancers. He is standing as still as a post. His face shows nothing at all.',
+      'That is what has gone wrong with this stave. The Ghost&rsquo;s light throws all the shadows of his past on the walls at once. But the words that say what Scrooge felt as he watched them have been shaken out of the page. Without them, the flashback does nothing to him.',
+      'His words lie on the floor among the dancers&rsquo; feet, like dropped ribbons.'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- papers ---------- */
+  var JOT = '<h4>Flashbacks, and how you can tell somebody is changing</h4>' +
+    '<p>A flashback takes the story back to an earlier time. It is never there by accident: it explains how a person came to be the way they are now, and it often starts to change them.</p>' +
+    '<p>Writers seldom say &ldquo;he changed&rdquo;. They show it in small things. So watch the person who is watching:</p>' +
+    '<ul><li>a tear, or a voice that catches;</li><li>a short answer that hides a feeling;</li><li>a wish: &ldquo;I should like to &hellip;&rdquo;, &ldquo;I wish &hellip;&rdquo;;</li><li>a plea to stop: &ldquo;show me no more&rdquo;.</li></ul>' +
+    '<p>Then ask the most useful question of all: who in his present is he thinking of? A woman who suddenly asks after an old friend&rsquo;s children is not really thinking about the past. She is thinking about today.</p>';
+  var SH = {
+    sh1: ['The school', '<p>They went, the Ghost and Scrooge, across the hall, to a door at the back of the house. It opened before them, and disclosed a long, bare, melancholy room, made barer still by lines of plain deal forms and desks. At one of these a lonely boy was reading near a feeble fire; and Scrooge sat down upon a form, and wept to see his poor forgotten self as he used to be.</p><p class="gap">* * *</p>' +
+      '<p>&ldquo;I wish,&rdquo; Scrooge muttered, putting his hand in his pocket, and looking about him, after drying his eyes with his cuff: &ldquo;but it&rsquo;s too late now.&rdquo;</p><p>&ldquo;What is the matter?&rdquo; asked the Spirit.</p>'],
+    sh2: ['Little Fan', '<p>It opened; and a little girl, much younger than the boy, came darting in, and putting her arms about his neck, and often kissing him, addressed him as her &ldquo;Dear, dear brother.&rdquo;</p><p>&ldquo;I have come to bring you home, dear brother!&rdquo; said the child, clapping her tiny hands, and bending down to laugh. &ldquo;To bring you home, home, home!&rdquo;</p><p>&ldquo;Home, little Fan?&rdquo; returned the boy.</p><p class="gap">* * *</p>' +
+      '<p>&ldquo;Always a delicate creature, whom a breath might have withered,&rdquo; said the Ghost. &ldquo;But she had a large heart!&rdquo;</p><p>&ldquo;So she had,&rdquo; cried Scrooge. &ldquo;You&rsquo;re right. I will not gainsay it, Spirit. God forbid!&rdquo;</p><p>&ldquo;She died a woman,&rdquo; said the Ghost, &ldquo;and had, as I think, children.&rdquo;</p>'],
+    sh3: ['A golden idol', '<p>Again Scrooge saw himself. He was older now; a man in the prime of life. His face had not the harsh and rigid lines of later years; but it had begun to wear the signs of care and avarice.</p><p>He was not alone, but sat by the side of a fair young girl in a mourning-dress: in whose eyes there were tears, which sparkled in the light that shone out of the Ghost of Christmas Past.</p>' +
+      '<p>&ldquo;It matters little,&rdquo; she said, softly. &ldquo;To you, very little. Another idol has displaced me; and if it can cheer and comfort you in time to come, as I would have tried to do, I have no just cause to grieve.&rdquo;</p><p>&ldquo;What Idol has displaced you?&rdquo; he rejoined.</p><p>&ldquo;A golden one.&rdquo;</p><p class="gap">* * *</p>' +
+      '<p>&ldquo;&hellip; I release you. With a full heart, for the love of him you once were.&rdquo;</p><p class="gap">* * *</p><p>She left him, and they parted.</p>'],
+    sh4: ['Belle&rsquo;s house', '<p>They were in another scene and place; a room, not very large or handsome, but full of comfort. Near to the winter fire sat a beautiful young girl, so like that last that Scrooge believed it was the same, until he saw her, now a comely matron, sitting opposite her daughter.</p><p class="gap">* * *</p>' +
+      '<p>&ldquo;Belle,&rdquo; said the husband, turning to his wife with a smile, &ldquo;I saw an old friend of yours this afternoon.&rdquo;</p><p>&ldquo;Who was it?&rdquo;</p><p>&ldquo;Guess!&rdquo;</p><p>&ldquo;How can I? Tut, don&rsquo;t I know?&rdquo; she added in the same breath, laughing as he laughed. &ldquo;Mr. Scrooge.&rdquo;</p>' +
+      '<p>&ldquo;Mr. Scrooge it was. I passed his office window; and as it was not shut up, and he had a candle inside, I could scarcely help seeing him. His partner lies upon the point of death, I hear; and there he sat alone. Quite alone in the world, I do believe.&rdquo;</p>']
+  };
+  $('#jot').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: JOT, cls: 'jot', clue: { id: 'jot', title: 'Flashbacks, and change', kind: 'Left in the book' }, done: function () {
+      CC.terms(['flashback', 'inference']);
+      if (told.set('jot')) { paint(); ER.say(told.has('ghost') ? 'Watch the watcher. Now the shadows on the walls.' : 'Watch the person who is watching. The Ghost is standing by old Scrooge, on the right.'); }
+    } });
+  });
+  ['sh1', 'sh2', 'sh3', 'sh4'].forEach(function (k) {
+    $('#' + k).addEventListener('click', function () {
+      if (busy) return;
+      ER.read({ html: CC.page('STAVE II', SH[k][0], SH[k][1]), cls: 'page', clue: { id: k, title: SH[k][0], kind: 'Stave Two' }, done: function () {
+        if (told.set(k)) { paint(); if (ready()) ER.say('Every shadow is read, and every page stops before Scrooge answers. His answers are on the floor.'); }
+      } });
+    });
+  });
+  $('#ghost').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'The Ghost of Christmas Past', role: 'Stave Two · what the page says', face: window.FACE('pastghost'),
+      lines: [
+        { note: 'A strange figure: like a child, yet not so like a child as like an old man. Its hair is white as if with age, and yet the face has not a wrinkle in it. From the crown of its head there springs a bright clear jet of light.', a: '&ldquo;Who, and what are you?&rdquo; Scrooge demanded.</p><p>&ldquo;I am the Ghost of Christmas Past.&rdquo;</p><p>&ldquo;Long Past?&rdquo; inquired Scrooge: observant of its dwarfish stature.</p><p>&ldquo;No. Your past.&rdquo;' },
+        { a: '&ldquo;These are but shadows of the things that have been,&rdquo; said the Ghost. &ldquo;They have no consciousness of us.&rdquo;' },
+        { note: 'Here, at the ball, the Ghost signs to Scrooge to listen to the two apprentices, who are pouring out their hearts in praise of Fezziwig.', a: '&ldquo;A small matter,&rdquo; said the Ghost, &ldquo;to make these silly folks so full of gratitude.&rdquo;</p><p>&ldquo;Small!&rdquo; echoed Scrooge.</p><p>&ldquo;Why! Is it not? He has spent but a few pounds of your mortal money: three or four perhaps. Is that so much that he deserves this praise?&rdquo;' },
+        { a: '&ldquo;It isn&rsquo;t that,&rdquo; said Scrooge, heated by the remark, and speaking unconsciously like his former, not his latter, self. &ldquo;It isn&rsquo;t that, Spirit. He has the power to render us happy or unhappy; to make our service light or burdensome; a pleasure or a toil. Say that his power lies in words and looks; in things so slight and insignificant that it is impossible to add and count &rsquo;em up: what then? The happiness he gives, is quite as great as if it cost a fortune.&rdquo;' },
+        { a: 'He felt the Spirit&rsquo;s glance, and stopped.</p><p>&ldquo;What is the matter?&rdquo; asked the Ghost.</p><p>&ldquo;Nothing particular,&rdquo; said Scrooge.</p><p>&ldquo;Something, I think?&rdquo; the Ghost insisted.' },
+        { note: 'And there the page stops, in the middle of the ball. Whatever Scrooge said next is lying on the floor.' }
+      ],
+      clue: { id: 'ghost', title: 'The Ghost of Christmas Past, at the ball', kind: 'Stave Two' },
+      done: function (seen) { if (seen && told.set('ghost')) { paint(); ER.say(told.has('jot') ? 'Now the four shadows on the walls, high up between the lamps.' : 'A page from somebody&rsquo;s notebook is lying under the bench, on the left.'); } }
+    });
+  });
+  $('#fezz').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Mr. Fezziwig', role: 'Stave Two · what the page says', face: window.FACE('fezziwig'),
+      lines: [
+        { note: 'He rubs his hands; adjusts his capacious waistcoat; laughs all over himself, from his shoes to his organ of benevolence; and calls out in a comfortable, oily, rich, fat, jovial voice:', a: '&ldquo;Yo ho, there! Ebenezer! Dick!&rdquo;' },
+        { a: '&ldquo;Yo ho, my boys!&rdquo; said Fezziwig. &ldquo;No more work to-night. Christmas Eve, Dick. Christmas, Ebenezer! Let&rsquo;s have the shutters up,&rdquo; cried old Fezziwig, with a sharp clap of his hands, &ldquo;before a man can say Jack Robinson!&rdquo;' },
+        { a: '&ldquo;Hilli-ho!&rdquo; cried old Fezziwig, skipping down from the high desk, with wonderful agility. &ldquo;Clear away, my lads, and let&rsquo;s have lots of room here! Hilli-ho, Dick! Chirrup, Ebenezer!&rdquo;' },
+        { note: 'When the clock strikes eleven, Mr. and Mrs. Fezziwig will take their stations, one on either side of the door, and shake hands with every person as he or she goes out, and wish them a Merry Christmas.' }
+      ],
+      clue: { id: 'fezz', title: 'Mr. Fezziwig', kind: 'Stave Two' },
+      done: function (seen) { if (seen) told.set('fezz'); }
+    });
+  });
+  CC.thing('#clock', 'clock', 'The clock points to the hour of seven. This domestic ball will break up when it strikes eleven.', isBusy);
+  CC.thing('#shut', 'shutters', 'The shutters went up, one, two, three, four, five, six, barred and pinned, seven, eight, nine, before you could have got to twelve.', isBusy);
+  CC.thing('#table', null, 'There is cake, and there is negus, and there is a great piece of Cold Roast, and a great piece of Cold Boiled, and mince-pies, and plenty of beer.', isBusy);
+  CC.thing('#desk', 'fiddler', 'The fiddler has made an orchestra of the lofty desk, and tunes like fifty stomach-aches.', isBusy);
+  CC.thing('#hearth', null, 'Fuel heaped upon the fire, the floor swept and watered, the lamps trimmed: as snug, and warm, and dry, and bright a ball-room as you would desire to see.', isBusy);
+  function openOrSay() {
+    if (busy) return;
+    if (nextFile) { ER.say('Old Scrooge&rsquo;s heart and soul are in the scene, and with his former self.'); return; }
+    if (!ready()) { ER.say(!told.has('jot') ? 'Old Scrooge, as still as a post. Before you touch his words, see what a reader left under the bench.' : !told.has('ghost') ? 'Old Scrooge, as still as a post. The Ghost beside him is lighting the whole room.' : 'Old Scrooge, as still as a post. Read the shadows on the walls first: every one of them.'); return; }
+    openLock();
+  }
+  $('#ribbons').addEventListener('click', openOrSay);
+  $('#scr').addEventListener('click', openOrSay);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the lock: tie the ribbons ---------- */
+  var A = [['a1', 'The school', '&ldquo;What is the matter?&rdquo; asked the Spirit.'], ['a2', 'Little Fan', '&ldquo;She died a woman,&rdquo; said the Ghost, &ldquo;and had, as I think, children.&rdquo;'],
+    ['a3', 'Mr. Fezziwig&rsquo;s ball', '&ldquo;Something, I think?&rdquo; the Ghost insisted.'], ['a4', 'Belle&rsquo;s house', '&ldquo;&hellip; there he sat alone. Quite alone in the world, I do believe.&rdquo;']];
+  var B = [['b1', '&ldquo;Spirit,&rdquo; said Scrooge, with an interest he had never felt before, &ldquo;tell me if Tiny Tim will live.&rdquo;'],
+    ['b2', '&ldquo;I should like to be able to say a word or two to my clerk just now. That&rsquo;s all.&rdquo;'],
+    ['b3', '&ldquo;Spirit!&rdquo; said Scrooge in a broken voice, &ldquo;remove me from this place.&rdquo;'],
+    ['b4', '&ldquo;There was a boy singing a Christmas Carol at my door last night. I should like to have given him something: that&rsquo;s all.&rdquo;'],
+    ['b5', '&ldquo;I am not the man I was.&rdquo;'],
+    ['b6', '&ldquo;One child,&rdquo; Scrooge returned. &hellip; Scrooge seemed uneasy in his mind; and answered briefly, &ldquo;Yes.&rdquo;']];
+  var C = [['c1', '&ldquo;I wish to be left alone,&rdquo; said Scrooge.'], ['c2', 'Scrooge seized the ruler with such energy of action, that the singer fled in terror'],
+    ['c3', '&ldquo;The Treadmill and the Poor Law are in full vigour, then?&rdquo; said Scrooge.'], ['c4', '&ldquo;I want nothing from you; I ask nothing of you; why cannot we be friends?&rdquo; &ldquo;Good afternoon,&rdquo; said Scrooge.'],
+    ['c5', '&ldquo;Let me hear another sound from you,&rdquo; said Scrooge, &ldquo;and you&rsquo;ll keep your Christmas by losing your situation!&rdquo;']];
+  function openLock() {
+    var busyL = false, AB = ER.flag('c-ab') || {}, BC = ER.flag('c-bc') || {}, sel = null;
+    lock = ER.el('div', 'pz');
+    var box = ER.el('div', 'dance');
+    box.innerHTML = '<h5>Tie each shadow to Scrooge&rsquo;s words, and his words to Christmas Eve</h5><div class="cols"><svg class="rib"></svg>' +
+      '<div class="col" data-c="A"><i>The shadow</i></div><div class="col" data-c="B"><i>What Scrooge said as he watched</i></div><div class="col" data-c="C"><i>Whom he was thinking of: Stave One</i></div></div>';
+    var foot = ER.el('div', 'pz-foot', '<p class="pmsg"></p><button type="button" class="btn" id="strike">Strike up Sir Roger de Coverley</button>');
+    lock.appendChild(box); lock.appendChild(foot);
+    var cols = box.querySelector('.cols'), svg = box.querySelector('svg.rib'), m = foot.querySelector('.pmsg');
+    function msg(t) { m.innerHTML = ER.gloss(t); }
+    function card(col, d, html) { var c = ER.el('div', 'cd', html); c.setAttribute('data-id', d); c.setAttribute('data-col', col); box.querySelector('.col[data-c="' + col + '"]').appendChild(c); }
+    A.forEach(function (a) { card('A', a[0], '<b>' + a[1] + '</b><small>' + a[2] + '</small>'); });
+    B.forEach(function (b) { card('B', b[0], ER.gloss(b[1])); });
+    C.forEach(function (c) { card('C', c[0], ER.gloss(c[1])); });
+    function cardEl(id) { return box.querySelector('.cd[data-id="' + id + '"]'); }
+    function draw() {
+      var R = cols.getBoundingClientRect(), s = '';
+      function seg(x, y, z, colour, kind) {
+        var r1 = cardEl(x).getBoundingClientRect(), r2 = cardEl(y).getBoundingClientRect();
+        var x1 = r1.right - R.left, y1 = r1.top + r1.height / 2 - R.top, x2 = r2.left - R.left, y2 = r2.top + r2.height / 2 - R.top, mx = (x1 + x2) / 2;
+        var d = 'M' + x1 + ' ' + y1 + 'C' + mx + ' ' + y1 + ' ' + mx + ' ' + y2 + ' ' + x2 + ' ' + y2;
+        s += '<path class="r" d="' + d + '" stroke="' + colour + '"/><path class="hit" d="' + d + '" data-cut="' + kind + ':' + z + '"/>';
+      }
+      Object.keys(AB).forEach(function (a) { seg(a, AB[a], a, '#c0302a', 'ab'); });
+      Object.keys(BC).forEach(function (b) { seg(b, BC[b], b, '#2a7a3a', 'bc'); });
+      svg.innerHTML = s;
+      ER.$$('.cd', box).forEach(function (c) { var id = c.getAttribute('data-id'); c.classList.toggle('sel', id === sel); });
+      ER.flag('c-ab', AB); ER.flag('c-bc', BC);
+    }
+    function tie(x, y) {
+      var cx = x.charAt(0), cy = y.charAt(0), k;
+      if (cx === 'b' && cy === 'a') { k = x; x = y; y = k; cx = 'a'; cy = 'b'; }
+      if (cx === 'c' && cy === 'b') { k = x; x = y; y = k; cx = 'b'; cy = 'c'; }
+      if (cx === 'a' && cy === 'b') { for (k in AB) if (AB[k] === y) delete AB[k]; AB[x] = y; return true; }
+      if (cx === 'b' && cy === 'c') { for (k in BC) if (BC[k] === y) delete BC[k]; BC[x] = y; return true; }
+      return false;
+    }
+    box.addEventListener('click', function (e) {
+      if (busyL || nextFile) return;
+      var cut = e.target.getAttribute && e.target.getAttribute('data-cut');
+      if (cut) { var p = cut.split(':'); if (p[0] === 'ab') delete AB[p[1]]; else delete BC[p[1]]; CC.sfx.snow(); draw(); msg('Ribbon untied.'); return; }
+      var c = e.target.closest ? e.target.closest('.cd') : null; if (!c) return;
+      ER.$$('.bad', box).forEach(function (n) { n.classList.remove('bad'); });
+      var id = c.getAttribute('data-id');
+      if (!sel) { sel = id; CC.sfx.pluck(); draw(); return; }
+      if (sel === id) { sel = null; draw(); return; }
+      if (tie(sel, id)) { sel = null; CC.sfx.pluck(); draw(); msg('Tied.'); }
+      else { sel = id; draw(); msg('A ribbon runs between two cards side by side: a shadow and Scrooge&rsquo;s words, or his words and Stave One.'); }
+    });
+    window.addEventListener('resize', function () { if (lock && lock.parentNode) draw(); });
+    foot.querySelector('#strike').addEventListener('click', function () {
+      if (busyL || nextFile) return;
+      for (var i = 0; i < A.length; i++) {
+        var a = A[i][0], b = AB[a], c = b ? BC[b] : null, row = cardEl(a);
+        if (!b) { ER.sfx.no(); msg('The fiddler waits. The shadow &lsquo;' + A[i][1] + '&rsquo; has no ribbon to Scrooge&rsquo;s words yet. Click a card, then the card it belongs with.'); return; }
+        if (!c) { ER.sfx.no(); msg('The fiddler waits. The words tied to &lsquo;' + A[i][1] + '&rsquo; have no ribbon to Stave One yet.'); return; }
+        if (!ER.check(a + 'b', b)) {
+          row.classList.add('bad'); cardEl(b).classList.add('bad'); ER.sfx.no();
+          msg(ER.check('bd', b) ? 'The music stumbles. Scrooge does say that, but in another stave, when another Spirit is with him. Which of his words belong to tonight, with the Ghost of Christmas Past? <i>(Only the first wrong ribbon is ever shown.)</i>' : 'The music stumbles at &lsquo;' + A[i][1] + '&rsquo;. Read the end of that shadow&rsquo;s page again: it asks Scrooge something, or says something about him. Which of his words answers it? <i>(Only the first wrong ribbon is ever shown.)</i>');
+          return;
+        }
+        if (!ER.check(a + 'c', c)) {
+          cardEl(b).classList.add('bad'); cardEl(c).classList.add('bad'); ER.sfx.no();
+          msg(ER.check('cd', c) ? 'The music stumbles. Scrooge did say that on Christmas Eve, but nobody in tonight&rsquo;s shadows makes him think of it. <i>(Only the first wrong ribbon is ever shown.)</i>' : 'The music stumbles. Who in Stave One is Scrooge thinking of, as he says that? Find what he said or did to that person on Christmas Eve: the pages are in your notebook. <i>(Only the first wrong ribbon is ever shown.)</i>');
+          return;
+        }
+      }
+      var cand = A.map(function (a) { return AB[a[0]] + '.' + BC[AB[a[0]]]; }).join('-');
+      var file = ER.exit([cand], { wait: true });
+      if (!file) { msg('The ribbons will not hold. Something is wrong with this page: tell your teacher.'); return; }
+      nextFile = file; ER.flag('c-file', file); busyL = true; paint();
+      msg('The fiddler strikes up &lsquo;Sir Roger de Coverley&rsquo;, and old Scrooge begins to move.');
+      setTimeout(function () {
+        ER.closeAll(); busy = true;
+        CC.mine('ribbons', 'What the shadows did to Scrooge', '<p>The school, the lonely boy: &ldquo;There was a boy singing a Christmas Carol at my door last night. I should like to have given him something: that&rsquo;s all.&rdquo; He thinks of the carol singer he chased off with the ruler.</p><p>Little Fan, who had one child: &ldquo;Your nephew!&rdquo; Uneasy, he answers, &ldquo;Yes.&rdquo; He thinks of Fred, who asked &lsquo;why cannot we be friends?&rsquo;</p><p>Fezziwig&rsquo;s ball: &ldquo;I should like to be able to say a word or two to my clerk just now.&rdquo; He thinks of Bob, whom he threatened with losing his situation.</p><p>Belle&rsquo;s house, where her husband saw him &lsquo;quite alone in the world&rsquo;: &ldquo;Spirit!&rdquo; &hellip; &ldquo;remove me from this place.&rdquo; On Christmas Eve he told the gentlemen, &lsquo;I wish to be left alone.&rsquo;</p><p>Belle&rsquo;s husband saw him on the night his partner lay dying: Marley died seven years ago, on Christmas Eve.</p>');
+        ER.narrate([
+          'During the whole of the ball, old Scrooge acts like a man out of his wits. His heart and soul are in the scene, and with his former self. He corroborates everything, remembers everything, enjoys everything.',
+          'He says: &ldquo;I should like to be able to say a word or two to my clerk just now. That&rsquo;s all.&rdquo; It is a very small sentence. It is the first time in the book that Scrooge has wished he had been kinder to anybody now alive.',
+          '&ldquo;My time grows short,&rdquo; says the Spirit. &ldquo;Quick!&rdquo; And the shadows go by: Belle in her mourning-dress, and Belle by her own fire with her daughter. <i>&ldquo;Spirit!&rdquo; said Scrooge in a broken voice, &ldquo;remove me from this place.&rdquo;</i>',
+          'Scrooge seizes the great extinguisher-cap and presses it down on the Ghost&rsquo;s head; but he cannot hide the light, which streams from under it in an unbroken flood upon the ground.',
+          'And he is in his own bedroom again, and reels to bed, and sinks into a heavy sleep. You hold on to the bed-curtain. The next stave is a long one, and it begins with a snore.'
+        ], function () { busy = false; $('#go').classList.add('on'); });
+      }, 2600);
+    });
+    msg('Click a card, then the card it belongs with in the next column, to tie a ribbon. Click a ribbon to untie it. Every shadow needs a red ribbon to Scrooge&rsquo;s words, and his words a green ribbon to Stave One.');
+    ER.open('ov-lock', lock);
+    setTimeout(draw, 30);
+  }
+})();
+</script>
+</body>
+</html>

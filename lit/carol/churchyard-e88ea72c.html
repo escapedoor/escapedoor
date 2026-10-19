@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Churchyard · The Boy in Sunday Clothes</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lit.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="carol.css">
+<style>
+  body{--bg:#2a2a36;--accent:#d8d4f0;--font-display:'Cinzel',serif;--font-ui:'Goudy Bookletter 1911',serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(30,30,40,.97);--tc-ink:#ecebf4;--cap-bg:rgba(32,32,44,.95);--panel:#2e2e3e;--face-bg:#3a3a4c;--q-ink:#d0ccf0;--fade:#0a0a10;--hud-bg:rgba(30,30,40,.84)}
+  .tc-room{font-family:'Cinzel',serif;font-size:clamp(42px,5.8vw,80px);color:#e6e2f8;letter-spacing:.06em}
+  .sC{font-family:'Cinzel',serif;text-anchor:middle}
+  .sG{font-family:'Goudy Bookletter 1911',serif;text-anchor:middle}
+  #flakes circle{animation:fall 9s linear infinite}#flakes circle:nth-child(2n){animation-duration:12s;animation-delay:-4s}#flakes circle:nth-child(3n){animation-duration:10s;animation-delay:-7s}
+  @keyframes fall{from{transform:translate(0,-80px)}to{transform:translate(30px,80px)}}
+  #mist ellipse{animation:mist 30s linear infinite}#mist ellipse:nth-child(2){animation-delay:-12s;animation-duration:38s}
+  @keyframes mist{from{transform:translateX(-200px)}to{transform:translateX(1800px)}}
+  #phantom .hand{animation:point 4s ease-in-out infinite;transform-box:fill-box;transform-origin:0 50%}
+  @keyframes point{50%{transform:rotate(3deg)}}
+  #name{opacity:0;transition:opacity 3s}
+  #scene.read #name{opacity:1}#scene.read #namesnow{opacity:0}
+  #namesnow{transition:opacity 2.5s}
+  #scene.gone #phantom{opacity:0;transition:opacity 3s}
+  .shade.ready,#card.ready,#path.ready{animation:glow 1.5s steps(1,end) infinite}
+  .shade{cursor:pointer}
+  @keyframes glow{50%{filter:brightness(1.4)}}
+
+  /* the lock: the path from the gate to the church door */
+  .yard{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:10px 14px;padding:14px 16px 12px;background:#d8dae2 linear-gradient(170deg,#eceef4,#b8bcc8);border:1px solid #6a6e7e;box-shadow:0 26px 70px rgba(0,0,0,.75)}
+  .yard h5{grid-column:1/3;margin:0;font-family:'Cinzel',serif;font-weight:normal;font-size:20px;color:#2a2a3a;text-align:center;letter-spacing:.04em}
+  .walk{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;padding:8px;background:#9a9eaa repeating-linear-gradient(135deg,#a4a8b4 0 12px,#9a9eaa 12px 24px);border-radius:4px;position:relative}
+  .stone{position:relative;min-height:64px;padding:16px 4px 4px;background:#c8ccd4;border:2px solid #6a6e7a;border-radius:6px 6px 3px 3px;box-shadow:inset 0 6px 0 #f4f6fa}
+  .stone>em{position:absolute;left:6px;top:1px;font-style:normal;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.14em;color:#4a4e5a}
+  .stone.bad{border-color:#b0302a;background:#e8c4bc}
+  .side{display:flex;flex-direction:column;gap:8px}
+  .box{position:relative;padding:6px 6px 6px;border-radius:4px;display:flex;flex-direction:column;gap:5px}
+  .box>i{display:block;margin:0 2px 1px;font-style:normal;font-family:'Goudy Bookletter 1911',serif;font-size:12px;line-height:1.25;letter-spacing:.12em;text-transform:uppercase}
+  .box.may{background:#1c1c24;border:2px solid #4a4a5a}.box.may>i{color:#c8c4e0}
+  .box.out{background:#f4f0e2;border:2px dashed #8a7a5a}.box.out>i{color:#6a5a3a}
+  .box .sl{min-height:52px;border:1px dashed rgba(160,160,190,.5);border-radius:3px}
+  .box.bad{outline:3px solid #e07a5a}
+  .stone .sl{min-height:44px}
+  .tray{grid-column:1/3;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;padding:6px;min-height:50px;background:rgba(40,40,60,.12);border:1px solid #8a8e9a}
+  .yard .slip{font-size:14.5px;padding:5px 8px;background:#fbfaf4;color:#2a2a30;border-color:#9a9aa6}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <filter id="rough" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="21"/><feDisplacementMap in="SourceGraphic" scale="3"/></filter>
+  <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a3a52"/><stop offset=".7" stop-color="#6a6880"/><stop offset="1" stop-color="#8a869a"/></linearGradient>
+  <radialGradient id="handG"><stop offset="0" stop-color="#e8e6f6" stop-opacity=".5"/><stop offset="1" stop-color="#c8c4e0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="75%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".62" stop-color="#0a0a14" stop-opacity=".3"/><stop offset="1" stop-color="#05050a" stop-opacity=".9"/></radialGradient>
+</defs>
+
+<rect x="-1000" y="-400" width="3600" height="1300" fill="url(#skyG)"/>
+<!-- houses walling the churchyard in -->
+<g id="houses" class="hot" fill="#2e2e40"><path d="M-1000 520v-240h320v-60h200v90h260v-120h240v80h180v-40h200v120h400v-90h260v60h1340v200z"/>
+  <g fill="#6a6880" opacity=".55"><rect x="-300" y="320" width="26" height="34"/><rect x="120" y="300" width="26" height="34"/><rect x="420" y="350" width="26" height="34"/><rect x="1500" y="330" width="26" height="34"/></g></g>
+<!-- the church, and its door -->
+<g id="church" class="hot"><rect x="1240" y="140" width="300" height="460" fill="#3a3a4e"/><path d="M1230 142l160 -110 160 110z" fill="#34344a"/><path d="M1350 600v-150q40 -50 80 0v150z" fill="#1c1c28"/>
+  <path d="M1290 300q20 -36 40 0v80h-40zM1450 300q20 -36 40 0v80h-40z" fill="#5a5a74"/><path d="M1230 142l160 -110 160 110" fill="none" stroke="#f4f4fa" stroke-width="8" opacity=".85"/></g>
+<!-- the wall, the snow -->
+<rect x="-1000" y="500" width="3600" height="40" fill="#4a4a5e"/><path d="M-1000 500h3600" stroke="#f0f2f8" stroke-width="7"/>
+<rect x="-1000" y="540" width="3600" height="1000" fill="#dfe2ea"/>
+<g fill="#cfd2dc"><ellipse cx="300" cy="700" rx="400" ry="40"/><ellipse cx="1100" cy="760" rx="500" ry="50"/></g>
+<!-- weeds and grass overrunning everything -->
+<g stroke="#5a6050" stroke-width="3" fill="none"><path d="M120 640q4 -30 -6 -50M130 640q6 -24 16 -40M700 600q-4 -26 4 -46M712 600q8 -20 0 -36M1000 660q-6 -30 6 -50M1210 620q4 -26 -4 -40"/></g>
+<!-- the iron gate -->
+<g id="gate" class="hot"><g stroke="#1e1e26" stroke-width="6"><path d="M40 700V420M200 700V420"/><path d="M60 700V450M84 700V450M108 700V450M132 700V450M156 700V450M180 700V450"/><path d="M40 470h160M40 640h160"/></g><g fill="#1e1e26"><circle cx="40" cy="414" r="9"/><circle cx="200" cy="414" r="9"/></g></g>
+<!-- the path of flagstones, bare -->
+<g id="path" class="hot"><g fill="#b8bcc8" stroke="#7a7e8a" stroke-width="2"><ellipse cx="270" cy="760" rx="52" ry="16"/><ellipse cx="390" cy="740" rx="52" ry="16"/><ellipse cx="510" cy="724" rx="50" ry="15"/><ellipse cx="630" cy="708" rx="50" ry="15"/><ellipse cx="750" cy="690" rx="48" ry="14"/><ellipse cx="870" cy="672" rx="46" ry="14"/><ellipse cx="990" cy="652" rx="46" ry="13"/><ellipse cx="1110" cy="632" rx="44" ry="13"/></g>
+  <g fill="#fbfbfe" opacity=".9"><rect x="600" y="760" width="40" height="22" transform="rotate(-10 620 771)"/><rect x="420" y="790" width="40" height="22" transform="rotate(14 440 801)"/><rect x="860" y="740" width="40" height="22" transform="rotate(-4 880 751)"/><rect x="1000" y="720" width="40" height="22" transform="rotate(8 1020 731)"/></g></g>
+<!-- the stones -->
+<g id="stones" class="hot" fill="#8a8ea0" stroke="#4a4e5e" stroke-width="2"><path d="M300 620v-80q30 -30 60 0v80z"/><path d="M1180 600v-60q24 -24 48 0v60z"/><path d="M420 640v-56q22 -22 44 0v56z"/></g>
+<g fill="#fbfbfe"><path d="M300 548q30 -26 60 0l-6 6q-24 -18 -48 0z"/><path d="M1180 545q24 -22 48 0l-5 5q-19 -14 -38 0z"/></g>
+<!-- the neglected grave, and the name on it under the snow -->
+<g id="grave" class="hot" transform="translate(96 0)"><path d="M900 600v-130q60 -56 120 0v130z" fill="#7a7e90" stroke="#3a3e4c" stroke-width="3"/><path d="M890 600h140v14h-140z" fill="#5a5e6e"/>
+  <text id="name" x="960" y="520" class="sC" font-size="14" fill="#1e1e28">EBENEZER</text><text x="960" y="540" class="sC" font-size="14" fill="#1e1e28" opacity="0" id="name2">SCROOGE</text>
+  <g id="namesnow" fill="#f6f7fb"><path d="M906 480q54 -48 108 0v80h-108z"/></g>
+  <g stroke="#4a5040" stroke-width="3" fill="none"><path d="M910 600q-10 -40 6 -70M1012 600q10 -30 -4 -60"/></g></g>
+<!-- the Phantom, pointing -->
+<g id="phantom" class="hot"><circle cx="1080" cy="520" r="120" fill="url(#handG)"/>
+  <path d="M760 860q-30 -260 20 -420q30 -80 70 -80q44 6 64 90q30 150 24 410z" fill="#141418" stroke="#05050a" stroke-width="3"/>
+  <path d="M800 420q30 -40 60 0q-4 30 -30 34q-26 -4 -30 -34z" fill="#05050a"/>
+  <g class="hand"><path d="M900 520q60 -8 112 4" fill="none" stroke="#141418" stroke-width="22" stroke-linecap="round"/><path d="M1006 524q14 -2 22 4l26 18q-4 4 -10 2l-20 -10q-6 6 -14 4z" fill="#e8e4ee" stroke="#4a4a5a" stroke-width="2"/></g></g>
+<!-- the shadows of the future, in the mist -->
+<g id="f1" class="shade"><rect x="250" y="120" width="160" height="110" rx="12" fill="#e6e4f2" opacity=".55"/><g fill="#2a2a3a" opacity=".7"><circle cx="300" cy="160" r="9"/><path d="M288 172h24l2 40h-28z"/><circle cx="340" cy="158" r="10"/><path d="M326 170h28l4 42h-36z"/><path d="M296 140h8v-14h-8z"/><path d="M334 138h12v-16h-12z"/></g><text x="330" y="246" class="sG" font-size="12" fill="#f0eef8" letter-spacing="2">ON &#8217;CHANGE</text></g>
+<g id="f2" class="shade"><rect x="440" y="120" width="160" height="110" rx="12" fill="#e6e4f2" opacity=".55"/><g fill="#2a2a3a" opacity=".7"><circle cx="480" cy="170" r="9"/><path d="M468 182h24l6 30h-36z"/><path d="M520 150h60v60h-60z" opacity=".5"/><path d="M530 160h40M530 176h40M530 192h40" stroke="#2a2a3a" stroke-width="3"/></g><text x="520" y="246" class="sG" font-size="12" fill="#f0eef8" letter-spacing="2">OLD JOE&#8217;S</text></g>
+<g id="f3" class="shade"><rect x="630" y="120" width="160" height="110" rx="12" fill="#e6e4f2" opacity=".55"/><g fill="#2a2a3a" opacity=".7"><circle cx="672" cy="162" r="8"/><path d="M662 172h20l6 40h-32z"/><circle cx="712" cy="166" r="7"/><path d="M704 175h16l4 37h-24z"/><circle cx="748" cy="162" r="8"/><path d="M738 172h20l6 40h-32z"/></g><text x="710" y="246" class="sG" font-size="12" fill="#f0eef8" letter-spacing="2">A QUIET HOUSE</text></g>
+<!-- Scrooge, by the gate -->
+<g id="scr" class="hot"><g id="scrfig" transform="translate(620 880)"></g></g>
+<!-- a revision card a reader dropped in the snow -->
+<g id="card" class="hot" transform="rotate(-8 1300 800)"><rect x="1250" y="770" width="100" height="62" fill="#fff" stroke="#9ab0c8" stroke-width="1.5"/><path d="M1250 784h100" stroke="#e06a6a" stroke-width="1.5"/><path d="M1258 796h84M1258 806h80M1258 816h84" stroke="#7a9ac0" stroke-width="1.2"/></g>
+<g id="mist" fill="#eceaf6" opacity=".16" pointer-events="none"><ellipse cx="0" cy="620" rx="420" ry="50"/><ellipse cx="0" cy="780" rx="500" ry="60"/></g>
+<g id="flakes" fill="#fff" opacity=".85" pointer-events="none"><circle cx="100" cy="100" r="3"/><circle cx="380" cy="200" r="2.5"/><circle cx="620" cy="80" r="3"/><circle cx="880" cy="160" r="2.5"/><circle cx="1120" cy="60" r="3"/><circle cx="1360" cy="220" r="2.5"/><circle cx="1500" cy="120" r="3"/><circle cx="240" cy="360" r="2"/><circle cx="760" cy="340" r="2"/><circle cx="1260" cy="380" r="2"/></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Hold on to the bedpost</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="carol.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told, nextFile = null, lock = null;
+  $('#scrfig').innerHTML = '<g class="ink">' + CC.fig({ h: 300, kind: 'gown', coat: '#6a4a5a', sash: '#8a2a2a', skin: '#e6cfb4', hat: 'night', nose: 'pointed', face: 'sad', hairStyle: 'none', armL: 'front', armR: 'out' }) + '</g>';
+
+  ER.init({
+    theme: 'lit', story: 'carol', storyTitle: 'The Boy in Sunday Clothes', id: 'churchyard', no: 'V', title: 'The Churchyard',
+    go: 'Follow the pointing hand',
+    intro: [
+      'You put the money back into Stave Three. Fifteen &lsquo;Bob&rsquo; a-week is fifteen shillings, a &lsquo;bob&rsquo; being a shilling, and Peter&rsquo;s place would bring in five-and-sixpence. Scrooge himself said a day&rsquo;s wages was half-a-crown, and six half-crowns make fifteen shillings, so Bob is paid for six days. Mr. Fezziwig spent &lsquo;three or four&rsquo; pounds on one evening, and even three pounds were sixty shillings: four weeks of Bob&rsquo;s wages.',
+      'When Scrooge saw the two children under the Spirit&rsquo;s robe, Ignorance and Want, and cried, &lsquo;Have they no refuge or resource?&rsquo;, the Spirit answered him with his own words of Christmas Eve: &lsquo;Are there no prisons? Are there no workhouses?&rsquo;',
+      'Then the bell struck twelve, and the last Spirit came, draped and hooded, like a mist along the ground. It has not said one word. It only points. It has shown Scrooge things that have not happened yet, and now it has led him to an iron gate.'
+    ],
+    exit: {"next":"street","w":{"fb3c575f":"e846cd4a"}}, tags: {"p1":["beea911a"],"p2":["2751a242"],"p3":["9866ae74"],"p4":["6df4ab8f"],"p5":["fbc2fcb5"],"p6":["f7943313"],"p7":["3e59a872"],"p8":["847871d8"],"my":["6be300ea","6f26981b"],"ot":["7cef6c00","e00574d8"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = CC.told('e-told'); nextFile = ER.flag('e-file') || null;
+  var NEED = ['card', 'f1', 'f2', 'f3'];
+  function isBusy() { return busy; }
+  function ready() { return NEED.every(function (k) { return told.has(k); }); }
+  function paint() {
+    var s = $('#scene');
+    s.classList.toggle('read', !!nextFile); s.classList.toggle('gone', !!nextFile && told.has('gone'));
+    $('#name2').setAttribute('opacity', nextFile ? '1' : '0');
+    $('#card').classList.toggle('ready', !told.has('card'));
+    ['f1', 'f2', 'f3'].forEach(function (k) { $('#' + k).classList.toggle('ready', told.has('card') && !told.has(k)); });
+    $('#path').classList.toggle('ready', ready() && !nextFile);
+    ER.pips(NEED.filter(function (k) { return told.has(k); }).length + (nextFile ? 1 : 0), 5);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The Phantom has dwindled into a bedpost. The button at the bottom takes you to Christmas morning.']];
+    if (lock && lock.parentNode) return ['path', [
+      'Ask of every line: when did it happen? Long ago, seven years ago, on Christmas Eve, on Christmas morning, or the day after? Then ask: did it happen at all? The pages of every stave are in your notebook.',
+      'The two shadows of the future have not happened: Scrooge asked the Phantom whether they will be, or may be only. Two pencilled lines are not in the book: Marley said &lsquo;the next night&rsquo;, but on Christmas morning the boy says it is Christmas Day; and the book never says how or when Fan died.',
+      'Belle&rsquo;s husband saw Scrooge alone the night his partner lay dying: seven years before the book begins, because Marley died seven years ago on Christmas Eve. The path runs: the school, Fan, the ball, the golden idol, the partner dying, Christmas Eve, Christmas Day, the salary.'
+    ]];
+    if (!told.has('card')) return ['card', ['A reader has dropped something white in the snow, on the right, below the church.', 'Click the card in the snow, bottom right.']];
+    if (!ready()) return ['shades', ['The Phantom has shown Scrooge three things that have not happened yet. You can see them in the mist, high on the left. Read all three.', 'Click each of the three pale pictures: On &rsquo;Change, Old Joe&rsquo;s, A Quiet House.']];
+    return ['ready', ['Everything is read. Click the bare path of flagstones, and lay Scrooge&rsquo;s life out on it.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say(told.has('gone') ? 'The churchyard is empty. Where the Phantom stood there is only the corner of a bed.' : 'The name on the stone is clear now.'); return; }
+    if (told.has('in')) { busy = false; ER.say('The churchyard. The Phantom points, and says nothing.'); return; }
+    told.set('in');
+    ER.narrate([
+      'A churchyard, walled in by houses; overrun by grass and weeds; choked up with too much burying. Snow on the stones. The Phantom stands among the graves and points down to one.',
+      'Scrooge does not go nearer. &ldquo;Before I draw nearer to that stone to which you point,&rdquo; he says, &ldquo;answer me one question. Are these the shadows of the things that Will be, or are they shadows of things that May be, only?&rdquo;',
+      'Still the Ghost points downward to the grave. It never answers anything.',
+      'And this is where the book has gone most wrong tonight. The shadows of the future have got mixed in with everything else, so that the book cannot tell what has happened from what only may.',
+      'On the path from the gate to the church door, the flagstones are bare. The moments of Scrooge&rsquo;s life lie scattered in the snow, copied out in pencil by a reader who did not always copy carefully.',
+      'If a shadow of the future is laid on the path as if it had already happened, the writing on that stone can never be sponged away.'
+    ], function () {
+      busy = false; paint();
+      ER.addClue('question', 'Will be, or May be?', CC.page('STAVE IV', 'Will be, or May be?', '<p>&ldquo;Before I draw nearer to that stone to which you point,&rdquo; said Scrooge, &ldquo;answer me one question. Are these the shadows of the things that Will be, or are they shadows of things that May be, only?&rdquo;</p><p>Still the Ghost pointed downward to the grave by which it stood.</p><p>&ldquo;Men&rsquo;s courses will foreshadow certain ends, to which, if persevered in, they must lead,&rdquo; said Scrooge. &ldquo;But if the courses be departed from, the ends will change. Say it is thus with what you show me!&rdquo;</p><p>The Spirit was immovable as ever.</p>'), 'page', 'Stave Four', true);
+    });
+  }
+
+  /* ---------- papers ---------- */
+  var CARD = '<h4>Order of telling, time order</h4>' +
+    '<p>The <b>order of telling</b> is the order the book tells things in: Stave I, II, III, IV, V.</p>' +
+    '<p><b>Time order</b> is the order they happened in. To find it, ask of every scene: when did this happen? Before Christmas Eve? On Christmas Eve? After it?</p>' +
+    '<p>A flashback is told late but happened early, so in time order it moves to the front.</p>' +
+    '<p>A flash-forward shows a time still to come. But be careful! In <i>A Christmas Carol</i>, Scrooge asks the last Spirit whether its shadows are things that Will be, or things that May be, only. A shadow that only may be has not happened. It does not go in time order at all.</p>' +
+    '<p>And a timeline is only as good as its sources. Check every line against the book. If it is not there, it is a guess.</p>';
+  var FUT = {
+    f1: ['On &rsquo;Change', '<p>&ldquo;No,&rdquo; said a great fat man with a monstrous chin, &ldquo;I don&rsquo;t know much about it, either way. I only know he&rsquo;s dead.&rdquo;</p><p>&ldquo;When did he die?&rdquo; inquired another.</p><p>&ldquo;Last night, I believe.&rdquo;</p><p class="gap">* * *</p>' +
+      '<p>&ldquo;It&rsquo;s likely to be a very cheap funeral,&rdquo; said the same speaker; &ldquo;for upon my life I don&rsquo;t know of anybody to go to it.&rdquo;</p><p class="gap">* * *</p>' +
+      '<p>&ldquo;How are you?&rdquo; said one.</p><p>&ldquo;How are you?&rdquo; returned the other.</p><p>&ldquo;Well!&rdquo; said the first. &ldquo;Old Scratch has got his own at last, hey?&rdquo;</p><p>&ldquo;So I am told,&rdquo; returned the second. &ldquo;Cold, isn&rsquo;t it?&rdquo;</p><p>&ldquo;Seasonable for Christmas time. You&rsquo;re not a skater, I suppose?&rdquo;</p>'],
+    f2: ['Old Joe&rsquo;s', '<p>Far in this den of infamous resort, there was a low-browed, beetling shop, below a pent-house roof, where iron, old rags, bottles, bones, and greasy offal, were bought.</p><p class="gap">* * *</p>' +
+      '<p>&ldquo;What do you call this?&rdquo; said Joe. &ldquo;Bed-curtains!&rdquo;</p><p>&ldquo;Ah!&rdquo; returned the woman, laughing and leaning forward on her crossed arms. &ldquo;Bed-curtains!&rdquo;</p><p>&ldquo;You don&rsquo;t mean to say you took &rsquo;em down, rings and all, with him lying there?&rdquo; said Joe.</p><p>&ldquo;Yes I do,&rdquo; replied the woman. &ldquo;Why not?&rdquo;</p><p class="gap">* * *</p>' +
+      '<p>&ldquo;Ha, ha!&rdquo; laughed the same woman. &ldquo;This is the end of it, you see! He frightened every one away from him when he was alive, to profit us when he was dead! Ha, ha, ha!&rdquo;</p><p>&ldquo;Spirit!&rdquo; said Scrooge, shuddering from head to foot. &ldquo;I see, I see. The case of this unhappy man might be my own. My life tends that way, now.&rdquo;</p>'],
+    f3: ['A quiet house', '<p>They entered poor Bob Cratchit&rsquo;s house; the dwelling he had visited before; and found the mother and the children seated round the fire.</p><p>Quiet. Very quiet. The noisy little Cratchits were as still as statues in one corner, and sat looking up at Peter, who had a book before him. The mother and her daughters were engaged in sewing. But surely they were very quiet!</p><p class="gap">* * *</p>' +
+      '<p>They were very quiet again. At last she said, and in a steady, cheerful voice, that only faltered once:</p><p>&ldquo;I have known him walk with&mdash;I have known him walk with Tiny Tim upon his shoulder, very fast indeed.&rdquo;</p><p>&ldquo;And so have I,&rdquo; cried Peter. &ldquo;Often.&rdquo;</p><p>&ldquo;And so have I,&rdquo; exclaimed another. So had all.</p>']
+  };
+  $('#card').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: CARD, cls: 'card', clue: { id: 'card', title: 'Order of telling, time order', kind: 'Left in the book' }, done: function () {
+      CC.terms(['order of telling', 'time order', 'flash-forward']);
+      if (told.set('card')) { paint(); ER.say('Will be, or May be? The Phantom has shown Scrooge three things. They hang in the mist on the left.'); }
+    } });
+  });
+  ['f1', 'f2', 'f3'].forEach(function (k) {
+    $('#' + k).addEventListener('click', function () {
+      if (busy) return;
+      ER.read({ html: CC.page('STAVE IV', FUT[k][0], FUT[k][1]), cls: 'page', clue: { id: k, title: FUT[k][0], kind: 'Stave Four' }, done: function () {
+        if (told.set(k)) { paint(); if (ready()) ER.say('Three shadows of the future. Now the path.'); }
+      } });
+    });
+  });
+  CC.thing('#phantom', null, 'It is shrouded in a deep black garment, which conceals its head, its face, its form, and leaves nothing of it visible save one outstretched hand. It neither speaks nor moves.', isBusy);
+  CC.thing('#grave', null, function () { return nextFile ? 'EBENEZER SCROOGE. But the writing on a stone can be sponged away, if the courses be departed from.' : 'A neglected grave. The snow lies thick on its face, and hides the name.'; }, isBusy);
+  CC.thing('#gate', null, 'The iron gate. Scrooge paused to look round before he came through it.', isBusy);
+  CC.thing('#church', null, 'The church. On Christmas morning, if the book goes right, Scrooge will go to church, and walk about the streets.', isBusy);
+  CC.thing('#houses', null, 'Houses all round. The churchyard is walled in by them.', isBusy);
+  CC.thing('#stones', null, 'Old stones with the names worn away.', isBusy);
+  CC.thing('#scr', null, function () { return nextFile ? '&ldquo;I am not the man I was.&rdquo;' : 'Scrooge, trembling, by the gate. He will not go nearer the stone until he has his answer.'; }, isBusy);
+  function openOrSay() {
+    if (busy) return;
+    if (nextFile) { ER.say('The path is laid, from the gate to the church door.'); return; }
+    if (!ready()) { ER.say(!told.has('card') ? 'Bare flagstones, and pencilled lines in the snow. A reader has dropped a card by the church: read it first.' : 'Bare flagstones. First read the three shadows the Phantom has shown: they hang in the mist on the left.'); return; }
+    openLock();
+  }
+  $('#path').addEventListener('click', openOrSay);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the lock: lay the path ---------- */
+  var CARDS = [
+    ['k1', '&ldquo;I have known him walk with Tiny Tim upon his shoulder, very fast indeed.&rdquo;'],
+    ['k2', '&ldquo;Yo ho, my boys!&rdquo; said Fezziwig. &ldquo;No more work to-night. Christmas Eve, Dick.&rdquo;'],
+    ['k3', '&ldquo;To-day!&rdquo; replied the boy. &ldquo;Why, CHRISTMAS DAY.&rdquo;'],
+    ['k4', 'The last Spirit comes on the third night: 26 December.'],
+    ['k5', '&ldquo;His partner lies upon the point of death, I hear; and there he sat alone.&rdquo;'],
+    ['k6', 'At one of these a lonely boy was reading near a feeble fire'],
+    ['k7', '&ldquo;Old Scratch has got his own at last, hey?&rdquo;'],
+    ['k8', '&ldquo;&hellip; I am about to raise your salary!&rdquo;'],
+    ['k9', '&ldquo;I have come to bring you home, dear brother!&rdquo;'],
+    ['k10', 'Fan dies on the day her son Fred is born.'],
+    ['k11', '&ldquo;Mr. Marley has been dead these seven years.&rdquo;'],
+    ['k12', '&ldquo;Another idol has displaced me &hellip;&rdquo; &ldquo;A golden one.&rdquo;']
+  ];
+  function openLock() {
+    var busyL = false, put = ER.flag('e-put') || {};
+    lock = ER.el('div', 'pz');
+    var box = ER.el('div', 'yard');
+    var stones = '';
+    for (var i = 1; i <= 8; i++) stones += '<div class="stone" data-z="p' + i + '"><em>' + (i === 1 ? '1 &middot; by the gate' : i === 8 ? '8 &middot; by the church door' : i) + '</em><div class="sl"></div></div>';
+    box.innerHTML = '<h5>Lay the path in time order, from the gate to the church door</h5><div class="walk">' + stones + '</div>' +
+      '<div class="side"><div class="box may" data-z="my"><i>In the Phantom&rsquo;s shadow: may be, only</i><div class="sl"></div><div class="sl"></div></div>' +
+      '<div class="box out" data-z="ot"><i>Not in the book: back to the reader</i><div class="sl"></div><div class="sl"></div></div></div><div class="tray"></div>';
+    var foot = ER.el('div', 'pz-foot', '<p class="pmsg"></p><button type="button" class="btn" id="lay">Walk the path</button>');
+    lock.appendChild(box); lock.appendChild(foot);
+    var tray = box.querySelector('.tray'), m = foot.querySelector('.pmsg'), cells = ER.$$('.sl', box);
+    function msg(t) { m.innerHTML = ER.gloss(t); }
+    CARDS.forEach(function (c) {
+      var d = ER.el('div', 'slip dnd-item', ER.gloss(c[1])); d.setAttribute('data-k', c[0]);
+      var at = put[c[0]]; (at != null && cells[at] && !cells[at].firstChild ? cells[at] : tray).appendChild(d);
+    });
+    function keep() { put = {}; cells.forEach(function (c, i) { var s = c.querySelector('.slip'); if (s) put[s.getAttribute('data-k')] = i; }); ER.flag('e-put', put); }
+    function clearBad() { ER.$$('.bad', box).forEach(function (n) { n.classList.remove('bad'); }); }
+    CC.swapIn(box, '.slip', '.sl', tray);
+    ER.dnd(box, { item: '.slip', slot: '.sl', home: tray, lock: function () { return busyL || !!nextFile; }, change: function () { keep(); clearBad(); CC.sfx.snow(); } });
+    function zoneOf(s) { var z = s.closest('[data-z]'); return z ? z.getAttribute('data-z') : ''; }
+    foot.querySelector('#lay').addEventListener('click', function () {
+      if (busyL || nextFile) return;
+      clearBad();
+      var left = tray.querySelectorAll('.slip').length;
+      if (left) { ER.sfx.no(); msg('The Phantom waits. ' + (left === 12 ? 'Not one line has been laid yet.' : left === 1 ? 'One line is still lying in the snow.' : left + ' lines are still lying in the snow.') + ' Drag each line to a place, or click a line and then a place.'); return; }
+      var i, s, k, z, el;
+      for (i = 1; i <= 8; i++) {
+        el = box.querySelector('[data-z="p' + i + '"]'); s = el.querySelector('.slip'); k = s.getAttribute('data-k');
+        if (!ER.check('p' + i, k)) {
+          el.classList.add('bad'); ER.sfx.no();
+          if (ER.check('my', k)) msg('Stone ' + i + ': has this happened? Which Spirit showed it, and what did Scrooge ask that Spirit at this very gate? <i>(Only the first wrong stone is ever shown.)</i>');
+          else if (ER.check('ot', k)) msg('Stone ' + i + ' holds a line that is not in the book at all. Check every pencilled line against the pages in your notebook. <i>(Only the first wrong stone is ever shown.)</i>');
+          else msg('Stone ' + i + ' is out of order. Ask of that line: when did it happen? Long ago, seven years ago, on Christmas Eve, or after? <i>(Only the first wrong stone is ever shown.)</i>');
+          return;
+        }
+      }
+      var side = ER.$$('.box .slip', box);
+      for (i = 0; i < side.length; i++) {
+        s = side[i]; k = s.getAttribute('data-k'); z = zoneOf(s);
+        if (!ER.check(z, k)) {
+          s.closest('.box').classList.add('bad'); s.classList.add('bad'); ER.sfx.no();
+          msg(z === 'my' ? (ER.check('ot', k) ? 'That line is not a shadow the Phantom showed: it is not in the book at all.' : 'That has happened, or will: it belongs on the path.') : 'That line is in the book. Find it in your notebook.');
+          return;
+        }
+      }
+      var path = []; for (i = 1; i <= 8; i++) path.push(box.querySelector('[data-z="p' + i + '"] .slip').getAttribute('data-k'));
+      var grp = function (zz) { return ER.$$('[data-z="' + zz + '"] .slip', box).map(function (n) { return n.getAttribute('data-k'); }).sort().join('+'); };
+      var file = ER.exit([path.join('-') + '/' + grp('my') + '/' + grp('ot')], { wait: true });
+      if (!file) { msg('The path will not hold. Something is wrong with this page: tell your teacher.'); return; }
+      nextFile = file; ER.flag('e-file', file); busyL = true;
+      msg('The path is laid, stone by stone, from the gate to the church door. The two shadows sink back into the Phantom&rsquo;s robe.');
+      setTimeout(function () {
+        ER.closeAll(); busy = true; paint(); ER.mood('tense');
+        CC.mine('path', 'Scrooge&rsquo;s life, in time order', '<p>1 The school: a lonely boy reading near a feeble fire. 2 Little Fan comes to bring him home. 3 Fezziwig&rsquo;s ball, when he was an apprentice. 4 Belle: &lsquo;Another idol has displaced me.&rsquo; 5 Seven years ago, on Christmas Eve: his partner lies upon the point of death, and he sits alone. 6 Christmas Eve, now: &lsquo;Mr. Marley has been dead these seven years.&rsquo; 7 Christmas morning: &lsquo;To-day!&rsquo; &hellip; &lsquo;Why, CHRISTMAS DAY.&rsquo; 8 The next morning: the salary.</p><p>May be, only: the jokes on &rsquo;Change, and the quiet house without Tiny Tim. Tiny Tim did NOT die.</p><p>Not in the book: the third night (the Spirits did it all in one night), and how Fan died (the book says only that she died a woman, and had one child).</p>');
+        ER.narrate([
+          'The finger points. <i>Scrooge crept towards it, trembling as he went; and following the finger, read upon the stone of the neglected grave his own name, EBENEZER SCROOGE.</i>',
+          '&ldquo;Spirit!&rdquo; he cried, tight clutching at its robe, &ldquo;hear me! I am not the man I was. I will not be the man I must have been but for this intercourse.&rdquo;',
+          '&ldquo;I will honour Christmas in my heart, and try to keep it all the year. I will live in the Past, the Present, and the Future. The Spirits of all Three shall strive within me. I will not shut out the lessons that they teach. Oh, tell me I may sponge away the writing on this stone!&rdquo;',
+          'For the first time the hand appears to shake. Holding up his hands in a last prayer, Scrooge sees an alteration in the Phantom&rsquo;s hood and dress. It shrinks, collapses, and dwindles down into a bedpost.',
+          'And the churchyard is gone, and the snow, and you are standing in the dark of Scrooge&rsquo;s bedroom, holding on to the corner of a bed. Somewhere outside, the first church bell is drawing breath.'
+        ], function () { told.set('gone'); paint(); ER.mood('calm'); busy = false; $('#go').classList.add('on'); });
+      }, 2400);
+    });
+    msg('Drag each line to a place, or click a line and then a place. Eight lines make the path, in the order they happened. Two belong in the Phantom&rsquo;s shadow. Two go back to the reader.');
+    ER.open('ov-lock', lock);
+  }
+})();
+</script>
+</body>
+</html>

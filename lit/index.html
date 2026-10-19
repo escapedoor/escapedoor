@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Literature · KEYHOLE</title>
+<link rel="stylesheet" href="../assets/fonts-base.css">
+<link rel="stylesheet" href="../assets/fonts-lit.css">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%}
+  /* a library bookcase at night, lit by one lamp: each story is a book standing face out on the shelf */
+  body{color:#f3e6cc;font-family:'Alegreya',Georgia,serif;-webkit-user-select:none;user-select:none;
+    background:#1a0f0a;
+    background-image:radial-gradient(ellipse 900px 560px at 50% -80px,rgba(255,214,140,.38),rgba(255,190,110,.08) 56%,transparent 78%),
+      repeating-linear-gradient(90deg,rgba(0,0,0,.18) 0 2px,transparent 2px 46px),linear-gradient(#3a2416,#1a0f0a)}
+  .back{position:fixed;left:14px;top:12px;z-index:3;height:36px;display:inline-flex;align-items:center;padding:0 14px;border:1px solid rgba(255,255,255,.24);
+    background:rgba(12,8,6,.66);color:#efe9dc;border-radius:3px;font-family:'Goudy Bookletter 1911',serif;font-size:15px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none}
+  .back:hover{border-color:#f2c86a;color:#f2c86a}
+  header{text-align:center;padding:46px 20px 18px}
+  .plaque{display:inline-block;padding:10px 40px 8px;background:linear-gradient(135deg,#7a5a1c,#e8c86a 26%,#b48a2a 52%,#f2dc8e 78%,#8a6a22);border:3px solid #5f4410;border-radius:6px;box-shadow:0 10px 30px rgba(0,0,0,.6)}
+  h1{margin:0;font-family:'Henny Penny',cursive;font-weight:normal;font-size:clamp(46px,6.4vw,76px);line-height:1;color:#3a2606;text-shadow:0 1px 0 rgba(255,240,190,.7)}
+  header p{margin:12px 0 0;font-family:'Goudy Bookletter 1911',serif;font-size:19px;color:#e8d6b0;letter-spacing:.04em}
+  header p i{font-family:'Gochi Hand',cursive;font-style:normal;font-size:21px;color:#f2c86a}
+  .case{max-width:1180px;margin:0 auto;padding:22px 26px 0;background:#5a3418 linear-gradient(90deg,#4a2a12,#6a3e1e 8%,#5a3418 50%,#6a3e1e 92%,#4a2a12);border-radius:6px 6px 0 0;box-shadow:0 30px 80px rgba(0,0,0,.7),inset 0 0 0 10px #3a2010}
+  main{display:flex;flex-wrap:wrap;align-items:flex-end;gap:20px 22px;padding:16px 18px 0;min-height:420px;background:#2a160a linear-gradient(#24140a,#3a2010);box-shadow:inset 0 14px 30px rgba(0,0,0,.6)}
+  .shelfboard{height:26px;margin:0 -26px;background:linear-gradient(#a8743e,#6a4220);box-shadow:0 8px 16px rgba(0,0,0,.5)}
+  .book{position:relative;display:block;width:330px;min-height:392px;margin:0 0 0;padding:20px 22px 18px 34px;border:0;border-radius:3px 8px 8px 3px;text-align:left;cursor:pointer;font:inherit;color:#fbeed2;
+    background:linear-gradient(90deg,rgba(0,0,0,.35) 0 14px,rgba(255,255,255,.08) 14px 18px,transparent 18px),linear-gradient(160deg,#2e6a48,#1c4630) #24553a;
+    box-shadow:6px 8px 0 #0e2a1a,0 18px 34px rgba(0,0,0,.6);transition:transform .2s,box-shadow .2s}
+  .book:nth-of-type(3n+2){background:linear-gradient(90deg,rgba(0,0,0,.35) 0 14px,rgba(255,255,255,.08) 14px 18px,transparent 18px),linear-gradient(160deg,#8e3a4a,#5a1a28) #7a2a3a;box-shadow:6px 8px 0 #3a0e18,0 18px 34px rgba(0,0,0,.6)}
+  .book:nth-of-type(3n){background:linear-gradient(90deg,rgba(0,0,0,.35) 0 14px,rgba(255,255,255,.08) 14px 18px,transparent 18px),linear-gradient(160deg,#3a4a8e,#1a2458) #2a3a7a;box-shadow:6px 8px 0 #0e163a,0 18px 34px rgba(0,0,0,.6)}
+  .book:hover{transform:translateY(-10px) rotate(-.6deg)}
+  .book:before{content:'';position:absolute;left:30px;right:14px;top:12px;bottom:12px;border:2px solid rgba(242,200,106,.55);border-radius:2px;pointer-events:none}
+  .book h2{margin:6px 0 6px;font-family:'Fredericka the Great',serif;font-weight:normal;font-size:30px;line-height:1.08;color:#f6d47a;text-align:center;letter-spacing:.02em}
+  .book .orn{display:block;text-align:center;font-family:'Henny Penny',cursive;font-size:22px;color:#f2c86a;line-height:1}
+  .stars{display:block;text-align:center;font-family:Arial,sans-serif;font-size:21px;letter-spacing:4px;color:#f6d47a;margin:4px 0 2px}
+  .meta{display:block;text-align:center;font-family:'Goudy Bookletter 1911',serif;font-size:13.5px;letter-spacing:.14em;text-transform:uppercase;color:#e8d6b0}
+  .card{display:block;margin:12px 0 0;padding:9px 12px 9px;background:#fbf2dc;color:#2a1e1a;font-family:'Alegreya',serif;font-size:16px;line-height:1.36;border-radius:2px;box-shadow:0 3px 8px rgba(0,0,0,.35);transform:rotate(-.6deg);
+    background-image:linear-gradient(transparent 21px,rgba(200,70,90,.35) 21px,rgba(200,70,90,.35) 22px,transparent 22px)}
+  .card b{display:block;font-family:'Goudy Bookletter 1911',serif;font-weight:normal;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:#a8244a;margin-bottom:5px}
+  .stamp{position:absolute;right:12px;top:10px;padding:3px 10px 1px;border:3px solid;font-family:'Stardos Stencil',serif;font-weight:700;font-size:16px;letter-spacing:.14em;transform:rotate(10deg);display:none;background:rgba(251,242,220,.88)}
+  .book.going .stamp{display:block;color:#1f3a8a}
+  .book.solved .stamp{display:block;color:#a8244a}
+  .spines{display:flex;align-items:flex-end;gap:6px;padding-left:4px}
+  .spine{width:44px;border-radius:3px 3px 0 0;box-shadow:inset -6px 0 0 rgba(0,0,0,.25),inset 0 10px 0 rgba(255,255,255,.08);position:relative}
+  .spine:after{content:'';position:absolute;left:8px;right:8px;top:34px;height:4px;background:rgba(242,200,106,.5);box-shadow:0 8px 0 rgba(242,200,106,.5)}
+  .spine.lean{transform:rotate(-7deg);transform-origin:bottom left;margin-left:10px}
+  .soon{align-self:center;max-width:260px;padding:14px 18px 12px;background:#fbf2dc;color:#2a1e1a;transform:rotate(2deg);box-shadow:0 6px 14px rgba(0,0,0,.45);font-family:'Gochi Hand',cursive;font-size:21px;line-height:1.2;text-align:center}
+  .soon small{display:block;margin-top:6px;font-family:'Goudy Bookletter 1911',serif;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#7a6a5a}
+  footer{max-width:1180px;margin:0 auto;padding:18px 24px 46px;font-family:'Goudy Bookletter 1911',serif;font-size:15px;color:#c8b48a;text-align:center;line-height:1.8}
+  footer b{color:#f2c86a;font-weight:normal;letter-spacing:2px;font-family:Arial,sans-serif}
+  @media (max-width:720px){.book{width:100%}.spines{display:none}}
+</style>
+</head>
+<body>
+<a class="back" href="../index.html">&larr; Corridor</a>
+<header>
+  <div class="plaque"><h1>Literature</h1></div>
+  <p>Stories about stories. <i>Take a book down, and read your way out.</i></p>
+</header>
+<div class="case">
+  <main id="files"></main>
+  <div class="shelfboard"></div>
+</div>
+<footer><b>&#9733;&#9733;&#9733;</b> a full story &nbsp;&middot;&nbsp; <b>&#9733;&#9733;&#9733;&#9733;</b> longer, and the easy reading is the wrong one &nbsp;&middot;&nbsp; <b>&#9733;&#9733;&#9733;&#9733;&#9733;</b> long, and nothing is handed to you</footer>
+
+<script src="../assets/account.js"></script>
+<script src="../assets/shelf.js"></script>
+<script>
+(function () {
+  var STORIES = Shelf.visible([{"id":"sweets","title":"Miss Plunkett's Last Recipe","stars":3,"minutes":"35-45","hold":false,"level":"B1+ to B2","blurb":"Plunkett's Sweet Works is sold at nine tomorrow morning. Tonight three buyers and a valuer with no imagination are being shown round, and you have come to do the floors because your mum has flu. Under the counter, where only somebody with a mop would look, there is an envelope addressed to you.","rooms":5,"first":"shop.html","firstId":"shop","last":"roof"},{"id":"alice","title":"The Torn Pages of Wonderland","stars":3,"minutes":"35-45","hold":false,"level":"B1+ to B2","blurb":"Somebody has torn pages out of an old copy of Alice's Adventures in Wonderland, and the story has stopped dead in Chapter One. You lean too close to the torn edge, and fall in. Now Alice must get from the rabbit-hole to the trial, the pages must go back where they belong, and the White Rabbit thinks you are his housemaid.","rooms":5,"first":"hall.html","firstId":"hall","last":"court"},{"id":"carol","title":"The Boy in Sunday Clothes","stars":4,"minutes":"50-65","hold":false,"level":"B2","blurb":"Every Christmas, somewhere, somebody reads A Christmas Carol, and you play your part in it: a boy in Sunday clothes, with seven lines in the very last stave. This year the book slid off a sleeping reader's knee, its five staves were picked up in the wrong order, and Scrooge is about to wake on Christmas morning without having met a single Spirit.","rooms":6,"first":"counting.html","firstId":"counting","last":"street"}]), box = document.getElementById('files'), PLANNED = 7;
+  Shelf.init();
+  STORIES.forEach(function (s) {
+    var st = Shelf.status('lit', s), b = document.createElement('button');
+    b.type = 'button'; b.className = 'book ' + st.state; b.setAttribute('data-story', s.id);
+    b.innerHTML = '<span class="stamp"></span><span class="orn">~ &#10086; ~</span><h2></h2><span class="stars"></span><span class="meta"></span><span class="card"><b>Library card</b><span class="bl"></span></span>';
+    b.querySelector('h2').textContent = s.title;
+    b.querySelector('.stars').textContent = Shelf.stars(s.stars);
+    b.querySelector('.stars').title = s.stars + ' out of 5 for difficulty';
+    b.querySelector('.meta').textContent = s.minutes + ' min · ' + s.rooms + ' rooms' + (s.level ? ' · ' + s.level : '');
+    b.querySelector('.bl').textContent = s.blurb;
+    b.querySelector('.stamp').textContent = st.state === 'solved' ? 'READ' : 'ON LOAN';
+    b.addEventListener('click', function () { Shelf.open('lit', s); });
+    box.appendChild(b);
+  });
+  if (STORIES.length < PLANNED) {
+    var left = PLANNED - STORIES.length, sp = document.createElement('div'), i, H = [300, 340, 280, 320, 360, 296, 330], C = ['#6a4a8a', '#8a5a2a', '#2a6a6a', '#9a3a2a', '#4a6a2a', '#3a3a6a', '#7a2a5a'];
+    sp.className = 'spines';
+    for (i = 0; i < left; i++) { var d = document.createElement('div'); d.className = 'spine' + (i === left - 1 ? ' lean' : ''); d.style.height = H[i % 7] + 'px'; d.style.background = C[i % 7]; sp.appendChild(d); }
+    box.appendChild(sp);
+    var m = document.createElement('div'); m.className = 'soon';
+    m.innerHTML = (STORIES.length ? (left === 1 ? 'One more book is' : ['', '', 'Two', 'Three', 'Four', 'Five', 'Six'][left] + ' more books are') : 'The books are') + ' still being written.<small>The spines are on the shelf. The pages are not.</small>';
+    box.appendChild(m);
+  }
+})();
+</script>
+</body>
+</html>

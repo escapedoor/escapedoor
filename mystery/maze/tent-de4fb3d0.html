@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Tea Tent · Past the Lion</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-mystery.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="maze.css">
+<style>
+  body{--bg:#efe3c4;--accent:#f2c14e;--font-display:'IM Fell English SC',serif;--font-ui:'Oswald',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(60,26,22,.95);--tc-ink:#f8f1e2;--cap-bg:rgba(52,24,20,.93);--panel:#3a1f1c;--face-bg:#f3ead2;--q-ink:#f2d98a;--fade:#2a1412;--hud-bg:rgba(52,24,20,.82);--ov-bg:rgba(40,20,16,.82)}
+  .pac{font-family:'Pacifico',cursive;text-anchor:middle}
+  .hand{font-family:'Patrick Hand',cursive;text-anchor:middle}
+  .steam{animation:steam 3.2s ease-in infinite;opacity:0}
+  .steam.b{animation-delay:-1.1s}.steam.c{animation-delay:-2.2s}
+  @keyframes steam{0%{transform:translate(0,0) scale(.6);opacity:0}20%{opacity:.75}100%{transform:translate(14px,-110px) scale(1.5);opacity:0}}
+  .steam{transform-box:fill-box;transform-origin:50% 100%}
+  #needles{transform-box:fill-box;transform-origin:50% 100%;animation:knit 1.1s steps(2,end) infinite}
+  @keyframes knit{50%{transform:rotate(7deg)}}
+  body.stopped #needles{animation:none}
+  .flag{transform-box:fill-box;transform-origin:50% 0;animation:flap 3s ease-in-out infinite alternate}
+  .flag:nth-child(2n){animation-duration:3.7s;animation-delay:-1.4s}
+  @keyframes flap{from{transform:rotate(-4deg)}to{transform:rotate(5deg)}}
+  #cards.ready #cardsG{animation:glow 1.6s steps(1,end) infinite}
+  @keyframes glow{50%{filter:brightness(1.12)}}
+  #cup{display:none}body.found #cup{display:block}body.found #urn2lid{transform:translate(-64px,-12px) rotate(-24deg);transform-box:fill-box;transform-origin:50% 50%}
+
+  /* five cards, three rubber stamps, eight reasons */
+  .bx.cards{width:min(1186px,97vw)}
+  .cd-q{margin:0 0 8px;padding:5px 12px 4px;background:#8c2f24;color:#fbf7ea;font-family:'Oswald',sans-serif;font-weight:500;font-size:15px;letter-spacing:.2em;text-transform:uppercase;text-align:center;box-shadow:0 8px 20px rgba(0,0,0,.4)}
+  .cd-row{display:grid;grid-template-columns:repeat(5,1fr);gap:9px}
+  .cd{position:relative;background:#fbf7ea;color:#22301c;padding:7px 10px 8px;box-shadow:0 12px 28px rgba(0,0,0,.45);border-top:7px solid #3f6b3a;display:flex;flex-direction:column;min-width:0}
+  .cd.own{border-top-color:#3f7f8f;background:#f6f3ea}
+  .cd small{font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#3f6b3a}
+  .cd.own small{color:#3f7f8f}
+  .cd b.nm{display:block;font-family:'Alfa Slab One',serif;font-weight:normal;font-size:17.5px;line-height:1.1;letter-spacing:.02em;margin:1px 0 4px}
+  .cd .tm{display:inline-block;margin:0 5px 3px 0;padding:0 5px;border:1.5px solid #5a2a8c;color:#5a2a8c;font-family:'Special Elite',monospace;font-size:12.5px;line-height:17px;transform:rotate(-1.5deg)}
+  .cd .tm+.tm{transform:rotate(1.5deg)}
+  .cd .none{display:inline-block;margin:0 0 3px;font-family:'Patrick Hand',cursive;font-size:15px;color:#3f7f8f;line-height:20px}
+  .cd .mk{display:flex;gap:4px;margin:1px 0 3px;min-height:25px}
+  .cd .mk span{width:23px;height:23px;border:1px dashed #9aa98c;border-radius:50%;display:grid;place-items:center}
+  .cd .mk span.on{border:1px solid #5a2a8c}
+  .cd p{margin:0 0 5px;font-family:'Patrick Hand',cursive;font-size:15.5px;line-height:1.16;color:#22335a;flex:1}
+  .cd-v{display:block;width:100%;height:46px;margin:0 0 5px;border:1.5px dashed #b9ae8c;border-radius:3px;font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#9a8f7a;background:rgba(255,255,255,.5)}
+  .cd-v:hover{border-color:#8c2f24}
+  .cd-v.set{border:3px solid;border-radius:5px;font-family:'Alfa Slab One',serif;font-size:14.5px;letter-spacing:.05em;line-height:1.05;transform:rotate(-2.5deg);background:none;opacity:.88}
+  .cd-v.cannot{color:#27365a;border-color:#27365a}.cd-v.might{color:#c2701a;border-color:#c2701a}.cd-v.must{color:#b3261c;border-color:#b3261c}
+  .cd-v.bad,.cd-why.bad{outline:3px solid #ff6a5a;outline-offset:2px}
+  .cd-why{min-height:84px;border:1.5px dashed #b9ae8c;border-radius:3px;padding:3px;display:grid;background:rgba(255,255,255,.5)}
+  .cd-why:empty:before{content:'because \2026';align-self:center;text-align:center;font-family:'Patrick Hand',cursive;font-size:16px;color:#b9ae8c}
+  .cd-tools{display:grid;grid-template-columns:166px 1fr;gap:12px;margin-top:10px;align-items:start}
+  .cd-stamps{display:grid;gap:6px}
+  .cd-stamps .st{position:relative;padding:7px 6px 6px 40px;text-align:left;border-radius:4px;background:#5a3d20 linear-gradient(#7a5632,#4a3018);color:#fbf7ea;font-family:'Oswald',sans-serif;font-weight:500;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;line-height:1.1;box-shadow:0 6px 14px rgba(0,0,0,.45)}
+  .cd-stamps .st:before{content:'';position:absolute;left:8px;top:50%;width:24px;height:24px;margin-top:-12px;border-radius:50%;border:3px solid}
+  .cd-stamps .st.cannot:before{border-color:#7f95d0;background:#27365a}.cd-stamps .st.might:before{border-color:#f2c14e;background:#c2701a}.cd-stamps .st.must:before{border-color:#ff9a8a;background:#b3261c}
+  .cd-stamps .st.sel{outline:3px solid #f2c14e;outline-offset:2px;transform:translateY(-3px)}
+  .cd-tray{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;min-height:118px;padding:6px;border:1px dashed rgba(255,255,255,.3);border-radius:4px;align-content:start}
+  .slip{padding:4px 7px 3px;background:#fff7dc;color:#3a2a14;font-family:'Patrick Hand',cursive;font-size:14px;line-height:1.1;box-shadow:0 4px 10px rgba(0,0,0,.35);border-left:4px solid #c9453a;-webkit-user-select:none;user-select:none}
+  .cd-why .slip{box-shadow:none;font-size:13.5px}
+  .bx.cards.holding .cd-why .slip{pointer-events:none}      /* with a slip in your hand, a click on a card that has one already puts the new one in its place */
+  .slip.fly{box-shadow:0 14px 30px rgba(0,0,0,.5);transform:rotate(-2deg)}
+  .bx.cards .pmsg{min-height:64px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="canvG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff8e2"/><stop offset=".5" stop-color="#f6ecd0"/><stop offset="1" stop-color="#e6d6ae"/></linearGradient>
+  <linearGradient id="grassT" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b9c98a"/><stop offset="1" stop-color="#8fae62"/></linearGradient>
+  <linearGradient id="steelG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8f979f"/><stop offset=".3" stop-color="#e9eef2"/><stop offset=".6" stop-color="#b9c0c8"/><stop offset="1" stop-color="#7a828a"/></linearGradient>
+  <pattern id="ging" width="36" height="36" patternUnits="userSpaceOnUse"><rect width="36" height="36" fill="#fbf7ea"/><rect width="18" height="36" fill="#d94a3d" opacity=".55"/><rect width="36" height="18" fill="#d94a3d" opacity=".55"/></pattern>
+  <radialGradient id="sunT" cx="100%" cy="40%" r="80%"><stop offset="0" stop-color="#fffbe0" stop-opacity=".75"/><stop offset=".6" stop-color="#fffbe0" stop-opacity=".12"/><stop offset="1" stop-color="#fffbe0" stop-opacity="0"/></radialGradient>
+</defs>
+
+<!-- canvas: the roof, the back wall, the door flap on the right with the lawn beyond -->
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#canvG)"/>
+<g stroke="#e3d3a8" stroke-width="5" fill="none"><path d="M800 -400L-1000 330M800 -400L-200 330M800 -400L340 330M800 -400V330M800 -400L1260 330M800 -400L1800 330M800 -400L2600 330"/></g>
+<path d="M-1000 330H2600" stroke="#d6c69a" stroke-width="10"/>
+<path d="M-1000 330h3600v26q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0q-30 26 -60 0z" fill="#c9453a"/>
+<g stroke="#eadcb6" stroke-width="4"><path d="M-760 360V700M-460 360V700M-160 360V700M140 360V700M440 360V700M740 360V700M1040 360V700M1340 360V700"/></g>
+<path d="M-1000 690H2600V1320H-1000Z" fill="url(#grassT)"/>
+<g id="flap">
+  <path d="M1420 356H2600V700H1420Z" fill="#a6d3f2"/><path d="M1420 520H2600V700H1420Z" fill="#7cc05a"/><path d="M1420 470H2600V560H1420Z" fill="#2f6630"/><path d="M1420 472H2600" stroke="#7fb065" stroke-width="5"/>
+  <path d="M1420 356q70 150 40 344h-40z" fill="#f1e6c6"/><path d="M1420 356q70 150 40 344" fill="none" stroke="#d6c69a" stroke-width="5"/><path d="M1448 520q30 4 46 -12" stroke="#c9453a" stroke-width="5" fill="none"/>
+</g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#sunT)" pointer-events="none"/>
+<path d="M410 -400V700M1190 -400V700" stroke="#8a6a45" stroke-width="14"/>
+<path d="M-200 250q500 110 1000 30t1100 60" fill="none" stroke="#6b5a3c" stroke-width="2.500"/>
+<g><path class="flag" d="M-40 284l40 6 -14 44z" fill="#c9453a"/><path class="flag" d="M110 306l40 3 -17 44z" fill="#f2c14e"/><path class="flag" d="M260 318l40 0 -20 44z" fill="#2f6aa8"/><path class="flag" d="M560 310l40 -4 -18 44z" fill="#3f8a4e"/><path class="flag" d="M710 296l40 -5 -16 44z" fill="#c9453a"/><path class="flag" d="M880 286l40 -1 -19 44z" fill="#f2c14e"/><path class="flag" d="M1040 290l40 3 -18 44z" fill="#2f6aa8"/><path class="flag" d="M1290 312l40 6 -15 44z" fill="#3f8a4e"/></g>
+<text x="800" y="300" class="pac" font-size="50" fill="#8c2f24" opacity=".9">Teas</text>
+
+<!-- Mrs Kemble behind the long table -->
+<g id="kemble" class="hot" transform="translate(860 690) scale(1.02)" data-fig="kemble"></g>
+<path d="M300 540H1280V566H300Z" fill="#b98a55"/><path d="M286 566H1294V700H286Z" fill="url(#ging)"/><path d="M286 566H1294" stroke="#c9453a" stroke-width="4"/><path d="M286 700q14 12 28 0q14 12 28 0q14 12 28 0q14 12 28 0q14 12 28 0q14 12 28 0q14 12 28 0q14 12 28 0q14 12 28 0q14 12 28 0q14 12 28 0q14 12 28 0q14 12 28 0q14 12 28 0q14 12 28 0q14 12 28 0q14 12 28 0q14 12 28 0q14 12 28 0q14 12 28 0q14 12 28 0q14 12 28 0q14 12 28 0q14 12 28 0q14 12 28 0q14 12 28 0q14 12 28 0q14 12 28 0q14 12 28 0q14 12 28 0q14 12 28 0q14 12 28 0q14 12 28 0q14 12 28 0q14 12 28 0q14 12 28 0" fill="none" stroke="#fbf7ea" stroke-width="5"/>
+<!-- urn number one, hot -->
+<g id="urn1" class="hot">
+  <g fill="#fff"><ellipse class="steam" cx="560" cy="372" rx="16" ry="12"/><ellipse class="steam b" cx="548" cy="376" rx="13" ry="10"/><ellipse class="steam c" cx="572" cy="374" rx="12" ry="9"/></g>
+  <rect x="504" y="400" width="112" height="140" rx="6" fill="url(#steelG)"/><path d="M500 400h120v-12q-60 -22 -120 0z" fill="#b9c0c8"/><circle cx="560" cy="378" r="8" fill="#17181c"/>
+  <path d="M504 430h112M504 512h112" stroke="#6f7780" stroke-width="2.500"/><path d="M496 440q-18 4 -16 26M624 440q18 4 16 26" stroke="#17181c" stroke-width="7" fill="none" stroke-linecap="round"/>
+  <rect x="548" y="500" width="24" height="16" fill="#17181c"/><path d="M560 516v16" stroke="#17181c" stroke-width="8"/><circle cx="600" cy="418" r="5" fill="#d23b2e"/>
+  <text x="560" y="476" class="hand" font-size="22" fill="#3a3c45">No. 1</text>
+</g>
+<!-- cakes, scones, cups, the order book -->
+<g><path d="M650 540h120" stroke="#fbfaf2" stroke-width="8" stroke-linecap="round"/><g fill="#e6c27a" stroke="#b98a55" stroke-width="2"><ellipse cx="672" cy="528" rx="18" ry="10"/><ellipse cx="708" cy="528" rx="18" ry="10"/><ellipse cx="744" cy="528" rx="18" ry="10"/><ellipse cx="690" cy="512" rx="18" ry="10"/><ellipse cx="726" cy="512" rx="18" ry="10"/><ellipse cx="708" cy="496" rx="18" ry="10"/></g></g>
+<g id="book" class="hot"><ellipse cx="826" cy="530" rx="50" ry="22" fill="#fff" opacity="0"/><path d="M786 542l8 -26h70l8 26z" fill="#fbf7ea" stroke="#22335a" stroke-width="2"/><path d="M794 516h70" stroke="#c9453a" stroke-width="6"/><path d="M800 526h56M798 532h60M797 538h40" stroke="#22335a" stroke-width="1.600"/><path d="M866 514l22 -14" stroke="#2f6aa8" stroke-width="4" stroke-linecap="round"/></g>
+<g><path d="M930 540v-60M900 482h60M906 540h48" stroke="#fbfaf2" stroke-width="6" stroke-linecap="round"/><path d="M900 482q30 -40 60 0z" fill="#f2a6b8"/><path d="M910 470q20 -22 40 0" stroke="#fbfaf2" stroke-width="4" fill="none"/><circle cx="930" cy="446" r="6" fill="#d23b2e"/></g>
+<g fill="#fbfaf2" stroke="#b9c0c8" stroke-width="2"><path d="M990 540v-12h36v12zM990 528v-12h36v12zM990 516v-12h36v12zM1036 540v-12h36v12zM1036 528v-12h36v12z"/></g>
+<!-- urn number two, cold, with a card on it -->
+<g id="urn2" class="hot">
+  <rect x="1104" y="400" width="112" height="140" rx="6" fill="url(#steelG)"/><g id="urn2lid"><path d="M1100 400h120v-12q-60 -22 -120 0z" fill="#b9c0c8"/><circle cx="1160" cy="378" r="8" fill="#17181c"/></g>
+  <path d="M1104 430h112M1104 512h112" stroke="#6f7780" stroke-width="2.500"/><path d="M1096 440q-18 4 -16 26M1224 440q18 4 16 26" stroke="#17181c" stroke-width="7" fill="none" stroke-linecap="round"/>
+  <rect x="1148" y="500" width="24" height="16" fill="#17181c"/><path d="M1160 516v16" stroke="#17181c" stroke-width="8"/><circle cx="1200" cy="418" r="5" fill="#5a5f66"/>
+  <g transform="rotate(-3 1160 462)"><path d="M1160 436v8" stroke="#6b5a3c" stroke-width="2"/><rect x="1116" y="444" width="88" height="46" fill="#fbf7ea" stroke="#3a3229" stroke-width="1.500"/><text x="1160" y="461" font-family="Homemade Apple,cursive" font-size="10.500" text-anchor="middle" fill="#27304a">Not in use</text><text x="1160" y="474" font-family="Homemade Apple,cursive" font-size="10.500" text-anchor="middle" fill="#27304a">until four.</text><text x="1160" y="486" font-family="Homemade Apple,cursive" font-size="9" text-anchor="middle" fill="#27304a">D.F.</text></g>
+  <g id="cup" transform="translate(1160 400) scale(1.5)"><path d="M-13 -34q0 22 13 22t13 -22z" fill="#e3e8ee"/><path d="M-13 -34h26" stroke="#f7fafc" stroke-width="2.400"/><path d="M-13 -31q-9 0 -8 8t10 7M13 -31q9 0 8 8t-10 7" stroke="#c9d0d9" stroke-width="2.600" fill="none"/><path d="M-6 -30q-1 10 3 14" stroke="#fff" stroke-width="2" fill="none"/></g>
+</g>
+
+<!-- the people in the tent -->
+<g id="rav" class="hot" transform="translate(120 852) scale(.94)" data-fig="ravenscroft"></g>
+<g id="sanghera" class="hot" transform="translate(330 846) scale(1.02)" data-fig="sanghera"></g>
+<g><ellipse cx="444" cy="866" rx="52" ry="8" fill="#5f7a3a" opacity=".35"/><path d="M444 860V760" stroke="#8a6a45" stroke-width="8"/><ellipse cx="444" cy="756" rx="58" ry="14" fill="#fbf7ea" stroke="#d6cfba" stroke-width="2"/><g fill="#fbfaf2" stroke="#b9c0c8" stroke-width="2"><path d="M418 752v-12h22v12z"/><path d="M452 750v-12h22v12z"/></g><ellipse cx="444" cy="738" rx="13" ry="7" fill="#e6c27a" stroke="#b98a55" stroke-width="2"/>
+  <path d="M410 866q-6 -34 16 -40q22 2 20 40z" fill="#d95a8a"/><circle cx="428" cy="818" r="12" fill="#b8875a"/><path d="M417 816q0 -14 11 -14t11 14q-5 -6 -11 -6t-11 6z" fill="#15100c"/><path d="M416 818q-8 10 -6 22M440 818q8 10 6 22" stroke="#15100c" stroke-width="4" fill="none"/></g>
+<g id="bexley" class="hot" transform="translate(600 848) scale(1)" data-fig="bexley"></g>
+<g id="twins" class="hot" transform="translate(708 872) scale(1)" data-fig="twins"></g>
+<!-- the five cards -->
+<g id="cards" class="hot"><path d="M914 880V794M1100 880V794" stroke="#3a2a1c" stroke-width="8"/><path d="M896 760H1118L1136 800H878Z" fill="#3f8a4e"/><path d="M878 800H1136V812H878Z" fill="#2a5a33"/>
+  <g id="cardsG"><g fill="#fbf7ea" stroke="#b9ae8c" stroke-width="1.500"><path d="M902 794l6 -28h36l4 28z"/><path d="M950 794l4 -28h36l2 28z"/><path d="M994 794l1 -28h36l-1 28z"/><path d="M1036 794l-2 -28h36l-4 28z"/><path d="M1078 794l-4 -28h36l-6 28z"/></g><g stroke="#3f6b3a" stroke-width="3"><path d="M909 769h34M955 769h34M996 769h34M1035 769h34M1076 769h34"/></g></g></g>
+<g id="fairbrass" class="hot" transform="translate(1290 852) scale(1.08)"><g data-fig="fairbrass"></g>
+  <g id="needles"><path d="M-58 -160l-26 -30M-46 -160l-10 -38" stroke="#c9ced3" stroke-width="3" stroke-linecap="round"/></g><path d="M-64 -150q8 -16 24 -8q4 14 -8 20q-14 2 -16 -12z" fill="#2f6630"/></g>
+<ellipse id="basket" class="hot" cx="1176" cy="738" rx="34" ry="34" fill="#fff" opacity="0"/>
+<ellipse id="rug" class="hot" cx="1296" cy="766" rx="46" ry="34" fill="#fff" opacity="0"/>
+<rect id="wheels" class="hot" x="1180" y="806" width="230" height="56" fill="#fff" opacity="0"/>
+<g id="goodchild" class="hot" transform="translate(1520 850) scale(1.04)" data-fig="goodchild"></g>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">To the dial, by the Yew Door</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="maze.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, bench = null, told = {};
+  MZ.figs();
+
+  ER.init({
+    theme: 'mystery', story: 'maze', storyTitle: 'Past the Lion', id: 'tent', no: 'IV', title: 'The Tea Tent',
+    go: 'Go in under the flap',
+    intro: [
+      'Mrs Kemble did exactly what your card told her, and the card took her from the bench to the dial: past the lion, through the Dip, and round by the north side with one hand on the hedge. One hedge on the plan turned out to be sixty paces, twelve steps and a bog. Nobody with clean shoes went that way today.',
+      'But there is a second way to the dial. From the Yew Door it is twelve paces, and flat. That door was locked until a quarter to three. And somebody has been along it since: three thin lines in gravel that was raked at twenty-five to three, with no footprints between them.',
+      'It is twenty to four. In twenty minutes the cup is to be presented at the dial, or Mr Bexley is to be presented with a policeman.'
+    ],
+    exit: {"next":"four","w":{"c2d5d1bd":"d06ba178"}}, tags: {"v-bex":["6b7eb191"],"v-rav":["56687c47"],"v-san":["ceeeaa10"],"v-goo":["e2e0841a"],"v-fai":["e30181b6"],"r-bex":["ef278d1e"],"r-rav":["8704c14e"],"r-san":["6952ee87"],"r-goo":["21d73971"],"r-fai":["d04e7a34"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('t-file') || null; told = ER.flag('t-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('t-told', told); return true; }
+  function stg() { return ER.flag('t-stage') || 0; }           /* 0 the cards, 1 who, 2 where, 3 found */
+  function isBusy() { return busy; }
+  function ready() { return told.fai && told.san && told.book; }
+  function showGo() { $('#go').classList.add('on'); }
+  function paint() {
+    $('#cards').classList.toggle('ready', !!(ready() && !stg()));
+    document.body.classList.toggle('found', stg() >= 3); document.body.classList.toggle('stopped', stg() >= 2);
+    ER.pips(Math.min(3, stg()) + (ready() ? 1 : 0), 4);
+  }
+
+  function hints() {
+    var s = stg();
+    if (s >= 3) return ['go', ['Fifteen minutes to four. The cup goes back to the dial by the flat way.']];
+    if (bench && bench.isOpen()) return ['cards', [
+      'Every card asks the same question: was this person AT THE DIAL between a quarter to three and five to three? &ldquo;Cannot have been&rdquo;: something makes it impossible. &ldquo;Must have been&rdquo;: something proves it. &ldquo;Might have been&rdquo;: it was possible, and nothing proves it either way.',
+      'There are two ways to the dial. From the gate: steps and mud. From the Yew Door: flat, but locked until a quarter to three, and outside the maze. For each person ask which side of your gate they were on, and what that way would have done to their shoes or their wheels.',
+      'Two people have no hunt card, because they never went through your gate. One had the key, and five minutes that nobody saw: is that proof of anything? The other &ldquo;cannot manage the steps&rdquo;, as everybody knows. But read your note about the gravel, count the wheels of everything in this tent, and read again what she said about a lens cap.'
+    ]];
+    if (s === 2) return ['where', [
+      'She told the twins the truth: &ldquo;As far as the urn, and no further.&rdquo; You have had your arm inside the stone urn in the maze, and there was no cup in it. Her three wheels could never have got there in any case. Is that the only urn at Summerhays?',
+      'An urn is also a big metal pot with a tap, for making tea for a great many people. There are two of them in this tent. One is hot. The other has a card on it, in very neat handwriting.'
+    ]];
+    if (s === 1) return ['who', ['One card says MUST. Somebody in this tent was at the dial after a quarter to three, and has not said so. Mrs Kemble will not say the name. Click on that person.']];
+    if (!ready()) return ['ask', [
+      'Mrs Kemble said: ask anybody anything. Two people have a good deal to say, and one book has it all written down.',
+      (told.fai ? '' : 'Miss Fairbrass is sitting on her scooter at the right-hand end of the long table. ') + (told.san ? '' : 'Dr Sanghera is standing beside the little round table on the left, with a scone. ') + (told.book ? '' : 'Mrs Kemble&rsquo;s order book is lying open on the long table, in the middle.')
+    ]];
+    return ['table', ['The five cards are on the green card table in the middle of the tent, with three rubber stamps beside them.']];
+  }
+
+  function begin() {
+    ['rhymes', 'plan'].forEach(function (id) { MZ.file(id, true); });
+    paint();
+    if (stg() >= 3) { busy = false; showGo(); ER.say('The cup is out of the urn, and it is a quarter to four.'); return; }
+    if (stg() === 2) { busy = false; ER.say('&ldquo;And where is the cup now?&rdquo; says Miss Fairbrass. &ldquo;I have told two children already, and I never say a thing twice.&rdquo;'); return; }
+    if (stg() === 1) { busy = false; ER.say('One card says MUST. Everybody in the tent is looking at you. Click on the one who was at the dial.'); return; }
+    if (told.in) { busy = false; ER.say('The tea tent, twenty to four. Five cards are waiting on the green table.'); return; }
+    ER.narrate([
+      'The tea tent smells of hot canvas, cut grass and scones. Everybody who matters is here, because Mrs Kemble has said that they shall be. Mr Bexley, looking at his watch. Dr Sanghera, with his third scone. Mrs Ravenscroft and the pushchair. The twins, on the grass. Mr Goodchild, who has stopped in the doorway as if the tent were a church.',
+      'And Miss Fairbrass. She was headmistress of Little Hays School for thirty years, and most of the people in this tent learned to read in front of her. She sits very straight on a red electric scooter beside the second tea urn, with a rug over her knees, knitting something the colour of a hedge.',
+      'Mrs Kemble lays five cards in a row on the green table, and beside them three rubber stamps out of the committee box. &ldquo;Three of these are hunt cards, out of your own box. Two I have written out myself, for people who never went through your gate. Ask anybody anything. Then stamp every card, and tell me why.&rdquo;'
+    ], function () { tell('in'); busy = false; });
+  }
+
+  /* ---------- people ---------- */
+  $('#fairbrass').addEventListener('click', function () {
+    if (busy) return;
+    if (stg() === 1) { accuse(); return; }
+    if (stg() === 2) { ER.say('&ldquo;I have told two children already,&rdquo; says Miss Fairbrass, &ldquo;and I never say a thing twice.&rdquo; The twins are sitting on the grass with their mouths full.'); return; }
+    if (stg() >= 3) { ER.say('&ldquo;Past,&rdquo; says Miss Fairbrass, knitting. &ldquo;P, A, S, T. Forty-one of them. I despair.&rdquo; But she is very nearly smiling.'); return; }
+    ER.talk({
+      who: 'Miss Fairbrass', role: 'Headmistress of Little Hays School for thirty years · she presents the cup', face: window.FACE('fairbrass'),
+      lines: [
+        { note: 'She does not stop knitting. She looks at you over her spectacles, as she has looked at three generations of children who had not done their reading.', a: '&ldquo;So you are the one who went past the lion. I have waited a long time for somebody to do that. Since 1962 it has been done nine times, and four of those were Goodchild.&rdquo; The needles click. &ldquo;Past. P, A, S, T. It is not a difficult word.&rdquo;' },
+        { q: 'Have you been into the maze today?', a: 'Child, I have not been down the steps of the Dip since nineteen ninety-eight. Ask anybody in this tent. &ldquo;Miss Fairbrass cannot manage the steps.&rdquo; It is the one thing in Little Hays that everybody knows.' },
+        { q: 'When did you come into the tea tent?', a: 'At five minutes to three. Mrs Kemble will have written it down. She writes everything down, and then nobody reads it. I asked that the second urn should be left alone until four o&rsquo;clock. It is not wanted before the rush.' },
+        { q: 'What do you think has happened to the cup?', a: 'I think that it is exactly where it ought to be.</p><p class="note">Click, click.</p><p>That young woman from the Parish News, on the other hand, leaves her belongings all over the county. At this moment there is a lens cap lying on Sir Edmund&rsquo;s dial, on the very spot where the cup should stand. In my school she would have been sent back for it.' },
+        { q: 'The twins say that you told them where it had gone.', a: '&ldquo;As far as the urn, and no further.&rdquo; Those were my words, and I chose them with care. I do not tell children things that are not true.</p><p class="note">She looks at you for a moment longer than is comfortable.</p><p>And I do not say things twice. Nobody reads, and nobody listens. Do you?' }
+      ],
+      clue: { id: 'fai1', title: 'Miss Fairbrass, in the tea tent', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('fai')) { MZ.words(['headmistress', 'scooter', 'urn']); paint(); } }
+    });
+  });
+  $('#sanghera').addEventListener('click', function () {
+    if (busy) return;
+    if (stg() === 1) { ER.say('&ldquo;I was eating a scone,&rdquo; says Dr Sanghera, with dignity. &ldquo;It is in the book.&rdquo;'); return; }
+    if (stg() >= 2) { ER.say(stg() === 2 ? '&ldquo;I am a doctor, not a detective,&rdquo; says Dr Sanghera. &ldquo;But I should begin by asking how many urns there are.&rdquo;' : '&ldquo;Past the lion,&rdquo; says Dr Sanghera to his scone. &ldquo;Forty years.&rdquo;'); return; }
+    ER.talk({
+      who: 'Dr Sanghera', role: 'The village doctor for forty years · a hunter for just as long', face: window.FACE('sanghera'),
+      lines: [
+        { note: 'He is eating a scone with the care of a surgeon.', a: '&ldquo;Forty Junes I have done that hunt. First with my daughter, and now with her daughter, who is under this table with the jam. I have looked after half the children who ever went in at that gate. And I have never once got past that lion.&rdquo;</p><p class="note">He hears what he has said, and puts down the scone.</p><p>&ldquo;Past the lion. Good heavens. Is THAT all it meant?&rdquo;' },
+        { q: 'When did you come out of the maze?', a: 'At sixteen minutes to three. You stamped the card yourself. I said to my granddaughter: the lion has won again, let us have tea. We sat down at this table two minutes later, and we have been here ever since, as Mrs Kemble&rsquo;s book will tell you. And my waistcoat.' },
+        { q: 'Did you see anybody near the cup?', a: 'From here one sees nothing but cake. But I will tell you one thing as a doctor. That cup is as big as a teapot, and it weighs as much as a new baby. I have carried a good many babies. Nobody strolls across a lawn full of people with a thing like that under his jacket. If the cup has left the maze, something carried it.' }
+      ],
+      clue: { id: 'san1', title: 'Dr Sanghera, at table three', kind: 'What he said' },
+      done: function (seen) { if (seen && tell('san')) paint(); }
+    });
+  });
+  $('#book').addEventListener('click', function () {
+    if (busy) return;
+    MZ.read('book', function () { MZ.words(['tea urn', 'scone']); if (tell('book')) { paint(); ER.say('Mrs Kemble writes down the time of everything. It is the habit of a woman who has been told &ldquo;but I ordered two&rdquo; once too often.'); } });
+  });
+  function person(sel, lines) {
+    $(sel).addEventListener('click', function () { if (!busy) ER.say(lines[Math.min(stg(), lines.length - 1)]); });
+  }
+  person('#kemble', ['&ldquo;Ask anybody anything,&rdquo; says Mrs Kemble, slicing a lemon cake as if it had argued with her. &ldquo;Then stamp, and say why.&rdquo;',
+    '&ldquo;I was behind this urn from two o&rsquo;clock until the shouting began,&rdquo; says Mrs Kemble. &ldquo;Try again.&rdquo;',
+    '&ldquo;As far as the urn,&rdquo; says Mrs Kemble, frowning. &ldquo;But the urn is at the top of the maze, past the steps. She cannot have meant that.&rdquo; She has a hand on the lid of urn number one, and has not noticed.',
+    '&ldquo;Fifteen minutes,&rdquo; says Mrs Kemble. &ldquo;Somebody find a cloth and polish that cup.&rdquo;']);
+  person('#bexley', ['&ldquo;It is nineteen minutes to four,&rdquo; says Mr Bexley. &ldquo;I mention it only because nobody else has.&rdquo; His shoes are still perfect.',
+    '&ldquo;Dry shoes,&rdquo; says Mrs Kemble, before he can open his mouth. &ldquo;You stamped that card yourself.&rdquo;',
+    '&ldquo;If it is in this tent,&rdquo; says Mr Bexley, &ldquo;I shall be obliged if somebody will find it before four.&rdquo;',
+    'Mr Bexley is writing in a small book: ONE BILLIARD TABLE. He underlines it twice.']);
+  person('#goodchild', ['Mr Goodchild stands in the doorway. He is looking at the wheels of everything in the tent, one thing after another, and saying nothing.',
+    '&ldquo;Might is not must,&rdquo; says Mrs Kemble. &ldquo;And if Goodchild had taken it, then five minutes later somebody rode up to an empty dial, turned round, and has sat in this tent ever since without a word. Who would that be?&rdquo;',
+    'Mr Goodchild looks at the roof of the tent, and at his boots, and at nothing in between.',
+    '&ldquo;I unlocked a door,&rdquo; says Mr Goodchild. &ldquo;What goes through a door is no business of the man with the key.&rdquo; He is trying very hard not to look pleased.']);
+  person('#twins', ['&ldquo;As far as the urn and no further,&rdquo; says Bea, with her mouth full. &ldquo;That&rsquo;s what she said. We&rsquo;ve looked at the plan now. The urn&rsquo;s MILES away.&rdquo;',
+    '&ldquo;We TOLD you,&rdquo; says Bea. &ldquo;We saw it go. Nearly.&rdquo;',
+    '&ldquo;As far as the urn, and no further!&rdquo; say both twins at once. &ldquo;But the urn is right at the top of the maze,&rdquo; says Gus. &ldquo;Past the STEPS. She can&rsquo;t have got there.&rdquo;',
+    '&ldquo;It was NOT a badger,&rdquo; Bea is telling Gus.']);
+  person('#rav', ['&ldquo;He is still asleep,&rdquo; says Mrs Ravenscroft. &ldquo;I should have had to carry this thing down six steps to get anywhere near your dial. I cannot even get it over the tent ropes.&rdquo;',
+    'The baby wakes up, looks at you, and goes back to sleep. That seems to settle it.',
+    '&ldquo;Not in here,&rdquo; says Mrs Ravenscroft, lifting the blanket. There is nothing under it but a baby.',
+    'The baby has woken up at last, and is looking at the cup as if it were the moon.']);
+  MZ.item('#wheels', 'scooter', 'Miss Fairbrass&rsquo;s electric scooter. One wheel at the front, to steer by, and two behind. It has a basket, a horn, and a top speed of four miles an hour, which she says is quite fast enough for anybody who looks where she is going.', isBusy);
+
+  /* ---------- things: before the name they are only things; after it, one of them is the answer ---------- */
+  function thing(sel, word, before, after) {
+    $(sel).addEventListener('click', function (e) {
+      if (busy) return;
+      if (stg() === 2) { after(e); return; }
+      if (word) ER.wordAt(e.clientX, e.clientY, word);
+      ER.say(typeof before === 'function' ? before() : before);
+    });
+  }
+  thing('#urn1', 'tea urn', 'Urn number one: a steel drum with a tap, as hot as a kettle and nearly as loud. It has been filled four times this afternoon.', function () {
+    MZ.sfx.lid(); ER.say('You lift the lid. Steam, and four gallons of tea. &ldquo;That one is in use,&rdquo; says Mrs Kemble, &ldquo;as you can hear.&rdquo;');
+  });
+  thing('#urn2', 'tea urn', function () { return stg() >= 3 ? 'Urn number two, with its lid off. The cup stood in it for fifty minutes, on a folded tea towel, and is none the worse.' : 'Urn number two. It is cold. A card hangs on it, in very neat handwriting: Not in use until four. D.F.'; }, found);
+  thing('#basket', null, 'The basket of the scooter. Knitting: something long and dark green, on four needles.', function () {
+    ER.say('You look into the basket. Knitting: something long and dark green. &ldquo;It is a scarf for the lion,&rdquo; says Miss Fairbrass. &ldquo;He feels the frost.&rdquo;');
+  });
+  thing('#rug', 'rug', 'A tartan rug, tucked in round her knees with great exactness.', function () {
+    ER.say('&ldquo;Under that rug,&rdquo; says Miss Fairbrass, &ldquo;are my knees, and I will thank you to leave them where they are. It was there. It is not there now.&rdquo;');
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  $('#cards').addEventListener('click', function () {
+    var left = [];
+    if (busy) return;
+    if (stg()) { ER.say('Five cards: three CANNOT, one MIGHT, one MUST. Mrs Kemble has put a teapot on them so that they do not blow away.'); return; }
+    if (!told.fai) left.push('spoken to Miss Fairbrass');
+    if (!told.san) left.push('spoken to Dr Sanghera');
+    if (!told.book) left.push('read my order book');
+    if (left.length) { ER.say('&ldquo;Not yet,&rdquo; says Mrs Kemble. &ldquo;You have not ' + left.join(', and you have not ') + '.&rdquo;'); return; }
+    if (!bench) bench = makeBench();
+    bench.open();
+  });
+
+  /* ---------- the cards ---------- */
+  function makeBench() {
+    var PEOPLE = [
+      ['bex', 'Mr Bexley', '2.38', '2.58', 0, 'Did not want the rhymes. Tall enough to see over the hedges. Photograph C: his hat at the bench, one hedge from the dial, at 2.50. Shoes: brown, polished, dry.'],
+      ['rav', 'Mrs Ravenscroft', '2.40', '2.56', 1, 'With a pushchair, and a baby asleep in it. Would not leave either. One stamp. Shoes dry.'],
+      ['san', 'Dr Sanghera', '2.00', '2.44', 2, 'With his granddaughter. Two stamps. Mrs Kemble&rsquo;s book: tea at table 3 at 2.46, and there ever since.'],
+      ['goo', 'Mr Goodchild', '', '', -1, 'Has the only key of the Yew Door. Unlocked it at 2.45. I saw him put up the umbrella at his plant stall at 2.50, and not before. Boots: muddy (he says, since 1974).'],
+      ['fai', 'Miss Fairbrass', '', '', -1, 'Rides an electric scooter: one wheel in front, two behind. Came into the tea tent at 2.55 (Mrs Kemble&rsquo;s book), and has not left it.']
+    ], WHY = [
+      ['hat', 'because a white hat was seen one hedge from the dial at ten to three.'],
+      ['out', 'because this card was stamped OUT before a quarter to three, and two minutes later its owner was sitting down to tea.'],
+      ['tracks', 'because three wheels crossed gravel that was raked at 2.35, the door was locked until 2.45, and by 2.55 their owner was in the tea tent.'],
+      ['mud', 'because there is mud on the boots.'],
+      ['shoes', 'because the only way from the gate to the dial is through the mud of the Dip, and these shoes are dry.'],
+      ['key', 'because he had the key, and five minutes in which nobody saw him: but nothing shows that he went in.'],
+      ['steps', 'because everybody knows that the steps of the Dip are too much for her.'],
+      ['wheels', 'because a pushchair cannot go down steps; and it was inside the gate, not at the Yew Door, until 2.56.']
+    ], LABEL = { cannot: 'Cannot<br>have been', might: 'Might<br>have been', must: 'Must<br>have been' },
+      ver = ER.flag('t-v') || {}, rea = ER.flag('t-r') || {}, stamp = null, wait = false, box = ER.el('div', 'bx cards'), Q = '&rdquo; says Mrs Kemble. &ldquo;', s;
+    s = '<div class="cd-q">At the dial between a quarter to three and five to three?</div><div class="cd-row">';
+    PEOPLE.forEach(function (p) {
+      var i, m = '';
+      for (i = 0; i < 4; i++) m += '<span' + (i < p[4] ? ' class="on">' + MZ.mark(i, 17) : '>') + '</span>';
+      s += '<div class="cd' + (p[4] < 0 ? ' own' : '') + '" data-k="' + p[0] + '"><small>' + (p[4] < 0 ? 'No hunt card' : 'Maze Hunt') + '</small><b class="nm">' + p[1] + '</b>' +
+        (p[4] < 0 ? '<span class="none">did not go through the gate</span>' : '<div><span class="tm">IN ' + p[2] + '</span><span class="tm">OUT ' + p[3] + '</span></div><div class="mk">' + m + '</div>') +
+        '<p>' + p[5] + '</p><button type="button" class="cd-v" data-k="' + p[0] + '">stamp here</button><div class="cd-why" data-k="' + p[0] + '"></div></div>';
+    });
+    s += '</div><div class="cd-tools"><div class="cd-stamps">' + ['cannot', 'might', 'must'].map(function (k) { return '<button type="button" class="st ' + k + '" data-s="' + k + '">' + LABEL[k].replace('<br>', ' ') + '</button>'; }).join('') + '</div>' +
+      '<div class="cd-tray">' + WHY.map(function (w) { return '<div class="slip dnd-item" data-r="' + w[0] + '">&hellip; ' + w[1] + '</div>'; }).join('') + '</div></div>' +
+      '<div class="bx-foot"><p class="pmsg"></p><button type="button" class="btn" id="t-go">Show Mrs Kemble</button></div>';
+    box.innerHTML = s;
+    ER.glossIn(box, '.cd p');
+    var msgEl = box.querySelector('.pmsg'), tray = box.querySelector('.cd-tray');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function slot(k) { return box.querySelector('.cd-why[data-k="' + k + '"]'); }
+    function draw() {
+      ER.$$('.cd-v', box).forEach(function (b) { var k = b.getAttribute('data-k'); b.className = 'cd-v' + (ver[k] ? ' set ' + ver[k] : ''); b.innerHTML = ver[k] ? LABEL[ver[k]] : 'stamp here'; });
+      ER.$$('.st', box).forEach(function (b) { b.classList.toggle('sel', b.getAttribute('data-s') === stamp); });
+      ER.$$('.cd-why', box).forEach(function (n) { n.classList.remove('bad'); });
+    }
+    function read() {
+      rea = {};
+      PEOPLE.forEach(function (p) { var n = slot(p[0]).querySelector('.slip'); if (n) rea[p[0]] = n.getAttribute('data-r'); });
+      ER.flag('t-r', rea);
+    }
+    PEOPLE.forEach(function (p) { var n = rea[p[0]] && tray.querySelector('.slip[data-r="' + rea[p[0]] + '"]'); if (n) slot(p[0]).appendChild(n); });
+    ER.dnd(box, { item: '.slip', slot: '.cd-why', home: tray, lock: function () { return wait; }, change: function () { read(); draw(); } });
+    function holding() { setTimeout(function () { box.classList.toggle('holding', !!box.querySelector('.slip.held')); }, 0); }
+    box.addEventListener('pointerup', holding); box.addEventListener('click', holding);
+    box.addEventListener('click', function (e) {
+      var st = e.target.closest ? e.target.closest('.st') : null, v = e.target.closest ? e.target.closest('.cd-v') : null, k;
+      if (wait) return;
+      if (st) { stamp = stamp === st.getAttribute('data-s') ? null : st.getAttribute('data-s'); ER.sfx.click(); draw(); return; }
+      if (v) {
+        k = v.getAttribute('data-k');
+        if (!stamp) { msg('Pick up one of the three rubber stamps first (on the left, under the cards). Then bring it down on a card.'); return; }
+        ver[k] = stamp; ER.flag('t-v', ver); MZ.sfx.stamp(); draw();
+      }
+    });
+    function wrong(k, v, r) {
+      if (k === 'bex') return v !== 'cannot' ? '&ldquo;A hat, one hedge from the dial. I have walked that hedge,' + Q + 'Sixty paces, twelve steps and a bog. Look at his shoes, and stamp him again.&rdquo;' :
+        r === 'hat' ? '&ldquo;The hat is why I suspected him,' + Q + 'It is not a reason why he CANNOT have been there.&rdquo;' : '&ldquo;The stamp is right, and the reason belongs on somebody else&rsquo;s card,' + Q + 'What did the Dip do to my shoes? And what has it done to his?&rdquo;';
+      if (k === 'rav') return v !== 'cannot' ? '&ldquo;With a pushchair? Down six steps?' + Q + 'And the flat way in is by the Yew Door, which is outside the maze. Look at the time on her OUT stamp.&rdquo;' :
+        '&ldquo;Cannot: yes,' + Q + 'But there is a better reason for her on the table, and it has four wheels.&rdquo;';
+      if (k === 'san') return v !== 'cannot' ? '&ldquo;Look at his OUT stamp, and then at my order book,' + Q + 'Where was he, two minutes after he came out of your gate?&rdquo;' :
+        '&ldquo;Cannot: yes. But his reason is on his own card in violet ink,' + Q + 'and in my book in blue.&rdquo;';
+      if (k === 'goo') return v === 'cannot' ? '&ldquo;Cannot? He had the key in his pocket, and he was standing at that door at a quarter to three,' + Q + 'You saw him at his stall at ten to, and not before. Is it IMPOSSIBLE?&rdquo;' :
+        v === 'must' ? '&ldquo;Must? His boots have been muddy since 1974,' + Q + 'Mud shows that a gardener is a gardener. What PROVES that he went in?&rdquo;' :
+        r === 'mud' ? '&ldquo;Might is the word. But mud is no reason at all,' + Q + 'A gardener&rsquo;s boots are muddy in his bath.&rdquo;' : '&ldquo;Might is the word,' + Q + 'Now why is it only might? What did he have, and what did nobody see?&rdquo;';
+      return v === 'cannot' ? '&ldquo;That is what everybody in this tent would say, and of the Dip it is true,' + Q + 'But read the programme. Which way to the dial has no steps in it, and from what time?&rdquo;' :
+        v === 'might' ? '&ldquo;Might? Think of the gravel,' + Q + 'Raked at twenty-five to three. What has crossed it since, and what in this tent has that number of wheels?&rdquo;' :
+        '&ldquo;Must. Yes,' + Q + 'Now give me the reason, so that Mr Bexley can follow it.&rdquo;';
+    }
+    box.querySelector('#t-go').addEventListener('click', function () {
+      var i, k;
+      if (wait || stg()) return;
+      read();
+      for (i = 0; i < PEOPLE.length; i++) if (!ver[PEOPLE[i][0]] || !rea[PEOPLE[i][0]]) { msg('&ldquo;Five cards,&rdquo; says Mrs Kemble, &ldquo;and every one of them wants a stamp and a reason. ' + PEOPLE[i][1] + ' is not finished.&rdquo;'); return; }
+      for (i = 0; i < PEOPLE.length; i++) {
+        k = PEOPLE[i][0];
+        if (!ER.check('v-' + k, ver[k]) || !ER.check('r-' + k, rea[k])) {
+          ER.sfx.no(); draw();
+          if (!ER.check('v-' + k, ver[k])) box.querySelector('.cd-v[data-k="' + k + '"]').classList.add('bad'); else slot(k).classList.add('bad');
+          msg('<b>' + PEOPLE[i][1] + '.</b> ' + wrong(k, ver[k], rea[k])); return;
+        }
+      }
+      wait = true; ER.flag('t-stage', 1); MZ.solved(true); paint();
+      MZ.mine('verdicts', 'Who was at the dial?', '<p>Between a quarter to three, when the twins saw the cup, and five to three:</p>' +
+        '<p><b>Mr Bexley cannot have been:</b> he was inside the gate, and from there the only way is through the mud of the Dip. His shoes are dry.</p>' +
+        '<p><b>Mrs Ravenscroft cannot have been:</b> a pushchair cannot go down steps, and she was inside the gate until 2.56.</p>' +
+        '<p><b>Dr Sanghera cannot have been:</b> he was stamped out at 2.44, and at 2.46 he was having tea.</p>' +
+        '<p><b>Mr Goodchild might have been:</b> he had the key, and nobody saw him from 2.45 to 2.50. Nothing shows that he went in.</p>' +
+        '<p><b>Miss Fairbrass must have been:</b> three wheels crossed gravel that was raked at 2.35; the door was locked until 2.45; from 2.55 she was in the tea tent. And she knows that there is a lens cap on the dial.</p>', true);
+      msg('&ldquo;Three cannot, one might, one must.&rdquo; Mrs Kemble puts the stamps back in their box, one at a time. &ldquo;So somebody in this tent was at the dial after a quarter to three, and has not said so. I am not going to say the name. She taught me to read.&rdquo;');
+      setTimeout(function () { ER.closeAll(); busy = false; ER.say('Everybody in the tent is looking at you. Click on the one who was at the dial, and has not said so.', 9000); }, 4400);
+    });
+    draw();
+    msg('Five cards, and one question for all of them. Pick up a rubber stamp and bring it down on each card. Then give each card its reason: drag a slip of paper on to it, or click the slip and then the card.');
+    return {
+      open: function () { ER.open('ov-lock', box); },
+      isOpen: function () { return !!box.parentNode; }
+    };
+  }
+
+  /* ---------- the name, the urn, and what Mr Bexley said ---------- */
+  function accuse() {
+    busy = true; ER.flag('t-stage', 2); MZ.solved(true); paint();
+    ER.narrate([
+      'The needles stop. It is the first time that they have stopped since you came into the tent. &ldquo;Yes,&rdquo; says Miss Fairbrass. &ldquo;At thirteen minutes to three, by the Yew Door, which Mr Goodchild had unlocked two minutes before, as the programme says that he shall. I was at the dial for one minute. I should like to know how you can tell.&rdquo;',
+      'You tell her. Three thin lines in gravel that was raked at twenty-five to three, and no feet between them. And a lens cap which cannot be seen from anywhere but the dial. &ldquo;Hm,&rdquo; says Miss Fairbrass. &ldquo;You read gravel as well as rhymes. Very well. And where is the cup now? I have told two children already this afternoon, and I never say a thing twice.&rdquo;'
+    ], function () { busy = false; });
+  }
+  function found() {
+    var file = ER.exit([['bex', 'rav', 'san', 'goo', 'fai'].map(function (k) { return (ER.flag('t-v') || {})[k]; }).join(',') + '|fairbrass|urn2'], { wait: true });
+    if (!file) { ER.say('The lid has stuck. Something is wrong with this page: tell your teacher.'); return; }
+    busy = true; nextFile = file; ER.flag('t-file', file); ER.flag('t-stage', 3); MZ.sfx.lid(); paint();
+    MZ.mine('urn', 'As far as the urn', '<p>The cup was in the second tea urn, which was cold, with a card on it in Miss Fairbrass&rsquo;s writing: Not in use until four.</p>' +
+      '<p>She rode in at the Yew Door at 2.47, took the cup on her knees under the rug, and rode out again. She told the twins the truth: &ldquo;As far as the urn, and no further.&rdquo; They thought of the stone urn in the maze. She meant the other kind.</p>' +
+      '<p>Why: Sir Edmund gave the cup to the children of Little Hays in 1962, and she was there. A thing that has been given away cannot be sold.</p>', true);
+    ER.narrate([
+      'The lid of the second urn comes off with a ring like a small bell. Inside, on a folded tea towel, stands the Maze Cup, with the light through the canvas shining on it. &ldquo;As far as the urn,&rdquo; says Mrs Kemble faintly, &ldquo;and no further. Miss Fairbrass! In my own tea tent!&rdquo; &ldquo;It is a very good urn,&rdquo; says Miss Fairbrass. &ldquo;I chose it myself, in 1983.&rdquo;',
+      '&ldquo;I did not steal it,&rdquo; she goes on, and nobody in the tent would dream of interrupting. &ldquo;I was twenty-one in 1962, in my first summer at the school, and I stood at that dial when Sir Edmund gave the cup away. To the children of Little Hays, he said, for as long as there are children, and a Hays. A thing that has been given away cannot afterwards be sold by the giver&rsquo;s family. I have removed it from the sale. That is all.&rdquo;',
+      '&ldquo;It was on my knees, under this rug, before the twins had finished looking for their steps. I rode out at the Yew Door and all the way round to this tent, and nobody so much as looked at me. Nobody ever looks at an old woman on a scooter. They look at the scooter.&rdquo; She picks up her knitting. &ldquo;Everybody KNEW that I could not have reached the dial. And not one of you had read your own programme.&rdquo;',
+      'Mr Bexley has put on a pair of thin white gloves. He lifts the cup out of the urn, turns it upside down, and holds a small round glass up to one eye. The tent waits. &ldquo;Electroplate,&rdquo; he says at last. &ldquo;Birmingham, 1961. A thin coat of silver on a good deal of something else. I could not get you forty pounds for it. I was told solid silver.&rdquo; &ldquo;You were told so by a Marchmont,&rdquo; says Miss Fairbrass. &ldquo;Sir Edmund also told this village that the lion would bite.&rdquo;',
+      'There is a small dry sound from the doorway. It is old Mrs Marchmont, who owns the house, the maze and the roof; and she is laughing. &ldquo;Forty pounds! It would not pay for one gutter. Put it back on the dial, Goodchild. It appears that it was never ours to sell.&rdquo; &ldquo;The lion, on the other hand,&rdquo; says Mr Bexley, &ldquo;is lead, and about 1740. The lion would mend your roof twice over.&rdquo; &ldquo;No,&rdquo; say Mrs Marchmont and Miss Fairbrass, at exactly the same moment. &ldquo;The children need something to get past.&rdquo;',
+      '&ldquo;Then the roof must wait,&rdquo; says Mrs Marchmont. &ldquo;Or you may have the billiard table, Mr Bexley. Nobody has played on it since my husband, and he cheated.&rdquo; Outside, the stable clock strikes three ding-dongs: a quarter to four. Mrs Kemble claps her hands. &ldquo;Fifteen minutes! The cup is presented at four, at the dial, as it says in the programme. Which SOME of us have read.&rdquo;'
+    ], function () { busy = false; showGo(); ER.say('Out of the tent, round the outside of the maze, and in at the Yew Door: twelve paces, flat.'); });
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Five Rhymes · Past the Lion</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-mystery.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="maze.css">
+<style>
+  body{--bg:#dccb9c;--accent:#f2c14e;--font-display:'IM Fell English SC',serif;--font-ui:'Oswald',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(16,36,20,.96);--tc-ink:#f6f1e2;--cap-bg:rgba(14,32,18,.93);--panel:#1f3a22;--face-bg:#2f5d2b;--q-ink:#f2d98a;--fade:#10240f;--hud-bg:rgba(14,32,18,.84);--ov-bg:rgba(10,26,14,.8)}
+  #view.in{animation:vin .22s ease-out}
+  @keyframes vin{from{opacity:.35}to{opacity:1}}
+  /* what you notice as you walk: a strip under the top bar, so that the bottom of the window is free for your feet */
+  #note{position:fixed;left:50%;top:60px;transform:translateX(-50%);z-index:34;width:min(820px,84vw);padding:11px 22px 12px;background:rgba(14,32,18,.9);border-bottom:2px solid #f2c14e;color:#f6f1e2;
+    font-family:'EB Garamond',Georgia,serif;font-size:clamp(18px,1.45vw,21.5px);line-height:1.4;text-align:center;opacity:0;pointer-events:none;transition:opacity .3s;box-shadow:0 12px 40px rgba(0,0,0,.35)}
+  #note.on{opacity:1}
+  #note .w{pointer-events:auto}
+  .pad{position:fixed;left:50%;bottom:3.4vh;transform:translateX(-50%);z-index:33;display:flex;gap:8px;align-items:stretch}
+  .pad button,.sidebtn{padding:11px 16px 10px;min-width:132px;border:1px solid rgba(255,255,255,.4);border-radius:4px;background:rgba(14,32,18,.86);color:#f6f1e2;font-family:'Oswald',sans-serif;font-weight:500;font-size:15px;letter-spacing:.16em;text-transform:uppercase;line-height:1.15}
+  .pad button small{display:block;font-size:10.5px;letter-spacing:.14em;opacity:.65;margin-top:2px}
+  .pad button:hover,.sidebtn:hover{border-color:#f2c14e;color:#f2c14e}
+  .pad button.no{opacity:.5}
+  .pad #b-fwd{min-width:190px;border-color:#f2c14e;color:#f2c14e}
+  .sidebtn{position:fixed;z-index:33;min-width:0}
+  #b-look{right:2.2vw;bottom:3.4vh;border-color:#f2c14e}
+  #b-gate{right:2.2vw;bottom:calc(3.4vh + 56px);font-size:12px;padding:8px 12px 7px;opacity:.85}
+  /* your hunt card */
+  #card{position:fixed;left:2.2vw;bottom:3.4vh;z-index:33;width:214px;padding:8px 12px 9px;background:#fbf7ea;color:#22301c;box-shadow:0 12px 30px rgba(0,0,0,.4);transform:rotate(-1.5deg);border-top:8px solid #3f6b3a;cursor:pointer;text-align:left}
+  #card h6{margin:0;font-family:'Alfa Slab One',serif;font-weight:normal;font-size:15px;letter-spacing:.06em;color:#3f6b3a}
+  #card .in{position:absolute;right:10px;top:7px;padding:0 5px;border:1.5px solid #5a2a8c;color:#5a2a8c;font-family:'Special Elite',monospace;font-size:11.5px;transform:rotate(3deg)}
+  #card .ring{display:flex;gap:7px;margin:7px 0 5px}
+  #card .ring span{width:42px;height:42px;border:1.5px dashed #9aa98c;border-radius:50%;display:grid;place-items:center;font-family:'IM Fell English SC',serif;font-size:17px;color:#b9c4ad}
+  #card .ring span.on{border-style:solid;border-color:#5a2a8c;transform:rotate(-8deg)}
+  #card .ring span.on:nth-child(2n){transform:rotate(6deg)}
+  #card small{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#3f6b3a;border-bottom:1px dotted #3f6b3a}
+  #card:hover small{color:#8c2f24;border-color:#8c2f24}
+  body.done .pad,body.done .sidebtn{display:none}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg"><g id="view"></g></svg>
+</div>
+<div id="note"></div>
+<button type="button" id="card" title="Read the rhymes"><h6>MAZE HUNT</h6><span class="in">IN 3.14</span><div class="ring"><span>I</span><span>II</span><span>III</span><span>IV</span></div><small>Read the five rhymes</small></button>
+<div class="pad"><button type="button" id="b-left">&#8630; Turn left</button><button type="button" id="b-fwd">Walk on</button><button type="button" id="b-right">Turn right &#8631;</button></div>
+<button type="button" class="sidebtn" id="b-gate">Back to the gate</button>
+<button type="button" class="sidebtn" id="b-look">Look for the stamp</button>
+<button type="button" class="gobtn" id="go">Step up to the dial</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="maze.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, pos, got, noteT = 0, bumps = 0;
+
+  ER.init({
+    theme: 'mystery', story: 'maze', storyTitle: 'Past the Lion', id: 'rhymes', no: 'II', title: 'Five Rhymes',
+    go: 'Go in',
+    intro: [
+      'Three photographs, and three pins in the gardener&rsquo;s plan. Each picture showed a lane from inside: so many squares to the hedge at the end, a gap on this side, a hedge on that. Only one place on the plan fitted each of them. The cup was on the sundial at half past two. And at ten to three the white hat that showed over the hedge in the third picture was in the dead end with the bench: one hedge from the dial.',
+      'Now you are a hunter yourself. In your hand are a card, stamped IN 3.14, and a sheet of five rhymes that are sixty years old. The plan has stayed behind on its easel. From here on there is nothing to see from above: only what is in front of you, what is on your left, and what is on your right.',
+      'Forty-one hunters went through this gate before you. Not one of them came out with a third stamp.'
+    ],
+    exit: {"next":"dial","w":{"32e7b3a3":"1ff94e00"}}, tags: {"s1":["b7568ff2"],"s2":["633c9541"],"s3":["912f01bd"],"s4":["1cef6dd4"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('m-file') || null; told = ER.flag('m-told') || {};
+  pos = ER.flag('m-pos') || { x: 3, y: 6, d: 0 }; got = ER.flag('m-got') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('m-told', told); return true; }
+  function count() { return [1, 2, 3, 4].filter(function (i) { return got[i]; }).length; }
+  function note(t, ms) {
+    var n = $('#note'); clearTimeout(noteT);
+    n.innerHTML = ER.gloss(t); n.classList.add('on');
+    noteT = setTimeout(function () { n.classList.remove('on'); }, ms || Math.max(4200, t.replace(/<[^>]+>/g, '').length * 70));
+  }
+  function hush() { clearTimeout(noteT); $('#note').classList.remove('on'); }
+
+  function hints() {
+    if (nextFile) return ['go', ['You are standing at the edge of the middle. Step up to the dial.']];
+    if (!got[1]) return ['s1', [
+      'Read the first rhyme a line at a time, and do each line before you read the next. &ldquo;Walk till yew trees say that you may go no more that way&rdquo;: walk straight on until a hedge stops you.',
+      'Then &ldquo;turn right&rdquo;, and walk along the Long Green Walk. Count only the gaps on your RIGHT-hand side. The first one that you pass is not the one.',
+      'Go into the second gap on your right. There is a seat at the end of it. Walk up to the seat, so that it is in front of you, and press &ldquo;Look for the stamp&rdquo;.'
+    ]];
+    if (!got[2]) return ['s2', [
+      'Rhyme two begins at the seat. &ldquo;Go back the way you came&rdquo; brings you to the Long Green Walk again. Then turn LEFT along it.',
+      'As you walk, the lane from the gate goes off on your left. The rhyme says: &ldquo;Once you are PAST it, then begin to look.&rdquo; So a gap that comes before that lane does not count.',
+      'Take the first gap on your right after the lane from the gate. The lion sits in the hedge on your left. Walk right up to him, face him, and look for the stamp.'
+    ]];
+    if (!got[3]) return ['s3', [
+      'This is where everybody else stopped. They read &ldquo;past the lion&rdquo; as &ldquo;when you have seen the lion, go on&rdquo;, and the only easy way on leads to a bench. What does &ldquo;past the lion go&rdquo; say, if you read exactly what is written?',
+      'Stand in the lion&rsquo;s own square, as close to him as you were for the stamp. Now turn round slowly. Is there really solid hedge on every side of him?',
+      'With the lion on your left hand, you are looking at a dark, narrow gap in the yew. Go through it, down the steps, along the bottom, and up the steps at the far end. The mark is &ldquo;upon the last&rdquo; step: look for the stamp as soon as you stand at the top.'
+    ]];
+    if (!got[4]) return ['s4', [
+      '&ldquo;Lay your left hand on the yew, and keep it there.&rdquo; Walk so that the hedge on your left is always within reach. If a gap opens on your left, the hedge has turned a corner: turn with it.',
+      'Your left hand will take you into dead ends and out of them again. That is as it should be. Do not take a short cut, and do not go into any gap on your right.',
+      'When you see the urn, stop: &ldquo;as far as the urn, and no further&rdquo;. Walk up to it, face it, and look for the stamp. (It is in a dead end, and when you find it you will be looking at the chimneys of the house.)'
+    ]];
+    return ['mid', [
+      'Rhyme five begins with your back to the urn. Walk on, and count the gaps on your right. &ldquo;The first is wrong.&rdquo;',
+      'Take the second gap on your right. After that there is nothing to choose: the path bends once, and the hunting ends.'
+    ]];
+  }
+
+  /* ---------- seeing ---------- */
+  function fwdKind() { return MZ.kind(pos.x, pos.y, pos.d); }
+  function render() {
+    var v = $('#view'), k = fwdKind(), b = $('#b-fwd');
+    v.innerHTML = MZ.view(pos.x, pos.y, pos.d, { id: 'v' });
+    v.classList.remove('in'); void v.getBoundingClientRect(); v.classList.add('in');
+    b.classList.toggle('no', !k || k === 'gate');
+    b.innerHTML = k === 'open' ? 'Walk on' : k === 'gap' ? 'Squeeze through' : k === 'steps' ? (MZ.sunk(pos.x, pos.y) ? 'Up the steps' : 'Down the steps') : k === 'gate' ? 'The gate <small>shut behind you</small>' : 'A hedge <small>turn round</small>';
+    ER.pips(count() + (nextFile ? 1 : 0), 5);
+  }
+  function card() {
+    ER.$$('#card .ring span').forEach(function (s, i) {
+      if (got[i + 1]) { s.className = 'on'; s.innerHTML = MZ.mark(i, 32); }
+    });
+  }
+  /* what there is to say about a square, the first time you stand in it */
+  var PLACE = {
+    '3,5': 'The yews say no. A broad green walk runs away to your left and to your right, as straight as a ruler.',
+    '4,6': 'A dead end. Three hedges, one sweet paper, and nothing else at all.',
+    '5,6': 'A dead end, with a white garden seat against the hedge. The ground in front of it is worn smooth.',
+    '6,6': 'A dead end. Somebody has scratched WRONG WAY in the gravel with a stick, and somebody else has added AGAIN.',
+    '4,4': 'A lane that runs away to the east, with trodden grass in it. A good many hunters have been this way, and all of them have come back.',
+    '6,4': 'The end of the lane. Somewhere on the other side of this hedge, quite close, a door has been left to bang gently in the wind.',
+    '2,4': 'On your left a stone lion sits in an opening in the hedge, with his mouth open. On your right a gap leads to a bench. In front of you there is nothing but yew.',
+    '3,4': 'A dead end and a bench. The gravel here has been trodden into the earth: every hunter of the afternoon has stood on this spot and wondered where the steps were.',
+    '1,4': 'The lion, nose to nose. He is as tall as you are, and green with moss about the paws. The yew has grown in close round him, thick and dark, as if he had been sitting here for sixty years. He has.',
+    '1,3': 'Six stone steps go down between the hedges into a sunk lane. At the bottom the path is black mud. It closes over your shoes with a sound like a kiss.',
+    '1,1': 'Up six steps, and into the sun again. The gravel here lies as the rake left it: nobody has walked on it today.',
+    '0,2': 'A dead end. Your left hand has brought you here, and your left hand will take you out again.',
+    '0,0': 'The corner of the maze. Beyond this hedge is the park, and a cow that sounds surprised.',
+    '2,3': 'A dead end. There is no sound on the other side of the hedge to your left, and that is the side where the dial must be.',
+    '3,1': 'A dead end, and a short one. The rhyme said left hand, not right.',
+    '5,0': 'A dead end, and in it a stone urn on a pedestal, as tall as a man. Over the hedge behind it you can see the chimneys of the house.',
+    '6,0': 'The north-east corner of the maze. No urn. If you have passed the urn, you have gone further than the rhyme.',
+    '6,2': 'A dead end against the eastern hedge. A door is banging, very near now, on the other side of the yew.',
+    '0,3': 'A dead end with an old bench in it, green with moss. Nobody has sat here for years.',
+    '0,6': 'The south-west corner of the maze, and nothing in it.',
+    '2,6': 'A dead end. From the lawn outside come voices, and the smell of scones.',
+    '3,2': 'The path bends. In front of you the hedges stop, and there is sunlight on pale gravel.'
+  };
+  function arrive() {
+    var k = pos.x + ',' + pos.y;
+    if (MZ.sunk(pos.x, pos.y)) ER.flag('mud', 1);
+    if (PLACE[k] && tell('at' + k)) note(PLACE[k]); else hush();
+    if (k === '1,4') MZ.words(['lion']);
+    if (k === '5,0') MZ.words(['urn']);
+    if (k === '1,3') MZ.words(['the Dip', 'mud']);
+  }
+
+  /* ---------- walking ---------- */
+  function keep() { ER.flag('m-pos', pos); }
+  function turn(by) {
+    if (busy || nextFile) return;
+    pos.d = (pos.d + by + 4) % 4; keep(); MZ.sfx.turn(); hush(); render();
+  }
+  function fwd() {
+    var k = fwdKind();
+    if (busy || nextFile) return;
+    if (!k) { MZ.sfx.leaf(); note(['Yew. Six feet high, sixty years thick, and it does not move aside.', 'A hedge. Turn left or right, or go back.', 'You have walked into the hedge. It did not mind.'][bumps++ % 3], 2600); return; }
+    if (k === 'gate') { note('The white gate. Mrs Kemble shut it behind you. &ldquo;Four stamps,&rdquo; she said, &ldquo;or do not come out at all.&rdquo; She may not have meant it.', 5200); return; }
+    if (pos.x === 3 && pos.y === 2 && pos.d === 2 && count() < 4) {
+      note('The middle of the maze is two steps away, in the sun. But Mrs Kemble asked for every stamp, and for the ink pads. Your card has ' + ['none', 'one', 'two', 'three'][count()] + ' of the four.', 6000); return;
+    }
+    pos.x += MZ.DX[pos.d]; pos.y += MZ.DY[pos.d]; keep();
+    if (k === 'gap') MZ.sfx.leaf();
+    if (MZ.sunk(pos.x, pos.y)) MZ.sfx.squelch(); else MZ.sfx.step();
+    if (pos.x === 3 && pos.y === 3) { finish(); return; }
+    render(); arrive();
+  }
+  function finish() {
+    var file = ER.exit([[1, 2, 3, 4].map(function (i) { return got[i]; }).join('|')], { wait: true });
+    if (!file) { pos.y = 2; keep(); render(); note('Something is wrong with this page: tell your teacher.'); return; }
+    nextFile = file; ER.flag('m-file', file); busy = true; document.body.classList.add('done'); hush();
+    $('#view').innerHTML = MZ.view(3, 2, 2, { id: 'v', cap: 1 });
+    ER.pips(5, 5);
+    MZ.mine('hunt', 'What the hunt showed', '<p>Four stamps: under the seat, in the lion&rsquo;s mouth, on the top step beyond the Dip, and in the urn.</p><p>The first two ink pads were grey and worn. The third and the fourth were black and wet: nobody had used them today.</p>' +
+      '<p>So no hunter got past the lion. The way on is a narrow gap in the hedge beside him, and then twelve steps and the mud of the Dip.</p>', true);
+    ER.narrate([
+      'The hedges stop. In front of you is a round court of pale gravel with the sun full on it, and in the middle of the court a sundial. Four stamps on your card, and nobody to show them to. You are the first hunter to stand here today.',
+      'There is no cup on the dial.'
+    ], function () { busy = false; $('#go').classList.add('on'); });
+  }
+
+  /* ---------- the stamps ---------- */
+  function stepHere() { for (var i = 0; i < 4; i++) if (/gap|steps/.test(MZ.kind(pos.x, pos.y, i) || '')) return true; return false; }
+  var FOUND = {
+    1: 'Under the seat, on a short chain: a tin box, a rubber stamp and an ink pad. The pad is grey and worn into a hollow. Every hunter of the afternoon has been here before you. You stamp your card: <b>a star</b>.',
+    2: 'You put your hand between the stone teeth. Inside the lion&rsquo;s mouth there is a tin box. The pad in this one is nearly dry: a good many hunters have got as far as this. You stamp your card: <b>a paw</b>.',
+    3: 'A flat stone on the top step lifts like a lid. Under it: a tin box, a stamp, an ink pad. The pad is black and wet, and as smooth as the day it was filled. Nobody has used this stamp today. You are the first. On your card: <b>a flight of steps</b>.',
+    4: 'You reach into the urn, up to the shoulder. Dry leaves; something with too many legs; a tin box. The pad is black and wet and has never been touched. No hunter has been here today. On your card: <b>an urn</b>. And nothing else is in there: you felt all round to make sure.'
+  };
+  function look() {
+    var t = MZ.thing(pos.x, pos.y), k = pos.x + ',' + pos.y, cand = null, i, n;
+    if (busy || nextFile) return;
+    if (t && t[1] === pos.d) cand = k + ',' + MZ.DN.charAt(pos.d);
+    else if (stepHere()) cand = k + ',step';
+    if (!cand) {
+      note(t ? 'There is ' + ({ bench: 'a seat', lion: 'a stone lion', urn: 'a stone urn' })[t[0]] + ' in this square, but you are not facing it. Turn until it is in front of you.' :
+        'You feel along the hedge. Yew, and more yew. Sir Edmund hid his marks at THINGS: a seat, a statue, a step. Read the rhyme again.', 5200);
+      return;
+    }
+    for (i = 1; i <= 4; i++) if (ER.check('s' + i, cand)) {
+      if (got[i]) { note('The tin box is back where you found it. That mark is on your card already.', 3200); return; }
+      got[i] = cand; ER.flag('m-got', got); MZ.sfx.stamp(); card(); render(); n = count();
+      note(FOUND[i], 9000);
+      MZ.words(i === 1 ? ['ink pad', 'stamp'] : i === 3 ? ['step'] : []);
+      if (n === 4) MZ.solved(true);
+      return;
+    }
+    MZ.sfx.leaf();
+    note(k === '3,4' ? 'Under this seat there is nothing but forty years of sweet papers. You kneel on it, as the twins did. Behind the bench the yew is thin, and through it, three metres away, stands the sundial in the sun. There is no cup on it. There is something small and black on it, which is not a cup.' :
+      k === '0,3' ? 'Moss, and a snail. Whatever the rhyme meant, it did not mean this seat.' :
+      k === '1,4' ? 'This is the first step, at the top, behind the lion. Cold stone, and nothing under it. The rhyme says: &ldquo;Upon the last.&rdquo;' :
+      'A step, and mud on it. Nothing is hidden here. The rhyme says: &ldquo;And up six more. Upon the last.&rdquo;', 8000);
+  }
+
+  function rhymes() { if (busy && !nextFile) return; MZ.read('rhymes', function () { MZ.words(['rhyme', 'yew', 'gap']); }); }
+  $('#b-left').addEventListener('click', function () { turn(-1); });
+  $('#b-right').addEventListener('click', function () { turn(1); });
+  $('#b-fwd').addEventListener('click', fwd);
+  $('#b-look').addEventListener('click', look);
+  $('#card').addEventListener('click', rhymes);
+  $('#b-gate').addEventListener('click', function () {
+    if (busy || nextFile) return;
+    pos = { x: 3, y: 6, d: 0 }; keep(); MZ.sfx.step(); render();
+    note('The way out of a maze is always easier than the way in. You are at the gate again, with your back to it and your card in your hand.', 5200);
+  });
+  document.addEventListener('keydown', function (e) {
+    if (ER.isOpen() || document.querySelector('.tc:not(.off)') || document.querySelector('.capshade.on')) return;
+    if (e.key === 'ArrowLeft') { e.preventDefault(); turn(-1); }
+    else if (e.key === 'ArrowRight') { e.preventDefault(); turn(1); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); fwd(); }
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  function begin() {
+    card(); keep();
+    if (nextFile) { busy = false; document.body.classList.add('done'); $('#view').innerHTML = MZ.view(3, 2, 2, { id: 'v', cap: 1 }); ER.pips(5, 5); $('#go').classList.add('on'); ER.say('Four stamps, and a sundial with no cup on it.'); return; }
+    render();
+    if (told.in) { busy = false; note('Somewhere inside the maze, card in hand. The rhymes are on the sheet: click your card to read them.'); return; }
+    ER.narrate([
+      'The gate shuts behind you, and the lawn goes quiet, as if somebody had closed a window. Yew on your left, yew on your right, gravel under your feet, and a strip of blue sky. Over the hedges you can see only the tallest things: straight ahead, the chimneys of the house and the little tower of the stable clock.',
+      'You walk with the buttons at the bottom of the window, or with the arrow keys: turn left, turn right, walk on. Your card is in the corner. When you think that you are standing at one of Sir Edmund&rsquo;s four marks, face it, and look for the stamp.',
+      'And here are the rhymes. &ldquo;Read it as it is written,&rdquo; the old man said.'
+    ], function () {
+      tell('in');
+      MZ.read('rhymes', function () { MZ.words(['rhyme', 'yew', 'gap']); busy = false; note('You are just inside the gate, looking up the first lane. Rhyme one begins here.'); });
+    });
+  }
+})();
+</script>
+</body>
+</html>

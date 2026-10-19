@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Hall of Doors · The Torn Pages of Wonderland</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lit.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="alice.css">
+<style>
+  body{--bg:#1a120c;--accent:#e9c75a;--font-display:'Cinzel',serif;--font-ui:'Goudy Bookletter 1911',serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(22,15,10,.97);--tc-ink:#f2e6cc;--cap-bg:rgba(26,18,12,.95);--panel:#2a1e14;--face-bg:#3a2a1c;--q-ink:#f0cf7a;--fade:#0c0805;--hud-bg:rgba(26,18,12,.84)}
+  .tc-room{font-family:'Cinzel',serif;font-size:clamp(44px,6vw,82px);color:#f0cf7a;letter-spacing:.04em}
+  .sC{font-family:'Cinzel',serif;text-anchor:middle}
+  .sG{font-family:'EB Garamond',serif;text-anchor:middle}
+  /* the story has stopped: nothing in the hall moves, and Alice is a little paler than life */
+  #alice.frozen{opacity:.8;filter:grayscale(.55)}
+  .flame{transform-box:fill-box;transform-origin:50% 100%}
+  #scene.live .flame{animation:fl 1.3s steps(3,end) infinite}
+  #scene.live .flame.f2{animation-duration:1.7s}
+  @keyframes fl{0%{transform:scaleY(1)}50%{transform:scaleY(1.18) scaleX(.9)}100%{transform:scaleY(.94)}}
+  .strip-h{cursor:pointer}
+  .strip-h rect{animation:sh 2.6s steps(2,end) infinite}
+  @keyframes sh{50%{filter:brightness(1.18)}}
+  .strip-h.got{display:none}
+  #book.ready{animation:glowb 1.4s steps(1,end) infinite}
+  #rabbit.ready,#bottle.ready{animation:glowb 1.6s steps(1,end) infinite}
+  @keyframes glowb{50%{filter:brightness(1.35)}}
+  #rabbit.gone{display:none}
+  #pool{transform:translateY(260px);transition:transform 4s steps(10,end)}
+  #scene.flood #pool{transform:translateY(0)}
+
+  /* the torn page and its pieces */
+  .mend{width:min(1260px,97vw);display:grid;grid-template-columns:1fr 1fr;gap:16px;-webkit-user-select:none;user-select:none}
+  .mend .pg2{background:#f4ecd6;color:#2a2018;padding:12px 18px 10px;box-shadow:0 26px 70px rgba(0,0,0,.7),inset 0 0 50px rgba(120,90,40,.2);
+    clip-path:polygon(0 0,100% 0,99% 6%,100% 12%,98.6% 19%,100% 27%,99% 35%,100% 44%,98.8% 52%,100% 61%,99% 70%,100% 78%,98.6% 87%,100% 94%,99% 100%,0 100%);
+    -webkit-clip-path:polygon(0 0,100% 0,99% 6%,100% 12%,98.6% 19%,100% 27%,99% 35%,100% 44%,98.8% 52%,100% 61%,99% 70%,100% 78%,98.6% 87%,100% 94%,99% 100%,0 100%)}
+  .mend h5{margin:0 0 4px;font-family:'Goudy Bookletter 1911',serif;font-weight:normal;font-size:13px;letter-spacing:.26em;text-transform:uppercase;color:#7a6a4a;text-align:center}
+  .mend .prev{margin:0 0 6px;font-family:'EB Garamond',serif;font-size:14.5px;line-height:1.25;color:#5a4a3a;font-style:italic}
+  .slot{position:relative;display:flex;align-items:stretch;min-height:44px;margin:0 0 4px;border-bottom:1px dashed #b8a47a}
+  .slot i{flex:0 0 26px;font-style:normal;font-family:'Cinzel',serif;font-size:14px;color:#9a7a4a;padding-top:12px}
+  .slot.bad{background:#f2c8b8}
+  .slot.empty:after{content:'';flex:1}
+  .tray{background:#2e2216;border:1px solid #6a5232;padding:8px 10px;align-content:start;min-height:200px}
+  .tray h5{color:#d8c08a}
+  .pocket{display:block;margin-top:8px;border:2px dashed #b8902e;background:#3a2a1a;padding:6px 8px 4px;min-height:58px;border-radius:0 0 18px 18px}
+  .pocket h6{margin:0 0 3px;font-family:'Goudy Bookletter 1911',serif;font-weight:normal;font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;color:#e9c75a}
+  .pocket.bad{background:#6a2a1a}
+  .strip{display:block;flex:1;margin:2px 0 4px;padding:4px 9px 3px;background:#fbf6e6;color:#2a2018;font-family:'EB Garamond',serif;font-size:14.2px;line-height:1.22;
+    box-shadow:0 2px 5px rgba(0,0,0,.35);cursor:grab;clip-path:polygon(0 4%,3% 0,30% 6%,62% 0,100% 5%,99% 50%,100% 96%,70% 100%,40% 94%,8% 100%,0 96%);
+    -webkit-clip-path:polygon(0 4%,3% 0,30% 6%,62% 0,100% 5%,99% 50%,100% 96%,70% 100%,40% 94%,8% 100%,0 96%)}
+  .slot .strip{margin:2px 0 2px}
+  .strip.held{background:#ffe9a0}
+  .strip.fly{position:fixed;z-index:200;pointer-events:none;opacity:.92}
+  .mend .bn-foot{grid-column:1/3;margin-top:2px}
+  @media (max-height:820px){.strip{font-size:13.4px}.slot{min-height:40px}.mend .prev{font-size:13.5px}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallL" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2a1c12"/><stop offset="1" stop-color="#4a3420"/></linearGradient>
+  <linearGradient id="wallR" x1="1" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#2a1c12"/><stop offset="1" stop-color="#4a3420"/></linearGradient>
+  <linearGradient id="floorG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a4630"/><stop offset="1" stop-color="#2a1e14"/></linearGradient>
+  <radialGradient id="glow"><stop offset="0" stop-color="#ffe2a0" stop-opacity=".55"/><stop offset="1" stop-color="#ffe2a0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="garden"><stop offset="0" stop-color="#dff6b0"/><stop offset=".6" stop-color="#8ac86a"/><stop offset="1" stop-color="#3a6a2a"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="48%" r="75%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#0c0805" stop-opacity=".3"/><stop offset="1" stop-color="#050302" stop-opacity=".9"/></radialGradient>
+  <linearGradient id="waterG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7ab0c0" stop-opacity=".8"/><stop offset="1" stop-color="#2a5a6a" stop-opacity=".95"/></linearGradient>
+</defs>
+<g id="hallg"></g>
+
+<!-- the heap of sticks and dry leaves where you landed -->
+<g id="heap" class="hot"><path d="M-200 900q120 -90 260 -70q120 -10 200 70z" fill="#6a4a24"/><g id="leaves"></g></g>
+
+<!-- the little glass table, the key, and what is under it -->
+<g id="table" class="hot">
+  <ellipse cx="500" cy="770" rx="90" ry="12" fill="#000" opacity=".25"/>
+  <path d="M440 612l-24 158M560 612l24 158M500 620v152" stroke="#bfe0ee" stroke-width="5" opacity=".75"/>
+  <ellipse cx="500" cy="610" rx="86" ry="16" fill="#cfeaf4" fill-opacity=".35" stroke="#e8f8ff" stroke-width="2.5"/>
+  <g transform="translate(486 600) rotate(-12)"><circle r="5" fill="none" stroke="#f2cf4a" stroke-width="2.6"/><path d="M5 0h18M17 0v5M21 0v4" stroke="#f2cf4a" stroke-width="2.6"/></g>
+</g>
+<g id="bottle" class="hot"><path d="M430 762v-30q0 -8 8 -12v-12h12v12q8 4 8 12v30z" fill="#9ac8a8" fill-opacity=".7" stroke="#e8f8ff" stroke-width="2"/><rect x="438" y="704" width="12" height="6" fill="#8a5a2a"/>
+  <path d="M444 722l-30 18" stroke="#8a6a3a" stroke-width="1.5"/><g transform="rotate(-14 396 748)"><path d="M380 738h40v22h-40l-8 -11z" fill="#efe0b8" stroke="#8a6a3a" stroke-width="1.5"/><text x="400" y="753" class="sC" font-size="9" fill="#5a2a14">READ ME</text></g></g>
+<g id="glassbox"><rect x="520" y="748" width="34" height="18" fill="#cfeaf4" fill-opacity=".3" stroke="#e8f8ff" stroke-width="1.6"/></g>
+
+<!-- the low curtain, and the little door behind it -->
+<g id="curtain" class="hot">
+  <rect x="1262" y="690" width="96" height="76" fill="#0c0805"/><rect x="1300" y="702" width="40" height="62" rx="18" fill="url(#garden)"/>
+  <path d="M1300 702h40v62h-40z" fill="none" stroke="#8a6a3a" stroke-width="3"/>
+  <path d="M1220 640h170" stroke="#8a6a3a" stroke-width="5"/>
+  <path d="M1226 642q-8 70 6 128h60q10 -60 -4 -128z" fill="#8a1e24"/><path d="M1240 650q-4 60 6 118M1262 648q-2 64 4 120" stroke="#5a0e14" stroke-width="2" fill="none"/>
+  <path d="M1356 642q12 60 -2 128h36q12 -64 0 -128z" fill="#8a1e24"/>
+</g>
+
+<!-- the lamps -->
+<g id="lamps"></g>
+
+<!-- the torn book on the floor -->
+<g id="book" class="hot">
+  <ellipse cx="1060" cy="858" rx="118" ry="14" fill="#000" opacity=".3"/>
+  <path d="M948 852l112 -26 112 26 -112 18z" fill="#6a1e1e"/>
+  <path d="M954 846l106 -24v40l-106 16z" fill="#f4ecd6"/>
+  <path d="M1166 846l-106 -24v40l20 -3l6 -6l8 4l10 -8l8 5l12 -7l10 4l10 -6l14 4z" fill="#f4ecd6"/>
+  <path d="M968 844l80 -18M968 852l80 -18M968 860l80 -18" stroke="#8a7a5a" stroke-width="1.2"/>
+  <text x="1006" y="818" class="sG" font-size="11" fill="#e9c75a" font-style="italic" transform="rotate(-12 1006 818)">Alice</text>
+</g>
+
+<!-- Alice, in the middle of the hall, as still as a picture -->
+<g id="alice" class="hot frozen" transform="translate(800 792) scale(1.18)"></g>
+<!-- the White Rabbit, out of a doorway -->
+<g id="rabbit" class="hot" transform="translate(196 742) scale(1.05)"></g>
+<!-- the strips of the torn page -->
+<g id="strips"></g>
+<!-- tears -->
+<g id="pool"><rect x="-1000" y="660" width="3600" height="900" fill="url(#waterG)"/><path id="ripple" d="M-1000 662q50 -8 100 0t100 0t100 0t100 0t100 0t100 0t100 0t100 0t100 0t100 0t100 0t100 0t100 0t100 0t100 0t100 0t100 0t100 0t100 0t100 0t100 0t100 0t100 0t100 0t100 0t100 0t100 0t100 0t100 0t100 0t100 0t100 0t100 0t100 0t100 0t100 0" fill="none" stroke="#cfeaf4" stroke-width="2" opacity=".7"/></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Swim for the bank</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="alice.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told, got;
+
+  /* ---------- the hall, drawn in perspective (the far wall at 620-980 x 250-520) ---------- */
+  (function () {
+    var s = '', i, x;
+    function lt(x) { return -400 + 0.4012 * (x + 1000); }        /* the top and the foot of the left wall at x */
+    function lb(x) { return 1300 - 0.4815 * (x + 1000); }
+    s += '<path d="M-1000 -400H2600L980 250H620z" fill="#140d08"/>';
+    s += '<path d="M-1000 -400L620 250V520L-1000 1300z" fill="url(#wallL)"/><path d="M2600 -400L980 250V520L2600 1300z" fill="url(#wallR)"/>';
+    s += '<rect x="620" y="250" width="360" height="270" fill="#5a4026"/>';
+    s += '<path d="M620 520H980L2600 1300H-1000z" fill="url(#floorG)"/>';
+    for (i = -6; i <= 6; i++) s += '<path d="M' + (800 + i * 30) + ' 520L' + (800 + i * 330) + ' 1300" stroke="#2a1c10" stroke-width="2" opacity=".55"/>';
+    [560, 620, 700, 820, 980].forEach(function (y) { var k = (y - 520) / 780; s += '<path d="M' + (620 - 1620 * k) + ' ' + y + 'H' + (980 + 1620 * k) + '" stroke="#2a1c10" stroke-width="2" opacity=".5"/>'; });
+    s += '<path d="M640 520v-170q0 -60 60 -60h0" fill="none"/>';
+    s += '<path d="M770 520v-120q30 -40 60 0v120z" fill="#3a2414" stroke="#8a6a3a" stroke-width="3"/><circle cx="822" cy="470" r="3" fill="#c8a04a"/>';
+    /* doors on the side walls, smaller as they go back; each one locked */
+    function door(x1, x2, side) {
+      var a = [x1, x2].map(function (x) { var t = lt(x), b = lb(x), h = b - t; return [x, b - 0.6 * h, b]; });
+      function X(x) { return side ? 1600 - x : x; }
+      var p = 'M' + X(a[0][0]) + ' ' + a[0][2] + 'L' + X(a[0][0]) + ' ' + (a[0][1] + 30) + 'Q' + X((a[0][0] + a[1][0]) / 2) + ' ' + ((a[0][1] + a[1][1]) / 2 - 40) + ' ' + X(a[1][0]) + ' ' + (a[1][1] + 26) + 'L' + X(a[1][0]) + ' ' + a[1][2] + 'z';
+      var kx = X(a[0][0] + (a[1][0] - a[0][0]) * 0.78), ky = (a[0][1] + a[0][2]) / 2 + 20;
+      return '<path d="' + p + '" fill="#3a2414" stroke="#8a6a3a" stroke-width="4"/><path d="' + p + '" fill="url(#hatchD)" opacity=".5"/>' +
+        '<circle cx="' + kx + '" cy="' + ky + '" r="' + Math.max(3, (x2 - x1) / 30) + '" fill="#c8a04a"/><rect x="' + (kx - 2) + '" y="' + (ky + 8) + '" width="4" height="' + Math.max(6, (x2 - x1) / 16) + '" fill="#0c0805"/>';
+    }
+    var hd = '<defs>' + AL.hatch('hatchD', '#1a0e06', 7, 35) + AL.hatch('hatchW', '#1a0e06', 9, -30) + '</defs>';
+    s = hd + s + '<path d="M-1000 -400L620 250V520L-1000 1300z" fill="url(#hatchW)" opacity=".35"/><path d="M2600 -400L980 250V520L2600 1300z" fill="url(#hatchW)" opacity=".35"/>';
+    s += '<g id="doorsL" class="hot">' + door(20, 200, 0) + door(300, 420, 0) + door(480, 560, 0) + '</g>';
+    s += '<g id="doorsR" class="hot">' + door(20, 200, 1) + door(300, 420, 1) + door(480, 560, 1) + '</g>';
+    $('#hallg').innerHTML = s;
+    /* lamps hanging from the roof, two rows going back */
+    s = '';
+    [[470, 120, 1.15], [610, 214, .8], [690, 258, .55], [1130, 120, 1.15], [990, 214, .8], [910, 258, .55]].forEach(function (L, j) {
+      var x = L[0], y = L[1], k = L[2];
+      s += '<path d="M' + x + ' -400V' + (y - 30 * k) + '" stroke="#0c0805" stroke-width="' + (2 * k + 1) + '"/>';
+      s += '<circle cx="' + x + '" cy="' + (y + 10 * k) + '" r="' + (150 * k) + '" fill="url(#glow)" pointer-events="none"/>';
+      s += '<g transform="translate(' + x + ' ' + y + ') scale(' + k + ')"><path d="M-22 -30h44l-8 12h-28z" fill="#8a6a2a" stroke="#231a14" stroke-width="2"/>' +
+        '<path d="M-16 -18h32l-4 34h-24z" fill="#fff2c8" fill-opacity=".8" stroke="#8a6a2a" stroke-width="3"/>' +
+        '<path class="flame' + (j % 2 ? ' f2' : '') + '" d="M0 10q-7 -8 0 -22q7 14 0 22z" fill="#ffb03a"/><path d="M-20 16h40l-6 10h-28z" fill="#8a6a2a" stroke="#231a14" stroke-width="2"/></g>';
+    });
+    $('#lamps').innerHTML = s;
+    s = '';
+    for (i = 0; i < 26; i++) { x = -150 + i * 13; s += '<path transform="translate(' + x + ' ' + (856 - (i * 7) % 40) + ') rotate(' + (i * 47 % 180) + ')" d="M0 0q8 -10 16 0q-8 10 -16 0z" fill="' + ['#a8762a', '#8a5a1e', '#c8943a'][i % 3] + '"/>'; }
+    for (i = 0; i < 8; i++) s += '<path d="M' + (-160 + i * 40) + ' ' + (880 - i % 3 * 12) + 'l' + (60 - i * 5) + ' -' + (20 + i % 2 * 14) + '" stroke="#5a3a1a" stroke-width="5" stroke-linecap="round"/>';
+    $('#leaves').innerHTML = s;
+    $('#alice').innerHTML = AL.fig('alice');
+    $('#rabbit').innerHTML = AL.fig('rabbit');
+  })();
+
+  /* ---------- the ten strips of the torn page (in no particular order) ---------- */
+  var STRIPS = {
+    t: 'Soon her eye fell on a little glass box that was lying under the table: she opened it, and found in it a very small cake, on which the words “EAT ME” were beautifully marked in currants.',
+    h: 'Just then her head struck against the roof of the hall: in fact she was now more than nine feet high, and she at once took up the little golden key and hurried off to the garden door.',
+    z: 'Once more she found herself in the long hall, and close to the little glass table. “Now, I’ll manage better this time,” she said to herself … Then she went to work nibbling at the mushroom (she had kept a piece of it in her pocket) …',
+    q: 'Suddenly she came upon a little three-legged table, all made of solid glass; there was nothing on it except a tiny golden key …',
+    r: '“Curiouser and curiouser!” cried Alice … “now I’m opening out like the largest telescope that ever was! Good-bye, feet!”',
+    m: 'There were doors all round the hall, but they were all locked; and when Alice had been all the way down one side and up the other, trying every door, she walked sadly down the middle …',
+    k: '… she found she had forgotten the little golden key, and when she went back to the table for it, she found she could not possibly reach it … the poor little thing sat down and cried.',
+    w: 'There seemed to be no use in waiting by the little door, so she went back to the table … this time she found a little bottle on it … with the words “DRINK ME,” beautifully printed on it …',
+    f: 'However, on the second time round, she came upon a low curtain she had not noticed before … she tried the little golden key in the lock, and to her great delight it fitted!',
+    b: '“What a curious feeling!” said Alice; “I must be shutting up like a telescope.” And so it was indeed: she was now only ten inches high …'
+  };
+  var ORDER = ['t', 'h', 'z', 'q', 'r', 'm', 'k', 'w', 'f', 'b'];       /* the order they lie in the tray: not the answer */
+  /* why a strip cannot stand where it is: the K1 rule it breaks, never its place */
+  var WHY = {
+    m: 'Alice is still trying every door for the first time, and has found nothing yet. A strip like that has no word in it that points back.',
+    q: 'The table and its key are found “suddenly”. A thing must be found before anybody can use it.',
+    f: '“On the second time round”: she has already been round once. And she tries “the little golden key”, so she must already have found it.',
+    w: 'She goes “back to the table” from “the little door”, and “this time” finds something new on it. So she has seen the table, and been to the little door, before this.',
+    b: '“Shutting up like a telescope” and “only ten inches high”: she has just drunk something. The strip where she finds the drink comes first.',
+    k: 'She has “forgotten the little golden key” and cannot reach it: she must already be small. Only somebody ten inches high could fail to reach a key on that table.',
+    t: '“Soon” points back to something that has just happened: she is sitting by the table, unable to reach the key, looking for a way out.',
+    r: '“Opening out like the largest telescope”: she is growing now. Something has just been eaten.',
+    h: '“Just then her head struck against the roof”: she is already more than nine feet high, so she has already grown. And at last she can reach the key on the table.',
+    z: '“Once more she found herself in the long hall”: she has been here before. And “a piece of mushroom” that she “had kept”: there is no mushroom anywhere in this hall. This strip is from a later chapter.'
+  };
+  var SPOTS = [['m', 700, 822, -8], ['q', 478, 146, 10], ['f', 372, 560, 4], ['w', 560, 784, -4], ['b', 1236, 752, 12], ['k', 120, 836, -16], ['t', 528, 600, 6], ['r', 1132, 66, -10], ['h', 1352, 786, 3], ['z', 1468, 540, -7]];
+
+  ER.init({
+    theme: 'lit', story: 'alice', storyTitle: 'The Torn Pages of Wonderland', id: 'hall', no: 'I', title: 'The Hall of Doors',
+    go: 'Fall in',
+    intro: [
+      'It is a wet afternoon, and you are reading an old copy of <i>Alice’s Adventures in Wonderland</i>, by Lewis Carroll, first printed in 1865. Alice has just fallen down the rabbit-hole and run after the White Rabbit into a long, low hall.',
+      'You turn the page, and the next one is not there. Nor is the one after it. Somebody has torn them out, close to the spine, and left a ragged edge.',
+      'You lean closer to look at the edge. It is a great deal closer than you meant. The words on the page slide past you like the sides of a well, and you are falling, down, down, down, past cupboards and book-shelves, into the book.'
+    ],
+    exit: {"next":"pool","w":{"1c80e897":"1b48d6ce"}}, tags: {"o1":["12ed3d5a"],"o2":["1b6c4276"],"o3":["35596305"],"o4":["4fb9b278"],"o5":["3ed1f672"],"o6":["e5b46694"],"o7":["b98722a5"],"o8":["594395cd"],"o9":["50fcb108"],"pk":["c1157dda"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = AL.told('h-told'); got = ER.flag('h-got') || {}; nextFile = ER.flag('h-file') || null;
+  function isBusy() { return busy; }
+  function count() { return Object.keys(got).length; }
+  function ready() { return told.has('rabbit') && told.has('label') && count() >= 10; }
+  function paint() {
+    ER.$$('.strip-h').forEach(function (n) { n.classList.toggle('got', !!got[n.getAttribute('data-s')]); });
+    $('#rabbit').classList.toggle('ready', !told.has('rabbit') && !nextFile);
+    $('#rabbit').classList.toggle('gone', told.has('rabbit') || !!nextFile);
+    $('#bottle').classList.toggle('ready', told.has('rabbit') && !told.has('label'));
+    $('#book').classList.toggle('ready', ready() && !nextFile);
+    $('#alice').classList.toggle('frozen', !nextFile);
+    $('#scene').classList.toggle('live', !!nextFile);
+    $('#scene').classList.toggle('flood', !!nextFile);
+    ER.pips((told.has('rabbit') ? 1 : 0) + (told.has('label') ? 1 : 0) + (count() >= 10 ? 1 : 0) + (nextFile ? 1 : 0), 4);
+  }
+  (function () {
+    var s = '';
+    SPOTS.forEach(function (p) {
+      s += '<g class="strip-h" data-s="' + p[0] + '" transform="translate(' + p[1] + ' ' + p[2] + ') rotate(' + p[3] + ')"><rect x="-34" y="-9" width="68" height="18" fill="#fbf6e6" stroke="#8a7a5a" stroke-width="1"/>' +
+        '<path d="M-28 -3h50M-28 3h40" stroke="#6a5a4a" stroke-width="1.4"/><path d="M34 -9l-4 5 4 4 -4 5 4 4" fill="#fbf6e6" stroke="none"/></g>';
+    });
+    $('#strips').innerHTML = s;
+  })();
+
+  var lock = null;
+  function hints() {
+    if (nextFile) return ['go', ['The page is mended, and the hall is filling with tears. Swim: the button is at the bottom of the screen.']];
+    if (lock && lock.parentNode) return ['mend', [
+      'Begin at the beginning: one strip finds nothing yet and has no word that points back. Then look for the words that do point back: “on the second time round”, “this time”, “soon”, “just then”.',
+      'Follow two things through the whole page: the key (is it on the table? does Alice have it?) and Alice’s size. A strip where she is small comes after the strip where she drinks; a strip where she grows comes after the strip where she eats.',
+      'One strip says “Once more” and talks about a piece of mushroom. There has been no mushroom in this hall: that strip belongs to a later chapter. Put it in your pocket, and keep it.'
+    ]];
+    if (!told.has('rabbit')) return ['rabbit', [
+      'Somebody in a jacket and waistcoat has just popped out of a doorway on the left. Click the White Rabbit.',
+      'He is in a great hurry, but he knows what has happened to the story. Hear him out to the end.'
+    ]];
+    if (count() < 10 || !told.has('label')) return ['pieces', [
+      'Strips of the torn page are lying all over the hall. You have ' + count() + ' of the ten. Look high and low: floor, lamps, doors, furniture.',
+      'One is on a lamp near the roof, one in a keyhole, two at the glass table, one behind the red curtain, one in the heap of leaves where you landed.',
+      'The Rabbit also said there was a label under the glass table. Click the little bottle and read it: it tells you how to put a page back together.'
+    ]];
+    return ['book', ['Every strip is in your hands. Click the torn book on the floor, on the right.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('The hall is a lake of tears, and the story is moving again.'); return; }
+    if (told.has('in')) { busy = false; ER.say('The hall of doors. Nothing moves, except you.'); return; }
+    told.set('in');
+    ER.narrate([
+      'Thump! You land on a heap of sticks and dry leaves, exactly where Alice landed, and you are not a bit hurt.',
+      'You are in a long, low hall, lit by a row of lamps hanging from the roof. There are doors all round it. Alice is standing in the middle of it, quite still, like a girl in a picture.',
+      'She does not move. The lamp flames do not flicker. Even the dust in the air hangs still. The story has stopped, because the next page is missing.',
+      'And then something does move: a white rabbit in a jacket pops out of a doorway on the left, takes a watch out of its waistcoat-pocket, looks at it, and gives a little scream.'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- the White Rabbit ---------- */
+  $('#rabbit').addEventListener('click', function () {
+    if (busy || told.has('rabbit')) return;
+    ER.talk({
+      who: 'The White Rabbit', role: 'In a great hurry', face: AL.face('rabbit', '#e8dcc0'),
+      lines: [
+        { note: 'He has pink eyes, a red jacket and a yellow waistcoat, and he is looking at his watch as if it had been rude to him.', a: '<span class="bk">“Oh my ears and whiskers, how late it’s getting!”</span>' },
+        { q: 'Excuse me. What has happened to everything?', a: 'Pages! Somebody has been tearing pages out of the book, and when a page is missing, the story simply stops. Look at her. She has been standing like that, as still as a picture, since the end of Chapter One.' },
+        { q: 'Who are you talking to?', a: 'You, Mary Ann, of course! Anybody who is not in the book must be Mary Ann. And don’t argue: there isn’t time. There is never time.' },
+        { q: 'Who tore the pages out?', a: 'That Cat, I shouldn’t wonder. Things vanish, and so does it. And if this story never gets to the trial, the Queen will want to know why, and then … oh my dear paws! She’ll have my head off, as sure as ferrets are ferrets!' },
+        { q: 'What can I do?', a: 'Mend it, Mary Ann! The pieces are all over the hall. Pick up every one, and put them back the right way round. There is a label under that glass table that may help a person who can read.' },
+        { note: 'He is already running.', a: '“Quick, now! And if a piece doesn’t fit, keep it. Never throw away a page!” And he skurries away into the darkness as hard as he can go.' }
+      ],
+      clue: { id: 'rabbit', title: 'The White Rabbit, in a hurry', kind: 'What he said' },
+      done: function (seen) { if (seen && told.set('rabbit')) { paint(); ER.say('Ten strips of paper, somewhere in this hall. And a label under the glass table.'); } }
+    });
+  });
+
+  /* ---------- the label, and the strips ---------- */
+  var LABEL = '<h4>READ ME</h4>' +
+    '<p>A story is a chain: each <b>event</b> holds on to the next, so its pieces can only go one way. That order is called the <b>sequence</b>. If the pages have come loose, the words on them will tell you the order.</p>' +
+    '<ol><li><b>Time words</b> point back: <i>soon</i>, <i>after a while</i>, <i>just then</i>, <i>this time</i>, <i>once more</i>. Ask what has just happened.</li>' +
+    '<li><b>Cause and effect</b>: a thing is found before it is used, and a door is seen before anybody opens it.</li>' +
+    '<li><b>What a person has and knows</b>: nobody can forget a key that she never had.</li>' +
+    '<li><b>How things are</b>: if somebody is small in one place and tall in the next, something has happened in between.</li></ol>' +
+    '<p class="last">A piece that fits nowhere may belong to another chapter of the <b>plot</b>. Do not throw it away.</p>';
+  function readLabel() {
+    ER.read({ html: LABEL, cls: 'label', clue: { id: 'label', title: 'READ ME', kind: 'A label on a bottle' }, done: function () {
+      AL.terms(['event', 'sequence', 'time word', 'cause and effect', 'plot', 'chapter']);
+      if (told.set('label')) { paint(); ER.say(count() >= 10 ? 'Ten strips, and the rules for putting them back. The torn book is on the floor.' : 'Not DRINK ME: READ ME. Now find every strip of the page.'); }
+    } });
+  }
+  $('#bottle').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.has('rabbit')) { ER.say('A little bottle under the glass table, with a paper label round its neck. Somebody is making a great deal of noise on the left.'); return; }
+    readLabel();
+  });
+  ER.$$('.strip-h').forEach(function (n) {
+    n.addEventListener('click', function (e) {
+      if (busy) return;
+      e.stopPropagation();
+      var id = n.getAttribute('data-s');
+      if (!told.has('rabbit')) { ER.say('A strip of paper with printing on it, torn along one side. Somebody is making a great deal of noise on the left.'); return; }
+      if (got[id]) return;
+      got[id] = 1; ER.flag('h-got', got); AL.sfx.page(); paint();
+      if (id === 'k') {
+        ER.addClue('jam', 'A sticky red fingerprint', '<h4>A sticky red fingerprint</h4><p>On the back of one strip of the torn page (the one where Alice has forgotten the key), there is a red fingerprint. It is sticky, and it smells of strawberries.</p><p>Whoever tore the page had red, sticky fingers.</p>', 'evid', 'Evidence');
+        ER.say('On the back of this strip there is a red fingerprint. It is sticky, and it smells of strawberries. ' + count() + ' of 10.');
+      } else if (id === 'z') ER.say('This strip was stuck to a door at the far end of the hall, as if it had blown in from somewhere else. ' + count() + ' of 10.');
+      else ER.say(count() < 10 ? 'A strip of the torn page. ' + count() + ' of 10.' : 'That is all ten. Now: the torn book, on the floor.');
+    });
+  });
+
+  /* ---------- things in the hall ---------- */
+  AL.thing('#heap', 'leaves', 'The heap of sticks and dry leaves that stopped your fall, and Alice’s before you.', isBusy);
+  AL.thing('#doorsL,#doorsR', 'door', 'You try a door. Locked. You try another. Locked. Every door in the hall is locked, just as the book says.', isBusy);
+  AL.thing('#table', 'key', function () { return nextFile ? 'The glass table. The tiny golden key is on it again, “as before”.' : 'A little three-legged table, all made of solid glass. There is nothing on it except a tiny golden key, which will not move: the story has not got that far.'; }, isBusy);
+  AL.thing('#curtain', 'curtain', 'Behind a low curtain, a little door about fifteen inches high. Through the keyhole: the loveliest garden you ever saw.', isBusy);
+  AL.thing('#lamps', 'lamp', function () { return nextFile ? 'The lamp flames are flickering again.' : 'A row of lamps hanging from the roof. Their flames stand quite still, like flames in a picture.'; }, isBusy);
+  $('#alice').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(nextFile ? 'Alice is very small again, and swimming.' : 'Alice does not see you. Her mouth is half open, as if she were about to say something, and has been about to say it for a very long time.');
+  });
+  $('#book').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The book on the floor is whole again, as far as the end of the hall.'); return; }
+    if (!told.has('rabbit')) { ER.say('A book lying open on the floor. Somebody is making a great deal of noise on the left.'); return; }
+    if (!ready()) { ER.say(count() < 10 ? 'The book, open at a ragged edge where a page was torn out. You have ' + count() + ' of the ten strips.' : 'The book, open at the torn page. Read the label under the glass table first.'); return; }
+    openLock();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the torn page ---------- */
+  function stripEl(id) { var d = ER.el('div', 'strip dnd-item'); d.setAttribute('data-s', id); d.innerHTML = ER.gloss(STRIPS[id]); return d; }
+  function openLock() {
+    var busyL = false, misses = 0, i;
+    lock = ER.el('div', 'mend');
+    var s = '<div class="pg2"><h5>Chapter I · Down the Rabbit-Hole · the torn page</h5>' +
+      '<p class="prev">… she found herself in a long, low hall, which was lit up by a row of lamps hanging from the roof.</p>';
+    for (i = 0; i < 9; i++) s += '<div class="slot" data-n="' + i + '"><i>' + (i + 1) + '</i></div>';
+    s += '</div><div><div class="tray"><h5>The ten strips</h5></div><div class="pocket slot" data-n="p"><h6>Your pocket: a strip from another chapter</h6></div></div>' +
+      '<div class="bn-foot"><p class="bmsg"></p><button type="button" class="btn" id="paste">Press the page flat</button></div>';
+    lock.innerHTML = s;
+    var tray = lock.querySelector('.tray'), slots = ER.$$('.slot', lock), m = lock.querySelector('.bmsg');
+    function msg(t) { m.innerHTML = ER.gloss(t); }
+    var put = ER.flag('h-put') || {};
+    ORDER.forEach(function (id) {
+      var c = stripEl(id), at = put[id], sl = at == null ? null : lock.querySelector('.slot[data-n="' + at + '"]');
+      if (sl && !sl.querySelector('.strip')) sl.appendChild(c); else tray.appendChild(c);
+    });
+    function keep() {
+      put = {}; slots.forEach(function (sl) { var c = sl.querySelector('.strip'); if (c) put[c.getAttribute('data-s')] = sl.getAttribute('data-n'); });
+      ER.flag('h-put', put);
+    }
+    AL.swapIn(lock, '.strip', '.slot', tray);
+    ER.dnd(lock, { item: '.strip', slot: '.slot', home: tray, lock: function () { return busyL || !!nextFile; },
+      change: function () { keep(); slots.forEach(function (sl) { sl.classList.remove('bad'); }); } });
+    lock.querySelector('#paste').addEventListener('click', function () {
+      if (busyL || nextFile) return;
+      var ids = [], i, c, pk = lock.querySelector('.pocket .strip'), empty = 0;
+      for (i = 0; i < 9; i++) { c = slots[i].querySelector('.strip'); ids.push(c ? c.getAttribute('data-s') : ''); if (!c) empty++; }
+      if (empty || !pk) { ER.sfx.no(); msg(empty ? 'The page still has ' + (empty === 1 ? 'a hole' : empty + ' holes') + ' in it. Every line of the page needs a strip, and your pocket needs one too.' : 'Nine strips are on the page. The Rabbit said: if a piece does not fit, keep it. Put the tenth in your pocket.'); return; }
+      AL.sfx.page();
+      for (i = 0; i < 9; i++) if (!ER.check('o' + (i + 1), ids[i])) {
+        misses++; slots[i].classList.add('bad'); ER.shake(slots[i]); ER.sfx.no();
+        msg('The page will not lie flat: line ' + (i + 1) + ' is wrong. ' + WHY[ids[i]] + (misses > 2 ? ' (Only the first wrong line is ever shown.)' : ''));
+        return;
+      }
+      if (!ER.check('pk', pk.getAttribute('data-s'))) {
+        misses++; lock.querySelector('.pocket').classList.add('bad'); ER.sfx.no();
+        msg('Nothing in the strip in your pocket is from another chapter: it belongs in the hall. Which strip talks about a mushroom?');
+        return;
+      }
+      var file = ER.exitOk([ids.join('-') + '.' + pk.getAttribute('data-s')]);
+      if (!file) { msg('The page will not lie flat. Something is wrong with this page: tell your teacher.'); return; }
+      nextFile = file; ER.flag('h-file', file); busyL = true;
+      var st = ER.state(); st.done = st.done || {}; st.done.hall = 1; ER.persist(true);
+      msg('The strips knit together along their torn edges, and the page lies flat. Somewhere a lamp flame gives a little jump.');
+      setTimeout(function () { ER.closeAll(); AL.solved(); after(); }, 2600);
+    });
+    msg(misses ? '' : 'Drag each strip onto a line of the torn page, or click a strip and then a line. One strip goes in your pocket. Then press the page flat.');
+    ER.open('ov-lock', lock);
+  }
+
+  function after() {
+    busy = true; paint();
+    AL.mine('order', 'The torn page, mended', '<p>1 doors, all locked · 2 the glass table and the key · 3 “on the second time round”: the curtain and the little door · 4 “back to the table”: DRINK ME · 5 shutting up like a telescope · 6 the key forgotten, out of reach · 7 “soon”: EAT ME · 8 “Curiouser and curiouser!” · 9 “just then”: nine feet high.</p><p>In my pocket: the strip that says “Once more she found herself in the long hall”. It is from a later chapter. Keep it.</p>');
+    ER.addClue('pocket', 'The strip in your pocket', '<h4>The strip in your pocket</h4><p class="bk">Once more she found herself in the long hall, and close to the little glass table. “Now, I’ll manage better this time,” she said to herself … Then she went to work nibbling at the mushroom (she had kept a piece of it in her pocket) …</p><p>From a later chapter. The Rabbit said: never throw away a page.</p>', 'pg', 'A loose strip', true);
+    ER.narrate([
+      'Alice blinks. The lamps flicker. And then the story runs on, in the right order, as fast as pages turning: she tries every door, finds the key, finds the little door, drinks, shuts up like a telescope, forgets the key, cries, eats the cake, and opens out until her head bumps the roof.',
+      'Then she cries again, and goes on crying, <span class="bk">“shedding gallons of tears, until there was a large pool all round her, about four inches deep and reaching half down the hall.”</span>',
+      'The White Rabbit trots back with a pair of white kid gloves and a large fan, sees a girl nine feet high, drops both, and runs. Alice fans herself, shrinks, and begins to recite a poem she learnt in the schoolroom: <span class="bk">“How doth the little—”</span>',
+      'And there the story stumbles again. That page has gone too: not torn out this time, but blown away, as if somebody had opened a window. Alice sits with her mouth open, waiting for words that are not there.',
+      'Then the water reaches you. <span class="bk">“As she said these words her foot slipped, and in another moment, splash! she was up to her chin in salt water.”</span> So are you. You keep the strip that did not fit, dry, in your pocket.'
+    ], function () { busy = false; $('#go').classList.add('on'); AL.sfx.splash(); });
+  }
+})();
+</script>
+</body>
+</html>

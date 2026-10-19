@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Pool of Tears · The Torn Pages of Wonderland</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lit.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="../../assets/wordkit.css">
+<link rel="stylesheet" href="alice.css">
+<style>
+  body{--bg:#16292c;--accent:#9ad8d0;--font-display:'Fredericka the Great',serif;--font-ui:'Goudy Bookletter 1911',serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(14,32,36,.97);--tc-ink:#e6f2ee;--cap-bg:rgba(16,38,42,.95);--panel:#1e3a3e;--face-bg:#2c5458;--q-ink:#a8eadf;--fade:#071214;--hud-bg:rgba(16,38,42,.84)}
+  .tc-room{font-family:'Fredericka the Great',serif;font-size:clamp(46px,6.4vw,86px);color:#a8eadf}
+  .sG{font-family:'EB Garamond',serif;text-anchor:middle}
+  .drop{animation:drp 1.6s steps(6,end) infinite}
+  .drop.d2{animation-delay:-.5s}.drop.d3{animation-delay:-1.1s}
+  @keyframes drp{0%{transform:translateY(0);opacity:1}100%{transform:translateY(30px);opacity:0}}
+  .ripple{animation:rip 5s steps(5,end) infinite;transform-box:fill-box;transform-origin:center}
+  @keyframes rip{0%{transform:scale(.6);opacity:.8}100%{transform:scale(1.6);opacity:0}}
+  #duck.ready,#crumbs.ready,#tear.ready{animation:glowb 1.6s steps(1,end) infinite}
+  @keyframes glowb{50%{filter:brightness(1.35)}}
+  #mouse.gone{display:none}
+
+  /* the page that was cried on */
+  .wet{width:min(1240px,97vw);display:grid;grid-template-columns:1.08fr 1fr;gap:14px;-webkit-user-select:none;user-select:none}
+  .wet .leaf{position:relative;background:#f2ead2;color:#2a2018;padding:12px 22px 10px;font-family:'EB Garamond',serif;font-size:16.2px;line-height:1.38;
+    box-shadow:0 26px 70px rgba(0,0,0,.7),inset 0 0 50px rgba(110,90,40,.18);
+    background-image:radial-gradient(ellipse 60px 40px at 18% 30%,rgba(90,140,170,.22),transparent 70%),radial-gradient(ellipse 80px 50px at 70% 62%,rgba(90,140,170,.2),transparent 70%),radial-gradient(ellipse 50px 70px at 40% 88%,rgba(90,140,170,.18),transparent 70%)}
+  .wet h5{margin:0 0 5px;text-align:center;font-family:'Goudy Bookletter 1911',serif;font-weight:normal;font-size:12.5px;letter-spacing:.26em;text-transform:uppercase;color:#6a6a5a}
+  .wet p{margin:0 0 5px;text-indent:1.2em}
+  .wet p.ni{text-indent:0}
+  .wet .om{display:block;text-align:center;text-indent:0;color:#9a8a6a;margin:0 0 3px;line-height:1}
+  .wet .wk-gap{display:inline-flex;vertical-align:-3px;text-indent:0}
+  .wet .wk-part{display:inline-flex;gap:1px}
+  .wet .wk-cell{width:17px;height:23px;min-width:0;border:0;border-bottom:2px solid #4a7a8a;background:rgba(120,170,190,.25);color:#1e3a4a;font-family:'EB Garamond',serif;font-size:18px;line-height:23px;text-align:center;border-radius:2px 2px 0 0;box-shadow:none}
+  .wet .wk-cell.cur{background:rgba(120,170,190,.6);outline:2px solid #2a6a7a}
+  .wet .wk-gap.ok .wk-part{gap:0}
+  .wet .wk-gap.ok .wk-cell{display:inline;width:auto!important;min-width:0!important;margin:0!important;padding:0;background:transparent;border-bottom-color:transparent;color:#1e4a5a;font-weight:600;font-style:italic;text-transform:lowercase}
+  .wet .wk-gap.bad .wk-cell{background:#e8b0a0}
+  .wet .bn-foot{grid-column:1/3;margin-top:0}
+  .wet .tip{grid-column:1/3;margin:-6px 0 0;font-family:'Goudy Bookletter 1911',serif;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:#a8d8d0;text-align:center}
+  @media (max-height:820px){.wet .leaf{font-size:15.4px;line-height:1.33}}
+
+  /* the Mouse's tale, in the shape of a tail */
+  .doc.tale{width:min(560px,92vw);background:#f6efdc;color:#2a2018;font-family:'EB Garamond',serif;padding:16px 30px 12px;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+  .doc.tale h4{margin:0 0 6px;text-align:center;font-family:'Goudy Bookletter 1911',serif;font-size:14px;letter-spacing:.26em;text-transform:uppercase;color:#7a6a4a}
+  .doc.tale .tl{display:block;white-space:nowrap;line-height:.94}
+  .doc.tale .cap2{margin-top:10px;font-size:16px;font-style:italic;color:#5a4a3a;text-align:center}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="waterG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1e3c44"/><stop offset=".55" stop-color="#3a6a70"/><stop offset="1" stop-color="#5a8a86"/></linearGradient>
+  <linearGradient id="bankG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b8a678"/><stop offset="1" stop-color="#6a5a3a"/></linearGradient>
+  <radialGradient id="lampG"><stop offset="0" stop-color="#ffe2a0" stop-opacity=".5"/><stop offset="1" stop-color="#ffe2a0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="52%" r="75%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#061012" stop-opacity=".25"/><stop offset="1" stop-color="#020606" stop-opacity=".85"/></radialGradient>
+</defs>
+<g id="bg"></g>
+<!-- the crumbs, floating by the reeds -->
+<g id="crumbs" class="hot"><ellipse cx="1262" cy="628" rx="60" ry="12" fill="#5a8a86" opacity=".01"/><g id="crumbg"></g></g>
+<!-- the bank -->
+<path d="M-1000 700q400 -40 900 -20t900 10t1800 -10V1400H-1000z" fill="url(#bankG)"/>
+<path d="M-1000 700q400 -40 900 -20t900 10t1800 -10" fill="none" stroke="#e8e0c0" stroke-width="3" opacity=".6"/>
+<g id="hatchbank"></g>
+<g id="reeds"></g>
+<!-- the party on the bank -->
+<g id="dodo" class="hot" transform="translate(420 792) scale(1.25)"></g>
+<g id="duck" class="hot" transform="translate(610 822) scale(1.35)"></g>
+<g id="mouse" class="hot" transform="translate(806 806) scale(1.5)"></g>
+<g id="lory" class="hot" transform="translate(1000 808) scale(1.35)"></g>
+<g id="eaglet" class="hot" transform="translate(1108 816) scale(1.35)"></g>
+<g id="crab" class="hot" transform="translate(1236 846) scale(1.3)"></g>
+<g id="alice" class="hot" transform="translate(1390 806) scale(1.02)"></g>
+<g id="drops"></g>
+<!-- the page that was cried on, on a flat stone -->
+<g id="tear" class="hot"><ellipse cx="930" cy="872" rx="80" ry="18" fill="#8a8272"/><path d="M886 868l38 -22 50 10 -36 24z" fill="#f2ead2"/>
+  <path d="M898 864l30 -16M908 868l30 -16M918 872l30 -16" stroke="#6a8a9a" stroke-width="1.3"/><circle cx="930" cy="860" r="9" fill="#7aa8c0" opacity=".35"/></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Run after the Rabbit</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="../../assets/wordkit.js"></script>
+<script src="alice.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told;
+
+  (function () {
+    var s = '', i;
+    s += '<defs>' + AL.hatch('hb', '#4a3a1e', 8, 30) + '</defs>';
+    s += '<rect x="-1000" y="-400" width="3600" height="1300" fill="url(#waterG)"/>';
+    s += '<path d="M-1000 -400H2600V160H-1000z" fill="#0e1a1c"/><path d="M200 160V40h1200v120" fill="#1a2a2a"/>';
+    [380, 800, 1220].forEach(function (x) { s += '<path d="M' + x + ' -400V60" stroke="#050a0a" stroke-width="2"/><circle cx="' + x + '" cy="74" r="80" fill="url(#lampG)"/><path d="M' + (x - 8) + ' 64h16l-3 18h-10z" fill="#ffe6a8" opacity=".9"/>'; });
+    for (i = 0; i < 14; i++) s += '<path d="M' + (-200 + i * 140) + ' ' + (220 + (i % 4) * 90) + 'q30 -8 60 0t60 0" fill="none" stroke="#9ac8c8" stroke-width="2" opacity=".35"/>';
+    for (i = 0; i < 5; i++) s += '<ellipse class="ripple" style="animation-delay:-' + i + 's" cx="' + (180 + i * 300) + '" cy="' + (420 + (i % 2) * 120) + '" rx="40" ry="8" fill="none" stroke="#cfeaf0" stroke-width="2"/>';
+    /* the far shore of the hall, and things still floating */
+    s += '<path d="M1460 330q20 -14 40 0l-6 8h-28z" fill="#e8e0d0" opacity=".7"/><path d="M1480 330v-26" stroke="#e8e0d0" stroke-width="2" opacity=".7"/>';
+    s += '<g transform="translate(240 470) rotate(-10)" opacity=".8"><path d="M-30 0q30 -20 60 0q-30 12 -60 0z" fill="#f4f0e4"/><path d="M-20 -2h40M-14 2h28" stroke="#b8a888" stroke-width="1.4"/></g>';
+    s += '<g transform="translate(1160 400)" opacity=".75"><path d="M0 0l30 -20 40 6 -30 22z" fill="#f2f2ea"/><path d="M10 -2l18 -12M18 2l18 -12" stroke="#c8c8c0" stroke-width="1.4"/></g>';
+    $('#bg').innerHTML = s;
+    $('#hatchbank').innerHTML = '<path d="M-1000 760q400 -30 900 -10t900 10t1800 -10V1400H-1000z" fill="url(#hb)" opacity=".45"/>';
+    s = '';
+    function reed(x, y, h, k) { return '<path d="M' + x + ' ' + y + 'q' + (k * 6) + ' -' + (h / 2) + ' ' + (k * 2) + ' -' + h + '" stroke="#4a6a3a" stroke-width="4" fill="none"/><ellipse cx="' + (x + k * 2) + '" cy="' + (y - h + 10) + '" rx="5" ry="14" fill="#6a4a2a"/>'; }
+    for (i = 0; i < 9; i++) s += reed(-80 + i * 26, 720 - (i % 3) * 6, 120 + (i * 37) % 70, i % 2 ? 1 : -1);
+    for (i = 0; i < 10; i++) s += reed(1300 + i * 30, 700 - (i % 3) * 6, 110 + (i * 41) % 80, i % 2 ? -1 : 1);
+    $('#reeds').innerHTML = s;
+    s = '';
+    for (i = 0; i < 9; i++) s += '<path d="M' + (1232 + (i * 17) % 60) + ' ' + (622 + (i * 7) % 14) + 'l7 -3 4 5 -6 4z" fill="' + (i % 3 ? '#e8c27a' : '#f6e6b8') + '" stroke="#8a6a3a" stroke-width=".8"/>';
+    $('#crumbg').innerHTML = s;
+    ['dodo', 'duck', 'mouse', 'lory', 'eaglet', 'crab', 'alice'].forEach(function (w) { $('#' + w).innerHTML = AL.fig(w); });
+    s = '';
+    [[420, 700], [610, 780], [806, 760], [1000, 760], [1390, 640], [1380, 560]].forEach(function (p, j) { s += '<path class="drop d' + (1 + j % 3) + '" d="M' + p[0] + ' ' + p[1] + 'q-4 8 0 10q4 -2 0 -10z" fill="#9ad0e0"/>'; });
+    $('#drops').innerHTML = s;
+  })();
+
+  ER.init({
+    theme: 'lit', story: 'alice', storyTitle: 'The Torn Pages of Wonderland', id: 'pool', no: 'II', title: 'The Pool of Tears',
+    go: 'Climb out on to the bank',
+    intro: [
+      'You mended the page in the hall by its own words. “On the second time round” and “this time” pointed back; the key had to be found before it could be forgotten; and Alice had to drink before she could shrink, and eat before she could grow. One strip spoke of “once more” and a mushroom: it was from a later chapter, so it is in your pocket.',
+      'Then the story ran on, and Alice cried a pool of tears. Now you are swimming in it, with Alice, a Mouse, a Duck and a Dodo, a Lory and an Eaglet, and several other curious creatures.',
+      'Alice leads the way, and the whole party swims to the shore.'
+    ],
+    exit: {"next":"tea","w":{"aaf5d0cb":"2710587c"}}, tags: {"d1":["0a770302"],"d1@":["8b7c0eae","3637ccf2","04e7f49e"],"d1?":["0f3d266d","f3334c64","7ad94c02"],"d1#":["0caf2965"],"d2":["f85f9dc1"],"d2@":["27d0e0d5","270ab98a","c6bc8255","22c172ef","83dec99a","78d1a225"],"d2?":["35464955","19e90ac6","9dfa3ab3","c49e275d","e362477d","4f84a24c"],"d2#":["5500f4f2"],"d3":["dec3dc94"],"d3@":["8da0b1f2","fdc7d0a5","aecb4402","31ea3515"],"d3?":["b9a6310f","07691c41","8fbe0bc7","d29e28b8"],"d3#":["ab477695"],"d4":["bd79cc49"],"d4@":["f5d53c1f","ee1d18fd","a71c1745","535c7c4c"],"d4?":["422acb93","651d13f0","a4dedbe5","a3fcae01"],"d4#":["23089163"],"d5":["f5f08421"],"d5@":["95ff4410","248bdfc3","6cb3f312","678aaac4","4661614a","c10d4077"],"d5?":["0643a2cd","27d94fa5","a9557304","5fbe14ef","d00271f9","f4b801ac"],"d5#":["af7f464b"],"d6":["fe783f03"],"d6@":["67c2a51e","81a9c792","6f050d42","4a7b3067","7b5f27a6","f74b3ce4"],"d6?":["449485d1","6fc3f537","40c62d7a","8cc8ff84","bf4e5eb0","efe59fba"],"d6#":["d592a1d6"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = AL.told('p-told'); nextFile = ER.flag('p-file') || null;
+  function isBusy() { return busy; }
+  function ready() { return told.has('morals') && told.has('crumbs'); }
+  function paint() {
+    $('#duck').classList.toggle('ready', !told.has('morals') && !nextFile);
+    $('#crumbs').classList.toggle('ready', told.has('morals') && !told.has('crumbs'));
+    $('#tear').classList.toggle('ready', ready() && !nextFile);
+    $('#mouse').classList.toggle('gone', !!nextFile);
+    ER.pips((told.has('morals') ? 1 : 0) + (told.has('crumbs') ? 1 : 0) + (nextFile ? 1 : 0), 3);
+  }
+  var lock = null, gp = null;
+  function hints() {
+    if (nextFile) return ['go', ['The Mouse has gone, and the White Rabbit is looking for his gloves and his fan. The button at the bottom of the screen follows him.']];
+    if (lock && lock.parentNode) return ['wet', [
+      'Read each gap aloud with the line before it. A pun needs a listener who hears a different word from the one the speaker meant. Ask: what did the speaker say, and what did the other one hear, or need?',
+      'Look at the Duchess’s page (it is in your notebook): two words that sound the same, or one word with two meanings. Tale and ____; not and ____; Tortoise and “he ____ us”; lessons and “they ____”. And “dry” has two meanings: one for wet feathers, one for a lesson nobody enjoys.',
+      'The hole after “a long” is the thing at the back of the Mouse. Alice offers to undo the second one, so it is something you tie. A teacher does to his class what the third one says. And ten hours, then nine, then eight: lessons that get less.'
+    ]];
+    if (!told.has('morals')) return ['duck', [
+      'Everybody on the bank is wet and cross. The Duck, at the front on the left, has found something in the water. Click the Duck.',
+      'The Duck finds things. It is generally a frog or a worm. This time it is a page.'
+    ]];
+    if (!told.has('crumbs')) return ['crumbs', [
+      'Something is floating in the water near the reeds on the right, where the pool meets the bank.',
+      'Click the little yellow bits by the reeds on the right. They are not leaves.'
+    ]];
+    return ['tear', ['The page that the story stopped on is lying on a flat stone in front of the Mouse. Click it.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('The bank of the pool. The Mouse has gone, and so have the birds.'); return; }
+    if (told.has('in')) { busy = false; ER.say('The bank of the pool. Everybody is still wet.'); return; }
+    told.set('in');
+    ER.narrate([
+      'They were indeed a queer-looking party that assembled on the bank. The birds have draggled feathers, the animals have their fur clinging close to them, and all of them are dripping wet, cross, and uncomfortable.',
+      'They have tried a dry lecture on history, and run a Caucus-race, and eaten the comfits. Now they are sitting in a ring, and the Mouse is in the middle.',
+      '“Mine is a long and a sad tale!” says the Mouse, turning to Alice, and sighing. And then, after a moment, exactly as before: “Mine is a long and a sad tale!” And again. And again.',
+      'The story has stuck, like a musical box. The page it should go on with is lying on a flat stone in front of the Mouse, and it is so wet with tears that half its words have washed away.'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- the Duck, and the Duchess's page ---------- */
+  var MORALS = '<h4>The Duchess’s Book of Morals</h4><h3>On Puns</h3>' +
+    '<p>A <b>pun</b> is a joke that hangs on a sound with two meanings. There are two kinds.</p>' +
+    '<p><b>1. Two words that sound the same</b> but are spelt differently: a hare runs across a field, but hair grows on your head. Words like these are <b>homophones</b>. Say one, and a listener may hear the other.</p>' +
+    '<p><b>2. One word with two meanings</b>: a bat flies at night, and a bat hits a ball. When a speaker means one meaning and a listener takes the other, often the plain, word-for-word one, we say the listener has <b>taken it literally</b>.</p>' +
+    '<p>To catch a pun, say the line aloud. Then ask what else that sound could mean, and which meaning the other person heard, or needed.</p>' +
+    '<p class="moral">And the moral of that is—“Take care of the sense, and the sounds will take care of themselves.”</p>';
+  $('#duck').addEventListener('click', function () {
+    if (busy) return;
+    if (told.has('morals')) { ER.say('“It’s generally a frog or a worm,” says the Duck. “That page was neither. I didn’t care for it.”'); return; }
+    ER.talk({
+      who: 'The Duck', role: 'Dripping wet', face: AL.face('duck', '#cfe2dc'),
+      lines: [
+        { note: 'The Duck is shaking water out of its feathers. Something flat and soggy is hanging from its beak.', a: '<span class="bk">“I know what ‘it’ means well enough, when <i>I</i> find a thing,” said the Duck: “it’s generally a frog or a worm.”</span>' },
+        { q: 'And what have you found now?', a: 'A page. Not a frog, not a worm. It came floating out of the pool when the water rose, and it is covered in pepper, so it belongs to the Duchess. She puts a moral on everything. You may have it. I can’t eat it.' }
+      ],
+      clue: { id: 'duck', title: 'The Duck', kind: 'What it said' },
+      done: function (seen) {
+        if (!seen) return;
+        ER.read({ html: MORALS, cls: 'morals', clue: { id: 'morals', title: 'On Puns', kind: 'The Duchess’s book' }, done: function () {
+          AL.terms(['pun', 'homophone', 'double meaning', 'take literally', 'wordplay']);
+          if (told.set('morals')) { paint(); ER.say('Two words with one sound, or one word with two meanings. And something is floating by the reeds.'); }
+        } });
+      }
+    });
+  });
+  $('#crumbs').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.has('morals')) { ER.say('Little yellow bits floating by the reeds. The Duck is waving something at you with its beak.'); return; }
+    if (told.set('crumbs')) {
+      ER.addClue('crumbs', 'Crumbs in the pool', '<h4>Crumbs in the pool</h4><p>Floating by the reeds, where the torn strip of the hall page was blown in: flaky crumbs of pastry, golden, with sugar on top. Not bread: pastry, like the crust of a tart.</p><p>Whoever tore the pages was eating something made of pastry.</p>', 'evid', 'Evidence');
+      paint(); ER.say('Flaky crumbs of pastry, golden, with sugar on top. Not bread: pastry, the kind on a tart. Somebody has been eating here, over the pages.');
+    } else ER.say('Crumbs of pastry, with sugar on top, going round and round in the water.');
+  });
+
+  /* ---------- the others on the bank ---------- */
+  $('#dodo').addEventListener('click', function () {
+    if (busy) return;
+    if (told.has('dodo')) { ER.say('The Dodo is standing with one finger pressed upon its forehead, the position in which you usually see Shakespeare, in the pictures of him.'); return; }
+    ER.talk({
+      who: 'The Dodo', role: 'In charge of the Caucus-race', face: AL.face('dodo', '#d6dcd0'),
+      lines: [
+        { note: 'A large grey bird with a stick, and a beak like a hook, as solemn as a bishop.', a: '<span class="bk">“<i>Everybody</i> has won, and all must have prizes.”</span>' },
+        { q: 'Even me? I didn’t run.', a: 'You are wet. That is the same thing. What have you got in your pocket?' },
+        { note: 'You show it the strip of paper that would not fit in the hall.', a: 'Hand it over here.</p><p>The Dodo takes the strip, turns to the whole party, and presents it back to you with a bow. “We beg your acceptance of this elegant strip of paper.” Everybody cheers. You bow, and put it back in your pocket, looking as solemn as you can.' }
+      ],
+      clue: { id: 'dodo', title: 'The Dodo', kind: 'What it said' },
+      done: function (seen) { if (seen) told.set('dodo'); }
+    });
+  });
+  AL.thing('#lory', 'parrot', '“I am older than you, and must know better,” says the Lory, and will not say how old it is.', isBusy);
+  AL.thing('#eaglet', null, '“Speak English!” says the Eaglet, to nobody in particular. “I don’t know the meaning of half those long words, and, what’s more, I don’t believe you do either!”', isBusy);
+  AL.thing('#crab', 'crab', '“Ah, my dear! Let this be a lesson to you never to lose <i>your</i> temper!” says an old Crab to her daughter, who has not lost anything.', isBusy);
+  $('#alice').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(nextFile ? 'Alice is alone on the bank, and wishes she had not mentioned her cat.' : 'Alice is listening to the Mouse, and looking down at its tail with wonder. She does not seem to see you at all.');
+  });
+  $('#mouse').addEventListener('click', function () {
+    if (busy) return;
+    ER.say('“Mine is a long and a sad tale!” says the Mouse, and sighs. And then, exactly as before: “Mine is a long and a sad tale!”');
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  $('#tear').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The page is dry now, and every word is back on it.'); return; }
+    if (!ready()) { ER.say(told.has('morals') ? 'The page the story stopped on, wet with tears. Something is floating by the reeds, on the right: look at that first.' : 'A page lying on a flat stone, so wet with tears that half its words have washed away. The Duck has found something too.'); return; }
+    openLock();
+  });
+
+  /* ---------- the page that was cried on ---------- */
+  var MISS = {
+    d1: 'The Mouse is promising the party something. They are all dripping wet, cross, and uncomfortable: what do they want to be?',
+    d2: 'History is not wet, so this is the other meaning of the same word: a lesson that is dull and has no life in it. The Mouse is saying that history is the most … of all. Mind how the word changes when it gets “-est”.',
+    d3: 'Say Alice’s word aloud: it must sound exactly like the Mouse’s “tale”, but Alice is looking at the back end of the Mouse.',
+    d4: 'The Mouse says “not”. Alice hears a word with the same sound, and offers to undo it. What can you undo?',
+    d5: 'Say “Tortoise” aloud, then say “he ____ us” in the same breath. What does a master do to his class?',
+    d6: 'Ten hours the first day, nine the next: the lessons get less every day. Which verb means “get less”, and sounds just like “lessons”?'
+  };
+  var ON = {
+    d1: 'They all sit down at once, in a large ring, with the Mouse in the middle.',
+    d2: 'The driest thing the Mouse knows is a history lesson. Dry: not wet. Dry: dull. One word, two meanings, and the party still dripping.',
+    d3: 'Tale, tail: two words, one sound. The Mouse means his story. Alice is looking at his tail.',
+    d4: 'Not, knot: the Mouse means “I had not!”, and Alice offers to undo a knot.',
+    d5: 'Tortoise, taught us. The Mock Turtle thinks Alice is very dull not to hear it.',
+    d6: 'Lessons, lessen. Ten hours, nine, eight, and so on, until there are none.'
+  };
+  function openLock() {
+    lock = ER.el('div', 'wet');
+    lock.innerHTML = '<div class="leaf"><h5>Chapter III · A Caucus-Race and a Long Tale</h5>' +
+      '<p class="ni">They were indeed a queer-looking party that assembled on the bank—the birds with draggled feathers, the animals with their fur clinging close to them, and all dripping wet, cross, and uncomfortable.</p><span class="om">· · ·</span>' +
+      '<p>At last the Mouse, who seemed to be a person of authority among them, called out, “Sit down, all of you, and listen to me! <i>I’ll</i> soon make you <span class="wk-gap" data-key="d1"></span> enough!”</p><span class="om">· · ·</span>' +
+      '<p>“Ahem!” said the Mouse with an important air, “are you all ready? This is the <span class="wk-gap" data-key="d2"></span> thing I know. Silence all round, if you please! ‘William the Conqueror, whose cause was favoured by the pope, was soon submitted to by the English …’”</p><span class="om">· · ·</span>' +
+      '<p>“Mine is a long and a sad tale!” said the Mouse, turning to Alice, and sighing.</p>' +
+      '<p>“It <i>is</i> a long <span class="wk-gap" data-key="d3"></span>, certainly,” said Alice … “but why do you call it sad?”</p><span class="om">· · ·</span>' +
+      '<p>“I had <i>not!</i>” cried the Mouse, sharply and very angrily.</p>' +
+      '<p>“A <span class="wk-gap" data-key="d4"></span>!” said Alice, always ready to make herself useful, and looking anxiously about her. “Oh, do let me help to undo it!”</p></div>' +
+      '<div class="leaf"><h5>Two loose pages from Chapter IX · The Mock Turtle’s Story</h5>' +
+      '<p class="ni">“When we were little,” the Mock Turtle went on at last, more calmly, though still sobbing a little now and then, “we went to school in the sea. The master was an old Turtle—we used to call him Tortoise—”</p>' +
+      '<p>“Why did you call him Tortoise, if he wasn’t one?” Alice asked.</p>' +
+      '<p>“We called him Tortoise because he <span class="wk-gap" data-key="d5"></span> us,” said the Mock Turtle angrily: “really you are very dull!”</p><span class="om">· · ·</span>' +
+      '<p>“And how many hours a day did you do lessons?” said Alice, in a hurry to change the subject.</p>' +
+      '<p>“Ten hours the first day,” said the Mock Turtle: “nine the next, and so on.”</p>' +
+      '<p>“What a curious plan!” exclaimed Alice.</p>' +
+      '<p>“That’s the reason they’re called lessons,” the Gryphon remarked: “because they <span class="wk-gap" data-key="d6"></span> from day to day.”</p></div>' +
+      '<p class="tip">Click a gap and type on your keyboard · Backspace to rub out</p>' +
+      '<div class="bn-foot"><p class="bmsg"></p></div>';
+    var m = lock.querySelector('.bmsg');
+    function msg(t) { m.innerHTML = ER.gloss(t); }
+    ER.glossIn(lock, '.leaf p');
+    gp = WK.gaps(lock, {
+      mark: false,
+      onWord: function (k) { AL.sfx.page(); msg(ON[k]); },
+      onMiss: function (k, node, n) { msg(MISS[k] + (n > 2 ? ' (Each gap has exactly as many letters as it has boxes.)' : '')); },
+      onDone: done
+    });
+    msg('Six words have been washed away by tears. Each one is half of a pun. Say the line aloud, and type the word that belongs in the gap.');
+    ER.open('ov-lock', lock);
+  }
+  function done() {
+    var file = ER.exit(['dry-driest-tail-knot-taught-lessen'], { wait: true });
+    if (!file) { lock.querySelector('.bmsg').textContent = 'The page will not dry. Something is wrong with this page: tell your teacher.'; return; }
+    nextFile = file; ER.flag('p-file', file);
+    lock.querySelector('.bmsg').innerHTML = ER.gloss('The last word comes back, and the page dries in your hands as if somebody had blown on it. The Mouse stops in the middle of a sigh, and goes on.');
+    AL.mine('puns', 'Six puns', '<p>dry (not wet) and dry (dull): one word, two meanings, and “the driest thing I know” is a history lesson.</p><p>tale / tail · not / knot · Tortoise / taught us · lessons / lessen: two words, one sound.</p>');
+    setTimeout(function () { ER.closeAll(); after(); }, 2600);
+  }
+  function tale() {
+    var W = ['“Fury said to a', 'mouse, That he', 'met in the', 'house, ‘Let us', 'both go to', 'law: <i>I</i> will', 'prosecute', '<i>you</i>.—Come,', 'I’ll take no', 'denial; We', 'must have a', 'trial: For', 'really this', 'morning I’ve', 'nothing', 'to do.’', 'Said the', 'mouse to', 'the cur,', '‘Such a', 'trial,', 'dear sir,', 'With no', 'jury or', 'judge,', 'would be', 'wasting', 'our', 'breath.’', '‘I’ll be', 'judge,', 'I’ll be', 'jury,’', 'Said', 'cunning', 'old Fury:', '‘I’ll', 'try the', 'whole', 'cause,', 'and', 'condemn', 'you', 'to', 'death.’”'];
+    var s = '<h4>The Mouse’s tale, as Alice heard it</h4>';
+    W.forEach(function (w, i) {
+      var x = 150 + 110 * Math.sin(i / 4.2) - i * 1.2, fs = Math.max(8, 17.5 - i * 0.24);
+      s += '<span class="tl" style="padding-left:' + x.toFixed(0) + 'px;font-size:' + fs.toFixed(1) + 'px">' + w + '</span>';
+    });
+    s += '<p class="cap2">The tale of a dog who wanted a trial, printed in the shape of a tail. Because Alice heard “tail”.</p>';
+    return s;
+  }
+  function after() {
+    busy = true; paint();
+    ER.read({ html: tale(), cls: 'tale', clue: { id: 'tale', title: 'The Mouse’s tale', kind: 'Chapter III' }, done: function () {
+      ER.narrate([
+        'And Alice kept on puzzling about it while the Mouse was speaking, so that her idea of the tale was the shape you have just read: a tail.',
+        '“I had <i>not!</i>” cries the Mouse, and “A knot!” says Alice, and the Mouse walks away, offended, and will not come back to finish his story. The birds hurry off home when Alice mentions her cat Dinah, and soon she is alone.',
+        'Then a little pattering of feet. The White Rabbit comes trotting back, looking anxiously about him: <span class="bk">“The Duchess! The Duchess! Oh my dear paws! Oh my fur and whiskers! She’ll get me executed, as sure as ferrets are ferrets!”</span>',
+        'He catches sight of you, and of Alice. <span class="bk">“Why, Mary Ann, what <i>are</i> you doing out here? Run home this moment, and fetch me a pair of gloves and a fan! Quick, now!”</span> And this time, it seems, he means both of you.'
+      ], function () { busy = false; $('#go').classList.add('on'); ER.leaveReady = true; });
+    } });
+  }
+})();
+</script>
+</body>
+</html>

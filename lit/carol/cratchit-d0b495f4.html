@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Cratchits' House · The Boy in Sunday Clothes</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lit.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="carol.css">
+<style>
+  body{--bg:#3a160e;--accent:#ffb870;--font-display:'Goudy Bookletter 1911',serif;--font-ui:'Goudy Bookletter 1911',serif;--font-body:'Alegreya',serif;
+    --tc-bg:rgba(58,22,14,.96);--tc-ink:#fbe8d4;--cap-bg:rgba(60,24,14,.95);--panel:#4a2216;--face-bg:#6a3022;--q-ink:#ffc890;--fade:#140604;--hud-bg:rgba(58,22,14,.84)}
+  .tc-room{font-family:'Goudy Bookletter 1911',serif;font-size:clamp(42px,5.8vw,78px);color:#ffc47a;letter-spacing:.02em}
+  .tc-text,.cap,.tk-text{font-family:'Alegreya',Georgia,serif}
+  .sG{font-family:'Goudy Bookletter 1911',serif;text-anchor:middle}
+  .sC{font-family:'Cinzel',serif;text-anchor:middle}
+  .flame{animation:flick 2s steps(1,end) infinite;transform-box:fill-box;transform-origin:50% 100%}
+  @keyframes flick{0%{transform:scaleY(1)}40%{transform:scaleY(.85)}70%{transform:scaleY(1.1)}}
+  #snow1 circle,#snow2 circle{animation:fall 7s linear infinite}
+  @keyframes fall{from{transform:translateY(-60px)}to{transform:translateY(60px)}}
+  #street{display:none}
+  #scene.night #street{display:inline}#scene.night #home{display:none}
+  #coins.ready,#cipher.ready,#bill.ready,#kids.ready{animation:glow 1.5s steps(1,end) infinite}
+  @keyframes glow{50%{filter:brightness(1.5)}}
+  #torch{animation:torchg 2.4s steps(4,end) infinite}
+  @keyframes torchg{50%{opacity:.7}}
+
+  /* the lock: the sums of Stave Three */
+  .sums{padding:14px 20px 14px;background:#f6efdc linear-gradient(90deg,rgba(120,90,40,.12),rgba(255,255,255,0) 6%,rgba(255,255,255,0) 94%,rgba(120,90,40,.1));color:#231c14;border:1px solid #9a8a62;box-shadow:0 26px 70px rgba(0,0,0,.7)}
+  .sums h5{margin:0 0 8px;font-family:'Goudy Bookletter 1911',serif;font-weight:normal;font-size:15px;letter-spacing:.22em;text-transform:uppercase;color:#7a2a1c;text-align:center}
+  .row{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:14px;align-items:center;padding:7px 0;border-top:1px solid #d8c8a0}
+  .row q{display:block;quotes:none;font-family:'EB Garamond',Georgia,serif;font-style:italic;font-size:16px;line-height:1.3}
+  .row q small{display:block;font-style:normal;font-family:'Goudy Bookletter 1911',serif;font-size:12px;letter-spacing:.14em;color:#8a7a5a;margin-top:2px}
+  .row .ask{font-family:'Goudy Bookletter 1911',serif;font-size:15px;color:#3a2a1a;margin-bottom:4px}
+  .dish{min-height:58px;padding:5px;border:2px dashed #b8a070;border-radius:30px;background:#efe4c6;display:flex;flex-wrap:wrap;gap:4px;align-items:center;cursor:pointer}
+  .dish.on{border-style:solid;border-color:#a8231c;background:#f8ecd0;box-shadow:0 0 0 3px rgba(168,35,28,.2)}
+  .dish.bad{background:#f3c4b4}
+  .dial{display:flex;align-items:center;gap:10px}
+  .dial button{width:34px;height:34px;border:1px solid #7a5a3a;border-radius:50%;font-size:20px;line-height:30px;color:#3a2a1a;background:#fbf4e0}
+  .dial b{min-width:44px;text-align:center;font-family:'Goudy Bookletter 1911',serif;font-size:28px;font-weight:normal;color:#7a2a1c}
+  .dial.bad b{color:#c0302a}
+  .tray{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:8px;padding:8px;border-top:3px double #b8a070}
+  .coin{display:inline-flex;align-items:center;justify-content:center;border-radius:50%;font-family:'Goudy Bookletter 1911',serif;color:#2a1a0a;text-align:center;line-height:1;cursor:pointer;
+    box-shadow:inset 0 0 0 2px rgba(0,0,0,.25),0 2px 4px rgba(0,0,0,.35);user-select:none;-webkit-user-select:none}
+  .coin.g{background:radial-gradient(circle at 35% 35%,#fff3b0,#d8a830 60%,#9a7010)}
+  .coin.s{background:radial-gradient(circle at 35% 35%,#ffffff,#c8ccd0 60%,#8a9096)}
+  .coin.c{background:radial-gradient(circle at 35% 35%,#f8c0a0,#b8683a 60%,#7a3a1a)}
+  .tray .coin{width:74px;height:74px;font-size:12.5px;padding:6px}
+  .dish .coin{width:46px;height:46px;font-size:9px;padding:3px}
+  .coin:hover{filter:brightness(1.1)}
+
+  /* the Spirit's last words */
+  .robe{width:min(760px,94vw);padding:18px 24px 16px;background:#1e3a1e linear-gradient(160deg,#2a4e2a,#14280e);border:6px solid #f4efe4;box-shadow:0 26px 70px rgba(0,0,0,.75);color:#f6efdc}
+  .robe h5{margin:0 0 6px;font-family:'Goudy Bookletter 1911',serif;font-weight:normal;font-size:15px;letter-spacing:.2em;text-transform:uppercase;color:#d8e8c0;text-align:center}
+  .robe p.q{margin:0 0 12px;font-family:'Alegreya',serif;font-size:20px;line-height:1.4;text-align:center}
+  .robe .opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .robe .opt{padding:10px 14px;background:#f6efdc;color:#231c14;border:2px solid #c8b88a;border-radius:4px;font-family:'EB Garamond',Georgia,serif;font-size:17px;line-height:1.3;text-align:left;cursor:pointer}
+  .robe .opt:hover{border-color:#ffd36a}
+  .robe .opt.bad{background:#f3c4b4}
+  .robe .opt.ok{background:#e0f0c8;border-color:#5a8a3a}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <filter id="rough" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="14"/><feDisplacementMap in="SourceGraphic" scale="3"/></filter>
+  <pattern id="paperW" width="90" height="90" patternUnits="userSpaceOnUse"><rect width="90" height="90" fill="#7a3a28"/><path d="M45 0v90" stroke="#6a3020" stroke-width="10"/><circle cx="20" cy="30" r="4" fill="#a8583a" opacity=".6"/><circle cx="70" cy="70" r="4" fill="#a8583a" opacity=".6"/></pattern>
+  <pattern id="boards" width="200" height="34" patternUnits="userSpaceOnUse"><rect width="200" height="34" fill="#5a3418"/><path d="M0 .5h200M70 0v17M150 17v17" stroke="#3a200c" stroke-width="2"/></pattern>
+  <pattern id="bricks" width="60" height="30" patternUnits="userSpaceOnUse"><rect width="60" height="30" fill="#3a2a2a"/><path d="M0 .5h60M0 15.5h60M30 0v15M0 15v15" stroke="#2a1c1c" stroke-width="2"/></pattern>
+  <radialGradient id="fireG"><stop offset="0" stop-color="#ffb060" stop-opacity=".6"/><stop offset="1" stop-color="#ff8040" stop-opacity="0"/></radialGradient>
+  <radialGradient id="torchG"><stop offset="0" stop-color="#fff2b0" stop-opacity=".7"/><stop offset="1" stop-color="#ffd070" stop-opacity="0"/></radialGradient>
+  <radialGradient id="lampG"><stop offset="0" stop-color="#ffe0a0" stop-opacity=".55"/><stop offset="1" stop-color="#ffc060" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="75%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".6" stop-color="#140604" stop-opacity=".28"/><stop offset="1" stop-color="#080200" stop-opacity=".88"/></radialGradient>
+</defs>
+
+<!-- ================= the Cratchits' four-roomed house ================= -->
+<g id="home">
+  <rect x="-1000" y="-400" width="3600" height="1110" fill="url(#paperW)"/>
+  <rect x="-1000" y="-400" width="3600" height="480" fill="#4a2216"/><path d="M-1000 80h3600" stroke="#2a0e08" stroke-width="16"/>
+  <rect x="-1000" y="690" width="3600" height="800" fill="url(#boards)"/><rect x="-1000" y="684" width="3600" height="10" fill="#2a1408"/>
+  <!-- the window, snow falling -->
+  <g id="win" class="hot"><rect x="1150" y="150" width="220" height="250" fill="#2a1408"/><rect x="1162" y="162" width="196" height="226" fill="#8aa0b8"/>
+    <rect x="1162" y="330" width="196" height="58" fill="#eef2f6"/><g id="snow1" fill="#fff"><circle cx="1190" cy="200" r="3"/><circle cx="1240" cy="240" r="2.5"/><circle cx="1300" cy="190" r="3"/><circle cx="1330" cy="270" r="2.5"/><circle cx="1210" cy="300" r="2"/></g>
+    <path d="M1260 162v226M1162 275h196" stroke="#2a1408" stroke-width="7"/><path d="M1150 150l40 -22h140l40 22" fill="#2a6a2a"/><g fill="#c22a1e"><circle cx="1200" cy="140" r="4"/><circle cx="1260" cy="132" r="4"/><circle cx="1320" cy="140" r="4"/></g></g>
+  <!-- the fire, the chestnuts, the jug on the hob -->
+  <g id="fire" class="hot"><rect x="360" y="420" width="230" height="270" fill="#2a1408"/><rect x="344" y="402" width="262" height="22" fill="#6a3a1a"/><rect x="400" y="500" width="150" height="190" fill="#120804"/>
+    <g class="flame"><path d="M420 680q20 -70 40 -16q16 -46 32 2q14 -34 30 6z" fill="#ff8a2a"/><path d="M440 680q12 -36 24 -4q10 -24 20 4z" fill="#ffd060"/></g>
+    <g fill="#6a3a1a"><circle cx="452" cy="664" r="7"/><circle cx="470" cy="660" r="7"/><circle cx="490" cy="666" r="7"/></g>
+    <path d="M556 640h30v34q0 10 -15 10t-15 -10z" fill="#8a8a8a" stroke="#2a2a2a" stroke-width="2"/>
+    <circle cx="475" cy="610" r="170" fill="url(#fireG)" pointer-events="none"/>
+    <g fill="#e8d8b8"><rect x="380" y="370" width="16" height="32"/><rect x="560" y="376" width="14" height="26"/></g></g>
+  <!-- the money that has dropped out of the page: spilt in the hearth among the chestnuts -->
+  <g id="coins" class="hot"><g stroke="#4a2a0a" stroke-width="1.5"><circle cx="420" cy="716" r="12" fill="#e8e8ec"/><circle cx="446" cy="724" r="9" fill="#d8dce0"/><circle cx="476" cy="714" r="13" fill="#f2c840"/><circle cx="506" cy="726" r="10" fill="#c87a4a"/><circle cx="530" cy="716" r="12" fill="#e8e8ec"/><circle cx="458" cy="740" r="9" fill="#c87a4a"/></g>
+    <g fill="#3a2a1a" font-family="Goudy Bookletter 1911,serif" font-size="11" text-anchor="middle"><text x="476" y="760">£ s. d.</text></g></g>
+  <!-- the table: the goose, the apple-sauce, the potatoes, and the family display of glass -->
+  <g id="table" class="hot"><rect x="640" y="560" width="470" height="20" fill="#7a4a24"/><path d="M660 580v110M1090 580v110" stroke="#5a3418" stroke-width="12"/><path d="M630 548h490v26h-490z" fill="#f6efe2"/>
+    <ellipse cx="860" cy="540" rx="70" ry="22" fill="#b0702a" stroke="#5a3010" stroke-width="2"/><path d="M800 536q60 -40 120 0" fill="#c8843a" stroke="#5a3010" stroke-width="2"/><ellipse cx="860" cy="548" rx="86" ry="10" fill="#e8e0d0"/>
+    <path d="M940 548v-20h30v20z" fill="#e8d070"/><ellipse cx="740" cy="544" rx="30" ry="9" fill="#f0e8d8"/><g fill="#f4e8b8"><circle cx="730" cy="538" r="7"/><circle cx="748" cy="536" r="7"/></g>
+    <path d="M1000 548v-26h14v26zM1022 548v-26h14v26z" fill="#d8eef6" opacity=".8" stroke="#6a7a80"/><path d="M1046 548q0 -14 10 -14t10 14z" fill="#f4ecd8" stroke="#7a6a50"/></g>
+  <!-- the family -->
+  <g id="fam">
+    <g id="belinda" transform="translate(612 690)"></g>
+    <g id="bob" class="hot" transform="translate(700 700)"></g>
+    <g id="tim" class="hot" transform="translate(770 700)"></g>
+    <g id="mrs" class="hot" transform="translate(930 700)"></g>
+    <g id="peter" class="hot" transform="translate(1030 700)"></g>
+    <g id="martha" transform="translate(1130 700)"></g>
+    <g id="small2" transform="translate(1200 704)"></g>
+  </g>
+  <!-- Peter's ciphering-book on a stool -->
+  <g id="cipher" class="hot"><rect x="1240" y="650" width="70" height="14" fill="#6a3a1a"/><path d="M1250 664v30M1300 664v30" stroke="#4a2810" stroke-width="7"/><path d="M1244 650l30 -12l30 12l-30 6z" fill="#3a4a3a" stroke="#1a2a1a" stroke-width="2"/><path d="M1252 646l22 -8M1276 638l22 8" stroke="#f4eedd" stroke-width="2"/></g>
+  <!-- the Spirit, stooping a little under the low roof, and Scrooge holding its robe -->
+  <g id="spirit" class="hot"><circle id="torch" cx="250" cy="340" r="120" fill="url(#torchG)"/><g id="spiritfig" transform="translate(200 870)"></g></g>
+  <g id="scr" class="hot"><g id="scrfig" transform="translate(330 870)"></g></g>
+</g>
+
+<!-- ================= the street, at a quarter to midnight ================= -->
+<g id="street">
+  <rect x="-1000" y="-400" width="3600" height="1300" fill="#141a2a"/>
+  <g fill="#0c101c"><path d="M-1000 520v-260h300v-80h260v120h300v-140h240v100h300v-60h260v140h260v-100h320v140h1320v140z"/></g>
+  <g id="church"><rect x="860" y="120" width="90" height="400" fill="#0c101c"/><path d="M850 122l55 -80 55 80z" fill="#0c101c"/><circle cx="905" cy="196" r="26" fill="#e8e0c0" stroke="#3a3a3a" stroke-width="3"/><path d="M905 196v-20M905 196v-16" stroke="#1a1a1a" stroke-width="3.5" stroke-linecap="round"/></g>
+  <g fill="#ffd890" opacity=".85"><rect x="-560" y="320" width="30" height="40"/><rect x="40" y="340" width="30" height="40"/><rect x="560" y="300" width="30" height="40"/><rect x="1260" y="320" width="30" height="40"/></g>
+  <rect x="-1000" y="520" width="3600" height="200" fill="url(#bricks)"/>
+  <rect x="-1000" y="700" width="3600" height="800" fill="#e8ecf2"/><path d="M-1000 700h3600" stroke="#b8c0cc" stroke-width="4"/>
+  <g id="snow2" fill="#fff" opacity=".9"><circle cx="200" cy="120" r="3"/><circle cx="460" cy="240" r="2.5"/><circle cx="820" cy="80" r="3"/><circle cx="1100" cy="200" r="2.5"/><circle cx="1400" cy="140" r="3"/><circle cx="640" cy="380" r="2"/><circle cx="1500" cy="420" r="2.5"/><circle cx="300" cy="460" r="2"/></g>
+  <!-- the lamp -->
+  <path d="M420 700V300" stroke="#1a1a1a" stroke-width="8"/><path d="M396 300h48l-8 -36h-32z" fill="#3a3a3a"/><circle cx="420" cy="292" r="10" fill="#ffe0a0"/><circle cx="420" cy="300" r="160" fill="url(#lampG)" pointer-events="none"/>
+  <!-- the placard on the wall -->
+  <g id="bill" class="hot"><rect x="1120" y="300" width="200" height="250" fill="#e8dcbc" stroke="#6a5a3a" stroke-width="2"/>
+    <text x="1220" y="336" class="sC" font-size="17" fill="#1e1810" font-weight="700">A CHRISTMAS</text><text x="1220" y="360" class="sC" font-size="17" fill="#1e1810" font-weight="700">FUND</text>
+    <text x="1220" y="384" class="sG" font-size="13" fill="#7a1e14">for the Poor and Destitute</text><path d="M1150 398h140" stroke="#3a2a18" stroke-width="2"/>
+    <g stroke="#5a4a3a" stroke-width="2"><path d="M1144 416h152M1144 430h140M1144 444h152M1144 458h120M1144 480h152M1144 494h146M1144 508h130M1144 526h100"/></g></g>
+  <!-- the Spirit, grown old, and the two children under its robe -->
+  <g id="spirit2" class="hot"><g id="spiritold" transform="translate(720 860)"></g></g>
+  <g id="kids" class="hot"><g id="ign" transform="translate(650 866)"></g><g id="want" transform="translate(780 868)"></g></g>
+  <g id="scr2" class="hot"><g id="scrfig2" transform="translate(960 866)"></g></g>
+</g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">The bell is striking twelve</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="carol.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told, nextFile = null, lock = null;
+  (function () {
+    var F = CC.fig, wrap = function (s) { return '<g class="ink">' + s + '</g>'; };
+    $('#bob').innerHTML = wrap(F({ h: 250, coat: '#5a5248', legs: '#4a4038', skin: '#efcfae', hair: '#8a6a4a', neck: 'comforter', longEnds: true, face: 'smile', armR: 'out' }));
+    $('#tim').innerHTML = wrap('<path d="M-24 0v-60h48v60" fill="none" stroke="#5a3418" stroke-width="6"/>' + '<g transform="translate(0 -60)">' + F({ h: 130, coat: '#3a5a7a', legs: '#5a5048', skin: '#f2d6bc', hair: '#c89a5a', face: 'smile', armL: 'down', armR: 'down', thin: true }) + '</g><path d="M-26 0l8 -110" stroke="#7a5a2a" stroke-width="5" stroke-linecap="round"/><path d="M-30 -112h18" stroke="#7a5a2a" stroke-width="6" stroke-linecap="round"/>');
+    $('#mrs').innerHTML = wrap(F({ h: 248, kind: 'dress', coat: '#6a4a6a', sash: '#c23a4a', skin: '#f0caa8', hairStyle: 'bun', hair: '#5a3a2a', face: 'smile', armL: 'front', thin: true, extra: '<path d="M-20 -232l-6 12M20 -232l6 12" stroke="#c23a4a" stroke-width="4"/>' }));
+    $('#peter').innerHTML = wrap(F({ h: 222, coat: '#4a4a5a', legs: '#3a3a44', skin: '#f2cfae', hair: '#8a6a4a', neck: 'collar', face: 'plain', armR: 'down' }));
+    $('#martha').innerHTML = wrap(F({ h: 236, kind: 'dress', coat: '#3a6a5a', skin: '#f2cfae', hairStyle: 'bun', hair: '#7a5a3a', face: 'smile', thin: true }));
+    $('#belinda').innerHTML = wrap(F({ h: 214, kind: 'dress', coat: '#a85a3a', sash: '#c23a4a', skin: '#f2cfae', hairStyle: 'long', hair: '#8a6a3a', face: 'smile', thin: true, armR: 'front' }));
+    $('#small2').innerHTML = wrap('<g transform="translate(-26 0)">' + F({ h: 150, coat: '#7a5a2a', legs: '#4a3a2a', hairStyle: 'short', hair: '#a87a3a', face: 'smile', armL: 'up', thin: true }) + '</g><g transform="translate(26 0)">' + F({ h: 144, kind: 'dress', coat: '#c86a8a', hairStyle: 'long', hair: '#a87a3a', face: 'smile', armR: 'up', thin: true }) + '</g>');
+    var spirit = { h: 600, kind: 'robe', coat: '#2f6b2f', skin: '#f3c9a4', hairStyle: 'curls', hair: '#6a3f1e', hat: 'wreath', neck: 'fur', feet: true, face: 'smile', armR: 'up', w: 1.15,
+      extra: '<path d="M44 -306l26 -40q10 -6 14 6l-24 44z" fill="#c8a040" stroke="#2b2118" stroke-width="2"/><path d="M58 -340q4 -24 14 -20q6 10 -4 26" fill="#ffd060"/>' };
+    $('#spiritfig').innerHTML = wrap(F(spirit));
+    spirit.hair = '#b8b4ae'; spirit.armR = 'down'; spirit.extra = '';
+    $('#spiritold').innerHTML = wrap(F(spirit));
+    var gown = { h: 300, kind: 'gown', coat: '#6a4a5a', sash: '#8a2a2a', skin: '#e6cfb4', hat: 'night', nose: 'pointed', face: 'sad', hairStyle: 'none', armL: 'out' };
+    $('#scrfig').innerHTML = wrap(F(gown)); gown.armL = 'front'; gown.flip = true; $('#scrfig2').innerHTML = wrap(F(gown));
+    $('#ign').innerHTML = F({ h: 160, coat: '#7a6a4a', legs: '#c8b088', skin: '#d8c890', hairStyle: 'short', hair: '#4a3a2a', face: 'sad', thin: true, armL: 'up' });
+    $('#want').innerHTML = F({ h: 150, kind: 'dress', coat: '#6a5a4a', skin: '#d8c890', hairStyle: 'long', hair: '#4a3a2a', face: 'sad', thin: true, armR: 'up', feet: true });
+  })();
+
+  ER.init({
+    theme: 'lit', story: 'carol', storyTitle: 'The Boy in Sunday Clothes', id: 'cratchit', no: 'IV', title: 'The Cratchits’ House',
+    go: 'In at the door, behind the Spirit',
+    intro: [
+      'You gave the flashback back its power. Each shadow of the past made Scrooge think of somebody he had wronged that very afternoon: the lonely boy at school, of the carol singer he chased off with a ruler; little Fan, of her only child, the nephew he sent away; Fezziwig&rsquo;s ball, of his own clerk; and Belle&rsquo;s husband, who saw him &lsquo;quite alone in the world&rsquo; on the night Marley lay dying, of his own words: &lsquo;I wish to be left alone.&rsquo;',
+      'At One the second Spirit came: the Ghost of Christmas Present, a jolly Giant in a green robe bordered with white fur, on a throne of turkeys, geese, puddings and punch, with a torch like Plenty&rsquo;s horn. Holding its robe, Scrooge went out into the streets on Christmas morning. You followed in your Sunday clothes.',
+      'The Spirit has stopped on the doorstep of a small house in Camden Town, to bless it with the sprinkling of its torch. <i>Bob had but fifteen &ldquo;Bob&rdquo; a-week himself; he pocketed on Saturdays but fifteen copies of his Christian name; and yet the Ghost of Christmas Present blessed his four-roomed house!</i>'
+    ],
+    exit: {"next":"churchyard","w":{"184e69d5":"478856ae"}}, tags: {"f1":["4a6ea455"],"f2":["54add57d"],"f3":["0d42f472"],"f4":["2d1f18b3"],"ec":["08fe3107"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = CC.told('d-told'); nextFile = ER.flag('d-file') || null;
+  var money = !!ER.flag('d-money');
+  function isBusy() { return busy; }
+  function ready() { return told.has('cipher') && told.has('bob'); }
+  function night() { return money && told.has('dinner'); }
+  function paint() {
+    $('#scene').classList.toggle('night', night());
+    $('#cipher').classList.toggle('ready', !told.has('cipher'));
+    $('#coins').classList.toggle('ready', ready() && !money);
+    $('#bill').classList.toggle('ready', night() && !told.has('bill'));
+    $('#kids').classList.toggle('ready', night() && told.has('bill') && !nextFile);
+    ER.pips((told.has('cipher') ? 1 : 0) + (told.has('bob') ? 1 : 0) + (money ? 1 : 0) + (told.has('bill') ? 1 : 0) + (nextFile ? 1 : 0), 5);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The Spirit&rsquo;s life is over at midnight. The button at the bottom goes on to the last Spirit.']];
+    if (lock && lock.parentNode && !money) return ['sums', [
+      'Peter&rsquo;s ciphering-book, in your notebook, gives every coin its value: twelve pence to a shilling, twenty shillings to a pound. Click a dish first, then the coins that go in it.',
+      'A &lsquo;bob&rsquo; is a shilling, so fifteen &lsquo;Bob&rsquo; is fifteen shillings. &lsquo;Five-and-sixpence&rsquo; is five shillings and sixpence. For the days: Scrooge said in Stave One that a day&rsquo;s wages was half-a-crown.',
+      'A half-crown is 2s. 6d., and six of them make 15s., so Bob is paid for six days. Three pounds is sixty shillings: how many fifteens is that?'
+    ]];
+    if (lock && lock.parentNode) return ['robe', [
+      'Scrooge has asked whether the children have anywhere to go. On Christmas Eve he told the gentlemen where the poor should go. The placard says what those places were.',
+      'The Spirit turns on him &lsquo;for the last time with his own words&rsquo;: the words with which Scrooge answered the gentlemen when they asked him for the Poor.'
+    ]];
+    if (night()) {
+      if (!told.has('bill')) return ['bill', ['It is a quarter to midnight, and the Spirit has grown old. There is a placard on the wall on the right. Read it.', 'Click the paper pasted on the wall.']];
+      return ['kids', ['Something is clinging to the Spirit&rsquo;s robe. Click the two children at its feet.']];
+    }
+    if (!told.has('cipher')) return ['cipher', ['Peter has left a book on the stool by the window, on the right. It is full of sums.', 'Click the green book on the stool.']];
+    if (!told.has('bob')) return ['bob', ['Bob has just come home with Tiny Tim. Click Bob, at the end of the table nearest the fire.']];
+    return ['coins', ['The money that dropped out of the page is lying in the hearth among the chestnuts. Click it.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('A quarter to midnight. The Spirit&rsquo;s hair is grey, and the bell is about to strike.'); return; }
+    if (night()) { busy = false; ER.say('A quarter to midnight, in an open place. The Spirit has grown old.'); return; }
+    if (money) { dinner(); return; }
+    if (told.has('in')) { busy = false; ER.say('The Cratchits&rsquo; house, on Christmas Day.'); return; }
+    told.set('in');
+    ER.narrate([
+      'Mrs. Cratchit, dressed out but poorly in a twice-turned gown, but brave in ribbons, is laying the cloth. Master Peter is plunging a fork into the potatoes, half choked by his father&rsquo;s shirt collar. Two smaller Cratchits come tearing in: they have smelt the goose outside the baker&rsquo;s, and known it for their own.',
+      'In comes little Bob, the father, with at least three feet of comforter hanging down before him, and Tiny Tim upon his shoulder. Tim bears a little crutch, and his limbs are supported by an iron frame.',
+      'Nobody here can see the Spirit, or Scrooge, or you. Scrooge cannot take his eyes off the table.',
+      'But this stave has a hole in it too. Every sum of money in it has dropped out of the page, and the figures lie in the hearth among the chestnuts. A reader who does not know what fifteen shillings is cannot know what this house is managing on.'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- papers and people ---------- */
+  var CIPHER = '<h4>P. Cratchit &middot; his ciphering-book</h4>' +
+    '<p><b>MONEY TABLE</b> (to be learnt by heart)</p>' +
+    '<table><tr><td>12 pence (12d.)</td><td>make 1 shilling (1s.)</td></tr><tr><td>20 shillings</td><td>make 1 pound (&pound;1)</td></tr><tr><td>so &pound;1</td><td>is 240 pence</td></tr></table>' +
+    '<p><b>How to write it, and say it:</b> 5s. 6d. is &ldquo;five shillings and sixpence&rdquo;, or &ldquo;five and six&rdquo;. &pound;1 0s. 6d. is &ldquo;a pound and sixpence&rdquo;.</p>' +
+    '<p><b>Coins:</b> penny (1d.), copper &middot; sixpence (6d.), silver &middot; shilling (1s.), silver, called a &ldquo;bob&rdquo; &middot; half-crown (2s. 6d.), silver &middot; crown (5s.), silver &middot; half-sovereign (10s.), gold &middot; sovereign (&pound;1), gold.</p>' +
+    '<p>A clerk is paid by the week, and the money is counted out on Saturday.</p>' +
+    '<p><b>Sums for practice:</b> 3s. 9d. + 2s. 6d. = 6s. 3d. &middot; 18 pence = 1s. 6d. &middot; &pound;2 = 40s.</p>' +
+    '<p class="hand">If I get the situation I shall have a whole income of my own!!</p>';
+  $('#cipher').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: CIPHER, cls: 'cipher', clue: { id: 'cipher', title: 'Peter&rsquo;s ciphering-book', kind: 'On a stool' }, done: function () {
+      if (told.set('cipher')) { paint(); ER.say(told.has('bob') ? 'Pounds, shillings and pence. The money is in the hearth.' : 'Pounds, shillings and pence. Now hear what the page says about Bob.'); }
+    } });
+  });
+  $('#bob').addEventListener('click', function () {
+    if (busy || night()) return;
+    ER.talk({
+      who: 'Bob Cratchit', role: 'Stave Three · what the page says', face: window.FACE('bob'),
+      lines: [
+        { note: 'His threadbare clothes are darned up and brushed, to look seasonable.', a: '&ldquo;Why, where&rsquo;s our Martha?&rdquo; cried Bob Cratchit, looking round.</p><p>&ldquo;Not coming,&rdquo; said Mrs. Cratchit.</p><p>&ldquo;Not coming!&rdquo; said Bob, with a sudden declension in his high spirits; for he had been Tim&rsquo;s blood horse all the way from church, and had come home rampant. &ldquo;Not coming upon Christmas Day!&rdquo;' },
+        { a: 'Martha didn&rsquo;t like to see him disappointed, if it were only in joke; so she came out prematurely from behind the closet door, and ran into his arms.' },
+        { a: 'There never was such a goose. Bob said he didn&rsquo;t believe there ever was such a goose cooked. Its tenderness and flavour, size and cheapness, were the themes of universal admiration.' },
+        { a: 'Bob Cratchit told them how he had a situation in his eye for Master Peter, which would bring in, if obtained, full five-and-sixpence weekly. The two young Cratchits laughed tremendously at the idea of Peter&rsquo;s being a man of business; and Peter himself looked thoughtfully at the fire from between his collars, as if he were deliberating what particular investments he should favour when he came into the receipt of that bewildering income.' },
+        { a: 'Martha, who was a poor apprentice at a milliner&rsquo;s, then told them what kind of work she had to do, and how many hours she worked at a stretch, and how she meant to lie abed to-morrow morning for a good long rest; to-morrow being a holiday she passed at home.' }
+      ],
+      clue: { id: 'bob', title: 'Bob Cratchit, at home', kind: 'Stave Three' },
+      done: function (seen) { if (seen && told.set('bob')) { paint(); ER.say(told.has('cipher') ? 'Fifteen shillings a week, and five-and-sixpence for Peter if he gets the place. The money is in the hearth.' : 'Peter has left a book of sums on the stool by the window.'); } }
+    });
+  });
+  $('#mrs').addEventListener('click', function () {
+    if (busy || night()) return;
+    ER.talk({
+      who: 'Mrs. Cratchit', role: 'Stave Three · what the page says', face: window.FACE('mrscratchit'),
+      lines: [
+        { note: 'Dressed out but poorly in a twice-turned gown, but brave in ribbons, which are cheap and make a goodly show for sixpence.', a: '&ldquo;What has ever got your precious father then?&rdquo; said Mrs. Cratchit. &ldquo;And your brother, Tiny Tim! And Martha warn&rsquo;t as late last Christmas Day by half-an-hour?&rdquo;' },
+        { note: 'Later, when the cloth is cleared, Bob raises his glass.', a: '&ldquo;Mr. Scrooge!&rdquo; said Bob; &ldquo;I&rsquo;ll give you Mr. Scrooge, the Founder of the Feast!&rdquo;</p><p>&ldquo;The Founder of the Feast indeed!&rdquo; cried Mrs. Cratchit, reddening. &ldquo;I wish I had him here. I&rsquo;d give him a piece of my mind to feast upon, and I hope he&rsquo;d have a good appetite for it.&rdquo;' },
+        { a: '&ldquo;My dear,&rdquo; said Bob, &ldquo;the children! Christmas Day.&rdquo;</p><p>&ldquo;It should be Christmas Day, I am sure,&rdquo; said she, &ldquo;on which one drinks the health of such an odious, stingy, hard, unfeeling man as Mr. Scrooge. You know he is, Robert! Nobody knows it better than you do, poor fellow!&rdquo;</p><p>&ldquo;My dear,&rdquo; was Bob&rsquo;s mild answer, &ldquo;Christmas Day.&rdquo;' }
+      ],
+      clue: { id: 'mrs', title: 'Mrs. Cratchit, and the toast', kind: 'Stave Three' },
+      done: function (seen) { if (seen) told.set('mrs'); }
+    });
+  });
+  $('#spirit').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'The Ghost of Christmas Present', role: 'Stave Three · what the page says', face: window.FACE('presentghost'),
+      lines: [
+        { note: 'Clothed in one simple green robe, bordered with white fur. On its head no other covering than a holly wreath, set here and there with shining icicles. Its dark brown curls are long and free. It is a remarkable quality of the Ghost that, for all its gigantic size, it can make itself at home in any place, under a low roof quite as gracefully as in any lofty hall.', a: '&ldquo;I am the Ghost of Christmas Present,&rdquo; said the Spirit. &ldquo;Look upon me!&rdquo;' },
+        { a: '&ldquo;Is there a peculiar flavour in what you sprinkle from your torch?&rdquo; asked Scrooge.</p><p>&ldquo;There is. My own.&rdquo;</p><p>&ldquo;Would it apply to any kind of dinner on this day?&rdquo; asked Scrooge.</p><p>&ldquo;To any kindly given. To a poor one most.&rdquo;</p><p>&ldquo;Why to a poor one most?&rdquo; asked Scrooge.</p><p>&ldquo;Because it needs it most.&rdquo;' }
+      ],
+      clue: { id: 'spirit', title: 'The Ghost of Christmas Present', kind: 'Stave Three' },
+      done: function (seen) { if (seen) told.set('spirit'); }
+    });
+  });
+  CC.thing('#tim', null, 'Tiny Tim, on his stool by his father&rsquo;s side. Bob holds his little hand in his, as if he wished to keep him by his side.', isBusy);
+  CC.thing('#peter', null, 'Master Peter, in his father&rsquo;s collar, which nearly chokes him. He has a situation in his eye.', isBusy);
+  CC.thing('#table', null, 'Two tumblers, and a custard-cup without a handle: the family display of glass. They hold the hot stuff from the jug as well as golden goblets would have done.', isBusy);
+  CC.thing('#fire', 'chestnuts', 'A shovel-full of chestnuts on the fire, sputtering and cracking noisily.', isBusy);
+  CC.thing('#win', null, 'Snow, falling more heavily as it gets dark.', isBusy);
+  CC.thing('#scr', null, 'Scrooge has his eye upon the family, and especially upon Tiny Tim.', isBusy);
+  CC.thing('#scr2', null, 'Scrooge, staring at the two children, trying to say they are fine children. The words choke themselves.', isBusy);
+  CC.thing('#spirit2', null, 'The Spirit has grown older, clearly older, and its hair is grey. Its life upon this globe ends to-night, at midnight.', isBusy);
+  $('#coins').addEventListener('click', function () {
+    if (busy || money) return;
+    if (!ready()) { ER.say(!told.has('cipher') ? 'Coins of every kind, spilt among the chestnuts. Peter has a book of sums on the stool by the window that might help.' : 'Coins of every kind. Before you put them back, hear what the page says about Bob.'); return; }
+    openSums();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- lock one: put the money back ---------- */
+  var COINS = [['sov', 'sovereign', 'g', 240], ['hsov', 'half-sovereign', 'g', 120], ['crown', 'crown', 's', 60], ['hc', 'half-crown', 's', 30], ['sh', 'shilling', 's', 12], ['six', 'sixpence', 's', 6], ['d', 'penny', 'c', 1]];
+  var CV = {}; COINS.forEach(function (c) { CV[c[0]] = c; });
+  function openSums() {
+    var busyL = false, st = ER.flag('d-sums') || { d1: [], d2: [], n3: 1, n4: 1 }, active = 'd1';
+    lock = ER.el('div', 'pz');
+    var box = ER.el('div', 'sums');
+    box.innerHTML = '<h5>The sums that dropped out of the page</h5>' +
+      '<div class="row"><q>Bob had but fifteen &ldquo;Bob&rdquo; a-week himself; he pocketed on Saturdays but fifteen copies of his Christian name &hellip;<small>STAVE THREE</small></q><div><div class="ask">What Bob pockets on a Saturday:</div><div class="dish" data-d="d1"></div></div></div>' +
+      '<div class="row"><q>&hellip; a situation in his eye for Master Peter, which would bring in, if obtained, full five-and-sixpence weekly.<small>STAVE THREE</small></q><div><div class="ask">What Peter&rsquo;s week would bring in:</div><div class="dish" data-d="d2"></div></div></div>' +
+      '<div class="row"><q>&ldquo;If I was to stop half-a-crown for it, you&rsquo;d think yourself ill-used, I&rsquo;ll be bound?&rdquo; &hellip; &ldquo;And yet,&rdquo; said Scrooge, &ldquo;you don&rsquo;t think me ill-used, when I pay a day&rsquo;s wages for no work.&rdquo;<small>STAVE ONE &middot; SCROOGE, TO BOB</small></q><div><div class="ask">So Bob is paid for this many days&rsquo; work a week:</div><div class="dial" data-n="n3"><button type="button" data-v="-1">&lsaquo;</button><b></b><button type="button" data-v="1">&rsaquo;</button></div></div></div>' +
+      '<div class="row"><q>&ldquo;He has spent but a few pounds of your mortal money: three or four perhaps.&rdquo;<small>STAVE TWO &middot; THE GHOST, OF FEZZIWIG&rsquo;S BALL</small></q><div><div class="ask">Three pounds is this many weeks of Bob&rsquo;s wages:</div><div class="dial" data-n="n4"><button type="button" data-v="-1">&lsaquo;</button><b></b><button type="button" data-v="1">&rsaquo;</button></div></div></div>' +
+      '<div class="tray"></div>';
+    var foot = ER.el('div', 'pz-foot', '<p class="pmsg"></p><button type="button" class="btn" id="count">Let Bob count it</button>');
+    lock.appendChild(box); lock.appendChild(foot);
+    var m = foot.querySelector('.pmsg'), tray = box.querySelector('.tray');
+    function msg(t) { m.innerHTML = ER.gloss(t); }
+    function coinEl(c, big) { var e = ER.el('span', 'coin ' + c[2], c[1]); e.setAttribute('data-c', c[0]); return e; }
+    COINS.forEach(function (c) { tray.appendChild(coinEl(c)); });
+    function total(list) { return list.reduce(function (a, k) { return a + CV[k][3]; }, 0); }
+    function draw() {
+      ['d1', 'd2'].forEach(function (d) {
+        var el = box.querySelector('.dish[data-d="' + d + '"]'); el.innerHTML = ''; el.classList.toggle('on', d === active);
+        st[d].forEach(function (k, i) { var c = coinEl(CV[k]); c.setAttribute('data-i', i); el.appendChild(c); });
+      });
+      box.querySelector('.dial[data-n="n3"] b').textContent = st.n3; box.querySelector('.dial[data-n="n4"] b').textContent = st.n4;
+      ER.flag('d-sums', st);
+    }
+    draw();
+    box.addEventListener('click', function (e) {
+      if (busyL || money) return;
+      ER.$$('.bad', box).forEach(function (n) { n.classList.remove('bad'); });
+      var t = e.target, dish = t.closest('.dish'), coin = t.closest('.coin'), btn = t.closest('.dial button');
+      if (btn) { var n = btn.parentNode.getAttribute('data-n'), lim = n === 'n3' ? 7 : 12; st[n] = Math.min(lim, Math.max(1, st[n] + (+btn.getAttribute('data-v')))); ER.sfx.tick(); draw(); return; }
+      if (coin && dish) { st[dish.getAttribute('data-d')].splice(+coin.getAttribute('data-i'), 1); CC.sfx.clink(); draw(); return; }
+      if (dish) { active = dish.getAttribute('data-d'); draw(); return; }
+      if (coin) {
+        if (st[active].length >= 24) { ER.sfx.no(); msg('That dish is full. Click a coin in a dish to take it out again.'); return; }
+        st[active].push(coin.getAttribute('data-c')); CC.sfx.clink(); draw();
+      }
+    });
+    foot.querySelector('#count').addEventListener('click', function () {
+      if (busyL || money) return;
+      var t1 = total(st.d1), t2 = total(st.d2), d1 = box.querySelector('[data-d="d1"]'), d2 = box.querySelector('[data-d="d2"]');
+      if (!st.d1.length || !st.d2.length) { ER.sfx.no(); msg('Both dishes need money in them before Bob can count. Click a dish, then click coins to put them in it.'); return; }
+      busyL = true; msg('Bob counts it out on the cloth, slowly, coin by coin &hellip;');
+      setTimeout(function () {
+        busyL = false;
+        if (!ER.check('f1', String(t1))) { d1.classList.add('bad'); ER.sfx.no(); msg(t1 === 15 ? 'Fifteen pennies would be fifteen copies of a penny. What is a &ldquo;bob&rdquo;? Peter&rsquo;s book says.' : 'Bob shakes his head over Saturday&rsquo;s money. What coin is a &ldquo;bob&rdquo;? Then count it again, pence into shillings, the way Peter&rsquo;s book does.'); return; }
+        if (!ER.check('f2', String(t2))) { d2.classList.add('bad'); ER.sfx.no(); msg(t2 === 11 ? 'Five pence and six pence would not be a bewildering income for anybody. Look how Peter&rsquo;s book writes 5s. 6d.' : 'The two young Cratchits laugh: that is not Peter&rsquo;s five-and-sixpence. Say it the way Peter&rsquo;s book says it, then count it again.'); return; }
+        if (!ER.check('f3', String(st.n3))) { box.querySelector('[data-n="n3"]').classList.add('bad'); ER.sfx.no(); msg('Count the days again. Scrooge&rsquo;s own words say what one day of Bob&rsquo;s work is worth. How many of those make Bob&rsquo;s week?'); return; }
+        if (!ER.check('f4', String(st.n4))) { box.querySelector('[data-n="n4"]').classList.add('bad'); ER.sfx.no(); msg('Count the weeks again. A pound is twenty shillings, so three pounds is a good many shillings. How many of Bob&rsquo;s weeks is that?'); return; }
+        money = true; ER.flag('d-money', 1); ER.flag('d-cand', t1 + '-' + t2 + '-' + st.n3 + '-' + st.n4); CC.sfx.clink(); setTimeout(CC.sfx.clink, 150); setTimeout(CC.sfx.clink, 300); CC.solved(true); paint();
+        msg('Bob sweeps the coins into his hand. Every sum is back in its sentence.');
+        CC.mine('sums', 'The money in the book', '<p>Fifteen &ldquo;Bob&rdquo; a-week: fifteen shillings, a &lsquo;bob&rsquo; being a shilling.</p><p>Peter&rsquo;s five-and-sixpence: 5s. 6d.</p><p>A day&rsquo;s wages, by Scrooge&rsquo;s own words, is half-a-crown, 2s. 6d. Six half-crowns make 15s., so Bob is paid for six days a week.</p><p>Fezziwig&rsquo;s ball cost &lsquo;three or four&rsquo; pounds, by Scrooge&rsquo;s guess. Even three pounds are sixty shillings: four weeks of Bob&rsquo;s wages, spent on one evening.</p>');
+        setTimeout(function () { ER.closeAll(); dinner(); }, 1800);
+      }, 1500);
+    });
+    msg('Click a dish, then click coins to put them in it; click a coin in a dish to take it out. Turn the two dials. Then let Bob count it.');
+    ER.open('ov-lock', lock);
+  }
+
+  /* ---------- the rest of the dinner, and a quarter to midnight ---------- */
+  function dinner() {
+    busy = true; paint();
+    if (told.has('dinner')) { busy = false; return; }
+    ER.narrate([
+      'Mrs. Cratchit comes in, flushed but smiling proudly, with the pudding, like a speckled cannon-ball, so hard and firm, blazing, with Christmas holly stuck into the top. Nobody says or thinks it is at all a small pudding for a large family.',
+      '&ldquo;A Merry Christmas to us all, my dears. God bless us!&rdquo; says Bob. And Tiny Tim, the last of all: &ldquo;God bless us every one!&rdquo;',
+      '&ldquo;Spirit,&rdquo; says Scrooge, with an interest he has never felt before, &ldquo;tell me if Tiny Tim will live.&rdquo; The Spirit sees a vacant seat in the poor chimney-corner, and a crutch without an owner, carefully kept. &ldquo;If these shadows remain unaltered by the Future, the child will die.&rdquo;',
+      '&ldquo;What then? If he be like to die, he had better do it, and decrease the surplus population.&rdquo; Scrooge hangs his head to hear his own words quoted by the Spirit, and is overcome with penitence and grief.',
+      'They are not a handsome family; they are not well dressed; their shoes are far from being water-proof. But they are happy, grateful, pleased with one another, and contented with the time. Scrooge keeps his eye upon them, and especially on Tiny Tim, until the last.',
+      'Then the Spirit takes him out into the snow, and on, through a whole long night of Christmases: a miners&rsquo; hut, a lighthouse, a ship at sea, his nephew&rsquo;s party, a children&rsquo;s Twelfth Night party. And as the night goes on, the Spirit grows older.'
+    ], function () { told.set('dinner'); busy = false; paint(); ER.say('A quarter to midnight, in an open place in the snow. There is a placard on the wall.'); });
+  }
+  var BILL = '<h4>A CHRISTMAS FUND</h4><h5>for the Poor and Destitute</h5>' +
+    '<p class="c"><i>Many thousands are in want of common necessaries this winter.</i></p><div class="rule"></div>' +
+    '<h6>WHAT THE LAW OFFERS THEM</h6>' +
+    '<p><b>The Workhouse.</b> Since the Poor Law of 1834, parishes are joined into Unions, and each Union keeps a workhouse. A poor family that asks for help must go inside. Husbands, wives and children are kept apart. The food is plain, the work is hard and the rules are strict, so that nobody will come who can possibly stay away.</p>' +
+    '<p><b>The Prisons.</b> A man who owes money he cannot pay may be shut in a debtors&rsquo; prison until the debt is paid, and his family may live there with him if they have nowhere else to go. In other prisons men are set to the treadmill: a great wheel that they climb for hours, often turning nothing at all.</p>' +
+    '<div class="rule"></div><p class="c">Give what you can, to buy the Poor some meat and drink, and means of warmth.</p>';
+  $('#bill').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: BILL, cls: 'bill', clue: { id: 'bill', title: 'A Christmas Fund', kind: 'On a wall' }, done: function () {
+      if (told.set('bill')) { paint(); ER.say('The gentlemen who called on Scrooge said they were raising a fund. This is their placard. And something is clinging to the Spirit&rsquo;s robe.'); }
+    } });
+  });
+  $('#kids').addEventListener('click', function () {
+    if (busy || nextFile) return;
+    if (!told.has('bill')) { ER.say('Two children, clinging to the Spirit&rsquo;s robe. First read the placard on the wall.'); return; }
+    if (told.has('kidsread')) { openRobe(); return; }
+    busy = true;
+    ER.narrate([
+      '&ldquo;Forgive me if I am not justified in what I ask,&rdquo; says Scrooge, &ldquo;but I see something strange, and not belonging to yourself, protruding from your skirts.&rdquo;',
+      'From the foldings of its robe the Spirit brings two children, a boy and a girl, thin and ragged, and they kneel down at its feet and cling to its garment.',
+      '&ldquo;They are Man&rsquo;s,&rdquo; says the Spirit. &ldquo;&hellip; This boy is Ignorance. This girl is Want. Beware them both, and all of their degree, but most of all beware this boy, for on his brow I see that written which is Doom, unless the writing be erased.&rdquo;',
+      '&ldquo;Have they no refuge or resource?&rdquo; cries Scrooge.',
+      'And the Spirit turns on him, for the last time, with his own words. But which words? That line has dropped out of the page too.'
+    ], function () {
+      told.set('kidsread'); busy = false;
+      ER.addClue('kids', 'Ignorance and Want', CC.page('STAVE III', 'Ignorance and Want', '<p>&ldquo;They are Man&rsquo;s,&rdquo; said the Spirit, looking down upon them. &ldquo;And they cling to me, appealing from their fathers. This boy is Ignorance. This girl is Want. Beware them both, and all of their degree, but most of all beware this boy, for on his brow I see that written which is Doom, unless the writing be erased. Deny it!&rdquo; cried the Spirit, stretching out its hand towards the city. &ldquo;Slander those who tell it ye! Admit it for your factious purposes, and make it worse. And bide the end!&rdquo;</p><p>&ldquo;Have they no refuge or resource?&rdquo; cried Scrooge.</p>'), 'page', 'Stave Three');
+      openRobe();
+    });
+  });
+
+  /* ---------- lock two: the Spirit's answer ---------- */
+  var ECHO = [['e1', '&ldquo;It&rsquo;s not my business.&rdquo;'], ['e2', '&ldquo;Are there no prisons? &hellip; And the Union workhouses?&rdquo;'], ['e3', '&ldquo;I wish to be left alone.&rdquo;'], ['e4', '&ldquo;Bah! Humbug!&rdquo;']];
+  function openRobe() {
+    var done = false;
+    lock = ER.el('div', 'robe');
+    lock.innerHTML = '<h5>The Spirit turns on him, for the last time, with his own words</h5><p class="q">&ldquo;Have they no refuge or resource?&rdquo; cried Scrooge.</p><div class="opts"></div><p class="pmsg" style="margin-top:10px"></p>';
+    var opts = lock.querySelector('.opts'), m = lock.querySelector('.pmsg');
+    ECHO.forEach(function (e) { var b = ER.el('button', 'opt', ER.gloss(e[1] + ' <small>(Stave One)</small>')); b.type = 'button'; b.setAttribute('data-e', e[0]); opts.appendChild(b); });
+    opts.addEventListener('click', function (ev) {
+      var b = ev.target.closest('.opt'); if (!b || done) return;
+      var id = b.getAttribute('data-e');
+      if (!ER.check('ec', id)) { b.classList.add('bad'); ER.shake(b); ER.sfx.no(); m.innerHTML = ER.gloss('The Spirit is silent. Scrooge did say that on Christmas Eve. But Scrooge has asked about a refuge: a place for such children to go. When the gentlemen asked about the Poor, which places did he name?'); return; }
+      var cand = (ER.flag('d-cand') || '') + '-' + id, file = ER.exit([cand], { wait: true });
+      if (!file) { m.innerHTML = 'The Spirit does not answer. Something is wrong with this page: tell your teacher.'; return; }
+      done = true; b.classList.add('ok'); nextFile = file; ER.flag('d-file', file);
+      m.innerHTML = ER.gloss('&ldquo;Are there no prisons?&rdquo; said the Spirit, turning on him for the last time with his own words. &ldquo;Are there no workhouses?&rdquo;');
+      setTimeout(function () {
+        ER.closeAll(); busy = true;
+        ER.narrate([
+          'The bell strikes twelve. You see it as well as hear it: the church clock across the street stands at midnight, and the snow shakes off the tower with every stroke.',
+          'Scrooge looks about him for the Ghost, and sees it not. As the last stroke ceases to vibrate, he remembers the prediction of old Jacob Marley.',
+          'And lifting up his eyes, he sees a solemn Phantom, draped and hooded, coming, like a mist along the ground, towards him.'
+        ], function () {
+          CC.mine('echo', 'His own words', '<p>On Christmas Eve, to the gentlemen: &ldquo;Are there no prisons?&rdquo; &hellip; &ldquo;And the Union workhouses?&rdquo; and &ldquo;decrease the surplus population&rdquo;.</p><p>In Stave Three the Spirit gives both back to him: the surplus population at the Cratchits&rsquo; table, and the prisons and workhouses when Scrooge asks if Ignorance and Want have any refuge.</p><p>An echo like this makes you remember where you first heard the words, and see them differently.</p>');
+          CC.terms(['echo']); busy = false; $('#go').classList.add('on');
+        });
+        ER.sfx.bell(); setTimeout(ER.sfx.bell, 900);
+      }, 2600);
+    });
+    ER.open('ov-lock', lock);
+  }
+})();
+</script>
+</body>
+</html>

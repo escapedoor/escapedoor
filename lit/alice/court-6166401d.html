@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Alice’s Evidence · The Torn Pages of Wonderland</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lit.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="../../assets/wordkit.css">
+<link rel="stylesheet" href="alice.css">
+<style>
+  body{--bg:#3a0c12;--accent:#e9c75a;--font-display:'Cinzel',serif;--font-ui:'Goudy Bookletter 1911',serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(44,8,14,.97);--tc-ink:#f8ead0;--cap-bg:rgba(48,10,16,.95);--panel:#4a1018;--face-bg:#f4e6d0;--q-ink:#f2cf7a;--fade:#1a0406;--hud-bg:rgba(48,10,16,.86)}
+  .tc-room{font-family:'Cinzel',serif;font-size:clamp(46px,6.2vw,84px);color:#f2cf7a}
+  .sC{font-family:'Cinzel',serif;text-anchor:middle}
+  #bank{display:none}
+  #scene.woke #bank{display:inline}
+  #scene.woke #court{display:none}
+  #knave.ready{animation:glowb 1.6s steps(1,end) infinite}
+  @keyframes glowb{50%{filter:brightness(1.35)}}
+  #flying .fc{opacity:0}
+  #scene.fly #flying .fc{animation:cardfly 2.6s steps(13,end) forwards}
+  @keyframes cardfly{0%{opacity:1;transform:translate(0,0) rotate(0)}45%{opacity:1;transform:translate(var(--dx),-520px) rotate(200deg)}100%{opacity:0;transform:translate(calc(var(--dx) * 1.6),260px) rotate(400deg)}}
+  .leaf{animation:lf 7s linear infinite}
+  .leaf.l2{animation-delay:-2.5s}.leaf.l3{animation-delay:-5s}
+  @keyframes lf{0%{transform:translate(0,-60px) rotate(0);opacity:0}10%{opacity:1}100%{transform:translate(-80px,520px) rotate(300deg);opacity:0}}
+
+  /* the last page, torn into words */
+  .last{width:min(820px,94vw);background:#f6efdc;color:#2a2018;padding:20px 30px 16px;box-shadow:0 26px 70px rgba(0,0,0,.6),inset 0 0 50px rgba(120,90,40,.18)}
+  .last h5{margin:0 0 6px;text-align:center;font-family:'Goudy Bookletter 1911',serif;font-weight:normal;font-size:13px;letter-spacing:.26em;text-transform:uppercase;color:#7a6a4a}
+  .last p{margin:0 0 8px;font-family:'EB Garamond',serif;font-size:19px;line-height:1.45}
+  .last .wk-tiles{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:12px 0 4px;padding:14px 10px;background:#efe4c8;border:1px dashed #a88a5a}
+  .last .wk-tile{padding:6px 14px 5px;background:#fffdf6;border:1px solid #231a14;border-radius:6px;font-family:'EB Garamond',serif;font-size:24px;color:#2a1a14;box-shadow:0 2px 0 rgba(0,0,0,.25);cursor:grab}
+  .last .wk-tile.held{background:#ffe9a0}
+  .last .wk-tiles.done .wk-tile{background:#c4202e;color:#fffdf6;border-color:#7a1018}
+  .last .bmsg{color:#2a2018;font-size:18px;min-height:30px}
+
+  /* the card at the end */
+  .done{position:fixed;right:2vw;top:60px;z-index:34;width:min(540px,94vw);max-height:calc(100vh - 76px);overflow:auto;padding:14px 26px 14px;display:none;background:#fbf6e8;color:#2a2018;border-top:10px solid #a01a2a;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+  .done.on{display:block}
+  .okstamp{display:inline-block;padding:4px 14px 1px;border:4px solid #a01a2a;color:#a01a2a;font-family:'Cinzel',serif;font-size:21px;letter-spacing:.08em;transform:rotate(-2deg);margin-bottom:6px}
+  .done h6{margin:9px 0 4px;font-family:'Goudy Bookletter 1911',serif;font-weight:normal;font-size:15px;letter-spacing:.24em;text-transform:uppercase;color:#a01a2a}
+  .done p{margin:0 0 3px;font-family:'Goudy Bookletter 1911',serif;font-size:15px;line-height:1.4}
+  .done ol{margin:0;padding-left:20px;font-family:'EB Garamond',serif;font-size:15.5px;line-height:1.3}
+  .done li{margin:0 0 3px}
+  .done ul{margin:0;padding-left:18px;font-family:'EB Garamond',serif;font-size:15px;line-height:1.3}
+  .done .row{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
+  .done .btn{--accent:#a01a2a;font-size:14px;padding:7px 13px}
+  .done .btn:hover:not([disabled]){color:#fbf6e8}
+  .done small{display:block;margin-top:8px;font-family:'Goudy Bookletter 1911',serif;font-size:13px;opacity:.75;line-height:1.5}
+  .done small button{text-decoration:underline;font:inherit}
+  .rp{width:min(780px,94vw);max-height:84vh;overflow:auto;background:#fbf6e8;color:#2a2018;padding:22px 34px 18px;box-shadow:0 26px 70px rgba(0,0,0,.5);-webkit-user-select:text;user-select:text;border-left:16px solid #a01a2a}
+  .rp h4{margin:0 0 3px;font-family:'Goudy Bookletter 1911',serif;font-weight:normal;font-size:15px;letter-spacing:.24em;text-transform:uppercase;color:#a01a2a}
+  .rp h3{margin:0 0 8px;font-family:'Cinzel',serif;font-weight:normal;font-size:28px;line-height:1.1}
+  .rp p,.rp label{display:block;font-family:'EB Garamond',serif;font-size:18px;line-height:1.4;margin:0 0 6px;color:#2a2018}
+  .rp .ex{font-size:16.5px;color:#5a4a3a;border-left:3px solid #d8c8a8;padding-left:10px}
+  .rp textarea{width:100%;min-height:150px;font-family:'Caveat',cursive;font-size:24px;line-height:30px;color:#2b3a66;background:#fff repeating-linear-gradient(transparent 0 29px,#ead8d0 29px 30px);border:1px solid #d8b8b0;padding:0 12px;border-radius:0;resize:vertical;-webkit-user-select:text;user-select:text}
+  .rp .count{font-family:'Goudy Bookletter 1911',serif;font-size:14px;letter-spacing:.14em;text-transform:uppercase;opacity:.7;text-align:right;margin-top:3px}
+  .rp .foot{display:flex;gap:10px;align-items:center;margin-top:10px}
+  .rp .foot span{flex:1;font-family:'Goudy Bookletter 1911',serif;font-size:13px;opacity:.75}
+  .rp .btn{--accent:#a01a2a}.rp .btn:hover:not([disabled]){color:#fbf6e8}
+  @media print{
+    body{overflow:visible;background:#fff}
+    body>*:not(.ov){display:none!important}
+    .ov{position:static!important;display:block!important;background:#fff!important;padding:0!important;overflow:visible!important}
+    .ov-bar,.rp .foot{display:none!important}
+    .rp{box-shadow:none;max-height:none;width:auto;overflow:visible}
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a121c"/><stop offset="1" stop-color="#8a1e2a"/></linearGradient>
+  <linearGradient id="floorG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6a4a2a"/><stop offset="1" stop-color="#3a2614"/></linearGradient>
+  <linearGradient id="duskG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7a8ac8"/><stop offset=".5" stop-color="#f2b88a"/><stop offset="1" stop-color="#ffe2a8"/></linearGradient>
+  <radialGradient id="sunG"><stop offset="0" stop-color="#fff2c0"/><stop offset=".4" stop-color="#ffd27a" stop-opacity=".8"/><stop offset="1" stop-color="#ffb060" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="48%" r="76%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#1a0406" stop-opacity=".25"/><stop offset="1" stop-color="#0a0203" stop-opacity=".85"/></radialGradient>
+</defs>
+<g id="court">
+  <g id="bg"></g>
+  <!-- the jury-box: twelve creatures writing on slates -->
+  <g id="jury" class="hot"></g>
+  <!-- the throne, the King as judge, the Queen -->
+  <g id="throne"><path d="M640 600v-300q0 -60 160 -80q160 20 160 80v300z" fill="#c4202e" stroke="#e9c75a" stroke-width="6"/><path d="M800 250c-30 -40 -80 -10 -40 30l40 40 40 -40c40 -40 -10 -70 -40 -30z" fill="#e9c75a"/><rect x="600" y="600" width="400" height="30" fill="#e9c75a" stroke="#231a14" stroke-width="2"/></g>
+  <g id="judge" class="hot" transform="translate(740 606) scale(1.12)"></g>
+  <g id="queen" class="hot" transform="translate(870 606) scale(1.12)"></g>
+  <!-- the table with the dish of tarts -->
+  <g id="tarts" class="hot"><path d="M640 760h300l20 30h-340z" fill="#7a4a2a" stroke="#231a14" stroke-width="3"/><path d="M660 790v70M920 790v70" stroke="#5a3a1a" stroke-width="10"/>
+    <ellipse cx="790" cy="752" rx="90" ry="16" fill="#f6efe2" stroke="#231a14" stroke-width="2.4"/><g id="tartg"></g></g>
+  <g id="rabbit" class="hot" transform="translate(520 812) scale(1.02)"></g>
+  <g id="knave" class="hot" transform="translate(1050 828) scale(1.22)"></g>
+  <g id="alice" class="hot" transform="translate(1340 838) scale(1.32)"></g>
+  <g id="flying"></g>
+</g>
+<g id="bank">
+  <rect x="-1000" y="-400" width="3600" height="1300" fill="url(#duskG)"/>
+  <circle cx="1240" cy="560" r="220" fill="url(#sunG)"/><circle cx="1240" cy="560" r="60" fill="#fff2c8"/>
+  <path d="M-1000 600q600 -40 1200 -10t2400 10V1400H-1000z" fill="#6a8a3a"/><path d="M-1000 640q400 -10 900 10" stroke="#aac8d8" stroke-width="16" opacity=".6" fill="none"/>
+  <path d="M260 820q20 -260 -10 -500q60 -20 120 0q-20 260 10 500z" fill="#5a3a1e" stroke="#231a14" stroke-width="3"/>
+  <path d="M-60 360q-20 -200 200 -250q140 -120 320 -20q180 20 160 180q60 90 -60 150q-200 40 -380 10q-220 20 -240 -70z" fill="#4a7a2e" stroke="#231a14" stroke-width="3"/>
+  <g id="leaves"></g>
+  <g transform="translate(640 830)" id="sisterg"></g>
+  <g transform="translate(820 830) scale(.92)" id="alice2"></g>
+  <g transform="translate(1060 846) rotate(-8)"><path d="M-60 0l60 -14 60 14 -60 12z" fill="#7a1e1e"/><path d="M-56 -4l56 -12v20l-56 10z" fill="#f6efdc"/><path d="M56 -4l-56 -12v20l56 10z" fill="#f6efdc"/></g>
+</g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<div class="done" id="done">
+  <div class="okstamp">The End</div>
+  <p id="d-time"></p><p id="d-hints"></p><p id="d-words"></p>
+  <h6>What you now know</h6>
+  <ol>
+    <li>A story is a sequence of events. Time words (<i>soon</i>, <i>just then</i>, <i>once more</i>), cause and effect, and what a character has and knows show the order, even when the pages are loose.</li>
+    <li>A pun is a joke on a sound with two meanings: two words that sound the same (tale and tail, not and knot), or one word with two meanings (dry: not wet, and dull). A listener who takes the plain meaning has taken it literally.</li>
+    <li>A parody copies the rhythm, the rhymes and the shape of a poem everybody knows, and turns its meaning upside down. Carroll’s crocodile copies Isaac Watts’s busy bee, the Hatter’s bat copies Jane Taylor’s star, and “You are old, Father William” copies a poem by Robert Southey.</li>
+    <li>Nonsense is not the same as no sense. Carroll begins with something mad, and then follows it with strict logic.</li>
+    <li>An argument turned round is a different argument: “I see what I eat” is not “I eat what I see”. One clue that fits somebody proves nothing; the answer is the one that every clue fits.</li>
+    <li>A red herring is a clue that points the wrong way. An alibi is proof that somebody was somewhere else.</li>
+    <li>“Lewis Carroll” was the pen name of Charles Lutwidge Dodgson, who taught mathematics at Oxford. He first told this story on a boat trip on 4 July 1862 to three sisters, Lorina, Alice and Edith Liddell, and the book came out in 1865, with pictures by John Tenniel.</li>
+  </ol>
+  <h6>If you liked this, read</h6>
+  <ul>
+    <li>Lewis Carroll, <i>Alice’s Adventures in Wonderland</i> (1865): the whole book. Every line of Carroll in this story is in it, word for word.</li>
+    <li>Lewis Carroll, <i>Through the Looking-Glass</i> (1871), where Humpty Dumpty explains the words of “Jabberwocky”.</li>
+  </ul>
+  <div class="row"><button type="button" class="btn" id="b-task">Write a parody</button><button type="button" class="btn" id="b-book">Notebook</button><button type="button" class="btn" id="b-lobby">Back to the shelf</button></div>
+  <small>The Torn Pages of Wonderland &middot; <button type="button" id="b-reset">play it again from the start</button></small>
+</div>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="../../assets/wordkit.js"></script>
+<script src="alice.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told;
+
+  (function () {
+    var s = '', i;
+    s += '<defs>' + AL.hatch('hc', '#2a0608', 8, 30) + '</defs>';
+    s += '<rect x="-1000" y="-400" width="3600" height="1100" fill="url(#wallG)"/><rect x="-1000" y="-400" width="3600" height="1100" fill="url(#hc)" opacity=".3"/>';
+    for (i = 0; i < 16; i++) s += AL.pip('heart', -100 + i * 120, 120 + (i % 2) * 60, 1.6, '#c8a040');
+    s += '<path d="M-1000 700H2600V1400H-1000z" fill="url(#floorG)"/>';
+    for (i = 0; i < 8; i++) s += '<path d="M-1000 ' + (720 + i * 30) + 'H2600" stroke="#2a1a0c" stroke-width="2" opacity=".5"/>';
+    $('#bg').innerHTML = s;
+    /* the jury: twelve creatures, animals and birds; Bill the Lizard in the front row */
+    s = '<path d="M40 700v-150h400v150z" fill="#7a4a2a" stroke="#231a14" stroke-width="3"/><path d="M40 610h400" stroke="#231a14" stroke-width="2"/>';
+    var C = ['#a49b94', '#e6d2a0', '#8a6a4a', '#f2ecd8', '#6a9a4a', '#c87a5a', '#b8925e', '#d8c8a8', '#7a7a8a', '#e8b64a', '#9a6a3a', '#c8c0b0'];
+    for (i = 0; i < 12; i++) {
+      var x = 76 + (i % 6) * 64, y = i < 6 ? 548 : 600, c = C[i];
+      if (i === 8) { s += '<g transform="translate(' + x + ' ' + (y + 12) + ')">' + AL.fig('lizard') + '</g>'; continue; }
+      s += '<circle cx="' + x + '" cy="' + y + '" r="18" fill="' + c + '" stroke="#231a14" stroke-width="2"/>' + (i % 3 === 0 ? '<path d="M' + (x + 14) + ' ' + y + 'l12 3 -12 4z" fill="#e8a63a"/>' : '<circle cx="' + (x - 12) + '" cy="' + (y - 14) + '" r="6" fill="' + c + '" stroke="#231a14" stroke-width="2"/><circle cx="' + (x + 12) + '" cy="' + (y - 14) + '" r="6" fill="' + c + '" stroke="#231a14" stroke-width="2"/>') +
+        '<circle cx="' + (x - 6) + '" cy="' + (y - 3) + '" r="2" fill="#231a14"/><circle cx="' + (x + 6) + '" cy="' + (y - 3) + '" r="2" fill="#231a14"/>' +
+        '<rect x="' + (x - 14) + '" y="' + (y + 16) + '" width="28" height="18" fill="#3a3a44" stroke="#8a7a5a" stroke-width="2"/>';
+    }
+    $('#jury').innerHTML = s;
+    s = '';
+    for (i = 0; i < 9; i++) s += '<g transform="translate(' + (730 + (i % 5) * 30 - (i > 4 ? -15 : 0)) + ' ' + (748 - (i > 4 ? 10 : 0)) + ')"><ellipse rx="14" ry="6" fill="#d8a85a" stroke="#231a14" stroke-width="1.6"/><ellipse rx="9" ry="3.6" fill="#c4202e"/></g>';
+    $('#tartg').innerHTML = s;
+    s = '';
+    for (i = 0; i < 52; i++) {
+      var k = ['heart', 'club', 'spade', 'diamond'][i % 4], fx = -200 + (i * 37) % 2000, fy = 700 + (i * 53) % 200, dx = ((i * 71) % 400 - 200);
+      s += '<g transform="translate(' + fx + ' ' + fy + ')"><g class="fc" style="--dx:' + dx + 'px;animation-delay:' + ((i % 13) * 0.05).toFixed(2) + 's"><rect x="-22" y="-30" width="44" height="60" rx="4" fill="#fffdf6" stroke="#231a14" stroke-width="2"/>' + AL.pip(k, 0, 0, 1) + '</g></g>';
+    }
+    $('#flying').innerHTML = s;
+    s = '';
+    for (i = 0; i < 6; i++) s += '<path class="leaf l' + (1 + i % 3) + '" d="M' + (300 + i * 150) + ' 300q8 -10 16 0q-8 10 -16 0z" fill="' + ['#c8943a', '#a8762a', '#d8b04a'][i % 3] + '"/>';
+    $('#leaves').innerHTML = s;
+    $('#judge').innerHTML = AL.fig('judge'); $('#queen').innerHTML = AL.fig('queen'); $('#rabbit').innerHTML = AL.fig('herald');
+    $('#knave').innerHTML = AL.fig('knaveChains'); $('#alice').innerHTML = AL.fig('alice'); $('#sisterg').innerHTML = AL.fig('sister'); $('#alice2').innerHTML = AL.fig('alice');
+  })();
+
+  ER.init({
+    theme: 'lit', story: 'alice', storyTitle: 'The Torn Pages of Wonderland', id: 'court', no: 'V', title: 'Alice’s Evidence',
+    go: 'Go into the court',
+    intro: [
+      'On the croquet-ground you wrote the King’s warrant. The Cat was cleared because the print on the strip was a fingerprint, and a cat has no fingers. Seven was cleared because his red was paint, and the red on the strip smelt of strawberries. The Hatter had an alibi: always tea-time. And the Knave had jam on his fingers and pastry on his cushion: every clue fitted him. The Cat was a red herring.',
+      'Then the story ran on: the Duchess and her morals, the Gryphon, and the Mock Turtle, who told Alice about his lessons (which lessened from day to day) and danced the Lobster Quadrille. At the end of Chapter Ten came a cry in the distance: “The trial’s beginning!”',
+      'The last pages of the book are still missing. A knave always keeps one card up his sleeve.'
+    ],
+    exit: {"last":true,"rooms":5,"stars":3}, tags: {"f1":["fc865eb0"],"f1@":["dad7c474","341ac02d","94b05b73","aa03a6b8","81314e45","0c744688","05b4cb80","854e1749","0a79a7d4","7c3bd5ff","df31fe63","0a69ca08","98504a55","30d69acc","7d4597fe","4f926713","2a64b8c8","f1d87a8c","e49cfa5b","7e57a31e","d5d3da68","e767567b","7d4ca232","472ae46d","9c9dfdbc","f5ca1c6a","0dcfe527"],"f1?":["3fd406fb","341f00bd","d81d1760","fac2f40b","1e5f544c","d1eb4ec2","1f560791","e2b31c33","88ad3772","0a7645ac","ea839849","3b08be02","ca5f48c4","e15b599d","be41ca79","c1ac44ca","219e25b8","50f19575","545f2a4e","1cbda0ac","0c7730f9","f0c34767","484190c7","012fe702","b590208f","96c683b6","929f9276"],"f1#":["86e06b15"]},
+    hints: hints, onBegin: begin
+  });
+  told = AL.told('c-told');
+  function hints() {
+    if (told.has('end')) return null;
+    if (tl && tl.parentNode) return ['line', ['Alice has grown to her full size, and she is not afraid of them any more. She tells them what they really are. Begin with the word that has a capital letter, and end with the word that has the exclamation mark.']];
+    if (!told.has('trial')) return null;
+    if (!told.has('line')) return ['knave', ['The last page is up the Knave’s sleeve. Click the Knave of Hearts, in chains, in the middle of the court.']];
+    return null;
+  }
+  function paint() {
+    $('#knave').classList.toggle('ready', told.has('trial') && !told.has('line'));
+    $('#scene').classList.toggle('woke', told.has('end'));
+  }
+
+  function begin() {
+    paint();
+    if (told.has('end')) { busy = false; finish(true); return; }
+    if (told.has('trial')) { busy = false; ER.say('“Off with her head!” Nobody moves. And the last page is up the Knave’s sleeve.'); return; }
+    told.set('in');
+    AL.sfx.trumpet();
+    ER.narrate([
+      'The King and Queen of Hearts are seated on their throne, with a great crowd about them, all sorts of little birds and beasts, as well as the whole pack of cards. The Knave stands before them, in chains. In the very middle of the court is a table, with a large dish of tarts upon it.',
+      'The judge is the King, and as he wears his crown over his great wig, he does not look at all comfortable. The twelve jurors are all writing very busily on slates, putting down their names, for fear they should forget them before the end of the trial.',
+      'The White Rabbit blows three blasts on the trumpet, unrolls the parchment scroll, and reads: <span class="bk">“The Queen of Hearts, she made some tarts, All on a summer day: The Knave of Hearts, he stole those tarts, And took them quite away!”</span> Strawberry tarts, you would guess, with sugar on the pastry.',
+      'The Hatter gives evidence, with a teacup in one hand and a piece of bread-and-butter in the other. And all the time, Alice is growing larger.',
+      'At last the King reads out from his note-book: <span class="bk">“Rule Forty-two. <i>All persons more than a mile high to leave the court</i>.”</span> <span class="bk">“It’s the oldest rule in the book,” said the King.</span> And Alice knows a thing or two about order: <span class="bk">“Then it ought to be Number One,” said Alice.</span>',
+      '<span class="bk">“Let the jury consider their verdict,” the King said, for about the twentieth time that day. “No, no!” said the Queen. “Sentence first—verdict afterwards.” “Stuff and nonsense!” said Alice loudly.</span>',
+      '<span class="bk">“Off with her head!” the Queen shouted at the top of her voice. Nobody moved.</span> Alice opens her mouth to answer, and nothing comes out. Her last words are on the last page, and the last page is up the Knave’s sleeve.'
+    ], function () { busy = false; told.set('trial'); paint(); });
+  }
+
+  /* ---------- the last page ---------- */
+  var tl = null;
+  $('#knave').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.has('trial')) return;
+    if (told.has('end')) { ER.say('The Knave of Hearts is only a playing card, lying on the grass.'); return; }
+    busy = true;
+    ER.narrate([
+      'You walk up to the Knave and hold out your hand. He looks at it, and bows, and smiles. <span class="bk">“Please your Majesty,” said the Knave, “I didn’t write it, and they can’t prove I did: there’s no name signed at the end.”</span>',
+      'Then he sees the jam on his own fingers, and stops smiling, and shakes his sleeve. Out falls the last page of the book, torn into words.'
+    ], function () { busy = false; openLine(); });
+  });
+  function openLine() {
+    tl = ER.el('div', 'last');
+    tl.innerHTML = '<h5>Chapter XII · Alice’s Evidence · the last page</h5>' +
+      '<p class="bk">“Who cares for you?” said Alice, (she had grown to her full size by this time.)</p><div id="tiles"></div><p class="bmsg"></p>';
+    var m = tl.querySelector('.bmsg');
+    WK.tiles(tl.querySelector('#tiles'), {
+      key: 'f1', items: ['cards!', 'of', 'nothing', 'a', 'You’re', 'pack', 'but'],
+      onMove: function () { m.innerHTML = ''; },
+      onDone: function () {
+        told.set('line'); AL.sfx.page();
+        m.innerHTML = ER.gloss('Say it with her.'); setTimeout(function () { ER.closeAll(); cards(); }, 1600);
+      }
+    });
+    m.innerHTML = ER.gloss('Put Alice’s words back in their order: drag a word to its place, or click two words to swap them.');
+    ER.open('ov-lock', tl);
+  }
+  function cards() {
+    busy = true; paint();
+    ER.narrate(['<span class="bk">“Who cares for you?” said Alice, (she had grown to her full size by this time.) “You’re nothing but a pack of cards!”</span>'], function () {
+      AL.sfx.cards(); $('#scene').classList.add('fly');
+      setTimeout(function () {
+        ER.narrate([
+          '<span class="bk">At this the whole pack rose up into the air, and came flying down upon her: she gave a little scream, half of fright and half of anger, and tried to beat them off, and found herself lying on the bank, with her head in the lap of her sister, who was gently brushing away some dead leaves that had fluttered down from the trees upon her face.</span>',
+          'Among the cards, as they whirl up and come fluttering down, are the torn pages, every one of them. You see them go past you, one by one, back to their places in the book, smoothing themselves flat.',
+          '<span class="bk">“Wake up, Alice dear!” said her sister; “Why, what a long sleep you’ve had!”</span> <span class="bk">“Oh, I’ve had such a curious dream!”</span> says Alice.'
+        ], function () {
+          told.set('end'); paint();
+          try { if (ER.track && ER.music()) ER.track.play(['storybook', { root: 48, bpm: 112, scale: [0, 2, 4, 5, 7, 9, 11], beds: [['birds', 0.5], ['wind', 0.25]] }]); } catch (e) {}
+          ER.narrate([
+            'Alice runs in to her tea. Her sister sits on, watching the setting sun, and dreams Wonderland over again: the White Rabbit, the frightened Mouse, the rattle of the teacups, the shrill voice of the Queen.',
+            '<span class="bk">… and how she would feel with all their simple sorrows, and find a pleasure in all their simple joys, remembering her own child-life, and the happy summer days.</span>',
+            'THE END. And you are back in your own chair, on a wet afternoon, with the book open on your knee. Every page is in its place. On one of them, near the end, there is a very small sticky mark that smells of strawberries.'
+          ], function () { busy = false; finish(false); });
+        });
+      }, 2700);
+    });
+  }
+
+  /* ---------- things in the court ---------- */
+  AL.thing('#jury', 'jury', 'The twelve jurors are writing on their slates. One of them, Bill the Lizard, has lost his pencil and is writing with one finger, which leaves no mark at all.', function () { return busy || told.has('end'); });
+  AL.thing('#tarts', 'tart', 'A large dish of tarts. They look so good that it makes you quite hungry to look at them. Some of them have red jam showing through.', function () { return busy || told.has('end'); });
+  $('#judge').addEventListener('click', function () { if (!busy && !told.has('end')) ER.say('The King wears his crown over his wig. It is certainly not becoming.'); });
+  $('#queen').addEventListener('click', function () { if (!busy && !told.has('end')) ER.say('The Queen has turned purple. “Off with her head!”'); });
+  $('#rabbit').addEventListener('click', function () { if (!busy && !told.has('end')) ER.say('The White Rabbit, as herald, with a trumpet in one hand and a scroll of parchment in the other. “Silence in the court!”'); });
+  $('#alice').addEventListener('click', function () { if (!busy && !told.has('end')) ER.say(told.has('trial') ? 'Alice has grown to her full size. She is not afraid of any of them now. Her mouth is open, but her last words are missing.' : 'Alice is growing larger, slowly, in the middle of the court.'); });
+
+  /* ---------- the card at the end ---------- */
+  function finish(quick) {
+    var st = ER.state(), mins = AL.minutesPlayed(), hn = ER.hintsUsed();
+    $('#d-time').textContent = 'From the rabbit-hole to the last page: ' + mins + (mins === 1 ? ' minute.' : ' minutes.');
+    $('#d-hints').textContent = hn ? 'Hints asked for: ' + hn + '.' : 'Hints asked for: none at all.';
+    $('#d-words').textContent = 'In your notebook: ' + st.clues.length + ' clues and ' + Object.keys(st.words).length + ' words.';
+    $('#done').classList.add('on');
+    AL.terms(['pen name']);
+    if (quick) ER.say('The bank, at sunset. The book is whole.');
+  }
+  $('#b-book').addEventListener('click', ER.notebook);
+  $('#b-lobby').addEventListener('click', function () { ER.leave('../index.html'); });
+  $('#b-reset').addEventListener('click', function () {
+    var b = $('#b-reset');
+    if (b.getAttribute('data-sure')) { ER.resetStory(); location.href = '../index.html'; return; }
+    b.setAttribute('data-sure', '1'); b.textContent = 'this empties your notebook. click again to do it';
+  });
+  $('#b-task').addEventListener('click', function () {
+    var saved = ER.flag('task') || {}, box = ER.el('div', 'rp');
+    box.innerHTML = '<h4>The Torn Pages of Wonderland &middot; in your own words</h4><h3>Write a parody</h3>' +
+      '<p>Choose a poem or a song you know well: a nursery rhyme, a song from school, a song in Korean that you can put into English. Write two to four lines of parody, the way Carroll did.</p>' +
+      '<p><b>1</b> Keep the beat and the rhymes of the original. <b>2</b> Change what it is about. <b>3</b> Turn its meaning upside down: something grand becomes something silly, a good creature becomes a sly one. Then write one sentence: what did you keep, and what did you change?</p>' +
+      '<p class="ex">Carroll did it like this: “Twinkle, twinkle, little star” became “Twinkle, twinkle, little bat”, and a diamond in the sky became a tea-tray.</p>' +
+      '<textarea id="r1" aria-label="Your parody"></textarea><div class="count"></div>' +
+      '<div class="foot"><span>Nobody marks this. It is saved in this browser as you write. Read it aloud to your teacher.</span><button type="button" class="btn" id="r-print">Print</button><button type="button" class="btn" id="r-done">Done</button></div>';
+    ER.glossIn(box, '.rp > p');
+    box.querySelector('#r1').value = saved.r1 || '';
+    function keep() {
+      var o = { r1: box.querySelector('#r1').value }, n = (o.r1.match(/[A-Za-z’']+/g) || []).length;
+      box.querySelector('.count').textContent = n + (n === 1 ? ' word' : ' words');
+      ER.flag('task', o);
+    }
+    box.addEventListener('input', keep);
+    box.addEventListener('keydown', function (e) { e.stopPropagation(); });
+    box.querySelector('#r-print').addEventListener('click', function () { keep(); window.print(); });
+    box.querySelector('#r-done').addEventListener('click', ER.close);
+    ER.open('ov-report', box); keep();
+  });
+})();
+</script>
+</body>
+</html>

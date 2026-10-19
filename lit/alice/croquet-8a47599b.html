@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Queen’s Croquet-Ground · The Torn Pages of Wonderland</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lit.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="alice.css">
+<style>
+  body{--bg:#3a6a2a;--accent:#f2d24a;--font-display:'Fredericka the Great',serif;--font-ui:'Goudy Bookletter 1911',serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(120,14,24,.97);--tc-ink:#fff2e0;--cap-bg:rgba(110,16,26,.95);--panel:#5a121c;--face-bg:#f4e6d0;--q-ink:#ffd9a0;--fade:#2a0608;--hud-bg:rgba(110,16,26,.86)}
+  .tc-room{font-family:'Fredericka the Great',serif;font-size:clamp(42px,5.8vw,78px);color:#ffe08a}
+  .sF{font-family:'Fredericka the Great',serif;text-anchor:middle}
+  #cat{transition:opacity 2.5s steps(5,end)}
+  #scene.faded #cat{opacity:0;pointer-events:none}
+  .rose{transition:fill .6s}
+  .hh{animation:crawl 7s ease-in-out infinite}
+  .hh.h2{animation-duration:9s;animation-direction:reverse}
+  @keyframes crawl{50%{transform:translateX(24px)}}
+  .bob{animation:bob 2.2s steps(2,end) infinite}
+  @keyframes bob{50%{transform:translateY(-3px)}}
+  #gardeners.ready,#cat.ready,#knave.ready,#card.ready,#king.ready{animation:glowb 1.6s steps(1,end) infinite}
+  @keyframes glowb{50%{filter:brightness(1.3)}}
+
+  /* the Queen's warrant */
+  .war{width:min(1180px,96vw);display:grid;grid-template-columns:1.25fr 1fr;gap:14px;-webkit-user-select:none;user-select:none}
+  .war .parch{background:#f6eedb;color:#2a1a14;padding:12px 20px 10px;box-shadow:0 26px 70px rgba(0,0,0,.6);border:3px double #a01a2a}
+  .war h5{margin:0;text-align:center;font-family:'Cinzel',serif;font-weight:normal;font-size:14px;letter-spacing:.28em;color:#a01a2a}
+  .war h3{margin:0 0 8px;text-align:center;font-family:'Fredericka the Great',serif;font-weight:normal;font-size:26px}
+  .war .row{margin:0 0 8px}
+  .war .row b{display:block;font-family:'Goudy Bookletter 1911',serif;font-weight:normal;font-size:16.5px;color:#7a1a24}
+  .war .rs{min-height:56px;border:2px dashed #c8a890;border-radius:8px;padding:3px;background:#fffaf0}
+  .war .rs.bad{background:#f2c0b0}
+  .war .deck{background:#2e5a22;padding:10px;border-radius:8px;box-shadow:inset 0 0 0 3px #1e3a16;align-content:start}
+  .war .deck h5{color:#f2e6b0;margin-bottom:6px}
+  .rc{display:block;margin:0 0 6px;padding:6px 12px 5px 30px;position:relative;background:#fffdf6;color:#1e1414;border-radius:7px;border:1px solid #231a14;font-family:'EB Garamond',serif;font-size:15.2px;line-height:1.25;cursor:grab;box-shadow:0 2px 0 rgba(0,0,0,.3)}
+  .rc:before{content:'♣';position:absolute;left:9px;top:5px;font-size:15px;color:#231a14}
+  .rc:nth-child(odd):before{content:'♥';color:#c4202e}
+  .rs .rc{margin:0}
+  .rc.held{background:#ffe9a0}
+  .rc.fly{position:fixed;z-index:200;pointer-events:none}
+  .war .bn-foot{grid-column:1/3;margin-top:0}
+  @media (max-height:820px){.rc{font-size:14.4px;padding-top:4px;padding-bottom:3px}.war .rs{min-height:50px}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8ac0e8"/><stop offset="1" stop-color="#e8f2f0"/></linearGradient>
+  <linearGradient id="lawnG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7aaa3e"/><stop offset="1" stop-color="#3e6a22"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".75" stop-color="#0a1a06" stop-opacity=".2"/><stop offset="1" stop-color="#040a02" stop-opacity=".75"/></radialGradient>
+</defs>
+<g id="bg"></g>
+<!-- the rose-tree by the entrance, and the gardeners painting it -->
+<g id="rosetree" class="hot"><path d="M236 720q-6 -140 4 -260" stroke="#4a2e14" stroke-width="12" fill="none"/><path d="M110 470q-30 -160 130 -190q170 10 150 170q-10 80 -140 80q-130 10 -140 -60z" fill="#2e5a22" stroke="#1a2a10" stroke-width="3"/><g id="roses"></g></g>
+<g id="gardeners" class="hot"><g transform="translate(110 840) scale(.9)" id="g2"></g><g transform="translate(250 856) scale(.92)" id="g5"></g><g transform="translate(400 838) scale(.98)" id="g7"></g></g>
+<!-- the croquet-ground: soldiers bent into arches, hedgehogs, a flamingo that will not keep still -->
+<g id="ground"></g>
+<g id="card" class="hot" transform="translate(600 868) rotate(-14)"><rect x="-26" y="-36" width="52" height="72" rx="5" fill="#fffdf6" stroke="#231a14" stroke-width="2"/><rect x="-20" y="-30" width="40" height="60" rx="3" fill="none" stroke="#c4202e" stroke-width="1.4"/><text x="0" y="6" class="sF" font-size="12" fill="#c4202e">RULES</text></g>
+<!-- the White Rabbit, Alice, the Knave with the crown, the King and Queen -->
+<g id="rabbit" class="hot" transform="translate(720 812) scale(.86)"></g>
+<g id="alice" class="hot" transform="translate(560 792) scale(.9)"></g>
+<g id="knave" class="hot" transform="translate(880 818) scale(1.22)"></g>
+<g id="queen" class="hot" transform="translate(1070 812) scale(1.3)"></g>
+<g id="king" class="hot" transform="translate(1230 816) scale(1.2)"></g>
+<!-- the Cheshire Cat: only the head -->
+<g id="cat" class="hot"><g class="bob"><g transform="translate(1380 300) scale(.9)" id="catg"></g></g></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Follow the Knave to the trial</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="alice.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told;
+
+  (function () {
+    var s = '', i;
+    s += '<defs>' + AL.hatch('hg', '#1a3a10', 7, 30) + '</defs>';
+    s += '<rect x="-1000" y="-400" width="3600" height="1000" fill="url(#skyG)"/>';
+    s += '<path d="M-1000 230q300 -40 600 0t600 0t600 0t600 0t600 0t600 0V600H-1000z" fill="#2a5a22"/><path d="M-1000 230q300 -40 600 0t600 0t600 0t600 0t600 0t600 0V600H-1000z" fill="url(#hg)" opacity=".4"/>';
+    s += '<g fill="#e8dcc8" stroke="#231a14" stroke-width="2"><rect x="640" y="130" width="320" height="110"/><rect x="600" y="80" width="70" height="160"/><rect x="930" y="80" width="70" height="160"/>' + '<path d="M600 80v-14h14v14h14v-14h14v14h14v-14h14v14M930 80v-14h14v14h14v-14h14v14h14v-14h14v14M640 130v-12h16v12h16v-12h16v12h16v-12h16v12h16v-12h16v12h16v-12h16v12h16v-12h16v12h16v-12h16v12h16v-12h16v12h16v-12h16v12h16v-12h16v12h16v-12h16v12h16v-12"/>' + '<path d="M770 240v-60q30 -30 60 0v60z" fill="#7a1a24"/><path d="M635 66v-46M965 66v-46" fill="none"/><path d="M635 20l34 10 -34 10z" fill="#c4202e"/><path d="M965 20l34 10 -34 10z" fill="#c4202e"/></g>';
+    s += '<path d="M-1000 520q400 -30 900 -10t900 0t1800 0V1400H-1000z" fill="url(#lawnG)"/>';
+    for (i = 0; i < 10; i++) s += '<path d="M-1000 ' + (560 + i * 40) + 'q600 ' + (i % 2 ? 14 : -14) + ' 1300 0t2300 0" fill="none" stroke="' + (i % 2 ? '#5a8a2e' : '#8aba4e') + '" stroke-width="10" opacity=".55"/>';
+    $('#bg').innerHTML = s;
+    s = '';
+    [[150, 360], [190, 320], [240, 300], [300, 320], [340, 370], [130, 430], [200, 400], [270, 380], [330, 430], [180, 470], [260, 460], [360, 470], [230, 520], [300, 520], [150, 520]].forEach(function (p, j) {
+      s += '<circle class="rose" cx="' + p[0] + '" cy="' + p[1] + '" r="14" fill="' + (j % 3 === 0 ? '#fbfbf6' : '#d8202e') + '" stroke="#231a14" stroke-width="1.6"/><path d="M' + (p[0] - 6) + ' ' + p[1] + 'q6 -8 12 0" stroke="#231a14" stroke-width="1.2" fill="none"/>';
+    });
+    $('#roses').innerHTML = s;
+    s = '';
+    [[760, 640, .8], [1010, 600, .7], [1280, 650, .8], [1460, 610, .7], [500, 660, .8]].forEach(function (a) { s += '<g transform="translate(' + a[0] + ' ' + a[1] + ') scale(' + a[2] + ')">' + AL.fig('arch') + '</g>'; });
+    s += '<g class="hh" ><g transform="translate(830 690)">' + AL.fig('hedgehog') + '</g></g><g class="hh h2"><g transform="translate(1380 720)">' + AL.fig('hedgehog') + '</g></g>';
+    s += '<g transform="translate(1500 860) rotate(-70)">' + AL.fig('flamingo') + '</g>';
+    $('#ground').innerHTML = s;
+    $('#g2').innerHTML = AL.fig('gardener', 2); $('#g5').innerHTML = AL.fig('gardener', 5); $('#g7').innerHTML = AL.fig('gardener', 7);
+    $('#rabbit').innerHTML = AL.fig('rabbit'); $('#alice').innerHTML = AL.fig('alice'); $('#knave').innerHTML = AL.fig('knaveCushion');
+    $('#queen').innerHTML = AL.fig('queen'); $('#king').innerHTML = AL.fig('king'); $('#catg').innerHTML = AL.fig('cathead');
+  })();
+
+  ER.init({
+    theme: 'lit', story: 'alice', storyTitle: 'The Torn Pages of Wonderland', id: 'croquet', no: 'IV', title: 'The Queen’s Croquet-Ground',
+    go: 'Go into the garden',
+    intro: [
+      'At the tea-table you mended two parodies against their originals. The Hatter’s bat had to fly, to rhyme with “sky”, and the grand diamond became an ordinary tea-tray. Alice’s crocodile had to grin (to rhyme with “in”), welcome little fishes (the beat), and smile with its jaws (to rhyme with “claws”). Same beat, same rhymes, meaning turned upside down.',
+      'Then the strip from your pocket took Alice back to the hall, and this time she managed it: the key, the mushroom, the little passage, and the beautiful garden.',
+      'It is the Queen of Hearts’ garden. A large rose-tree stands near the entrance: the roses on it are white, but three gardeners are busily painting them red.'
+    ],
+    exit: {"next":"court","w":{"9728b666":"092fcd7b"}}, tags: {"s1":["f3b7889f"],"s2":["21dba897"],"s3":["88def636"],"s4":["bde2bf2c"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = AL.told('q-told'); nextFile = ER.flag('q-file') || null;
+  function isBusy() { return busy; }
+  function ready() { return told.has('card') && told.has('paint') && told.has('cat') && told.has('knave'); }
+  function paint() {
+    $('#card').classList.toggle('ready', !told.has('card'));
+    $('#gardeners').classList.toggle('ready', told.has('card') && !told.has('paint'));
+    $('#cat').classList.toggle('ready', told.has('card') && !told.has('cat'));
+    $('#knave').classList.toggle('ready', told.has('card') && !told.has('knave'));
+    $('#king').classList.toggle('ready', ready() && !nextFile);
+    $('#scene').classList.toggle('faded', !!nextFile);
+    ER.pips((told.has('card') ? 1 : 0) + (told.has('paint') ? 1 : 0) + (told.has('cat') ? 1 : 0) + (told.has('knave') ? 1 : 0) + (nextFile ? 1 : 0), 5);
+  }
+  var lock = null;
+  function hints() {
+    if (nextFile) return ['go', ['The Knave has been taken away in chains, and the trial is about to begin. The button at the bottom of the screen follows him.']];
+    if (lock && lock.parentNode) return ['warrant', [
+      'For each suspect, ask: what is the one clue against him, and does it really fit? Then find the card that clears him with a real reason, not a reason that only sounds like one.',
+      'Watch for arguments turned round. “The one who tore the page had red fingers” is not the same as “anybody with red fingers tore the page”, any more than “I see what I eat” is the same as “I eat what I see”. The Hatter said so at the tea-table (it is in your notebook).',
+      'The print on the strip was made by a finger, and it smelt of strawberries. The crumbs in the pool were pastry. The Hatter has never left his table. Which cards say exactly that? The last card goes to the one who fits every clue.'
+    ]];
+    if (!told.has('card')) return ['card', [
+      'A playing card is lying face up on the grass, near Alice, with RULES written on it. Click it.',
+      'It tells you how people argue in Wonderland. You will need it in a minute.'
+    ]];
+    if (!ready()) return ['look', [
+      'The Queen wants a head off, and she is not particular whose. Look at the three she might blame: the gardeners by the rose-tree, the Cat’s head in the air, and the Knave carrying the crown.',
+      'Click the gardeners on the left, the Cheshire Cat at the top right, and the Knave of Hearts with the red cushion. Each one tells you something about red, or crumbs, or fingers.'
+    ]];
+    return ['king', ['You have looked at everybody. The King is waiting for the warrant: click the King.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('The croquet-ground. The Cat has faded away, all but the grin.'); return; }
+    if (told.has('in')) { busy = false; ER.say('The Queen’s croquet-ground. Somebody is about to lose a head.'); return; }
+    told.set('in');
+    ER.narrate([
+      'The procession has come and gone, the game has begun, and it is a very curious croquet-ground: the balls are live hedgehogs, the mallets live flamingoes, and the soldiers have to double themselves up to make the arches.',
+      'The players all play at once, without waiting for turns, and the Queen goes stamping about, shouting “Off with his head!” or “Off with her head!” about once in a minute.',
+      'Now the White Rabbit has told her about the torn pages, and that it was the Cheshire Cat. The Cat’s head is grinning in the air. <span class="bk">“Off with his head!”</span> says the Queen, and then the three of them begin to argue, all at once.',
+      '<span class="bk">The executioner’s argument was, that you couldn’t cut off a head unless there was a body to cut it off from … The King’s argument was, that anything that had a head could be beheaded, and that you weren’t to talk nonsense.</span>',
+      '<span class="bk">The Queen’s argument was, that if something wasn’t done about it in less than no time she’d have everybody executed, all round.</span> Everybody. That includes you.',
+      'And here the story sticks, round and round, because the page where Alice settles the question has been torn out. The King turns to you, very timidly. “You, Mary Ann. Somebody tore the pages. Write me a warrant: who did it, and why the others did not. Quickly, before my dear wife does it her way.”'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- the card from the Queen's garden ---------- */
+  var CARD = '<h4>A card from the Queen’s garden</h4><h3>How to Argue in Wonderland</h3>' +
+    '<p>Wonderland is not a place without rules. It is a place where every rule is kept exactly, however silly it is. That is what <b>nonsense</b> is: a mad beginning, followed by perfect <b>logic</b>.</p>' +
+    '<p>The Cheshire Cat proves that it is mad like this: a dog growls when it is angry and wags its tail when it is pleased; the Cat growls when it is pleased and wags its tail when it is angry; therefore it is mad. A silly start, and a sound <b>argument</b>.</p>' +
+    '<p>So, to argue here:</p><ol><li>Find the rule, and read exactly what it says: no more, and no less.</li><li>Follow it all the way, even when the end is silly.</li>' +
+    '<li>Clear a <b>suspect</b> only with a reason that really clears him: a rule that makes the thing impossible, a clue that does not fit him, or an <b>alibi</b> (proof that he was somewhere else).</li>' +
+    '<li>One clue that fits somebody proves nothing. The one you want is the one that every piece of <b>evidence</b> fits.</li></ol>';
+  $('#card').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: CARD, cls: 'qcard', clue: { id: 'card', title: 'How to Argue in Wonderland', kind: 'A card from the garden' }, done: function () {
+      AL.terms(['nonsense', 'logic', 'argument', 'suspect', 'alibi', 'evidence']);
+      if (told.set('card')) { paint(); ER.say('Clear a suspect only with a real reason. Three suspects: the gardeners, the Cat, and whoever else fits.'); }
+    } });
+  });
+
+  /* ---------- the suspects ---------- */
+  $('#gardeners').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.has('card')) { ER.say('Three gardeners, flat and oblong, painting white roses red. There is a card lying on the grass by Alice.'); return; }
+    if (told.has('paint')) { ER.say('Seven is still painting, with red paint up to his wrists. It smells of paint.'); return; }
+    ER.talk({
+      who: 'Two, Five and Seven', role: 'Gardeners to the Queen', face: AL.face('gardener', '#f2ecd8', 7),
+      lines: [
+        { note: 'Three gardeners, shaped like playing cards, oblong and flat, with their hands and feet at the corners. They are covered in red paint.', a: '<span class="bk">“Look out now, Five! Don’t go splashing paint over me like that!”</span></p><p><span class="bk">“I couldn’t help it,” said Five, in a sulky tone; “Seven jogged my elbow.”</span>' },
+        { q: 'Why are you painting the roses?', a: '<span class="bk">“Why the fact is, you see, Miss, this here ought to have been a <i>red</i> rose-tree, and we put a white one in by mistake; and if the Queen was to find it out, we should all have our heads cut off, you know.”</span>' },
+        { q: 'The Queen thinks somebody with red hands tore the pages.', a: 'Seven looks at his hands, which are red to the wrists, and goes white round the edges. “It’s paint, Miss! Only paint! We’ve been at it since sunrise.”' },
+        { note: 'You take a sniff. It is paint all right: it smells of paint and oil, like a newly painted gate. Nothing about it smells of anything you would want to eat.', a: '“Always lay the blame on others,” mutters Seven. “That’s right. Always the gardeners.”' }
+      ],
+      clue: { id: 'paint', title: 'The gardeners’ red paint', kind: 'What they said' },
+      done: function (seen) { if (seen && told.set('paint')) { paint(); ER.say('Red hands, but red with paint, and the paint smells of paint.'); } }
+    });
+  });
+  $('#cat').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.has('card')) { ER.say('A grin in the air, and then, round it, a cat. Or the head of one. There is a card lying on the grass by Alice.'); return; }
+    if (told.has('cat')) { ER.say('The Cat’s head grins at you. There is still no more of it than that.'); return; }
+    ER.talk({
+      who: 'The Cheshire Cat', role: 'Head only, today', face: AL.catFace(),
+      lines: [
+        { note: 'First the grin appears, then the eyes, then the ears, and then the whole head. The Cat seems to think that there is enough of it now in sight, and no more of it appears.', a: '<span class="bk">“How are you getting on?” said the Cat, as soon as there was mouth enough for it to speak with.</span>' },
+        { q: 'The White Rabbit says you tore the pages.', a: 'With what? Look at me. Today I am only a head. And on the days when I bring the rest, I bring paws. Paws have claws, and no fingers. Did your page say anything about claws?' },
+        { q: 'No. It had a fingerprint on it.', a: 'Then the Rabbit is looking at the wrong end of the argument. Things vanish, and so do I: that is two things vanishing, not one thing. You might as well say that I am a page.' },
+        { q: 'Why does everybody blame you?', a: '<span class="bk">“Oh, you can’t help that,” said the Cat: “we’re all mad here. I’m mad. You’re mad.”</span> And you must be, or you wouldn’t have come here. Through a torn page, too.' }
+      ],
+      clue: { id: 'cat', title: 'The Cheshire Cat’s head', kind: 'What it said' },
+      done: function (seen) { if (seen && told.set('cat')) { paint(); ER.say('A head with no body, and a cat with no fingers. And the print on the strip was a fingerprint.'); } }
+    });
+  });
+  $('#knave').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.has('card')) { ER.say('The Knave of Hearts, carrying the King’s crown on a crimson velvet cushion. There is a card lying on the grass by Alice.'); return; }
+    if (told.has('knave')) { ER.say('The Knave only bows and smiles, and holds the cushion a little higher.'); return; }
+    told.set('knave'); paint();
+    ER.addClue('knave', 'The Knave’s cushion', '<h4>The Knave’s cushion</h4><p>The Knave of Hearts carries the King’s crown on a crimson velvet cushion. On the velvet, where his fingers hold it, there are small sticky marks, darker red than the cushion. They smell of strawberries. And caught in the velvet is one golden flake of pastry, with sugar on it.</p><p>When the Queen asked him a question, he <span class="bk">only bowed and smiled in reply.</span></p>', 'evid', 'Evidence');
+    ER.narrate([
+      'The Knave of Hearts is carrying the King’s crown on a crimson velvet cushion. When you look at him, he only bows and smiles.',
+      'On the velvet, where his fingers hold it, there are small sticky marks, darker red than the cushion. They smell of strawberries. And caught in the velvet is one golden flake of pastry, with sugar on it.',
+      'He sees you looking, bows again, and smiles a little wider.'
+    ]);
+  });
+  AL.thing('#rosetree', 'rose', 'The rose-tree is half white and half red. Wet red paint is dripping off the white roses on to the grass.', isBusy);
+  AL.thing('#ground', 'hedgehog', 'The arch you ought to go through next is walking about at the other end of the ground, and the hedgehog has unrolled itself and is crawling away.', isBusy);
+  $('#rabbit').addEventListener('click', function () { if (!busy) ER.say(nextFile ? 'The White Rabbit is trying to unroll a scroll of parchment and blow a trumpet at the same time.' : '“It’s the Cat, Mary Ann,” whispers the White Rabbit, peeping anxiously over his shoulder. “Things vanish, and so does it. Oh my ears and whiskers!”'); });
+  $('#alice').addEventListener('click', function () { if (!busy) ER.say(nextFile ? 'Alice has gone back to the game, with her flamingo tucked under her arm.' : 'Alice is holding a flamingo under her arm, and thinking: “They’re dreadfully fond of beheading people here; the great wonder is, that there’s any one left alive!”'); });
+  $('#queen').addEventListener('click', function () { if (!busy) ER.say(nextFile ? '“Off with his head!” says the Queen, out of habit, to a passing hedgehog.' : 'The Queen turns crimson with fury, and glares at you for a moment like a wild beast. “Off with— who is this?” she says to the Knave, who only bows and smiles.'); });
+  $('#king').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('“Herald!” says the King. “Find my spectacles. There is going to be a trial.”'); return; }
+    if (!ready()) { ER.say(told.has('card') ? '“The warrant, Mary Ann, when you are ready,” says the King, very timidly. “But do look at everybody first. My dear wife never does.”' : '“Consider, my dear,” the King is saying to the Queen, very timidly. There is a card lying on the grass by Alice.'); return; }
+    openLock();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the warrant ---------- */
+  var RC = {
+    vanish: 'it vanishes, and so do the pages.',
+    table: 'he has not left the tea-table since March: it is always six o’clock there, always tea-time.',
+    heart: 'he is a Heart, and the fingerprint on the strip was red.',
+    paws: 'the print on the strip was made by a finger, and a cat has no fingers; today it has not even a body.',
+    redhands: 'he has red on his hands.',
+    fits: 'strawberry jam on his fingers, and pastry crumbs on his cushion: every clue fits him, and nobody else.',
+    crumbsw: 'he had crumbs in his watch.',
+    smell: 'the red on the torn strip smells of strawberries, and his paint smells of paint.',
+    bowed: 'he only bowed and smiled, and said nothing.'
+  };
+  var DECK = ['vanish', 'table', 'heart', 'paws', 'redhands', 'fits', 'crumbsw', 'smell', 'bowed'];
+  var WHO = ['The Cheshire Cat is cleared, because …', 'Seven, the gardener, is cleared, because …', 'The Hatter is cleared, because …', 'The Knave of Hearts tore the pages, because …'];
+  var BAD = {
+    vanish: 'That is the Rabbit’s argument, and it is turned the wrong way round. Two things that vanish need not be one thing: you might just as well say that “I see what I eat” is the same thing as “I eat what I see”. And it is a reason against the Cat, not for clearing him.',
+    redhands: 'Red hands are a reason against him, not for clearing him, and not even a good one. Whoever tore the page had red fingers; that does not mean that anybody with red fingers tore the page. Not the same thing a bit! Ask what kind of red it is.',
+    crumbsw: 'Crumbs in a watch are a reason against him, not for clearing him. Whoever tore the page dropped crumbs; not everybody with crumbs tore the page. And his were bread crumbs, from the bread-knife: the crumbs in the pool were pastry.',
+    heart: 'Turned round again. The fingerprint was red; that does not make every red card guilty. Ten royal children are ornamented with hearts. One clue that fits somebody proves nothing.',
+    bowed: 'Bowing and smiling proves nothing at all. The Queen called him an idiot for it. A warrant needs evidence.'
+  };
+  function openLock() {
+    var busyL = false, misses = 0, i;
+    ER.mood('tense');
+    lock = ER.el('div', 'war');
+    var s = '<div class="parch"><h5>By order of the King of Hearts</h5><h3>Who tore the pages?</h3>';
+    for (i = 0; i < 4; i++) s += '<div class="row"><b>' + WHO[i] + '</b><div class="rs" data-n="' + i + '"></div></div>';
+    s += '</div><div class="deck"><h5>Reasons</h5></div><div class="bn-foot"><p class="bmsg"></p><button type="button" class="btn" id="sign">Seal the warrant</button></div>';
+    lock.innerHTML = s;
+    var deck = lock.querySelector('.deck'), rows = ER.$$('.rs', lock), m = lock.querySelector('.bmsg');
+    function msg(t) { m.innerHTML = ER.gloss(t); }
+    var put = ER.flag('q-put') || {};
+    DECK.forEach(function (id) {
+      var c = ER.el('div', 'rc dnd-item'); c.setAttribute('data-r', id); c.innerHTML = ER.gloss('… ' + RC[id]);
+      var at = put[id], sl = at == null ? null : rows[at];
+      if (sl && !sl.querySelector('.rc')) sl.appendChild(c); else deck.appendChild(c);
+    });
+    function keep() { put = {}; rows.forEach(function (r, j) { var c = r.querySelector('.rc'); if (c) put[c.getAttribute('data-r')] = j; }); ER.flag('q-put', put); }
+    AL.swapIn(lock, '.rc', '.rs', deck);
+    ER.dnd(lock, { item: '.rc', slot: '.rs', home: deck, lock: function () { return busyL || !!nextFile; }, change: function () { keep(); rows.forEach(function (r) { r.classList.remove('bad'); }); } });
+    lock.querySelector('#sign').addEventListener('click', function () {
+      if (busyL || nextFile) return;
+      var got = rows.map(function (r) { var c = r.querySelector('.rc'); return c ? c.getAttribute('data-r') : ''; }), j, empty = got.filter(function (g) { return !g; }).length;
+      if (empty) { ER.sfx.no(); msg('The warrant has ' + (empty === 1 ? 'an empty line' : empty + ' empty lines') + '. The King will not seal a warrant with holes in it. One reason on every line.'); return; }
+      for (j = 0; j < 4; j++) if (!ER.check('s' + (j + 1), got[j])) {
+        misses++; rows[j].classList.add('bad'); ER.shake(rows[j]); ER.sfx.no();
+        msg('“That won’t do,” says the King, reading line ' + (j + 1) + ' over his spectacles. ' + (BAD[got[j]] || 'That reason is true, but it is about somebody else. Whose clue is it?') + (misses > 2 ? ' (Only the first line that will not do is ever shown.)' : ''));
+        return;
+      }
+      var file = ER.exitOk([got.join('-')]);
+      if (!file) { msg('The seal will not stick. Something is wrong with this page: tell your teacher.'); return; }
+      nextFile = file; ER.flag('q-file', file); busyL = true;
+      var st = ER.state(); st.done = st.done || {}; st.done.croquet = 1; ER.persist(true);
+      msg('“Consider, my dear,” says the King to the Queen, holding up the warrant. “The Cat has no fingers. The gardener’s red is paint. The Hatter never left his tea. And the Knave … the Knave has jam on his fingers.”');
+      setTimeout(function () { ER.closeAll(); ER.mood('calm'); AL.solved(); after(); }, 3200);
+    });
+    msg('Four lines on the warrant, and nine reasons. Drag a reason on to each line, or click a reason and then a line. Then seal it.');
+    ER.open('ov-lock', lock);
+  }
+  function after() {
+    busy = true; paint();
+    AL.terms(['red herring']);
+    AL.mine('warrant', 'The warrant', '<p>The Cat is cleared: the print was a fingerprint, and a cat has no fingers. Seven is cleared: the red on the strip smelt of strawberries, his smells of paint. The Hatter is cleared: an alibi, always tea-time. The Knave tore the pages: jam on his fingers, pastry on his cushion. Every clue fits him.</p><p>The Cat was a red herring: a clue that points the wrong way.</p>');
+    ER.narrate([
+      'The Queen snatches the warrant, reads one word of it, and screams at the Knave: “Off with his head!” The Knave only bows and smiles. “Consider, my dear,” says the King: “he must be tried first.”',
+      'As the soldiers take his arms, something slides out of the Knave’s sleeve: a single page, a little sticky. It is the page that was missing here. It flies to Alice like a homing pigeon, and the story starts again.',
+      '<span class="bk">Alice could think of nothing else to say but “It belongs to the Duchess: you’d better ask <i>her</i> about it.”</span> The executioner goes off like an arrow to fetch her, and the Cat’s head begins fading away, grin last of all.',
+      'The Cat was a red herring all along: a clue that points the wrong way, because everybody wanted it to. The Knave is led off in chains. And when the soldiers shake his other sleeve, nothing falls out. A knave always keeps one card up his sleeve.',
+      'There are still pages missing, at the very end of the book. Far away, somebody is crying: “The trial’s beginning!”'
+    ], function () { busy = false; $('#go').classList.add('on'); });
+  }
+})();
+</script>
+</body>
+</html>

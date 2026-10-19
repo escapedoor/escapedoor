@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Wrapping Hall · Miss Plunkett's Last Recipe</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lit.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="sweets.css">
+<style>
+  body{--bg:#141234;--accent:#ffd84a;--font-display:'Henny Penny',cursive;--font-ui:'Goudy Bookletter 1911',serif;--font-body:'Alegreya',serif;
+    --tc-bg:rgba(20,18,52,.96);--tc-ink:#eef0ff;--cap-bg:rgba(22,20,56,.95);--panel:#24205a;--face-bg:#3a3478;--q-ink:#ffe48a;--fade:#08071a;--hud-bg:rgba(20,18,52,.82)}
+  .tc-room{font-size:clamp(44px,6vw,82px);color:#ffd84a}
+  .sF{font-family:'Fredericka the Great',serif;text-anchor:middle}
+  .sG{font-family:'Goudy Bookletter 1911',serif;text-anchor:middle}
+  .sK{font-family:'Gochi Hand',cursive;text-anchor:middle}
+  .sH{font-family:'Henny Penny',cursive;text-anchor:middle}
+  .belt{animation:belt 6s linear infinite}
+  @keyframes belt{from{transform:translateX(0)}to{transform:translateX(160px)}}
+  #catride{animation:ride 24s linear infinite}
+  @keyframes ride{0%{transform:translate(-260px,0)}100%{transform:translate(2000px,0)}}
+  #wrapped{display:none}#scene.wrapped #wrapped{display:inline}
+  #press.ready{animation:glowp 1.5s steps(1,end) infinite}
+  @keyframes glowp{50%{filter:brightness(1.35)}}
+  #printed{display:none}#scene.printed #printed{display:inline}
+
+  /* the press: a chase with three lines, and a case of type */
+  .pr{width:min(1080px,95vw);background:#2a2a36 linear-gradient(#3a3a4a,#1e1e2a);border-radius:8px;padding:12px 16px 12px;box-shadow:0 26px 70px rgba(0,0,0,.7),inset 0 0 0 3px #6a6a80}
+  .pr h5{margin:0 0 8px;font-family:'Henny Penny',cursive;font-weight:normal;font-size:21px;color:#ffe48a;text-align:center}
+  .grp{display:grid;grid-template-columns:520px 1fr;gap:12px;align-items:center;margin:0 0 9px;padding:8px 10px;background:rgba(0,0,0,.25);border-radius:5px}
+  .line{display:flex;flex-wrap:wrap;align-items:center;gap:6px;min-height:52px;padding:6px 10px;background:#7a3f9a linear-gradient(#8a4aaa,#6a3088);border-radius:3px;border:3px solid #c8a060}
+  .line .fix{font-family:'Fredericka the Great',serif;font-size:19px;color:#ffe48a;letter-spacing:.04em}
+  .line .bang{font-family:'Fredericka the Great',serif;font-size:22px;color:#ffe48a}
+  .slot{min-width:84px;height:38px;border:2px dashed rgba(255,228,138,.6);border-radius:3px;display:flex;align-items:center;justify-content:center}
+  .slot.wide{min-width:250px;flex:1}
+  .slot.bad{border-color:#ff6a6a;background:rgba(255,80,80,.2)}
+  .tray{display:flex;flex-wrap:wrap;gap:6px;min-height:44px;padding:4px;background:#5a3a22 linear-gradient(#6e4a2c,#4a2e1a);border-radius:4px}
+  .tile{padding:6px 8px 5px;background:#e8d4a8 linear-gradient(#f2e2bc,#d8c090);border:1px solid #8a6a3a;border-radius:3px;box-shadow:0 2px 0 #6a4a22;
+    font-family:'Fredericka the Great',serif;font-size:15.5px;letter-spacing:.03em;color:#2a1a10;white-space:nowrap;line-height:1.1}
+  .tile.long{font-size:15px}
+  .slot .tile{background:#ffe48a linear-gradient(#fff0b0,#f2cc5a)}
+  .tile.held{outline:3px solid #ffe48a;outline-offset:1px}
+  .grp .lab{font-family:'Goudy Bookletter 1911',serif;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:#c8c0e8;margin:0 0 4px}
+  .pr .bn-foot .bmsg{color:#eef0ff}
+  .pr .bn-foot .btn{--accent:#ffe48a}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a2468"/><stop offset="1" stop-color="#4a3a8a"/></linearGradient>
+  <linearGradient id="moonG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a2a6a"/><stop offset="1" stop-color="#4a6ab8"/></linearGradient>
+  <linearGradient id="chromeG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8a92a8"/><stop offset=".2" stop-color="#f4f8ff"/><stop offset=".45" stop-color="#a8b0c8"/><stop offset=".7" stop-color="#ffffff"/><stop offset="1" stop-color="#7a8298"/></linearGradient>
+  <linearGradient id="beamG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfe0ff" stop-opacity=".35"/><stop offset="1" stop-color="#cfe0ff" stop-opacity="0"/></linearGradient>
+  <pattern id="floorW" width="100" height="50" patternUnits="userSpaceOnUse"><rect width="100" height="50" fill="#3a2e5a"/><path d="M0 .5h100M50 0v25M0 25h100M0 25v25" stroke="#2a2046" stroke-width="2"/></pattern>
+  <radialGradient id="vig" cx="50%" cy="48%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".65" stop-color="#06041a" stop-opacity=".3"/><stop offset="1" stop-color="#03020c" stop-opacity=".88"/></radialGradient>
+  <clipPath id="beltC"><rect x="380" y="560" width="1240" height="40"/></clipPath>
+</defs>
+
+<!-- the long hall, its windows and the moon -->
+<rect x="-1000" y="-400" width="3600" height="1100" fill="url(#wallG)"/>
+<g id="wins" class="hot"></g>
+<g fill="url(#beamG)" pointer-events="none"><path d="M140 140h120l140 560h-360z"/><path d="M640 140h120l140 560h-360z" opacity=".7"/><path d="M1140 140h120l140 560h-360z" opacity=".7"/></g>
+<rect x="-1000" y="80" width="3600" height="14" fill="#c8a060"/>
+<!-- posters -->
+<g id="p1" class="hot" transform="translate(110 0) rotate(-2 420 330)"><rect x="350" y="230" width="140" height="190" fill="#ffe8c8"/><rect x="350" y="230" width="140" height="190" fill="none" stroke="#d6457a" stroke-width="6"/>
+  <text x="420" y="262" class="sF" font-size="16" fill="#d6457a">PLUNKETT&#8217;S</text><text x="420" y="284" class="sF" font-size="19" fill="#3a8a4a">PEAR DROPS</text>
+  <path d="M420 346q-30 -10 -20 -40q20 -26 40 0q10 30 -20 40z" fill="#c8e060" stroke="#6a8a2a" stroke-width="3"/><path d="M420 306v-12" stroke="#6a4a2a" stroke-width="4"/>
+  <text x="420" y="378" class="sH" font-size="18" fill="#d6457a">POP! POP!</text><text x="420" y="402" class="sH" font-size="18" fill="#d6457a">HOORAY!</text></g>
+<g id="p2" class="hot" transform="rotate(2 940 330)"><rect x="870" y="230" width="140" height="190" fill="#d8f0ff"/><rect x="870" y="230" width="140" height="190" fill="none" stroke="#2a6ab8" stroke-width="6"/>
+  <text x="940" y="262" class="sF" font-size="18" fill="#2a6ab8">SHIVERLETS</text><ellipse cx="940" cy="320" rx="22" ry="30" fill="#1a1a2a"/><ellipse cx="940" cy="326" rx="13" ry="22" fill="#fff"/><path d="M932 300l8 6 8 -6" fill="#ffb030"/><path d="M918 296h44v10h-44z" fill="#d6457a"/><path d="M956 306v26" stroke="#d6457a" stroke-width="8"/>
+  <text x="940" y="378" class="sG" font-size="12" fill="#1a3a6a">SO COLD THE PENGUINS</text><text x="940" y="396" class="sG" font-size="12" fill="#1a3a6a">WEAR SCARVES</text></g>
+<g id="p3" class="hot" transform="translate(-100 -100) rotate(-1.5 1460 330)"><rect x="1390" y="230" width="140" height="190" fill="#fff0d0"/><rect x="1390" y="230" width="140" height="190" fill="none" stroke="#8a4a1a" stroke-width="6"/>
+  <text x="1460" y="266" class="sF" font-size="20" fill="#8a4a1a">TOFFEE</text><rect x="1430" y="290" width="60" height="44" rx="6" fill="#c8843a"/><path d="M1430 312l-16 -14v28zM1490 312l16 -14v28z" fill="#f2c86a"/>
+  <text x="1460" y="370" class="sK" font-size="17" fill="#8a2a1a">is a hug you</text><text x="1460" y="392" class="sK" font-size="17" fill="#8a2a1a">can chew</text></g>
+<g id="p4" class="hot" transform="translate(-40 -300) rotate(1 120 560)"><rect x="40" y="470" width="150" height="120" fill="#fff6c8"/><rect x="40" y="470" width="150" height="120" fill="none" stroke="#e8962a" stroke-width="5"/>
+  <text x="115" y="500" class="sF" font-size="16" fill="#e8962a">GUFFAWFFLES</text><g fill="#e8b060" stroke="#a87030" stroke-width="2"><rect x="88" y="512" width="54" height="34" rx="4"/></g><path d="M98 512v34M110 512v34M122 512v34M134 512v34M88 524h54M88 536h54" stroke="#a87030" stroke-width="1.5"/>
+  <text x="115" y="572" class="sK" font-size="16" fill="#8a4a1a">as light as a laugh</text></g>
+
+<!-- the floor, the belts -->
+<rect x="-1000" y="700" width="3600" height="800" fill="url(#floorW)"/>
+<g id="belts"><rect x="380" y="560" width="1240" height="40" fill="#1a1a22"/><g clip-path="url(#beltC)"><g class="belt" id="beltg"></g></g><path d="M380 600h1240" stroke="#c8a060" stroke-width="6"/><g id="legs"></g>
+  <g id="catride"><g transform="translate(0 560) scale(.8)"><g id="catg"></g></g></g></g>
+
+<!-- the Twistmaster -->
+<g id="twist" class="hot"><rect x="120" y="360" width="300" height="340" rx="30" fill="url(#chromeG)" stroke="#5a6278" stroke-width="5"/>
+  <ellipse cx="270" cy="470" rx="90" ry="70" fill="#d8e4ff" stroke="#5a6278" stroke-width="5"/><ellipse cx="250" cy="450" rx="40" ry="24" fill="#fff" opacity=".7"/>
+  <g fill="#e8c048" stroke="#a8822a" stroke-width="3"><path d="M150 620l-30 -20v40zM390 620l30 -20v40z"/><rect x="150" y="604" width="240" height="32" rx="14"/></g>
+  <text x="270" y="580" class="sF" font-size="22" fill="#3a4258">THE TWISTMASTER</text><circle cx="160" cy="400" r="12" fill="#d61e2a"/><circle cx="380" cy="400" r="12" fill="#3aaa4a"/>
+  <rect x="200" y="652" width="140" height="36" fill="#fff8d0" stroke="#8a6a26" stroke-width="2"/><text x="270" y="675" class="sG" font-size="12" fill="#4a3a1a">KEEP YOUR FACE AWAY</text></g>
+<g id="wrapped" class="hot" transform="translate(500 880) scale(.95)"></g>
+
+<!-- foil rolls -->
+<g id="foil" class="hot"><rect x="1080" y="460" width="10" height="100" fill="#4a4a52"/><rect x="1270" y="460" width="10" height="100" fill="#4a4a52"/>
+  <g id="rolls"></g></g>
+<!-- the press -->
+<g id="press" class="hot"><rect x="1300" y="540" width="260" height="200" rx="6" fill="#26262e" stroke="#6a6a80" stroke-width="4"/><rect x="1320" y="470" width="220" height="80" fill="#3a3a46" stroke="#6a6a80" stroke-width="4"/>
+  <circle cx="1430" cy="420" r="62" fill="none" stroke="#c8a060" stroke-width="10"/><path d="M1430 358v124M1368 420h124M1386 376l88 88M1474 376l-88 88" stroke="#c8a060" stroke-width="6"/><circle cx="1430" cy="420" r="14" fill="#c8a060"/>
+  <rect x="1340" y="600" width="180" height="70" fill="#7a3f9a" stroke="#c8a060" stroke-width="3"/><path d="M1360 620h140M1360 636h120M1360 652h140" stroke="#ffe48a" stroke-width="3" opacity=".5"/>
+  <text x="1430" y="718" class="sF" font-size="18" fill="#c8a060">THE PRESS</text>
+  <g id="card" class="hot" transform="rotate(4 1560 600)"><rect x="1520" y="560" width="70" height="90" fill="#fdf3d8" stroke="#b0402a" stroke-width="3"/><path d="M1530 576h50M1530 586h44M1530 596h50M1530 606h40M1530 616h50M1530 626h44" stroke="#4a3a2a" stroke-width="1.5"/></g></g>
+<g id="printed"><g transform="rotate(-4 1200 760)"><rect x="1130" y="720" width="150" height="80" fill="#7a3f9a" stroke="#4a2a6a" stroke-width="2"/><text x="1205" y="746" class="sF" font-size="9" fill="#ffe48a">PLUNKETT&#8217;S PURPLE POCKET PEBBLES</text><text x="1205" y="768" class="sH" font-size="14" fill="#fff">SNAP! FIZZ!</text><text x="1205" y="788" class="sG" font-size="9" fill="#ffe48a">ONE LASTS A HUNDRED YEARS</text></g></g>
+<!-- the little table with the green book -->
+<g id="book" class="hot"><path d="M1130 840v-120M1250 840v-120" stroke="#5a3a1a" stroke-width="8"/><rect x="1110" y="700" width="160" height="24" rx="3" fill="#7a4e2a"/>
+  <path d="M1128 702l62 -22v20l-62 10zM1252 702l-62 -22v20l62 10z" fill="#fffaf0"/><path d="M1190 680v20" stroke="#24553a" stroke-width="5"/><path d="M1138 696l42 -14M1242 696l-42 -14" stroke="#3a4a3a" stroke-width="1.5"/></g>
+
+<!-- the people -->
+<g id="gribble" class="hot" transform="translate(760 884) scale(.96)"></g>
+<g id="huxtable" class="hot" transform="translate(960 876)"></g>
+
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Down to the cellar</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="sweets.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told, lock = null;
+
+  (function () {
+    var s = '', i, x, C = ['#e8c048', '#ff8ec0', '#8ad8c8', '#c8a8f0', '#ff9a5a', '#c0c8d8'];
+    for (i = -2; i < 7; i++) { x = i * 500 + 140; s += '<path d="M' + x + ' 300v-140q60 -70 120 0v140z" fill="url(#moonG)" stroke="#c8a060" stroke-width="6"/><path d="M' + (x + 60) + ' 300v-170M' + x + ' 220h120" stroke="#c8a060" stroke-width="4"/>'; }
+    s += '<circle cx="230" cy="190" r="22" fill="#fffbe0"/><circle cx="222" cy="184" r="22" fill="#2a3a7a"/>';
+    $('#wins').innerHTML = s; s = '';
+    for (i = -2; i < 12; i++) { x = 380 + i * 160; s += '<path d="M' + x + ' 560v40" stroke="#33333e" stroke-width="3"/><g transform="translate(' + (x + 60) + ' 576)"><rect x="-16" y="-10" width="32" height="20" rx="8" fill="' + C[(i + 20) % 6] + '"/><path d="M-16 0l-10 -8v16zM16 0l10 -8v16z" fill="' + C[(i + 21) % 6] + '"/></g>'; }
+    $('#beltg').innerHTML = s; s = '';
+    for (i = 0; i < 8; i++) s += '<path d="M' + (420 + i * 160) + ' 600v100" stroke="#3a3a46" stroke-width="10"/>';
+    $('#legs').innerHTML = s; s = '';
+    [['#7a3f9a', 'PURPLE'], ['#ff8ec0', 'PINK'], ['#e8c048', 'GOLD'], ['#c0c8d8', 'SILVER']].forEach(function (r, k) {
+      s += '<g transform="translate(' + (1110 + k * 44) + ' 0)"><rect x="-18" y="470" width="36" height="80" rx="6" fill="' + r[0] + '" stroke="#2a2040" stroke-width="2"/><ellipse cx="0" cy="470" rx="18" ry="6" fill="#fff" opacity=".4"/><text x="0" y="566" class="sG" font-size="9" fill="#e8e0ff">' + r[1] + '</text></g>';
+    });
+    $('#rolls').innerHTML = s;
+    $('#catg').innerHTML = SW.fig('catsit'); $('#wrapped').innerHTML = SW.fig('wrapped');
+    ['gribble', 'huxtable'].forEach(function (w) { $('#' + w).innerHTML = SW.fig(w); });
+  })();
+
+  ER.init({
+    theme: 'lit', story: 'sweets', storyTitle: 'Miss Plunkett’s Last Recipe', id: 'wrap', no: 'III', title: 'The Wrapping Hall',
+    go: 'Go in',
+    intro: [
+      'Not one line of Part One was true word for word. A flame as quiet as a snail&rsquo;s sneeze was the smallest flame, 1. Sugar like a shy guest went in a little at a time. A spoon that waltzes turned in slow circles, and a pan that breathes had no lid. The thousand years was hyperbole, a joke: the real instruction was the colour of an old penny. You took the pan off the heat at copper.',
+      'Six copper hearts, each small enough to hide in your fist, are cooling in the pebble tray. Part Two of the last recipe is the Paper. Every Plunkett sweet has a wrapper of its own, printed in the wrapping hall.',
+      'Mrs Mortlake went on ahead. You can hear her already, saying how wonderful she looks.'
+    ],
+    exit: {"next":"cellar","w":{"bc150317":"e6a133b9"}}, tags: {"top":["d3a37ae8"],"mid":["5e21c998"],"bot":["81e0400e"],"tw":["b6d6ee5b","619f6463","da7e2882"],"m1":["df0a7614"],"m2":["edb8f15c"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = SW.told('c-told'); nextFile = ER.flag('c-file') || null;
+  function isBusy() { return busy; }
+  function ready() { return told.has('card') && told.has('book'); }
+  function paint() {
+    $('#scene').classList.toggle('wrapped', told.has('wrapped'));
+    $('#scene').classList.toggle('printed', !!nextFile);
+    $('#press').classList.toggle('ready', ready() && !nextFile);
+    ER.pips((told.has('wrapped') ? 1 : 0) + (told.has('card') ? 1 : 0) + (told.has('book') ? 1 : 0) + (nextFile ? 1 : 0), 4);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The wrappers are printed. Part Three is in the cellar: the button at the bottom of the screen.']];
+    if (lock && lock.parentNode) return ['press', [
+      'One line at a time. For the top line, say each word aloud after PLUNKETT&rsquo;S: does it begin with the same sound? Then ask whether it is true: what colour is the paper, how big is the sweet, what does it look like?',
+      'Some words begin with the letter p but not the sound p: ph says f, and in some words the p is silent. Violet and small are true, but they do not begin with a p sound. For the middle line: what noise does a dry twig make when it breaks? And lemonade, when it is poured?',
+      'The top line: the paper on the press is purple, the sweet fits in a pocket, and the six hearts look like pebbles. The middle line: the twig first, the lemonade second. The bottom line: only one of the four is a huge exaggeration.'
+    ]];
+    if (!ready()) return ['read', [
+      'Two things to read: Part Two in the green book, open on the little table in front of the press, and the printed card pinned to the side of the press, THE PLUNKETT RULES FOR A WRAPPER.',
+      'The press is the black iron machine on the right with a brass wheel on top. The card is the little cream card on its right-hand side.'
+    ]];
+    return ['press', ['Everything is read. Click the press.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('A sheet of purple wrappers, still warm from the press.'); return; }
+    if (told.has('wrapped')) { busy = false; ER.say('The wrapping hall. The large gold sweet by the Twistmaster is humming to itself.'); return; }
+    ER.narrate([
+      'The wrapping hall is as long as a church and as blue as the inside of a mussel shell. Moonlight comes through tall windows. Belts rattle along at waist height, carrying nothing, because nobody has told them to stop.',
+      'In the middle stands a great machine of polished chrome: THE TWISTMASTER. It shines like a mirror, and in front of it stands Mrs Mortlake, admiring herself from every side. &ldquo;Look at me,&rdquo; she says. &ldquo;Look at me in this!&rdquo;',
+      'There is a notice on the front: KEEP YOUR FACE AWAY. Mrs Mortlake leans closer, and closer, to blow a kiss at the lady in the chrome.',
+      'The Twistmaster goes WHIRR-CLICK. It goes TWING-TWING. Two silver arms come out, quick as a shop assistant, and when they go back in again, Mrs Mortlake is a sweet: wrapped from toe to chin in gold foil, twisted at both ends, with her face looking out of a little cellophane window.',
+      'From somewhere inside the machine comes the tinkle of a music box, and there is a brass plate on its side.'
+    ], function () {
+      told.set('wrapped'); paint(); SW.sfx.whoosh();
+      SW.verse('vain', 'On the side of the Twistmaster', function () {
+        ER.narrate(['Mr Gribble writes: <i>Item: one sweet, large. Not for eating.</i> Through the cellophane, Mrs Mortlake is smiling. &ldquo;Is my hair all right?&rdquo; she says. &ldquo;Can everybody see my face?&rdquo; Everybody can.'], function () { busy = false; });
+      });
+    });
+  }
+
+  /* ---------- papers ---------- */
+  var CARD = '<h4>The Plunkett Rules for a Wrapper</h4><h5>printed in 1961 &middot; pinned to the press</h5>' +
+    '<p>A wrapper should make a noise before the sweet does. There are two ways to make one.</p>' +
+    '<p><b>Alliteration</b>: words close together that begin with the same <i>sound</i>. <span class="ex">Big Bold Bonbons.</span> Listen; do not look. <span class="ex">Cool candy</span> alliterates, because c and c both say k. So does <span class="ex">fresh phantom fudge</span>, because f and ph both say f. <span class="ex">Cherry cake</span> does not: ch is not k. And some words begin with a letter that you cannot hear at all: knee, write, honest, gnome.</p>' +
+    '<p><b>Onomatopoeia</b>: a word that sounds like the noise it names. <span class="ex">Pop, crunch, fizz, hiss, snap.</span></p>' +
+    '<p class="rule">And for the bottom of every wrapper: a small lie on a wrapper is a crime, because people might believe it. A lie so big that nobody could believe it is only a joke. That is <b>hyperbole</b>.</p>';
+  var BOOK = '<h4>The green book &middot; the last page</h4><h3>The Last Sweet</h3>' +
+    '<p class="hand">Part Two: the Paper</p>' +
+    '<p>A Plunkett wrapper makes a noise before the sweet does. Set three lines of type, and print them on the purple paper.</p>' +
+    '<p class="ln"><i>1</i>The top line: my name, and after it three words that begin with the same sound as my name. They must tell the truth: what colour the paper is, how big the sweet is, and what it looks like.</p>' +
+    '<p class="ln"><i>2</i>The middle line: the noise it makes in your mouth. First it goes like a dry twig broken over your knee. Then it goes like lemonade poured too fast.</p>' +
+    '<p class="ln"><i>3</i>The bottom line: a lie so big that nobody could believe it.</p>';
+  $('#card').addEventListener('click', function (e) {
+    if (busy) return; e.stopPropagation();
+    ER.read({ html: CARD, cls: 'card', clue: { id: 'rules', title: 'The Plunkett Rules for a Wrapper', kind: 'On the press' }, done: function () {
+      SW.terms(['alliteration', 'onomatopoeia', 'hyperbole']);
+      if (told.set('card')) { paint(); ER.say(told.has('book') ? 'Listen, do not look. Now the press.' : 'Sound, not spelling. Part Two is in the green book, on the little table.'); }
+    } });
+  });
+  $('#book').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: BOOK, cls: 'green', clue: { id: 'paper', title: 'The Last Sweet: the Paper', kind: 'The green book' }, done: function () {
+      if (told.set('book')) { paint(); ER.say(told.has('card') ? 'Three lines of type. The press is waiting.' : 'Three lines. The card pinned to the press has Miss Plunkett&rsquo;s rules for a wrapper.'); }
+    } });
+  });
+
+  /* ---------- things in the hall ---------- */
+  SW.thing('#p1', null, 'PLUNKETT&rsquo;S PEAR DROPS: POP! POP! HOORAY! A poster from 1962. Two words that sound like their noise, and a third that is a cheer.', isBusy);
+  SW.thing('#p2', null, 'SHIVERLETS: SO COLD THE PENGUINS WEAR SCARVES. Nobody has ever believed that, which is the point. And penguins do not wear scarves, which is the joke.', isBusy);
+  SW.thing('#p3', null, 'TOFFEE IS A HUG YOU CAN CHEW. Not like a hug: a hug. Miss Plunkett liked a metaphor.', isBusy);
+  SW.thing('#p4', null, 'GUFFAWFFLES: AS LIGHT AS A LAUGH. A simile, from 1980. The waffle on the poster is smiling.', isBusy);
+  SW.thing('#wins', null, 'Tall windows, and a thin moon over the roofs of Spoonhurst. It is nearly midnight.', isBusy);
+  SW.thing('#belts', 'conveyor belt', 'A belt that carries sweets from the Twistmaster to the boxes. Tonight it is carrying the cat, who seems to be enjoying the ride.', isBusy);
+  SW.thing('#foil', 'foil', 'Rolls of foil and paper: purple, pink, gold and silver. The purple one is threaded into the press.', isBusy);
+  SW.thing('#twist', null, 'THE TWISTMASTER. KEEP YOUR FACE AWAY. It shines like a mirror, and it is still humming.', isBusy);
+  $('#wrapped').addEventListener('click', function () {
+    if (busy) return;
+    var L = ['&ldquo;Darling, is my face in the middle of the window?&rdquo; asks the large gold sweet. It is.', '&ldquo;Take a picture,&rdquo; says the sweet. &ldquo;Somebody take a picture of me. This is the best wrapper in the country.&rdquo;', '&ldquo;I have always wanted my face on a wrapper,&rdquo; says Mrs Mortlake, happily. &ldquo;I never thought of being on the inside of one.&rdquo;'];
+    ER.say(L[(told.has('w1') ? 1 : 0) + (told.has('w2') ? 1 : 0)]); if (!told.set('w1')) told.set('w2');
+  });
+  $('#gribble').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(told.has('book') ? '&ldquo;<i>A lie so big that nobody could believe it,</i>&rdquo; reads Mr Gribble. He shakes his head. &ldquo;Lies are not allowed on wrappers. I have a list of rules.&rdquo;' : '&ldquo;Item: one Twistmaster,&rdquo; says Mr Gribble. &ldquo;Item: one Mrs Mortlake, wrapped. I am not sure which list she goes on.&rdquo;');
+  });
+  $('#huxtable').addEventListener('click', function () {
+    if (busy) return;
+    ER.say('Mr Huxtable is picking up scraps of foil from the floor and folding them into his pockets. &ldquo;Waste not,&rdquo; he says. &ldquo;And NOW TEN PER CENT BIGGER, that is what I put on my wrappers. Nobody ever measures.&rdquo;');
+  });
+  $('#press').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('THE PRESS. It has printed a sheet of purple wrappers, and it is very pleased with itself.'); return; }
+    if (!ready()) { ER.say(told.has('book') || told.has('card') ? 'Not yet: read ' + (told.has('book') ? 'the card pinned to the side of the press' : 'Part Two in the green book') + ' first.' : 'A printing press with a brass wheel. Before you set a single letter, read: the green book is open on the little table, and there is a card pinned to the press.'); return; }
+    openLock();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the press: three lines of type ---------- */
+  var TOP = ['purple', 'violet', 'pink', 'pocket', 'small', 'palace', 'pterodactyl', 'pebbles', 'stones', 'pearls', 'phantom', 'psychic'];
+  var MID = ['crunch', 'snap', 'pop', 'boom', 'fizz', 'splat', 'drip', 'buzz', 'squelch'];
+  var BOT = [['holiday', 'AS SWEET AS A SUMMER HOLIDAY'], ['loves', 'THE SWEET THAT LOVES YOU BACK'], ['bigger', 'NOW TEN PER CENT BIGGER'], ['hundred', 'ONE LASTS A HUNDRED YEARS']];
+  var WHY = {
+    violet: 'VIOLET is the right colour, but say it aloud: it begins with a v sound, and PLUNKETT begins with p.',
+    small: 'SMALL is true, but it begins with an s sound. It does not alliterate with PLUNKETT.',
+    stones: 'STONES: true enough, but s is not p.',
+    pink: 'PINK alliterates. But the paper on the press is purple, and a wrapper must tell the truth.',
+    pearls: 'PEARLS alliterates. But are your six hearts white and shiny? Think of what came out of the tray.',
+    palace: 'PALACE alliterates. But palace-sized? Each heart is small enough to hide in your fist.',
+    phantom: 'PHANTOM begins with the letter p, but say it aloud: ph says f.',
+    pterodactyl: 'PTERODACTYL: the p is silent, so it begins with a t sound. And the sweet is not the size of a pterodactyl.',
+    psychic: 'PSYCHIC: the p is silent. It begins with an s sound.',
+    crunch: 'CRUNCH is an apple, or gravel under a boot. A dry twig broken over your knee makes a sharper noise.',
+    pop: 'POP is a balloon or a cork. Not a twig, and not lemonade.',
+    boom: 'BOOM is thunder, or a big drum. Much too loud for a sweet.',
+    splat: 'SPLAT is something soft hitting the floor.',
+    drip: 'DRIP is one drop of water at a time.',
+    buzz: 'BUZZ is a bee, or a doorbell.',
+    squelch: 'SQUELCH is a boot in mud.',
+    holiday: 'AS SWEET AS A SUMMER HOLIDAY is a simile, and it is very nearly true. The book wants a lie so big that nobody could believe it.',
+    loves: 'THE SWEET THAT LOVES YOU BACK is personification. It is a pretty picture, but it is not an exaggeration: nothing in it is made enormous.',
+    bigger: 'NOW TEN PER CENT BIGGER is a small lie, the kind people believe, and the sweet is not bigger at all. Mr Huxtable likes that one. The card says a small lie on a wrapper is a crime.'
+  };
+  function tile(w, label) { var t = ER.el('span', 'tile dnd-item' + (label && label.length > 16 ? ' long' : '')); t.setAttribute('data-w', w); t.textContent = label || w.toUpperCase(); return t; }
+  function openLock() {
+    var busyL = false, m;
+    lock = ER.el('div', 'pr');
+    lock.innerHTML = '<h5>Set three lines of type, then pull the press</h5>' +
+      '<div class="grp" data-g="top"><div><p class="lab">The top line</p><div class="line"><span class="fix">PLUNKETT&#8217;S</span><span class="slot"></span><span class="slot"></span><span class="slot"></span></div></div><div class="tray"></div></div>' +
+      '<div class="grp" data-g="mid"><div><p class="lab">The middle line</p><div class="line"><span class="slot"></span><span class="bang">!</span><span class="slot"></span><span class="bang">!</span></div></div><div class="tray"></div></div>' +
+      '<div class="grp" data-g="bot"><div><p class="lab">The bottom line</p><div class="line"><span class="slot wide"></span></div></div><div class="tray"></div></div>' +
+      '<div class="bn-foot"><p class="bmsg"></p><button type="button" class="btn" id="c-go">Pull the press</button></div>';
+    m = lock.querySelector('.bmsg');
+    function msg(t) { m.innerHTML = ER.gloss(t); }
+    var saved = ER.flag('c-set') || {};
+    var groups = { top: TOP.map(function (w) { return [w]; }), mid: MID.map(function (w) { return [w]; }), bot: BOT };
+    ER.$$('.grp', lock).forEach(function (g) {
+      var k = g.getAttribute('data-g'), tray = g.querySelector('.tray'), slots = ER.$$('.slot', g), sv = saved[k] || [];
+      groups[k].forEach(function (it) { tray.appendChild(tile(it[0], it[1])); });
+      sv.forEach(function (w, i) { var t = w && tray.querySelector('[data-w="' + w + '"]'); if (t && slots[i]) slots[i].appendChild(t); });
+      SW.swapIn(g, '.tile', '.slot', tray);
+      ER.dnd(g, { item: '.tile', slot: '.slot', home: tray, lock: function () { return busyL || !!nextFile; }, change: function () {
+        saved[k] = slots.map(function (s) { var t = s.querySelector('.tile'); return t ? t.getAttribute('data-w') : ''; });
+        ER.flag('c-set', saved); slots.forEach(function (s) { s.classList.remove('bad'); });
+      } });
+    });
+    function line(k) { return ER.$$('.grp[data-g="' + k + '"] .slot', lock).map(function (s) { var t = s.querySelector('.tile'); return t ? t.getAttribute('data-w') : ''; }); }
+    function bad(k, i) { var s = ER.$$('.grp[data-g="' + k + '"] .slot', lock)[i]; s.classList.add('bad'); ER.shake(s); }
+    lock.querySelector('#c-go').addEventListener('click', function () {
+      if (busyL || nextFile) return;
+      var t = line('top'), md = line('mid'), b = line('bot'), i, file;
+      if (t.concat(md, b).some(function (w) { return !w; })) { ER.sfx.no(); msg('The press will not print a line with a hole in it. Fill every gap: three words on the top line, two in the middle, one at the bottom.'); return; }
+      SW.sfx.press();
+      if (!ER.check('top', t.slice().sort().join('.'))) {
+        for (i = 0; i < 3; i++) if (!ER.check('tw', t[i])) { bad('top', i); msg('The press prints a smudge. The top line is wrong: ' + WHY[t[i]]); return; }
+      }
+      if (!ER.check('mid', md.join('.'))) {
+        if (ER.check('mid', md.slice().reverse().join('.'))) { bad('mid', 0); bad('mid', 1); msg('The right two noises, the wrong way round. Which comes first: the twig or the lemonade?'); return; }
+        i = ER.check('m1', md[0]) ? 1 : 0;
+        if (i === 1 && ER.check('m2', md[1])) i = 0;
+        bad('mid', i); msg('The top line prints beautifully. The middle line is wrong: ' + (WHY[md[i]] || (md[i].toUpperCase() + ' is a fine noise, but it is not the noise in this place on the line. Which comes first?')));
+        return;
+      }
+      if (!ER.check('bot', b[0])) { bad('bot', 0); msg('Two lines print beautifully. The bottom line is wrong: ' + WHY[b[0]]); return; }
+      file = ER.exitOk([t.slice().sort().join('.') + '-' + md.join('.') + '-' + b[0]]);
+      if (!file) { msg('The press jams. Something is wrong with this page: tell your teacher.'); return; }
+      nextFile = file; ER.flag('c-file', file); busyL = true;
+      var s0 = ER.state(); s0.done = s0.done || {}; s0.done.wrap = 1; ER.persist(true);
+      msg('The brass wheel turns, the press comes down with a thump, and out slides a sheet of purple wrappers: <b>PLUNKETT&rsquo;S ' + t.map(function (w) { return w.toUpperCase(); }).join(' ') + ' &middot; SNAP! FIZZ! &middot; ONE LASTS A HUNDRED YEARS</b>.');
+      setTimeout(function () {
+        ER.closeAll(); SW.solved(); paint(); busy = true;
+        SW.mine('wrapper', 'The Paper', '<p>Top line: PLUNKETT&rsquo;S PURPLE POCKET PEBBLES. Same sound, not same letter: violet and small are true but do not alliterate; ph says f; the p in pterodactyl and psychic is silent.</p><p>Middle line: SNAP! (a dry twig) FIZZ! (lemonade). Onomatopoeia.</p><p>Bottom line: ONE LASTS A HUNDRED YEARS. A lie too big to believe: hyperbole.</p>');
+        ER.narrate([
+          'Mr Gribble holds the sheet up to the moonlight and reads it with his lips moving. &ldquo;Snap,&rdquo; he says. &ldquo;Fizz.&rdquo; He looks surprised, as if the words had made the noise in his mouth.',
+          '&ldquo;A hundred years,&rdquo; says Mr Huxtable. &ldquo;That is a lie. You could be fined for that.&rdquo; &ldquo;Nobody could believe it,&rdquo; you say. &ldquo;That is what makes it a joke.&rdquo; Mr Huxtable does not believe in jokes. They are free, and he has never trusted anything free.',
+          'At the bottom of the page, under Part Two, there is one more line in purple ink: <i>Part Three, the Finish, is pinned over my desk in the cellar. It is a riddle. Grown-ups hate riddles.</i>',
+          'Mr Huxtable is already on his way to the cellar stairs. The safe that says SECRET RECIPES is down there, and he has three hundred more numbers to try.'
+        ], function () { busy = false; $('#go').classList.add('on'); });
+      }, 4200);
+    });
+    msg('Drag a block of type into a gap, or click a block and then a gap. The tray beside each line holds the blocks for that line. Part Two and the rules card are in your notebook.');
+    ER.open('ov-lock', lock);
+  }
+})();
+</script>
+</body>
+</html>

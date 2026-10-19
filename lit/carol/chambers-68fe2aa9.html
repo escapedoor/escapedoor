@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Scrooge's Chambers · The Boy in Sunday Clothes</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lit.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="carol.css">
+<style>
+  body{--bg:#0d1416;--accent:#9fd0c0;--font-display:'Cinzel',serif;--font-ui:'Goudy Bookletter 1911',serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(10,16,18,.97);--tc-ink:#dbe8e2;--cap-bg:rgba(12,20,22,.95);--panel:#16242a;--face-bg:#1c2a2e;--q-ink:#a8e0d0;--fade:#020606;--hud-bg:rgba(10,16,18,.84)}
+  .tc-room{font-family:'Cinzel',serif;font-size:clamp(40px,5.6vw,76px);color:#b8e6d6;letter-spacing:.04em}
+  .tc-theme{color:#9fd0c0}
+  .sC{font-family:'Cinzel',serif;text-anchor:middle}
+  .flame{animation:flick 2.2s steps(1,end) infinite;transform-box:fill-box;transform-origin:50% 100%}
+  @keyframes flick{0%{transform:scaleY(1)}35%{transform:scaleY(.8)}60%{transform:scaleY(1.1)}}
+  #marley{display:none;opacity:0;transition:opacity 2s}
+  #scene.ghost #marley{display:inline;opacity:1}
+  #marley .float{animation:float 5s ease-in-out infinite}
+  @keyframes float{50%{transform:translateY(-8px)}}
+  #bell .sw{transform-box:fill-box;transform-origin:50% 0}
+  #scene.ring #bell .sw{animation:swing .5s ease-in-out infinite alternate}
+  #scene.ring .ringmark{display:inline}
+  .ringmark{display:none}
+  @keyframes swing{from{transform:rotate(-24deg)}to{transform:rotate(24deg)}}
+  #links.ready,#mark.ready{animation:glow 1.5s steps(1,end) infinite}
+  @keyframes glow{50%{filter:brightness(1.6)}}
+  #phantoms{display:none}#scene.window #phantoms{display:inline}
+  #phantoms g{animation:drift 9s linear infinite}#phantoms g:nth-child(2){animation-delay:-3s}#phantoms g:nth-child(3){animation-delay:-6s}
+  @keyframes drift{from{transform:translate(-30px,10px)}to{transform:translate(60px,-30px)}}
+  #win .sash{transition:transform 2s}#scene.window #win .sash{transform:translateY(-150px)}
+
+  /* the lock: the chain of the book */
+  .chainbox{padding:14px 18px 14px;background:#1a2428 radial-gradient(ellipse at 50% 0,#2a3c40,#121a1c);border:1px solid #4a6a66;box-shadow:0 26px 70px rgba(0,0,0,.75)}
+  .chainbox h5{margin:0 0 8px;font-family:'Cinzel',serif;font-weight:normal;font-size:21px;color:#cfe8e0;text-align:center;letter-spacing:.04em}
+  .forge{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;position:relative;padding:6px 0 4px}
+  .forge:before{content:'';position:absolute;left:0;right:0;top:50%;height:6px;margin-top:-3px;background:repeating-linear-gradient(90deg,#6a7a76 0 14px,transparent 14px 20px);opacity:.55}
+  .sock{position:relative;min-height:84px;margin:0 5px;border:3px dashed rgba(160,200,190,.35);border-radius:40px;display:flex;align-items:stretch}
+  .sock>em{position:absolute;left:50%;top:-2px;transform:translate(-50%,-50%);padding:0 8px;background:#1a2428;font-style:normal;font-family:'Cinzel',serif;font-size:13px;letter-spacing:.2em;color:#8fb8ac;z-index:2}
+  .lk{position:relative;flex:1;display:flex;flex-direction:column;justify-content:space-between;gap:6px;padding:16px 14px 14px;border-radius:38px;cursor:pointer;
+    background:#d8d4c8 linear-gradient(160deg,#ecebe4,#a8a49a);border:5px solid #4e5652;box-shadow:inset 0 0 0 3px #8a928e,0 6px 14px rgba(0,0,0,.5);color:#1a1a18;font-family:'EB Garamond',Georgia,serif;font-size:15px;line-height:1.22}
+  .lk b{display:block;font-family:'Cinzel',serif;font-weight:normal;font-size:10.5px;letter-spacing:.2em;color:#5a4a3a;margin-bottom:2px}
+  .lk .bt{border-top:1px solid #8a8478;padding-top:6px}
+  .lk:hover{filter:brightness(1.08)}
+  .lk.bad{border-color:#c0402a;box-shadow:inset 0 0 0 3px #e08a6a,0 0 0 4px rgba(224,100,70,.4)}
+  .lk .ttl{display:none;margin:-6px -4px 2px;padding:3px 4px;background:#2a3a3a;color:#e6f2ec;text-align:center;font-family:'Cinzel',serif;font-size:12px;letter-spacing:.06em;border-radius:12px}
+  .done .lk .ttl{display:block}
+  .pile{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:12px;min-height:60px}
+  .jobs{display:none;margin-top:10px}
+  .done .jobs{display:block}
+  .done .pile{display:none}
+  .jobrow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+  .jslot{min-height:66px;border:2px dashed rgba(160,200,190,.4);border-radius:6px;background:rgba(0,0,0,.2)}
+  .jpile{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:10px;min-height:66px}
+  .job{padding:7px 9px;background:#efe2c2;color:#2a1c10;border:1px solid #8a7448;border-radius:3px;font-family:'Goudy Bookletter 1911',serif;font-size:14.5px;line-height:1.22}
+  .job.held{outline:3px solid var(--accent);outline-offset:1px}
+  .job.bad{background:#f3c4b4}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <filter id="rough" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="8"/><feDisplacementMap in="SourceGraphic" scale="3"/></filter>
+  <filter id="glowF" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="9"/></filter>
+  <pattern id="paper" width="120" height="120" patternUnits="userSpaceOnUse"><rect width="120" height="120" fill="#1e2c2c"/><path d="M60 0v120M0 60h120" stroke="#243434" stroke-width="2"/><circle cx="30" cy="30" r="5" fill="#2a3c3a"/><circle cx="90" cy="90" r="5" fill="#2a3c3a"/></pattern>
+  <pattern id="boards" width="200" height="34" patternUnits="userSpaceOnUse"><rect width="200" height="34" fill="#1c1612"/><path d="M0 .5h200M70 0v17M150 17v17" stroke="#100c08" stroke-width="2"/></pattern>
+  <pattern id="tile" width="44" height="44" patternUnits="userSpaceOnUse"><rect width="44" height="44" fill="#e6ecef"/><rect x="1" y="1" width="42" height="42" fill="none" stroke="#9fb0c0" stroke-width="1.5"/><path d="M8 8q4 -4 8 0M28 30q6 -6 10 2" stroke="#3a5aa0" stroke-width="1.6" fill="none"/><circle cx="22" cy="22" r="7" fill="none" stroke="#3a5aa0" stroke-width="1.6"/></pattern>
+  <radialGradient id="fireG"><stop offset="0" stop-color="#ffb060" stop-opacity=".55"/><stop offset="1" stop-color="#ff8040" stop-opacity="0"/></radialGradient>
+  <radialGradient id="ghostG"><stop offset="0" stop-color="#bff0e0" stop-opacity=".5"/><stop offset="1" stop-color="#80c0b0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="52%" r="72%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".6" stop-color="#020606" stop-opacity=".35"/><stop offset="1" stop-color="#000" stop-opacity=".92"/></radialGradient>
+  <clipPath id="winC"><rect x="96" y="150" width="236" height="380"/></clipPath>
+</defs>
+
+<rect x="-1000" y="-400" width="3600" height="1110" fill="url(#paper)"/>
+<rect x="-1000" y="560" width="3600" height="150" fill="#18221f"/><rect x="-1000" y="556" width="3600" height="10" fill="#0e1412"/>
+<rect x="-1000" y="700" width="3600" height="800" fill="url(#boards)"/>
+
+<!-- the window -->
+<g id="win" class="hot"><rect x="82" y="136" width="264" height="408" fill="#0e1010"/>
+  <g clip-path="url(#winC)"><rect x="96" y="150" width="236" height="380" fill="#0a1424"/><g fill="#d8e4f0"><circle cx="140" cy="200" r="1.6"/><circle cx="250" cy="180" r="1.4"/><circle cx="300" cy="240" r="1.6"/><circle cx="190" cy="260" r="1.2"/></g>
+    <path d="M96 470v-90h40v-30h50v60h40v-40h60v100z" fill="#05080e"/>
+    <g id="phantoms" fill="#bfe8dc" opacity=".55"><g><path d="M140 300q10 -30 20 0l6 50q-16 6 -32 0z"/><path d="M150 350q20 10 40 30" stroke="#bfe8dc" stroke-width="2" fill="none"/></g><g><path d="M230 260q10 -30 20 0l6 50q-16 6 -32 0z"/></g><g><path d="M190 380q8 -24 16 0l5 40q-13 5 -26 0z"/></g></g>
+    <g class="sash"><rect x="96" y="150" width="236" height="190" fill="#5a7a8a" opacity=".12"/><path d="M96 340h236M214 150v190" stroke="#0e1010" stroke-width="7"/></g>
+  </g><path d="M96 340h236M214 340v190" stroke="#0e1010" stroke-width="7"/><rect x="74" y="544" width="280" height="12" fill="#2a2a24"/></g>
+
+<!-- the old bell high on the wall -->
+<g id="bell" class="hot"><path d="M560 60v40" stroke="#5a5040" stroke-width="3"/><circle cx="560" cy="58" r="6" fill="#5a5040"/>
+  <g class="sw"><path d="M560 100v16" stroke="#5a5040" stroke-width="3"/><path d="M538 158q0 -42 22 -42t22 42z" fill="#a88a3a" stroke="#4a3a14" stroke-width="2.4"/><circle cx="560" cy="162" r="6" fill="#4a3a14"/></g>
+  <path d="M600 104l-30 -20" stroke="#5a5040" stroke-width="2"/>
+  <g class="ringmark" fill="none" stroke="#d8e8c0" stroke-width="3" stroke-linecap="round"><path d="M516 120q-12 20 0 40M502 110q-20 30 0 60M604 120q12 20 0 40M618 110q20 30 0 60"/></g></g>
+
+<!-- the Dutch fireplace -->
+<g id="fire"><rect x="640" y="250" width="420" height="452" fill="#3a2e24"/><rect x="616" y="232" width="468" height="26" fill="#4a3a2c" stroke="#1a120a" stroke-width="3"/>
+  <g id="tiles" class="hot"><rect x="660" y="272" width="380" height="430" fill="url(#tile)"/><rect x="730" y="360" width="240" height="342" fill="#0e0a08"/></g>
+  <path d="M750 690h200M750 676h200M750 662h200" stroke="#3a3430" stroke-width="5"/><g class="flame"><path d="M818 662q8 -30 16 -6q6 -18 12 2q4 -10 8 4z" fill="#e8742a"/></g>
+  <circle cx="850" cy="640" r="150" fill="url(#fireG)" pointer-events="none"/>
+  <g id="gruel" class="hot"><path d="M920 650h44v20q0 12 -22 12t-22 -12z" fill="#2a2a2e" stroke="#0a0a0a" stroke-width="2"/><path d="M964 656h22" stroke="#2a2a2e" stroke-width="5"/><ellipse cx="942" cy="650" rx="22" ry="5" fill="#e8dfc8"/></g>
+  <!-- the bookmark a reader left on the mantelpiece -->
+  <g id="mark" class="hot"><rect x="988" y="196" width="22" height="40" fill="#efe2c2" stroke="#7a2a1c" stroke-width="2"/><path d="M999 236v30" stroke="#a8231c" stroke-width="4"/><circle cx="999" cy="268" r="4" fill="#a8231c"/></g>
+  <g fill="#6a5a3a"><rect x="660" y="206" width="16" height="26"/><rect x="1020" y="200" width="14" height="32"/></g>
+</g>
+
+<!-- Scrooge in his chair, in dressing-gown, slippers and nightcap -->
+<g id="scr" class="hot ink"><path d="M1130 702v-60M1250 702v-60" stroke="#2a1a10" stroke-width="10"/>
+  <path d="M1110 650q-6 -150 30 -200q60 -20 120 0q20 60 10 200z" fill="#5a2a2a" stroke="#1a0e0a" stroke-width="3"/>
+  <path d="M1132 560q-10 -60 14 -120q40 -12 80 4q6 60 -10 116z" fill="#6a4a5a" stroke="#2b2118" stroke-width="2.4"/>
+  <path d="M1120 600q60 -20 120 0v50h-120z" fill="#6a4a5a" stroke="#2b2118" stroke-width="2.4"/><path d="M1124 650h40l4 50h-30z" fill="#6a4a5a" stroke="#2b2118" stroke-width="2"/><ellipse cx="1150" cy="702" rx="20" ry="7" fill="#8a2a2a"/>
+  <path d="M1150 470q-40 30 -60 60" fill="none" stroke="#2b2118" stroke-width="15" stroke-linecap="round"/><path d="M1150 470q-40 30 -60 60" fill="none" stroke="#6a4a5a" stroke-width="11" stroke-linecap="round"/>
+  <ellipse cx="1084" cy="534" rx="18" ry="8" fill="#efe6d0" stroke="#2b2118" stroke-width="2"/><path d="M1084 528l-4 -14" stroke="#c8c0b0" stroke-width="3"/>
+  <ellipse cx="1170" cy="412" rx="22" ry="26" fill="#e6cfb4" stroke="#2b2118" stroke-width="2.4"/><path d="M1150 404l-18 8l16 6" fill="#e6cfb4" stroke="#2b2118" stroke-width="1.8"/>
+  <path d="M1150 398q6 -32 30 -30q24 4 26 34q4 20 20 30q-14 4 -22 -10q-4 -16 -20 -20z" fill="#f2ede2" stroke="#2b2118" stroke-width="1.8"/><circle cx="1228" cy="434" r="6" fill="#f2ede2" stroke="#2b2118" stroke-width="1.4"/>
+  <circle cx="1160" cy="408" r="2.6" fill="#a8231c"/><path d="M1152 428h10" stroke="#5a6aa0" stroke-width="2"/></g>
+
+<!-- the heavy door, double-locked -->
+<g id="door" class="hot"><rect x="1380" y="210" width="190" height="492" fill="#1a1210"/><rect x="1392" y="222" width="166" height="480" fill="#3a2418"/>
+  <rect x="1406" y="240" width="138" height="190" fill="none" stroke="#24160e" stroke-width="5"/><rect x="1406" y="460" width="138" height="220" fill="none" stroke="#24160e" stroke-width="5"/>
+  <rect x="1404" y="452" width="22" height="14" fill="#8a7a3a"/><rect x="1404" y="482" width="22" height="14" fill="#8a7a3a"/><circle cx="1540" cy="470" r="8" fill="#a88a3a"/></g>
+
+<!-- Marley's Ghost, and the loose links of his chain -->
+<g id="marley" class="hot"><circle cx="420" cy="500" r="190" fill="url(#ghostG)"/>
+  <g class="float"><g id="marleyfig" transform="translate(430 720)" opacity=".8"></g>
+    <path d="M396 556q-40 6 -60 60q-10 40 30 70q40 20 80 6" fill="none" stroke="#7a8a86" stroke-width="7" stroke-dasharray="12 6"/>
+    <g fill="#8a9a96" stroke="#3a4a46" stroke-width="2" opacity=".85"><rect x="340" y="610" width="26" height="20"/><rect x="380" y="672" width="22" height="18"/><circle cx="446" cy="690" r="10"/></g></g></g>
+<g id="links" class="hot" opacity="0"><g fill="none" stroke="#c8d8d0" stroke-width="7"><ellipse cx="500" cy="760" rx="26" ry="15"/><ellipse cx="548" cy="772" rx="26" ry="15" transform="rotate(20 548 772)"/><ellipse cx="600" cy="770" rx="26" ry="15"/><ellipse cx="652" cy="784" rx="26" ry="15" transform="rotate(-15 652 784)"/><ellipse cx="704" cy="780" rx="26" ry="15"/><ellipse cx="560" cy="820" rx="26" ry="15"/><ellipse cx="640" cy="826" rx="26" ry="15"/></g>
+  <circle cx="600" cy="790" r="110" fill="url(#ghostG)"/></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Wait for the bell to toll One</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="carol.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told, nextFile = null, lock = null;
+  $('#marleyfig').innerHTML = CC.fig({ h: 320, coat: '#7d8c84', vest: '#9aaaa2', legs: '#a8b8b0', skin: '#cfe0d4', hairStyle: 'pigtail', hair: '#e2ead8', hat: 'kerchief', face: 'plain', armL: 'out', armR: 'down', shoes: '#5a6a66' });
+
+  ER.init({
+    theme: 'lit', story: 'carol', storyTitle: 'The Boy in Sunday Clothes', id: 'chambers', no: 'II', title: 'Scrooge’s Chambers',
+    go: 'Follow him up the stairs',
+    intro: [
+      'You put Scrooge back together. Dickens <i>tells</i> you what he is in one breath (&ldquo;a squeezing, wrenching, grasping, scraping, clutching, covetous, old sinner!&rdquo;) and then <i>shows</i> you: the cold in his face, his words to his nephew and to the gentlemen, the coal-box he keeps in his own room, the ruler that chases a carol singer from his keyhole, and the blind men&rsquo;s dogs that pull their owners into doorways when he comes. The hungry orphan asking for more, and the debtor doing sums, went back to their own books on the shelf.',
+      'Scrooge has taken his melancholy dinner in his usual melancholy tavern. Now he is crossing a yard so dark that even he has to feel his way, to the gloomy rooms that once belonged to his partner, Jacob Marley.',
+      'This is where the Three Spirits are to be announced. But the staves that come after this one are still in the wrong order, and a ghost who gives his warning in the wrong order will send the wrong Spirit first.'
+    ],
+    exit: {"next":"fezziwig","w":{"b645e8a7":"279f22f8"}}, tags: {"c1":["37f0ce8b"],"c2":["94008c40"],"c3":["54e2d033"],"c4":["220d9f95"],"c5":["06ed1ac8"],"st":["722d99e1","bcafe274"],"j1":["fd14d29d"],"j2":["8fa9a009"],"j3":["9929153a"],"j4":["d4098781"],"j5":["30f7d45b"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = CC.told('b-told'); nextFile = ER.flag('b-file') || null;
+  var chainDone = !!ER.flag('b-chain');
+  function isBusy() { return busy; }
+  function ready() { return told.has('marley') && told.has('mark'); }
+  function paint() {
+    var s = $('#scene');
+    s.classList.toggle('ghost', told.has('in') && !nextFile);
+    s.classList.toggle('window', !!nextFile);
+    $('#links').setAttribute('opacity', told.has('in') && !nextFile ? '1' : '0');
+    $('#links').classList.toggle('ready', ready() && !nextFile);
+    $('#mark').classList.toggle('ready', told.has('marley') && !told.has('mark'));
+    ER.pips((told.has('marley') ? 1 : 0) + (told.has('mark') ? 1 : 0) + (chainDone ? 1 : 0) + (nextFile ? 1 : 0), 4);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Marley has given his warning and gone out of the window. The button at the bottom waits for the bell.']];
+    if (lock && lock.parentNode && !chainDone) return ['chain', [
+      'Every link has the first words of a stave on top and its last words underneath. A link joins the next one only if the next one begins exactly where it ends. Which link can begin a whole book?',
+      'Two staves end with Scrooge falling asleep, and two begin with him waking. One small word in one of the first lines tells you which waking comes second. The Phantom and the bedpost are easier: find the stave that ends with each, and the stave that begins with it.',
+      'Two links have no kettle and no church in this book: they come from Dickens&rsquo;s other Christmas books. The order is: Marley dead; Scrooge wakes in the dark; he wakes &lsquo;again&rsquo; at One; the Phantom approaches; the bedpost is his own.'
+    ]];
+    if (lock && lock.parentNode) return ['jobs', [
+      'The bookmark on the mantelpiece lists five jobs a part of a story can do. Each stave does one of them.',
+      'The First of the Three Spirits is the Ghost of Christmas Past; the Second is Christmas Present; the Last is the Spirit of what is still to come.',
+      'Stave One sets up; Stave Two goes back; Stave Three watches the present unseen; Stave Four shows what may come; Stave Five shows the change and ties the ends.'
+    ]];
+    if (!told.has('marley')) return ['marley', ['A ghost has come through a double-locked door. Click Marley&rsquo;s Ghost and hear what the page gives him to say.', 'Marley is the shining figure on the left, wound about with his chain.']];
+    if (!told.has('mark')) return ['mark', ['A reader once left something on Scrooge&rsquo;s mantelpiece, at the right-hand end: a long strip of card with a red ribbon.', 'Click the bookmark on the mantelpiece, top right of the fireplace.']];
+    return ['links', ['The loose links on the floor are the staves of the book. Click them, and forge the chain in order.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('The window is wide open. The air outside is full of phantoms, all in chains.'); return; }
+    if (told.has('in')) { busy = false; ER.say('Marley&rsquo;s Ghost is waiting, and so are the loose links of his chain.'); return; }
+    ER.narrate([
+      'There is nothing at all particular about the knocker on Scrooge&rsquo;s door, except that it is very large. Scrooge puts his key in the lock, and sees in the knocker, for one moment, <i>not a knocker, but Marley&rsquo;s face</i>.',
+      'He says &ldquo;Pooh, pooh!&rdquo; and closes the door with a bang. You are through it before it shuts. Up the wide stairs; nobody under the table, nobody under the sofa; and then he double-locks himself in, which is not his custom, and sits down to his gruel by a very low fire.',
+      'The fireplace is an old Dutch one, paved all round with tiles of Bible pictures. Scrooge cannot stop seeing Marley&rsquo;s face on every one.',
+      'Then the old bell on the wall begins to swing. Softly at first, and then it rings out loudly, and so does every bell in the house.',
+      'The bells stop all together. A clanking, deep down below. It comes up the stairs. It comes straight towards the door. And through the heavy door, without a pause, comes Marley&rsquo;s Ghost.',
+      'He drags a long chain made of cash-boxes, keys, padlocks, ledgers, deeds and heavy purses wrought in steel. But seven links of it lie loose on the floor, and they are not steel at all. Each is stamped with words. They are the staves of the book, and two others that do not belong here.'
+    ], function () { busy = false; told.set('in'); paint(); });
+  }
+  /* the bells: seen as well as heard */
+  var bellT = 0;
+  function ring() {
+    $('#scene').classList.add('ring'); ER.sfx.bell(); setTimeout(ER.sfx.bell, 600); setTimeout(ER.sfx.bell, 1300);
+    clearTimeout(bellT); bellT = setTimeout(function () { $('#scene').classList.remove('ring'); }, 3200);
+  }
+  var capObs = new MutationObserver(function () {
+    var p = ER.$('.cap p'), t = p ? p.textContent : '';
+    if (/every bell in the house/.test(t) && !told.has('rang')) { told.set('rang'); ring(); }
+    if (/comes Marley/.test(t)) $('#scene').classList.add('ghost');
+    if (/seven links of it/.test(t)) $('#links').setAttribute('opacity', '1');
+  });
+  capObs.observe(document.body, { subtree: true, childList: true, characterData: true });
+
+  var MARK = '<h4>A Carol in Prose</h4><h5>a reader&rsquo;s bookmark</h5>' +
+    '<p>A carol is a Christmas song, and a song is sung in verses. So when Dickens called his book <i>A Christmas Carol</i>, he called its five chapters <b>staves</b>: an old word for the verses of a song. (His next Christmas books played the same trick: <i>The Chimes</i> is in Quarters, like a church clock, and <i>The Cricket on the Hearth</i> is in Chirps.)</p>' +
+    '<p class="orn">&middot; &middot; &middot;</p><p>A story is built in parts, and each part has a job.</p>' +
+    '<p>The <b>set-up</b> shows who, where, and what is wrong, and often gives a warning. A <b>flashback</b> goes back to an earlier time, to explain the present. The present can be shown <b>from outside</b>, by somebody who watches and cannot be seen. A <b>flash-forward</b> shows a time still to come. The <b>end</b> shows the change in action, and ties up the loose ends.</p>' +
+    '<p>Dickens joins his staves like the links of a chain: each one picks up exactly where the last one left off.</p>';
+  $('#mark').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: MARK, cls: 'mark', clue: { id: 'mark', title: 'A Carol in Prose', kind: 'Left in the book' }, done: function () {
+      CC.terms(['stave', 'structure', 'set-up', 'flashback', 'flash-forward', 'resolution']);
+      if (told.set('mark')) { paint(); ER.say(told.has('marley') ? 'Five staves, five jobs, and a chain. The loose links are on the floor.' : 'Now hear what Marley has come to say.'); }
+    } });
+  });
+  $('#marley').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Marley’s Ghost', role: 'Stave One · what the page says', face: window.FACE('marley'),
+      lines: [
+        { note: 'The same face: the very same. Marley in his pigtail, usual waistcoat, tights and boots. His body is transparent, so that Scrooge, looking through his waistcoat, can see the two buttons on his coat behind.', a: '&ldquo;You don&rsquo;t believe in me,&rdquo; observed the Ghost.</p><p>&ldquo;I don&rsquo;t,&rdquo; said Scrooge.' },
+        { a: '&ldquo;&hellip; You may be an undigested bit of beef, a blot of mustard, a crumb of cheese, a fragment of an underdone potato. There&rsquo;s more of gravy than of grave about you, whatever you are!&rdquo;</p><p>Scrooge was not much in the habit of cracking jokes &hellip; The truth is, that he tried to be smart, as a means of distracting his own attention, and keeping down his terror &hellip;' },
+        { a: '&ldquo;I wear the chain I forged in life,&rdquo; replied the Ghost. &ldquo;I made it link by link, and yard by yard; I girded it on of my own free will, and of my own free will I wore it. Is its pattern strange to you?&rdquo;' },
+        { a: '&ldquo;But you were always a good man of business, Jacob,&rdquo; faltered Scrooge, who now began to apply this to himself.</p><p>&ldquo;Business!&rdquo; cried the Ghost, wringing its hands again. &ldquo;Mankind was my business. The common welfare was my business; charity, mercy, forbearance, and benevolence, were, all, my business. The dealings of my trade were but a drop of water in the comprehensive ocean of my business!&rdquo;' },
+        { a: '&ldquo;I am here to-night to warn you, that you have yet a chance and hope of escaping my fate. A chance and hope of my procuring, Ebenezer.&rdquo;</p><p>&ldquo;You will be haunted,&rdquo; resumed the Ghost, &ldquo;by Three Spirits.&rdquo;' },
+        { note: 'And there he stops, and looks down at the loose links of his chain. He cannot say which Spirit comes first while the staves are out of order.' }
+      ],
+      clue: { id: 'marley', title: 'Marley&rsquo;s Ghost', kind: 'Stave One' },
+      done: function (seen) { if (seen && told.set('marley')) { paint(); ER.say('&ldquo;Mankind was my business.&rdquo; And the Three Spirits are waiting for their staves to be put in order.'); } }
+    });
+  });
+  CC.thing('#tiles', 'tile', 'Cains and Abels, Pharaoh&rsquo;s daughters, Queens of Sheba, Apostles putting off to sea in butter-boats: and on every tile, to Scrooge, old Marley&rsquo;s head.', isBusy);
+  CC.thing('#bell', 'bell', 'A disused bell, that communicates for some purpose now forgotten with a room at the top of the building.', isBusy);
+  CC.thing('#gruel', 'gruel', 'The little saucepan of gruel on the hob. Scrooge has a cold in his head.', isBusy);
+  CC.thing('#door', null, 'Double-locked, as he locked it with his own hands, and the bolts undisturbed. Marley came through it all the same.', isBusy);
+  CC.thing('#win', null, function () { return nextFile ? 'The air is filled with phantoms, wandering hither and thither in restless haste, and every one of them wears chains like Marley&rsquo;s.' : 'A black window, and the fog pressing on it.'; }, isBusy);
+  CC.thing('#scr', null, function () { return nextFile ? 'Scrooge tried to say &ldquo;Humbug!&rdquo; but stopped at the first syllable.' : 'Scrooge, in his dressing-gown and nightcap, fighting against his senses.'; }, isBusy);
+  $('#links').addEventListener('click', function () {
+    if (busy || nextFile) return;
+    if (!ready()) { ER.say(told.has('marley') ? 'Seven links, stamped with words. A reader once left something on the mantelpiece that might help: a bookmark with a red ribbon.' : 'Seven loose links, stamped with words. First hear what Marley&rsquo;s Ghost has come to say.'); return; }
+    openLock();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the lock: forge the chain of the book, link by link ---------- */
+  var LINKS = {
+    m1: ['Awaking in the middle of a prodigiously tough snore, and sitting up in bed to get his thoughts together, Scrooge had no occasion to be told that the bell was again upon the stroke of One.', '&hellip; beheld a solemn Phantom, draped and hooded, coming, like a mist along the ground, towards him.', 'Stave III &middot; The Second of the Three Spirits'],
+    m2: ['The kettle began it!', '&hellip; why has its shadow fallen on his hearth!', ''],
+    m3: ['Yes! and the bedpost was his own.', '&hellip; And so, as Tiny Tim observed, God bless Us, Every One!', 'Stave V &middot; The End of It'],
+    m4: ['Marley was dead: to begin with.', '&hellip; went straight to bed, without undressing, and fell asleep upon the instant.', 'Stave I &middot; Marley&rsquo;s Ghost'],
+    m5: ['There are not many people &hellip; who would care to sleep in a church.', '&hellip; he fell, mechanically, into his usual trot, and trotted off.', ''],
+    m6: ['The Phantom slowly, gravely, silently, approached.', '&hellip; It shrunk, collapsed, and dwindled down into a bedpost.', 'Stave IV &middot; The Last of the Spirits'],
+    m7: ['When Scrooge awoke, it was so dark, that looking out of bed, he could scarcely distinguish the transparent window from the opaque walls of his chamber.', '&hellip; had barely time to reel to bed, before he sank into a heavy sleep.', 'Stave II &middot; The First of the Three Spirits']
+  };
+  var ORDER = ['m1', 'm2', 'm3', 'm4', 'm5', 'm6', 'm7'];
+  var JOBS = [['w1', 'a flash-forward: shadows of what may come'], ['w2', 'the set-up: who, where, what is wrong, and a warning'], ['w3', 'the change in action, and every end tied up'], ['w4', 'a flashback: the past, to explain the present'], ['w5', 'the present, seen from outside by somebody nobody can see']];
+  var ROMAN = ['I', 'II', 'III', 'IV', 'V'];
+  function linkEl(id) {
+    var L = LINKS[id], d = ER.el('div', 'lk');
+    d.setAttribute('data-k', id);
+    d.innerHTML = '<span class="ttl">' + (L[2] || '') + '</span><div><b>BEGINS</b>' + L[0] + '</div><div class="bt"><b>ENDS</b>' + L[1] + '</div>';
+    return d;
+  }
+  function openLock() {
+    var busyL = false, chain = ER.flag('b-links') || [];
+    lock = ER.el('div', 'pz');
+    var box = ER.el('div', 'chainbox' + (chainDone ? ' done' : ''));
+    box.innerHTML = '<h5>Forge the chain of the book, link by link</h5><div class="forge"></div><div class="pile"></div>' +
+      '<div class="jobs"><div class="jobrow"></div><div class="jpile"></div></div>';
+    var foot = ER.el('div', 'pz-foot', '<p class="pmsg"></p><button type="button" class="btn" id="pull">Pull the chain tight</button>');
+    lock.appendChild(box); lock.appendChild(foot);
+    var forge = box.querySelector('.forge'), pile = box.querySelector('.pile'), m = foot.querySelector('.pmsg'), btn = foot.querySelector('#pull');
+    function msg(t) { m.innerHTML = ER.gloss(t); }
+    var socks = ROMAN.map(function (r) { var s = ER.el('div', 'sock', '<em>' + r + '</em>'); forge.appendChild(s); return s; });
+    function draw() {
+      socks.forEach(function (s, i) { var old = s.querySelector('.lk'); if (old) s.removeChild(old); if (chain[i]) s.appendChild(linkEl(chain[i])); });
+      pile.innerHTML = ''; ORDER.forEach(function (id) { if (chain.indexOf(id) < 0) pile.appendChild(linkEl(id)); });
+      ER.flag('b-links', chain);
+    }
+    draw();
+    box.addEventListener('click', function (e) {
+      var lk = e.target.closest ? e.target.closest('.lk') : null;
+      if (!lk || busyL || chainDone) return;
+      ER.$$('.bad', box).forEach(function (n) { n.classList.remove('bad'); });
+      var id = lk.getAttribute('data-k');
+      if (lk.parentNode === pile) {
+        if (chain.length >= 5) { ER.sfx.no(); msg('The chain has five links already. Click the last link to take it off again.'); return; }
+        chain.push(id); CC.sfx.chain(); draw(); msg(chain.length === 5 ? 'Five links. Pull the chain tight.' : 'Forged. ' + (5 - chain.length) + ' more to go.');
+      } else if (chain[chain.length - 1] === id) { chain.pop(); CC.sfx.clank(); draw(); msg('Taken off again.'); }
+      else { ER.sfx.no(); msg('A chain is forged from one end: only the last link can come off. Take the links after it off first.'); }
+    });
+    /* the five jobs */
+    var jrow = box.querySelector('.jobrow'), jpile = box.querySelector('.jpile'), jobsAt = ER.flag('b-jobs') || {};
+    var jslots = ROMAN.map(function () { var s = ER.el('div', 'jslot'); jrow.appendChild(s); return s; });
+    JOBS.forEach(function (j) { var d = ER.el('div', 'job dnd-item', j[1]); d.setAttribute('data-j', j[0]); var at = jobsAt[j[0]]; (at != null && jslots[at] ? jslots[at] : jpile).appendChild(d); });
+    CC.swapIn(box, '.job', '.jslot', jpile);
+    ER.dnd(box, { item: '.job', slot: '.jslot', home: jpile, lock: function () { return busyL || !chainDone; }, change: function () {
+      jobsAt = {}; jslots.forEach(function (s, i) { var j = s.querySelector('.job'); if (j) jobsAt[j.getAttribute('data-j')] = i; });
+      ER.flag('b-jobs', jobsAt); ER.$$('.bad', box).forEach(function (n) { n.classList.remove('bad'); }); CC.sfx.quill();
+    } });
+    function setJobsMode() { box.classList.add('done'); btn.textContent = 'Hang the jobs on the staves'; }
+    if (chainDone) setJobsMode();
+    btn.addEventListener('click', function () {
+      if (busyL) return;
+      if (!chainDone) {
+        if (chain.length < 5) { ER.sfx.no(); msg('The chain needs five links before it can be pulled tight. ' + (chain.length ? 'It has ' + chain.length + '.' : 'Click a link to forge it on.')); return; }
+        for (var i = 0; i < 5; i++) {
+          if (!ER.check('c' + (i + 1), chain[i])) {
+            var lk = socks[i].querySelector('.lk'); busyL = true; CC.sfx.clank();
+            (function (i, lk) {
+              setTimeout(function () {
+                busyL = false; lk.classList.add('bad'); ER.sfx.no();
+                if (ER.check('st', chain[i])) msg('Link ' + ROMAN[i] + ' snaps like paper. Read its words again: is there any kettle, or any church, in <i>A Christmas Carol</i>? Dickens wrote other Christmas books, and tonight their pages are loose too.');
+                else if (i === 0) msg('Link I snaps. Which stave can begin a whole book? Look for the words that say so.');
+                else msg('The chain breaks between link ' + ROMAN[i - 1] + ' and link ' + ROMAN[i] + '. Read the last words of the one and the first words of the next, every word, even the small ones. Does the second pick up exactly where the first leaves off? <i>(Only the first break is ever shown.)</i>');
+              }, 500);
+            })(i, lk);
+            return;
+          }
+        }
+        chainDone = true; ER.flag('b-chain', 1); CC.sfx.chain(); setTimeout(CC.sfx.chain, 300); CC.solved(true); paint();
+        draw(); setJobsMode();
+        CC.mine('chain', 'The chain of the book', '<p>Stave I, Marley&rsquo;s Ghost: &ldquo;Marley was dead: to begin with.&rdquo; Ends: Scrooge falls asleep.</p><p>Stave II, The First of the Three Spirits: Scrooge wakes in the dark. Ends: he sinks into a heavy sleep.</p><p>Stave III, The Second of the Three Spirits: the bell is &lsquo;again&rsquo; upon the stroke of One. Ends: a Phantom comes towards him.</p><p>Stave IV, The Last of the Spirits: &ldquo;The Phantom slowly, gravely, silently, approached.&rdquo; Ends: it dwindles into a bedpost.</p><p>Stave V, The End of It: &ldquo;Yes! and the bedpost was his own.&rdquo;</p><p>Not in this book: the kettle (<i>The Cricket on the Hearth</i>, Chirp the First) and the church (<i>The Chimes</i>, First Quarter).</p>');
+        msg('The chain pulls tight with a clank, and each link shows its title. Now each stave needs its job: drag the five jobs on to the five staves, or click a job and then a place.');
+        return;
+      }
+      var empty = jslots.filter(function (s) { return !s.querySelector('.job'); }).length;
+      if (empty) { ER.sfx.no(); msg(empty === 5 ? 'No stave has its job yet.' : empty + (empty === 1 ? ' stave still has no job.' : ' staves still have no job.')); return; }
+      for (var k = 0; k < 5; k++) {
+        var jb = jslots[k].querySelector('.job');
+        if (!ER.check('j' + (k + 1), jb.getAttribute('data-j'))) { jb.classList.add('bad'); ER.sfx.no(); msg('Stave ' + ROMAN[k] + ' does not do that job. Its title, and its first and last lines, tell you which Spirit it belongs to, and that tells you when it happens. <i>(Only the first wrong job is ever shown.)</i>'); return; }
+      }
+      var cand = chain.join('-') + '/' + jslots.map(function (s) { return s.querySelector('.job').getAttribute('data-j'); }).join('-');
+      var file = ER.exit([cand], { wait: true });
+      if (!file) { msg('The chain will not hold. Something is wrong with this page: tell your teacher.'); return; }
+      nextFile = file; ER.flag('b-file', file); busyL = true;
+      msg('Marley takes up the chain, winds it over and about his arm, and raises his head.');
+      setTimeout(function () {
+        ER.closeAll(); busy = true;
+        ER.narrate([
+          '&ldquo;Without their visits,&rdquo; says the Ghost, &ldquo;you cannot hope to shun the path I tread. Expect the first to-morrow, when the bell tolls One.&rdquo;',
+          '&ldquo;Couldn&rsquo;t I take &rsquo;em all at once, and have it over, Jacob?&rdquo; hints Scrooge.',
+          '&ldquo;Expect the second on the next night at the same hour. The third upon the next night when the last stroke of Twelve has ceased to vibrate. Look to see me no more; and look that, for your own sake, you remember what has passed between us!&rdquo;',
+          'The Ghost walks backward from him, and at every step the window raises itself a little, until it is wide open. The air outside is filled with phantoms, wandering hither and thither, and every one of them wears chains like Marley&rsquo;s.',
+          'Scrooge closes the window, tries to say &ldquo;Humbug!&rdquo;, stops at the first syllable, and goes straight to bed without undressing. He is asleep upon the instant.',
+          'You sit down on the floor by the cold grate to wait. Three nights, the Ghost said. But you know this book better than he does.'
+        ], function () {
+          ER.addClue('warning', 'Marley&rsquo;s warning', CC.page('STAVE I', 'Marley&rsquo;s warning', '<p>&ldquo;Without their visits,&rdquo; said the Ghost, &ldquo;you cannot hope to shun the path I tread. Expect the first to-morrow, when the bell tolls One.&rdquo;</p><p>&ldquo;Couldn&rsquo;t I take &rsquo;em all at once, and have it over, Jacob?&rdquo; hinted Scrooge.</p><p>&ldquo;Expect the second on the next night at the same hour. The third upon the next night when the last stroke of Twelve has ceased to vibrate. Look to see me no more; and look that, for your own sake, you remember what has passed between us!&rdquo;</p>'), 'page', 'Stave One');
+          paint(); busy = false; $('#go').classList.add('on');
+        });
+      }, 2200);
+    });
+    msg(chainDone ? 'The chain is forged. Now drag each job on to its stave, or click a job and then a place.' : 'Seven links. Click a link to forge it on to the end of the chain; click the last link to take it off. Five links make the book.');
+    ER.open('ov-lock', lock);
+  }
+})();
+</script>
+</body>
+</html>

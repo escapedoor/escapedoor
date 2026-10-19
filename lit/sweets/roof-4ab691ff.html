@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Roof · Miss Plunkett's Last Recipe</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lit.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="sweets.css">
+<style>
+  body{--bg:#f6c8a8;--accent:#7a2a8a;--font-display:'Henny Penny',cursive;--font-ui:'Goudy Bookletter 1911',serif;--font-body:'Alegreya',serif;
+    --tc-bg:rgba(255,240,228,.97);--tc-ink:#2a1a30;--cap-bg:rgba(255,246,238,.96);--cap-ink:#2a1a30;--panel:#fff6ee;--panel-ink:#2a1a30;--face-bg:#efe0f4;--q-ink:#7a2a8a;--fade:#fff4e8;
+    --hud-bg:rgba(255,246,238,.86);--hud-ink:#2a1a30;--hud-line:rgba(42,26,48,.3);--ov-bg:rgba(60,30,50,.6)}
+  .tc-room{font-size:clamp(50px,7vw,96px);color:#7a2a8a}
+  .tc-theme{color:#a8244a}
+  .tk-role{color:#7a2a8a}
+  .hbtn.hnt{border-color:#7a2a8a;color:#7a2a8a}
+  .ov-x{background:rgba(255,246,238,.9);color:#2a1a30;border-color:rgba(42,26,48,.4)}
+  .sF{font-family:'Fredericka the Great',serif;text-anchor:middle}
+  .sG{font-family:'Goudy Bookletter 1911',serif;text-anchor:middle}
+  .sH{font-family:'Henny Penny',cursive;text-anchor:middle}
+  .smoke{animation:smoke 7s ease-out infinite;opacity:0;transform-box:fill-box;transform-origin:center}
+  .smoke.s2{animation-delay:-2.3s}.smoke.s3{animation-delay:-4.6s}
+  @keyframes smoke{0%{opacity:0;transform:translate(0,0) scale(.5)}15%{opacity:.45}100%{opacity:0;transform:translate(110px,-240px) scale(1.7)}}
+  .bird{animation:bird 22s linear infinite}.bird.b2{animation-duration:30s;animation-delay:-11s}
+  @keyframes bird{0%{transform:translate(-200px,30px)}100%{transform:translate(1900px,-70px)}}
+  #sun{transition:transform 6s ease-out}#scene.up #sun{transform:translateY(-120px)}
+  #day{opacity:0;transition:opacity 5s steps(8,end)}#scene.up #day{opacity:1}
+  #plunkett{display:none}#scene.arrived #plunkett{display:inline}
+  #plunkett.ready{animation:glowb 1.5s steps(1,end) infinite}
+  #book.ready{animation:glowb 1.5s steps(1,end) infinite}
+  @keyframes glowb{50%{filter:brightness(1.25)}}
+
+  .vb{width:min(640px,94vw)}
+  .vb .doc{width:100%;max-height:none}
+  .vb .opts{display:flex;gap:12px;justify-content:center;margin:12px 0 0}
+  .vb .opt{padding:10px 20px 8px;background:#fffaf0;border:2px solid #24553a;border-radius:4px;font-family:'Fredericka the Great',serif;font-size:22px;color:#24553a;cursor:pointer}
+  .vb .opt:hover{background:#24553a;color:#fffaf0}
+  .vb .bmsg{margin-top:10px;text-align:center;color:#fff6ee;min-height:30px}
+  .vb .blank{display:inline-block;min-width:110px;border-bottom:3px dotted #7a2a8a;color:#7a2a8a;text-align:center}
+
+  .done{position:fixed;right:2vw;top:60px;z-index:34;width:min(520px,94vw);max-height:calc(100vh - 76px);overflow:auto;padding:14px 26px 14px;display:none;background:#fffaf2;color:#2a1a30;border-top:10px solid #7a2a8a;box-shadow:0 20px 60px rgba(60,30,50,.4)}
+  .done.on{display:block}
+  .okstamp{display:inline-block;padding:4px 14px 1px;border:4px solid #a8244a;color:#a8244a;font-family:'Henny Penny',cursive;font-size:24px;letter-spacing:.06em;transform:rotate(-3deg);margin-bottom:6px}
+  .done h6{margin:9px 0 4px;font-family:'Goudy Bookletter 1911',serif;font-weight:normal;font-size:15px;letter-spacing:.24em;text-transform:uppercase;color:#7a2a8a}
+  .done p{margin:0 0 3px;font-family:'Goudy Bookletter 1911',serif;font-size:15px;line-height:1.4}
+  .done ol{margin:0;padding-left:20px;font-family:'Alegreya',serif;font-size:15px;line-height:1.3}
+  .done li{margin:0 0 3px}
+  .done ul{margin:0;padding-left:18px;font-family:'Alegreya',serif;font-size:14.5px;line-height:1.3}
+  .done .row{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
+  .done .btn{--accent:#7a2a8a;font-size:14px;padding:7px 13px}
+  .done .btn:hover:not([disabled]){color:#fffaf2}
+  .done small{display:block;margin-top:8px;font-family:'Goudy Bookletter 1911',serif;font-size:13px;opacity:.75;line-height:1.5}
+  .done small button{text-decoration:underline;font:inherit}
+  .rp{width:min(780px,94vw);max-height:84vh;overflow:auto;background:#fffaf2;color:#2a1a30;padding:22px 34px 18px;box-shadow:0 26px 70px rgba(0,0,0,.5);-webkit-user-select:text;user-select:text;border-left:16px solid #7a2a8a}
+  .rp h4{margin:0 0 3px;font-family:'Goudy Bookletter 1911',serif;font-weight:normal;font-size:15px;letter-spacing:.24em;text-transform:uppercase;color:#7a2a8a}
+  .rp h3{margin:0 0 8px;font-family:'Henny Penny',cursive;font-weight:normal;font-size:30px;line-height:1.1}
+  .rp p,.rp label{display:block;font-family:'Alegreya',serif;font-size:18px;line-height:1.4;margin:0 0 6px;color:#2a1a30}
+  .rp textarea,.rp input[type=text]{width:100%;font-family:'Gochi Hand',cursive;font-size:22px;line-height:30px;color:#2b3a66;background:#fff repeating-linear-gradient(transparent 0 29px,#e0c8ea 29px 30px);border:1px solid #c8a8d8;padding:0 12px;border-radius:0;resize:vertical;-webkit-user-select:text;user-select:text}
+  .rp textarea{min-height:184px}
+  .rp input[type=text]{height:32px}
+  .rp .count{font-family:'Goudy Bookletter 1911',serif;font-size:14px;letter-spacing:.14em;text-transform:uppercase;opacity:.7;text-align:right;margin-top:3px}
+  .rp .foot{display:flex;gap:10px;align-items:center;margin-top:10px}
+  .rp .foot span{flex:1;font-family:'Goudy Bookletter 1911',serif;font-size:13px;opacity:.75}
+  .rp .btn{--accent:#7a2a8a}.rp .btn:hover:not([disabled]){color:#fffaf2}
+  @media print{
+    body{overflow:visible;background:#fff}
+    body>*:not(.ov){display:none!important}
+    .ov{position:static!important;display:block!important;background:#fff!important;padding:0!important;overflow:visible!important}
+    .ov-bar,.rp .foot{display:none!important}
+    .rp{box-shadow:none;max-height:none;width:auto;overflow:visible}
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a4a8a"/><stop offset=".45" stop-color="#d88aa8"/><stop offset=".75" stop-color="#ffc08a"/><stop offset="1" stop-color="#ffe0a8"/></linearGradient>
+  <linearGradient id="dayG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8ab8ea"/><stop offset=".6" stop-color="#ffe8c8"/><stop offset="1" stop-color="#fff2d8"/></linearGradient>
+  <radialGradient id="sunG"><stop offset="0" stop-color="#fff6c8"/><stop offset=".35" stop-color="#ffd870" stop-opacity=".9"/><stop offset="1" stop-color="#ffb060" stop-opacity="0"/></radialGradient>
+  <pattern id="slate" width="60" height="30" patternUnits="userSpaceOnUse"><rect width="60" height="30" fill="#5a5a7a"/><path d="M0 1h60M30 0v15M0 15h60M0 15v15" stroke="#3a3a56" stroke-width="2.5"/><rect x="4" y="4" width="22" height="8" fill="#6a6a8e" opacity=".5"/></pattern>
+  <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7"/></filter>
+  <pattern id="brk" width="40" height="20" patternUnits="userSpaceOnUse"><rect width="40" height="20" fill="#a8583a"/><path d="M0 1h40M0 11h40M1 0v10M21 10v10" stroke="#7a3a24" stroke-width="2"/></pattern>
+</defs>
+
+<!-- the sky over Spoonhurst -->
+<rect x="-1000" y="-400" width="3600" height="1300" fill="url(#skyG)"/><rect id="day" x="-1000" y="-400" width="3600" height="1300" fill="url(#dayG)"/>
+<g id="sun"><circle cx="1260" cy="520" r="210" fill="url(#sunG)"/><circle cx="1260" cy="520" r="62" fill="#fff4c0"/></g>
+<path d="M-1000 520h3600" stroke="#f8d8a8" stroke-width="3" opacity=".6"/>
+<g fill="#b8a0c8" opacity=".75"><path d="M-1000 540q200 -60 400 -20t400 -10t400 -30t400 20t400 -30t400 10t400 -20t400 30v200h-3600z"/></g>
+<!-- the town below -->
+<g id="town" class="hot"><g fill="#7a6a9a"><path d="M200 640v-60l40 -30 40 30v60zM300 640v-80h70v80zM380 640v-50l50 -40 50 40v50zM700 640v-70h90v70zM820 640v-56l36 -26 36 26v56zM1400 640v-66h80v66zM1500 640v-50l40 -30 40 30v50z"/>
+  <path d="M560 640v-120l20 -100 20 100v120z"/><rect x="540" y="560" width="80" height="80"/></g>
+  <g fill="#ffe8a0" opacity=".85"><rect x="320" y="590" width="10" height="12"/><rect x="720" y="600" width="10" height="12"/><rect x="1420" y="600" width="10" height="12"/></g>
+  <circle cx="580" cy="540" r="10" fill="#f6efe2"/></g>
+<g fill="none" stroke="#3a2a4a" stroke-width="3" stroke-linecap="round"><path class="bird" d="M0 180q10 -10 18 0q8 -10 18 0"/><path class="bird b2" d="M0 120q8 -8 14 0q6 -8 14 0"/></g>
+
+<!-- the roof of Plunkett's -->
+<path d="M-1000 960V720L800 640L2600 720V960z" fill="url(#slate)"/><path d="M-1000 720L800 640L2600 720" fill="none" stroke="#3a3a56" stroke-width="10"/>
+<rect x="-1000" y="840" width="3600" height="200" fill="url(#slate)"/>
+<!-- the chimney, the funnel and the smoke -->
+<g id="chimney" class="hot"><rect x="140" y="380" width="170" height="320" fill="url(#brk)" stroke="#5a2a1a" stroke-width="4"/><rect x="128" y="366" width="194" height="24" fill="#8a4a2a"/>
+  <path d="M190 366v-60h70v60z" fill="#c8a060" stroke="#7a5a1e" stroke-width="4"/><path d="M180 306h90l-10 -16h-70z" fill="#e8c460"/>
+  <rect x="160" y="470" width="130" height="70" fill="#e8c460" stroke="#7a5a1e" stroke-width="3"/><text x="225" y="500" class="sF" font-size="15" fill="#3a2606">PLUNKETT&#8217;S</text><text x="225" y="520" class="sG" font-size="10" fill="#3a2606">PURPLE TUESDAYS</text>
+  <g id="smokeg" filter="url(#soft)"></g></g>
+<!-- the weathervane -->
+<g id="vane" class="hot"><path d="M1440 660v-200" stroke="#3a3a3a" stroke-width="5"/><circle cx="1440" cy="440" r="26" fill="#ff5a8a" stroke="#3a3a3a" stroke-width="3"/><path d="M1440 440m-20 0a20 20 0 1 0 40 0a14 14 0 1 0 -28 0a8 8 0 1 0 16 0" fill="none" stroke="#fff" stroke-width="4"/>
+  <path d="M1410 500h60M1440 470v60" stroke="#3a3a3a" stroke-width="3"/><text x="1404" y="505" class="sG" font-size="12" fill="#3a3a3a">W</text><text x="1476" y="505" class="sG" font-size="12" fill="#3a3a3a">E</text></g>
+<!-- the hatch -->
+<g id="hatch" class="hot"><path d="M620 700l20 -46h160l20 46z" fill="#3a3a56"/><path d="M640 654l-10 -60h160l10 60z" fill="#6a4a2a" stroke="#3a2a1a" stroke-width="3"/><path d="M700 700v-30M740 700v-30" stroke="#c8a060" stroke-width="4"/></g>
+<!-- the tray of sweets, and the green book on the ridge -->
+<g id="tray" class="hot"><rect x="900" y="660" width="170" height="30" rx="4" fill="#c8a060" stroke="#7a5a1e" stroke-width="3"/><g id="trayg"></g></g>
+<g id="book" class="hot"><path d="M380 668l70 -24 70 24 -70 16z" fill="#24553a"/><path d="M386 662l64 -22v34l-64 8z" fill="#fffaf0"/><path d="M514 662l-64 -22v34l64 8z" fill="#fffaf0"/>
+  <path d="M396 656l44 -14M396 666l44 -14M460 642l44 14M460 652l44 14" stroke="#3a4a3a" stroke-width="1.5"/></g>
+
+<!-- the people -->
+<g id="gribble" class="hot" transform="translate(760 860) scale(.92)"></g>
+<g id="plunkett" class="hot" transform="translate(980 820)"></g>
+<g id="catg" class="hot" transform="translate(320 690)"></g>
+</svg>
+</div>
+<div class="done" id="done">
+  <div class="okstamp">The Last Recipe &middot; made</div>
+  <p id="d-time"></p><p id="d-hints"></p><p id="d-words"></p>
+  <h6>What you now know</h6>
+  <ol>
+    <li>Writers make new words out of old ones. A compound joins two words (pepper + mint). A portmanteau squashes them together (breakfast + lunch = brunch); Lewis Carroll named it, and made &lsquo;chortle&rsquo; from chuckle + snort.</li>
+    <li>A prefix goes in front of a root and a suffix behind it: un- (not, or undo), -less (without), -let (small), -able (can be done), -er (a person or machine that does it), -ery (a place where it is done). To read a new word, take it to pieces.</li>
+    <li>A simile says one thing is like another, with like or as. A metaphor says it is the other thing. Personification gives a thing human feelings or actions, and hyperbole is an exaggeration that nobody is meant to believe.</li>
+    <li>A figure of speech is not true word for word. Ask what the two things have in common.</li>
+    <li>Onomatopoeia is a word that sounds like its noise (snap, fizz). Alliteration is words close together that begin with the same sound: the sound, not the letter.</li>
+    <li>A riddle has a literal reading and a figurative one, and the literal reading is often the trap.</li>
+    <li>A cautionary tale, like Hilaire Belloc&rsquo;s, warns you by making you laugh: the naughty one meets a fate that fits the fault exactly. That is poetic justice.</li>
+  </ol>
+  <h6>If you liked this, read</h6>
+  <ul>
+    <li>Roald Dahl, <i>Charlie and the Chocolate Factory</i> (1964) and <i>Matilda</i> (1988)</li>
+    <li>Lewis Carroll, <i>Through the Looking-Glass</i> (1871): the poem &lsquo;Jabberwocky&rsquo; is where &lsquo;chortle&rsquo; and &lsquo;galumph&rsquo; first appeared</li>
+    <li>Hilaire Belloc, <i>Cautionary Tales for Children</i> (1907)</li>
+    <li>P. L. Travers, <i>Mary Poppins</i> (1934)</li>
+  </ul>
+  <div class="row"><button type="button" class="btn" id="b-task">Invent a sweet</button><button type="button" class="btn" id="b-book">Notebook</button><button type="button" class="btn" id="b-lobby">Back to the shelf</button></div>
+  <small>Miss Plunkett&rsquo;s Last Recipe &middot; <button type="button" id="b-reset">play it again from the start</button></small>
+</div>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="sweets.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told;
+
+  (function () {
+    var s = '', i;
+    for (i = 0; i < 6; i++) s += '<circle class="smoke s' + (1 + i % 3) + '" cx="225" cy="290" r="' + (26 + (i % 3) * 8) + '" fill="' + ['#9a5ab8', '#b87ad0', '#7a3f9a'][i % 3] + '"/>';
+    $('#smokeg').innerHTML = s; s = '';
+    for (i = 0; i < 6; i++) s += '<g transform="translate(' + (920 + i * 26) + ' 666)"><rect x="-10" y="-8" width="20" height="16" rx="6" fill="#7a3f9a"/><path d="M-10 0l-7 -6v12zM10 0l7 -6v12z" fill="#9a5ab8"/><path d="M-6 -2h12" stroke="#ffe48a" stroke-width="1.5"/></g>';
+    $('#trayg').innerHTML = s;
+    $('#gribble').innerHTML = SW.fig('gribble'); $('#plunkett').innerHTML = SW.fig('plunkett'); $('#catg').innerHTML = SW.fig('catsit');
+  })();
+
+  ER.init({
+    theme: 'lit', story: 'sweets', storyTitle: 'Miss Plunkett’s Last Recipe', id: 'roof', no: 'V', title: 'The Roof',
+    go: 'Climb out of the hatch',
+    intro: [
+      'Every verse of the riddle showed you a picture, and every time the literal reading was the trap. A bed with the winter moon was not the Snoozebox or the Moongrinder: it was cold, so the Chillery, chill + -ery, a place where things are chilled. The sky&rsquo;s best coat was not the Overcoater: it was a thousand stars, so the Glittermill. And snow that is neither cold nor wet was the fine white powder from the Moongrinder, a machine that grinds.',
+      'At ten to six the sweets came out of the cellar, glittering and frosted. You wrapped them in the purple paper, SNAP! FIZZ!, and climbed the ladder to the roof, because the riddle said so.',
+      'Spoonhurst is still asleep. The sale is at nine. Mr Gribble is climbing the ladder behind you, very slowly, because a sweet that has not been written down does not exist.'
+    ],
+    exit: {"last":true,"rooms":5,"stars":3}, tags: {"rh":["ad1255e7"]},
+    hints: hints, onBegin: begin
+  });
+  told = SW.told('e-told');
+  function isBusy() { return busy; }
+  function hints() {
+    if (told.has('end')) return null;
+    if (vb && vb.parentNode) return ['verse', ['All three words mean nearly the same. Say the line before aloud. Which word rhymes with the last word of that line?']];
+    if (!told.has('verse')) return ['verse', ['The green book is open on the roof, near the chimney. Click it and read the last lines of the last page.']];
+    if (!told.has('talk')) return ['plunkett', ['Somebody has come up the ladder: a very small old lady in a green hat. Click her.']];
+    return null;
+  }
+  function paint() {
+    $('#scene').classList.toggle('up', told.has('verse'));
+    $('#scene').classList.toggle('arrived', told.has('verse'));
+    $('#book').classList.toggle('ready', !told.has('verse'));
+    $('#plunkett').classList.toggle('ready', told.has('verse') && !told.has('talk'));
+  }
+
+  function begin() {
+    paint();
+    if (told.has('end')) { busy = false; finish(true); return; }
+    if (told.has('verse')) { busy = false; ER.say(told.has('talk') ? 'The roof of Plunkett&rsquo;s, in the morning sun.' : 'Miss Plunkett is on the roof, getting her breath back.'); return; }
+    if (told.has('in')) { busy = false; ER.say('The roof, at dawn. The green book is open by the chimney.'); return; }
+    told.set('in');
+    ER.narrate([
+      'The roof of Plunkett&rsquo;s is steep and slate-grey, and the whole of Spoonhurst lies below it: the church, the market, the long road to the sea. The sky is going from purple to pink. Out of the tall chimney comes a thin curl of purple smoke, because it is Tuesday.',
+      'Six purple sweets on a tray. On each wrapper: PLUNKETT&rsquo;S PURPLE POCKET PEBBLES. SNAP! FIZZ! ONE LASTS A HUNDRED YEARS.',
+      'Mr Gribble arrives at the top of the ladder, red in the face, with his clipboard in his teeth. &ldquo;Item,&rdquo; he says, when he can. &ldquo;One roof.&rdquo;',
+      'You open the green book on the ridge. Under the riddle, at the very bottom of the last page, there are four more lines in purple ink. The frost from the Chillery has blurred the last word.'
+    ], function () { busy = false; });
+  }
+
+  /* ---------- the last lines of the green book ---------- */
+  var vb = null;
+  function openVerse() {
+    vb = ER.el('div', 'vb');
+    vb.innerHTML = '<div class="doc green"><h4>The green book &middot; the bottom of the last page</h4><h3>Daydrop</h3>' +
+      '<p class="hand">My name is DAYDROP: the front of daydream, and a drop.</p>' +
+      '<div class="poem"><p>Whoever made me, read me through.<br>The book is yours. And now, from you,<br>I want one thing, and only one:<br>Make something new, when this is <span class="blank">&nbsp;?&nbsp;</span>.</p></div>' +
+      '<p class="hand">The last word is blurred. Which one did she write?</p></div>' +
+      '<div class="opts"><button type="button" class="opt" data-w="over">OVER</button><button type="button" class="opt" data-w="done">DONE</button><button type="button" class="opt" data-w="finished">FINISHED</button></div><p class="bmsg"></p>';
+    ER.$$('.opt', vb).forEach(function (b) {
+      b.addEventListener('click', function () {
+        var w = b.getAttribute('data-w');
+        if (told.has('verse')) return;
+        if (!ER.check('rh', w)) { ER.sfx.no(); ER.shake(b); vb.querySelector('.bmsg').innerHTML = ER.gloss(w.toUpperCase() + ' means the right thing. But say the two lines aloud: does it rhyme with ONE?'); return; }
+        vb.querySelector('.blank').textContent = 'done'; SW.sfx.ding(); told.set('verse');
+        vb.querySelector('.bmsg').innerHTML = ER.gloss('DONE rhymes with ONE, as YOU rhymes with THROUGH. Miss Plunkett always finished on a rhyme.');
+        ER.addClue('daydrop', 'Daydrop', '<h4>Daydrop</h4><p>My name is DAYDROP: the front of daydream, and a drop.</p><p><i>Whoever made me, read me through.<br>The book is yours. And now, from you,<br>I want one thing, and only one:<br>Make something new, when this is done.</i></p>', 'green', 'The green book');
+        SW.terms(['rhyme']);
+        setTimeout(function () { ER.closeAll(); ending(); }, 2600);
+      });
+    });
+    ER.open('ov-lock', vb);
+  }
+  $('#book').addEventListener('click', function () {
+    if (busy) return;
+    if (told.has('verse')) { ER.say('<i>Make something new, when this is done.</i> The green book is yours. Mr Gribble has written it down.'); return; }
+    openVerse();
+  });
+
+  /* ---------- the morning ---------- */
+  function ending() {
+    busy = true; paint();
+    ER.narrate([
+      'You unwrap a Daydrop and put it in your mouth. SNAP. Then FIZZ. And then, for about a minute, you are not on a roof at all: you are the smoke going up out of the chimney, looking down at a town that is waking up.',
+      '&ldquo;I must record the contents,&rdquo; says Mr Gribble, and holds out his hand. You give him one. He chews. He stops chewing. He looks at the sun coming up over Spoonhurst for a long time.',
+      '&ldquo;The sun,&rdquo; he says slowly, &ldquo;is a boiled sweet. On the roof of the world. And somebody has just unwrapped it.&rdquo; He stares at his pencil, as if it had said that and not him. &ldquo;That is not true,&rdquo; he whispers. &ldquo;Why do I like it?&rdquo;',
+      'He finds the page that says <i>Item: one notebook, green. Contents: nonsense.</i> He crosses out nonsense. He writes, in capital letters: CONTENTS: EVERYTHING.',
+      'Down in Treacle Lane, the fire brigade is unwinding Mr Tuttle a strand at a time. Mrs Mortlake will not be unwrapped until somebody from the newspaper has taken her picture. Mr Huxtable&rsquo;s humbugs wore off at half past two, and he has spent the rest of the night asking for his things back. The cat has kept the gloves.',
+      'At nine o&rsquo;clock the church bell rings for the sale. There is nobody left to buy anything. And up the ladder, faster than Mr Gribble managed it, comes a very small old lady in a green woolly hat, with a walking stick hooked over her arm.'
+    ], function () { busy = false; paint(); ER.say('Miss Ottoline Plunkett has come up on the first bus from the sea.'); });
+  }
+  $('#plunkett').addEventListener('click', function () {
+    if (busy) return;
+    if (told.has('talk')) { ER.say('&ldquo;Saturdays,&rdquo; says Miss Plunkett. &ldquo;Nine o&rsquo;clock sharp. Bring your mop. You never know what you will find.&rdquo;'); return; }
+    ER.talk({
+      who: 'Ottoline Plunkett', role: 'Inventor · Plunkett’s, since 1958', face: window.FACE('plunkett'),
+      lines: [
+        { note: 'Ninety-three, about as tall as the chimney pot, in a purple cardigan whose pockets rattle. Her spectacles are as thick as the bottoms of jam jars.', a: '&ldquo;So you are the one with the mop. I hoped it would be somebody with a mop.&rdquo;' },
+        { q: 'Why did you hide the book?', a: 'I didn&rsquo;t hide it. I put it where only a person who looks under things would find it. Grown-ups read the things that look important: contracts, menus, their own names. Children and cleaners read everything.' },
+        { q: 'Why were you selling the factory?', a: 'Because nobody could read me. A recipe that nobody can read is only a list of noises. I thought I would be the last person who could make a Plunkett sweet, and a factory that cannot make its own sweets might as well be a car park for Mr Tuttle.' },
+        { q: 'And now?', a: 'Now there are two of us. Clause Nine: the book is yours, and Mr Gribble has written it down. And I shall not be selling, Mr Gribble, so you may put your pencils away.</p><p>Mr Gribble puts one pencil away. He keeps the other, &ldquo;for writing down things that are not true, but are nice.&rdquo;' },
+        { a: 'Your mother will run the floors and the boiling room, if she will have them. You will come on Saturdays. And the next sweet this factory makes will have a name that you have made, out of pieces.' },
+        { note: 'She takes the last Daydrop off the tray, unwraps it, and reads the wrapper with her nose almost touching it.', a: '&ldquo;<i>One lasts a hundred years.</i>&rdquo; She laughs, and puts it in her mouth. &ldquo;Well. We shall see.&rdquo;' }
+      ],
+      clue: { id: 'plunkett', title: 'Miss Plunkett, on the roof', kind: 'What she said' },
+      done: function (seen) {
+        if (!seen || !told.set('talk')) return;
+        paint(); busy = true;
+        ER.narrate([
+          'On Monday the notice in the window of Plunkett&rsquo;s comes down, and a new one goes up, the right way round this time: OPEN AS USUAL. UNDER NEW MANAGEMENT (THE SAME AS THE OLD).',
+          'On Tuesday the chimney puffs purple smoke, and the whole town does its washing.',
+          'And on Saturday morning a twelve-year-old with a mop and a green book stands in the boiling room of Plunkett&rsquo;s, thinking of a name.'
+        ], function () { busy = false; told.set('end'); finish(false); });
+      }
+    });
+  });
+  SW.thing('#chimney', null, 'PLUNKETT&rsquo;S: PURPLE TUESDAYS. The smoke goes up in a long purple curl, and the gulls fly round it as if it were something to eat.', isBusy);
+  SW.thing('#vane', 'weathervane', 'A weathervane shaped like a lollipop. It says the wind is coming from the sea.', isBusy);
+  SW.thing('#town', null, 'Spoonhurst: the church, the market, the bus station, and far away the thin line of the sea.', isBusy);
+  SW.thing('#hatch', null, 'The hatch you came up through. The ladder below it has eighty-one rungs. Mr Gribble counted them, on the way up.', isBusy);
+  SW.thing('#tray', null, function () { return told.has('talk') ? 'An empty tray, and six purple wrappers, folded very small by Mr Gribble, for his list.' : 'Six purple sweets in purple wrappers. SNAP! FIZZ!'; }, isBusy);
+  SW.thing('#catg', null, 'Sherbet has come up the ladder too, which cats are not supposed to be able to do. She is watching the gulls.', isBusy);
+  $('#gribble').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(told.has('verse') ? '&ldquo;The roof,&rdquo; says Mr Gribble dreamily, &ldquo;is the lid of a tin of sweets, and we are on top of it.&rdquo; He writes it down. Then he writes it down again, more neatly.' : '&ldquo;Item: one roof,&rdquo; says Mr Gribble. &ldquo;Item: six sweets, purple. Contents: unknown.&rdquo;');
+  });
+
+  /* ---------- the card at the end ---------- */
+  function finish(quick) {
+    var st = ER.state(), mins = SW.minutesPlayed(), hn = ER.hintsUsed();
+    $('#scene').classList.add('up');
+    $('#d-time').textContent = 'From the shop to the roof: ' + mins + (mins === 1 ? ' minute.' : ' minutes.');
+    $('#d-hints').textContent = hn ? 'Hints asked for: ' + hn + '.' : 'Hints asked for: none at all.';
+    $('#d-words').textContent = 'In your notebook: ' + st.clues.length + ' clues and ' + Object.keys(st.words).length + ' words.';
+    $('#done').classList.add('on');
+    if (quick) ER.say('The roof of Plunkett&rsquo;s, on a Tuesday. The smoke is purple.');
+  }
+  $('#b-book').addEventListener('click', ER.notebook);
+  $('#b-lobby').addEventListener('click', function () { ER.leave('../index.html'); });
+  $('#b-reset').addEventListener('click', function () {
+    var b = $('#b-reset');
+    if (b.getAttribute('data-sure')) { ER.resetStory(); location.href = '../index.html'; return; }
+    b.setAttribute('data-sure', '1'); b.textContent = 'this empties your notebook. click again to do it';
+  });
+  $('#b-task').addEventListener('click', function () {
+    var saved = ER.flag('task') || {}, box = ER.el('div', 'rp');
+    box.innerHTML = '<h4>Miss Plunkett&rsquo;s Last Recipe &middot; in your own words</h4><h3>Invent a sweet</h3>' +
+      '<p>Plunkett&rsquo;s needs its first new sweet in sixty-eight years, and Miss Plunkett wants you to name it. Write its label, aloud or on paper, in 40 to 80 words.</p>' +
+      '<p><b>1</b> Make its name out of pieces: a portmanteau, a compound, or a root with a prefix or suffix. Say what the pieces are. <b>2</b> Say what the sweet does. <b>3</b> Use at least two figures of speech (a simile, a metaphor, personification, hyperbole, alliteration or onomatopoeia), and say which ones you used.</p>' +
+      '<textarea id="r1"></textarea><div class="count"></div><label for="r2">Name</label><input type="text" id="r2" maxlength="60">' +
+      '<div class="foot"><span>Nobody marks this. It is saved in this browser as you write.</span><button type="button" class="btn" id="r-print">Print</button><button type="button" class="btn" id="r-done">Done</button></div>';
+    ER.glossIn(box, '.rp > p');
+    box.querySelector('#r1').value = saved.r1 || ''; box.querySelector('#r2').value = saved.r2 || '';
+    function keep() {
+      var o = { r1: box.querySelector('#r1').value, r2: box.querySelector('#r2').value }, n = (o.r1.match(/[A-Za-z’']+/g) || []).length;
+      box.querySelector('.count').textContent = n + (n === 1 ? ' word' : ' words');
+      ER.flag('task', o);
+    }
+    box.addEventListener('input', keep);
+    box.addEventListener('keydown', function (e) { e.stopPropagation(); });
+    box.querySelector('#r-print').addEventListener('click', function () { keep(); window.print(); });
+    box.querySelector('#r-done').addEventListener('click', ER.close);
+    ER.open('ov-report', box); keep();
+  });
+})();
+</script>
+</body>
+</html>

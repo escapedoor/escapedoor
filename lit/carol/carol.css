@@ -1,0 +1,132 @@
+/* The Boy in Sunday Clothes - what every room shares: the pages of the book, the things readers have left between them,
+   the papers of 1843, the frame round every puzzle, the notebook and the hints. Each room sets its own palette and
+   lettering on <body>. */
+
+.tc-theme{font-family:'Goudy Bookletter 1911',serif;font-size:16px;letter-spacing:.3em}
+.tc-text{font-family:'EB Garamond',Georgia,serif;font-size:clamp(18px,1.5vw,22px);line-height:1.52}
+.tc-text p{margin:0 0 11px}
+.cap{font-family:'EB Garamond',Georgia,serif;font-size:clamp(19px,1.5vw,23px);line-height:1.45}
+.chip,.hbtn,.btn{font-family:'Goudy Bookletter 1911',serif;font-size:15px;letter-spacing:.12em}
+.gobtn{position:fixed;left:50%;bottom:5vh;transform:translateX(-50%);z-index:35;display:none;padding:12px 30px 11px;border:2px solid var(--accent);
+  color:var(--accent);background:var(--hud-bg,rgba(20,14,10,.9));font-family:'Goudy Bookletter 1911',serif;font-size:20px;letter-spacing:.08em;border-radius:3px}
+.gobtn.on{display:block}
+.gobtn:hover{background:var(--accent);color:#1a120c}
+.tk-name{font-family:var(--font-display);font-size:28px}
+.tk-role{font-family:'Goudy Bookletter 1911',serif;font-size:14px;letter-spacing:.16em}
+.tk-text{font-family:'EB Garamond',Georgia,serif;font-size:clamp(18px,1.4vw,21px);line-height:1.5}
+.tk-text .say{font-style:normal}
+.tk-face svg{height:100%;min-height:300px}
+.hot:hover{filter:brightness(1.15)}
+.ink{filter:url(#rough)}
+
+/* ---- a page of the book ---- */
+.doc.page{width:min(700px,94vw);background:#f6efdc linear-gradient(90deg,rgba(120,90,40,.12),rgba(255,255,255,0) 7%,rgba(255,255,255,0) 93%,rgba(120,90,40,.1));
+  color:#231c14;font-family:'EB Garamond',Georgia,serif;font-size:19.5px;line-height:1.5;padding:22px 46px 24px;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+.doc.page .rh{display:flex;justify-content:space-between;margin:0 0 14px;padding-bottom:4px;border-bottom:1px solid #b9a77f;font-family:'Goudy Bookletter 1911',serif;font-size:12px;letter-spacing:.24em;color:#7a6a4a}
+.doc.page h4{margin:0 0 10px;font-family:'Goudy Bookletter 1911',serif;font-size:15px;letter-spacing:.22em;text-transform:uppercase;color:#7a2a1c;text-align:center}
+.doc.page p{margin:0 0 10px;text-indent:1.4em}
+.doc.page p.n{text-indent:0}
+.doc.page .gap{text-align:center;text-indent:0;color:#9a8a6a;letter-spacing:.6em}
+.doc.page .src{text-indent:0;margin-top:12px;font-size:14px;font-style:italic;color:#7a6a4a;text-align:right}
+.doc.page .song{text-indent:0;margin:6px 0 10px 3em;font-style:italic}
+
+/* ---- things readers have left in the book ---- */
+.doc.leaf{width:min(680px,94vw);background:#fbfaf3;color:#1f2329;font-family:'Goudy Bookletter 1911',serif;font-size:19px;line-height:1.48;padding:26px 44px 24px 60px;
+  box-shadow:0 26px 70px rgba(0,0,0,.6);clip-path:polygon(0 0,100% 0,100% 100%,3% 100%,0 97%,2% 93%,0 88%,1.5% 80%,0 72%,2% 60%,0 50%,1.6% 40%,0 30%,2% 18%,0 8%);
+  -webkit-clip-path:polygon(0 0,100% 0,100% 100%,3% 100%,0 97%,2% 93%,0 88%,1.5% 80%,0 72%,2% 60%,0 50%,1.6% 40%,0 30%,2% 18%,0 8%)}
+.doc.leaf h4{margin:0 0 2px;font-family:'Fredericka the Great',serif;font-size:28px;color:#2a3a5a}
+.doc.leaf h5{margin:0 0 12px;font-weight:normal;font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:#7a7a7a}
+.doc.leaf p{margin:0 0 9px}
+.doc.leaf ul{margin:0 0 10px;padding-left:22px}
+.doc.leaf li{margin:0 0 3px}
+.doc.leaf b{color:#2a3a5a}
+.doc.leaf .pencil{font-family:'Caveat',cursive;font-size:25px;line-height:1.1;color:#5a5f68;transform:rotate(-1.5deg);margin:8px 0 0}
+.doc.mark{width:min(470px,92vw);background:#efe2c2 linear-gradient(180deg,#f4e9cc,#e2cfa2);color:#2a1c10;font-family:'EB Garamond',Georgia,serif;font-size:19px;line-height:1.45;
+  padding:28px 34px 24px;border:2px solid #7a2a1c;outline:5px solid #efe2c2;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+.doc.mark:before{content:'';position:absolute;left:50%;top:-34px;width:6px;height:42px;margin-left:-3px;background:#a8231c}
+.doc.mark h4{margin:0 0 4px;font-family:'Fredericka the Great',serif;font-size:27px;color:#7a2a1c;text-align:center}
+.doc.mark h5{margin:0 0 12px;text-align:center;font-family:'Goudy Bookletter 1911',serif;font-weight:normal;font-size:13px;letter-spacing:.26em;text-transform:uppercase;color:#7a6a4a}
+.doc.mark p{margin:0 0 9px}
+.doc.mark .orn{text-align:center;color:#7a2a1c;letter-spacing:.5em;margin:4px 0 8px}
+.doc.jot{width:min(640px,93vw);background:#fffdf5 repeating-linear-gradient(transparent 0 31px,#c8d6e6 31px 32px);color:#22304a;font-family:'Caveat',cursive;font-size:26px;line-height:32px;
+  padding:32px 34px 22px 58px;box-shadow:0 26px 70px rgba(0,0,0,.6);background-position:0 6px}
+.doc.jot:after{content:'';position:absolute;left:44px;top:0;bottom:0;width:2px;background:rgba(214,80,80,.45)}
+.doc.jot h4{margin:0 0 0;font-family:'Caveat',cursive;font-size:34px;font-weight:700;line-height:32px;color:#1a2a4a}
+.doc.jot p{margin:0 0 0}
+.doc.jot ul{margin:0;padding-left:20px}
+.doc.card{width:min(640px,93vw);background:#fff repeating-linear-gradient(transparent 0 29px,#9ec3e0 29px 30px);color:#1c2430;font-family:'Gochi Hand',cursive;font-size:22px;line-height:30px;
+  padding:16px 28px 18px;border-top:44px solid #fff;box-shadow:0 26px 70px rgba(0,0,0,.6);transform:rotate(.6deg)}
+.doc.card:before{content:'';position:absolute;left:0;right:0;top:-6px;height:2px;background:#e06a6a}
+.doc.card h4{position:absolute;left:28px;top:-40px;margin:0;font-family:'Gochi Hand',cursive;font-size:28px;color:#b0302a}
+.doc.card p{margin:0}
+.doc.cover{width:min(640px,93vw);background:#ece4d0 radial-gradient(ellipse at 70% 30%,rgba(255,255,255,.5),rgba(140,110,60,.18));color:#2a2016;font-family:'EB Garamond',Georgia,serif;font-size:19px;line-height:1.5;
+  padding:30px 44px 24px;border-left:18px solid #5a1a14;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+.doc.cover h4{margin:0 0 10px;font-family:'Homemade Apple',cursive;font-size:22px;line-height:1.5;color:#3a2a6a}
+.doc.cover p{margin:0 0 9px}
+.doc.cover .ink2{font-family:'Caveat',cursive;font-size:25px;line-height:1.15;color:#3a2a6a}
+
+/* ---- papers of 1843 ---- */
+.doc.bill{width:min(600px,93vw);background:#efe6cf linear-gradient(170deg,#f3ead4,#ddd0ae);color:#1e1810;font-family:'EB Garamond',Georgia,serif;font-size:18.5px;line-height:1.42;
+  padding:24px 38px 22px;text-align:center;box-shadow:0 26px 70px rgba(0,0,0,.6);border:1px solid #9a8a62}
+.doc.bill h4{margin:0 0 2px;font-family:'Cinzel',serif;font-weight:700;font-size:26px;letter-spacing:.06em;line-height:1.15}
+.doc.bill h5{margin:0 0 12px;font-family:'Fredericka the Great',serif;font-weight:normal;font-size:20px;color:#7a1e14}
+.doc.bill h6{margin:12px 0 4px;font-family:'Cinzel',serif;font-size:16px;letter-spacing:.2em}
+.doc.bill p{margin:0 0 8px;text-align:left}
+.doc.bill .c{text-align:center}
+.doc.bill .rule{height:0;border-top:3px double #3a2a18;margin:10px 30px}
+.doc.cipher{width:min(640px,93vw);background:#f4eedd repeating-linear-gradient(transparent 0 31px,#d4c6a6 31px 32px);color:#20201c;font-family:'EB Garamond',Georgia,serif;font-size:19px;line-height:32px;
+  padding:30px 40px 22px 56px;border-left:20px solid #3a4a3a;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+.doc.cipher h4{margin:0;font-family:'Goudy Bookletter 1911',serif;font-size:21px;letter-spacing:.14em;line-height:32px;text-transform:uppercase;color:#3a4a3a}
+.doc.cipher p{margin:0}
+.doc.cipher .hand{font-family:'Caveat',cursive;font-size:25px;color:#2a3a6a}
+.doc.cipher table{border-collapse:collapse;margin:0 0 0 10px}
+.doc.cipher td{padding:0 14px 0 0;line-height:32px}
+
+/* ---- what you worked out ---- */
+.doc.mine{width:min(620px,92vw);background:#f4efe3 repeating-linear-gradient(transparent 0 29px,rgba(90,40,30,.14) 29px 30px);color:#2a1e16;font-family:'Gochi Hand',cursive;font-size:21px;line-height:30px;
+  padding:22px 30px 20px;border-left:16px solid #7a2a1c}
+.doc.mine h4{font-family:'Goudy Bookletter 1911',serif;font-size:16px;letter-spacing:.22em;text-transform:uppercase;color:#7a2a1c;margin:0 0 6px;line-height:30px}
+.doc.mine p{margin:0 0 4px}
+.doc.statement{background:#f4eddc;font-family:'EB Garamond',Georgia,serif;font-size:19px;line-height:1.5;border-left:6px solid #7a2a1c}
+.doc.statement h4{font-family:'Goudy Bookletter 1911',serif;font-size:15px;letter-spacing:.22em;color:#7a2a1c}
+
+/* ---- the frame round a puzzle ---- */
+.pz{width:min(1120px,96vw);-webkit-user-select:none;user-select:none}
+.pz-foot{display:flex;align-items:flex-start;gap:16px;margin-top:10px}
+.pmsg{flex:1;min-height:52px;margin:0;font-family:'EB Garamond',Georgia,serif;font-size:19px;line-height:1.36;color:#f6eedc}
+.pmsg b{color:var(--accent);font-weight:600}
+.pz-foot .btn{flex:0 0 auto;white-space:nowrap;background:rgba(0,0,0,.35)}
+.slip{position:relative;display:block;padding:6px 10px 6px;background:#f8f1dc;color:#241a10;font-family:'EB Garamond',Georgia,serif;font-size:15.5px;line-height:1.25;
+  border:1px solid #b8a578;box-shadow:0 3px 8px rgba(0,0,0,.35);border-radius:1px}
+.slip.held{outline:3px solid var(--accent);outline-offset:1px}
+.slip:hover{background:#fffaea}
+.slip.bad{background:#f3c4b4}
+
+/* ---- the notebook: a reader's commonplace book, bound in red cloth ---- */
+.nb{background:#5a1712 linear-gradient(140deg,#6e2018,#3a0e0a);border:1px solid #a8603a;border-radius:4px;color:#f6e8d8;box-shadow:0 30px 90px rgba(0,0,0,.75),inset 0 0 0 5px #2a0806}
+.nb-tabs{border-bottom-color:#a8603a}
+.nb-tabs button{font-family:'Goudy Bookletter 1911',serif;font-size:16px;letter-spacing:.16em;color:#e8c8a8}
+.nb-tabs button.on{background:#f6efdc;color:#3a0e0a;border-color:#a8603a}
+.nb-list{border-right-color:#a8603a}
+.nb-list button{font-family:'EB Garamond',serif;font-size:17px;color:#f6e8d8}
+.nb-list button small{font-family:'Goudy Bookletter 1911',serif;font-size:12px;letter-spacing:.18em}
+.nb-list button.on{background:#f6efdc;color:#3a0e0a}
+.nb-view{background:#2a0a07}
+.nb-view .doc{clip-path:none;-webkit-clip-path:none}
+.nb-words{background:#f6efdc;color:#2a1e16}
+.nb-words b{font-family:'Goudy Bookletter 1911',serif;font-size:18px}
+.nb-words span{font-family:'EB Garamond',serif;font-size:17px;line-height:1.3;color:#5a4a3e}
+.nb-ko{border-color:#b8987a;color:#5a4a3e}
+.nb-ko.on{background:#5a1712;color:#ffd8c0;border-color:#5a1712}
+.wtip,.wtag{background:#f6efdc;color:#2a1e16;border-radius:2px;box-shadow:0 10px 26px rgba(0,0,0,.6),inset 5px 0 0 #a8231c}
+.wtag{transform:rotate(-1deg);padding-left:20px}
+.wtag:before{display:none}
+.wtip{padding-left:19px}
+.wtip b,.wtag b{font-family:'Goudy Bookletter 1911',serif;font-size:18px}
+.wtip span,.wtag span{font-family:'EB Garamond',serif;font-size:17px;line-height:1.3;color:#5a4a3e}
+.hintbox{background:#f6efdc;color:#2a1e16;border-top:6px solid #a8231c;border-radius:2px}
+.hintbox h6{font-family:'Goudy Bookletter 1911',serif;font-size:16px;letter-spacing:.3em;color:#a8231c}
+.hintbox p{font-family:'EB Garamond',serif;font-size:18.5px;line-height:1.36}
+.hintbox p i{background:#2a1e16;color:#f6efdc;font-family:'Goudy Bookletter 1911',serif;font-size:13px}
+.hintbox p.hint-none{font-style:italic;color:#6a5a4e;font-size:17px}
+.toast{font-family:'Goudy Bookletter 1911',serif;font-size:15px;background:rgba(30,12,8,.95)}

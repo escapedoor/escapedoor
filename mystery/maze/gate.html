@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Gate · Past the Lion</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-mystery.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="maze.css">
+<style>
+  body{--bg:#5aa33f;--accent:#f2c14e;--font-display:'IM Fell English SC',serif;--font-ui:'Oswald',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(20,44,24,.95);--tc-ink:#f6f1e2;--cap-bg:rgba(18,40,22,.93);--panel:#1f3a22;--face-bg:#8cc4ec;--q-ink:#f2d98a;--fade:#16301a;--hud-bg:rgba(18,40,22,.82);--ov-bg:rgba(14,32,18,.8)}
+  .slab{font-family:'Alfa Slab One',serif;text-anchor:middle}
+  .amatic{font-family:'Amatic SC',cursive;font-weight:700;text-anchor:middle}
+  .cloud{animation:drift 90s linear infinite}
+  .cloud.b{animation-duration:130s;animation-delay:-50s}
+  @keyframes drift{from{transform:translateX(-300px)}to{transform:translateX(2100px)}}
+  .flag{transform-box:fill-box;transform-origin:50% 0;animation:flap 2.6s ease-in-out infinite alternate}
+  .flag:nth-child(2n){animation-duration:3.3s;animation-delay:-1.2s}.flag:nth-child(3n){animation-duration:2.1s;animation-delay:-.6s}
+  @keyframes flap{from{transform:rotate(-7deg)}to{transform:rotate(8deg)}}
+  #fly{animation:fly 17s linear infinite}
+  @keyframes fly{0%{transform:translate(0,0)}25%{transform:translate(160px,-50px)}50%{transform:translate(330px,20px)}75%{transform:translate(170px,60px)}100%{transform:translate(0,0)}}
+  #fly path{transform-box:fill-box;transform-origin:50% 100%;animation:wing .3s steps(2,end) infinite}
+  @keyframes wing{50%{transform:scaleX(.3)}}
+  #board.ready #boardpaper{animation:glow 1.6s steps(1,end) infinite}
+  @keyframes glow{50%{filter:brightness(1.12)}}
+
+  /* the plan on its easel, three photographs, three pins */
+  .bx.pins{width:min(1012px,96vw)}
+  .pn-two{display:grid;grid-template-columns:560px 1fr;gap:0 16px;align-items:start}
+  .pn-plan{border:8px solid #6b4a2a;box-shadow:0 20px 50px rgba(0,0,0,.5);background:#f4ecd2}
+  .pn-big{position:relative;background:#fbfaf2;padding:9px 9px 34px;box-shadow:0 16px 40px rgba(0,0,0,.5);transform:rotate(.5deg)}
+  .pn-big svg{width:100%;height:auto;display:block}
+  .pn-big .cap2{position:absolute;left:14px;right:14px;bottom:6px;display:flex;justify-content:space-between;font-family:'Patrick Hand',cursive;font-size:19px;color:#22335a}
+  .pn-big .stamp{position:absolute;right:16px;bottom:44px;padding:1px 7px;background:rgba(0,0,0,.55);color:#ffb52e;font-family:'Special Elite',monospace;font-size:15px;letter-spacing:.06em}
+  .pn-row{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:14px}
+  .pn-th{position:relative;padding:5px 5px 22px;background:#fbfaf2;box-shadow:0 8px 20px rgba(0,0,0,.45);border:0;cursor:pointer;text-align:left}
+  .pn-th svg{width:100%;height:auto;display:block;pointer-events:none}
+  .pn-th span{position:absolute;left:8px;bottom:1px;font-family:'Patrick Hand',cursive;font-size:16px;color:#22335a}
+  .pn-th i{position:absolute;right:6px;bottom:3px;width:17px;height:17px;border-radius:50%;font-style:normal;font-family:'Oswald',sans-serif;font-weight:600;font-size:11px;line-height:17px;text-align:center;color:#fbfaf2}
+  .pn-th.sel{outline:3px solid #f2c14e;outline-offset:2px}
+  .pn-th.set:after{content:'pinned';position:absolute;right:28px;bottom:3px;font-family:'Oswald',sans-serif;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#3f6b3a}
+  .pn-how{margin:12px 2px 0;font-family:'EB Garamond',Georgia,serif;font-size:16.5px;line-height:1.32;color:#e6ecd9}
+  .pn-how b{color:#f2c14e;font-weight:600}
+  .bx.pins .pmsg{min-height:70px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3f95dd"/><stop offset=".6" stop-color="#a6d3f2"/><stop offset="1" stop-color="#e6f3f7"/></linearGradient>
+  <linearGradient id="lawnG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fcc68"/><stop offset=".35" stop-color="#6db84c"/><stop offset="1" stop-color="#4c9a36"/></linearGradient>
+  <linearGradient id="yewG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3f7d37"/><stop offset=".2" stop-color="#2f6630"/><stop offset="1" stop-color="#1f4a26"/></linearGradient>
+  <pattern id="leafP" width="58" height="46" patternUnits="userSpaceOnUse"><g fill="#16351a"><ellipse cx="8" cy="9" rx="6" ry="3"/><ellipse cx="33" cy="6" rx="7" ry="3"/><ellipse cx="50" cy="20" rx="6" ry="3"/><ellipse cx="20" cy="26" rx="7" ry="3.4"/><ellipse cx="42" cy="38" rx="6" ry="3"/><ellipse cx="6" cy="40" rx="5" ry="2.6"/></g><g fill="#6aa052"><ellipse cx="20" cy="12" rx="5" ry="2.4"/><ellipse cx="46" cy="9" rx="4" ry="2"/><ellipse cx="34" cy="24" rx="5" ry="2.4"/><ellipse cx="26" cy="40" rx="5" ry="2.4"/></g></pattern>
+</defs>
+
+<!-- the sky, the house on its rise, the stable clock -->
+<rect x="-1000" y="-400" width="3600" height="760" fill="url(#skyG)"/>
+<g fill="#fff" opacity=".88"><g class="cloud"><ellipse cx="0" cy="96" rx="140" ry="27"/><ellipse cx="90" cy="74" rx="90" ry="26"/><ellipse cx="-90" cy="84" rx="70" ry="18"/></g><g class="cloud b"><ellipse cx="0" cy="190" rx="110" ry="19"/><ellipse cx="70" cy="176" rx="64" ry="17"/></g></g>
+<g fill="#3f7a44"><path d="M-1000 346q120 -150 250 -60q60 -110 190 -40q90 -90 200 -20q70 -60 160 0v130h-800z"/><path d="M920 350q60 -120 170 -70q80 -110 210 -30q100 -80 210 0q120 -70 250 20q200 -110 840 40v60h-1680z"/></g>
+<g id="house" class="hot">
+  <path d="M170 196l64 -62h412l64 62z" fill="#8a5f4a"/><path d="M262 134v-42h36v42zM590 134v-42h36v42zM424 134v-34h30v34z" fill="#b98a6a"/>
+  <rect x="190" y="196" width="500" height="150" fill="#e7d5a4"/><path d="M190 196h500" stroke="#c9b582" stroke-width="6"/>
+  <path d="M400 196l40 -34 40 34z" fill="#efe2bb" stroke="#c9b582" stroke-width="3"/>
+  <g fill="#6f8496" stroke="#fbfaf2" stroke-width="3"><rect x="212" y="216" width="26" height="40"/><rect x="262" y="216" width="26" height="40"/><rect x="312" y="216" width="26" height="40"/><rect x="362" y="216" width="26" height="40"/><rect x="492" y="216" width="26" height="40"/><rect x="542" y="216" width="26" height="40"/><rect x="592" y="216" width="26" height="40"/><rect x="642" y="216" width="26" height="40"/>
+    <rect x="212" y="282" width="26" height="46"/><rect x="262" y="282" width="26" height="46"/><rect x="312" y="282" width="26" height="46"/><rect x="362" y="282" width="26" height="46"/><rect x="492" y="282" width="26" height="46"/><rect x="542" y="282" width="26" height="46"/><rect x="592" y="282" width="26" height="46"/><rect x="642" y="282" width="26" height="46"/></g>
+  <path d="M424 346v-70q16 -18 32 0v70z" fill="#5a3d20"/><path d="M406 346h68" stroke="#c9b582" stroke-width="6"/>
+  <path d="M320 150l-70 46h380l-70 -46z" fill="#7a5442" opacity=".5"/>
+</g>
+<g id="clock" class="hot">
+  <rect x="750" y="246" width="170" height="100" fill="#dcc994"/><path d="M738 250l36 -34h122l36 34z" fill="#7a5442"/>
+  <g fill="#5a3d20"><path d="M772 346v-52q14 -16 28 0v52z"/><path d="M870 346v-52q14 -16 28 0v52z"/></g>
+  <rect x="806" y="146" width="58" height="72" fill="#f1ead8" stroke="#c9b582" stroke-width="3"/><path d="M798 148l37 -40 37 40z" fill="#5d7f5c"/><path d="M835 108v-26" stroke="#3a3229" stroke-width="3"/><path d="M822 86h26M835 82l12 -6" stroke="#3a3229" stroke-width="2.5"/>
+  <circle cx="835" cy="182" r="22" fill="#fbfaf2" stroke="#3a3229" stroke-width="4"/><g stroke="#3a3229" stroke-width="2"><path d="M835 163v5M835 196v5M816 182h5M849 182h5"/></g>
+  <path d="M835 182l11.900 1" stroke="#3a3229" stroke-width="4" stroke-linecap="round"/><path d="M835 182l14.700 -8.500" stroke="#3a3229" stroke-width="2.600" stroke-linecap="round"/>
+</g>
+
+<!-- the lawn -->
+<path d="M-1000 346H2600V1320H-1000Z" fill="url(#lawnG)"/>
+<g fill="#fff" opacity=".1"><path d="M-400 566L-1000 1320H-560L-180 566zM40 566L-200 1320H180L260 566zM480 566L540 1320H920L700 566zM920 566L1300 1320H1680L1140 566zM1360 566L2060 1320H2440L1580 566z"/></g>
+<path d="M-1000 346H2600V380H-1000Z" fill="#a6d880" opacity=".6"/>
+
+<!-- the maze: a wall of yew, two pillars, a white gate -->
+<rect x="-1000" y="386" width="3600" height="182" fill="url(#yewG)"/><rect x="-1000" y="386" width="3600" height="182" fill="url(#leafP)" opacity=".6"/>
+<path d="M-1000 388H2600" stroke="#7fb065" stroke-width="6"/><path d="M-1000 568H2600" stroke="#1a3d1f" stroke-width="8"/>
+<g id="gate" class="hot">
+  <rect x="966" y="372" width="88" height="196" fill="#1b3f20"/><path d="M966 568h88l-12 -34h-64z" fill="#dccb9c"/><rect x="978" y="402" width="64" height="132" fill="#2a5a2b"/><rect x="978" y="402" width="64" height="132" fill="url(#leafP)" opacity=".5"/>
+  <rect x="924" y="340" width="46" height="228" fill="url(#yewG)"/><rect x="1050" y="340" width="46" height="228" fill="url(#yewG)"/><rect x="924" y="340" width="46" height="228" fill="url(#leafP)" opacity=".6"/><rect x="1050" y="340" width="46" height="228" fill="url(#leafP)" opacity=".6"/>
+  <circle cx="947" cy="322" r="25" fill="#2f6630"/><circle cx="1073" cy="322" r="25" fill="#2f6630"/><circle cx="947" cy="322" r="25" fill="url(#leafP)" opacity=".6"/><circle cx="1073" cy="322" r="25" fill="url(#leafP)" opacity=".6"/><path d="M930 310q16 -16 34 0M1056 310q16 -16 34 0" stroke="#7fb065" stroke-width="4" fill="none"/>
+  <g stroke="#fbfaf2" stroke-width="7" stroke-linecap="round" fill="none"><path d="M972 568V470M1048 568V470M972 484H1048M972 512H1048M972 540H1048M972 540L1048 484"/></g>
+  <path d="M968 458q42 22 84 0" stroke="#c9453a" stroke-width="5" fill="none"/><g transform="rotate(4 1010 494)"><rect x="984" y="474" width="52" height="34" fill="#fbfaf2" stroke="#3a3229" stroke-width="2"/><text x="1010" y="490" class="slab" font-size="11" fill="#c9453a">MAZE</text><text x="1010" y="503" class="slab" font-size="11" fill="#c9453a">SHUT</text></g>
+</g>
+
+<!-- Goodchild's plant stall, on the lawn in front of the hedge; the tea tent, half out of sight on the left -->
+<g id="stall" class="hot" transform="translate(116 127) scale(.85)">
+  <path d="M258 372v176" stroke="#6b5a3c" stroke-width="5"/><path d="M168 404q90 -64 180 0z" fill="#3f8a4e"/><path d="M198 388q30 -22 60 -22v38zM258 366q30 0 60 22l-60 16z" fill="#f4efdf"/>
+  <path d="M176 506h170v10h-170z" fill="#b98a55"/><path d="M186 516v40M336 516v40" stroke="#6b4a2a" stroke-width="6"/>
+  <g fill="#b9603a"><path d="M190 506l4 -18h18l4 18z"/><path d="M226 506l4 -18h18l4 18z"/><path d="M290 506l4 -18h18l4 18z"/></g>
+  <g fill="#3f8a4e"><circle cx="203" cy="480" r="11"/><circle cx="239" cy="476" r="13"/><circle cx="303" cy="480" r="11"/></g><g fill="#d95a8a"><circle cx="198" cy="474" r="4"/><circle cx="244" cy="470" r="4"/><circle cx="308" cy="474" r="4"/><circle cx="234" cy="482" r="3"/></g>
+  <rect x="214" y="522" width="94" height="24" fill="#fbfaf2" stroke="#6b4a2a" stroke-width="2"/><text x="261" y="542" class="amatic" font-size="24" fill="#3a3229" letter-spacing="2">PLANTS</text>
+</g>
+<g id="teatent" class="hot" transform="translate(-1545 52)">
+  <path d="M1400 566v-92l150 -64 150 64v92z" fill="#fbf7ea"/><path d="M1400 474l150 -64 150 64" fill="none" stroke="#d6cfba" stroke-width="5"/><path d="M1400 474h300v14q-15 12 -30 0q-15 12 -30 0q-15 12 -30 0q-15 12 -30 0q-15 12 -30 0q-15 12 -30 0q-15 12 -30 0q-15 12 -30 0q-15 12 -30 0q-15 12 -30 0z" fill="#c9453a"/>
+  <path d="M1500 566v-62h40v62z" fill="#e3d6b4"/><path d="M1550 410v-40" stroke="#6b5a3c" stroke-width="4"/><path d="M1550 370l40 10 -40 12z" fill="#c9453a"/>
+  <text x="1612" y="536" class="amatic" font-size="34" fill="#8c2f24" letter-spacing="3">TEAS</text>
+</g>
+
+<!-- bunting -->
+<path d="M-200 150q700 150 1420 -30" fill="none" stroke="#6b5a3c" stroke-width="2.500"/><path d="M1220 120V560" stroke="#8a6a45" stroke-width="8"/><circle cx="1220" cy="114" r="9" fill="#d9c16a"/>
+<g id="bunting" class="hot"><path class="flag" d="M-60 172l40 6 -14 46z" fill="#c9453a"/><path class="flag" d="M60 190l40 5 -16 46z" fill="#f2c14e"/><path class="flag" d="M180 204l40 4 -18 46z" fill="#2f6aa8"/><path class="flag" d="M300 213l40 2 -19 46z" fill="#3f8a4e"/><path class="flag" d="M420 218l40 0 -20 46z" fill="#c9453a"/><path class="flag" d="M540 218l40 -2 -19 46z" fill="#f2c14e"/><path class="flag" d="M660 213l40 -4 -18 46z" fill="#2f6aa8"/><path class="flag" d="M780 204l40 -6 -16 46z" fill="#3f8a4e"/><path class="flag" d="M900 190l40 -8 -14 46z" fill="#c9453a"/><path class="flag" d="M1020 172l40 -10 -12 46z" fill="#f2c14e"/><path class="flag" d="M1130 148l40 -12 -10 46z" fill="#2f6aa8"/></g>
+
+<!-- the people on the lawn -->
+<g id="rav" class="hot" transform="translate(188 848) scale(.96)" data-fig="ravenscroft"></g>
+<g id="bexley" class="hot" transform="translate(470 846) scale(1)" data-fig="bexley"></g>
+<rect id="shoes" class="hot" x="420" y="826" width="100" height="40" fill="#fff" opacity="0"/>
+<g id="twins" class="hot" transform="translate(604 868) scale(1.08)" data-fig="twins"></g>
+<g id="kemble" class="hot" transform="translate(860 852) scale(1.04)" data-fig="kemble"></g>
+
+<!-- the easel with Goodchild's plan -->
+<g id="board" class="hot">
+  <path d="M1024 610L1000 884M1150 610L1174 884M1087 600V560" stroke="#8a6a45" stroke-width="9" stroke-linecap="round"/><path d="M1010 790h154" stroke="#8a6a45" stroke-width="8"/>
+  <rect x="1012" y="592" width="150" height="176" fill="#6b4a2a"/><rect id="boardpaper" x="1020" y="600" width="134" height="160" fill="#f4ecd2"/>
+  <g stroke="#2f6b2a" stroke-width="4.500" fill="none" stroke-linecap="round"><path d="M1034 620h106v124h-46M1078 744h-44v-124M1050 636h60M1126 636v76M1050 652v60M1066 728h44M1066 652h44v60h-28v-44M1110 668v0"/></g>
+  <circle cx="1087" cy="690" r="5" fill="#8d8676"/><g fill="#c9453a"><circle cx="1026" cy="606" r="3"/><circle cx="1148" cy="606" r="3"/></g>
+</g>
+
+<!-- your table: the time stamp, the box of cards, the programme, a sunshade -->
+<path d="M1352 870V376" stroke="#8a6a45" stroke-width="9"/>
+<path d="M1178 420q174 -110 348 0z" fill="#fbfaf2"/><path d="M1236 396q54 -44 116 -44v68zM1352 352q62 0 116 44l-116 24z" fill="#c9453a"/><path d="M1178 420q14 12 29 0q14 12 29 0q14 12 29 0q14 12 29 0q14 12 29 0q14 12 29 0q14 12 29 0q14 12 29 0q14 12 29 0q14 12 29 0q14 12 29 0q14 12 29 0" fill="none" stroke="#d6cfba" stroke-width="4"/>
+<g id="mytable" class="hot">
+  <path d="M1214 870V716M1490 870V716" stroke="#3a2a1c" stroke-width="9"/><path d="M1196 660H1508L1530 716H1174Z" fill="#3f8a4e"/><path d="M1174 716H1530V760H1174Z" fill="#35753f"/><path d="M1174 760q15 12 30 0q15 12 30 0q15 12 30 0q15 12 30 0q15 12 30 0q15 12 30 0q15 12 30 0q15 12 30 0q15 12 30 0q15 12 30 0q15 12 30 0q13 12 26 0" fill="none" stroke="#2a5a33" stroke-width="5"/>
+  <rect x="1252" y="724" width="200" height="30" fill="#fbfaf2" stroke="#3a3229" stroke-width="2"/><text x="1352" y="746" class="slab" font-size="16" fill="#3f6b3a" letter-spacing="1">MAZE HUNT · 50p</text>
+</g>
+<g id="tstamp" class="hot"><ellipse cx="1262" cy="676" rx="50" ry="26" fill="#fff" opacity="0"/><path d="M1228 692h68v-22q0 -8 -8 -8h-52q-8 0 -8 8z" fill="#6f7480"/><path d="M1228 692h68" stroke="#3a3c45" stroke-width="4"/><rect x="1242" y="646" width="40" height="18" rx="3" fill="#3a3c45"/><path d="M1262 646v-18" stroke="#3a3c45" stroke-width="6"/><ellipse cx="1262" cy="624" rx="18" ry="7" fill="#17181c"/>
+  <rect x="1244" y="672" width="36" height="12" fill="#fbfaf2"/><text x="1262" y="682" font-family="Special Elite,monospace" font-size="10" text-anchor="middle" fill="#5a2a8c">3.10</text></g>
+<g id="cardbox" class="hot"><path d="M1330 696h74l8 -34h-90z" fill="#b98a55" stroke="#6b4a2a" stroke-width="2.500"/><g fill="#fbf7ea" stroke="#b9ae8c" stroke-width="1.500"><path d="M1334 664l4 -22h54l4 22z"/><path d="M1338 660l4 -22h54l4 22z"/><path d="M1342 656l4 -22h54l4 22z"/></g><path d="M1352 644h36M1352 650h24" stroke="#3f6b3a" stroke-width="2"/></g>
+<g id="prog" class="hot" transform="rotate(8 1464 684)"><rect x="1430" y="664" width="66" height="40" fill="#f6f1de" stroke="#3f6b3a" stroke-width="3"/><path d="M1440 676h46M1440 684h46M1440 692h30" stroke="#3f6b3a" stroke-width="2"/></g>
+
+<g id="oduya" class="hot" transform="translate(1540 852) scale(1)" data-fig="oduya"></g>
+
+<!-- daisies, and one butterfly -->
+<g fill="#fbfaf2"><circle cx="90" cy="790" r="5"/><circle cx="330" cy="872" r="5"/><circle cx="700" cy="800" r="4"/><circle cx="1004" cy="880" r="5"/><circle cx="1420" cy="884" r="4"/><circle cx="760" cy="720" r="3.500"/><circle cx="380" cy="700" r="3.500"/><circle cx="1110" cy="846" r="4"/></g>
+<g fill="#f2c14e"><circle cx="90" cy="790" r="2"/><circle cx="330" cy="872" r="2"/><circle cx="700" cy="800" r="1.600"/><circle cx="1004" cy="880" r="2"/><circle cx="1420" cy="884" r="1.600"/><circle cx="1110" cy="846" r="1.600"/></g>
+<g id="fly" pointer-events="none"><path d="M700 640q-12 -16 0 -22q12 6 0 22zM700 640q12 -16 0 -22" fill="#fbfaf2" stroke="#c9b582" stroke-width="1"/></g>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Through the gate</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="maze.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, bench = null, told = {};
+  /* What each photograph shows, as the camera wrote it down: one entry for each square of the lane (see MZ.describe).
+     The test holds every one of them to the maze. */
+  var PHOTOS = window.PHOTOS = {
+    a: { time: '2.30', bk: 3, cup: 1, col: '#c9453a', v: { c: [{ l: 0, r: 0, fw: 'open' }, { l: 0, r: 'open', rf: 1, f: 'dial:c' }], end: 'hedge' } },
+    b: { time: '2.42', bk: 3, col: '#2f6aa8', v: { c: [{ l: 'open', r: 0, lf: 0, fw: 'open' }, { l: 0, r: 'gap', rf: 1, f: 'lion:a' }], end: 'hedge' } },
+    c: { time: '2.50', bk: 3, col: '#7d3f98', v: { c: [{ l: 'open', r: 'open', lf: 1, rf: 1, fw: 'open' }, { l: 'open', r: 0, lf: 1, hr: 1, fw: 'open' }, { l: 0, r: 'open', rf: 0, fw: 'open' }, { l: 'open', r: 0, lf: 0, fw: 'open' }, { l: 0, r: 'open', rf: 1 }], end: 'hedge' } }
+  };
+  MZ.figs();
+
+  ER.init({
+    theme: 'mystery', story: 'maze', storyTitle: 'Past the Lion', id: 'gate', no: 'I', title: 'The Gate',
+    go: 'Put down the scone',
+    intro: [
+      'Little Hays, the second Saturday in June. Once a year the gates of Summerhays stand open: the house, the gardens, the dog show and the maze. Your grandmother is on the committee, which is how you came to be sitting at a card table by the maze gate with a rubber stamp. Every hunter who goes in has the time stamped on a card. Every hunter who comes out has it stamped again.',
+      'The Maze Hunt is as old as the maze. Five rhymes; four stamps, hidden among the hedges; and in the very middle, on the sundial, a silver cup for the first child who gets there. Sir Edmund Marchmont wrote the rhymes in 1962. People say that he meant every word of them, which is unusual in a poet.',
+      'It is ten past three. For an hour you stamped cards and ate a scone. Then two children came out of the gate at a run, and since then nobody on this lawn has finished a sentence.'
+    ],
+    exit: {"next":"rhymes","w":{"97863e3d":"3de191bc"}}, tags: {"pa":["8caf5117"],"pb":["ebeb0da7"],"pc":["a001bbca"],"hat":["75e175da"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('g-file') || null; told = ER.flag('g-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('g-told', told); return true; }
+  function isBusy() { return busy; }
+  function ready() { return told.kem && told.twins && told.odu; }
+  function showGo() { $('#go').classList.add('on'); }
+  function paint() {
+    $('#board').classList.toggle('ready', !!(ready() && !nextFile));
+    ER.pips((told.kem ? 1 : 0) + (told.twins && told.odu ? 1 : 0) + (ER.flag('g-stage') ? 1 : 0) + (nextFile ? 1 : 0), 4);
+  }
+
+  function hints() {
+    if (nextFile) return ['go', ['Your card is stamped IN, and the rope is off the gate. Go through.']];
+    if (bench && bench.isOpen()) return bench.stage() ? ['hat', [
+      'The hat is not in the walk. It is on the far side of the right-hand hedge. Which square of the picture is it level with?',
+      'It is level with the second square of the picture, counting the camera&rsquo;s own square as the first. Find that square on the plan, from pin C. Then ask what lies on the other side of its right-hand hedge. (The camera looked west, so its right hand was to the north.)'
+    ]] : ['pins', [
+      'A photograph shows the maze from inside: hedges, gaps, and the things that stand in the lanes. The plan shows the same maze from above. Start with the one that has the sundial in it. Where is the dial on the plan, and from which lane can you look straight at it?',
+      'Count squares. The pale lines across the path in a photograph are the edges of the squares of the plan. The camera stands in the first square, and its sides are outside the picture. For every square after that, look left and right: hedge, or a gap? Then find the same row of squares on the plan.',
+      'Which way was the camera looking? Over the hedges you can see what stands outside the maze: the house is to the north (the top of the plan), the church to the west. And photograph C needs a straight walk five squares long. The plan has only one.'
+    ]];
+    if (!told.kem) return ['kemble', ['The woman in the strawberry apron has said that she wants you. Click on her, and hear all of it.']];
+    if (!ready()) return ['hear', [
+      'Mrs Kemble named two things: the twins, who saw the cup last, and the girl from the Parish News, whose camera prints the time on every picture. Hear both.',
+      'The twins are sitting on the grass, to the left of Mrs Kemble. Miss Oduya is standing at the right-hand edge of the lawn, beyond your table, with the camera round her neck.'
+    ]];
+    return ['board', ['The photographs are in your hand. Goodchild&rsquo;s plan is on the easel, just to the left of your table.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; showGo(); ER.say('Three pins on the plan, a card in your hand, and the rope off the gate.'); return; }
+    if (told.in) { busy = false; ER.say('The lawn at Summerhays, ten past three. Mrs Kemble is waiting, and she is not good at it.'); return; }
+    tell('in');
+    ER.narrate([
+      'Behind your table stands the maze: a wall of dark yew, six feet high, with a white gate in it. The gate is shut now, and somebody has hung a card on it. On the table are your time stamp, a box of cards and the programme of the day. On an easel beside you is the gardener&rsquo;s plan of the maze, which no hunter is ever allowed to see.',
+      'A woman in an apron covered with strawberries is crossing the grass at the speed of somebody who has left two hundred scones in an oven. Behind her walks a very tall man in a white hat. He has the look of a man who has been kept waiting, and who means to mention it.',
+      '&ldquo;Nobody is to leave,&rdquo; says the woman, to the whole lawn, &ldquo;and nobody is to go into that maze.&rdquo; Then she points at you. &ldquo;And YOU are to stay exactly where you are. I want you.&rdquo;'
+    ], function () { busy = false; });
+  }
+
+  /* ---------- people ---------- */
+  $('#kemble').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Every rhyme, every stamp,&rdquo; says Mrs Kemble. &ldquo;And look at the ink pads. Go on.&rdquo;'); return; }
+    ER.talk({
+      who: 'Mrs Kemble', role: 'Chair of the open day committee · teas', face: window.FACE('kemble'),
+      lines: [
+        { note: 'She has a clipboard in one hand and a pencil behind her ear, and she talks as other people run.', a: '&ldquo;Right. You stamped every card that went through that gate, in and out. That makes you the nearest thing to a policeman that I have. The real one is judging the dog show until four, and I am not going to interrupt a man who is choosing between two spaniels.&rdquo;' },
+        { q: 'What has happened?', a: 'The Maze Cup has gone. Goodchild, the head gardener, stood it on the sundial in the middle of the maze at ten to two, as he has every June since before I was born. The first child to reach the dial with four stamps wins it. At three o&rsquo;clock the Trevithick twins came out of your gate shouting that it was not there.' },
+        { q: 'Had somebody won it?', a: 'Nobody. That is what I cannot get past. Look in your own box: an hour of hunting, and not one card has more than two stamps on it. Nobody has found the third stamp. Nobody ever does. So how did anybody find the middle?' },
+        { q: 'Does it matter so much? It is a children&rsquo;s prize.', a: 'It matters to him.</p><p class="note">She nods at the tall man without looking at him.</p><p>Mr Bexley, the auctioneer. Mrs Marchmont needs a new roof on the house, and the cup is to be sold to help pay for it. He was to take it away at four, after the presentation. He says that at four he leaves with the cup or with a policeman. The village is not pleased about the sale. I am not pleased about it. But a thing that is to be sold has to be THERE.' },
+        { q: 'What do you want me to do?', a: 'Find out who was where. The girl from the Parish News has been in there all afternoon with a camera that prints the time on every picture. Goodchild&rsquo;s plan is on your easel. Pin each photograph to the place where it was taken, and then we shall know something. First hear the twins: they saw the cup last, and they have told it to everybody but you.' }
+      ],
+      clue: { id: 'kem1', title: 'Mrs Kemble, on the lawn', kind: 'What she said' },
+      done: function (seen) {
+        if (seen && tell('kem')) {
+          MZ.words(['maze', 'sundial', 'auctioneer', 'committee']); paint();
+          ER.say('The twins are on the grass beside her. The girl with the camera is at the edge of the lawn, on the right.');
+        }
+      }
+    });
+  });
+  $('#twins').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.kem) { ER.say('Two children with grass on their knees, both talking. Neither is talking to you yet, and the woman in the apron has not finished with you.'); return; }
+    ER.talk({
+      who: 'Bea and Gus Trevithick', role: 'Aged ten · hunters for four years', face: window.FACE('twins'),
+      lines: [
+        { note: 'They take turns, more or less. Bea begins.', a: '&ldquo;We were the nearest. We were THIS near.&rdquo; &ldquo;We&rsquo;ve done the hunt four years running. Nobody gets the third stamp. You do the seat, you do the lion, and then there&rsquo;s nowhere to go.&rdquo;' },
+        { q: 'Where were you when you saw the cup?', a: 'At the bench. Not the first seat, the one with the stamp under it. The other one, in the dead end. If you kneel on it, there&rsquo;s a thin place in the hedge and you can see right into the middle: the sundial and everything. You just can&rsquo;t GET there.</p><p>&ldquo;Everybody ends up at that bench,&rdquo; says Gus. &ldquo;Every year.&rdquo;' },
+        { q: 'And the cup was on the sundial?', a: 'Yes! Shining. The stable clock was striking while we looked: ding-dong, ding-dong, ding-dong. That&rsquo;s three quarters. A quarter to three.</p><p>&ldquo;Then we went to look for the steps again,&rdquo; says Gus. &ldquo;Rhyme three says steps. There AREN&rsquo;T any steps.&rdquo;' },
+        { q: 'When did you see that it had gone?', a: 'We came back with the tall man. He was lost. He didn&rsquo;t even need the thin place: he just looked over the top of the hedge. And he said, &ldquo;Where?&rdquo; And we looked, and the sundial was only a sundial.</p><p class="note">Did they see anybody in the middle?</p><p>&ldquo;No. We heard the gravel, though, a bit before. One long crunch.&rdquo; &ldquo;Not like feet,&rdquo; says Gus. &ldquo;Feet go crunch, crunch, crunch. I think it was a badger.&rdquo;' },
+        { q: 'What did you do then?', a: 'Ran out and told everybody. We told Miss Fairbrass first, in the tea tent, because she is the one who gives the cup. And SHE said it had only gone as far as the urn and no further, and that we were to wash our hands.</p><p>&ldquo;That&rsquo;s out of rhyme four,&rdquo; says Bea. &ldquo;Nobody has ever even SEEN the urn.&rdquo;' }
+      ],
+      clue: { id: 'twins1', title: 'The Trevithick twins', kind: 'What they said' },
+      done: function (seen) { if (seen && tell('twins')) { MZ.words(['dead end', 'hedge', 'gravel', 'three quarters']); paint(); } }
+    });
+  });
+  $('#oduya').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.kem) { ER.say('A girl with a camera nearly as big as her head. She is photographing the tall man, who is pretending not to notice.'); return; }
+    ER.talk({
+      who: 'Miss Oduya', role: 'The Little Hays Parish News · photographs', face: window.FACE('oduya'),
+      lines: [
+        { note: 'She is seventeen, and she has wanted a real story for the Parish News for two years.', a: '&ldquo;I&rsquo;m doing a page on the open day. Mr Goodchild let me into the middle by the Yew Door, the green door in the east hedge, at twenty-five past two, so that I could photograph the cup before the children got to it. He stood at the door the whole time, and he locked it behind me at twenty-five to three. He is very careful about that door.&rdquo;' },
+        { q: 'And after that?', a: 'I walked round to your gate and went in like everybody else. You stamped me in at twenty to three. I wanted pictures of people being lost. There was no shortage.' },
+        { q: 'May I have the photographs?', a: 'Take these three. The camera prints the time in the corner. The first one I took in the lane from the Yew Door. For the other two I can&rsquo;t tell you where I was standing: I was as lost as anybody.</p><p class="note">She pats her pockets.</p><p>And I&rsquo;ve lost my lens cap somewhere. If you find a lens cap, it&rsquo;s mine.' }
+      ],
+      clue: { id: 'odu1', title: 'Miss Oduya, of the Parish News', kind: 'What she said' },
+      done: function (seen) {
+        if (seen && tell('odu')) { MZ.words(['lens cap', 'Yew Door']); paint(); if (ready()) ER.say('Three photographs, each with a time in the corner. The plan is on the easel.'); }
+      }
+    });
+  });
+  $('#bexley').addEventListener('click', bex); $('#shoes').addEventListener('click', function (e) {
+    if (busy) return;
+    ER.wordAt(e.clientX, e.clientY, 'polished');
+    ER.say('Brown shoes, polished like conkers. There is not a mark on them: not a blade of grass, not a speck of mud.');
+  });
+  function bex() {
+    if (busy) return;
+    if (!told.kem) { ER.say('He is six feet five, in a cream suit and a white hat, and he is looking at his watch. The woman in the apron has not finished with you.'); return; }
+    ER.talk({
+      who: 'Mr Bexley', role: 'Bexley’s Auction Rooms · fine art and silver', face: window.FACE('bexley'),
+      lines: [
+        { note: 'He speaks to a point a little above your head, which from his height is easily done.', a: '&ldquo;Bexley. I was asked to collect one silver cup at four o&rsquo;clock. I was not asked to play hide and seek for it.&rdquo;' },
+        { q: 'Why did you go into the maze?', a: 'To see what I am to sell. A sensible man looks at a thing before he puts a price on it. I meant to walk to the middle. I walked for ten minutes and arrived at a bench, two children, and a hedge.' },
+        { q: 'The twins say that you looked over the hedge.', a: 'At my height one does. I saw a sundial and a great deal of gravel, very neatly raked. I did not see a cup. I should like that written down: when I looked, at ten minutes to three, there was no cup.' },
+        { q: 'How far was the bench from the sundial?', a: 'One hedge. I could have touched the dial with a fishing rod. And if I were a thief, my young friend, I should not have gone thieving in a white hat that can be seen over every hedge in the county.' }
+      ],
+      clue: { id: 'bex1', title: 'Mr Bexley, the auctioneer', kind: 'What he said' },
+      done: function (seen) { if (seen) tell('bex'); }
+    });
+  }
+  MZ.item('#rav', 'pushchair', function () { return told.kem ? '&ldquo;We got one stamp,&rdquo; says Mrs Ravenscroft, rocking the pushchair with her foot. &ldquo;Then he fell asleep, and I was not going to wake him for a lion. We went in at twenty to three and came out before the shouting. You stamped us yourself.&rdquo;' : 'A woman is rocking a pushchair with one foot. Whoever is in it has slept through everything.'; }, isBusy);
+
+  /* ---------- things on the lawn ---------- */
+  $('#prog').addEventListener('click', function () {
+    if (busy) return;
+    MZ.read('prog', function () { MZ.words(['presentation', 'raffle']); if (tell('prog')) ER.say('Miss Fairbrass wrote the programme. She has written it every year since 1979, and every year she says that nobody reads it.'); });
+  });
+  MZ.item('#tstamp', 'time stamp', 'Your time stamp. You push the handle down, and it prints the time on a card in violet ink: IN when a hunter goes through the gate, and OUT when the hunter comes back. It cannot be argued with, which is more than can be said for the hunters.', isBusy);
+  MZ.item('#cardbox', 'hunt card', 'The cards of everybody who has come out. You have been through them twice. Every one has an IN and an OUT. Most have one stamp from the hunt, and some have two: a star and a paw. Not one has a third.', isBusy);
+  MZ.item('#gate', null, function () { return nextFile ? 'The white gate, with the rope off. The first lane runs straight in between the yews.' : 'The maze gate, roped shut. The card says MAZE SHUT in Mrs Kemble&rsquo;s capitals. Beyond it you can see ten metres of gravel and a wall of yew.'; }, isBusy);
+  MZ.item('#clock', 'stable clock', 'The stable clock. It strikes every quarter of an hour, and it can be heard all over the gardens: one ding-dong at a quarter past, two at half past, three at a quarter to, and four before it strikes the hour.', isBusy);
+  MZ.item('#house', null, 'Summerhays. Forty rooms, eleven Marchmonts in three hundred years, and one roof, which lets in the rain in nine places. The house stands on the north side of the maze, so from inside the maze you can see its chimneys over the hedges.', isBusy);
+  MZ.item('#stall', 'stall', 'The plant stall, under the green umbrella. It is Mr Goodchild&rsquo;s. You saw him come round the corner of the maze and put that umbrella up at ten to three. Nobody is minding it now.', isBusy);
+  MZ.item('#teatent', 'tea tent', 'The tea tent. Mrs Kemble runs it, with two urns and a book in which she writes down everything that anybody orders, and when.', isBusy);
+  MZ.item('#mytable', null, 'Your table. One time stamp, one box of cards, one programme, half a scone.', isBusy);
+  MZ.item('#bunting', 'bunting', 'Bunting. The same flags have been put up every June for thirty years, and some of them remember being red.', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  $('#board').addEventListener('click', function () {
+    var left = [];
+    if (busy) return;
+    if (nextFile) { ER.say('Three pins and a white hat. Mrs Kemble has turned the easel so that nobody else can see it.'); return; }
+    if (!told.kem) { ER.say('The gardener&rsquo;s plan of the maze, drawn on squared paper and pinned to an easel. Hunters are not allowed to look at it. You are not a hunter. But the woman in the apron is still pointing at you.'); return; }
+    if (!told.twins) left.push('heard the twins');
+    if (!told.odu) left.push('got the photographs from the girl with the camera');
+    if (left.length) { ER.say('&ldquo;Not yet,&rdquo; says Mrs Kemble. &ldquo;You have not ' + left.join(', and you have not ') + '.&rdquo;'); return; }
+    if (!bench) bench = makeBench();
+    bench.open();
+  });
+
+  /* ---------- the plan and the three photographs ---------- */
+  function makeBench() {
+    var ORDER = ['a', 'b', 'c'], pins = ER.flag('g-pins') || {}, stage = ER.flag('g-stage') || 0, hat = ER.flag('g-hat') || null, sel = 'a', wait = false,
+      box = ER.el('div', 'bx pins'), NTH = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth'], NAME = { dial: 'the sundial', lion: 'a stone lion', bench: 'a seat', urn: 'an urn' },
+      Q = '&rdquo; says Mrs Kemble, over your shoulder. &ldquo;';
+    function photo(k, id) { return '<svg viewBox="240 50 1120 630" preserveAspectRatio="xMidYMid slice">' + MZ.draw(PHOTOS[k].v, { id: id, bk: PHOTOS[k].bk, cup: PHOTOS[k].cup }) + '</svg>'; }
+    box.innerHTML = '<div class="pn-two"><div class="pn-plan">' + MZ.plan({ cells: 1 }) + '</div><div class="pn-side">' +
+      '<div class="pn-big"><div class="pn-pic"></div><span class="stamp"></span><div class="cap2"><span class="l"></span><span>M. Oduya</span></div></div>' +
+      '<div class="pn-row">' + ORDER.map(function (k) { return '<button type="button" class="pn-th" data-p="' + k + '">' + photo(k, 't' + k) + '<span>' + PHOTOS[k].time + '</span><i style="background:' + PHOTOS[k].col + '">' + k.toUpperCase() + '</i></button>'; }).join('') + '</div>' +
+      '<p class="pn-how"></p></div></div><div class="bx-foot"><p class="pmsg"></p><button type="button" class="btn" id="g-go">Show Mrs Kemble</button></div>';
+    var msgEl = box.querySelector('.pmsg'), top = box.querySelector('.pl-top'), how = box.querySelector('.pn-how'), go = box.querySelector('#g-go');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function draw() {
+      var s = '';
+      ORDER.forEach(function (k) { if (pins[k]) s += MZ.pin(pins[k][0], pins[k][1], pins[k][2], k.toUpperCase(), PHOTOS[k].col); });
+      if (hat) s += '<g transform="translate(' + MZ.cellAt(hat[0], hat[1]).join(' ') + ')"><ellipse cx="0" cy="5" rx="20" ry="6" fill="#ebe5d2" stroke="#3a3229" stroke-width="1.5"/><path d="M-12 4q-1 -15 3 -17q9 -3 18 0q4 2 3 17z" fill="#f4efdf" stroke="#3a3229" stroke-width="1.5"/><path d="M-12 0h24v4h-24z" fill="#2e3a4d"/></g>';
+      top.innerHTML = s;
+      ER.$$('.pn-th', box).forEach(function (b) { var k = b.getAttribute('data-p'); b.classList.toggle('sel', !stage && k === sel); b.classList.toggle('set', !!pins[k]); });
+      box.querySelector('.pn-pic').innerHTML = photo(stage ? 'c' : sel, 'big');
+      box.querySelector('.stamp').textContent = PHOTOS[stage ? 'c' : sel].time + ' PM';
+      box.querySelector('.cap2 .l').textContent = 'Photograph ' + (stage ? 'C' : sel.toUpperCase());
+      how.innerHTML = stage ? 'Look at photograph C again. A white hat is showing over the hedge. <b>Click the square of the plan where the man under the hat was standing.</b>' :
+        '<b>Choose a photograph</b> (click one of the three small ones). <b>Click a square</b> of the plan to push its pin in where the camera stood. <b>Click the same square again</b> to turn the arrow: it must point the way the camera was looking.';
+      go.textContent = stage ? 'That is where' : 'Show Mrs Kemble';
+    }
+    function why(k) {
+      var p = pins[k], L = k.toUpperCase(), df = MZ.differ(PHOTOS[k].v, MZ.describe(p[0], p[1], p[2])), nm;
+      if (!df) return null;
+      if (df.what === 'thing') {
+        nm = NAME[df.a.split(':')[0]];
+        return df.near < 0 ? '&ldquo;Photograph ' + L + ' has ' + nm + ' in it,' + Q + 'From your pin, looking the way your arrow points, I cannot find one on the plan.&rdquo;' :
+          '&ldquo;In photograph ' + L + ', ' + nm + ' is in the ' + NTH[df.k] + ' square, counting the camera&rsquo;s own square as the first,' + Q + 'From your pin it is in the ' + NTH[df.near] + '. How far away was she standing?&rdquo;';
+      }
+      if (df.what === 'extra') return '&ldquo;From your pin, looking that way, the plan puts ' + NAME[df.b.split(':')[0]] + ' in front of the camera,' + Q + 'I see nothing of the kind in photograph ' + L + '.&rdquo;';
+      if (df.what === 'side') return '&ldquo;Count the squares in photograph ' + L + ', with the camera&rsquo;s own as the first,' + Q + 'In the ' + NTH[df.k] + ' square there is ' + (df.a ? 'a gap' : 'solid hedge') + ' on the ' + df.side + '. From your pin, the plan has ' + (df.b ? 'a gap' : 'solid hedge') + ' there.&rdquo;';
+      if (df.what === 'len') return '&ldquo;In photograph ' + L + ' the lane runs for ' + ['no', 'one square', 'two squares', 'three squares', 'four squares', 'five squares', 'six squares'][df.a] + ' before a hedge shuts it, counting the camera&rsquo;s own,' + Q + 'From your pin, on the plan, it runs for ' + ['none', 'one', 'two', 'three', 'four', 'five', 'six', 'seven'][df.b] + '.&rdquo;';
+      return '&ldquo;The end of the lane is wrong,' + Q + 'Look at what shuts it in photograph ' + L + ', and at what shuts it on the plan.&rdquo;';
+    }
+    box.addEventListener('click', function (e) {
+      var th = e.target.closest ? e.target.closest('.pn-th') : null, c = e.target.closest ? e.target.closest('.pc') : null, q, p;
+      if (wait) return;
+      if (th && !stage) { sel = th.getAttribute('data-p'); ER.sfx.paper(); draw(); return; }
+      if (c) {
+        q = c.getAttribute('data-c').split(','); q = [+q[0], +q[1]];
+        if (stage) { hat = q; ER.flag('g-hat', hat); MZ.sfx.pin(); draw(); return; }
+        p = pins[sel];
+        if (p && p[0] === q[0] && p[1] === q[1]) p[2] = (p[2] + 1) % 4; else pins[sel] = [q[0], q[1], p ? p[2] : 0];
+        ER.flag('g-pins', pins); MZ.sfx.pin(); draw();
+      }
+    });
+    go.addEventListener('click', function () {
+      var i, k, t, file;
+      if (wait || nextFile) return;
+      if (!stage) {
+        for (i = 0; i < 3; i++) if (!pins[ORDER[i]]) { msg('&ldquo;Three photographs, three pins,&rdquo; says Mrs Kemble. &ldquo;Photograph ' + ORDER[i].toUpperCase() + ' is still in your hand.&rdquo;'); return; }
+        for (i = 0; i < 3; i++) {
+          k = ORDER[i]; t = why(k);
+          if (t || !ER.check('p' + k, pins[k][0] + ',' + pins[k][1] + ',' + MZ.DN.charAt(pins[k][2]))) {
+            ER.sfx.no(); sel = k; draw(); msg('<b>Photograph ' + k.toUpperCase() + '.</b> ' + (t || '&ldquo;Not there,' + Q + 'Look again.&rdquo;')); return;
+          }
+        }
+        stage = 1; ER.flag('g-stage', 1); MZ.solved(true); paint(); draw();
+        msg('&ldquo;Good. So at half past two the cup was on the dial: there it is. At eighteen minutes to three she was looking at the lion. And at ten to three she was standing in the Long Walk, looking west.&rdquo; Mrs Kemble puts her finger on photograph C. &ldquo;And THAT is Mr Bexley&rsquo;s hat. So where was Mr Bexley?&rdquo;');
+        return;
+      }
+      if (!hat) { msg('&ldquo;The hat,&rdquo; says Mrs Kemble. &ldquo;Put your finger on the square where the man under it was standing.&rdquo;'); return; }
+      if (!ER.check('hat', hat[0] + ',' + hat[1])) {
+        ER.sfx.no(); t = pins.c;
+        msg(hat[1] === t[1] ? '&ldquo;That is the Long Walk itself,' + Q + 'The hat is not IN the walk. It is on the other side of the hedge.&rdquo;' :
+          hat[1] > t[1] ? '&ldquo;She was looking west,' + Q + 'so the south was on her left. The hat is over the hedge on her RIGHT.&rdquo;' :
+          '&ldquo;Count along the picture,' + Q + 'The hat is level with one square of the walk. Which one? And what is behind the hedge just there?&rdquo;');
+        return;
+      }
+      file = ER.exit([ORDER.map(function (k) { return pins[k][0] + ',' + pins[k][1] + ',' + MZ.DN.charAt(pins[k][2]); }).join('|') + '|' + hat[0] + ',' + hat[1]], { wait: true });
+      if (!file) { msg('The pin has bent. Something is wrong with this page: tell your teacher.'); return; }
+      wait = true; nextFile = file; ER.flag('g-file', file);
+      MZ.mine('pins', 'Three photographs, pinned to the plan', '<p>2.30 (A): the cup on the sundial. Taken in the lane from the Yew Door, looking west.</p><p>2.42 (B): the stone lion, from the next square. There is a dark place in the hedge on his right.</p>' +
+        '<p>2.50 (C): the Long Walk, looking west. A white hat over the right-hand hedge: Mr Bexley, in the dead end with the bench. On the plan that dead end is ONE HEDGE from the dial.</p>' +
+        '<p>The twins saw the cup at a quarter to three, while the clock was striking. At ten to three Mr Bexley looked over the hedge, and it had gone.</p>', true);
+      msg('&ldquo;The dead end with the bench.&rdquo; Mrs Kemble looks from the plan to the tall man in the white hat, and back again. &ldquo;One hedge from the dial. At ten to three. Well, well.&rdquo;');
+      setTimeout(function () {
+        ER.closeAll(); paint(); busy = true;
+        ER.narrate([
+          '&ldquo;So,&rdquo; says Mrs Kemble. &ldquo;At half past two the cup was on the dial. At a quarter to three it was still there: the twins saw it while the clock was striking. At ten to three it was not, and a man in a white hat was standing one hedge away from it.&rdquo; &ldquo;One hedge,&rdquo; says Mr Bexley, &ldquo;is a great deal of hedge.&rdquo; &ldquo;That is what I mean to find out.&rdquo;',
+          'She takes a fresh card out of your box, stamps it herself, and holds it out to you. IN 3.14. &ldquo;You are under fifteen. You have not set foot in that maze today, so you have no idea where anything is, and you will have to read. Do the hunt. Every rhyme, every stamp.&rdquo;',
+          '&ldquo;Why?&rdquo; &ldquo;Because not one card in that box has a third stamp on it. So either somebody reached the middle without the rhymes, or somebody read them better than the rest of us and kept quiet about it. I want to know what there is past that lion. And look at the ink pads when you find them. A pad that has been used all afternoon does not look like a pad that has not.&rdquo;',
+          'You reach for the plan. She puts her hand flat on it. &ldquo;The plan stays on the easel. Sir Edmund&rsquo;s rule: nobody takes a map into his maze.&rdquo; She unhooks the rope from the gate. &ldquo;Go on. I have a tea tent to run.&rdquo;'
+        ], function () { busy = false; showGo(); ER.say('A card, five rhymes, and a white gate standing open.'); });
+      }, 4200);
+    });
+    draw();
+    msg(stage ? '&ldquo;And THAT is Mr Bexley&rsquo;s hat,&rdquo; says Mrs Kemble. &ldquo;So where was Mr Bexley?&rdquo;' :
+      'Goodchild&rsquo;s plan shows the maze from above. Miss Oduya&rsquo;s three photographs show it from inside. Push a pin into the plan for each photograph, where the camera stood, with its arrow pointing the way the camera looked.');
+    return {
+      open: function () { ER.open('ov-lock', box); },
+      isOpen: function () { return !!box.parentNode; },
+      stage: function () { return stage; }
+    };
+  }
+})();
+</script>
+</body>
+</html>

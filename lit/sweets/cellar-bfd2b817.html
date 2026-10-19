@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Cellar · Miss Plunkett's Last Recipe</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lit.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="sweets.css">
+<style>
+  body{--bg:#121a16;--accent:#9ff0c0;--font-display:'Henny Penny',cursive;--font-ui:'Goudy Bookletter 1911',serif;--font-body:'Alegreya',serif;
+    --tc-bg:rgba(16,24,20,.96);--tc-ink:#e8f4ec;--cap-bg:rgba(18,28,22,.95);--panel:#1e2c24;--face-bg:#2e4a3a;--q-ink:#b8f8d0;--fade:#060a08;--hud-bg:rgba(16,24,20,.82)}
+  .tc-room{font-size:clamp(46px,6.4vw,86px);color:#9ff0c0}
+  .sF{font-family:'Fredericka the Great',serif;text-anchor:middle}
+  .sG{font-family:'Goudy Bookletter 1911',serif;text-anchor:middle}
+  .sK{font-family:'Gochi Hand',cursive;text-anchor:middle}
+  .sH{font-family:'Henny Penny',cursive;text-anchor:middle}
+  #drop{animation:drop 2.6s ease-in infinite}
+  @keyframes drop{0%{transform:translateY(0);opacity:0}10%{opacity:1}80%{transform:translateY(300px);opacity:1}81%{opacity:0}100%{opacity:0;transform:translateY(300px)}}
+  #lampglow{animation:lampg 7s steps(1,end) infinite}
+  @keyframes lampg{0%{opacity:1}44%{opacity:.8}45%{opacity:1}}
+  .mach.ready{animation:glowm 1.6s steps(1,end) infinite}
+  @keyframes glowm{50%{filter:brightness(1.35)}}
+  #safedoor{transition:transform .9s}#scene.safe #safedoor{transform:translateX(-120px) scaleX(.3)}
+  #sparkle{opacity:0}#scene.done #sparkle{opacity:1;animation:spk 1s steps(2,end) infinite}
+  @keyframes spk{50%{opacity:.3}}
+
+  .fin{width:min(1060px,95vw);-webkit-user-select:none;user-select:none}
+  .fin>svg{display:block;width:100%;height:auto;border-radius:6px 6px 0 0;box-shadow:0 26px 70px rgba(0,0,0,.7)}
+  .fin .lo{display:grid;grid-template-columns:1.1fr 1fr;gap:0;background:#24302a;border-radius:0 0 6px 6px}
+  .fin .poem{background:#fffaf0;color:#1c2a20;font-family:'Alegreya',serif;font-style:italic;font-size:16.5px;line-height:1.36;padding:10px 18px 10px 24px;border-left:14px solid #24553a;border-radius:0 0 0 6px}
+  .fin .poem h6{margin:0 0 4px;font-family:'Goudy Bookletter 1911',serif;font-style:normal;font-weight:normal;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:#7a6a3a}
+  .fin .poem p{margin:0 0 6px}
+  .fin .side{padding:10px 16px 12px;display:flex;flex-direction:column;gap:8px}
+  .fin .route{display:flex;gap:8px}
+  .fin .route span{flex:1;min-height:42px;padding:6px 6px 4px;border:2px dashed rgba(159,240,192,.5);border-radius:4px;font-family:'Fredericka the Great',serif;font-size:15px;color:#e8f4ec;text-align:center;line-height:1.15}
+  .fin .route span i{display:block;font-family:'Goudy Bookletter 1911',serif;font-style:normal;font-size:12px;letter-spacing:.16em;color:#9ff0c0}
+  .fin .route span.on{border-style:solid;background:rgba(159,240,192,.12)}
+  .fin .bmsg{min-height:72px;font-size:17.5px}
+  .fin .row{display:flex;align-items:center;gap:10px}
+  .fin .row .hearts{flex:1;font-family:'Goudy Bookletter 1911',serif;font-size:14px;letter-spacing:.12em;color:#c8e8d4}
+  .fin .btn{--accent:#9ff0c0;background:rgba(0,0,0,.35)}
+  .fin .m{cursor:pointer}
+  .fin .m:hover .plate{filter:brightness(1.15)}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="stone" width="120" height="60" patternUnits="userSpaceOnUse"><rect width="120" height="60" fill="#4a5a50"/><path d="M0 1h120M0 31h120M1 0v30M61 30v30" stroke="#2e3a32" stroke-width="3"/><rect x="8" y="6" width="44" height="18" fill="#56685c" opacity=".6"/><rect x="70" y="36" width="40" height="18" fill="#3e4e44" opacity=".6"/></pattern>
+  <pattern id="flag" width="140" height="70" patternUnits="userSpaceOnUse"><rect width="140" height="70" fill="#3a4038"/><path d="M0 1h140M0 36h140M1 0v35M71 35v35" stroke="#262c24" stroke-width="3"/></pattern>
+  <linearGradient id="steelG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8a98a8"/><stop offset=".4" stop-color="#e8f0f8"/><stop offset="1" stop-color="#7a8898"/></linearGradient>
+  <linearGradient id="cuG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7a3a14"/><stop offset=".4" stop-color="#f0a060"/><stop offset="1" stop-color="#6a2e10"/></linearGradient>
+  <radialGradient id="lampG"><stop offset="0" stop-color="#d8ffb0" stop-opacity=".55"/><stop offset="1" stop-color="#d8ffb0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="76%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".6" stop-color="#030806" stop-opacity=".35"/><stop offset="1" stop-color="#010302" stop-opacity=".92"/></radialGradient>
+</defs>
+
+<!-- the vault -->
+<rect x="-1000" y="-400" width="3600" height="1110" fill="url(#stone)"/>
+<g fill="#1c2620"><path d="M-1000 -400h3600v300q-300 -160 -600 0q-300 -160 -600 0q-300 -160 -600 0q-300 -160 -600 0q-300 -160 -600 0q-300 -160 -600 0z"/></g>
+<g fill="none" stroke="#6a7a6e" stroke-width="16"><path d="M-200 -100q300 -160 600 0q300 -160 600 0q300 -160 600 0q300 -160 600 0"/></g>
+<path d="M300 -100V720M900 -100V720" stroke="#2e3a32" stroke-width="10" opacity=".7"/>
+<!-- a pipe that drips -->
+<path d="M-1000 40h1700v40" fill="none" stroke="#6a6a5a" stroke-width="16"/><circle cx="700" cy="88" r="9" fill="#6a6a5a"/>
+<g pointer-events="none"><ellipse id="drop" cx="700" cy="100" rx="4" ry="7" fill="#a8d8e8"/></g><ellipse cx="700" cy="786" rx="70" ry="10" fill="#6a8a98" opacity=".5"/>
+<!-- the sign -->
+<g transform="rotate(-2 720 160)"><rect x="520" y="130" width="400" height="56" fill="#fdf6c8" stroke="#7a2a8a" stroke-width="3"/><text x="720" y="166" class="sK" font-size="25" fill="#7a2a8a">I work where my mistakes can see me.</text></g>
+
+<!-- shelves of jars: sixty-eight years of things that went wrong -->
+<g id="shelves" class="hot"><rect x="20" y="190" width="270" height="440" fill="#2a2018"/><g fill="#6a4a2a"><rect x="14" y="300" width="282" height="12"/><rect x="14" y="420" width="282" height="12"/><rect x="14" y="540" width="282" height="12"/></g><g id="failjars"></g></g>
+<g id="humbugs" class="hot"><g id="hjar"></g></g>
+
+<!-- the six machines -->
+<g id="machines"></g>
+<!-- the floor -->
+<rect x="-1000" y="710" width="3600" height="800" fill="url(#flag)"/>
+<rect x="-1000" y="710" width="3600" height="800" fill="#000" opacity=".2"/>
+
+<!-- the safe -->
+<g id="safe" class="hot"><rect x="70" y="620" width="220" height="200" rx="6" fill="#2a3a5a" stroke="#141c2c" stroke-width="5"/><rect x="88" y="638" width="184" height="164" fill="#1a2440"/>
+  <g id="safedoor"><rect x="88" y="638" width="184" height="164" fill="#34466a" stroke="#c8a060" stroke-width="3"/><text x="180" y="676" class="sF" font-size="16" fill="#e8c460">SECRET</text><text x="180" y="696" class="sF" font-size="16" fill="#e8c460">RECIPES</text>
+    <circle cx="180" cy="748" r="30" fill="#c8a060" stroke="#7a5a1e" stroke-width="4"/><circle cx="180" cy="748" r="8" fill="#7a5a1e"/><path d="M180 722v8" stroke="#2a1a10" stroke-width="3"/></g>
+  <rect x="160" y="740" width="40" height="30" fill="#fdf6e4" opacity="0" id="sheet"/></g>
+
+<!-- Miss Plunkett's desk, the lamp, the riddle on the pillar -->
+<g id="riddle" class="hot" transform="rotate(2 1470 330)"><rect x="1400" y="250" width="150" height="170" fill="#fffaf0" stroke="#24553a" stroke-width="6"/><text x="1475" y="280" class="sH" font-size="15" fill="#24553a">The Finish</text>
+  <g stroke="#3a4a3a" stroke-width="1.5"><path d="M1414 296h120M1414 306h110M1414 322h120M1414 332h100M1414 348h120M1414 358h110M1414 374h120M1414 384h96M1414 400h110"/></g><circle cx="1475" cy="256" r="6" fill="#d6457a"/></g>
+<circle id="lampglow" cx="1400" cy="640" r="260" fill="url(#lampG)" pointer-events="none"/>
+<g id="desk" class="hot"><rect x="1240" y="680" width="340" height="20" rx="3" fill="#7a4e2a"/><path d="M1260 700v140M1560 700v140" stroke="#5a3a1a" stroke-width="12"/><rect x="1270" y="700" width="120" height="70" fill="#6a4020"/><circle cx="1330" cy="736" r="5" fill="#e8c460"/>
+  <path d="M1500 680v-70l-30 -30" stroke="#2a3a2a" stroke-width="6" fill="none"/><path d="M1440 590l40 -40 40 20 -30 40z" fill="#3aa060" stroke="#1a5a30" stroke-width="3"/>
+  <g id="pagep" transform="rotate(-6 1330 670)"><rect x="1290" y="652" width="90" height="30" fill="#fbf4e2"/><path d="M1298 660h70M1298 668h60M1298 676h70" stroke="#3a3a6a" stroke-width="1.4"/></g>
+  <g id="bellocb"><rect x="1400" y="660" width="70" height="20" rx="2" fill="#7a1e24"/><rect x="1404" y="664" width="62" height="12" fill="#a83a3a"/><text x="1435" y="674" class="sG" font-size="7" fill="#fbe8c8">BELLOC</text></g>
+  <path d="M1500 680v-14h30v14z" fill="#e8e0d0"/><path d="M1504 668q11 -14 22 0" fill="none" stroke="#7a3f9a" stroke-width="3"/></g>
+
+<!-- the people -->
+<g id="huxtable" class="hot" transform="translate(340 868)"></g>
+<g id="gribble" class="hot" transform="translate(1000 905) scale(.8)"></g>
+<g id="catg" class="hot" transform="translate(1190 712)"></g>
+<g id="sparkle" pointer-events="none"></g>
+
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Up to the roof</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="sweets.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told, lock = null;
+  var NAME = { moongrinder: 'Moongrinder', snoozebox: 'Snoozebox', chillery: 'Chillery', overcoater: 'Overcoater', glittermill: 'Glittermill', sunbellows: 'Sunbellows' };
+  var ORDER = ['moongrinder', 'snoozebox', 'chillery', 'overcoater', 'glittermill', 'sunbellows'];
+  var LOOK = {
+    moongrinder: 'THE MOONGRINDER. A tall silver machine with a smiling moon painted on its front, a funnel on top, a handle to turn, and a spout underneath.',
+    snoozebox: 'THE SNOOZEBOX. A wooden box with a patchwork quilt painted on its lid, and a nightcap hanging from a hook.',
+    chillery: 'THE CHILLERY. A steel cupboard as tall as a man, white with frost. Even the handle is cold.',
+    overcoater: 'THE OVERCOATER. Knitting needles, a ball of wool, and a row of tiny woollen coats on pegs, each with two buttons.',
+    glittermill: 'THE GLITTERMILL. A copper drum on a stand, with a handle to turn it. Inside, something catches the light.',
+    sunbellows: 'THE SUNBELLOWS. An enormous pair of bellows with a golden sun painted on them, and a nozzle like an elephant&rsquo;s trunk.'
+  };
+  /* one picture for each machine: x is its middle, its foot at y; s scales it */
+  function machine(k, x, y, s, label) {
+    var g = '<g transform="translate(' + x + ' ' + y + ') scale(' + s + ')">', p = '';
+    if (k === 'moongrinder') p = '<path d="M-50 0v-150h100v150z" fill="url(#steelG)" stroke="#3a4a5a" stroke-width="4"/><path d="M-60 -150l20 -60h80l20 60z" fill="#b8c8d8" stroke="#3a4a5a" stroke-width="4"/>' +
+      '<circle cx="0" cy="-92" r="34" fill="#fff6c0" stroke="#c8a040" stroke-width="3"/><circle cx="-10" cy="-98" r="3.5" fill="#3a3a2a"/><circle cx="12" cy="-98" r="3.5" fill="#3a3a2a"/><path d="M-12 -80q12 10 24 0" fill="none" stroke="#3a3a2a" stroke-width="3"/>' +
+      '<path d="M50 -120h30v-30" fill="none" stroke="#3a4a5a" stroke-width="6"/><circle cx="80" cy="-152" r="8" fill="#d61e2a"/><path d="M-10 0l-6 24h32l-6 -24z" fill="#b8c8d8"/><ellipse cx="0" cy="30" rx="24" ry="6" fill="#fff"/>';
+    if (k === 'snoozebox') p = '<path d="M-70 0v-110h140v110z" fill="#a8743e" stroke="#5a3a1a" stroke-width="4"/><path d="M-76 -110h152l-8 -24h-136z" fill="#c8945a" stroke="#5a3a1a" stroke-width="4"/>' +
+      '<g stroke="#5a3a1a" stroke-width="1.5"><rect x="-60" y="-100" width="40" height="30" fill="#e88aa8"/><rect x="-20" y="-100" width="40" height="30" fill="#8ac8e8"/><rect x="20" y="-100" width="40" height="30" fill="#f2d06a"/><rect x="-60" y="-70" width="40" height="30" fill="#8ad8a8"/><rect x="-20" y="-70" width="40" height="30" fill="#c8a8f0"/><rect x="20" y="-70" width="40" height="30" fill="#ff9a6a"/></g>' +
+      '<path d="M60 -150q20 -30 -10 -50q-30 20 10 50z" fill="#3a6ab8"/><circle cx="54" cy="-200" r="7" fill="#fff"/><text x="-30" y="-150" class="sH" font-size="22" fill="#e8f4ec">z z Z</text>';
+    if (k === 'chillery') p = '<rect x="-56" y="-190" width="112" height="190" rx="6" fill="url(#steelG)" stroke="#3a4a5a" stroke-width="4"/><rect x="-46" y="-180" width="92" height="170" fill="#eaf6ff" opacity=".85"/>' +
+      '<path d="M-46 -180l8 18 6 -18 8 24 6 -24 10 16 6 -16 8 20 8 -20 8 14v-14z" fill="#fff"/><path d="M-30 -120l20 10M10 -80l24 -14M-20 -50l14 10" stroke="#c8e8ff" stroke-width="3"/><rect x="34" y="-110" width="8" height="40" rx="3" fill="#8a98a8"/>';
+    if (k === 'overcoater') p = '<path d="M-70 0v-90h140v90z" fill="#5a7a5a" stroke="#2a3a2a" stroke-width="4"/><path d="M-30 -90l-30 -100M30 -90l30 -100" stroke="#d8c8a8" stroke-width="6" stroke-linecap="round"/><circle cx="0" cy="-110" r="26" fill="#d6457a"/><path d="M-20 -118q20 10 40 0M-22 -104q22 10 44 0" stroke="#a8244a" stroke-width="2" fill="none"/>' +
+      '<g fill="#f2c040" stroke="#8a6a1a" stroke-width="1.5"><path d="M-60 -50l10 -16h16l10 16v26h-36z"/><path d="M-10 -50l10 -16h16l10 16v26h-36z" fill="#8ac8e8"/><path d="M40 -50l-4 -16"/></g><circle cx="-42" cy="-40" r="2" fill="#2a1a10"/><circle cx="-42" cy="-32" r="2" fill="#2a1a10"/><circle cx="8" cy="-40" r="2" fill="#2a1a10"/><circle cx="8" cy="-32" r="2" fill="#2a1a10"/>';
+    if (k === 'glittermill') p = '<path d="M-40 0l14 -70M40 0l-14 -70" stroke="#3a3a3a" stroke-width="8"/><ellipse cx="0" cy="-110" rx="66" ry="54" fill="url(#cuG)" stroke="#5a2a0e" stroke-width="4"/><ellipse cx="0" cy="-110" rx="40" ry="32" fill="#2a1a10"/>' +
+      '<g fill="#fff"><path d="M-14 -120l3 -9 3 9 9 3 -9 3 -3 9 -3 -9 -9 -3z"/><path d="M14 -100l2 -6 2 6 6 2 -6 2 -2 6 -2 -6 -6 -2z"/><circle cx="-4" cy="-98" r="2.5"/><circle cx="18" cy="-126" r="2"/></g><path d="M66 -110h24v24" fill="none" stroke="#3a3a3a" stroke-width="6"/>';
+    if (k === 'sunbellows') p = '<path d="M-70 -40q0 -70 70 -100q70 30 70 100q-70 30 -140 0z" fill="#a8743e" stroke="#5a3a1a" stroke-width="4"/><path d="M-60 -50q60 22 120 0" fill="none" stroke="#5a3a1a" stroke-width="3"/>' +
+      '<circle cx="0" cy="-80" r="24" fill="#ffd040"/><g stroke="#ffd040" stroke-width="5"><path d="M0 -114v-10M0 -46v10M-34 -80h-10M34 -80h10M-24 -104l-7 -7M24 -104l7 -7"/></g><path d="M0 -10v10M-56 0h112" stroke="#5a3a1a" stroke-width="8"/><path d="M70 -40q40 0 60 30" fill="none" stroke="#5a3a1a" stroke-width="10" stroke-linecap="round"/>';
+    g += p;
+    if (label) g += '<g class="plate"><rect x="-74" y="44" width="148" height="30" rx="4" fill="url(#brassP)" stroke="#5f4410" stroke-width="2"/><text x="0" y="65" class="sF" font-size="17" fill="#3a2606">' + NAME[k].toUpperCase() + '</text></g>';
+    return g + '</g>';
+  }
+  var BRASS = '<linearGradient id="brassP" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e8c86a"/><stop offset=".5" stop-color="#b48a2a"/><stop offset="1" stop-color="#f2dc8e"/></linearGradient>';
+
+  (function () {
+    var s = '<defs>' + BRASS + '</defs>', i, x, C = ['#ff8ec0', '#9ff0c0', '#ffd56a', '#c8a8f0', '#8ad8f0', '#ff9a5a'];
+    ORDER.forEach(function (k, n) { s += '<g class="mach hot" id="m-' + k + '">' + machine(k, 380 + n * 170, 540, 0.9, true) + '</g>'; });
+    $('#machines').innerHTML = s; s = '';
+    for (i = 0; i < 12; i++) { x = 50 + (i % 4) * 66; s += SW.jar(x, 300 + Math.floor(i / 4) * 120, 44, 70, [C[i % 6], C[(i + 2) % 6], '#fff'], ''); }
+    $('#failjars').innerHTML = s + '<g fill="#fdf6c8" stroke="#8a6a3a"><rect x="30" y="250" width="40" height="14"/><rect x="164" y="370" width="40" height="14"/><rect x="96" y="490" width="40" height="14"/></g>';
+    $('#hjar').innerHTML = SW.jar(260, 540, 54, 80, ['#f8f8f8', '#3a3a3a', '#f8f8f8'], '<text x="260" y="500" font-family="Fredericka the Great,serif" font-size="7.5" fill="#3a1a10" text-anchor="middle">OPENHAND</text><text x="260" y="510" font-family="Fredericka the Great,serif" font-size="7.5" fill="#3a1a10" text-anchor="middle">HUMBUGS</text>');
+    s = ''; for (i = 0; i < 14; i++) s += '<path transform="translate(' + (700 + (i * 97) % 600) + ' ' + (400 + (i * 53) % 200) + ')" d="M0 -8l2 6 6 2 -6 2 -2 6 -2 -6 -6 -2 6 -2z" fill="#fff"/>';
+    $('#sparkle').innerHTML = s;
+    $('#catg').innerHTML = SW.fig('catsit');
+    ['huxtable', 'gribble'].forEach(function (w) { $('#' + w).innerHTML = SW.fig(w); });
+  })();
+
+  ER.init({
+    theme: 'lit', story: 'sweets', storyTitle: 'Miss Plunkett’s Last Recipe', id: 'cellar', no: 'IV', title: 'The Cellar',
+    go: 'Go down the steps',
+    intro: [
+      'The top line of the wrapper had to begin with the same sound as PLUNKETT and tell the truth: purple paper, pocket-sized, like pebbles. Violet and small were true but began with the wrong sound, ph says f, and the p of pterodactyl and psychic cannot be heard at all. The noise in your mouth was SNAP, then FIZZ. And at the bottom, a lie too big to believe: ONE LASTS A HUNDRED YEARS.',
+      'Part Three is the Finish, and Miss Plunkett did not write it as a recipe. She wrote it as a riddle, and pinned it over her desk in the cellar, among sixty-eight years of things that went wrong.',
+      'It is one o&rsquo;clock in the morning. Mr Huxtable is already down there, with his ear against the safe.'
+    ],
+    exit: {"next":"roof","w":{"8562743f":"a57dcf30"}}, tags: {"r1":["7348fa3e"],"r2":["e9b2590f"],"r3":["06db4047"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = SW.told('d-told'); nextFile = ER.flag('d-file') || null;
+  function isBusy() { return busy; }
+  function ready() { return told.has('page') && told.has('riddle'); }
+  function paint() {
+    $('#scene').classList.toggle('safe', told.has('safe'));
+    $('#scene').classList.toggle('done', !!nextFile);
+    ER.$$('.mach').forEach(function (m) { m.classList.toggle('ready', ready() && !nextFile); });
+    ER.pips((told.has('page') ? 1 : 0) + (told.has('riddle') ? 1 : 0) + (nextFile ? 1 : 0) + (told.has('safe') ? 1 : 0), 4);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The sweets are finished, and the sun is coming up. Up to the roof: the button at the bottom of the screen.']];
+    if (lock && lock.parentNode) return ['finish', [
+      'Take the riddle one verse at a time. Find the picture in each verse (a bed, a moon, a coat, snow), and then ask what the picture is like. Is the first verse warm or cold? Is the coat plain or sparkling? Is this snow cold?',
+      'Read each machine&rsquo;s name by its pieces, as you read the jars in the shop: -er is a machine that does something, -ery is a place where something is done, and a mill or a grinder turns things round, or makes them into powder.',
+      'The literal reading points at the machine with the same picture on it, and every time that is the trap. Verse one wants cold. Verse two wants sparkle. Verse three wants a fine white powder that falls like snow.'
+    ]];
+    if (!ready()) return ['read', [
+      'Two things at Miss Plunkett&rsquo;s desk, on the right under the green lamp: the riddle pinned on the pillar above it (Part Three of the green book), and the page lying on the desk.',
+      'Click the paper pinned on the pillar, and then the desk itself.'
+    ]];
+    return ['machines', ['Everything is read. Click any of the six machines at the back to choose the order.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('Ten to six. Six glittering sweets, frosted white, in a row on the desk.'); return; }
+    if (told.has('in')) { busy = false; ER.say('The cellar. The pipe drips. Mr Huxtable is still turning the dial.'); return; }
+    told.set('in');
+    ER.narrate([
+      'Stone steps, and a smell of damp and old caramel. The cellar of Plunkett&rsquo;s is where Miss Plunkett kept everything that went wrong: shelves of jars with labels like BOOMERANG BONBONS and ACHOOLATES, and a sign over her desk, I WORK WHERE MY MISTAKES CAN SEE ME.',
+      'Along the back wall stand six machines in a row, each with a brass plate, and each with a picture on it.',
+      'In the corner is a safe as big as a wardrobe, with SECRET RECIPES on the door in gold. Mr Huxtable has his ear against it and is turning the dial, one click at a time. He does not look round.',
+      'Mr Gribble comes down last, holding the rail. &ldquo;Item: one cellar,&rdquo; he says. &ldquo;Damp.&rdquo;'
+    ], function () { busy = false; });
+  }
+
+  /* ---------- papers ---------- */
+  var PAGE = '<h4>Literal and figurative</h4><h5>on the desk, under the lamp</h5>' +
+    '<p>Every riddle has two readings.</p>' +
+    '<p>The <b>literal</b> reading takes every word at its plain, dictionary meaning. Read literally, <span class="ex">she has a heart of gold</span> means that a doctor would find gold inside her.</p>' +
+    '<p>The <b>figurative</b> reading asks why the picture is there: she is kind, and worth a great deal.</p>' +
+    '<p>A good <b>riddle</b> sets the literal reading as a trap. It shows you a thing (a crown, a lion, a door) so that you go looking for that thing, when it is really talking about what the thing is like: grand, brave, a way in.</p>' +
+    '<p>So, for each line: find the picture. Ask what it is like. Hot or cold? Hard or soft? Plain or sparkling? Then find what has that quality.</p>' +
+    '<p class="ex">Nothing in my riddle is a lie. It is all true, sideways.</p>';
+  var POEM = '<p>My heart is boiled, my paper&rsquo;s printed;<br>Now finish me the way I&rsquo;ve hinted.</p>' +
+    '<p>First, put me to bed with the winter moon,<br>Where the frost has teeth, and the wind a tune.</p>' +
+    '<p>Then dress me up in the sky&rsquo;s best coat,<br>With a thousand stars from my toes to my throat.</p>' +
+    '<p>Last, let it snow on me, soft and slow:<br>Not cold, not wet. The finest snow.</p>' +
+    '<p>Then wrap me, and climb to the roof, and see<br>Who wakes up first: the sun, or me.</p>';
+  var RIDDLE = '<h4>The green book &middot; pinned over the desk</h4><h3>The Last Sweet</h3><p class="hand">Part Three: the Finish</p><div class="poem">' + POEM + '</div>';
+  var BELLOC = '<h4>Cautionary Tales for Children</h4><h5>by Hilaire Belloc &middot; 1907 &middot; on Miss Plunkett&rsquo;s desk</h5>' +
+    '<p>A battered red book, with a bookmark at the first page of &lsquo;Henry King&rsquo;:</p>' +
+    '<p class="q">The Chief Defect of Henry King<br>Was chewing little bits of String.</p>' +
+    '<p class="hand">I learnt these by heart when I was nine. A cautionary tale is a warning that makes you laugh: a funny poem in which the naughty one comes to a sticky end that fits the fault exactly. That is called poetic justice, and the lesson at the end is the moral. My brass plates are written in Mr Belloc&rsquo;s manner, with Capital Letters for the Important Words. O.P.</p>';
+  $('#riddle').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: RIDDLE, cls: 'green', clue: { id: 'finish', title: 'The Last Sweet: the Finish', kind: 'The green book' }, done: function () {
+      SW.terms(['riddle']);
+      if (told.set('riddle')) { paint(); ER.say(told.has('page') ? 'A bed, a moon, a coat, snow. And six machines with pictures on them.' : 'A bed and a moon, a coat and snow. On the desk below is a page in the same hand.'); }
+    } });
+  });
+  $('#desk').addEventListener('click', function (e) {
+    if (busy) return;
+    if (e.target.closest && e.target.closest('#bellocb')) { readBelloc(); return; }
+    ER.read({ html: PAGE, cls: 'page', clue: { id: 'literal', title: 'Literal and figurative', kind: 'On the desk' }, done: function () {
+      SW.terms(['literal', 'figurative', 'riddle']);
+      if (told.set('page')) { paint(); ER.say(told.has('riddle') ? 'Find the picture, then ask what it is like. The six machines are waiting.' : 'True, sideways. The riddle is pinned on the pillar above the desk.'); }
+    } });
+  });
+  function readBelloc() {
+    ER.read({ html: BELLOC, cls: 'bk', clue: { id: 'belloc', title: 'Cautionary Tales for Children', kind: 'On the desk' }, done: function () {
+      SW.terms(['cautionary tale', 'verse', 'moral', 'poetic justice']);
+      if (told.set('belloc')) ER.say('A warning that makes you laugh. Two buyers have met their brass plates already tonight.');
+    } });
+  }
+
+  /* ---------- things in the cellar ---------- */
+  ORDER.forEach(function (k) {
+    $('#m-' + k).addEventListener('click', function () {
+      if (busy) return;
+      if (nextFile) { ER.say(k === 'chillery' || k === 'glittermill' || k === 'moongrinder' ? 'The ' + NAME[k] + ' is quiet now. It did its part.' : LOOK[k]); return; }
+      if (ready()) { openLock(); return; }
+      ER.say(LOOK[k]);
+    });
+  });
+  SW.thing('#shelves', null, 'Sixty-eight years of mistakes in jars. BOOMERANG BONBONS: they come back. ACHOOLATES: chocolates that make you sneeze, and then giggle, and then sneeze. UNBAKERS: they turn a cake back into eggs and flour. FAILED, says every label, in the same purple ink.', isBusy);
+  SW.thing('#humbugs', null, function () { return told.has('safe') ? 'The jar of Openhand Humbugs is a good deal emptier than it was.' : 'A jar of black-and-white humbugs. OPENHAND HUMBUGS. FAILED. DO NOT TAKE ONE. And underneath, smaller: (They are free.)'; }, isBusy);
+  SW.thing('#safe', null, function () { return told.has('safe') ? 'The safe is open. Inside, there is nothing but one sheet of paper.' : 'A safe as big as a wardrobe: SECRET RECIPES, in gold. Mr Huxtable has his ear against the door and is turning the dial, one click at a time. He has written two hundred numbers on his cuff, and crossed them all out.'; }, isBusy);
+  SW.thing('#catg', null, 'Sherbet has followed you all the way down. She sits by the desk, looking at the machines as if she has seen all this before.', isBusy);
+  $('#huxtable').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(told.has('safe') ? '&ldquo;Have my scarf,&rdquo; says Mr Huxtable, unwinding it and putting it round your neck. &ldquo;Have my bus ticket. Have this button. I&rsquo;ve got another.&rdquo;' : '&ldquo;Three hundred and twelve,&rdquo; says Mr Huxtable to the safe. &ldquo;Three hundred and thirteen. Go away. Three hundred and fourteen.&rdquo;');
+  });
+  $('#gribble').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(told.has('riddle') ? '&ldquo;Bed, moon, coat, snow, sun,&rdquo; says Mr Gribble, ticking them off. &ldquo;Item: one Snoozebox. Item: one Moongrinder. Item: one Overcoater. Item: one Sunbellows. It is perfectly simple. I cannot think why she called it a riddle.&rdquo;' : '&ldquo;Item: six machines,&rdquo; says Mr Gribble. &ldquo;Names: unknown to science.&rdquo;');
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the Finish: three machines, in order ---------- */
+  var PARTS = {
+    moongrinder: 'moon + grinder: a machine that grinds things very fine, with a moon painted on it',
+    snoozebox: 'snooze + box: a box for sleeping in',
+    chillery: 'chill + -ery: a place where things are chilled',
+    overcoater: 'overcoat + -er: a machine that puts a coat on things',
+    glittermill: 'glitter + mill: a mill that turns things until they glitter',
+    sunbellows: 'sun + bellows: bellows that blow warm air, with a sun painted on them'
+  };
+  var WRONG = [
+    { snoozebox: 'The Snoozebox: snooze + box, a box for sleeping in. &lsquo;Put me to bed&rsquo; is the picture, and that is the literal reading. But look at what comes with the bed: a winter moon, and frost with teeth. The heart comes out of the Snoozebox exactly as warm and soft as it went in.',
+      moongrinder: 'The Moongrinder has a moon painted on it, and the verse says moon: that is the literal reading. The handle turns, and the heart comes out as a heap of copper dust. Was the first verse asking you to grind it, or to make it feel like a winter night?' },
+    { overcoater: 'The Overcoater: overcoat + -er, a machine that puts a coat on. It knits the heart a tiny woolly coat with two buttons. That is the literal coat. But this is the sky&rsquo;s coat, with a thousand stars on it. What do stars do?' },
+    { chillery: 'The Chillery again: chill + -ery, a place for chilling. Snow is cold, so that is the literal reading. But the verse says this snow is not cold and not wet. What is white, soft and very fine, and falls on a sweet like snow?' }
+  ];
+  var ASK = ['What is a winter night like, where the frost has teeth?', 'What does the sky&rsquo;s best coat look like at night, with a thousand stars on it?', 'What is soft, slow and fine, falls like snow, and is neither cold nor wet?'];
+  function openLock() {
+    var route = ER.flag('d-route') || [], hearts = ER.flag('d-hearts'), busyL = false, svg, m;
+    if (hearts == null) hearts = 6;
+    lock = ER.el('div', 'fin', '<svg viewBox="0 0 1000 290"></svg><div class="lo"><div class="poem"><h6>Part Three: the Finish</h6>' + POEM + '</div><div class="side">' +
+      '<div class="route"><span data-i="0"><i>FIRST</i></span><span data-i="1"><i>THEN</i></span><span data-i="2"><i>LAST</i></span></div>' +
+      '<p class="bmsg"></p><div class="row"><span class="hearts"></span><button type="button" class="btn" id="d-go">Pull the starting lever</button></div></div></div>');
+    svg = lock.querySelector('svg'); m = lock.querySelector('.bmsg');
+    function msg(t) { m.innerHTML = ER.gloss(t); }
+    function keep() { ER.flag('d-route', route); ER.flag('d-hearts', hearts); }
+    function draw() {
+      var s = '<defs>' + BRASS + '<linearGradient id="steelG2" x1="0" x2="1"><stop offset="0" stop-color="#8a98a8"/><stop offset=".4" stop-color="#e8f0f8"/><stop offset="1" stop-color="#7a8898"/></linearGradient></defs><rect width="1000" height="290" fill="#3a4a40"/><rect y="236" width="1000" height="54" fill="#2a322c"/>';
+      ORDER.forEach(function (k, n) {
+        var x = 88 + n * 165, at = route.indexOf(k);
+        s += '<g class="m" data-k="' + k + '"><rect x="' + (x - 80) + '" y="6" width="160" height="276" fill="#000" opacity="0"/>' + machine(k, x, 210, 0.82, true) +
+          (at >= 0 ? '<circle cx="' + (x + 58) + '" cy="30" r="20" fill="#9ff0c0" stroke="#1a3a2a" stroke-width="3"/><text x="' + (x + 58) + '" y="38" class="sF" font-size="22" fill="#1a3a2a">' + (at + 1) + '</text>' : '') + '</g>';
+      });
+      svg.innerHTML = s;
+      ER.$$('.m', svg).forEach(function (g) { g.addEventListener('click', function () {
+        var k = g.getAttribute('data-k'), at = route.indexOf(k);
+        if (busyL || nextFile) return;
+        if (at >= 0) route = route.slice(0, at);
+        else if (route.length < 3) route.push(k);
+        else { msg('Three steps are chosen already. Click a machine in the route to take it out again.'); return; }
+        keep(); SW.sfx.click(); draw(); side();
+        if (at < 0) msg(LOOK[k]);
+      }); });
+    }
+    function side() {
+      ER.$$('.route span', lock).forEach(function (sp, i) { var k = route[i]; sp.innerHTML = '<i>' + ['FIRST', 'THEN', 'LAST'][i] + '</i>' + (k ? NAME[k] : ''); sp.classList.toggle('on', !!k); });
+      lock.querySelector('.hearts').textContent = 'Hearts left in the tray: ' + hearts;
+    }
+    lock.querySelector('#d-go').addEventListener('click', function () {
+      var i, k, file;
+      if (busyL || nextFile) return;
+      if (route.length < 3) { ER.sfx.no(); msg('The lever will not move until three machines are chosen: one for each verse. Click the machines in the order the riddle gives.'); return; }
+      busyL = true; SW.sfx.clunk();
+      for (i = 0; i < 3; i++) if (!ER.check('r' + (i + 1), route[i])) break;
+      if (i < 3) {
+        k = route[i];
+        setTimeout(function () {
+          busyL = false; hearts--; ER.sfx.no();
+          var t = 'The heart goes into the ' + NAME[k] + '. ' + ((WRONG[i] && WRONG[i][k]) || ('The ' + NAME[k] + ': ' + PARTS[k] + '. Is that what verse ' + (i + 1) + ' is asking for? ' + ASK[i]));
+          if (hearts <= 0) { hearts = 6; t += ' That was the last heart. You run up to the boiling room and make the Heart again, exactly as before: a snail&rsquo;s sneeze, a shy guest, a waltz, a breathing pan, an old penny. Six more.'; }
+          else t += ' One heart fewer in the tray.';
+          keep(); side(); msg(t);
+        }, 900);
+        return;
+      }
+      file = ER.exitOk([route.join('-')]);
+      if (!file) { busyL = false; msg('The lever sticks. Something is wrong with this page: tell your teacher.'); return; }
+      nextFile = file; ER.flag('d-file', file);
+      var s0 = ER.state(); s0.done = s0.done || {}; s0.done.cellar = 1; ER.persist(true);
+      msg('The Chillery door swings open with a breath of frost, and swallows the tray. Its lamp turns blue. A card on the door says: <b>READY AT DAWN</b>.');
+      setTimeout(function () { ER.closeAll(); SW.solved(); paint(); after(); }, 3600);
+    });
+    draw(); side();
+    msg('Click the machines in the order the riddle gives: one for each verse. Click a chosen machine again to take it out. Then pull the lever.');
+    ER.open('ov-lock', lock);
+  }
+
+  /* ---------- while the Chillery works: Mr Huxtable, the humbugs and the safe ---------- */
+  function after() {
+    busy = true;
+    SW.mine('finishdone', 'The Finish', '<p>Verse 1: a bed with the winter moon, frost with teeth. Not the Snoozebox (bed) or the Moongrinder (moon): cold, so the CHILLERY (chill + -ery).</p><p>Verse 2: the sky&rsquo;s best coat, a thousand stars. Not the Overcoater (coat): sparkle, so the GLITTERMILL.</p><p>Verse 3: snow that is not cold and not wet. Not the Chillery: a fine white powder, so the MOONGRINDER (a machine that grinds).</p><p>Every time, the literal reading was the trap.</p>');
+    ER.narrate([
+      'The Chillery hums. It will be hours. You sit down on the bottom step with Sherbet, and Mr Gribble sits down beside you, and writes nothing at all for nearly a minute.',
+      'At two o&rsquo;clock Mr Huxtable stops turning the dial. He looks very pleased with himself about something. He sits down on an upturned bucket and looks along the shelves, and his eye falls on a jar of black-and-white humbugs. OPENHAND HUMBUGS. FAILED. DO NOT TAKE ONE. (They are free.)',
+      'Mr Huxtable has never in his life been able to leave anything that was free. He takes one. Then he takes four more, for later, and eats those too.',
+      'For a moment nothing happens. Then he stands up, takes off his gloves, and gives them to the cat. He gives Mr Gribble his purse. He gives you his gold watch, and when you give it back he gives it to you again.',
+      '&ldquo;And the safe!&rdquo; he cries. &ldquo;I got it ten minutes ago, and I was keeping it to myself! The year on the sign, backwards: eight, five, nine, one! Everybody have it!&rdquo; He spins the dial, and the great door swings open.',
+      'There are no secret recipes in the safe. There is one sheet of paper, in purple ink: <i>There are no secret recipes in here. They are all in the green book, which nobody ever reads, because it is not locked. O.P.</i>',
+      'Mr Gribble writes: <i>Item: one safe. Contents: one joke.</i> And on the shelf beside the humbug jar, a brass plate catches the light of the lamp.'
+    ], function () {
+      told.set('safe'); paint(); SW.sfx.till();
+      SW.verse('mean', 'On the shelf beside the humbugs', function () {
+        ER.narrate([
+          'At ten to six the Chillery gives a cold little ping. The hearts come out frozen hard and shining, go round in the Glittermill until every one of them sparkles like the sky on a winter night, and come out of the Moongrinder&rsquo;s spout dusted with a snow as fine as flour.',
+          'Six small copper sweets, glittering under a frost of white, lie on Miss Plunkett&rsquo;s desk. The last line of the riddle says: <i>Then wrap me, and climb to the roof, and see who wakes up first: the sun, or me.</i>'
+        ], function () { busy = false; $('#go').classList.add('on'); });
+      });
+    });
+  }
+})();
+</script>
+</body>
+</html>

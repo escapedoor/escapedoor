@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>A Mad Tea-Party · The Torn Pages of Wonderland</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lit.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="../../assets/wordkit.css">
+<link rel="stylesheet" href="alice.css">
+<style>
+  body{--bg:#c8d89a;--accent:#7a2a3a;--font-display:'Henny Penny',cursive;--font-ui:'Goudy Bookletter 1911',serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(250,244,224,.97);--tc-ink:#2a2018;--cap-bg:rgba(252,247,232,.96);--cap-ink:#2a2018;--panel:#fbf6e6;--panel-ink:#2a2018;--face-bg:#e8e0c8;--q-ink:#7a2a3a;--fade:#f4ecd0;
+    --hud-bg:rgba(252,247,232,.88);--hud-ink:#2a2018;--hud-line:rgba(42,32,24,.3);--ov-bg:rgba(40,40,20,.55)}
+  .tc-room{font-family:'Henny Penny',cursive;font-size:clamp(46px,6.4vw,86px);color:#7a2a3a}
+  .tc-theme{color:#5a6a2a}
+  .tk-role{color:#7a2a3a}
+  .hbtn.hnt{border-color:#7a2a3a;color:#7a2a3a}
+  .ov-x{background:rgba(252,247,232,.92);color:#2a2018;border-color:rgba(42,32,24,.4)}
+  .bmsg{color:#fffbea}
+  .sG{font-family:'EB Garamond',serif;text-anchor:middle}
+  .sH{font-family:'Henny Penny',cursive;text-anchor:middle}
+  .leafy{animation:sway 6s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
+  @keyframes sway{50%{transform:rotate(1.4deg)}}
+  .steam{animation:stm 3s steps(6,end) infinite;opacity:0}
+  .steam.s2{animation-delay:-1.4s}
+  @keyframes stm{0%{opacity:0;transform:translateY(0)}30%{opacity:.6}100%{opacity:0;transform:translateY(-36px)}}
+  #hatter.ready,#prog.ready,#hat.ready,#sheet.ready,#treedoor.ready{animation:glowb 1.6s steps(1,end) infinite}
+  @keyframes glowb{50%{filter:brightness(1.3)}}
+  #treedoor{display:none}
+  #scene.done #treedoor{display:inline}
+  #hatpage{display:inline}
+  #scene.took #hatpage{display:none}
+
+  /* the two songs and the tea-things */
+  .song{width:min(1240px,97vw);-webkit-user-select:none;user-select:none}
+  .song .cards{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .song .card{background:#fffaf0;color:#2a2018;padding:10px 16px 8px;box-shadow:0 20px 60px rgba(0,0,0,.45);border-top:8px solid #b8202e}
+  .song .card.b{border-top-color:#3e6a52}
+  .song h5{margin:0 0 6px;font-family:'Goudy Bookletter 1911',serif;font-weight:normal;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:#7a5a4a;text-align:center}
+  .song .pair{display:grid;grid-template-columns:1fr 1.12fr;gap:12px}
+  .song .old{font-family:'EB Garamond',serif;font-size:16px;line-height:1.75;color:#6a5a4a;border-right:1px dashed #c8b8a0;padding-right:10px}
+  .song .new{font-family:'EB Garamond',serif;font-size:16.5px;line-height:1.75}
+  .song small{display:block;font-family:'Goudy Bookletter 1911',serif;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:#9a7a5a;margin-bottom:2px}
+  .song .in{padding-left:1.4em}
+  .song .wk-blank{display:inline-block;min-width:92px;min-height:26px;vertical-align:middle;border-bottom:2px dotted #7a2a3a;background:#f6ecd8;text-align:center;border-radius:3px}
+  .song .wk-blank.ok{min-width:0;background:transparent;border-bottom-color:transparent}
+  .song .new{white-space:nowrap}
+  .song .wk-bank{display:flex;flex-wrap:wrap;gap:8px 10px;justify-content:center;margin:12px 0 0;padding:12px 10px 8px;background:#f6f1e2;border-radius:6px;
+    background-image:repeating-linear-gradient(90deg,transparent 0 22px,rgba(122,42,58,.08) 22px 44px),repeating-linear-gradient(0deg,transparent 0 22px,rgba(122,42,58,.08) 22px 44px)}
+  .song .wk-chip,.song .wk-set{display:inline-block;position:relative;padding:5px 14px 4px 12px;margin:0;background:#fff;border:2px solid #3e6a52;border-radius:4px 4px 22px 22px;
+    font-family:'EB Garamond',serif;font-size:16.5px;color:#2a2018;cursor:grab;box-shadow:0 3px 0 #c8d0b8}
+  .song .wk-chip:after{content:'';position:absolute;right:-12px;top:5px;width:9px;height:12px;border:2px solid #3e6a52;border-left:0;border-radius:0 8px 8px 0}
+  .song .wk-chip.held{background:#ffe9a0}
+  .song .wk-chip.fly{position:fixed;z-index:200;pointer-events:none}
+  .song .wk-set{border:0;box-shadow:none;background:transparent;cursor:default;padding:0 2px;font-weight:600;color:#7a2a3a}
+  .song .wk-set:after{display:none}
+  .song .wk-blank .wk-chip{padding:2px 10px 1px}
+  .song .bn-foot .bmsg{color:#fffbea}
+  @media (max-height:820px){.song .old,.song .new{line-height:1.6}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e8eec8"/><stop offset="1" stop-color="#f6eac0"/></linearGradient>
+  <linearGradient id="grassG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9ab85a"/><stop offset="1" stop-color="#5a7a2e"/></linearGradient>
+  <radialGradient id="sunG" cx="70%" cy="10%" r="60%"><stop offset="0" stop-color="#fff6c8" stop-opacity=".8"/><stop offset="1" stop-color="#fff6c8" stop-opacity="0"/></radialGradient>
+</defs>
+<g id="bg"></g>
+<!-- the clock on the tree, at six -->
+<g id="clock" class="hot"><circle cx="236" cy="372" r="34" fill="#fbf6e6" stroke="#231a14" stroke-width="3"/><path d="M236 372v-24M236 372v26" stroke="#231a14" stroke-width="3" stroke-linecap="round"/><g id="ticks"></g></g>
+<!-- the door in the tree -->
+<g id="treedoor" class="hot"><path d="M196 760v-74q30 -30 60 0v74z" fill="#5a3a1a" stroke="#231a14" stroke-width="3"/><circle cx="246" cy="726" r="4" fill="#e9c75a"/></g>
+<!-- the Hatter, the Dormouse, the March Hare, and Alice's arm-chair -->
+<g id="hatter" class="hot" transform="translate(560 700) scale(1.06)"></g>
+<g id="hare" class="hot" transform="translate(900 702) scale(1.06)"></g>
+<g id="chair"><path d="M1250 760v-170q0 -40 50 -44h70q50 4 50 44v170z" fill="#8a2a3a" stroke="#231a14" stroke-width="3"/><path d="M1236 760v-80h28v80zM1406 760v-80h28v80z" fill="#6a1a2a" stroke="#231a14" stroke-width="3"/></g>
+<g id="alice" class="hot" transform="translate(1335 742) scale(.92)"></g>
+<!-- the long table -->
+<g id="table"><path d="M290 612h1180l30 104h-1240z" fill="#fbf8ef" stroke="#231a14" stroke-width="3"/><path d="M290 612h1180" stroke="#231a14" stroke-width="3"/>
+  <path d="M300 716v80M1460 716v80M860 716v80" stroke="#5a3a1a" stroke-width="12"/><g id="cloth"></g><g id="things"></g></g>
+<g id="dormouse" class="hot" transform="translate(730 612) scale(1.35)"></g>
+<!-- the concert programme, the torn song sheet, and the page in the Hatter's hatband -->
+<g id="prog" class="hot" transform="translate(1040 604) rotate(-6)"><rect x="-40" y="-26" width="80" height="52" fill="#fbf3e2" stroke="#b8202e" stroke-width="4"/><text x="0" y="-6" class="sG" font-size="9" fill="#b8202e">THE QUEEN’S</text><text x="0" y="6" class="sG" font-size="9" fill="#b8202e">GREAT CONCERT</text><path d="M-26 14h52" stroke="#8a6a5a"/></g>
+<g id="sheet" class="hot" transform="translate(470 606) rotate(4)"><path d="M-40 -24h80v18l-8 4 6 6 -10 4 4 6 -12 4h-60z" fill="#fffaf0" stroke="#8a6a5a" stroke-width="1.5"/><path d="M-30 -14h56M-30 -6h48" stroke="#6a5a4a" stroke-width="1.4"/><path d="M-30 -18l4 -6v14" stroke="#231a14" stroke-width="1.5" fill="none"/></g>
+<g id="hat" class="hot"><rect x="532" y="386" width="64" height="72" fill="#fff" opacity="0"/><g id="hatpage"><path d="M532 432l20 -10 8 22 -20 8z" fill="#fbf6e6" stroke="#8a7a5a" stroke-width="1.2"/><path d="M538 436l14 -6M540 442l14 -6" stroke="#6a5a4a" stroke-width="1"/></g></g>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Give the tree its page</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="../../assets/wordkit.js"></script>
+<script src="alice.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told;
+
+  (function () {
+    var s = '', i, x;
+    s += '<defs>' + AL.hatch('ht', '#2a2010', 6, 40) + AL.hatch('hf', '#3a2a10', 5, -40) + '</defs>';
+    s += '<rect x="-1000" y="-400" width="3600" height="1100" fill="url(#skyG)"/><rect x="-1000" y="-400" width="3600" height="1100" fill="url(#sunG)"/>';
+    s += '<path d="M-1000 520q500 -40 1200 -20t2400 10V1400H-1000z" fill="url(#grassG)"/>';
+    for (i = 0; i < 40; i++) s += '<path d="M' + (-300 + i * 60) + ' ' + (800 + (i * 37) % 80) + 'l4 -14 4 14" stroke="#4a6a22" stroke-width="2" fill="none"/>';
+    /* the March Hare's house: chimneys shaped like ears, a roof thatched with fur */
+    s += '<g id="house"><rect x="1120" y="300" width="380" height="230" fill="#e8d8b0" stroke="#231a14" stroke-width="3"/><rect x="1120" y="300" width="380" height="230" fill="url(#ht)" opacity=".25"/>' +
+      '<path d="M1090 310q220 -170 440 0z" fill="#a8825a" stroke="#231a14" stroke-width="3"/>';
+    for (i = 0; i < 34; i++) { x = 1100 + i * 12.5; s += '<path d="M' + x + ' ' + (300 - Math.max(0, 140 - Math.abs(x - 1310) * 0.62)) + 'q4 10 -2 22" stroke="#7a5a3a" stroke-width="2" fill="none"/>'; }
+    s += '<path d="M1220 210q-20 -110 6 -150q24 40 8 150z" fill="#b8925e" stroke="#231a14" stroke-width="3"/><path d="M1224 196q-12 -80 3 -112q12 34 4 112z" fill="#e8b0a8"/>' +
+      '<path d="M1380 214q20 -110 -4 -150q-24 40 -8 150z" fill="#b8925e" stroke="#231a14" stroke-width="3"/><path d="M1376 200q12 -80 -3 -112q-12 34 -4 112z" fill="#e8b0a8"/>' +
+      '<rect x="1180" y="370" width="60" height="60" fill="#5a7a9a" stroke="#231a14" stroke-width="3"/><rect x="1380" y="370" width="60" height="60" fill="#5a7a9a" stroke="#231a14" stroke-width="3"/><path d="M1290 530v-90h50v90z" fill="#7a4a2a" stroke="#231a14" stroke-width="3"/></g>';
+    /* the great tree */
+    s += '<path d="M150 820q20 -260 0 -520q60 -20 130 0q-20 260 10 520z" fill="#6a4a2a" stroke="#231a14" stroke-width="4"/><path d="M150 820q20 -260 0 -520q60 -20 130 0q-20 260 10 520z" fill="url(#ht)" opacity=".5"/>';
+    s += '<g class="leafy"><path d="M-260 340q-40 -220 180 -280q100 -150 300 -60q220 -40 260 140q120 80 20 200q-60 60 -220 30q-120 70 -300 10q-200 30 -240 -40z" fill="#5a8a3a" stroke="#231a14" stroke-width="3"/>' +
+      '<path d="M-260 340q-40 -220 180 -280q100 -150 300 -60q220 -40 260 140q120 80 20 200q-60 60 -220 30q-120 70 -300 10q-200 30 -240 -40z" fill="url(#hf)" opacity=".35"/></g>';
+    $('#bg').innerHTML = s;
+    s = '';
+    for (i = 0; i < 12; i++) { var a = i * Math.PI / 6; s += '<circle cx="' + (236 + 27 * Math.sin(a)).toFixed(1) + '" cy="' + (372 - 27 * Math.cos(a)).toFixed(1) + '" r="1.8" fill="#231a14"/>'; }
+    $('#ticks').innerHTML = s;
+    s = '';
+    for (i = 0; i < 13; i++) s += '<path d="M' + (300 + i * 90) + ' 612v104" stroke="#e8e0c8" stroke-width="2"/>';
+    $('#cloth').innerHTML = s;
+    /* tea-things, used and unused, all the way along: the party moves round as the things get used up */
+    s = '';
+    function cup(x, y, used) { return '<path d="M' + (x - 14) + ' ' + y + 'h28l-4 18h-20z" fill="' + (used ? '#e8e0d0' : '#fff') + '" stroke="#231a14" stroke-width="2"/><path d="M' + (x + 14) + ' ' + (y + 4) + 'q8 0 6 7q-2 4 -8 3" fill="none" stroke="#231a14" stroke-width="2"/><ellipse cx="' + x + '" cy="' + (y + 20) + '" rx="20" ry="4" fill="#fff" stroke="#231a14" stroke-width="1.6"/>' + (used ? '<ellipse cx="' + x + '" cy="' + (y + 2) + '" rx="12" ry="2.5" fill="#8a5a2a"/>' : ''); }
+    function pot(x, y, k) { return '<path d="M' + (x - 22) + ' ' + y + 'q0 -36 22 -36q22 0 22 36z" fill="' + k + '" stroke="#231a14" stroke-width="2.4"/><path d="M' + (x + 20) + ' ' + (y - 16) + 'q20 -10 26 -26" stroke="#231a14" stroke-width="4" fill="none"/><circle cx="' + x + '" cy="' + (y - 38) + '" r="4" fill="' + k + '" stroke="#231a14" stroke-width="2"/>' +
+      '<path class="steam" d="M' + (x + 46) + ' ' + (y - 46) + 'q6 -8 0 -16q-6 -8 0 -16" stroke="#fff" stroke-width="3" fill="none"/>'; }
+    [[350, 1], [610, 1], [790, 1], [960, 0], [1130, 0], [1200, 0], [1400, 0], [1280, 0]].forEach(function (c) { s += cup(c[0], 590, c[1]); });
+    s += pot(400, 612, '#b8d8e8') + pot(860, 612, '#e8c8a8') + pot(1180, 612, '#d8e8b8');
+    s += '<path d="M650 606h50l-6 6h-38z" fill="#fff" stroke="#231a14" stroke-width="1.6"/><path d="M652 600q22 -10 46 0z" fill="#e8c86a" stroke="#231a14" stroke-width="1.4"/>';
+    s += '<path d="M1320 606q10 -18 30 -14l10 14z" fill="#fff" stroke="#231a14" stroke-width="2"/><path d="M1300 610h80" stroke="#231a14" stroke-width="1.6"/>';
+    $('#things').innerHTML = s;
+    $('#hatter').innerHTML = AL.fig('hatter'); $('#hare').innerHTML = AL.fig('hare'); $('#dormouse').innerHTML = AL.fig('dormouse'); $('#alice').innerHTML = AL.fig('alice');
+  })();
+
+  ER.init({
+    theme: 'lit', story: 'alice', storyTitle: 'The Torn Pages of Wonderland', id: 'tea', no: 'III', title: 'A Mad Tea-Party',
+    go: 'Sit down without being invited',
+    intro: [
+      'The page by the pool had six puns washed out of it. “Dry” is one word with two meanings, and the Mouse’s history was dry in the dull way. Tale and tail, not and knot, Tortoise and “taught us”, lessons and “lessen”: two words, one sound, and a listener who hears the wrong one.',
+      'Then the story ran on through Chapters Four, Five and Six without a hitch. Alice grew too big for the White Rabbit’s house; a Caterpillar on a mushroom asked her “Who are <i>you</i>?”, and got the answer <span class="bk">“I can’t explain <i>myself</i>, I’m afraid, sir,” said Alice, “because I’m not myself, you see.”</span> In the Duchess’s kitchen the air was full of pepper, and a baby turned into a pig.',
+      'In a tree sat the Cheshire Cat, grinning. <span class="bk">“Would you tell me, please, which way I ought to go from here?” “That depends a good deal on where you want to get to,” said the Cat.</span> It sent Alice to the March Hare’s house. And you have followed her.'
+    ],
+    exit: {"next":"croquet","w":{"f6ec5772":"2b1fedc1"}}, tags: {"c1":["fc4fb0d1"],"c1@":["4c52719a","ee150cd1","5da367d9","38eba069","4ec21071","de1b15a4"],"c1?":["4f8d6684","6981afd7","0116b817","663564df","21b85624","9775019f"],"c1#":["9a755855"],"c2":["7addcf06"],"c2@":["3389ee75","8f774040","3760ad01","f8e07985","1e01e6d8","012864e2","93ac9e4d"],"c2?":["33949708","c5615c7c","8ce25108","444eb0a8","856bbfc7","0a964914","924d41fa"],"c2#":["6b427f0c"],"c3":["cffe3b35"],"c3@":["042fedd1","4d0ea19b","23feba4a","2dff2ac8"],"c3?":["d83d0c72","6e9e3855","dd61b790","1bc85edd"],"c3#":["28c82ffe"],"c4":["4e3ac700"],"c4@":["77fa65e9","0c4322f0","408d94d0","4f200f7c","92e83601","75d065cc"],"c4?":["2524904e","24681fe3","1b5acdac","062a0b0d","1e52f16b","e70fdd65"],"c4#":["58d5082d"],"c5":["bff4b99a"],"c5@":["1d2fc581","b19c585a","748d89c1","cd1b2e3d"],"c5?":["70e33e8d","e0b59685","d0e45ddc","bc977f6e"],"c5#":["2afad039"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = AL.told('t-told'); nextFile = ER.flag('t-file') || null;
+  function isBusy() { return busy; }
+  function ready() { return told.has('hatter') && told.has('prog') && told.has('hatpage'); }
+  function paint() {
+    $('#hatter').classList.toggle('ready', !told.has('hatter'));
+    $('#prog').classList.toggle('ready', told.has('hatter') && !told.has('prog'));
+    $('#hat').classList.toggle('ready', told.has('hatter') && !told.has('hatpage'));
+    $('#sheet').classList.toggle('ready', ready() && !nextFile);
+    $('#scene').classList.toggle('took', told.has('hatpage'));
+    $('#scene').classList.toggle('done', !!nextFile);
+    $('#treedoor').classList.toggle('ready', !!nextFile);
+    ER.pips((told.has('hatter') ? 1 : 0) + (told.has('prog') ? 1 : 0) + (told.has('hatpage') ? 1 : 0) + (nextFile ? 1 : 0), 4);
+  }
+  var lock = null;
+  function hints() {
+    if (nextFile) return ['go', ['The next page of the story is the strip in your pocket: “Once more she found herself in the long hall”. Give it to the door in the tree: the button is at the bottom of the screen.']];
+    if (lock && lock.parentNode) return ['song', [
+      'Put each old line beside its new line and read them both aloud. What has stayed the same? What has changed? A parody keeps the beat and the rhymes, and changes the meaning.',
+      'For each gap, test every cup three ways. Does the line still have the same beat as the old line? Does it rhyme where the old poem rhymed (or with the line that rhymes in the new verse)? Does it fit the new creature, and turn the old meaning upside down?',
+      'The bat line must rhyme with “sky”, and say what a bat does; then a grand, shining thing is swapped for a silly, ordinary one off this very table. In the crocodile verse, “in” and “claws” tell you two of the rhymes, and the crocodile welcomes the things it means to eat.'
+    ]];
+    if (!told.has('hatter')) return ['hatter', [
+      'Three of them are crowded at one corner of a very long table. The one in the enormous hat is the Hatter. Click him.',
+      'He asks a riddle, argues, complains about his watch and starts a song. Hear him out to the end.'
+    ]];
+    if (!told.has('prog') || !told.has('hatpage')) return ['things', [
+      'Two things on and around the table matter now: the red-edged concert programme on the right of the table, and something tucked into the Hatter’s hatband.',
+      'Click the programme and read it. Then click the folded page in the Hatter’s hat, beside the price ticket.'
+    ]];
+    return ['sheet', ['Everything is ready. Click the Hatter’s torn song sheet, on the table in front of him.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('The tea-party has gone back to being as mad as it should be. There is a door in the tree.'); return; }
+    if (told.has('in')) { busy = false; ER.say('The tea-table. It is six o’clock, and it always will be.'); return; }
+    told.set('in');
+    ER.narrate([
+      'There is a table set out under a tree in front of a house whose chimneys are shaped like ears and whose roof is thatched with fur. The March Hare and the Hatter are having tea at it, and a Dormouse is sitting between them, fast asleep.',
+      '“No room! No room!” they cry out when they see Alice coming. “There’s <i>plenty</i> of room!” says Alice indignantly, and sits down in a large arm-chair at one end of the table. You sit down beside her. Nobody minds: there are a great many more cups than three.',
+      'The clock on the tree says six. It has said six since last March. But today something else has stopped as well: the Hatter is halfway through a song, and he has forgotten the rest of it.'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- the Hatter ---------- */
+  $('#hatter').addEventListener('click', function () {
+    if (busy) return;
+    if (told.has('hatter')) { ER.say(nextFile ? '<span class="bk">“I want a clean cup,” interrupted the Hatter: “let’s all move one place on.”</span>' : '“Up above the world …” says the Hatter, and stops, and looks into his tea for the rest of it.'); return; }
+    ER.talk({
+      who: 'The Hatter', role: 'At the tea-table, since March', face: AL.face('hatter', '#e8e0c8'),
+      lines: [
+        { note: 'A small man in an enormous hat. The price ticket is still on the hat: In this Style 10/6. He looks at you for some time with great curiosity, and this is his first speech.', a: '<span class="bk">“Your hair wants cutting.”</span>' },
+        { q: 'You should learn not to make personal remarks. It’s very rude.', a: 'He opens his eyes very wide on hearing this; but all he says is: <span class="bk">“Why is a raven like a writing-desk?”</span>' },
+        { q: 'I believe I can guess that.', a: '<span class="bk">“Then you should say what you mean,” the March Hare went on.</span></p><p>You tell them that you do: at least you mean what you say, and that’s the same thing, you know.</p><p><span class="bk">“Not the same thing a bit!” said the Hatter. “You might just as well say that ‘I see what I eat’ is the same thing as ‘I eat what I see’!”</span>' },
+        { a: '<span class="bk">“You might just as well say,” added the March Hare, “that ‘I like what I get’ is the same thing as ‘I get what I like’!”</span></p><p><span class="bk">“You might just as well say,” added the Dormouse, who seemed to be talking in his sleep, “that ‘I breathe when I sleep’ is the same thing as ‘I sleep when I breathe’!”</span></p><p><span class="bk">“It <i>is</i> the same thing with you,” said the Hatter.</span>' },
+        { q: 'What is the answer to the riddle?', a: '<span class="bk">“I haven’t the slightest idea,” said the Hatter.</span></p><p><span class="bk">“Nor I,” said the March Hare.</span>' },
+        { q: 'Has anybody come past here tearing pages out of a book?', a: 'Nobody comes past here. Nobody goes. We quarrelled with Time last March, and <span class="bk">“ever since that,” the Hatter went on in a mournful tone, “he won’t do a thing I ask! It’s always six o’clock now.”</span> Always tea-time. We have not left this table since, not for a minute. There has never been a minute to leave it in.' },
+        { note: 'He takes his watch out of his pocket, shakes it, and holds it to his ear. There are crumbs in the works.', a: '<span class="bk">“Two days wrong!” sighed the Hatter. “I told you butter wouldn’t suit the works!” he added looking angrily at the March Hare.</span></p><p><span class="bk">“It was the <i>best</i> butter,” the March Hare meekly replied.</span></p><p><span class="bk">“Yes, but some crumbs must have got in as well,” the Hatter grumbled: “you shouldn’t have put it in with the bread-knife.”</span>' },
+        { q: 'And what were you singing?', a: '<span class="bk">“—it was at the great concert given by the Queen of Hearts, and I had to sing</span></p><p class="bk" style="padding-left:1.4em">‘Twinkle, twinkle, little bat!<br>How I wonder what you’re at!’</p><p><span class="bk">You know the song, perhaps?”</span></p><p>You have heard something like it.</p><p><span class="bk">“It goes on, you know,” the Hatter continued, “in this way:—”</span>' },
+        { note: 'And there he stops, with his mouth open. The rest of the song was on the bottom half of a page, and somebody has torn the page in two. His half lies on the table in front of him. There is something folded in his hatband, too, beside the price ticket.', a: '“Up above the world … Up above the world …” He looks into his teacup for the rest of it. It is not there.' }
+      ],
+      clue: { id: 'hatter', title: 'The Hatter, the March Hare and the Dormouse', kind: 'What they said' },
+      done: function (seen) { if (seen && told.set('hatter')) { paint(); ER.say('“Not the same thing a bit!” The programme on the table, and the folded page in his hatband.'); } }
+    });
+  });
+
+  /* ---------- the programme ---------- */
+  var PROG = '<h4>The Queen of Hearts’ Great Concert · Programme</h4><h3>Songs, Old and New</h3>' +
+    '<p>A <b>parody</b> copies a poem that everybody knows: its <b>rhythm</b> (the beat of each line), its <b>rhymes</b>, often its first words. Then it changes what the poem is about, so that the listener hears the <b>original</b> and the new poem at the same time, and laughs at the difference. Victorian children learnt poems by heart at school, so Carroll’s first readers knew the originals well.</p>' +
+    '<p>To read a parody, set it beside the original, line by line. <b>Keep</b> the beat, the rhyme and the shape of each sentence. <b>Change</b> the subject and turn the meaning upside down: a good, busy creature becomes a lazy or a sly one, and something grand becomes something silly and ordinary.</p>' +
+    '<div class="two"><div><small>Isaac Watts, 1715 · the first verse</small>How doth the little busy Bee<br>&nbsp;&nbsp;Improve each shining Hour,<br>And gather Honey all the day<br>&nbsp;&nbsp;From every opening Flower!</div>' +
+    '<div><small>Lewis Carroll, 1865 · Alice says it</small>How doth the little <i>crocodile</i><br>&nbsp;&nbsp;Improve his shining <i>tail</i>,<br>And <i>pour the waters of the Nile</i><br>&nbsp;&nbsp;On every <i>golden scale</i>!</div></div>' +
+    '<p>The busy bee that works all day becomes a crocodile that does nothing but polish itself. The beat and the rhymes are the same; the moral has been turned inside out.</p>';
+  $('#prog').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.has('hatter')) { ER.say('A concert programme with a red edge, lying in a saucer. The Hatter is staring at you.'); return; }
+    ER.read({ html: PROG, cls: 'prog', clue: { id: 'prog', title: 'Songs, Old and New', kind: 'The concert programme' }, done: function () {
+      AL.terms(['parody', 'original', 'rhythm', 'rhyme', 'verse', 'imitate']);
+      if (told.set('prog')) { paint(); ER.say(told.has('hatpage') ? 'Two torn songs, and the rules of parody. The Hatter’s song sheet is on the table.' : 'Keep the beat and the rhyme; turn the meaning upside down. And what is in the Hatter’s hatband?'); }
+    } });
+  });
+  $('#hat').addEventListener('click', function (e) {
+    if (busy) return;
+    e.stopPropagation();
+    if (!told.has('hatter')) { ER.say('An enormous hat with a price ticket on it: In this Style 10/6.'); return; }
+    if (told.has('hatpage')) { ER.say('“I keep them to sell,” says the Hatter, when he sees you looking at his hat. “I’ve none of my own.”'); return; }
+    told.set('hatpage'); AL.sfx.page(); paint();
+    ER.addClue('hatpage', 'A page from Chapter Two', '<h4>A page from Chapter Two</h4><p>Folded in the Hatter’s hatband: the page that blew away in the hall, when Alice tried to say “How doth the little busy bee”. Its first verse is whole. Four words of its second verse have been torn out, one by one.</p>', 'pg', 'In the Hatter’s hat');
+    ER.say('You take the folded page out of the hatband. It is the page that blew out of Chapter Two: Alice’s poem about the busy bee, that came out as a crocodile. Four words of its second verse are missing.');
+  });
+
+  /* ---------- the two songs ---------- */
+  var HOME = { youfly: 'c1', teatray: 'c2', grin: 'c3', fishes: 'c4', jaws: 'c5' };
+  var WHY = {
+    sohigh: 'That is the old song’s line, word for word. A parody keeps the shape and changes the words: what does a bat do up above the world?',
+    youflap: 'A bat does flap, and the beat is right. But the line has to rhyme with “sky”, as the old one did.',
+    atnight: 'True of a bat, but it does not rhyme with “sky”.',
+    diamond: 'That is the old song’s word. A parody swaps the grand, shining thing for something silly and ordinary.',
+    jewel: 'A jewel is as grand and shining as the diamond. Nothing has been turned upside down. Swap it for something ordinary, from this very table.',
+    ruby: 'A ruby is as grand and shining as the diamond. Nothing has been turned upside down. Swap it for something ordinary, from this very table.',
+    lumpofsugar: 'Ordinary enough, but say the line aloud: it trips. “Like a DIA-mond in the sky” has two syllables where the diamond is, and so must the new thing.',
+    smile: 'A crocodile might smile, but this line must rhyme with “in”, at the end of the third line.',
+    begin: 'It rhymes with “in”, but say it aloud: “How cheerfully he seems to begin” has a syllable too many, and begin what?',
+    fish: 'Right creature, wrong beat. Say it aloud beside the old line, “And labours hard to store it well”: it is a syllable short.',
+    flowers: 'Flowers belong to the bee’s poem. A parody changes the subject: what does a crocodile welcome in?',
+    teeth: 'A crocodile has teeth, but this line must rhyme with “claws”.',
+    paws: 'It rhymes with “claws”. But can paws smile? The smile is on the part of the crocodile that the little fishes go into.'
+  };
+  function openLock() {
+    var cups = ['jewel', 'you fly', 'fish', 'teeth', 'so high', 'grin', 'diamond', 'fishes', 'you flap', 'paws', 'lump of sugar', 'smile', 'tea-tray', 'jaws', 'begin', 'at night', 'ruby', 'flowers'];
+    lock = ER.el('div', 'song');
+    lock.innerHTML = '<div class="cards"><div class="card"><h5>The Hatter’s song · Chapter VII</h5><div class="pair">' +
+      '<div class="old"><small>Jane Taylor, “The Star”, 1806</small>Twinkle, twinkle, little star,<br>How I wonder what you are!<br>Up above the world so high,<br>Like a diamond in the sky.</div>' +
+      '<div class="new"><small>The Hatter sings</small>‘Twinkle, twinkle, little bat!<br>How I wonder what you’re at!’<br>‘Up above the world <span class="wk-blank" data-key="c1"></span>,<br>Like a <span class="wk-blank" data-key="c2"></span> in the sky.’</div></div></div>' +
+      '<div class="card b"><h5>Alice’s poem · Chapter II · the second verse</h5><div class="pair">' +
+      '<div class="old"><small>Isaac Watts, 1715</small>How skilfully she builds her Cell!<br><span class="in">How neat she spreads the Wax!</span><br>And labours hard to store it well<br><span class="in">With the sweet Food she makes.</span></div>' +
+      '<div class="new"><small>Alice says</small>“How cheerfully he seems to <span class="wk-blank" data-key="c3"></span>,<br><span class="in">How neatly spread his claws,</span><br>And welcome little <span class="wk-blank" data-key="c4"></span> in<br><span class="in">With gently smiling <span class="wk-blank" data-key="c5"></span>!”</span></div></div></div></div>' +
+      '<div class="wk-bank">' + cups.map(function (c) { return '<span class="wk-chip">' + c + '</span>'; }).join('') + '</div>' +
+      '<div class="bn-foot"><p class="bmsg"></p></div>';
+    var m = lock.querySelector('.bmsg');
+    function msg(t) { m.innerHTML = ER.gloss(t); }
+    WK.cloze(lock, {
+      onRight: function () { AL.sfx.clink(); },
+      onMiss: function (n, misses, detail) {
+        var d = detail[0], w = WK.norm(d[1]), r = WHY[w] || (HOME[w] && HOME[w] !== d[0] ? '“' + d[1] + '” is a right word, in the wrong place. Which line could it rhyme with?' : 'That cup does not fit.');
+        msg(r + (n > 1 ? ' (' + n + ' cups went back to the tray.)' : '') + (misses > 3 ? ' Test each cup three ways: beat, rhyme, and a meaning turned upside down.' : ''));
+      },
+      onDone: done
+    });
+    msg('Eighteen cups on the table, and five holes in two songs. Drag a cup into a hole, or click a cup and then a hole. When every hole is full, the songs are tried.');
+    ER.open('ov-lock', lock);
+  }
+  function done() {
+    var file = ER.exit(['youfly-teatray-grin-fishes-jaws'], { wait: true });
+    if (!file) { lock.querySelector('.bmsg').textContent = 'The songs will not sing. Something is wrong with this page: tell your teacher.'; return; }
+    nextFile = file; ER.flag('t-file', file);
+    lock.querySelector('.bmsg').innerHTML = ER.gloss('Both songs are whole. A bat, flying like a tea-tray; a crocodile, grinning at the little fishes. The beat of the old poems, and their meaning turned upside down.');
+    AL.mine('parody', 'Two parodies, mended', '<p class="bk">‘Up above the world you fly,<br>Like a tea-tray in the sky.’</p><p>Rhymes with sky, and a bat flies; the grand diamond becomes an ordinary tea-tray.</p><p class="bk">“How cheerfully he seems to grin,<br>How neatly spread his claws,<br>And welcome little fishes in<br>With gently smiling jaws!”</p><p>Grin rhymes with in, jaws with claws; fishes has the beat. The busy bee that stores food becomes a crocodile that eats.</p>');
+    setTimeout(function () { ER.closeAll(); after(); }, 3000);
+  }
+  function after() {
+    busy = true; paint();
+    ER.narrate([
+      '<span class="bk">‘Up above the world you fly, Like a tea-tray in the sky. Twinkle, twinkle—’</span> sings the Hatter, and the Dormouse shakes itself and begins singing in its sleep, <span class="bk">“<i>Twinkle, twinkle, twinkle, twinkle</i>—”</span> and goes on so long that they have to pinch it to make it stop.',
+      'The page from the hatband flutters out of your hand and away over the trees, back to Chapter Two, where a very small girl in a hall full of tears is waiting to say: <span class="bk">“How cheerfully he seems to grin …”</span>',
+      'At the table the story runs on as it should, as mad as ever: the riddle with no answer, the treacle-well, everything that begins with an M. At last Alice gets up in great disgust and walks off, and the last time she sees them, they are trying to put the Dormouse into the teapot.',
+      '<span class="bk">“It’s the stupidest tea-party I ever was at in all my life!”</span> And just as she says this, she notices that one of the trees has a door leading right into it.',
+      'Alice puts her hand on the door. And there the story stops again, because the next page is missing. But you know where it is. It has been in your pocket since the hall: <i>Once more she found herself in the long hall …</i>'
+    ], function () { busy = false; $('#go').classList.add('on'); paint(); });
+  }
+  $('#sheet').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The song sheet is whole again. The Hatter has put a teacup on it.'); return; }
+    if (!told.has('hatter')) { ER.say('A song sheet torn in half, under the Hatter’s elbow. He is staring at you.'); return; }
+    if (!ready()) { ER.say(told.has('prog') ? 'The Hatter’s half of the song sheet. Something is folded in his hatband: take that first.' : 'The Hatter’s half of the song sheet. Read the concert programme first: it is on the right of the table.'); return; }
+    openLock();
+  });
+  $('#treedoor').addEventListener('click', function () { if (!busy && nextFile) $('#go').click(); });
+  $('#go').addEventListener('click', function () {
+    if (!nextFile || busy) return;
+    busy = true; $('#go').classList.remove('on');
+    ER.narrate(['You hold out the strip from your pocket. The door in the tree takes it, as a letter-box takes a letter, and opens. <span class="bk">Once more she found herself in the long hall, and close to the little glass table.</span> This time Alice takes the key first, and nibbles the mushroom, and walks down the little passage, and you go with her: into the beautiful garden.'], function () { ER.leave(nextFile); });
+  });
+
+  /* ---------- things at the table ---------- */
+  AL.thing('#clock', 'clock', '“It’s always six o’clock now,” says the Hatter, without looking. “Always tea-time.”', isBusy);
+  AL.thing('#house', 'chimney', 'The March Hare’s house: the chimneys are shaped like ears, and the roof is thatched with fur.', isBusy);
+  $('#hare').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(told.has('hatter') ? '“It was the <i>best</i> butter, you know,” says the March Hare, dipping the Hatter’s watch into his cup of tea, and looking at it gloomily.' : '“Have some wine,” the March Hare says in an encouraging tone. There is nothing on the table but tea. “There isn’t any,” says the March Hare.');
+  });
+  $('#dormouse').addEventListener('click', function () { if (!busy) ER.say('The Dormouse is fast asleep, and the other two are resting their elbows on it. “Twinkle, twinkle,” it murmurs, “twinkle, twinkle …”'); });
+  $('#alice').addEventListener('click', function () { if (!busy) ER.say(nextFile ? 'Alice is walking off through the wood, very cross.' : 'Alice is in the large arm-chair at the end of the table, thinking over all she can remember about ravens and writing-desks, which isn’t much.'); });
+})();
+</script>
+</body>
+</html>

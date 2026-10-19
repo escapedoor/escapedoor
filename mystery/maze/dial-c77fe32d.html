@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Dial · Past the Lion</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-mystery.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="maze.css">
+<style>
+  body{--bg:#e6d6a6;--accent:#f2c14e;--font-display:'IM Fell English SC',serif;--font-ui:'Oswald',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(38,34,20,.95);--tc-ink:#f6f1e2;--cap-bg:rgba(30,28,18,.93);--panel:#26301c;--face-bg:#2f5d2b;--q-ink:#f2d98a;--fade:#1c1a10;--hud-bg:rgba(30,28,18,.82);--ov-bg:rgba(24,24,14,.82)}
+  .fell{font-family:'IM Fell English SC',serif;text-anchor:middle}
+  #robin{animation:hop 7s steps(1,end) infinite}
+  @keyframes hop{0%{transform:translate(0,0)}40%{transform:translate(0,0)}44%{transform:translate(8px,-7px)}48%{transform:translate(16px,0)}82%{transform:translate(16px,0)}86%{transform:translate(8px,-7px)}90%{transform:translate(0,0)}}
+  #eye{animation:blink 5.3s steps(1,end) infinite}
+  @keyframes blink{0%{opacity:1}92%{opacity:1}94%{opacity:0}97%{opacity:1}}
+  #peep.ready #peephole{animation:glow 1.6s steps(1,end) infinite}
+  @keyframes glow{50%{filter:brightness(1.5)}}
+  #shimmer{animation:shim 3.7s steps(5,end) infinite alternate}
+  @keyframes shim{from{opacity:.25}to{opacity:.6}}
+
+  /* the plan, and the card on which the way is written a line at a time */
+  .bx.way{width:min(1036px,96vw)}
+  .wy-two{display:grid;grid-template-columns:540px 1fr;gap:0 16px;align-items:start}
+  .wy-plan{border:8px solid #6b4a2a;box-shadow:0 20px 50px rgba(0,0,0,.5);background:#f4ecd2}
+  .wy-card{background:#fbf7ea;color:#22301c;padding:12px 18px 12px;box-shadow:0 20px 50px rgba(0,0,0,.5);border-top:10px solid #3f6b3a;transform:rotate(.4deg)}
+  .wy-card h5{margin:0 0 2px;font-family:'Alfa Slab One',serif;font-weight:normal;font-size:19px;letter-spacing:.05em;color:#3f6b3a}
+  .wy-card .start{margin:0 0 6px;font-family:'EB Garamond',Georgia,serif;font-style:italic;font-size:16.5px;line-height:1.25;border-bottom:1px solid #9aa98c;padding-bottom:6px}
+  .wy-lines{list-style:none;margin:0;padding:0;min-height:246px}
+  .wy-lines li{position:relative;margin:0;padding:4px 26px 4px 30px;font-family:'Patrick Hand',cursive;font-size:19px;line-height:26px;color:#22335a;border-bottom:1px dotted #b9c4ad}
+  .wy-lines li i{position:absolute;left:0;top:6px;width:22px;height:22px;border-radius:50%;background:#3f6b3a;color:#fbf7ea;font-style:normal;font-family:'Oswald',sans-serif;font-size:12px;line-height:22px;text-align:center}
+  .wy-lines li.now{background:#fff2c0}
+  .wy-lines li.bad{background:#ffd9d0}
+  .wy-lines li.empty{color:#9aa98c;font-family:'EB Garamond',Georgia,serif;font-style:italic;font-size:16.5px;padding-left:2px;border-bottom:0}
+  .wy-lines .chip2{display:inline-block;padding:0 7px;margin:0 1px;border:1.5px dashed #8c2f24;border-radius:3px;background:#fff7dc;color:#8c2f24;font:inherit;line-height:22px}
+  .wy-lines .chip2:hover{background:#ffeeb8}
+  .wy-lines .del{position:absolute;right:0;top:5px;width:22px;height:22px;font-size:20px;line-height:20px;color:#9a8f7a}
+  .wy-lines .del:hover{color:#8c2f24}
+  .wy-add h6{margin:8px 0 4px;font-family:'Oswald',sans-serif;font-weight:500;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:#3f6b3a}
+  .wy-add{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+  .wy-add h6{grid-column:1/3}
+  .wy-add button{padding:5px 8px 4px;border:1px solid #3f6b3a;border-radius:3px;font-family:'Patrick Hand',cursive;font-size:16px;line-height:1.15;color:#22301c;text-align:left;background:#f1ecd6}
+  .wy-add button:hover{background:#3f6b3a;color:#fbf7ea}
+  .wy-add button.wide{grid-column:1/3}
+  .bx.way .pmsg{min-height:74px}
+  .wy-dot{transition:transform .13s linear}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="skyD" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3f95dd"/><stop offset=".7" stop-color="#b6dcf4"/><stop offset="1" stop-color="#e6f3f7"/></linearGradient>
+  <radialGradient id="gravD" cx="50%" cy="20%" r="90%"><stop offset="0" stop-color="#f1e4bb"/><stop offset=".6" stop-color="#dccb9c"/><stop offset="1" stop-color="#c4b283"/></radialGradient>
+  <linearGradient id="yewD" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#417f38"/><stop offset=".25" stop-color="#2f6630"/><stop offset="1" stop-color="#1c4424"/></linearGradient>
+  <linearGradient id="yewL" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2a5a2b"/><stop offset="1" stop-color="#1c4424"/></linearGradient>
+  <pattern id="leafD" width="58" height="46" patternUnits="userSpaceOnUse"><g fill="#16351a"><ellipse cx="8" cy="9" rx="6" ry="3"/><ellipse cx="33" cy="6" rx="7" ry="3"/><ellipse cx="50" cy="20" rx="6" ry="3"/><ellipse cx="20" cy="26" rx="7" ry="3.4"/><ellipse cx="42" cy="38" rx="6" ry="3"/><ellipse cx="6" cy="40" rx="5" ry="2.6"/></g><g fill="#6aa052"><ellipse cx="20" cy="12" rx="5" ry="2.4"/><ellipse cx="46" cy="9" rx="4" ry="2"/><ellipse cx="34" cy="24" rx="5" ry="2.4"/><ellipse cx="26" cy="40" rx="5" ry="2.4"/></g></pattern>
+</defs>
+
+<!-- the sky, and the cedars beyond the east hedge -->
+<rect x="-1000" y="-400" width="3600" height="900" fill="url(#skyD)"/>
+<g fill="#fff" opacity=".85"><ellipse cx="330" cy="90" rx="150" ry="28"/><ellipse cx="430" cy="68" rx="96" ry="26"/><ellipse cx="1260" cy="150" rx="120" ry="20"/></g>
+<g fill="#2f5a3c"><path d="M130 330q-30 -200 80 -270q110 70 80 270z"/><path d="M1280 330q-40 -220 90 -300q130 80 90 300z"/></g>
+<path d="M560 330v-40q-110 -6 -180 -40q140 -6 180 -34q-80 -8 -140 -40q110 -2 140 -34q-50 -8 -86 -32q70 -2 96 -50q26 48 96 50q-36 24 -86 32q30 32 140 34q-60 32 -140 40q40 28 180 34q-70 34 -180 40v40z" fill="#274c33"/>
+
+<!-- the court: yew all round it, and one lane running east to the Yew Door -->
+<path d="M-1000 520H2600V1320H-1000Z" fill="url(#gravD)"/>
+<g id="lane" class="hot">
+  <path d="M690 250H910V540H690Z" fill="#cfe6f2"/><path d="M690 540L770 430H830L910 540Z" fill="#dccb9c"/>
+  <path d="M690 250L770 330V430L690 540Z" fill="url(#yewL)"/><path d="M910 250L830 330V430L910 540Z" fill="#3f7d37"/>
+  <path d="M690 250L770 330V430L690 540Z" fill="url(#leafD)" opacity=".5"/><path d="M910 250L830 330V430L910 540Z" fill="url(#leafD)" opacity=".5"/>
+  <rect x="770" y="330" width="60" height="100" fill="#2f6630"/><rect x="784" y="346" width="32" height="84" fill="#bfe3a0"/><path d="M784 346h14l-6 84h-8z" fill="#3b6f6a" stroke="#234a46" stroke-width="2"/><circle cx="794" cy="392" r="2" fill="#d9c16a"/>
+</g>
+<path d="M-1000 250H690V540H-1000Z" fill="url(#yewD)"/><path d="M910 250H2600V540H910Z" fill="url(#yewD)"/>
+<path d="M-1000 250H690V540H-1000Z" fill="url(#leafD)" opacity=".6"/><path d="M910 250H2600V540H910Z" fill="url(#leafD)" opacity=".6"/>
+<path d="M-1000 252H690M910 252H2600" stroke="#7fb065" stroke-width="7"/><path d="M-1000 540H690M910 540H2600" stroke="#173a1c" stroke-width="8"/>
+<!-- the way you came in, on the north side (your left) -->
+<path d="M-1000 250H120L60 540H-1000Z" fill="#cfe6f2"/><path d="M-1000 540H60L20 500H-1000Z" fill="#dccb9c"/><path d="M120 250L60 540L20 500L70 290Z" fill="#234a23"/>
+
+<!-- rake marks, three thin lines, and your own feet -->
+<g fill="none" stroke="#c9b888" stroke-width="2" opacity=".7"><path d="M-400 600q1200 -90 2400 0M-400 660q1200 -110 2400 0M-400 730q1200 -130 2400 0M-400 810q1200 -150 2400 0M-400 900q1200 -170 2400 0"/></g>
+<g id="tracks" class="hot"><path d="M770 540C740 620 560 640 470 720C400 790 520 850 640 800C760 750 800 640 836 540L818 540C790 630 740 740 630 782C540 818 440 790 494 730C570 650 720 630 794 540Z" fill="#fff" opacity="0"/>
+  <g fill="none" stroke="#8a7a52" stroke-width="3.500" stroke-linecap="round" opacity=".85"><path d="M776 540C750 620 580 650 486 724C420 786 520 838 636 790C750 742 792 636 824 540"/><path d="M792 540C768 630 600 664 510 732C462 778 530 812 630 770C726 728 772 632 808 540"/><path d="M808 540C786 640 624 678 536 740C506 768 546 786 622 752C700 716 754 628 794 540"/></g></g>
+<g id="prints" class="hot" fill="#4a3a26"><ellipse cx="96" cy="560" rx="15" ry="8"/><ellipse cx="150" cy="596" rx="16" ry="9"/><ellipse cx="190" cy="640" rx="17" ry="9"/><ellipse cx="250" cy="676" rx="18" ry="10"/><ellipse cx="282" cy="728" rx="19" ry="10"/><ellipse cx="350" cy="762" rx="20" ry="11"/><ellipse cx="372" cy="822" rx="22" ry="12"/><ellipse cx="448" cy="850" rx="23" ry="12"/></g>
+
+<!-- Sir Edmund's sundial -->
+<g id="dialG" class="hot">
+  <ellipse cx="610" cy="770" rx="150" ry="26" fill="#3a3a22" opacity=".28"/>
+  <path d="M490 770v-22h240v22zM520 748v-22h180v22z" fill="#b5ae9c"/><path d="M490 748h240M520 726h180" stroke="#8d8676" stroke-width="3"/>
+  <path d="M574 726q-26 -26 -16 -62q20 -42 6 -78q-8 -26 10 -42h72q18 16 10 42q-14 36 6 78q10 36 -16 62z" fill="#bdb6a4"/><path d="M580 660h60M584 584h52" stroke="#9a9382" stroke-width="3"/>
+  <path d="M532 524h156v20H532z" fill="#a9a290"/><path d="M522 508h176v16H522z" fill="#cdc7b6"/><ellipse cx="610" cy="506" rx="78" ry="10" fill="#6f8f6a"/><ellipse cx="610" cy="505" rx="64" ry="7" fill="none" stroke="#4f6f4e" stroke-width="1.500"/>
+  <path d="M600 506l58 0 -58 -62z" fill="#5d7f5c"/><path d="M604 506l44 14 20 4 -10 -18z" fill="#3a4a34" opacity=".35"/>
+  <path d="M586 636q10 8 22 0M600 700q8 6 16 -2" stroke="#5f8a4a" stroke-width="5" fill="none" stroke-linecap="round" opacity=".8"/>
+</g>
+<g id="cap" class="hot"><ellipse cx="566" cy="504" rx="30" ry="14" fill="#fff" opacity="0"/><ellipse cx="566" cy="505" rx="19" ry="6" fill="#17181c"/><ellipse cx="566" cy="503" rx="13" ry="3.600" fill="#3a3c45"/></g>
+<g id="robin"><ellipse cx="664" cy="498" rx="9" ry="7" fill="#7a5a3a"/><circle cx="671" cy="492" r="5" fill="#7a5a3a"/><ellipse cx="668" cy="499" rx="5" ry="4.500" fill="#d9573a"/><path d="M676 492l6 1 -6 2z" fill="#3a2a1c"/><path d="M656 498l-10 -3" stroke="#5a4028" stroke-width="3"/></g>
+<ellipse id="shimmer" cx="800" cy="610" rx="700" ry="60" fill="#fff8d8" pointer-events="none"/>
+
+<!-- a thin place in the south hedge (your right), at the height of a bench -->
+<g id="peep" class="hot"><ellipse cx="1350" cy="430" rx="80" ry="64" fill="#fff" opacity="0"/>
+  <ellipse id="peephole" cx="1350" cy="430" rx="52" ry="40" fill="#3f7d37"/><ellipse cx="1350" cy="430" rx="52" ry="40" fill="url(#leafD)" opacity=".35"/><ellipse cx="1350" cy="432" rx="26" ry="19" fill="#102a14"/>
+  <g id="eye" opacity="0"><ellipse cx="1346" cy="426" rx="9" ry="5.500" fill="#f7f1e6"/><circle cx="1347" cy="426" r="3.600" fill="#3a5a4a"/><circle cx="1362" cy="442" r="5" fill="#d23b2e"/><path d="M1359 437h6l-3 3z" fill="#3f8a4e"/></g></g>
+
+<!-- Mr Goodchild -->
+<g id="goodchild" class="hot" transform="translate(1060 838) scale(1.12)" data-fig="goodchild" opacity="0"></g>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">To the tea tent</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="maze.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, bench = null, told = {};
+  MZ.figs();
+
+  ER.init({
+    theme: 'mystery', story: 'maze', storyTitle: 'Past the Lion', id: 'dial', no: 'III', title: 'The Dial',
+    go: 'Wipe your shoes',
+    intro: [
+      'Forty-one hunters read &ldquo;past the lion go&rdquo; and thought that it meant &ldquo;when you come to the lion, go on&rdquo;. You read what was written, and went past him: through a gap in the yew that nobody had noticed, down six steps into the mud of the Dip, and up six more. The third and the fourth ink pads were black and wet. No hunter had touched them. So whoever took the cup did not come by the rhymes.',
+      'The middle of the maze is a round court of raked gravel, open to the sky. In the middle of the middle stands Sir Edmund&rsquo;s sundial, which has told the time here since 1962, whenever the sun is out.',
+      'You are standing in front of it with mud to the ankles, four stamps on your card, and nothing to win.'
+    ],
+    exit: {"next":"tent","w":{"ceb8ce53":"68b68ef2"}}, tags: {},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('d-file') || null; told = ER.flag('d-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('d-told', told); return true; }
+  function isBusy() { return busy; }
+  function showGo() { $('#go').classList.add('on'); }
+  function paint() {
+    $('#goodchild').setAttribute('opacity', told.in ? 1 : 0);
+    $('#eye').setAttribute('opacity', told.good ? 1 : 0);
+    $('#peep').classList.toggle('ready', !!(told.good && !nextFile));
+    ER.pips((told.good ? 1 : 0) + (told.gravel ? 1 : 0) + (nextFile ? 1 : 0), 3);
+  }
+  function gravel() {
+    if (tell('gravel')) MZ.mine('gravel', 'The gravel round the dial', '<p>Goodchild raked it smooth at 2.35, when he let Miss Oduya out and locked the Yew Door.</p><p>Now there are three thin lines in it, side by side: from the lane to the dial, round it, and back to the lane.</p>' +
+      '<p>No footprints but mine. (Goodchild: a wheelbarrow has one wheel, and leaves two boots beside it. A pushchair has four wheels, and somebody walking behind.)</p><p>On the dial: a lens cap. Miss Oduya&rsquo;s. It has been there since half past two.</p>', true);
+    paint();
+  }
+
+  function hints() {
+    if (nextFile) return ['go', ['Mrs Kemble has said it: the tea tent, everybody, and every card that matters.']];
+    if (bench && bench.isOpen()) return ['way', [
+      'Find the bench on the plan: it is in the dead end just below the dial. Mrs Kemble is kneeling on it and looking north, at you. Now find, with your finger, the only way from that square to the dial. You have walked most of it yourself.',
+      'She does each line exactly as it is written, starting from where the line before left her. &ldquo;Take the first gap on your left&rdquo; means: walk on, and go into the first gap that comes on that side. &ldquo;Go straight on as far as the lion&rdquo; stops when she reaches him. And nothing but the line that begins &ldquo;Go past the lion&rdquo; will take her through that gap and through the Dip.',
+      'Seven lines are too few to name every corner. Sir Edmund had the same trouble, and he solved it in rhyme four: a hand on the hedge takes a walker round every bend without another word. From the top of the far steps, the LEFT-hand hedge leads to the urn. The RIGHT-hand hedge leads all the way to the dial.'
+    ]];
+    if (!told.good) return ['good', ['The old man with the rake has more to say than &ldquo;good&rdquo;. Click on him, and ask him everything.']];
+    return ['peep', [
+      'Somebody is talking to you through the hedge, and has asked you a question.',
+      'The thin place in the yew is on the right-hand side of the court, about as high as a bench. Click on it.'
+    ]];
+  }
+
+  function begin() {
+    MZ.file('rhymes', true);
+    paint();
+    if (nextFile) { busy = false; showGo(); ER.say('The dial, the lane, three thin lines. Mrs Kemble has gone ahead to the tea tent.'); return; }
+    if (told.in) { busy = false; ER.say(told.good ? 'The middle of the maze. An eye is watching you through the south hedge.' : 'The middle of the maze. Mr Goodchild is leaning on his rake.'); return; }
+    ER.narrate([
+      'The court is as quiet as a church. Your own footprints come in from the north side, black on the pale gravel. On the east side a straight green lane runs between the hedges to a door, and the door is standing open. This is the lane in Miss Oduya&rsquo;s first photograph.',
+      'On the dial lies something small and black: a lens cap. And in the gravel, three thin lines run side by side from the lane to the dial, curve round it, and run back to the lane again.',
+      'Somebody is coming down the lane from the door: an old man in a straw hat, with a rake in his hand. He walks like a man who has never been lost in here in his life. He looks at the bare dial, and then at your shoes. &ldquo;You came the long way,&rdquo; he says. &ldquo;Good.&rdquo;'
+    ], function () { tell('in'); paint(); busy = false; });
+  }
+
+  $('#goodchild').addEventListener('click', function () {
+    if (busy || !told.in) return;
+    if (nextFile) { ER.say('&ldquo;I&rsquo;ll rake it again when you&rsquo;ve all done,&rdquo; says Mr Goodchild. &ldquo;Not before. Those lines can stay where they are.&rdquo;'); return; }
+    ER.talk({
+      who: 'Mr Goodchild', role: 'Head gardener · forty years at Summerhays', face: window.FACE('goodchild'),
+      lines: [
+        { note: 'He leans on the rake to talk, and looks at the hedges rather than at you, as if checking that they are still straight.', a: '&ldquo;Reg Goodchild. I cut these hedges. First name on that cup is mine, as it happens: 1962, aged nine. I was the only child in Little Hays who did what the rhyme said.&rdquo; He looks at the bare dial. &ldquo;Selling it. Well. It is not my cup, and it is not my roof.&rdquo;' },
+        { q: 'When did you put the cup here?', a: 'Ten to two. Stood it on the dial, raked the court, went out by the Yew Door there and locked it. At twenty-five past two I let the girl from the Parish News in to take its picture, and I stood at the door till she had done. Twenty-five to three: out she came. In I went, raked the gravel smooth again, and locked the door after me.</p><p>Sir Edmund&rsquo;s rule. The first child to get here must find the gravel as if nobody had ever stood on it.' },
+        { q: 'So the door was locked all afternoon?', a: 'Till a quarter to three. Then I unlocked it, the same as every year. It is on the programme. The cup is given out here at four, and half the committee cannot manage the Dip. The Yew Door is the only flat way in: twelve paces, dead straight, and not a step in it.</p><p class="note">And then?</p><p>Then I walked round the outside to my plant stall and put the umbrella up. I did not come back till I heard the shouting.' },
+        { q: 'Is there no other way to the dial?', a: 'For feet: the gate, the rhymes and the Dip, the same as you. There is a spring under the Dip. It has been a bog since March. Nobody gets from the gate to this dial with dry shoes: look at your own.</p><p>For wheels there is only the door.' },
+        { q: 'What are the three lines in the gravel?', a: 'I raked this court at twenty-five to three. Smooth as a billiard table. Those came after.</p><p class="note">He pushes his hat back.</p><p>My barrow has one wheel, and it would leave my two boots beside it. A pushchair has four, and somebody walking behind. There are no feet in that gravel but yours.</p><p class="note">He says no more. Mr Goodchild has a way of stopping when a sentence is finished.' },
+        { q: 'And the lens cap?', a: 'That will be the girl&rsquo;s. She put it down on the dial to take her picture, and forgot it. It was lying there when I raked: I raked round it. Not my business to move it. You cannot see a thing like that from the bench, mind, nor from anywhere but here.' }
+      ],
+      clue: { id: 'good1', title: 'Mr Goodchild, at the dial', kind: 'What he said' },
+      done: function (seen) {
+        if (seen && tell('good')) {
+          MZ.words(['rake', 'pace', 'wheelbarrow', 'the Dip', 'spring']); gravel();
+          busy = true;
+          ER.narrate([
+            '&ldquo;Is that YOU?&rdquo; The voice comes out of the south hedge, at about the height of a bench. In a thin place in the yew there is an eye, and beside the eye, a strawberry. &ldquo;I am kneeling on this bench like a child of ten. I can see you. How on earth did you get there?&rdquo;',
+            '&ldquo;No, do not shout rhymes at me. I have no patience with poetry. Tell me the way from this bench in plain English, one line at a time. I have a pencil. I shall do exactly what you say and nothing else.&rdquo; Mr Goodchild takes a second copy of his plan out of his waistcoat, unfolds it, and holds it out to you without a word.'
+          ], function () { busy = false; MZ.file('plan'); paint(); });
+        }
+      }
+    });
+  });
+
+  MZ.item('#dialG', 'sundial', 'Sir Edmund&rsquo;s sundial. Round the edge of the bronze plate run the words I COUNT ONLY THE SUNNY HOURS · E.M. 1962. The shadow of the pointer lies at half past two: a sundial has never heard of summer time, and all summer long it is an hour behind the stable clock. In the middle of the plate there is a ring where something heavy has stood, every June, for sixty years.', isBusy);
+  $('#cap').addEventListener('click', function (e) {
+    if (busy) return;
+    ER.wordAt(e.clientX, e.clientY, 'lens cap'); gravel();
+    ER.say('A black lens cap, lying on the dial where the cup ought to be. Inside it, in silver pen: PARISH NEWS. It is too small and too dark to be seen from anywhere but here.');
+  });
+  $('#tracks').addEventListener('click', function (e) {
+    if (busy) return;
+    gravel();
+    ER.say('Three thin lines, side by side, as if somebody had drawn them with a ruler that could bend: in from the lane, close round the dial, and out again. One in the middle, and one on each side. There are no footprints between them, and none beside them.');
+  });
+  MZ.item('#prints', 'mud', 'Your own footprints, black and wet, all the way from the north side of the court. Nobody could ask you where you have been. And there is no second set.', isBusy);
+  MZ.item('#lane', 'Yew Door', 'The lane to the Yew Door: three squares of the plan, and twelve of Mr Goodchild&rsquo;s paces. It is as flat as a table. At the end of it the green door stands open, and beyond the door you can see the path that runs round the outside of the maze.', isBusy);
+  MZ.item('#robin', null, 'A robin, on the edge of the dial. It has seen everything that happened here this afternoon, and it is not going to say.', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  $('#peep').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The thin place in the hedge. From this side you can see a corner of a white bench, and nobody on it.'); return; }
+    if (!told.good) { ER.say('In the south hedge, at about the height of a bench, the yew is thin. On the other side there is a dead end, a bench, and trodden gravel. You knelt on that bench yourself, twenty minutes ago.'); return; }
+    if (!bench) bench = makeBench();
+    bench.open();
+  });
+
+  /* ---------- the way, a line at a time ---------- */
+  function makeBench() {
+    var lines = ER.flag('d-lines') || [], wait = false, box = ER.el('div', 'bx way'), MAX = 7, START = { x: 3, y: 4, d: 0 },
+      Q = '&rdquo; says the hedge. &ldquo;', NTH = ['', 'first', 'second', 'third'], THINGS = { can: 'you can', lion: 'the lion', urn: 'the urn', bench: 'the bench', dial: 'the dial' },
+      OPT = { turn: [null, ['left', 'right', 'round']], take: [null, [1, 2, 3], ['left', 'right']], far: [null, ['can', 'lion', 'urn', 'bench', 'dial']], hedge: [null, ['left', 'right'], ['urn', 'dial', 'lion', 'bench']], back: [null, ['bench', 'urn', 'lion']], past: [null] };
+    box.innerHTML = '<div class="wy-two"><div class="wy-plan">' + MZ.plan() + '</div><div class="wy-card"><h5>From the bench to the dial</h5>' +
+      '<p class="start">For Mrs Kemble, who is kneeling on the bench with her nose in the hedge, looking north at the dial.</p><ol class="wy-lines"></ol>' +
+      '<div class="wy-add"><h6>Add a line</h6><button type="button" data-a="turn">Turn &hellip;</button><button type="button" data-a="back">Turn your back to &hellip;</button>' +
+      '<button type="button" data-a="take">Take the &hellip; gap on your &hellip;</button><button type="button" data-a="far">Go straight on as far as &hellip;</button>' +
+      '<button type="button" data-a="hedge" class="wide">Keep the hedge on your &hellip; as far as &hellip;</button><button type="button" data-a="past" class="wide">Go past the lion, down the steps, and up the far steps.</button></div></div></div>' +
+      '<div class="bx-foot"><p class="pmsg"></p><button type="button" class="btn" id="d-go">Read it to her</button></div>';
+    var msgEl = box.querySelector('.pmsg'), list = box.querySelector('.wy-lines'), top = box.querySelector('.pl-top');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function chip(i, j, text) { return '<button type="button" class="chip2" data-i="' + i + '" data-j="' + j + '">' + text + '</button>'; }
+    function words(ln, i) {
+      if (ln[0] === 'turn') return ln[1] === 'round' ? 'Turn ' + chip(i, 1, 'round') + '.' : 'Turn ' + chip(i, 1, ln[1]) + '.';
+      if (ln[0] === 'back') return 'Turn your back to ' + chip(i, 1, THINGS[ln[1]]) + '.';
+      if (ln[0] === 'take') return 'Take the ' + chip(i, 1, NTH[ln[1]]) + ' gap on your ' + chip(i, 2, ln[2]) + '.';
+      if (ln[0] === 'far') return 'Go straight on as far as ' + chip(i, 1, THINGS[ln[1]]) + '.';
+      if (ln[0] === 'hedge') return 'Keep the hedge on your ' + chip(i, 1, ln[1]) + ' as far as ' + chip(i, 2, THINGS[ln[2]]) + '.';
+      return 'Go past the lion, down the steps, and up the far steps.';
+    }
+    function plain(ln) { return words(ln, 0).replace(/<[^>]+>/g, ''); }
+    function dot(x, y, d) {
+      var a = MZ.cellAt(x, y);
+      top.innerHTML = '<g class="wy-dot" transform="translate(' + a[0] + ' ' + a[1] + ')"><g transform="rotate(' + d * 90 + ')"><path d="M0 -26l-9 13h18z" fill="#c9453a" stroke="#fbfaf2" stroke-width="2"/></g><circle r="13" fill="#3f7f8f" stroke="#fbfaf2" stroke-width="2.5"/><circle cx="-4" cy="-3" r="3" fill="#d23b2e"/><circle cx="5" cy="3" r="3" fill="#d23b2e"/></g>';
+    }
+    function draw(now, bad) {
+      list.innerHTML = lines.length ? lines.map(function (ln, i) {
+        return '<li class="' + (i === now ? 'now' : '') + (i === bad ? ' bad' : '') + '"><i>' + (i + 1) + '</i>' + words(ln, i) + '<button type="button" class="del" data-i="' + i + '" title="Rub this line out">&times;</button></li>';
+      }).join('') : '<li class="empty">The card is empty. Choose a kind of line below; then click the words in boxes to change them.</li>';
+    }
+    function keep() { ER.flag('d-lines', lines); }
+    function sees(st) {                                              /* what she can say about where she is */
+      var t = MZ.thing(st.x, st.y), k = MZ.kind(st.x, st.y, st.d);
+      if (t && t[0] === 'lion') return 'I am standing beside the lion';
+      if (t && t[0] === 'urn') return 'I am standing beside a stone urn';
+      if (t && t[0] === 'bench') return st.x === 3 && st.y === 4 ? 'I am back at this bench' : 'I am standing beside a bench that I have never seen before';
+      return k ? 'I am in a lane that goes on in front of me' : 'I am in a lane, with a hedge in front of my nose';
+    }
+    function fail(i, r, ln) {
+      var s = '<b>Line ' + (i + 1) + '.</b> &ldquo;';
+      if (r.why === 'nothing') s += 'Turn my back to ' + THINGS[ln[1]] + '? There is no such thing where I am standing,' + Q + sees(r) + '.&rdquo;';
+      else if (r.why === 'few') s += (r.n ? 'You wrote the ' + NTH[ln[1]] + ' gap on my ' + ln[2] + '. I passed ' + ['', 'one', 'two'][r.n] + ', and then a hedge stopped me,' : 'I walked on until a hedge stopped me, and there was no gap on my ' + ln[2] + ' at all,') + Q + sees(r) + '.&rdquo;';
+      else if (r.why === 'wall') s += 'I cannot go straight on. There is a hedge in front of my nose,' + Q + 'Which way am I facing, do you think?&rdquo;';
+      else if (r.why === 'nosuch') s += 'I went straight on until a hedge stopped me, and I did not come to ' + THINGS[ln[1]].replace('the bench', 'any bench') + ',' + Q + sees(r) + '.&rdquo;';
+      else if (r.why === 'nolion') s += 'Past the lion? I am not AT the lion,' + Q + sees(r) + '.&rdquo;';
+      else s += 'I kept my hand on that hedge as you told me. It took me into every dead end in the south of this maze, and it never showed me ' + THINGS[ln[2]] + ',' + Q + 'And it did not take me through that gap behind the lion: nobody goes through there without being told to. ' + sees(r) + '.&rdquo;';
+      return s;
+    }
+    box.addEventListener('click', function (e) {
+      var a = e.target.closest ? e.target.closest('.wy-add button') : null, c = e.target.closest ? e.target.closest('.chip2') : null, d = e.target.closest ? e.target.closest('.del') : null, ln, o, i, j;
+      if (wait) return;
+      if (a) {
+        if (lines.length >= MAX) { msg('&ldquo;My card has seven lines on it and no more,&rdquo; says the hedge. &ldquo;Rub one out, or say more with each.&rdquo;'); return; }
+        o = OPT[a.getAttribute('data-a')]; ln = [a.getAttribute('data-a')];
+        for (j = 1; j < o.length; j++) ln.push(o[j][0]);
+        lines.push(ln); keep(); MZ.sfx.pencil(); draw(); return;
+      }
+      if (c) {
+        i = +c.getAttribute('data-i'); j = +c.getAttribute('data-j'); o = OPT[lines[i][0]][j];
+        lines[i][j] = o[(o.indexOf(lines[i][j]) + 1) % o.length]; keep(); ER.sfx.click(); draw(); return;
+      }
+      if (d) { lines.splice(+d.getAttribute('data-i'), 1); keep(); MZ.sfx.pencil(); draw(); }
+    });
+    box.querySelector('#d-go').addEventListener('click', function () {
+      var st = { x: START.x, y: START.y, d: START.d }, walked = [[START.x, START.y]], i = 0;
+      if (wait || nextFile) return;
+      if (!lines.length) { msg('&ldquo;I am waiting,&rdquo; says the hedge. &ldquo;I have a pencil and an empty card.&rdquo;'); return; }
+      wait = true; dot(st.x, st.y, st.d);
+      function done(ok) {
+        var file;
+        if (!ok) { wait = false; ER.sfx.no(); return; }
+        file = ER.exit([MZ.straighten(walked).join('>')], { wait: true });
+        if (!file) { wait = false; msg('The pencil has broken. Something is wrong with this page: tell your teacher.'); return; }
+        nextFile = file; ER.flag('d-file', file); draw();
+        MZ.mine('ways', 'Two ways to the dial', '<p><b>From the gate</b> (the bench is on this way): a narrow gap behind the lion, six steps down, the mud of the Dip, six steps up, and round by the north side. From the bench it is fifteen squares: about sixty paces. Nobody can do it with dry shoes. Nothing on wheels can do it at all.</p>' +
+          '<p><b>From the Yew Door:</b> three squares, twelve paces, flat. The door was locked from ten to two until a quarter to three. (Goodchild stood at it from 2.25 to 2.35, for Miss Oduya, and locked it again.) From 2.45 it was open.</p>' +
+          '<p>What I wrote for Mrs Kemble:<br>' + lines.map(plain).join('<br>') + '</p>', true);
+        msg('The bushes on the north side of the court shake, and part. &ldquo;Fifteen squares,&rdquo; says Mrs Kemble, stepping out of them. &ldquo;Sixty paces, twelve steps and a bog. For ONE hedge.&rdquo;');
+        setTimeout(after, 4200);
+      }
+      function line() {
+        var ln = lines[i], r = MZ.act(st, ln), q = r.trail.slice();
+        draw(i); msg('<b>Line ' + (i + 1) + '.</b> ' + plain(ln));
+        function step() {
+          var c = q.shift();
+          if (c) { walked.push(c); dot(c[0], c[1], r.d); (MZ.sunk(c[0], c[1]) ? MZ.sfx.squelch : MZ.sfx.step)(); setTimeout(step, 130); return; }
+          st = { x: r.x, y: r.y, d: r.d }; dot(st.x, st.y, st.d);
+          if (!r.ok) { draw(-1, i); msg(fail(i, r, ln)); done(false); return; }
+          if (st.x === 3 && st.y === 3) { done(true); return; }
+          if (++i < lines.length) { setTimeout(line, 520); return; }
+          draw(); msg('&ldquo;I have done every line on the card, and I am not at the dial,' + Q + sees(st) + '. Write me another line, or a better one.&rdquo;'); done(false);
+        }
+        setTimeout(step, r.trail.length ? 380 : 620);
+      }
+      line();
+    });
+    function after() {
+      ER.closeAll(); paint(); busy = true;
+      ER.narrate([
+        'Mrs Kemble is pink in the face. She has black mud to the ankles and a twig of yew in her hair. She looks down at her shoes, and then, for some time, at nothing at all.',
+        '&ldquo;Mr Bexley&rsquo;s shoes,&rdquo; she says slowly, &ldquo;are as clean as a dinner plate. So are the shoes of everybody else on that lawn. I looked at every pair while you were in here, because I am that sort of woman. So nobody walked to this dial from the gate. Not today. And nobody at all walked to it from that bench.&rdquo;',
+        '&ldquo;Which leaves the door,&rdquo; says Mr Goodchild. &ldquo;Unlocked at a quarter to three. Twelve paces, flat.&rdquo; &ldquo;And who knew that it would be unlocked?&rdquo; &ldquo;It is on the programme.&rdquo; &ldquo;NOBODY reads the programme, Goodchild.&rdquo; &ldquo;Miss Fairbrass says so every year,&rdquo; he agrees.',
+        'Mrs Kemble looks at the three thin lines in the gravel. She walks beside them as far as the lane, and comes back. &ldquo;Tea tent,&rdquo; she says. &ldquo;Everybody. And bring every card that matters. We are going to do this properly.&rdquo;'
+      ], function () { busy = false; showGo(); ER.say('Out by the Yew Door: twelve paces, and not a step.'); });
+    }
+    draw(); dot(START.x, START.y, START.d);
+    msg('Goodchild&rsquo;s plan, and a card with seven lines on it. Write the way from the bench to the dial. Mrs Kemble will do exactly what each line says: you can watch her on the plan.');
+    return {
+      open: function () { ER.open('ov-lock', box); },
+      isOpen: function () { return !!box.parentNode; }
+    };
+  }
+})();
+</script>
+</body>
+</html>
