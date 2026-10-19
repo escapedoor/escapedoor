@@ -1,0 +1,184 @@
+/* Lot Forty-One - what every room of the story shares: the laboratory's printed things, the auction house's own papers,
+   the frame round a piece of work done with the hands, and the look of the notebook, the hints and the word tags.
+   Each room sets its own palette and lettering on <body>. */
+
+.tc-theme{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:16px;letter-spacing:.3em}
+.tc-text{font-family:'EB Garamond',Georgia,serif;font-size:clamp(18.5px,1.5vw,22.5px);line-height:1.5}
+.tc-text p{margin:0 0 11px}
+.cap{font-family:'EB Garamond',Georgia,serif;font-size:clamp(19px,1.5vw,23px);line-height:1.45}
+.chip,.hbtn{font-family:'Barlow Condensed',sans-serif;font-weight:500;font-size:16px;letter-spacing:.14em}
+.btn{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:16px}
+.gobtn{position:fixed;left:50%;bottom:5vh;transform:translateX(-50%);z-index:35;display:none;padding:12px 30px 11px;border:1px solid var(--accent,#d9b04a);
+  color:var(--accent,#d9b04a);background:var(--hud-bg,rgba(12,10,8,.9));font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:18px;letter-spacing:.2em;
+  text-transform:uppercase;border-radius:3px}
+.gobtn.on{display:block}
+.gobtn:hover{background:var(--accent,#d9b04a);color:#15110a}
+.tk-name{letter-spacing:.02em}
+.tk-role{font-family:'Barlow Condensed',sans-serif;font-weight:500;font-size:15px}
+.tk-face svg{height:100%;min-height:300px}
+.tk-text{font-family:'EB Garamond',Georgia,serif;font-size:clamp(18.5px,1.42vw,21.5px);line-height:1.5}
+.hot{cursor:pointer}
+.hot:hover{filter:brightness(1.14)}
+.ready{animation:fgready 1.6s steps(1,end) infinite}
+@keyframes fgready{50%{filter:brightness(1.3)}}
+
+/* ---- a piece of work: the frame round everything that is done with the hands ---- */
+.bn{width:min(1050px,95vw);-webkit-user-select:none;user-select:none}
+.bn>svg{display:block;width:100%;height:auto;max-height:calc(100vh - 210px);border-radius:5px;box-shadow:0 26px 70px rgba(0,0,0,.7);touch-action:none}
+.bn-foot{display:flex;align-items:flex-start;gap:16px;margin-top:10px}
+.bmsg{flex:1;min-height:54px;margin:0;font-family:'EB Garamond',Georgia,serif;font-size:19px;line-height:1.36;color:#f4eee6}
+.bmsg b{color:var(--accent,#d9b04a);font-weight:normal}
+.bn-foot .btn{flex:0 0 auto;white-space:nowrap;background:rgba(0,0,0,.35)}
+.bn text{pointer-events:none}
+.bn .tool{cursor:grab}
+.bn .tool.on{cursor:grabbing}
+.bn .hit{cursor:pointer}
+.tB{font-family:'Barlow Condensed',sans-serif;font-weight:600}
+.tM{font-family:'IBM Plex Mono',monospace;font-weight:500}
+.tK{font-family:'Permanent Marker',cursive}
+.tH{font-family:'Patrick Hand',cursive}
+.tS{font-family:'Libre Baskerville',serif}
+.tC{font-family:'Caveat',cursive}
+.tZ{font-family:'Cinzel',serif}
+.tE{font-family:'Special Elite',monospace}
+.tX{font-family:'Stardos Stencil',serif;font-weight:700}
+.tO{font-family:'Outfit',Arial,sans-serif}
+.tG{font-family:'EB Garamond',serif}
+.tW{font-family:'Oswald',sans-serif}
+
+/* three-way buttons on a form: TRUE / WRONG / WE CAN'T SAY and the like */
+.bn .opt{cursor:pointer}
+.bn .opt rect{transition:fill .15s}
+
+/* ---- paper ---- */
+.doc h4{font-weight:normal}
+.doc svg{display:block;max-width:100%;height:auto}
+.doc .w:hover{color:#8a2f3a}
+/* the label inside the lid of the UV lamp's case */
+.doc.uvlabel{width:min(820px,95vw);background:#16161a;color:#ecebf2;font-family:'Outfit',Arial,sans-serif;font-size:16px;line-height:1.45;padding:18px 28px 16px;border:2px solid #4a3a7a;border-radius:6px;box-shadow:inset 0 0 0 5px #0c0c0f}
+.doc.uvlabel h4{margin:0 0 4px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;letter-spacing:.3em;color:#b9a6ff;text-transform:uppercase}
+.doc.uvlabel h3{margin:0 0 10px;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:27px;letter-spacing:.06em}
+.doc.uvlabel .two{display:grid;grid-template-columns:1fr 236px;gap:22px;align-items:start}
+.doc.uvlabel p{margin:0 0 7px}
+.doc.uvlabel b{color:#d9ccff;font-weight:600}
+.doc.uvlabel ul{margin:0 0 8px;padding-left:20px}
+.doc.uvlabel li{margin:0 0 3px}
+.doc.uvlabel .warn{margin:8px 0 0;padding:6px 12px;background:#f0c419;color:#16161a;font-weight:600;font-size:14px;letter-spacing:.06em;text-transform:uppercase;display:inline-block}
+.doc.uvlabel .w:hover{color:#ffd76a}
+/* a page of the laboratory's field manual */
+.doc.manual{width:min(880px,95vw);background:#f6f2e6 linear-gradient(90deg,rgba(0,0,0,.09),transparent 5%);color:#221f1a;font-family:'Libre Baskerville',Georgia,serif;font-size:14.5px;line-height:1.5;padding:20px 36px 16px 54px}
+.doc.manual:before{content:'';position:absolute;left:17px;top:0;bottom:0;width:13px;background:radial-gradient(circle at 50% 50%,#1f1c16 0 5px,transparent 6px) 0 0/13px 76px repeat-y}
+.doc.manual h4{margin:0 0 2px;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:14px;letter-spacing:.3em;text-transform:uppercase;color:#7a705c}
+.doc.manual h3{margin:0 0 9px;font-weight:700;font-size:22px;border-bottom:1px solid #9c917a;padding-bottom:6px}
+.doc.manual p{margin:0 0 6px}
+.doc.manual b{font-weight:700}
+.doc.manual .two{display:grid;grid-template-columns:1fr 230px;gap:22px;align-items:start}
+.doc.manual .two svg{background:#fffdf4;border:1px solid #c9c0a8}
+.doc.manual .rule{margin:6px 0 0;padding:8px 14px 7px;background:#fffdf4;border-left:4px solid #1f6b5a;font-weight:700}
+.doc.manual table{border-collapse:collapse;margin:4px 0 6px;font-size:13.5px}
+.doc.manual td{padding:1px 14px 1px 0;border-bottom:1px dotted #b9ad92}
+.doc.manual .pg{margin:2px 0 0;text-align:right;font-style:italic;font-size:13px;color:#7a705c}
+/* a page of the auction catalogue */
+.doc.cat{width:min(760px,95vw);background:#fbfaf6;color:#1e1b18;font-family:'Libre Baskerville',Georgia,serif;font-size:15px;line-height:1.5;padding:24px 40px 20px;border-top:12px solid #6e1f2e}
+.doc.cat h4{margin:0 0 2px;font-family:'Cinzel',serif;font-weight:700;font-size:15px;letter-spacing:.24em;color:#6e1f2e}
+.doc.cat h3{margin:0 0 10px;font-family:'Libre Baskerville',serif;font-weight:700;font-size:23px}
+.doc.cat h3 small{display:block;font-weight:400;font-style:italic;font-size:17px}
+.doc.cat p{margin:0 0 7px}
+.doc.cat .k{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:#7a6a5a;margin-right:6px}
+.doc.cat .est{margin-top:10px;font-family:'Cinzel',serif;font-weight:700;font-size:18px;letter-spacing:.06em}
+.doc.cat .pencil{margin-top:10px;font-family:'Caveat',cursive;font-size:23px;line-height:1.15;color:#5a5a62;transform:rotate(-1deg)}
+/* the letter of "1793", in a careful old hand */
+.doc.oldletter{width:min(700px,94vw);background:#e9dcb8 radial-gradient(ellipse at 30% 20%,rgba(255,250,228,.6),rgba(130,96,40,.22));color:#3b2812;font-family:'EB Garamond',Georgia,serif;font-style:italic;font-size:20px;line-height:1.5;padding:30px 46px 24px}
+.doc.oldletter p{margin:0 0 9px}
+.doc.oldletter .ld{text-align:right}
+.doc.oldletter .sg{text-align:right;margin-top:6px}
+.doc.oldletter h4{display:none}
+.doc.oldletter .w:hover{color:#8a2f1a}
+/* a carbon copy of a receipt */
+.doc.receipt{width:min(700px,94vw);background:#f6e3e3;color:#2a1f22;font-family:'Special Elite','Courier New',monospace;font-size:15px;line-height:1.5;padding:20px 32px 18px;border-top:8px solid #6e1f2e}
+.doc.receipt h4{margin:0 0 8px;font-family:'Cinzel',serif;font-weight:700;font-size:17px;letter-spacing:.16em;color:#6e1f2e;border-bottom:1px solid #b88a90;padding-bottom:6px}
+.doc.receipt p{margin:0 0 6px}
+.doc.receipt .hw{font-family:'Patrick Hand',cursive;font-size:19px;line-height:1.25;color:#1d2a66}
+/* a yellow sticky note */
+.doc.sticky{width:min(430px,90vw);background:#fde98a;color:#2a2410;font-family:'Permanent Marker',cursive;font-size:20px;line-height:1.35;padding:28px 30px 24px;transform:rotate(-1.5deg);box-shadow:0 12px 28px rgba(0,0,0,.4)}
+.doc.sticky h4{display:none}
+.doc.sticky p{margin:0 0 8px}
+/* results from the university paint laboratory */
+.doc.results{width:min(800px,95vw);background:#fff;color:#1b2430;font-family:'Outfit',Arial,sans-serif;font-size:15px;line-height:1.4;padding:18px 30px 16px;border-top:10px solid #1f3a6a}
+.doc.results h4{margin:0 0 2px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:14px;letter-spacing:.24em;color:#1f3a6a;text-transform:uppercase}
+.doc.results h3{margin:0 0 8px;font-weight:600;font-size:20px}
+.doc.results table{width:100%;border-collapse:collapse;margin:4px 0 8px}
+.doc.results td{padding:5px 8px 5px 0;border-bottom:1px solid #d5dbe3;vertical-align:top}
+.doc.results td:first-child{width:220px;font-weight:600}
+.doc.results .foot{font-size:13.5px;color:#56616c}
+/* a page of a conservation handbook */
+.doc.handbook{width:min(880px,95vw);background:#fbf8ef;color:#23201b;font-family:'EB Garamond',Georgia,serif;font-size:17px;line-height:1.42;padding:18px 34px 14px;border-left:14px solid #2a4a6a}
+.doc.handbook h4{margin:0 0 2px;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:14px;letter-spacing:.3em;text-transform:uppercase;color:#2a4a6a}
+.doc.handbook h3{margin:0 0 8px;font-weight:700;font-size:25px;border-bottom:1px solid #a7b4c0;padding-bottom:5px}
+.doc.handbook .two{display:grid;grid-template-columns:1fr 250px;gap:20px;align-items:start}
+.doc.handbook p{margin:0 0 6px}
+.doc.handbook table{width:100%;border-collapse:collapse;margin:2px 0 6px;font-size:16px}
+.doc.handbook td{padding:1px 8px 1px 0;border-bottom:1px dotted #a7b4c0}
+.doc.handbook td:last-child{text-align:right;white-space:nowrap}
+.doc.handbook .rule{margin:6px 0 0;padding:7px 12px 6px;background:#eef3f7;border-left:4px solid #b3261c}
+/* the back of the panel, or anything drawn and lettered */
+.doc.drawn{width:min(760px,95vw);background:#1e1a16;color:#f1ead8;font-family:'EB Garamond',Georgia,serif;font-size:18px;line-height:1.4;padding:18px 24px 16px}
+.doc.drawn h4{margin:0 0 8px;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:15px;letter-spacing:.26em;text-transform:uppercase;color:#d9b04a}
+.doc.drawn p{margin:8px 0 0}
+/* a conservator's note in a folder */
+.doc.folder{width:min(640px,92vw);background:#efe6cc;color:#2a2418;font-family:'Patrick Hand',cursive;font-size:21px;line-height:1.3;padding:24px 32px 20px;border-top:30px solid #c9a35a}
+.doc.folder h4{margin:-24px 0 14px;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:15px;letter-spacing:.24em;text-transform:uppercase;color:#5a4420}
+/* a dictionary of painters, thin paper and small type */
+.doc.dict{width:min(700px,94vw);background:#f4f1e8;color:#1f1d1a;font-family:'Libre Baskerville',Georgia,serif;font-size:15px;line-height:1.5;padding:22px 34px 18px}
+.doc.dict h4{margin:0 0 8px;font-family:'Cinzel',serif;font-weight:700;font-size:15px;letter-spacing:.2em;color:#5a4a3a;border-bottom:1px solid #b9ad92;padding-bottom:5px}
+.doc.dict b{font-variant:small-caps;letter-spacing:.05em}
+/* Femi's notebook: squared paper */
+.doc.jotter{width:min(720px,95vw);background-color:#fbfbf7;background-image:linear-gradient(rgba(70,120,180,.18) 1px,transparent 1px),linear-gradient(90deg,rgba(70,120,180,.18) 1px,transparent 1px);background-size:22px 22px;
+  color:#1d2440;font-family:'Patrick Hand',cursive;font-size:19.5px;line-height:1.3;padding:22px 30px 18px 40px;border-left:10px solid #3f6e4a}
+.doc.jotter h4{margin:0 0 10px;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:15px;letter-spacing:.24em;text-transform:uppercase;color:#3f6e4a}
+.doc.jotter p{margin:0 0 7px}
+.doc.jotter b{font-weight:normal;color:#8a2a20}
+/* the photographer's bill */
+.doc.invoice{width:min(660px,94vw);background:#fff;color:#1b1f26;font-family:'Outfit',Arial,sans-serif;font-size:15.5px;line-height:1.45;padding:0 30px 18px;border:1px solid #c5ccd3}
+.doc.invoice h4{margin:0 -30px 12px;padding:12px 30px 9px;background:#1b1f26;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:21px;letter-spacing:.14em;text-transform:uppercase}
+.doc.invoice table{width:100%;border-collapse:collapse}
+.doc.invoice td{padding:4px 8px 4px 0;border-bottom:1px solid #e1e5ea;vertical-align:top}
+.doc.invoice td:first-child{width:150px;color:#56616c;font-size:13.5px;letter-spacing:.06em;text-transform:uppercase}
+.doc.invoice .hw{margin-top:10px;font-family:'Caveat',cursive;font-size:24px;line-height:1.1;color:#1d2a66}
+/* what you worked out for yourself */
+.doc.mine{width:min(620px,92vw);background:#eef1ea;color:#1c241c;font-family:'Patrick Hand',cursive;font-size:21px;line-height:1.3;padding:24px 30px 24px;border-left:18px solid #1f4a3a;
+  background-image:linear-gradient(transparent 27px,rgba(31,74,58,.16) 27px);background-size:100% 28px}
+.doc.mine h4{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:19px;letter-spacing:.24em;text-transform:uppercase;color:#1f4a3a;margin-bottom:8px}
+.doc.mine p{margin:0 0 9px}
+.doc.statement{background:#f4f1e9;font-family:'EB Garamond',Georgia,serif;font-size:19px;line-height:1.5;border-left:6px solid #6e1f2e}
+.doc.statement h4{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:16px;letter-spacing:.24em;color:#6e1f2e}
+
+/* ---- the notebook: green cloth and a gold ribbon, like the house's own sale books ---- */
+.nb{background:#1c2b24 linear-gradient(140deg,#24382e,#111c17);border:1px solid #4a6a58;border-radius:5px;color:#e8efe9;box-shadow:0 30px 90px rgba(0,0,0,.75),inset 0 0 0 5px #0d1611}
+.nb-tabs{border-bottom-color:#4a6a58}
+.nb-tabs button{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:17px;letter-spacing:.2em;color:#a9c2b4}
+.nb-tabs button.on{background:#f1f3ee;color:#1c2b24;border-color:#4a6a58}
+.nb-list{border-right-color:#4a6a58}
+.nb-list button{font-family:'EB Garamond',serif;font-size:17.5px;color:#e8efe9}
+.nb-list button small{font-family:'Barlow Condensed',sans-serif;font-size:12.5px;letter-spacing:.2em}
+.nb-list button.on{background:#f1f3ee;color:#1c2b24}
+.nb-view{background:#101814}
+.nb-empty{font-family:'EB Garamond',serif}
+.nb-words{background:#f1f3ee;color:#1c241f}
+.nb-words b{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:16px}
+.nb-words span{font-family:'EB Garamond',serif;font-size:17px;line-height:1.3;color:#44504a}
+.nb-ko{border-color:#8aa496;color:#44504a}
+.nb-ko.on{background:#1c2b24;color:#e6c873;border-color:#1c2b24}
+.wtip,.wtag{background:#f1f3ee;color:#1c241f;border-radius:2px;box-shadow:0 10px 26px rgba(0,0,0,.6),inset 5px 0 0 #b08a35}
+.wtag{transform:rotate(-1deg);padding-left:20px}
+.wtag:before{display:none}
+.wtip{padding-left:19px}
+.wtip b,.wtag b{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:16.5px}
+.wtip span,.wtag span{font-family:'EB Garamond',serif;font-size:17px;line-height:1.3;color:#44504a}
+.hintbox{background:#f1f3ee;color:#1c241f;border-top:6px solid #b08a35;border-radius:2px}
+.hintbox h6{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:17px;letter-spacing:.3em;color:#8a6a24}
+.hintbox p{font-family:'EB Garamond',serif;font-size:18px;line-height:1.36}
+.hintbox p i{background:#1c2b24;color:#f1f3ee;font-family:'Barlow Condensed',sans-serif;font-size:14px}
+.hintbox p.hint-none{font-style:italic;color:#5a6a60;font-size:17px}
+.hintbox .w:hover{color:#8a6a24}
+.toast{font-family:'Barlow Condensed',sans-serif;font-weight:500;font-size:16px;background:rgba(14,20,16,.94)}

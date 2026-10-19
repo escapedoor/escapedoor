@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Studio · Lot Forty-One</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-forensic.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="forgery.css">
+<style>
+  body{--bg:#141a1e;--accent:#7fc4e8;--font-display:'Outfit',sans-serif;--font-ui:'Barlow Condensed',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(226,232,232,.97);--tc-ink:#1c2428;--cap-bg:rgba(22,30,34,.94);--panel:#182026;--face-bg:#2a3a42;--q-ink:#7fc4e8;--fade:#e9eef0;--hud-bg:rgba(22,30,34,.84)}
+  .tc-room{font-family:'Outfit',sans-serif;font-weight:300;letter-spacing:.24em;text-transform:uppercase;font-size:clamp(38px,5.4vw,70px)}
+  .tc .btn{--accent:#1f5a7a}
+  .tk-name{font-family:'Outfit',sans-serif;font-weight:500;letter-spacing:.04em}
+  .sO{font-family:'Outfit',sans-serif;text-anchor:middle}
+  .sB{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-anchor:middle}
+  #cloud1{animation:cloud 80s linear infinite}
+  #cloud2{animation:cloud 120s linear infinite;animation-delay:-50s}
+  @keyframes cloud{from{transform:translateX(-300px)}to{transform:translateX(900px)}}
+  #steam{animation:steam 4s linear infinite;opacity:0}
+  @keyframes steam{0%{transform:translateY(0);opacity:0}30%{opacity:.6}100%{transform:translateY(-40px);opacity:0}}
+
+  /* the microscope */
+  .ms #view{cursor:move}
+  .ms #wheel{cursor:ns-resize}
+  .ms .slide{cursor:pointer}
+  .ms .slide.on rect.s{stroke:#f0c419;stroke-width:3}
+  .ms .ar{cursor:pointer}
+  .ms .ar:hover path{fill:#f0c419}
+  .ms .tog{cursor:pointer}
+  .ms .tog rect{fill:#fff;stroke:#8a9aa4}
+  .ms .tog.on rect{fill:#1f5a7a;stroke:#1f5a7a}
+  .ms .tog.on text{fill:#fff}
+  .ms .tog:hover rect{stroke:#f0c419}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b9cfdd"/><stop offset="1" stop-color="#e3ecf0"/></linearGradient>
+  <linearGradient id="northG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eef6fa" stop-opacity=".45"/><stop offset="1" stop-color="#eef6fa" stop-opacity="0"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="46%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#1a2428" stop-opacity=".12"/><stop offset="1" stop-color="#0a1014" stop-opacity=".55"/></radialGradient>
+</defs>
+
+<!-- white walls, the big north window -->
+<rect x="-1000" y="-400" width="3600" height="1050" fill="#dfe4e2"/><rect x="-1000" y="-400" width="3600" height="430" fill="#cfd5d3"/><path d="M-1000 30H2600" stroke="#b9c0be" stroke-width="6"/>
+<g id="win" class="hot"><rect x="790" y="60" width="760" height="400" fill="url(#skyG)"/>
+  <g id="cloud1" fill="#fff" opacity=".8"><ellipse cx="900" cy="150" rx="70" ry="20"/><ellipse cx="950" cy="138" rx="50" ry="22"/></g><g id="cloud2" fill="#fff" opacity=".6"><ellipse cx="1000" cy="250" rx="90" ry="18"/></g>
+  <g fill="#7a8a94" opacity=".7"><path d="M790 420h120v-80l40 -30 40 30v-60h40v110h80v-50l60 -40 60 40v80h120v-40h40v40h160v40H790z"/></g>
+  <g stroke="#e9eeee" stroke-width="10" fill="none"><path d="M790 60h760v400H790zM980 60v400M1170 60v400M1360 60v400M790 260h760"/></g></g>
+<path d="M790 460h760l140 400H650z" fill="url(#northG)" pointer-events="none"/>
+<!-- shelves of jars, a sink -->
+<g id="jars" class="hot"><g fill="#a8906a"><rect x="40" y="170" width="280" height="10"/><rect x="40" y="290" width="280" height="10"/><rect x="40" y="410" width="280" height="10"/></g><g id="jarg"></g></g>
+<rect x="-1000" y="640" width="3600" height="800" fill="#c2ad8a"/><g stroke="#a8916c" stroke-width="2"><path d="M-1000 690H2600M-1000 760H2600M-1000 860H2600"/></g><g id="boards" stroke="#a8916c" stroke-width="2"></g>
+<g id="sink" class="hot"><rect x="40" y="500" width="240" height="140" fill="#e9eceb"/><rect x="40" y="494" width="240" height="14" fill="#f6f8f7"/><path d="M150 430v50M130 480h40" stroke="#9aa5ab" stroke-width="8" stroke-linecap="round"/><rect x="60" y="514" width="200" height="40" fill="#c9d6dc"/>
+  <text x="160" y="600" class="sB" font-size="12" fill="#7a868c" letter-spacing="2">NO SOLVENTS IN THE SINK</text></g>
+<g id="canv" class="hot"><path d="M300 640l20 -220h110l-10 220z" fill="#e9e2d2" stroke="#b9ad92" stroke-width="3"/><path d="M330 640l26 -180h90l-14 180z" fill="#4a5a64"/><path d="M346 620l20 -140h60" stroke="#6b7a84" stroke-width="2" fill="none"/></g>
+
+<!-- the easel, the panel, the magnifier lamp, the photograph with its five circles -->
+<g id="easel"><path d="M430 200L350 700M430 200L510 700M430 210V710" stroke="#7a5a36" stroke-width="10" stroke-linecap="round"/><rect x="330" y="512" width="200" height="12" fill="#5a3e22"/></g>
+<g id="panel" class="hot" transform="translate(350 296) scale(.84)"></g>
+<g id="lamp"><path d="M600 120L520 190" stroke="#3a4248" stroke-width="6"/><path d="M600 120V640" stroke="#3a4248" stroke-width="6"/><ellipse cx="510" cy="200" rx="40" ry="14" fill="#2a3036"/><ellipse cx="510" cy="204" rx="30" ry="8" fill="#f8fcd8" opacity=".9"/><ellipse cx="600" cy="644" rx="30" ry="6" fill="#2a3036"/></g>
+<g id="map" class="hot"><rect x="618" y="250" width="132" height="168" fill="#f4f6f4" stroke="#b9c0be" stroke-width="2"/><g transform="translate(628 262) scale(.59)" id="mapic"></g>
+  <g fill="none" stroke="#e8403a" stroke-width="2"><circle cx="708" cy="337" r="5"/><circle cx="667" cy="370" r="5"/><circle cx="716" cy="390" r="5"/><circle cx="636" cy="397" r="5"/><circle cx="679" cy="306" r="5"/></g>
+  <circle cx="684" cy="252" r="5" fill="#b3261c"/></g>
+
+<!-- the bench under the window -->
+<path d="M820 640v120M1500 640v120" stroke="#6b5a40" stroke-width="12"/><path d="M800 560h720l18 30H782z" fill="#e8e2d2"/><rect x="782" y="588" width="756" height="14" fill="#a8916c"/>
+<g id="scope" class="hot"><rect x="868" y="540" width="110" height="22" rx="4" fill="#2a3036"/><path d="M948 540V420q0 -20 -20 -24l-30 -6" stroke="#2a3036" stroke-width="20" fill="none" stroke-linecap="round"/>
+  <rect x="870" y="470" width="70" height="10" fill="#5a646c"/><path d="M896 470v-60l-14 -40" stroke="#2a3036" stroke-width="16" stroke-linecap="round"/><circle cx="958" cy="470" r="14" fill="#5a646c"/><circle cx="958" cy="470" r="6" fill="#9aa5ab"/>
+  <rect x="990" y="534" width="70" height="26" rx="3" fill="#a8916c"/><g fill="#e9f4f8" stroke="#9aa5ab"><rect x="994" y="528" width="10" height="28"/><rect x="1008" y="528" width="10" height="28"/><rect x="1022" y="528" width="10" height="28"/><rect x="1036" y="528" width="10" height="28"/><rect x="1050" y="528" width="10" height="28"/></g></g>
+<g id="clip" class="hot"><rect x="1080" y="470" width="90" height="118" fill="#8a6a3a"/><rect x="1086" y="480" width="78" height="104" fill="#fff"/><rect x="1106" y="464" width="38" height="14" rx="3" fill="#9aa5ab"/><g stroke="#3a4a6a" stroke-width="1.6"><path d="M1094 520h60M1094 532h52M1094 544h60M1094 556h44M1094 568h56"/></g><rect x="1094" y="490" width="62" height="8" fill="#1f3a6a"/></g>
+<g id="note" class="hot"><rect x="1120" y="494" width="48" height="44" fill="#fde98a" transform="rotate(8 1144 516)"/><path d="M1126 508h34M1126 516h28M1126 524h32" stroke="#6a5a1a" stroke-width="2" transform="rotate(8 1144 516)"/></g>
+<g id="hb" class="hot"><path d="M1196 586l8 -34h68l4 34z" fill="#fbf8ef"/><path d="M1276 586l-4 -34h68l8 34z" fill="#f2eee2"/><path d="M1272 552l4 34" stroke="#2a4a6a" stroke-width="4"/><g stroke="#8a96a0" stroke-width="1.3"><path d="M1210 562h50M1208 570h56M1206 578h54M1286 562h48M1288 570h50M1290 578h52"/></g></g>
+<g id="mug"><path d="M1380 560v-34h34v34z" fill="#1f5a7a"/><path d="M1414 534q12 2 10 14t-10 8" fill="none" stroke="#1f5a7a" stroke-width="4"/><path id="steam" d="M1392 520q-6 -10 0 -18t0 -18" stroke="#fff" stroke-width="3" fill="none"/></g>
+<g id="brushes"><rect x="1440" y="520" width="34" height="40" fill="#c9d6dc" fill-opacity=".6"/><path d="M1446 520l-10 -60M1456 520l-2 -70M1466 520l8 -64" stroke="#7a5a36" stroke-width="4"/></g>
+
+<!-- people -->
+<g id="garrick" class="hot" transform="translate(216 872) scale(.95)"></g>
+<g id="hartnell" class="hot" transform="translate(726 892)"></g>
+<g id="femi" class="hot" transform="translate(1556 880) scale(.97)"></g>
+
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Down to the catalogue office</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="forgery.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, bench = null, told = {};
+
+  (function () {
+    var s = '', i;
+    for (i = 0; i < 24; i++) s += '<rect x="' + (52 + (i % 8) * 33) + '" y="' + (128 + Math.floor(i / 8) * 120 - (i * 7) % 18) + '" width="24" height="' + (42 + (i * 7) % 18) + '" rx="3" fill="' + ['#c9a04a', '#7a3a2a', '#2d4f9a', '#e9e2d2', '#4a6a3a', '#b3261c', '#d9d2c0', '#3a3a3a'][i % 8] + '" opacity=".85"/>';
+    $('#jarg').innerHTML = s;
+    s = ''; for (i = -20; i <= 40; i++) s += '<path d="M' + (800 + i * 64) + ' 640L' + (800 + i * 130) + ' 1300"/>';
+    $('#boards').innerHTML = s;
+    $('#panel').innerHTML = '<rect x="-4" y="-4" width="198" height="248" fill="#3a2a18"/>' + FG.painting();
+    $('#mapic').innerHTML = FG.painting();
+    ['garrick', 'hartnell', 'femi'].forEach(function (w) { $('#' + w).innerHTML = FG.fig(w); });
+  })();
+
+  ER.init({
+    theme: 'forensic', story: 'forgery', storyTitle: 'Lot Forty-One', id: 'studio', no: 'III', title: 'The Studio',
+    go: 'Up to the top floor',
+    intro: [
+      'The bird weighed 51.0 grams, once the balance had been set to zero with the empty boat on it. It pushed the water in the cylinder up from 40.0 to 46.0 ml, so its volume is 6.0 cm³. Density = mass ÷ volume = 51.0 ÷ 6.0 = 8.5 grams in every cubic centimetre. Gold would be 19.3. The bird is brass, with a skin of gold leaf: gilded, not gold.',
+      'And it is the same bird that Femi weighed on Mr Tredwell&rsquo;s kitchen scales in September: 51 grams then, 51.0 now. A gold bird of that size would have weighed about 116. Nobody swapped anything. Mr Tredwell&rsquo;s gran was simply wrong, as grans are allowed to be.',
+      'The real letter is on old paper. Mr Garrick says that settles it. Dr Hartnell says it settles the paper. The picture has gone up to the studio at the top of the building, where the house&rsquo;s conservator took five tiny samples of its paint a fortnight ago.'
+    ],
+    exit: {"next":"office","w":{"a1767f72":"4de6ec3c"}}, tags: {"s0":["718dc576"],"s1":["82adeb65"],"s2":["3ae13f31"],"s3":["e931aee4"],"s4":["f0bf6311"],"early":["0780fd8b"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('c-file') || null; told = ER.flag('c-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('c-told', told); return true; }
+  function isBusy() { return busy; }
+  function readAll() { return told.note && told.results && told.hb && told.back; }
+  function showGo() { $('#go').classList.add('on'); }
+  function paint() {
+    $('#scope').classList.toggle('ready', !!(readAll() && !nextFile));
+    ER.pips((told.note ? 1 : 0) + (told.results ? 1 : 0) + (told.hb ? 1 : 0) + (told.back ? 1 : 0) + (nextFile ? 1 : 0), 5);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Mrs Mertens measured the tree rings on the bottom edge of the panel. Her folder is on Femi&rsquo;s desk in the catalogue office. Go down.']];
+    if (bench && bench.isOpen()) return [bench.step(), {
+      look: ['Click a slide in the box to put it under the microscope. Drag inside the round view to bring the speck into the middle, and drag the focus wheel up or down until the layers are sharp.',
+        'Look at all five samples. The oldest layer is at the bottom. In each one, find the thin amber line: that is the old varnish, put on when the picture was finished.'],
+      report: ['For each sample, which pigment on the results sheet was invented last? The handbook gives its date: that is the &lsquo;not before&rsquo; date. Click the arrows to set it.',
+        'Under the amber line of varnish: the picture&rsquo;s own paint. On top of it: added later, by somebody else.',
+        'Two of the five samples have paint on top of the varnish. The last question asks only about the picture&rsquo;s OWN paint.']
+    }[bench.step()]];
+    if (!readAll()) return ['read', ['Four things to read before the microscope: the yellow note on Mrs Mertens&rsquo; clipboard, the results clipped under it, the handbook open on the bench, and the back of the panel on the easel (click the panel).']];
+    return ['scope', ['The microscope is on the bench under the window. Click it.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; showGo(); ER.say('Old paint, a later name, a younger feather. Now the wood.'); return; }
+    if (told.in) { busy = false; ER.say('The studio, under the north window.'); return; }
+    tell('in');
+    ER.narrate([
+      'The studio is at the very top of the building, under a big north window that lets in a cool, even light all day. Pictures without frames lean against the walls. Everything smells of turpentine and coffee.',
+      'Mrs Mertens, the conservator, comes in on Mondays and Thursdays, and this week not at all. She has left her bench very tidy: a microscope, a box of glass slides, and a sheet of results on a clipboard, with a yellow note stuck on top.',
+      'Lot 41 is on the easel, without its frame. Beside it hangs a photograph of it with five tiny red circles: A, B, C, D and E. A sample is a speck of paint smaller than a full stop, set in a little block of clear plastic and polished, so that its layers can be seen from the side.',
+      'Mr Garrick has come up with you. He reads the yellow note and goes quiet, for once. Dr Hartnell reads it over his shoulder. &ldquo;Titanium white,&rdquo; she says. &ldquo;Well. That would be interesting.&rdquo;',
+      '&ldquo;Titanium white wasn&rsquo;t in paint until the 1920s,&rdquo; says Femi. &ldquo;If it&rsquo;s in the picture, the picture is modern. Isn&rsquo;t it?&rdquo; Nobody answers her.'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- papers ---------- */
+  var NOTE = '<h4>A yellow note</h4><p>Rollo &mdash; results for Lot 41 came back today (Thurs). TITANIUM WHITE in sample C!</p><p>Before anybody panics, LOOK AT THE LAYERS.</p><p>Away next week, back Thursday 15th. &mdash; Ilse</p>';
+  $('#note').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: NOTE, cls: 'sticky', clue: { id: 'note', title: 'Mrs Mertens’ yellow note', kind: 'On the clipboard' }, done: function () {
+      if (tell('note')) { paint(); ER.say('&ldquo;Thursday last week,&rdquo; says Dr Hartnell. &ldquo;And addressed to you, Mr Garrick.&rdquo; &ldquo;I was going to mention it,&rdquo; says Mr Garrick. &ldquo;When it was convenient.&rdquo;'); }
+    } });
+  });
+  var RESULTS = '<h4>University paint laboratory &middot; results</h4><h3>Cardew &amp; Lisle, Lot 41: five samples, taken by I. Mertens on 1 October</h3>' +
+    '<p>What was found in each sample, in alphabetical order. (For the order of the layers, look at the cross-sections.)</p><table>' +
+    '<tr><td>A &middot; the blue jug</td><td>chalk, lead white, natural resin, smalt</td></tr>' +
+    '<tr><td>B &middot; the lemon</td><td>chalk, lead-tin yellow, natural resin</td></tr>' +
+    '<tr><td>C &middot; the white feather on the floor</td><td>chalk, lead white, natural resin, titanium white, umber</td></tr>' +
+    '<tr><td>D &middot; the letters in the bottom left corner</td><td>bone black, chalk, lead white, natural resin, Prussian blue, umber</td></tr>' +
+    '<tr><td>E &middot; the bird&rsquo;s red cap</td><td>chalk, natural resin, vermilion</td></tr></table>' +
+    '<p class="foot">Natural resin: the varnish. Chalk: the white ground under the paint, and also the filler used to mend holes. Umber: a brown earth.</p>';
+  $('#clip').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.note) { ER.say('The results are clipped under a yellow note. Read the note first: it is on top for a reason.'); return; }
+    ER.read({ html: RESULTS, cls: 'results', clue: { id: 'results', title: 'Paint results, Lot 41', kind: 'University paint laboratory' }, done: function () {
+      if (tell('results')) { paint(); ER.say('&ldquo;What is in each speck, but not in which order,&rdquo; says Dr Hartnell. &ldquo;The order is what the microscope is for.&rdquo;'); }
+    } });
+  });
+  var DIAG = '<svg viewBox="0 0 250 230"><rect width="250" height="230" fill="#fbf8ef"/><rect x="30" y="20" width="170" height="190" fill="#3a4248" opacity=".18"/>' +
+    '<path d="M40 190h150v-40H40z" fill="#efe9da" stroke="#b9ad92"/><path d="M40 150h150v-32q-75 6 -150 0z" fill="#6b4a2a"/><path d="M40 118q75 6 150 0v-8q-75 6 -150 0z" fill="#c9a04a"/><path d="M90 108q30 -4 60 2v-14q-30 -4 -60 0z" fill="#ffffff" stroke="#b9b4aa"/>' +
+    '<g font-family="Patrick Hand,cursive" font-size="13" fill="#23201b"><text x="204" y="176">1 ground</text><text x="204" y="140">2 paint</text><text x="204" y="117" fill="#8a6a1c">3 old varnish</text><text x="154" y="90" fill="#b3261c">4 added later</text></g>' +
+    '<path d="M18 196V30" stroke="#23201b" stroke-width="1.4"/><path d="M14 36l4 -8 4 8" fill="#23201b"/><text x="10" y="222" font-family="Patrick Hand,cursive" font-size="13" fill="#23201b">older at the bottom</text></svg>';
+  var HB = '<h4>A conservator&rsquo;s handbook &middot; chapter 4</h4><h3>When colours were new</h3><div class="two"><div>' +
+    '<p>A painter can only use a colour that exists, so every <b>pigment</b> gives a date that its layer cannot be older than.</p><table>' +
+    '<tr><td>chalk, umber, bone black, vermilion, lead white, natural resin</td><td>ancient</td></tr>' +
+    '<tr><td>lead-tin yellow</td><td>from the 1300s</td></tr><tr><td>smalt (a blue made of powdered glass)</td><td>from the 1500s</td></tr>' +
+    '<tr><td>Prussian blue</td><td>first made about 1704</td></tr><tr><td>titanium white</td><td>in painters&rsquo; colours from the 1920s</td></tr></table>' +
+    '<p>Careful. A pigment dates <b>its own layer</b>, not the whole picture. For centuries, later hands have mended and &lsquo;improved&rsquo; old pictures.</p></div>' + DIAG + '</div>' +
+    '<p>Under the microscope a tiny <b>cross-section</b> shows the layers in order, the oldest at the bottom: the ground, the paint, and the <b>varnish</b>, which turns a yellow-amber colour as it ages. Paint that lies <b>on top of the old varnish</b> was put on after the picture was finished: by a restorer mending damage (that is <b>retouching</b>), or by somebody less honest.</p>' +
+    '<p class="rule">One modern layer does not make a modern picture. Ask which layer it is in.</p>';
+  $('#hb').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: HB, cls: 'handbook', clue: { id: 'handbook', title: 'When colours were new', kind: 'Conservator’s handbook' }, done: function () {
+      FG.terms(['pigment', 'cross-section', 'varnish', 'retouching', 'conservator']);
+      if (tell('hb')) { paint(); ER.say('&ldquo;Ask which layer it is in,&rdquo; Femi reads aloud, and then reads it again, more quietly.'); }
+    } });
+  });
+  var BACK = '<h4>The back of the panel</h4><svg viewBox="0 0 700 300"><rect width="700" height="300" fill="#1e1a16"/>' +
+    '<path d="M120 20h460v260H120z" fill="#8a6a44"/><path d="M120 20h460l-24 24H144v212l-24 24z" fill="#a07a50"/><path d="M580 20v260H120l24 -24h412V44z" fill="#6b5034"/>' +
+    '<g stroke="#6b5034" stroke-width="1.6" opacity=".7" fill="none"><path d="M150 60q200 -8 400 4M150 90q200 6 400 -2M150 130q200 -10 400 6M150 170q200 8 400 -4M150 210q200 -6 400 4M150 240q200 4 400 0"/></g>' +
+    '<rect x="420" y="70" width="110" height="60" fill="#e9dcb8" transform="rotate(-4 475 100)"/><path d="M500 70l30 0 0 30z" fill="#8a6a44" transform="rotate(-4 475 100)"/><text x="470" y="108" font-family="Special Elite,monospace" font-size="14" fill="#3a2a1a" text-anchor="middle" transform="rotate(-4 475 100)">...38</text>' +
+    '<text x="190" y="84" font-family="Caveat,cursive" font-size="34" fill="#f1ead8" opacity=".55">17</text>' +
+    '<text x="200" y="200" font-family="Homemade Apple,cursive" font-size="15" fill="#2a2018" transform="rotate(-2 300 200)">W. Henshaw 1958 &#8212; cleaned;</text><text x="214" y="228" font-family="Homemade Apple,cursive" font-size="15" fill="#2a2018" transform="rotate(-2 300 228)">old loss in floor filled &amp; painted</text>' +
+    '<g transform="translate(120 286)"><rect width="460" height="10" fill="#c9a87a"/><g stroke="#6b5034" stroke-width="1"><path d="M10 0v10M18 0v10M24 0v10M33 0v10M40 0v10M44 0v10M55 0v10M61 0v10M70 0v10M76 0v10M79 0v10M90 0v10M98 0v10M104 0v10M112 0v10M120 0v10M123 0v10M135 0v10M142 0v10M150 0v10"/></g></g></svg>' +
+    '<p>Oak, darkened by age, with the edges bevelled thin. A torn corner of an old sale label, a number in chalk, and, in faint pencil, a restorer&rsquo;s note: <i>W. Henshaw 1958 &mdash; cleaned; old loss in floor filled &amp; painted.</i> A <b>loss</b> is a place where paint has fallen off.</p>' +
+    '<p>Along the bottom edge Mrs Mertens has scraped a strip of the wood clean, and the rings show like the lines of a thumbprint. Her note says she has measured them, and left the measurements &ldquo;in a folder for Femi&rdquo;.</p>';
+  $('#panel').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: BACK, cls: 'drawn', clue: { id: 'back', title: 'The back of the panel', kind: 'Lot 41, turned over' }, done: function () {
+      if (tell('back')) { paint(); ER.say('&ldquo;1958,&rdquo; says Femi. &ldquo;Filled and painted. In the floor.&rdquo; She looks at the front of the picture, at the floorboards, for quite a long time.'); }
+    } });
+  });
+  FG.thing('#map', null, 'A photograph of Lot 41 with five tiny red circles: A on the blue jug, B on the lemon, C on the white feather, D on the letters in the corner, E on the bird&rsquo;s red cap.', isBusy);
+  FG.thing('#jars', null, 'Jars of pigment on the shelves, ground as fine as flour: blues, reds, earths, a white. Every one has a label and a date.', isBusy);
+  FG.thing('#sink', null, 'A big white sink, very clean. NO SOLVENTS IN THE SINK, says a notice, and under it, in a different hand: THIS MEANS YOU, ROLLO.', isBusy);
+  FG.thing('#canv', null, 'Canvases leaning on the wall, waiting their turn: a grey sea, a cow, somebody&rsquo;s great-aunt.', isBusy);
+  FG.thing('#win', null, 'The north window: grey roofs, a cool white sky, and no sunshine, ever. Painters and conservators like north light because it does not change all day.', isBusy);
+  $('#garrick').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(nextFile ? '&ldquo;Old paint,&rdquo; says Mr Garrick. &ldquo;Seventeenth century. I said so.&rdquo;' : told.note ? '&ldquo;Titanium white,&rdquo; says Mr Garrick, to the window. &ldquo;In a feather. A feather.&rdquo;' : 'Mr Garrick is standing by the sink, holding his umbrella like a sword he hopes not to need.');
+  });
+  $('#hartnell').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(nextFile ? '&ldquo;Paint says &lsquo;not before&rsquo;,&rdquo; says Dr Hartnell. &ldquo;Wood can say more.&rdquo;' : readAll() ? '&ldquo;The microscope,&rdquo; says Dr Hartnell. &ldquo;Five specks. Bottom to top, every one.&rdquo;' : '&ldquo;The note, the results, the handbook, and the back of the panel,&rdquo; says Dr Hartnell. &ldquo;People always forget the back.&rdquo;');
+  });
+  $('#femi').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(nextFile ? '&ldquo;The feather is younger than my grandmother,&rdquo; says Femi. &ldquo;I can&rsquo;t stop thinking about that.&rdquo;' : '&ldquo;I wrote &lsquo;follower of Sterck&rsquo; in September,&rdquo; says Femi quietly. &ldquo;Not &lsquo;modern fake&rsquo;. I&rsquo;d like to know which of us was wrong.&rdquo;');
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  $('#scope').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The microscope, switched off. Five slides back in their box.'); return; }
+    if (!readAll()) { ER.say('&ldquo;Not yet,&rdquo; says Dr Hartnell. &ldquo;' + (!told.note ? 'The yellow note on the clipboard first.' : !told.results ? 'The results on the clipboard.' : !told.hb ? 'The handbook, open on the bench.' : 'And the back of the panel. Click the panel on the easel.') + '&rdquo;'); return; }
+    if (!bench) bench = makeBench();
+    bench.open();
+  });
+
+  /* ---------- the microscope and the report ---------- */
+  function makeBench() {
+    var S = [
+      { k: 'A', name: 'the jug', f0: 62, o: [150, -96], L: [['#efe9da', 60, '#ddd4bf'], ['#5a74b0', 44, '#24407a'], ['#a9bce0', 14, '#eef2fa'], ['#c9a04a', 9]] },
+      { k: 'B', name: 'the lemon', f0: 34, o: [-130, 80], L: [['#efe9da', 62, '#ddd4bf'], ['#e8c43a', 40, '#f6e27a'], ['#c9a04a', 10]] },
+      { k: 'C', name: 'the feather', f0: 74, o: [110, 110], L: [['#efe9da', 54, '#ddd4bf'], ['#6b4a2a', 32, '#e9e2d2'], ['#c9a04a', 9], ['#f4f1e8', 22, '#d2cab6'], ['#ffffff', 14]] },
+      { k: 'D', name: 'the letters', f0: 46, o: [-150, -70], L: [['#efe9da', 56, '#ddd4bf'], ['#6b4a2a', 36, '#e9e2d2'], ['#c9a04a', 9], ['#1c2236', 11, '#3a5aa8']] },
+      { k: 'E', name: 'the red cap', f0: 55, o: [90, -120], L: [['#efe9da', 60, '#ddd4bf'], ['#c8332a', 32, '#f07a5a'], ['#c9a04a', 10]] }];
+    var WORDS = {
+      A: 'from the bottom: a thick white ground; a blue layer, full of dark blue specks; a thin paler blue; and on top, a thin amber line.',
+      B: 'from the bottom: a thick white ground; a bright yellow layer; and on top, a thin amber line.',
+      C: 'from the bottom: a thick white ground; a brown layer; a thin amber line; a lumpy white layer; and on top of everything, a thin layer of bright, clean white.',
+      D: 'from the bottom: a thick white ground; a brown layer; a thin amber line; and on top of everything, a very thin blue-black line.',
+      E: 'from the bottom: a thick white ground; a red layer; and on top, a thin amber line.' };
+    var DATES = ['', 'anc', '1300', '1500', '1704', '1920'], DL = ['—', 'ancient', '1300s', '1500s', 'c. 1704', '1920s'];
+    var st = ER.flag('c-st') || { cur: -1, f: 20, seen: [0, 0, 0, 0, 0], off: S.map(function (s) { return s.o.slice(); }), dt: [0, 0, 0, 0, 0], ol: ['', '', '', '', ''], early: '' };
+    var wait = false, CX = 470, CY = 280, R = 200;
+    var box = ER.el('div', 'bn ms', '<svg viewBox="0 0 1000 600"></svg><div class="bn-foot"><p class="bmsg"></p><button type="button" class="btn" id="m-go">Sign the report</button></div>');
+    var svg = box.querySelector('svg'), msgEl = box.querySelector('.bmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function keep() { ER.flag('c-st', st); }
+    function step() { return st.seen.indexOf(0) >= 0 ? 'look' : 'report'; }
+    function sharp() { var s = S[st.cur]; return st.cur >= 0 && Math.abs(st.f - s.f0) < 3 && Math.abs(st.off[st.cur][0]) < 45 && Math.abs(st.off[st.cur][1]) < 45; }
+    function draw() {
+      var s = '<defs><clipPath id="vc"><circle cx="' + CX + '" cy="' + CY + '" r="' + R + '"/></clipPath><filter id="bl" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur id="blur" stdDeviation="0"/></filter></defs>';
+      s += '<rect width="1000" height="600" fill="#e8e2d2"/><rect width="270" height="600" fill="#ddd6c4"/>';
+      /* the microscope, side on */
+      s += '<rect x="40" y="356" width="180" height="26" rx="6" fill="#2a3036"/><path d="M180 360V170q0 -30 -30 -36l-50 -10" stroke="#2a3036" stroke-width="30" fill="none" stroke-linecap="round"/>' +
+        '<rect x="50" y="268" width="130" height="14" fill="#5a646c"/><rect id="stslide" x="70" y="260" width="90" height="10" fill="#e9f4f8" stroke="#9aa5ab" style="display:none"/><path d="M100 268v-70l-20 -60" stroke="#2a3036" stroke-width="24" stroke-linecap="round"/><rect x="84" y="226" width="30" height="34" fill="#5a646c"/><ellipse cx="70" cy="126" rx="18" ry="8" fill="#1a1e22"/>';
+      s += '<g id="wheel"><circle cx="200" cy="300" r="44" fill="#3a4248"/><circle cx="200" cy="300" r="36" fill="#5a646c"/><g id="knurl" stroke="#2a3036" stroke-width="3"></g><circle cx="200" cy="300" r="10" fill="#9aa5ab"/></g>';
+      s += '<text x="140" y="404" class="tB" font-size="12" fill="#3a4248" text-anchor="middle" letter-spacing="1">FOCUS WHEEL: DRAG UP OR DOWN</text>';
+      s += '<text x="135" y="424" class="tB" font-size="13" fill="#3a4248" text-anchor="middle" letter-spacing="2">THE SLIDES (CLICK ONE)</text><rect x="20" y="430" width="230" height="150" rx="6" fill="#a8916c"/>';
+      S.forEach(function (x, i) { s += '<g class="slide' + (st.cur === i ? ' on' : '') + '" data-i="' + i + '" transform="translate(' + (30 + i * 44) + ' 442)"><rect class="s" width="36" height="124" rx="3" fill="#eef6f8" stroke="#9aa5ab"/><rect x="10" y="50" width="16" height="16" fill="#3a3a3a" opacity=".5"/><text x="18" y="30" class="tB" font-size="20" fill="#2a3036" text-anchor="middle">' + x.k + '</text><text x="18" y="100" class="tH" font-size="13" fill="' + (st.seen[i] ? '#1f7a3a' : '#9aa5ab') + '" text-anchor="middle">' + (st.seen[i] ? 'seen' : '') + '</text></g>'; });
+      /* the view */
+      s += '<circle cx="' + CX + '" cy="' + CY + '" r="' + (R + 12) + '" fill="#1a1e22"/><circle cx="' + CX + '" cy="' + CY + '" r="' + R + '" fill="#0c0e10"/><g clip-path="url(#vc)"><g id="spec" filter="url(#bl)"></g></g><circle id="view" cx="' + CX + '" cy="' + CY + '" r="' + R + '" fill="#000" opacity="0"/>';
+      s += '<text id="vlab" x="' + CX + '" y="' + (CY + R + 32) + '" class="tB" font-size="14" fill="#3a4248" text-anchor="middle" letter-spacing="2"></text>';
+      /* the report */
+      s += '<rect x="690" y="14" width="300" height="572" fill="#fff"/><rect x="690" y="14" width="300" height="32" fill="#1f5a7a"/><text x="704" y="36" class="tB" font-size="15" fill="#fff" letter-spacing="2">REPORT · LOT 41, THE PAINT</text>';
+      s += '<text x="704" y="66" class="tO" font-size="11.500" fill="#56616c">newest pigment: not before</text><text x="880" y="66" class="tO" font-size="11.500" fill="#56616c">this layer is</text>';
+      S.forEach(function (x, i) {
+        var y = 78 + i * 80;
+        s += '<text x="704" y="' + (y + 18) + '" class="tB" font-size="17" fill="#1b2430">' + x.k + ' · ' + x.name + '</text>';
+        s += '<g class="ar" data-i="' + i + '" data-d="-1" transform="translate(704 ' + (y + 30) + ')"><rect width="26" height="30" fill="#000" opacity="0"/><path d="M18 5l-12 10 12 10z" fill="#5a646c"/></g>';
+        s += '<rect x="732" y="' + (y + 30) + '" width="98" height="30" rx="3" fill="#f4f6f8" stroke="#c5ccd3"/><text id="dt' + i + '" x="781" y="' + (y + 51) + '" class="tB" font-size="16" fill="#1b2430" text-anchor="middle"></text>';
+        s += '<g class="ar" data-i="' + i + '" data-d="1" transform="translate(834 ' + (y + 30) + ')"><rect width="26" height="30" fill="#000" opacity="0"/><path d="M8 5l12 10 -12 10z" fill="#5a646c"/></g>';
+        [['o', 'own paint'], ['l', 'added later']].forEach(function (c, j) { s += '<g class="tog" data-i="' + i + '" data-v="' + c[0] + '" transform="translate(' + (872 + j * 0) + ' ' + (y + 4 + j * 30) + ')"><rect width="106" height="26" rx="3"/><text x="53" y="18" class="tB" font-size="13.500" fill="#1b2430" text-anchor="middle">' + c[1] + '</text></g>'; });
+      });
+      s += '<path d="M704 482h272" stroke="#c5ccd3" stroke-width="1.5"/><text x="704" y="504" class="tO" font-size="13" fill="#1b2430">The picture&#8217;s OWN paint could have</text><text x="704" y="522" class="tO" font-size="13" fill="#1b2430">been put on in the 1640s:</text>';
+      [['y', 'yes'], ['n', 'no']].forEach(function (c, j) { s += '<g class="tog" data-i="e" data-v="' + c[0] + '" transform="translate(' + (704 + j * 120) + ' 536)"><rect width="110" height="30" rx="3"/><text x="55" y="20" class="tB" font-size="15" fill="#1b2430" text-anchor="middle">' + c[1] + '</text></g>'; });
+      svg.innerHTML = s;
+      paintView(); paintReport();
+    }
+    function specimen(i) {
+      var x = S[i], s = '', j, k, w = 300, top, n, tot = x.L.reduce(function (a, l) { return a + l[1]; }, 0), y = Math.round(CY + tot / 2), y0 = y;
+      s += '<rect x="250" y="40" width="440" height="500" fill="#2a3036"/><rect x="250" y="40" width="440" height="500" fill="#4a5560" opacity=".4"/>';
+      for (j = 0; j < x.L.length; j++) {
+        var L = x.L[j], h = L[1], wob = function (yy, sd) { return 'M320 ' + (yy + (sd % 3) - 1) + 'q75 ' + (((sd * 7) % 5) - 2) + ' 150 0t150 ' + (((sd * 3) % 5) - 2); };
+        top = y - h;
+        var x0 = j > 0 && L[0] === '#ffffff' ? 400 : j > 0 && L[0] === '#f4f1e8' ? 372 : j > 0 && L[0] === '#1c2236' ? 352 : 320, x1 = 640 - (x0 - 320);
+        s += '<path d="M' + x0 + ' ' + y + 'L' + x0 + ' ' + top + 'Q' + ((x0 + x1) / 2) + ' ' + (top + (j % 2 ? 3 : -3)) + ' ' + x1 + ' ' + top + 'L' + x1 + ' ' + y + 'z" fill="' + L[0] + '"' + (L[0] === '#c9a04a' ? ' opacity=".85"' : '') + '/>';
+        if (L[2]) for (k = 0; k < Math.round((x1 - x0) * h / 160); k++) { n = (k * 37 + j * 11) % 100; s += '<circle cx="' + (x0 + 6 + ((k * 53 + j * 17) % (x1 - x0 - 12))) + '" cy="' + (top + 3 + (n % Math.max(1, h - 6))) + '" r="' + (1.2 + (k % 3) * 0.7) + '" fill="' + L[2] + '"/>'; }
+        s += '<text x="' + (x1 + 16) + '" y="' + (top + h / 2 + 5) + '" class="tM" font-size="15" fill="#e9eef0">' + (j + 1) + '</text><path d="M' + (x1 + 2) + ' ' + (top + h / 2) + 'h10" stroke="#e9eef0" stroke-width="1.2"/>';
+        y = top;
+      }
+      s += '<path d="M318 ' + y0 + 'h324" stroke="#efe9da" stroke-width="2"/>';
+      return s;
+    }
+    function paintView() {
+      var g = svg.querySelector('#spec'), bl = svg.querySelector('#blur'), lab = svg.querySelector('#vlab'), kn = '', a;
+      for (a = 0; a < 12; a++) { var t = a * Math.PI / 6 + st.f / 8; kn += '<path d="M' + (200 + Math.cos(t) * 26).toFixed(1) + ' ' + (300 + Math.sin(t) * 26).toFixed(1) + 'L' + (200 + Math.cos(t) * 36).toFixed(1) + ' ' + (300 + Math.sin(t) * 36).toFixed(1) + '"/>'; }
+      svg.querySelector('#knurl').innerHTML = kn;
+      if (st.cur < 0) { g.innerHTML = '<text x="' + CX + '" y="' + (CY + 6) + '" class="tH" font-size="20" fill="#5a646c" text-anchor="middle">no slide on the stage</text>'; g.removeAttribute('transform'); bl.setAttribute('stdDeviation', 0); lab.textContent = ''; svg.querySelector('#stslide').style.display = 'none'; return; }
+      svg.querySelector('#stslide').style.display = '';
+      var o = st.off[st.cur], d = Math.abs(st.f - S[st.cur].f0);
+      g.innerHTML = specimen(st.cur);
+      g.setAttribute('transform', 'translate(' + o[0] + ' ' + o[1] + ')');
+      bl.setAttribute('stdDeviation', Math.min(14, d * 0.45).toFixed(1));
+      lab.textContent = 'SAMPLE ' + S[st.cur].k + ' · ' + S[st.cur].name.toUpperCase() + (sharp() ? ' · IN FOCUS' : d < 3 ? ' · IN FOCUS, NOT CENTRED' : '');
+    }
+    function paintReport() {
+      S.forEach(function (x, i) { svg.querySelector('#dt' + i).textContent = DL[st.dt[i]]; });
+      ER.$$('.tog', svg).forEach(function (c) {
+        var i = c.getAttribute('data-i'), v = c.getAttribute('data-v'), on = i === 'e' ? st.early === v : st.ol[+i] === v;
+        c.setAttribute('class', 'tog' + (on ? ' on' : ''));
+      });
+    }
+    function check() {
+      if (sharp() && !st.seen[st.cur]) {
+        st.seen[st.cur] = 1; keep(); FG.sfx.dot();
+        ER.$$('.slide', svg)[st.cur].querySelector('.tH').textContent = 'seen';
+        ER.$$('.slide', svg)[st.cur].querySelector('.tH').setAttribute('fill', '#1f7a3a');
+        msg('<b>Sample ' + S[st.cur].k + ', ' + S[st.cur].name + ', in focus.</b> Its layers, ' + WORDS[S[st.cur].k] + (st.seen.indexOf(0) < 0 ? ' That is all five.' : ''));
+      }
+    }
+    function wire() {
+      var sx = 0, sy = 0, o0 = null, f0 = 0;
+      ER.drag(svg.querySelector('#view'), {
+        start: function (e) { if (wait || st.cur < 0) return false; var p = ER.pt(svg, e); sx = p.x; sy = p.y; o0 = st.off[st.cur].slice(); },
+        move: function (e) { var p = ER.pt(svg, e); st.off[st.cur] = [FG.clamp(o0[0] + p.x - sx, -260, 260), FG.clamp(o0[1] + p.y - sy, -260, 260)]; paintView(); },
+        end: function () { keep(); check(); if (!sharp() && st.cur >= 0 && Math.abs(st.f - S[st.cur].f0) < 3) msg('Sharp, but the speck is not in the middle of the view. Drag it into the middle.'); }
+      });
+      ER.drag(svg.querySelector('#wheel'), {
+        start: function (e) { if (wait) return false; sy = ER.pt(svg, e).y; f0 = st.f; },
+        move: function (e) { var nf = FG.clamp(Math.round(f0 + (sy - ER.pt(svg, e).y) * 0.35), 0, 100); if (nf !== st.f) { st.f = nf; FG.sfx.focus(); paintView(); } },
+        end: function () { keep(); check(); if (!sharp() && st.cur >= 0 && Math.abs(st.f - S[st.cur].f0) < 3) msg('Sharp, but the speck is not in the middle of the view. Drag it into the middle.'); }
+      });
+      ER.$$('.slide', svg).forEach(function (n) {
+        n.addEventListener('click', function () {
+          if (wait) return;
+          st.cur = +n.getAttribute('data-i'); keep(); FG.sfx.clink();
+          ER.$$('.slide', svg).forEach(function (m) { m.setAttribute('class', 'slide' + (m === n ? ' on' : '')); });
+          paintView();
+          msg(st.seen[st.cur] ? 'Sample ' + S[st.cur].k + ' again. Its layers, ' + WORDS[S[st.cur].k] : 'Slide ' + S[st.cur].k + ' on the stage. Drag the speck into the middle of the view, and drag the focus wheel until it is sharp.');
+          check();
+        });
+      });
+      ER.$$('.ar', svg).forEach(function (a) {
+        a.addEventListener('click', function () {
+          if (wait) return;
+          var i = +a.getAttribute('data-i'), d = +a.getAttribute('data-d');
+          st.dt[i] = (st.dt[i] + d + DATES.length) % DATES.length; if (!st.dt[i]) st.dt[i] = d > 0 ? 1 : DATES.length - 1;
+          keep(); FG.sfx.focus(); paintReport();
+        });
+      });
+      ER.$$('.tog', svg).forEach(function (c) {
+        c.addEventListener('click', function () {
+          if (wait) return;
+          var i = c.getAttribute('data-i'), v = c.getAttribute('data-v');
+          if (i === 'e') st.early = v; else st.ol[+i] = v;
+          keep(); FG.sfx.pencil(); paintReport();
+        });
+      });
+    }
+    box.querySelector('#m-go').addEventListener('click', function () {
+      var i, cand = [], file;
+      if (wait || nextFile) return;
+      if (st.seen.indexOf(0) >= 0) { ER.sfx.no(); msg('&ldquo;Every speck under the microscope first,&rdquo; says Dr Hartnell. &ldquo;Sample ' + S[st.seen.indexOf(0)].k + ' has not been looked at in focus.&rdquo;'); return; }
+      for (i = 0; i < 5; i++) if (!st.dt[i] || !st.ol[i]) { ER.sfx.no(); msg('Row ' + S[i].k + ' of the report is not finished: a date, and own paint or added later.'); return; }
+      if (!st.early) { ER.sfx.no(); msg('The last question has no answer yet.'); return; }
+      for (i = 0; i < 5; i++) {
+        var v = DATES[st.dt[i]] + st.ol[i];
+        if (!ER.check('s' + i, v)) {
+          ER.sfx.no();
+          msg(ER.check('s' + i, DATES[st.dt[i]] + (st.ol[i] === 'o' ? 'l' : 'o')) ?
+            (st.ol[i] === 'o' ? '&ldquo;Look at sample ' + S[i].k + ' again,&rdquo; says Dr Hartnell. &ldquo;What lies on top of the thin amber line of varnish?&rdquo;' : '&ldquo;In sample ' + S[i].k + ',&rdquo; says Dr Hartnell, &ldquo;everything lies under the amber line of varnish. That is the picture&rsquo;s own paint.&rdquo;') :
+            '&ldquo;Row ' + S[i].k + ',&rdquo; says Dr Hartnell. &ldquo;Look at sample ' + S[i].k + ' on the results sheet. Which of the things in it was invented last? The handbook gives its date. That is the date this layer cannot be older than.&rdquo;' +
+              (st.dt[i] === 5 && i !== 2 ? ' Mr Garrick, by the window, stops breathing for a moment.' : ''));
+          return;
+        }
+        cand.push(v);
+      }
+      if (!ER.check('early', st.early)) { ER.sfx.no(); msg('&ldquo;The last question is only about the picture&rsquo;s own paint,&rdquo; says Dr Hartnell, &ldquo;the layers under the varnish. Is there anything in those that a painter of the 1640s could not have bought?&rdquo;'); return; }
+      file = ER.exitOk([cand.join('-') + '-' + st.early]);
+      if (!file) { ER.sfx.no(); msg('Dr Hartnell reads the report twice and does not sign it.'); return; }
+      wait = true; nextFile = file; ER.flag('c-file', file);
+      var s0 = ER.state(); s0.done = s0.done || {}; s0.done.studio = 1; ER.persist(true);
+      FG.sfx.stamp(); msg('<b>Signed.</b> The picture&rsquo;s own paint: nothing newer than the 1500s. The name in the corner: not before about 1704. The feather: not before the 1920s. Both of those lie on top of the old varnish.');
+      setTimeout(function () {
+        ER.closeAll(); FG.solved(); paint(); busy = true;
+        ER.narrate([
+          '&ldquo;The picture&rsquo;s own paint is all from the right century,&rdquo; says Mr Garrick, quite loudly, to the window. &ldquo;Then it is genuine. Then it is Sterck.&rdquo;',
+          '&ldquo;Then it is old,&rdquo; says Dr Hartnell. &ldquo;The feather was painted by Mr Henshaw in 1958, over a hole in the floor that he had filled; he says so on the back. The name in the corner was put on by somebody after 1704, also on top of the varnish. Somebody who wanted a picture to be worth more. People have been doing that for a very long time.&rdquo;',
+          '&ldquo;So the bird and the jug are from the 1600s,&rdquo; says Femi slowly. &ldquo;The name isn&rsquo;t. And the feather is younger than my grandmother.&rdquo;',
+          '&ldquo;Paint can tell us &lsquo;not before&rsquo;,&rdquo; says Dr Hartnell. &ldquo;It can&rsquo;t tell us whose hand. But this panel was a tree once, and trees keep a diary. Miss Odum, where is your desk?&rdquo;'
+        ], function () { busy = false; showGo(); });
+      }, 3400);
+    });
+    draw(); wire();
+    msg(step() === 'look' ? 'On the left, the microscope and its five slides. In the middle, what the microscope sees. On the right, the report. Click a slide to put it on the stage.' : 'All five samples have been seen. Finish the report and sign it.');
+    return {
+      open: function () { ER.open('ov-lock', box); },
+      isOpen: function () { return !!box.parentNode; },
+      step: step
+    };
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Stores · Lot Forty-One</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-forensic.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="forgery.css">
+<style>
+  body{--bg:#0b0f12;--accent:#f0a64a;--font-display:'Stardos Stencil',serif;--font-ui:'Barlow Condensed',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(12,16,19,.96);--tc-ink:#e9eef0;--cap-bg:rgba(12,16,19,.94);--panel:#141a1e;--face-bg:#2a3036;--q-ink:#f0a64a;--fade:#05080a;--hud-bg:rgba(12,16,19,.82)}
+  .tc-room{font-family:'Stardos Stencil',serif;font-weight:700;letter-spacing:.18em;text-transform:uppercase;font-size:clamp(40px,6vw,76px)}
+  .tk-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+  .sX{font-family:'Stardos Stencil',serif;font-weight:700;text-anchor:middle}
+  .sB{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-anchor:middle}
+  #tube2{animation:tube 6s steps(1,end) infinite}
+  @keyframes tube{0%{opacity:1}31%{opacity:.25}32%{opacity:1}34%{opacity:.4}35%{opacity:1}}
+  .rain{animation:rain .8s linear infinite}
+  .rain.r2{animation-delay:-.4s}
+  @keyframes rain{from{transform:translate(0,-60px)}to{transform:translate(-14px,60px)}}
+  .drip{animation:drip 3.2s ease-in infinite;opacity:0}
+  @keyframes drip{0%{transform:translateY(0);opacity:0}10%{opacity:.8}60%{transform:translateY(120px);opacity:.8}61%{opacity:0}100%{opacity:0}}
+
+  /* the balance, the cylinder, the sheet */
+  .dn .btnx{cursor:pointer}
+  .dn .btnx:hover rect{filter:brightness(1.2)}
+  .dn .tile{cursor:pointer}
+  .dn .tile rect{fill:#fffdf6;stroke:#9a8a6a}
+  .dn .tile.on rect{fill:#1f6b5a;stroke:#1f6b5a}
+  .dn .tile.on text{fill:#fff}
+  .dn .tile:hover rect{stroke:#f0a64a}
+  .dn #lens{cursor:crosshair}
+  .dn #jug{cursor:pointer}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="blk" width="96" height="48" patternUnits="userSpaceOnUse"><rect width="96" height="48" fill="#46525c"/><path d="M0 1H96M0 25H96M1 0V24M49 24V48" stroke="#3a454e" stroke-width="2.4"/></pattern>
+  <linearGradient id="steelG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c9d1d6"/><stop offset=".5" stop-color="#7d8a92"/><stop offset="1" stop-color="#aab4ba"/></linearGradient>
+  <linearGradient id="dayG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a8b4ba"/><stop offset="1" stop-color="#6b7a80"/></linearGradient>
+  <linearGradient id="coldG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e8f6ff" stop-opacity=".28"/><stop offset="1" stop-color="#e8f6ff" stop-opacity="0"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="48%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".62" stop-color="#05080a" stop-opacity=".3"/><stop offset="1" stop-color="#020304" stop-opacity=".9"/></radialGradient>
+</defs>
+
+<!-- block walls, pipes, strip lights -->
+<rect x="-1000" y="-400" width="3600" height="1050" fill="url(#blk)"/>
+<rect x="-1000" y="-400" width="3600" height="470" fill="#20272c"/>
+<g stroke="#5a646c" stroke-width="16"><path d="M-1000 40H2600"/></g><g stroke="#8a4a2a" stroke-width="9"><path d="M-1000 18H2600"/></g><g fill="#3a4248"><rect x="300" y="8" width="14" height="44"/><rect x="900" y="8" width="14" height="44"/><rect x="1400" y="8" width="14" height="44"/></g>
+<g id="tube1"><rect x="430" y="70" width="320" height="12" rx="6" fill="#f2fbff"/><path d="M430 82h320l70 300h-460z" fill="url(#coldG)" pointer-events="none"/></g>
+<g id="tube2"><rect x="880" y="70" width="320" height="12" rx="6" fill="#f2fbff"/><path d="M880 82h320l70 300h-460z" fill="url(#coldG)" pointer-events="none"/></g>
+<rect x="-1000" y="640" width="3600" height="800" fill="#2e3438"/><g stroke="#3d454a" stroke-width="2"><path d="M-1000 700H2600M-1000 780H2600M-1000 880H2600"/></g>
+<path d="M1250 650L1600 646L1900 1300H1100z" fill="#6b7a80" opacity=".18"/>
+
+<!-- the strongroom -->
+<g id="vault" class="hot"><rect x="70" y="200" width="300" height="440" fill="#2a3036"/><rect x="96" y="232" width="248" height="408" fill="#0c0f12"/>
+  <g fill="#1c2226" stroke="#3a4248" stroke-width="3"><rect x="112" y="280" width="216" height="10"/><rect x="112" y="380" width="216" height="10"/><rect x="112" y="480" width="216" height="10"/></g>
+  <g fill="#6b5a3a"><rect x="128" y="246" width="40" height="34"/><rect x="186" y="256" width="60" height="24"/><rect x="140" y="340" width="26" height="40"/><rect x="250" y="350" width="50" height="30"/><rect x="132" y="440" width="70" height="40"/></g>
+  <circle cx="452" cy="420" r="150" fill="url(#steelG)"/><circle cx="452" cy="420" r="128" fill="none" stroke="#5a646c" stroke-width="6"/><circle cx="452" cy="420" r="34" fill="#5a646c"/>
+  <g stroke="#3a4248" stroke-width="10" stroke-linecap="round"><path d="M452 420l60 -60M452 420l-60 -60M452 420l0 84"/></g><g fill="#c9d1d6"><circle cx="512" cy="360" r="10"/><circle cx="392" cy="360" r="10"/><circle cx="452" cy="504" r="10"/></g>
+  <rect x="130" y="166" width="180" height="26" fill="#f0c419"/><text x="220" y="185" class="sX" font-size="17" fill="#1a1a1a" letter-spacing="3">STRONGROOM</text></g>
+<!-- racks of pictures, facing the wall -->
+<g id="racks" class="hot"><g stroke="#8a949b" stroke-width="7"><path d="M620 180V640M980 180V640M620 300H980M620 470H980"/></g>
+  <g id="rackpics"></g></g>
+<!-- stairs from the saleroom -->
+<g id="stairs" class="hot"><path d="M1060 640L1250 250H1290L1100 640z" fill="#3a4248"/><g stroke="#5a646c" stroke-width="4"><path d="M1080 600h40M1100 560h40M1120 520h40M1140 480h40M1160 440h40M1180 400h40M1200 360h40M1220 320h40M1240 280h40"/></g>
+  <path d="M1040 520L1240 140" stroke="#c9d1d6" stroke-width="5"/><path d="M1040 520v120" stroke="#c9d1d6" stroke-width="5"/></g>
+<!-- crates -->
+<g id="crates" class="hot"><rect x="990" y="470" width="150" height="170" fill="#b08a55"/><rect x="1000" y="380" width="120" height="90" fill="#a07a48"/><g stroke="#7a5a30" stroke-width="3"><path d="M990 530h150M990 590h150M1000 425h120"/></g>
+  <text x="1065" y="512" class="sX" font-size="17" fill="#3a2410" letter-spacing="2">FRAGILE</text><text x="1065" y="570" class="sX" font-size="13" fill="#3a2410" letter-spacing="1">C&amp;L · THIS WAY UP</text><text x="1060" y="436" class="sX" font-size="13" fill="#3a2410">LOT 88</text></g>
+<!-- the loading door, open to the rain -->
+<g id="door" class="hot"><rect x="1300" y="160" width="300" height="490" fill="#20272c"/><rect x="1316" y="330" width="268" height="320" fill="url(#dayG)"/>
+  <g class="rain" stroke="#dfeef6" stroke-width="1.6" opacity=".5"><path d="M1340 320l-10 60M1390 340l-10 60M1450 300l-10 60M1510 350l-10 60M1560 310l-10 60M1370 450l-10 60M1430 480l-10 60M1490 430l-10 60M1550 470l-10 60"/></g>
+  <g class="rain r2" stroke="#dfeef6" stroke-width="1.6" opacity=".4"><path d="M1360 380l-10 60M1420 400l-10 60M1480 360l-10 60M1540 410l-10 60M1400 520l-10 60M1460 540l-10 60M1520 510l-10 60"/></g>
+  <path d="M1316 560h268v90h-268z" fill="#4a5a60"/><path d="M1340 600h70M1450 620h90" stroke="#a8b4ba" stroke-width="3" opacity=".5"/>
+  <rect x="1316" y="176" width="268" height="160" fill="#7d8a92"/><g stroke="#5a646c" stroke-width="3"><path d="M1316 196h268M1316 216h268M1316 236h268M1316 256h268M1316 276h268M1316 296h268M1316 316h268"/></g>
+  <rect x="1400" y="326" width="100" height="10" fill="#f0c419"/><path class="drip" d="M1440 338v6" stroke="#dfeef6" stroke-width="3"/></g>
+
+<!-- Owen's bench -->
+<path d="M540 640v120M990 640v120" stroke="#5a3a1e" stroke-width="12"/><rect x="530" y="720" width="470" height="10" fill="#4a3018"/>
+<g id="bench" class="hot"><path d="M520 612h490l14 30H506z" fill="#8a6436"/><rect x="506" y="640" width="518" height="16" fill="#5a3a1e"/>
+  <rect x="560" y="566" width="80" height="48" rx="4" fill="#e3e6e2"/><rect x="566" y="586" width="68" height="18" fill="#17221c"/><text x="600" y="600" class="sB" font-size="12" fill="#8dfc9d">0.0 g</text><ellipse cx="600" cy="562" rx="34" ry="6" fill="#c9d1d6"/>
+  <rect x="664" y="500" width="22" height="112" rx="3" fill="#e9f4f8" fill-opacity=".55" stroke="#c9d6dc" stroke-width="2"/><rect x="666" y="562" width="18" height="48" fill="#bfe3f2" opacity=".6"/><ellipse cx="675" cy="612" rx="18" ry="4" fill="#9fb0b8"/>
+  <path d="M704 612l4 -40h30l4 40z" fill="#e9f4f8" fill-opacity=".6" stroke="#c9d6dc" stroke-width="2"/><path d="M738 580q12 2 10 16" fill="none" stroke="#c9d6dc" stroke-width="3"/></g>
+<g id="manual" class="hot"><path d="M766 614l6 -24h50l4 24z" fill="#f6f2e6"/><path d="M826 614l-4 -24h50l6 24z" fill="#efe9d8"/><path d="M822 590l4 24" stroke="#1f1c16" stroke-width="3"/><g stroke="#8a8676" stroke-width="1.3"><path d="M778 598h36M776 604h40M836 598h36M838 604h38"/></g></g>
+<g id="env" class="hot"><rect x="896" y="590" width="62" height="24" fill="#b88a55" transform="rotate(-4 927 602)"/><rect x="902" y="580" width="50" height="22" fill="#e9dcb8" transform="rotate(3 927 591)"/><g stroke="#6b4a2a" stroke-width="1" transform="rotate(3 927 591)"><path d="M908 587h36M908 592h30M908 597h34"/></g></g>
+<g id="folder" class="hot"><rect x="968" y="594" width="44" height="20" fill="#3f6e4a" transform="rotate(5 990 604)"/><rect x="972" y="588" width="36" height="8" fill="#f6e3e3" transform="rotate(5 990 592)"/></g>
+<!-- the empty frame of Lot 41, leaning on the bench -->
+<g id="frame" class="hot" transform="translate(860 690) rotate(-4) scale(.42)"></g>
+
+<!-- people -->
+<g id="owen" class="hot" transform="translate(330 862) scale(.95)"></g>
+<g id="hartnell" class="hot" transform="translate(458 894)"></g>
+<g id="garrick" class="hot" transform="translate(1176 822) scale(.92)"></g>
+<g id="femi" class="hot" transform="translate(1046 880) scale(.97)"></g>
+<g id="tredwell" class="hot" transform="translate(1446 884)"></g>
+
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Up to the studio</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="forgery.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, bench = null, told = {};
+
+  (function () {
+    var s = '', i, x;
+    for (i = 0; i < 9; i++) { x = 640 + i * 38; s += '<rect x="' + x + '" y="' + (318 + (i * 23) % 30) + '" width="12" height="' + (150 - (i * 23) % 30) + '" fill="' + ['#5a3a1e', '#3a2a1a', '#7a5a30', '#4a3018'][i % 4] + '"/><rect x="' + (x + 12) + '" y="' + (330 + (i * 17) % 40) + '" width="16" height="10" fill="#e9dcc0" transform="rotate(10 ' + (x + 20) + ' 335)"/>'; }
+    for (i = 0; i < 8; i++) { x = 650 + i * 42; s += '<rect x="' + x + '" y="' + (488 + (i * 31) % 40) + '" width="14" height="' + (150 - (i * 31) % 40) + '" fill="' + ['#4a3018', '#6b4a2a', '#2a2018', '#8a6436'][i % 4] + '"/>'; }
+    for (i = 0; i < 5; i++) { x = 640 + i * 66; s += '<rect x="' + x + '" y="' + (196 + (i * 19) % 26) + '" width="56" height="' + (100 - (i * 19) % 26) + '" fill="#d9cfb8" stroke="#8a7a5a" stroke-width="2"/><path d="M' + (x + 6) + ' ' + (206 + (i * 19) % 26) + 'l44 70M' + (x + 50) + ' ' + (206 + (i * 19) % 26) + 'l-44 70" stroke="#b9ad92" stroke-width="1.5"/>'; }
+    $('#rackpics').innerHTML = s;
+    $('#frame').innerHTML = FG.frame(190, 240) + '<rect width="190" height="240" fill="#2a2016"/><path d="M0 0l190 240M190 0L0 240" stroke="#3a2a1a" stroke-width="2" opacity=".5"/>';
+    ['owen', 'hartnell', 'garrick', 'femi', 'tredwell'].forEach(function (w) { $('#' + w).innerHTML = FG.fig(w); });
+  })();
+
+  ER.init({
+    theme: 'forensic', story: 'forgery', storyTitle: 'Lot Forty-One', id: 'stores', no: 'II', title: 'The Stores',
+    go: 'Down the back stairs',
+    intro: [
+      'Under the lamp the sheet from the glass case glowed blue-white, like today&rsquo;s catalogue, and on its back was a stamp: FACSIMILE, from the house&rsquo;s own photographer. A facsimile is a copy. The glow told us about the copy, and nothing at all about the letter.',
+      'The lamp broke its own simple rule twice. The framers&rsquo; tissue is new and stays dull, because it is made without brighteners. The christening robe of 1894 glows, because it has just been through the wash. Only the sale bill of 1936 did what you would expect: it stayed dull, which fits its date. A glow can tell you something. No glow tells you less.',
+      'The real letter has been in the strongroom since last Tuesday. So, now, has the picture.'
+    ],
+    exit: {"next":"studio","w":{"15a34afe":"660dccdd"}}, tags: {"d":["a24a706b"],"what":["d8b9ec6e"],"swap":["1da989c8"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('b-file') || null; told = ER.flag('b-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('b-told', told); return true; }
+  function isBusy() { return busy; }
+  function heard() { return told.garrick && told.tredwell; }
+  function readAll() { return told.letter && told.manual && told.receipt; }
+  function showGo() { $('#go').classList.add('on'); }
+  function paint() {
+    $('#bench').classList.toggle('ready', !!(heard() && readAll() && !nextFile));
+    ER.pips((heard() ? 1 : 0) + (told.letter ? 1 : 0) + (told.manual && told.receipt ? 1 : 0) + (nextFile ? 1 : 0), 4);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The panel has gone up to the studio, where the conservator&rsquo;s results are waiting. Follow it.']];
+    if (bench && bench.isOpen()) return [bench.step(), {
+      mass: ['The bird is lying on the grey cloth. It goes into the plastic boat on the balance. But look at the display first: the empty boat weighs something too.',
+        'Press TARE while only the empty boat is on the pan, so that the display says 0.0. Then drag the bird into the boat.'],
+      vol: ['Click the jug to pour water into the measuring cylinder. Then read the level in the round lens beside it: click on the place where the water is.',
+        'Read the bottom of the curve, not the edges, where the water climbs up the glass. Then drag the bird into the cylinder, and read the level again.'],
+      dens: ['Density = mass ÷ volume. The sheet has both numbers now. Set the counter to your answer, and choose the metal that has that density.',
+          'Femi&rsquo;s receipt says what the bird weighed in September. And a GOLD bird of the same volume would weigh volume × 19.3.',
+          'Mass ÷ volume: 51.0 ÷ 6.0. If the bird weighed the same then and now, nobody has swapped it.']
+    }[bench.step()]];
+    if (!heard()) return ['talk', ['Two people have just arrived: Mr Garrick, on the stairs, and Mr Tredwell, at the loading door. Hear them both.']];
+    if (!told.letter) return ['letter', ['The real letter is lying on its brown envelope on Owen&rsquo;s bench. Read it: it is what everybody is arguing about, and every word of it will matter later.']];
+    if (!readAll()) return ['read', ['Two more papers before the balance: Dr Hartnell&rsquo;s field manual, open at DENSITY on the bench, and Femi&rsquo;s green folder, with her receipt from September in it. Read both.']];
+    return ['bench', ['The balance and the measuring cylinder are on the left of Owen&rsquo;s bench. Click them.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; showGo(); ER.say('The bird is brass, and it is the same bird. The panel has gone up to the studio.'); return; }
+    if (told.in) { busy = false; ER.say('The stores. Rain at the loading door.'); return; }
+    tell('in');
+    ER.narrate([
+      'The stores are under the saleroom: a long, cold room of steel racks and wooden crates, with a strip light that cannot make up its mind and a loading door at the far end, open to the rain. Every picture down here has a lot number on a luggage label, and most of them are facing the wall.',
+      'Owen opens the strongroom, a steel door as thick as a dictionary, and comes out with a brown envelope in one hand and Lot 41 in the other, carrying the picture as if it were asleep. He lays them both on his bench and lifts the panel out of its frame.',
+      'Dr Hartnell slides the letter out of the envelope by its edges and holds her lamp over it, in the shadow of the strongroom door. The sheet stays dull: a flat, warm, old brown. No glow at all.',
+      '&ldquo;There!&rdquo; says a voice from the stairs. A tall man with silver hair and a wet umbrella comes down two steps at a time. &ldquo;Old paper. Old paper! I go to the bank for one morning, and I come back to find my department in a panic over a photocopy.&rdquo; This is Mr Rollo Garrick.',
+      '&ldquo;Old paper,&rdquo; says Dr Hartnell. &ldquo;That is all the lamp says, Mr Garrick. It doesn&rsquo;t say when the ink went on.&rdquo;',
+      'And then, from the loading door, a second voice, louder: &ldquo;Where&rsquo;s my bird?&rdquo; A big man in a wax jacket is standing in the rain with a newspaper over his head.'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- the two who have just arrived ---------- */
+  function done(k) {
+    return function (seen) {
+      if (!seen || !tell(k)) return;
+      paint();
+      if (heard()) {
+        busy = true;
+        ER.narrate([
+          'Mr Tredwell has come right in now, dripping. He looks at the empty frame on the bench, and at the little bird on top of it. &ldquo;That&rsquo;s gone brassy. Gran&rsquo;s bird was gold. Somebody has changed it.&rdquo;',
+          '&ldquo;Miss Odum had the frame alone on her desk for an afternoon,&rdquo; says Mr Garrick, to the ceiling. &ldquo;I accuse nobody. I merely mention it.&rdquo; Femi goes very still.',
+          '&ldquo;Then we shall ask the bird,&rdquo; says Dr Hartnell, and unscrews it from the frame. &ldquo;It can&rsquo;t lie, and it can&rsquo;t go home. Owen, a jug of water, please.&rdquo; She sets a balance and a measuring cylinder on the bench, and opens her manual beside them.'
+        ], function () { busy = false; paint(); });
+      }
+    };
+  }
+  $('#garrick').addEventListener('click', function () {
+    if (busy) return;
+    if (told.garrick) { ER.say(nextFile ? '&ldquo;Gilt, then,&rdquo; says Mr Garrick. &ldquo;It changes nothing about the picture.&rdquo;' : '&ldquo;Thirty-one years,&rdquo; says Mr Garrick, &ldquo;and I have never seen a fuss like it.&rdquo;'); return; }
+    ER.talk({
+      who: 'Rollo Garrick', role: 'Head of Pictures · Cardew & Lisle, 31 years', face: FACE('garrick'),
+      lines: [
+        { note: 'Silver hair, a yellow tie, and an umbrella that he does not put down. He talks to you as if you were a large audience.', a: '&ldquo;A great picture, found again. It happens once in a career, if you are lucky. I have waited thirty-one years.&rdquo;' },
+        { q: 'When did you first see the letter?', a: '&ldquo;On Monday afternoon last week, when Miss Odum ran into my room with it. I had never seen it before in my life. I had to sit down. Ask her.&rdquo;' },
+        { q: 'Why was there a copy in the case?', a: '&ldquo;Because people breathe on things, and the sun comes through that glass roof. The original went down to the strongroom on Tuesday, and our photographer made the facsimile for the case. It is what one does.&rdquo; He shrugs. &ldquo;I did not expect anybody to wave a lamp at it.&rdquo;' },
+        { q: 'And the picture?', a: '&ldquo;Sterck. Without a doubt. The bird alone would tell you, and the letter tells you the rest. The catalogue says &lsquo;gold bird&rsquo;, by the way, because it is one. Mr Tredwell&rsquo;s grandmother always said so.&rdquo;' }
+      ],
+      clue: { id: 'garrick', title: 'Rollo Garrick, in the stores', kind: 'What he said' }, done: done('garrick')
+    });
+  });
+  $('#tredwell').addEventListener('click', function () {
+    if (busy) return;
+    if (told.tredwell) { ER.say(nextFile ? '&ldquo;Brass,&rdquo; says Mr Tredwell, to the bird. &ldquo;Fifty years I wasn&rsquo;t allowed to touch you.&rdquo;' : '&ldquo;I want a new roof on the barn,&rdquo; says Mr Tredwell. &ldquo;That&rsquo;s all I ever wanted.&rdquo;'); return; }
+    ER.talk({
+      who: 'Jack Tredwell', role: 'The owner of Lot 41 · Coldharbour Farm', face: FACE('tredwell'),
+      lines: [
+        { note: 'Sixty or so, red in the face from the rain, with the hands of a man who has mended a great many fences. He holds his cap in both of them.', a: '&ldquo;I never wanted a fuss. I wanted a new roof on the barn.&rdquo;' },
+        { q: 'Tell me about the bird.', a: '&ldquo;Gran&rsquo;s gold bird. Solid gold, she always said. Her mother told her, and her mother told her. When we were little we weren&rsquo;t allowed to touch it. And now look at it. Gone a funny colour. That&rsquo;s brass, that is, or I&rsquo;m a Dutchman.&rdquo;' },
+        { q: 'Do you think it has been changed?', a: '&ldquo;I don&rsquo;t know what I think. The young lady came and took the picture away in September, very nice, very careful, wrote everything down. Weighed the bird on my kitchen scales, I remember that. And now there&rsquo;s all this talk of fakes.&rdquo;' },
+        { q: 'And the letter?', a: '&ldquo;Never saw a letter in my life till it was in the papers. If Gran had had a letter about that picture, she&rsquo;d have read it out every Christmas.&rdquo;' }
+      ],
+      clue: { id: 'tredwell', title: 'Jack Tredwell, at the loading door', kind: 'What he said' }, done: done('tredwell')
+    });
+  });
+
+  /* ---------- papers ---------- */
+  $('#env').addEventListener('click', function () {
+    if (busy) return;
+    if (!heard()) { ER.say('&ldquo;In a moment,&rdquo; says Dr Hartnell. &ldquo;Two people have just come in, and they both want to be heard.&rdquo;'); return; }
+    ER.read({ html: '<h4>The letter of 1793</h4>' + FG.LETTER, cls: 'oldletter', clue: { id: 'letter', title: 'The letter of 1793 (the original)', kind: 'From the strongroom' }, done: function () {
+      if (tell('letter')) { paint(); ER.say('&ldquo;Every word of that is a claim,&rdquo; says Dr Hartnell, sliding it back into its envelope. &ldquo;Remember them. We shall test them one by one.&rdquo;'); }
+    } });
+  });
+  var DIAG = '<svg viewBox="0 0 230 210"><g fill="none" stroke="#221f1a" stroke-width="2"><path d="M30 30v150q0 6 6 6h24q6 0 6 -6V30"/><path d="M140 30v150q0 6 6 6h24q6 0 6 -6V30"/></g>' +
+    '<path d="M32 110h32v68q0 6 -6 6h-20q-6 0 -6 -6z" fill="#bfe3f2"/><path d="M142 86h32v92q0 6 -6 6h-20q-6 0 -6 -6z" fill="#bfe3f2"/><path d="M150 168q8 -14 16 0l-2 10h-12z" fill="#c9a04a" stroke="#7a5a1c"/>' +
+    '<g stroke="#7a705c" stroke-width="1"><path d="M30 60h8M30 85h8M30 110h8M30 135h8M30 160h8M140 60h8M140 85h8M140 110h8M140 135h8M140 160h8"/></g>' +
+    '<text x="48" y="22" font-family="Patrick Hand,cursive" font-size="14" fill="#221f1a" text-anchor="middle">before</text><text x="158" y="22" font-family="Patrick Hand,cursive" font-size="14" fill="#221f1a" text-anchor="middle">after</text>' +
+    '<path d="M70 110h62M132 86h-4" stroke="#1f6b5a" stroke-width="1.4" stroke-dasharray="3 3"/><text x="104" y="104" font-family="Patrick Hand,cursive" font-size="13" fill="#1f6b5a" text-anchor="middle">the rise =</text><text x="104" y="118" font-family="Patrick Hand,cursive" font-size="13" fill="#1f6b5a" text-anchor="middle">its volume</text>' +
+    '<circle cx="104" cy="168" r="0" fill="none"/><path d="M84 196q20 12 40 0" fill="none" stroke="#221f1a" stroke-width="1.6"/><path d="M80 186q24 14 48 0" fill="none" stroke="#b3261c" stroke-width="2"/><text x="136" y="204" font-family="Patrick Hand,cursive" font-size="12.500" fill="#b3261c">read the bottom of the curve</text></svg>';
+  var MANUAL = '<h4>Field manual &middot; Materials</h4><h3>Density: is it what it says it is?</h3><div class="two"><div>' +
+    '<p>Every material has its own <b>density</b>: how much <b>mass</b> is packed into each cubic centimetre of it. A gold ring and a brass ring of the same size look alike, but the gold one is more than twice as heavy.</p>' +
+    '<p class="rule">density = mass ÷ volume</p>' +
+    '<p><b>Mass:</b> put the empty dish on the balance and press <b>TARE</b>, so that it reads 0.0; then weigh the object.</p>' +
+    '<p><b>Volume:</b> an odd shape cannot be measured with a ruler, so let it push water aside. Read a <b>measuring cylinder</b> before and after the object goes in: the rise is its volume. 1 ml = 1 cm³. Read the bottom of the curved surface, the <b>meniscus</b>, with your eye level with it.</p>' +
+    '<p><b>Gilding</b>, a coat of gold leaf far thinner than paper, adds almost nothing: a gilded thing has the density of what is under it.</p></div>' + DIAG + '</div>' +
+    '<table><tr><td>gold</td><td>19.3</td><td>lead</td><td>11.3</td><td>silver</td><td>10.5</td><td>copper</td><td>9.0</td></tr><tr><td>brass</td><td>about 8.5</td><td>iron</td><td>7.9</td><td>aluminium</td><td>2.7</td><td>water</td><td>1.0</td></tr></table><p class="pg">g/cm³ &middot; page 18</p>';
+  $('#manual').addEventListener('click', function () {
+    if (busy) return;
+    if (!heard()) { ER.say('A field manual, open at a page about density. &ldquo;Later,&rdquo; says Dr Hartnell. &ldquo;People first.&rdquo;'); return; }
+    ER.read({ html: MANUAL, cls: 'manual', clue: { id: 'manual18', title: 'Density: is it what it says it is?', kind: 'Field manual, page 18' }, done: function () {
+      FG.terms(['density', 'mass', 'volume', 'displacement', 'measuring cylinder', 'meniscus', 'tare', 'gilding']);
+      if (tell('manual')) { paint(); ER.say(told.receipt ? '&ldquo;Then the balance,&rdquo; says Dr Hartnell.' : '&ldquo;And Miss Odum&rsquo;s receipt,&rdquo; says Dr Hartnell. &ldquo;She has been holding that folder like a shield.&rdquo;'); }
+    } });
+  });
+  var RECEIPT = '<h4>Cardew &amp; Lisle &middot; Receipt for goods</h4>' +
+    '<p>Received from: Mr J. Tredwell, Coldharbour Farm &middot; Monday 14 September</p>' +
+    '<p>1. Oil painting on an oak panel: a bird on a perch, a jug, a lemon. 24 &times; 19 cm. <span class="hw">Signed? Small dark letters lower left, very dirty, hard to read.</span></p>' +
+    '<p>2. Its frame, gilt, <span class="hw">19th century?</span>, with a bird ornament on top, screwed on from behind. <span class="hw">Gilt metal (the owner says gold). 51 g on the owner&rsquo;s kitchen scales.</span></p>' +
+    '<p>3. One cardboard box of family papers: letters, bills, photographs. <span class="hw">Looked through all of it: nothing about the picture.</span></p>' +
+    '<p>Signed: <span class="hw">F. Odum</span>, for Cardew &amp; Lisle &middot; <span class="hw">J. Tredwell</span></p>';
+  $('#folder').addEventListener('click', function () {
+    if (busy) return;
+    if (!heard()) { ER.say('Femi&rsquo;s green folder. She is not letting go of it.'); return; }
+    ER.read({ html: RECEIPT, cls: 'receipt', clue: { id: 'receipt', title: 'Femi’s receipt, 14 September', kind: 'Receipt for goods' }, done: function () {
+      if (tell('receipt')) { paint(); ER.say('&ldquo;Kitchen scales,&rdquo; says Femi. &ldquo;They were the only scales in the house. I wrote down everything. I always write down everything.&rdquo;'); }
+    } });
+  });
+
+  /* ---------- things in the stores ---------- */
+  FG.thing('#vault', 'strongroom', 'The strongroom: a round steel door as thick as a dictionary, and shelves of things too precious for the racks. Owen has the only key, on a chain.', isBusy);
+  FG.thing('#racks', null, 'Steel racks of pictures standing in slots, like books on a shelf, each with a luggage label: a lot number and a name. Most of them face the wall, as if they were sulking.', isBusy);
+  FG.thing('#crates', null, 'Wooden crates, stencilled FRAGILE and THIS WAY UP. One of them is upside down.', isBusy);
+  FG.thing('#door', null, 'The loading door, open to a wet yard and a grey afternoon. A van from somewhere is backing in very slowly, beeping.', isBusy);
+  FG.thing('#stairs', null, 'The back stairs, up to the saleroom. Mr Garrick&rsquo;s wet footprints come down them, two steps at a time.', isBusy);
+  FG.thing('#frame', 'frame', function () { return nextFile ? 'The empty frame, without its bird now. The bird is brass, and always was.' : 'The frame of Lot 41, empty now, with the little bird screwed on top. Close to, it is the colour of an old trumpet.'; }, isBusy);
+  $('#owen').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(nextFile ? '&ldquo;Studio&rsquo;s at the top,&rdquo; says Owen. &ldquo;Four floors. The lift is for pictures, not people. I&rsquo;ll take the picture.&rdquo;' : '&ldquo;Strongroom book,&rdquo; says Owen, holding it up. &ldquo;Tuesday: letter in, R.G. Today: letter out, me. Nobody else in between. I&rsquo;d know.&rdquo;');
+  });
+  $('#hartnell').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(nextFile ? '&ldquo;Not gold, and not swapped,&rdquo; says Dr Hartnell. &ldquo;Two things we know that we didn&rsquo;t know at lunchtime.&rdquo;' : heard() ? '&ldquo;Weigh it, sink it, divide,&rdquo; says Dr Hartnell. &ldquo;The bird will tell us the rest.&rdquo;' : '&ldquo;Listen first,&rdquo; says Dr Hartnell quietly. &ldquo;They have both come a long way to shout.&rdquo;');
+  });
+  $('#femi').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(nextFile ? '&ldquo;Fifty-one grams,&rdquo; says Femi. &ldquo;I knew I wrote it down.&rdquo; She is smiling, a little shakily.' : heard() ? '&ldquo;I never touched that bird,&rdquo; says Femi. &ldquo;Except to weigh it. In front of Mr Tredwell.&rdquo;' : 'Femi is standing very straight, holding a green folder against her coat.');
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  $('#bench').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The balance, the cylinder and the jug. The bird is drying on a cloth.'); return; }
+    if (!heard()) { ER.say('Owen&rsquo;s bench. &ldquo;In a moment,&rdquo; says Dr Hartnell. &ldquo;Two people want to be heard first.&rdquo;'); return; }
+    if (!told.letter) { ER.say('&ldquo;The letter first,&rdquo; says Dr Hartnell. &ldquo;It&rsquo;s on its envelope, at the other end of the bench. It is the reason we are all down here.&rdquo;'); return; }
+    if (!readAll()) { ER.say(!told.manual ? '&ldquo;Page 18 first,&rdquo; says Dr Hartnell, tapping the open manual. &ldquo;Then Miss Odum&rsquo;s receipt.&rdquo;' : '&ldquo;Miss Odum&rsquo;s receipt,&rdquo; says Dr Hartnell. &ldquo;Her green folder, on the end of the bench.&rdquo;'); return; }
+    if (!bench) bench = makeBench();
+    bench.open();
+  });
+
+  /* ---------- the balance, the cylinder and the sheet ---------- */
+  function makeBench() {
+    var BOAT = 4.2, BIRD = 51.0, VOL = 6.0, START = 40.0, CL = 470, CT = 70, PX = 4;        /* the cylinder: 0 ml at y = CL, 4 px to the ml */
+    var st = ER.flag('b-st') || { tare: 0, pan: 0, mass: null, poured: 0, before: null, inc: 0, after: null, d: 10.0, what: '', swap: '' };
+    var wait = false, bird;
+    var box = ER.el('div', 'bn dn', '<svg viewBox="0 0 1000 600"></svg><div class="bn-foot"><p class="bmsg"></p><button type="button" class="btn" id="d-go">Sign the sheet</button></div>');
+    var svg = box.querySelector('svg'), msgEl = box.querySelector('.bmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function keep() { ER.flag('b-st', st); }
+    function step() { return st.mass === null || Math.abs(st.mass - BIRD) > 0.05 && !st.inc ? 'mass' : st.after === null ? 'vol' : 'dens'; }
+    function level() { return !st.poured ? 0 : START + (st.inc ? VOL : 0); }
+    function display() { return (st.pan ? BIRD : 0) + (st.tare ? 0 : BOAT); }
+    function f1(v) { return v.toFixed(1); }
+    function draw() {
+      var s = '<defs><clipPath id="lensc"><circle cx="600" cy="230" r="70"/></clipPath><clipPath id="cylc"><rect x="452" y="' + CT + '" width="56" height="' + (CL - CT) + '"/></clipPath></defs>';
+      s += '<rect width="1000" height="600" fill="#8a6436"/><g stroke="#7a5630" stroke-width="2" opacity=".6"><path d="M0 150h1000M0 300h1000M0 450h1000"/></g><rect x="20" y="430" width="300" height="150" rx="10" fill="#9aa5ac"/><rect x="26" y="436" width="288" height="138" rx="8" fill="#b9c2c8"/>';
+      s += '<text x="170" y="566" class="tB" font-size="13" fill="#4a5560" text-anchor="middle" letter-spacing="2">THE BIRD, ON A CLOTH</text>';
+      /* the balance */
+      s += '<rect x="40" y="250" width="260" height="150" rx="10" fill="#e3e6e2" stroke="#9aa5ac" stroke-width="2"/><rect x="60" y="300" width="160" height="56" rx="4" fill="#17221c"/><text id="disp" x="210" y="342" class="tM" font-size="34" fill="#8dfc9d" text-anchor="end"></text><text x="216" y="342" class="tM" font-size="14" fill="#8dfc9d">g</text>';
+      s += '<g class="btnx" id="tare"><rect x="236" y="300" width="52" height="26" rx="4" fill="#1f6b5a"/><text x="262" y="318" class="tB" font-size="14" fill="#fff" text-anchor="middle" letter-spacing="1">TARE</text></g><rect x="236" y="332" width="52" height="24" rx="4" fill="#9aa5ac"/><text x="262" y="349" class="tB" font-size="12" fill="#3a4248" text-anchor="middle">ON</text>';
+      s += '<text x="170" y="384" class="tB" font-size="12" fill="#56616c" text-anchor="middle" letter-spacing="2">0.1 g · MAX 500 g</text><rect x="150" y="232" width="40" height="20" fill="#c9d1d6"/><ellipse cx="170" cy="232" rx="96" ry="12" fill="#c9d1d6" stroke="#9aa5ac" stroke-width="2"/>';
+      s += '<path d="M118 228l10 -22h84l10 22z" fill="#f1f6f8" fill-opacity=".85" stroke="#aab4ba" stroke-width="1.5"/>';
+      /* the cylinder and its scale */
+      s += '<rect x="448" y="' + (CT - 10) + '" width="64" height="' + (CL - CT + 10) + '" rx="6" fill="#e9f4f8" fill-opacity=".35" stroke="#dfe9ee" stroke-width="3"/><path d="M432 ' + (CL + 2) + 'h96l10 20h-116z" fill="#c9d6dc"/>';
+      s += '<g id="water" clip-path="url(#cylc)"></g><g stroke="#2a3a44" stroke-width="1.2">';
+      for (var v = 0; v <= 100; v += 2) s += '<path d="M452 ' + (CL - v * PX) + 'h' + (v % 10 ? 7 : 14) + '"/>';
+      s += '</g>';
+      for (v = 10; v <= 100; v += 10) s += '<text x="470" y="' + (CL - v * PX + 4) + '" class="tM" font-size="10" fill="#2a3a44">' + v + '</text>';
+      s += '<text x="480" y="' + (CL + 40) + '" class="tB" font-size="13" fill="#3a2410" text-anchor="middle" letter-spacing="1">100 ml</text>';
+      s += '<g id="jug"><path d="M540 520l8 -66h50l8 66z" fill="#e9f4f8" fill-opacity=".7" stroke="#aab4ba" stroke-width="2"/><path d="M546 470h54" stroke="#bfe3f2" stroke-width="30" opacity=".6"/><path d="M606 470q18 4 14 28" fill="none" stroke="#aab4ba" stroke-width="4"/><path d="M548 454l-12 -8" stroke="#aab4ba" stroke-width="3"/><text x="574" y="544" class="tB" font-size="13" fill="#3a2410" text-anchor="middle" letter-spacing="1">JUG</text></g>';
+      /* the lens */
+      s += '<line x1="515" y1="200" x2="530" y2="210" stroke="#3a2410" stroke-width="2"/><circle cx="600" cy="230" r="76" fill="#3a2410"/><circle cx="600" cy="230" r="70" fill="#f4fafc"/><g id="lensin" clip-path="url(#lensc)"></g><circle id="lens" cx="600" cy="230" r="70" fill="#000" opacity="0"/>';
+      s += '<text x="600" y="326" class="tB" font-size="13" fill="#3a2410" text-anchor="middle" letter-spacing="2">LENS: CLICK THE LEVEL</text>';
+      /* the sheet */
+      s += '<rect x="676" y="16" width="310" height="568" fill="#fbfaf2"/><rect x="676" y="16" width="310" height="34" fill="#1f6b5a"/><text x="690" y="39" class="tB" font-size="16" fill="#fff" letter-spacing="2">DENSITY · LOT 41, THE BIRD</text>';
+      s += '<g class="tH" font-size="19" fill="#1d2440"><text x="692" y="80">mass</text><text x="692" y="114">water before</text><text x="692" y="148">water after</text><text x="692" y="182">volume (the rise)</text></g>';
+      s += '<g class="tM" font-size="17" fill="#1d2440" text-anchor="end"><text id="f-m" x="966" y="80"></text><text id="f-b" x="966" y="114"></text><text id="f-a" x="966" y="148"></text><text id="f-v" x="966" y="182"></text></g><path d="M692 194h276" stroke="#9a8a6a" stroke-width="1.5"/>';
+      s += '<text x="692" y="222" class="tH" font-size="19" fill="#1d2440">density = mass ÷ volume</text>';
+      s += '<g class="btnx" data-k="-1"><rect x="692" y="236" width="40" height="34" rx="4" fill="#3a4248"/><text x="712" y="258" class="tB" font-size="15" fill="#fff" text-anchor="middle">−1</text></g><g class="btnx" data-k="-0.1"><rect x="736" y="236" width="44" height="34" rx="4" fill="#5a646c"/><text x="758" y="258" class="tB" font-size="15" fill="#fff" text-anchor="middle">−0.1</text></g>';
+      s += '<rect x="786" y="232" width="92" height="42" rx="4" fill="#17221c"/><text id="f-d" x="832" y="262" class="tM" font-size="24" fill="#f0c86a" text-anchor="middle"></text>';
+      s += '<g class="btnx" data-k="0.1"><rect x="884" y="236" width="44" height="34" rx="4" fill="#5a646c"/><text x="906" y="258" class="tB" font-size="15" fill="#fff" text-anchor="middle">+0.1</text></g><g class="btnx" data-k="1"><rect x="932" y="236" width="40" height="34" rx="4" fill="#3a4248"/><text x="952" y="258" class="tB" font-size="15" fill="#fff" text-anchor="middle">+1</text></g>';
+      /* the ruler of densities */
+      s += '<path d="M700 316h260" stroke="#1d2440" stroke-width="2"/>';
+      for (v = 0; v <= 20; v++) s += '<path d="M' + (700 + v * 13) + ' 316v' + (v % 5 ? -5 : -10) + '" stroke="#1d2440" stroke-width="1.4"/>';
+      for (v = 0; v <= 20; v += 5) s += '<text x="' + (700 + v * 13) + '" y="332" class="tM" font-size="10" fill="#1d2440" text-anchor="middle">' + v + '</text>';
+      [['Al', 2.7], ['Fe', 7.9], ['Cu', 9.0], ['Ag', 10.5], ['Pb', 11.3], ['Au', 19.3]].forEach(function (m) { s += '<path d="M' + (700 + m[1] * 13) + ' 300v14" stroke="#b3261c" stroke-width="1.6"/><text x="' + (700 + m[1] * 13) + '" y="296" class="tB" font-size="10" fill="#b3261c" text-anchor="middle">' + m[0] + '</text>'; });
+      s += '<path d="M' + (700 + 8.5 * 13) + ' 300v14" stroke="#b3261c" stroke-width="1.6"/><path id="pin" d="M0 0l-6 -12h12z" fill="#1f6b5a"/><text x="830" y="350" class="tH" font-size="14" fill="#56616c" text-anchor="middle">(the page in the manual has the names)</text>';
+      /* metals */
+      s += '<text x="692" y="380" class="tH" font-size="19" fill="#1d2440">so the bird is made of:</text>';
+      ['gold', 'lead', 'silver', 'copper', 'brass', 'iron', 'aluminium'].forEach(function (m, i) {
+        var x = 692 + (i % 4) * 72, y = 392 + Math.floor(i / 4) * 38;
+        s += '<g class="tile" data-g="what" data-v="' + m + '" transform="translate(' + x + ' ' + y + ')"><rect width="' + (m === 'aluminium' ? 86 : 66) + '" height="30" rx="3"/><text x="' + (m === 'aluminium' ? 43 : 33) + '" y="20" class="tB" font-size="14" fill="#1d2440" text-anchor="middle">' + m + '</text></g>';
+      });
+      s += '<text x="692" y="496" class="tH" font-size="19" fill="#1d2440">and since September it is:</text>';
+      [['same', 'the same bird'], ['other', 'a different bird']].forEach(function (o, i) {
+        s += '<g class="tile" data-g="swap" data-v="' + o[0] + '" transform="translate(' + (692 + i * 140) + ' 508)"><rect width="134" height="32" rx="3"/><text x="67" y="21" class="tB" font-size="14" fill="#1d2440" text-anchor="middle">' + o[1] + '</text></g>';
+      });
+      s += '<text x="830" y="568" class="tH" font-size="14" fill="#56616c" text-anchor="middle">L. Hartnell, for the laboratory</text>';
+      /* the bird */
+      s += '<g class="tool" id="bird"><rect x="-34" y="-34" width="68" height="44" fill="#000" opacity="0"/><g transform="scale(1.3)">' + FG.bird(true) + '</g></g>';
+      svg.innerHTML = s;
+      paintBench();
+    }
+    function paintBench() {
+      var L = level(), y = CL - L * PX, w = svg.querySelector('#water'), li = svg.querySelector('#lensin'), s = '', v, ly;
+      svg.querySelector('#disp').textContent = f1(display());
+      if (st.poured) w.innerHTML = '<rect x="452" y="' + y + '" width="56" height="' + (CL - y) + '" fill="#bfe3f2" opacity=".75"/><path d="M452 ' + (y - 2.4) + 'q28 6 56 0" fill="none" stroke="#7fb0c9" stroke-width="2"/>' + (st.inc ? '<g transform="translate(480 ' + (CL - 8) + ') scale(.9)">' + FG.bird(true) + '</g>' : '');
+      else w.innerHTML = '';
+      /* in the lens: 40 px to the ml, the level in the middle */
+      var c = st.poured ? L : 40, Y = function (ml) { return 230 - (ml - c) * 40; };
+      s += '<rect x="500" y="130" width="200" height="200" fill="#f4fafc"/>';
+      if (st.poured) s += '<path d="M520 ' + Y(L + 0.6) + 'Q520 ' + Y(L) + ' 600 ' + Y(L) + 'T680 ' + Y(L + 0.6) + 'V360H520z" fill="#bfe3f2"/><path d="M520 ' + Y(L + 0.6) + 'Q520 ' + Y(L) + ' 600 ' + Y(L) + 'T680 ' + Y(L + 0.6) + '" fill="none" stroke="#5a8aa8" stroke-width="2.4"/>';
+      s += '<path d="M520 130v230M680 130v230" stroke="#c9d6dc" stroke-width="4"/>';
+      for (v = Math.floor(c - 3); v <= c + 3; v += 0.2) { v = Math.round(v * 10) / 10; ly = Y(v); s += '<path d="M522 ' + ly + 'h' + (Math.abs(v - Math.round(v)) < 0.01 ? 34 : 16) + '" stroke="#2a3a44" stroke-width="' + (Math.abs(v - Math.round(v)) < 0.01 ? 2 : 1.2) + '"/>'; if (Math.abs(v - Math.round(v)) < 0.01) s += '<text x="562" y="' + (ly + 5) + '" class="tM" font-size="14" fill="#2a3a44">' + Math.round(v) + '</text>'; }
+      if (!st.poured) s += '<text x="610" y="236" class="tH" font-size="17" fill="#7a8a92" text-anchor="middle">(empty)</text>';
+      li.innerHTML = s;
+      svg.querySelector('#f-m').textContent = st.mass === null ? '' : f1(st.mass) + ' g';
+      svg.querySelector('#f-b').textContent = st.before === null ? '' : f1(st.before) + ' ml';
+      svg.querySelector('#f-a').textContent = st.after === null ? '' : f1(st.after) + ' ml';
+      svg.querySelector('#f-v').textContent = st.before !== null && st.after !== null ? f1(st.after - st.before) + ' cm³' : '';
+      svg.querySelector('#f-d').textContent = f1(st.d);
+      svg.querySelector('#pin').setAttribute('transform', 'translate(' + (700 + FG.clamp(st.d, 0, 20) * 13) + ' 314)');
+      ER.$$('.tile', svg).forEach(function (t) { t.setAttribute('class', 'tile' + (st[t.getAttribute('data-g')] === t.getAttribute('data-v') ? ' on' : '')); });
+      if (bird) {
+        if (st.inc) svg.querySelector('#bird').style.display = 'none';
+        else if (st.pan) bird.set(170, 212); else bird.set(170, 500);
+      }
+    }
+    function wire() {
+      bird = FG.tool(svg, svg.querySelector('#bird'), { x: 170, y: 500 }, {
+        start: function () { return !wait && !st.inc && !nextFile; },
+        end: function (p, moved) {
+          if (!moved) return;
+          if (p.x > 70 && p.x < 270 && p.y > 150 && p.y < 280) {                 /* into the boat */
+            st.pan = 1; st.mass = display(); keep(); FG.sfx.beep(); paintBench();
+            msg(st.tare ? 'The bird in the boat. The display settles: <b>' + f1(display()) + ' g</b>. Dr Hartnell writes it on the sheet.' : 'The bird in the boat. The display settles at <b>' + f1(display()) + ' g</b>, and Dr Hartnell writes it down. &ldquo;Is that all bird?&rdquo; she asks. &ldquo;Or is some of it boat?&rdquo;');
+            return;
+          }
+          if (p.x > 430 && p.x < 530 && p.y > 20 && p.y < 200) {                /* into the cylinder */
+            if (st.mass === null || !st.pan && st.mass === null) { bird.home(); msg('&ldquo;Weigh it first,&rdquo; says Dr Hartnell, &ldquo;while it is dry. Water on the balance tells you about water.&rdquo;'); return; }
+            if (Math.abs(st.mass - BIRD) > 0.05) { bird.set(170, st.pan ? 212 : 500); msg('&ldquo;Not yet,&rdquo; says Dr Hartnell. &ldquo;That mass on the sheet has the boat in it. Take the bird out, set the balance to zero with the empty boat, and weigh it again.&rdquo;'); return; }
+            if (!st.poured) { bird.set(170, 212); msg('There is no water in the cylinder yet. Click the jug.'); return; }
+            if (st.before === null) { bird.set(170, 212); msg('&ldquo;Read the level before the bird goes in,&rdquo; says Dr Hartnell. &ldquo;Otherwise there is nothing to take it away from.&rdquo; Click the level in the lens.'); return; }
+            st.inc = 1; st.pan = 0; keep(); FG.sfx.plop(); paintBench();
+            msg('The bird goes down on a cotton thread and settles on the bottom. The water climbs up the glass. Read the level again, in the lens.');
+            return;
+          }
+          if (p.x < 330 && p.y > 400) { st.pan = 0; keep(); paintBench(); msg('The bird is back on its cloth. The balance reads ' + f1(display()) + ' g.'); return; }
+          bird.set(170, st.pan ? 212 : 500);
+        }
+      }, [20, 30, 660, 570]);
+      paintBench();
+      svg.querySelector('#tare').addEventListener('click', function () {
+        if (wait || st.inc) return;
+        if (st.pan) { ER.sfx.no(); msg('&ldquo;Not with the bird on it,&rdquo; says Dr Hartnell. &ldquo;Then it would weigh nothing at all, which would be a great surprise to Mr Tredwell. Tare with the empty boat.&rdquo;'); return; }
+        st.tare = 1; keep(); FG.sfx.beep(); paintBench();
+        msg('TARE. The display drops from 4.2 to <b>0.0 g</b>: the balance has forgotten the boat. Now only what goes into it will count.');
+      });
+      svg.querySelector('#jug').addEventListener('click', function () {
+        if (wait) return;
+        if (st.poured) { msg('There is water enough in the cylinder already.'); return; }
+        st.poured = 1; keep(); FG.sfx.pour(); paintBench();
+        msg('Owen pours water into the cylinder, carefully, to about forty. Now read the level exactly, in the lens: click on it.');
+      });
+      svg.querySelector('#lens').addEventListener('click', function (e) {
+        var p = ER.pt(svg, e), L = level(), c = st.poured ? L : 40, ml = c + (230 - p.y) / 40, r = Math.round(ml * 5) / 5, dx = Math.abs(p.x - 600);
+        if (wait) return;
+        if (!st.poured) { msg('The cylinder is empty. Click the jug first.'); return; }
+        if (st.inc ? st.after !== null : st.before !== null) { msg('That level is on the sheet already.'); return; }
+        if (Math.abs(ml - L) < 0.25) {
+          r = L;
+          if (st.inc) st.after = r; else st.before = r;
+          keep(); FG.sfx.pencil(); paintBench();
+          msg(st.inc ? '<b>' + f1(r) + ' ml</b> with the bird in. The water rose by ' + f1(st.after - st.before) + ' ml, and that is the bird&rsquo;s volume: ' + f1(st.after - st.before) + ' cm³. Now: density = mass ÷ volume.' : '<b>' + f1(r) + ' ml</b>, read at the bottom of the curve. Now lower the bird in: drag it into the cylinder.');
+          return;
+        }
+        ER.sfx.no();
+        if (Math.abs(ml - (L + 0.6)) < 0.3 || (ml > L && dx > 50)) msg('That is ' + f1(r) + ': the edge, where the water climbs up the glass. Read the <b>bottom</b> of the curve, in the middle, with your eye level with it.');
+        else msg('That is ' + f1(r) + ' ml on the scale. The water is not there. Find the curved line of the surface.');
+      });
+      ER.$$('.btnx[data-k]', svg).forEach(function (b) {
+        b.addEventListener('click', function () {
+          if (wait) return;
+          st.d = Math.round(FG.clamp(st.d + parseFloat(b.getAttribute('data-k')), 0, 25) * 10) / 10; keep(); FG.sfx.focus(); paintBench();
+        });
+      });
+      ER.$$('.tile', svg).forEach(function (t) {
+        t.addEventListener('click', function () {
+          if (wait) return;
+          st[t.getAttribute('data-g')] = t.getAttribute('data-v'); keep(); FG.sfx.pencil(); paintBench();
+        });
+      });
+    }
+    box.querySelector('#d-go').addEventListener('click', function () {
+      var file, dstr = f1(st.d), vol;
+      if (wait || nextFile) return;
+      if (st.mass === null) { ER.sfx.no(); msg('The sheet is empty. Weigh the bird first.'); return; }
+      if (st.before === null || st.after === null) { ER.sfx.no(); msg('&ldquo;A mass is half a density,&rdquo; says Dr Hartnell. &ldquo;We need its volume too: the cylinder, before and after.&rdquo;'); return; }
+      if (!st.what || !st.swap) { ER.sfx.no(); msg('Two questions on the sheet still have no answer: what the bird is made of, and whether it has been changed since September.'); return; }
+      vol = st.after - st.before;
+      if (!ER.check('d', dstr)) {
+        ER.sfx.no();
+        msg(Math.abs(st.mass - BIRD) > 0.05 ? '&ldquo;Look at the mass,&rdquo; says Dr Hartnell. &ldquo;The balance was not set to zero with the boat on it, so 4.2 grams of that is plastic boat. Take the bird out, press TARE with the empty boat, and weigh it again.&rdquo;' :
+          '&ldquo;Density is mass divided by volume,&rdquo; says Dr Hartnell. &ldquo;' + f1(st.mass) + ' divided by ' + f1(vol) + ' is not ' + dstr + '. Try the sum again.&rdquo;');
+        return;
+      }
+      if (!ER.check('what', st.what)) {
+        ER.sfx.no();
+        msg(st.what === 'gold' ? '&ldquo;Gold is 19.3,&rdquo; says Dr Hartnell. &ldquo;A gold bird this size would weigh ' + f1(vol) + ' × 19.3: about ' + Math.round(vol * 19.3) + ' grams. Ours weighs ' + f1(st.mass) + '.&rdquo; Mr Tredwell takes his cap off, slowly.' :
+          st.what === 'copper' ? '&ldquo;Copper is 9.0,&rdquo; says Dr Hartnell. &ldquo;Close. Look at the page again: which metal sits at your number?&rdquo;' : '&ldquo;Look at the table on page 18,&rdquo; says Dr Hartnell. &ldquo;Which metal has the density you found? Gold leaf on top adds almost nothing.&rdquo;');
+        return;
+      }
+      if (!ER.check('swap', st.swap)) {
+        ER.sfx.no();
+        msg('Femi opens her folder without a word and holds out the receipt. <i>51 g on the owner&rsquo;s kitchen scales</i>, in September. Today, ' + f1(st.mass) + ' g. A gold bird of the same size would have weighed about ' + Math.round(vol * 19.3) + '. If somebody swapped it, they swapped it for itself.');
+        return;
+      }
+      file = ER.exitOk([dstr + '-' + st.what + '-' + st.swap]);
+      if (!file) { ER.sfx.no(); msg('Dr Hartnell reads the sheet twice and does not sign it.'); return; }
+      wait = true; nextFile = file; ER.flag('b-file', file);
+      var s0 = ER.state(); s0.done = s0.done || {}; s0.done.stores = 1; ER.persist(true);
+      FG.sfx.stamp(); msg('<b>8.5 grams in every cubic centimetre.</b> Dr Hartnell underlines it twice and signs. Brass, with a skin of gold leaf as thin as a breath.');
+      setTimeout(function () {
+        ER.closeAll(); FG.solved(); paint(); busy = true;
+        ER.narrate([
+          '&ldquo;Brass,&rdquo; says Mr Tredwell. He weighs the little bird in his big hand. &ldquo;Gran, you old fibber.&rdquo; But he says it kindly, and he holds it a moment longer than he needs to.',
+          '&ldquo;Gilt, then,&rdquo; says Mr Garrick. &ldquo;People have always said gold when they mean gilt. It changes nothing.&rdquo; &ldquo;It changes one thing,&rdquo; says Dr Hartnell. &ldquo;Fifty-one grams in September, fifty-one today. Nobody has swapped anything. Miss Odum, you may stop looking at the floor.&rdquo;',
+          'Owen lifts the panel, out of its frame now, and heads for the lift. &ldquo;Studio,&rdquo; he says. &ldquo;Mrs Mertens took her paint samples a fortnight ago, and her results came back on Thursday. Nobody&rsquo;s read them yet but Mr Garrick.&rdquo;',
+          'Mr Garrick finds something very interesting to look at on the handle of his umbrella.'
+        ], function () { busy = false; showGo(); });
+      }, 3000);
+    });
+    draw(); wire();
+    msg(step() === 'mass' ? 'On the left, a balance with an empty plastic boat on its pan. In the middle, a measuring cylinder, a jug, and a lens to read the level through. On the right, Dr Hartnell&rsquo;s sheet. The bird is on the cloth. Weigh it first.' :
+      step() === 'vol' ? 'The bird is weighed. Now its volume: the cylinder, before and after.' : 'Mass and volume are on the sheet. Now the density, the metal, and September.');
+    return {
+      open: function () { ER.open('ov-lock', box); },
+      isOpen: function () { return !!box.parentNode; },
+      step: step
+    };
+  }
+})();
+</script>
+</body>
+</html>

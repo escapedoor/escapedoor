@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Catalogue Office · Lot Forty-One</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-forensic.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="forgery.css">
+<style>
+  body{--bg:#140f0a;--accent:#9fd18a;--font-display:'Special Elite',monospace;--font-ui:'Barlow Condensed',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(24,18,12,.96);--tc-ink:#efe6d4;--cap-bg:rgba(24,18,12,.94);--panel:#1e170f;--face-bg:#2e2a1e;--q-ink:#9fd18a;--fade:#080604;--hud-bg:rgba(24,18,12,.84)}
+  .tc-room{font-family:'Special Elite',monospace;letter-spacing:.06em;font-size:clamp(34px,4.8vw,62px)}
+  .tk-name{font-family:'Special Elite',monospace}
+  .sE{font-family:'Special Elite',monospace;text-anchor:middle}
+  .sB{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-anchor:middle}
+  .rain{animation:rain .9s linear infinite}
+  @keyframes rain{from{transform:translate(0,-40px)}to{transform:translate(-8px,40px)}}
+  .glow{animation:glow 5s steps(1,end) infinite}
+  @keyframes glow{0%{opacity:.5}70%{opacity:.5}71%{opacity:.42}73%{opacity:.5}}
+
+  /* the chart and the strip */
+  .rg #strip{cursor:ew-resize}
+  .rg .btnx{cursor:pointer}
+  .rg .btnx:hover rect{filter:brightness(1.25)}
+  .rg .tog{cursor:pointer}
+  .rg .tog rect{fill:#fffdf6;stroke:#8a7a5a}
+  .rg .tog.on rect{fill:#2f5a3a;stroke:#2f5a3a}
+  .rg .tog.on text{fill:#fff}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="streetG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a96a0"/><stop offset="1" stop-color="#5a646c"/></linearGradient>
+  <radialGradient id="lampG" cx="50%" cy="0%" r="80%"><stop offset="0" stop-color="#fff2b0" stop-opacity=".55"/><stop offset="1" stop-color="#fff2b0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="48%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".62" stop-color="#0a0604" stop-opacity=".3"/><stop offset="1" stop-color="#050302" stop-opacity=".9"/></radialGradient>
+</defs>
+
+<!-- walls of catalogues -->
+<rect x="-1000" y="-400" width="3600" height="1050" fill="#3a2a1a"/>
+<g id="shelves"></g>
+<!-- the window on the street -->
+<g id="win" class="hot"><rect x="1236" y="110" width="280" height="330" fill="#2a1c10"/><rect x="1250" y="124" width="252" height="302" fill="url(#streetG)"/>
+  <g fill="#4a545c"><path d="M1250 300h60v-90l30 -20 30 20v90h40v-60h40v60h52v126h-252z"/></g><g fill="#f0d68a" opacity=".8"><rect x="1270" y="320" width="10" height="14"/><rect x="1330" y="250" width="10" height="14"/><rect x="1420" y="300" width="10" height="14"/><rect x="1470" y="330" width="10" height="14"/></g>
+  <g class="rain" stroke="#dfeef6" stroke-width="1.4" opacity=".45"><path d="M1270 150l-6 40M1320 180l-6 40M1380 140l-6 40M1440 200l-6 40M1490 160l-6 40M1300 280l-6 40M1360 320l-6 40M1420 260l-6 40M1480 300l-6 40"/></g>
+  <g stroke="#2a1c10" stroke-width="8"><path d="M1376 124v302M1250 270h252"/></g><rect x="1228" y="432" width="296" height="14" fill="#5a3e22"/></g>
+<rect x="-1000" y="640" width="3600" height="800" fill="#4a3624"/><path d="M-1000 640H2600" stroke="#2a1c10" stroke-width="4"/><g stroke="#3a2a1a" stroke-width="2" opacity=".6"><path d="M-1000 700H2600M-1000 780H2600M-1000 880H2600"/></g>
+<rect x="-200" y="700" width="2000" height="220" fill="#6b2a2a" opacity=".55"/><path d="M-200 712h2000M-200 908h2000" stroke="#c9a04a" stroke-width="3" opacity=".4"/>
+
+<!-- the card index -->
+<g id="index" class="hot"><rect x="90" y="420" width="190" height="220" fill="#7a5a36"/><g id="drawers"></g></g>
+<!-- Mr Garrick's shelf of day books, behind glass -->
+<g id="days" class="hot"><rect x="310" y="190" width="170" height="390" fill="#2a1c10"/><rect x="320" y="200" width="150" height="370" fill="#4a3424"/><g id="ledgers"></g>
+  <rect x="320" y="200" width="150" height="370" fill="#cfe3ea" opacity=".12"/><path d="M330 210l60 120" stroke="#fff" stroke-width="3" opacity=".2"/><rect x="340" y="584" width="110" height="20" fill="#e9dcc0"/><text x="395" y="598" class="sE" font-size="10" fill="#3a2410">R.G. · DAY BOOKS</text></g>
+<!-- a library ladder -->
+<path d="M1000 40L1080 640M1050 40L1130 640" stroke="#6b4a2a" stroke-width="8"/><g stroke="#6b4a2a" stroke-width="5"><path d="M1013 140h50M1026 240h50M1040 340h50M1053 440h50M1066 540h50"/></g>
+
+<!-- the plan chest, and the chart on it -->
+<path d="M520 650v40h560v-40" fill="#5a3e22"/><g fill="#6b4a2a" stroke="#3a2a1a" stroke-width="2"><rect x="520" y="604" width="560" height="28"/><rect x="520" y="632" width="560" height="28"/></g><g fill="#c9a04a"><rect x="780" y="614" width="40" height="6"/><rect x="780" y="642" width="40" height="6"/></g>
+<g id="chart" class="hot"><path d="M500 580h600l12 24H488z" fill="#7a5a36"/><path d="M520 584h560l6 16H514z" fill="#f2ead2"/><g id="chartbars"></g>
+  <rect x="514" y="572" width="44" height="14" fill="#6e1f2e"/><rect x="1040" y="572" width="44" height="14" fill="#2a4a6a"/><path d="M960 584v-16h22v16" fill="#e9e2d2" stroke="#9a8a6a"/></g>
+<g id="manual" class="hot"><path d="M560 600l-8 26h56l6 -26z" fill="#f6f2e6" transform="translate(0 -36)"/><path d="M614 564l-6 26h56l-4 -26z" fill="#efe9d8"/><path d="M608 590l6 -26" stroke="#1f1c16" stroke-width="3"/><g stroke="#8a8676" stroke-width="1.3"><path d="M562 572h40M560 580h42M622 572h36M620 580h40"/></g></g>
+
+<!-- Femi's desk -->
+<path d="M1110 640v60M1400 640v60" stroke="#3a2a1a" stroke-width="10"/><path d="M1090 590h330l10 22h-350z" fill="#6b4a2a"/><rect x="1080" y="612" width="350" height="30" fill="#5a3e22"/>
+<g id="notes" class="hot"><g id="stickies"></g></g>
+<g><rect x="1110" y="490" width="96" height="72" rx="4" fill="#2a2e32"/><rect x="1116" y="496" width="84" height="60" fill="#3a5a6a"/><rect x="1146" y="562" width="24" height="20" fill="#2a2e32"/><path d="M1132 506h50M1132 516h40M1132 526h46" stroke="#9fd1e8" stroke-width="2" opacity=".6"/></g>
+<g id="lamp"><path d="M1400 586v-90l-30 -24" stroke="#2a3a2a" stroke-width="5" fill="none"/><path d="M1340 476q30 -26 60 0z" fill="#2f5a3a"/><path class="glow" d="M1346 476h48l40 116h-128z" fill="url(#lampG)" pointer-events="none"/><ellipse cx="1400" cy="588" rx="20" ry="5" fill="#2a3a2a"/></g>
+<g id="dict" class="hot"><path d="M1222 586l4 -16h56l2 16z" fill="#f4f1e8"/><path d="M1284 586l-2 -16h56l4 16z" fill="#ece8dc"/><rect x="1220" y="584" width="124" height="6" fill="#5a2a2a"/><g stroke="#9a9488" stroke-width="1"><path d="M1232 576h44M1290 576h44M1232 581h40M1290 581h42"/></g></g>
+<g id="folder" class="hot"><rect x="1210" y="590" width="0" height="0"/><path d="M1104 588l6 -18h76l-4 18z" fill="#c9a35a"/><rect x="1118" y="566" width="40" height="8" fill="#efe6cc"/></g>
+<g id="jotter" class="hot"><rect x="1350" y="570" width="40" height="18" fill="#3f6e4a" transform="rotate(-6 1370 579)"/><path d="M1356 574h28" stroke="#c9e0c0" stroke-width="2" transform="rotate(-6 1370 579)"/></g>
+
+<!-- people -->
+<g id="hartnell" class="hot" transform="translate(440 892)"></g>
+<g id="femi" class="hot" transform="translate(1486 880) scale(.97)"></g>
+
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">To the director&rsquo;s office</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="forgery.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, bench = null, told = {};
+
+  /* the shelves of catalogues, the card index, the day books, the yellow notes */
+  (function () {
+    var s = '', r, i, x, w, C = ['#6e1f2e', '#2f5a3a', '#7a5a2a', '#2a4a6a', '#5a3a1e', '#8a6a3a', '#3a3a3a', '#a07a4a'];
+    for (r = 0; r < 6; r++) {
+      var y = -60 + r * 110;
+      s += '<rect x="-1000" y="' + (y + 96) + '" width="3600" height="14" fill="#2a1c10"/>';
+      for (x = -400, i = 0; x < 2000; i++) { w = 10 + ((i * 7 + r * 13) % 9); s += '<rect x="' + x + '" y="' + (y + 22 + ((i * 11 + r) % 14)) + '" width="' + w + '" height="' + (74 - ((i * 11 + r) % 14)) + '" fill="' + C[(i + r * 3) % 8] + '"/>'; if (i % 5 === 0) s += '<rect x="' + x + '" y="' + (y + 40 + ((i * 11 + r) % 14)) + '" width="' + w + '" height="4" fill="#c9a04a" opacity=".7"/>'; x += w + 1; }
+    }
+    $('#shelves').innerHTML = s;
+    s = ''; for (r = 0; r < 6; r++) for (i = 0; i < 3; i++) s += '<rect x="' + (100 + i * 60) + '" y="' + (432 + r * 34) + '" width="52" height="28" fill="#8a6a44" stroke="#5a3e22" stroke-width="2"/><rect x="' + (118 + i * 60) + '" y="' + (440 + r * 34) + '" width="16" height="6" fill="#e9dcc0"/><circle cx="' + (126 + i * 60) + '" cy="' + (452 + r * 34) + '" r="2.5" fill="#c9a04a"/>';
+    $('#drawers').innerHTML = s;
+    s = ''; [[330, 214, 'a'], [366, 210, 'b'], [400, 220, 'c'], [432, 214, 'd'], [330, 330, 'e'], [372, 336, 'f'], [412, 326, 'g'], [334, 450, 'h'], [380, 446, 'i']].forEach(function (b, n) {
+      s += '<rect x="' + b[0] + '" y="' + b[1] + '" width="32" height="' + (100 - (n % 3) * 6) + '" fill="' + ['#5a3e22', '#3a2a1a', '#6e4a2a'][n % 3] + '" stroke="#2a1c10"/><rect x="' + (b[0] + 4) + '" y="' + (b[1] + 20) + '" width="24" height="12" fill="#c9a04a" opacity=".6"/>';
+    });
+    $('#ledgers').innerHTML = s;
+    s = ''; [[1120, 310, -4], [1176, 300, 3], [1232, 318, -2], [1140, 370, 5], [1200, 366, -6], [1260, 380, 2], [1180, 424, -3]].forEach(function (p) { s += '<rect x="' + p[0] + '" y="' + p[1] + '" width="44" height="40" fill="' + (p[2] > 0 ? '#fde98a' : '#ffd36a') + '" transform="rotate(' + p[2] + ' ' + (p[0] + 22) + ' ' + (p[1] + 20) + ')"/><path d="M' + (p[0] + 6) + ' ' + (p[1] + 14) + 'h30M' + (p[0] + 6) + ' ' + (p[1] + 22) + 'h24" stroke="#6a5a1a" stroke-width="2" transform="rotate(' + p[2] + ' ' + (p[0] + 22) + ' ' + (p[1] + 20) + ')"/>'; });
+    $('#stickies').innerHTML = s;
+    s = ''; for (i = 0; i < 60; i++) s += '<path d="M' + (530 + i * 9) + ' 598v-' + (4 + ((i * 37) % 9)) + '" stroke="#5a4a3a" stroke-width="3"/>';
+    $('#chartbars').innerHTML = s;
+    ['hartnell', 'femi'].forEach(function (w) { $('#' + w).innerHTML = FG.fig(w); });
+  })();
+
+  ER.init({
+    theme: 'forensic', story: 'forgery', storyTitle: 'Lot Forty-One', id: 'office', no: 'IV', title: 'The Catalogue Office',
+    go: 'Down to the first floor',
+    intro: [
+      'Under the microscope, three of the five samples kept all their colour under the old varnish: the jug (smalt, from the 1500s), the lemon (lead-tin yellow, from the 1300s) and the bird&rsquo;s red cap (vermilion, ancient). The picture&rsquo;s own paint holds nothing that a painter of the 1640s could not have bought.',
+      'Two samples had paint on top of the varnish, put on after the picture was finished. The name in the corner contains Prussian blue, so it is not older than about 1704. The white feather is titanium white, from the 1920s or later: a restorer, W. Henshaw, wrote on the back that in 1958 he filled a hole in the floor and painted it. Titanium white did not make the picture modern. It made one feather modern.',
+      'So the painting is old. Is it Sterck&rsquo;s? Paint cannot say. The wood might. Mrs Mertens measured the rings on the bottom edge of the panel, and left them in a folder for Femi.'
+    ],
+    exit: {"next":"director","w":{"18c049a4":"8ba0b957"}}, tags: {"last":["dbc4b6f4"],"fell":["5b2fa707"],"who":["2c7cd323"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('d-file') || null; told = ER.flag('d-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('d-told', told); return true; }
+  function isBusy() { return busy; }
+  function readAll() { return told.manual && told.folder && told.dict && told.jotter; }
+  function showGo() { $('#go').classList.add('on'); }
+  function paint() {
+    $('#chart').classList.toggle('ready', !!(readAll() && !nextFile));
+    ER.pips((told.manual ? 1 : 0) + (told.folder ? 1 : 0) + (told.dict ? 1 : 0) + (told.jotter ? 1 : 0) + (nextFile ? 1 : 0), 5);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Mrs Lisle wants everybody in her office at five. Go.']];
+    if (bench && bench.isOpen()) return [bench.step(), {
+      slide: ['Drag the panel&rsquo;s strip of rings along under the chart. Look at the very narrow rings: they are the easiest to match.',
+        'The panel has five very narrow rings. Find the one place where all five fall under narrow years of the chart, with the same spaces between them. Three out of five is not enough.',
+        'When the pattern fits, every bar of the strip stands under a bar of the same shape. The line from the last ring then shows the year that ring grew.'],
+      date: ['The last ring is not the year the tree was cut down. The sapwood was cut off the panel. How many rings of sapwood, at the least, does Baltic oak have?',
+        'Add the smallest number of sapwood rings that page 44 gives to the year of the last ring. That is the earliest the tree can have been felled.',
+        'Then the dictionary: in what year did Lieven Sterck die? Could he paint on a tree that had not yet been cut down?']
+    }[bench.step()]];
+    if (!readAll()) return ['read', ['Four things to read before the chart: Dr Hartnell&rsquo;s manual, open at the left end of the plan chest; Mrs Mertens&rsquo; buff folder, the dictionary open on Femi&rsquo;s desk, and Femi&rsquo;s green notebook beside it.']];
+    return ['chart', ['The reference chart is unrolled on the plan chest in the middle of the room. Click it.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; showGo(); ER.say('Felled in 1653 at the earliest. Sterck died in 1648.'); return; }
+    if (told.in) { busy = false; ER.say('The catalogue office. Rain on the window.'); return; }
+    tell('in');
+    ER.narrate([
+      'The catalogue office is a long room on the first floor, lined with old sale catalogues from the floor to the ceiling, two hundred years of them, in brown and green and faded red. There are four desks, a card index, and a smell of dust and biscuits.',
+      'Femi&rsquo;s desk is the one by the window, under a great many yellow notes. On the long plan chest in the middle somebody has unrolled a chart a metre and a half long, held flat with two catalogues and a mug: OAK, BALTIC: A REFERENCE CHART, 1560&ndash;1680.',
+      '&ldquo;The library&rsquo;s,&rdquo; says Femi. &ldquo;Every year a bar, tall or short. People come from all over to use it. Mostly to find out that their grandfather&rsquo;s cupboard isn&rsquo;t Tudor.&rdquo;',
+      'Mr Garrick has gone down to the saleroom &ldquo;to calm the room&rdquo;. Dr Hartnell takes off her coat for the first time today.'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- papers ---------- */
+  var DIAG = '<svg viewBox="0 0 230 210"><rect width="230" height="210" fill="#fffdf4"/><g transform="translate(70 92)">' +
+    '<circle r="62" fill="#5a3e22"/><circle r="56" fill="#e3c99a"/><circle r="44" fill="#b98a52"/><g fill="none" stroke="#8a5a2a" stroke-width="1.4"><circle r="40"/><circle r="35"/><circle r="31"/><circle r="26"/><circle r="22"/><circle r="17"/><circle r="12"/><circle r="7"/></g>' +
+    '<path d="M-6 -62h12v124h-12z" fill="#fff" opacity=".3"/></g>' +
+    '<g font-family="Patrick Hand,cursive" font-size="13" fill="#221f1a"><text x="140" y="34">bark</text><text x="140" y="58">sapwood: pale,</text><text x="140" y="72">cut away</text><text x="140" y="104">heartwood:</text><text x="140" y="118">kept</text></g>' +
+    '<g stroke="#221f1a" stroke-width="1"><path d="M136 30l-14 6M136 56l-12 2M136 100l-24 -4"/></g>' +
+    '<rect x="14" y="170" width="170" height="20" fill="#b98a52"/><g stroke="#8a5a2a" stroke-width="1"><path d="M30 170v20M42 170v20M50 170v20M66 170v20M76 170v20M80 170v20M98 170v20M110 170v20M124 170v20M132 170v20M150 170v20M160 170v20M172 170v20"/></g>' +
+    '<path d="M184 170h28v20h-28z" fill="#e3c99a" opacity=".5" stroke="#b3261c" stroke-dasharray="3 3"/><text x="14" y="204" font-family="Patrick Hand,cursive" font-size="12.500" fill="#221f1a">a panel: last ring kept</text><text x="160" y="164" font-family="Patrick Hand,cursive" font-size="12" fill="#b3261c">missing</text></svg>';
+  var MANUAL = '<h4>Field manual &middot; Time</h4><h3>Tree rings: the diary in the wood</h3><div class="two"><div>' +
+    '<p>An oak adds one ring of wood every year, just under its bark: wide in a good year, narrow in a cold or dry one. Oaks in one region live through the same years, so their rings make the same pattern.</p>' +
+    '<p>Scientists have joined the patterns of thousands of dated timbers into a <b>reference chart</b> that runs back for centuries. Slide the rings of a piece of wood along it until narrow meets narrow, and every <b>tree ring</b> gets its year: this is <b>dendrochronology</b>.</p></div>' + DIAG + '</div>' +
+    '<p>But the youngest rings are often missing. Under the bark lies the <b>sapwood</b>: pale, soft and loved by worms, so panel-makers cut it off and kept the hard <b>heartwood</b>. Baltic oak, the wood of most Dutch panels, has <b>at least nine</b> rings of sapwood, and often fifteen or more.</p>' +
+    '<p class="rule">Last ring + at least 9 = the earliest year of <b>felling</b>. Then the wood was usually left to dry for a year or two.</p><p class="pg">44</p>';
+  $('#manual').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: MANUAL, cls: 'manual', clue: { id: 'manual44', title: 'Tree rings: the diary in the wood', kind: 'Field manual, page 44' }, done: function () {
+      FG.terms(['tree ring', 'dendrochronology', 'sapwood', 'heartwood', 'reference chart', 'felling']);
+      if (tell('manual')) { paint(); ER.say('&ldquo;At least nine,&rdquo; says Dr Hartnell. &ldquo;Remember the &lsquo;at least&rsquo;. They are the two most important words on the page.&rdquo;'); }
+    } });
+  });
+  var FOLDER = '<h4>Lot 41 &middot; rings &middot; for Femi</h4><p>Bottom edge scraped clean, rings measured with a lens. 41 rings, all heartwood: <b>no sapwood left</b>. The panel-maker cut it all off.</p>' +
+    '<p>Ring 1 is nearest the middle of the tree, ring 41 nearest the bark.</p><p>The strip is on the plan chest. Slide it along the library&rsquo;s Baltic chart. You know how. &mdash; Ilse</p>';
+  $('#folder').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: FOLDER, cls: 'folder', clue: { id: 'rings', title: 'Mrs Mertens: the rings of Lot 41', kind: 'A buff folder' }, done: function () {
+      if (tell('folder')) { paint(); ER.say('&ldquo;She thinks I know how,&rdquo; says Femi. &ldquo;I watched her once.&rdquo;'); }
+    } });
+  });
+  var DICT = '<h4>A Dictionary of Dutch and Flemish Painters &middot; page 612</h4>' +
+    '<p><b>Sterck</b>, Lieven. Born Haarlem 1606; died Haarlem, August 1648. Painter of birds, fruit and kitchen things, on small oak panels. His account book survives: it lists about ninety pictures, of which some thirty are known today. Among the lost: <i>a linnet on a perch, with a blue jug and half a lemon</i> (1646).</p>' +
+    '<p>He signed rarely. After his death his manner was much copied in Haarlem, and copies with his name added later are common.</p>';
+  $('#dict').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: DICT, cls: 'dict', clue: { id: 'dict', title: 'Lieven Sterck, in the dictionary', kind: 'A dictionary of painters' }, done: function () {
+      if (tell('dict')) { paint(); ER.say('&ldquo;Copies with his name added later are common,&rdquo; Femi reads, under her breath. &ldquo;Well. Now they tell me.&rdquo;'); }
+    } });
+  });
+  var JOT = '<h4>F. Odum &middot; notebook</h4>' +
+    '<p><b>Mon 14 Sept</b> &middot; Coldharbour Farm, Mr Tredwell. The linnet, over the piano. Oak panel, old. Bird lovely, jug lumpy. Follower of Sterck?? After 1650?? &pound;3&ndash;5,000. Bird on frame: gilt metal, 51 g (kitchen scales). Mr T says Gran said gold. Box of papers: nothing about the picture.</p>' +
+    '<p><b>Tue 22 Sept</b> &middot; Told R.G. He went very quiet, then very excited. Took over Lot 41. &ldquo;Leave it to me, Femi.&rdquo;</p>' +
+    '<p><b>Fri 2 Oct</b> &middot; R.G. borrowed picture and frame for the weekend &ldquo;to live with it&rdquo;. Back on my desk Monday morning.</p>' +
+    '<p><b>Mon 5 Oct, 4.10 pm</b> &middot; TOOK THE BACKBOARD OFF TO MEASURE. A LETTER FELL OUT!!! 1793!!! Ran up to R.G. He sat down.</p>' +
+    '<p><b>Tue 6 Oct</b> &middot; Out all day valuing the Fox &amp; Hounds. R.G. did the case.</p>' +
+    '<p><b>Wed 7 Oct</b> &middot; New catalogue entry by R.G.: &ldquo;Lieven Sterck&rdquo;. Not &ldquo;follower&rdquo;. I didn&rsquo;t say anything. Should I have?</p>';
+  $('#jotter').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: JOT, cls: 'jotter', clue: { id: 'jotter', title: 'Femi’s notebook', kind: 'Green notebook' }, done: function () {
+      if (tell('jotter')) { paint(); ER.say('&ldquo;You can read it,&rdquo; says Femi. &ldquo;There&rsquo;s nothing in there I wouldn&rsquo;t say to his face. I just didn&rsquo;t.&rdquo;'); }
+    } });
+  });
+  $('#days').addEventListener('click', function () {
+    if (busy) return;
+    if (tell('days')) FG.mine('daybook', 'The day book of 1786', '<p>The house&rsquo;s old day books, behind glass on Mr Garrick&rsquo;s shelf.</p><p>The one for 1786 is open at the back. The last pages were never used: thick, cream, old paper.</p><p>One of them has been cut out, close to the spine, with a sharp blade. The cut is clean and pale: new.</p>');
+    ER.say('Behind the glass, the house&rsquo;s old day books: 1786, 1791, 1803. The 1786 one lies open at the back, where the pages were never used. One blank page has been cut out, close to the spine, with a sharp blade. The cut is clean and pale. &ldquo;Mr Garrick&rsquo;s shelf,&rdquo; says Femi. &ldquo;Nobody else is allowed to touch those.&rdquo;');
+  });
+  FG.thing('#index', null, 'The card index: one drawer for every letter, and one marked MISC., which is the fullest.', isBusy);
+  FG.thing('#notes', null, 'Femi&rsquo;s yellow notes: RING THE FOX &amp; HOUNDS. LOT 212: WASHED?? ASK R.G. ABOUT THE GOLD BIRD. And one, older and curling: FOLLOWER??', isBusy);
+  FG.thing('#win', null, 'Rain on the window, and the street going grey. Somewhere a bus sighs.', isBusy);
+  $('#hartnell').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(nextFile ? '&ldquo;Honest wood,&rdquo; says Dr Hartnell. &ldquo;Now for the dishonest paper.&rdquo;' : readAll() ? '&ldquo;The chart,&rdquo; says Dr Hartnell. &ldquo;Slide, match, read, add. In that order.&rdquo;' : '&ldquo;Page 44 first,&rdquo; says Dr Hartnell. &ldquo;Then everything Miss Odum is too polite to hand you.&rdquo;');
+  });
+  $('#femi').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(nextFile ? '&ldquo;Five o&rsquo;clock,&rdquo; says Femi. &ldquo;I&rsquo;ve never been asked to the director&rsquo;s office. I&rsquo;ve only ever been sent.&rdquo;' : '&ldquo;Mrs Mertens can do this in her sleep,&rdquo; says Femi. &ldquo;I can do it awake. Probably.&rdquo;');
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  $('#chart').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The chart, with the strip lying on it where it fits: 1604 to 1644.'); return; }
+    if (!readAll()) { ER.say('&ldquo;Not yet,&rdquo; says Dr Hartnell. &ldquo;' + (!told.manual ? 'Page 44 first: the manual, open on the end of the chest.' : !told.folder ? 'Mrs Mertens&rsquo; folder, on Femi&rsquo;s desk.' : !told.dict ? 'The dictionary on Femi&rsquo;s desk. When did Sterck live?' : 'Miss Odum&rsquo;s notebook. She has just said we may.') + '&rdquo;'); return; }
+    if (!bench) bench = makeBench();
+    bench.open();
+  });
+
+  /* ---------- the chart and the strip ---------- */
+  function makeBench() {
+    var Y0 = 1560, Y1 = 1680, X0 = 40, PX = 7.6, N = 41, CB = 210, SB = 360;
+    var NARROW = [1571, 1576, 1586, 1593, 1599, 1611, 1616, 1626, 1631, 1637, 1652, 1665, 1673], WIDE = [1580, 1604, 1620, 1641, 1660];
+    function hash(n) { var x = Math.sin(n * 12.9898) * 43758.5453; return x - Math.floor(x); }
+    function ref(y) { return NARROW.indexOf(y) >= 0 ? 0.2 : WIDE.indexOf(y) >= 0 ? 1.95 : 0.7 + hash(y) * 1.0; }
+    var RINGS = [];                                                  /* the panel's rings, as Mrs Mertens measured them */
+    (function () { for (var r = 0; r < N; r++) { var y = 1604 + r, v = ref(y); RINGS.push(v < 0.3 ? 0.24 : v * 0.88 + (hash(y * 3.7) - 0.5) * 0.22); } })();
+    var st = ER.flag('d-st') || { k: 1560, fell: 1640, who: '' }, wait = false;
+    var box = ER.el('div', 'bn rg', '<svg viewBox="0 0 1000 600"></svg><div class="bn-foot"><p class="bmsg"></p><button type="button" class="btn" id="r-go">Sign the date</button></div>');
+    var svg = box.querySelector('svg'), msgEl = box.querySelector('.bmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function keep() { ER.flag('d-st', st); }
+    function xOf(y) { return X0 + (y - Y0) * PX; }
+    function step() { return ER.check('last', String(st.k + N - 1)) ? 'date' : 'slide'; }
+    function draw() {
+      var s = '<rect width="1000" height="600" fill="#f2ead2"/><rect width="1000" height="600" fill="#7a5a36" opacity=".05"/>', y, h;
+      s += '<text x="40" y="34" class="tE" font-size="16" fill="#3a2410">OAK, BALTIC: A REFERENCE CHART, 1560–1680</text><text x="960" y="34" class="tE" font-size="12" fill="#6b5a3a" text-anchor="end">one bar for each year · tall = a wide ring</text>';
+      s += '<path d="M' + (X0 - 6) + ' ' + CB + 'H' + (xOf(Y1) + 10) + '" stroke="#3a2410" stroke-width="2"/>';
+      for (y = Y0; y <= Y1; y++) { h = ref(y) * 50; s += '<rect x="' + (xOf(y) - 2.6) + '" y="' + (CB - h) + '" width="5.2" height="' + h + '" fill="#6b4a2a"/>'; }
+      for (y = Y0; y <= Y1; y += 10) s += '<path d="M' + xOf(y) + ' ' + CB + 'v10" stroke="#3a2410" stroke-width="1.6"/><text x="' + xOf(y) + '" y="' + (CB + 26) + '" class="tM" font-size="12" fill="#3a2410" text-anchor="middle">' + y + '</text>';
+      for (y = Y0 + 5; y <= Y1; y += 10) s += '<path d="M' + xOf(y) + ' ' + CB + 'v5" stroke="#3a2410" stroke-width="1"/>';
+      /* the strip */
+      s += '<g id="strip"><rect x="-16" y="' + (SB - 116) + '" width="' + ((N - 1) * PX + 32) + '" height="140" fill="#fff6d8" fill-opacity=".72" stroke="#a8824a" stroke-width="1.5" stroke-dasharray="8 4"/>';
+      s += '<path d="M-10 ' + SB + 'H' + ((N - 1) * PX + 10) + '" stroke="#8a3a1c" stroke-width="1.6"/>';
+      RINGS.forEach(function (v, r) { s += '<rect x="' + (r * PX - 2.6) + '" y="' + (SB - v * 50) + '" width="5.2" height="' + (v * 50) + '" fill="#b3561c"/>'; });
+      s += '<text x="0" y="' + (SB + 18) + '" class="tH" font-size="14" fill="#8a3a1c" text-anchor="middle">ring 1</text><text x="' + ((N - 1) * PX) + '" y="' + (SB + 18) + '" class="tH" font-size="14" fill="#8a3a1c" text-anchor="middle">ring 41</text>';
+      s += '<text x="' + ((N - 1) * PX / 2) + '" y="' + (SB - 100) + '" class="tB" font-size="13" fill="#8a3a1c" text-anchor="middle" letter-spacing="2">LOT 41 · BOTTOM EDGE · 41 RINGS</text>';
+      s += '<path d="M' + ((N - 1) * PX) + ' ' + (SB - 116) + 'V' + (CB + 2) + '" stroke="#b3261c" stroke-width="1.6" stroke-dasharray="4 3"/><text id="lastyr" x="' + ((N - 1) * PX + 6) + '" y="' + (CB + 44) + '" class="tM" font-size="13" fill="#b3261c"></text></g>';
+      /* the edge itself, and the form */
+      s += '<rect x="40" y="430" width="380" height="150" rx="4" fill="#3a2a1a"/><rect x="56" y="470" width="348" height="40" fill="#c9a87a"/><g id="edge" stroke="#6b5034" stroke-width="1"></g>' +
+        '<text x="230" y="458" class="tB" font-size="13" fill="#e9dcc0" text-anchor="middle" letter-spacing="2">THE BOTTOM EDGE, SCRAPED CLEAN</text><text x="60" y="534" class="tH" font-size="15" fill="#e9dcc0">centre of the tree</text><text x="400" y="534" class="tH" font-size="15" fill="#e9dcc0" text-anchor="end">bark side: no sapwood left</text>' +
+        '<text x="230" y="566" class="tH" font-size="14" fill="#c9b48a" text-anchor="middle">drag the strip above along the chart</text>';
+      s += '<rect x="450" y="430" width="510" height="150" rx="4" fill="#fffdf6" stroke="#c9b48a"/>';
+      s += '<text x="466" y="458" class="tH" font-size="18" fill="#1d2440">the last ring of the panel grew in:</text><text id="f-last" x="944" y="458" class="tM" font-size="18" fill="#b3261c" text-anchor="end"></text>';
+      s += '<text x="466" y="496" class="tH" font-size="18" fill="#1d2440">so the tree was felled not before:</text>';
+      [['-10', 706], ['-1', 744], ['1', 878], ['10', 912]].forEach(function (b) { s += '<g class="btnx" data-k="' + b[0] + '"><rect x="' + b[1] + '" y="478" width="32" height="28" rx="4" fill="#3a4248"/><text x="' + (b[1] + 16) + '" y="497" class="tB" font-size="14" fill="#fff" text-anchor="middle">' + (+b[0] > 0 ? '+' : '−') + Math.abs(b[0]) + '</text></g>'; });
+      s += '<rect x="780" y="476" width="94" height="32" rx="4" fill="#17221c"/><text id="f-fell" x="827" y="499" class="tM" font-size="19" fill="#f0c86a" text-anchor="middle"></text>';
+      s += '<text x="466" y="546" class="tH" font-size="18" fill="#1d2440">so Lieven Sterck could have painted it:</text>';
+      [['yes', 'yes'], ['no', 'no']].forEach(function (o, i) { s += '<g class="tog" data-v="' + o[0] + '" transform="translate(' + (784 + i * 86) + ' 528)"><rect width="78" height="30" rx="3"/><text x="39" y="20" class="tB" font-size="15" fill="#1d2440" text-anchor="middle">' + o[1] + '</text></g>'; });
+      svg.innerHTML = s;
+      var e = ''; for (var r = 0; r < N; r++) e += '<path d="M' + (60 + r * 8.3) + ' 470v40" stroke-width="' + (RINGS[r] < 0.3 ? 2.6 : 1) + '"/>';
+      svg.querySelector('#edge').innerHTML = e;
+      place();
+    }
+    function place() {
+      svg.querySelector('#strip').setAttribute('transform', 'translate(' + xOf(st.k) + ' 0)');
+      svg.querySelector('#lastyr').textContent = String(st.k + N - 1);
+      svg.querySelector('#f-last').textContent = String(st.k + N - 1);
+      svg.querySelector('#f-fell').textContent = String(st.fell);
+      ER.$$('.tog', svg).forEach(function (t) { t.setAttribute('class', 'tog' + (st.who === t.getAttribute('data-v') ? ' on' : '')); });
+    }
+    function narrowHits() { var n = 0; RINGS.forEach(function (v, r) { if (v < 0.3 && ref(st.k + r) < 0.3) n++; }); return n; }
+    function wire() {
+      var gx = 0, k0 = 0;
+      ER.drag(svg.querySelector('#strip'), {
+        start: function (e) { if (wait || nextFile) return false; gx = ER.pt(svg, e).x; k0 = st.k; },
+        move: function (e) { var k = FG.clamp(Math.round(k0 + (ER.pt(svg, e).x - gx) / PX), Y0, Y1 - N + 1); if (k !== st.k) { st.k = k; place(); FG.sfx.slide(); } },
+        end: function () { keep(); var h = narrowHits(); msg('The last ring of the strip now sits over <b>' + (st.k + N - 1) + '</b>. ' + (h === 5 ? 'All five of the panel&rsquo;s narrow rings fall on narrow years of the chart, and the tall and short bars between them agree.' : h ? h + ' of the panel&rsquo;s five narrow rings fall on narrow years here. Not all five.' : 'None of the panel&rsquo;s narrow rings falls on a narrow year here.')); }
+      });
+      ER.$$('.btnx', svg).forEach(function (b) {
+        b.addEventListener('click', function () { if (wait) return; st.fell = FG.clamp(st.fell + parseInt(b.getAttribute('data-k'), 10), 1560, 1720); keep(); FG.sfx.focus(); place(); });
+      });
+      ER.$$('.tog', svg).forEach(function (t) {
+        t.addEventListener('click', function () { if (wait) return; st.who = t.getAttribute('data-v'); keep(); FG.sfx.pencil(); place(); });
+      });
+    }
+    box.querySelector('#r-go').addEventListener('click', function () {
+      var last = st.k + N - 1, file;
+      if (wait || nextFile) return;
+      if (!st.who) { ER.sfx.no(); msg('The last question has no answer yet: could Sterck have painted it?'); return; }
+      if (!ER.check('last', String(last))) { ER.sfx.no(); msg('&ldquo;Look at the very narrow rings,&rdquo; says Dr Hartnell. &ldquo;The panel has five. Here ' + (narrowHits() ? 'only ' + narrowHits() + ' of them fall' : 'none of them falls') + ' on narrow years of the chart. Slide the strip until the whole pattern agrees.&rdquo;'); return; }
+      if (!ER.check('fell', String(st.fell))) {
+        ER.sfx.no();
+        msg(st.fell === last ? '&ldquo;That is the last ring we have,&rdquo; says Dr Hartnell, &ldquo;not the last ring the tree had. Where is the sapwood?&rdquo; Femi taps the folder: <i>no sapwood left</i>.' :
+          st.fell < last ? '&ldquo;Before its own last ring grew?&rdquo; says Dr Hartnell. &ldquo;The tree was still growing then.&rdquo;' :
+          st.fell === last + 15 ? '&ldquo;Fifteen is usual, not certain,&rdquo; says Dr Hartnell. &ldquo;&lsquo;Not before&rsquo; needs the smallest number page 44 allows.&rdquo;' :
+          st.fell === last + 10 || st.fell === last + 11 ? '&ldquo;The drying comes after the felling,&rdquo; says Dr Hartnell. &ldquo;When was the tree cut down, at the very earliest?&rdquo;' :
+          '&ldquo;The last ring,&rdquo; says Dr Hartnell, &ldquo;plus the sapwood that was cut away. At least how many rings of it? Page 44.&rdquo;');
+        return;
+      }
+      if (!ER.check('who', st.who)) { ER.sfx.no(); msg('Femi holds up the dictionary without a word, open at STERCK. <i>Died Haarlem, August 1648.</i> &ldquo;Could he paint on a tree,&rdquo; says Dr Hartnell, &ldquo;that nobody had cut down yet?&rdquo;'); return; }
+      file = ER.exitOk([last + '-' + st.fell + '-' + st.who]);
+      if (!file) { ER.sfx.no(); msg('Dr Hartnell reads it twice and does not sign.'); return; }
+      wait = true; nextFile = file; ER.flag('d-file', file);
+      var s0 = ER.state(); s0.done = s0.done || {}; s0.done.office = 1; ER.persist(true);
+      FG.sfx.stamp(); msg('<b>Last ring 1644. Felled not before 1653.</b> Dr Hartnell signs it, and Femi, after a moment, signs under her.');
+      setTimeout(function () {
+        ER.closeAll(); FG.solved(); paint(); busy = true;
+        ER.narrate([
+          '&ldquo;The tree was still standing in 1653 at the earliest,&rdquo; says Dr Hartnell, &ldquo;and after that the wood had to dry. Lieven Sterck had been dead for five years. Whoever painted this, it was not him.&rdquo;',
+          'Femi sits down on the edge of her desk. &ldquo;Follower of Sterck,&rdquo; she says. &ldquo;After 1650. I wrote that in September, in pencil.&rdquo; She does not sound pleased. She sounds tired.',
+          '&ldquo;So the picture is honest,&rdquo; says Dr Hartnell, &ldquo;and somebody else&rsquo;s. Then the letter is not. A real Nathaniel Tredwell in 1793 could not know that Sterck painted it in 1646, because Sterck didn&rsquo;t.&rdquo;',
+          'The telephone on Femi&rsquo;s desk buzzes. She listens, and puts it down. &ldquo;Mrs Lisle. Everybody in her office at five. Mr Garrick has told her that the paint proves it is genuine, and she would like to hear that from the laboratory.&rdquo;'
+        ], function () { busy = false; showGo(); });
+      }, 3000);
+    });
+    draw(); wire();
+    msg(step() === 'slide' ? 'At the top, the library&rsquo;s chart: one bar for each year from 1560 to 1680, tall for a wide ring, short for a narrow one. Under it, Mrs Mertens&rsquo; strip: the 41 rings of the panel, measured the same way. Drag the strip along until its pattern matches the chart.' : 'The strip fits. Now the felling, and the painter.');
+    return {
+      open: function () { ER.open('ov-lock', box); },
+      isOpen: function () { return !!box.parentNode; },
+      step: step
+    };
+  }
+})();
+</script>
+</body>
+</html>

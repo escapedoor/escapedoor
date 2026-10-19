@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Saleroom · Lot Forty-One</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-forensic.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="forgery.css">
+<style>
+  body{--bg:#1a0a0d;--accent:#e6c873;--font-display:'Cinzel',serif;--font-ui:'Barlow Condensed',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(26,8,12,.96);--tc-ink:#f3ebdc;--cap-bg:rgba(30,10,14,.94);--panel:#211014;--face-bg:#3a1e24;--q-ink:#e6c873;--fade:#0a0405;--hud-bg:rgba(30,10,14,.82)}
+  .tc-room{font-family:'Cinzel',serif;font-weight:700;letter-spacing:.12em;font-size:clamp(36px,5.2vw,68px)}
+  .tk-name{font-family:'Cinzel',serif;font-weight:700}
+  .sZ{font-family:'Cinzel',serif;font-weight:700;text-anchor:middle}
+  .sB{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-anchor:middle}
+  .sS{font-family:'Libre Baskerville',serif;text-anchor:middle}
+  #scene .dimmer{opacity:0;transition:opacity 1.6s;pointer-events:none}
+  #scene.dim .dimmer{opacity:.5}
+  #scene .blind{transform:translateY(-470px);transition:transform 1.6s ease-in-out}
+  #scene.dim .blind{transform:translateY(0)}
+  #beam{animation:beam 7s steps(1,end) infinite}
+  @keyframes beam{0%{opacity:.85}48%{opacity:.85}50%{opacity:.7}52%{opacity:.85}}
+  #fan{animation:fan 26s linear infinite;transform-origin:1240px 520px}
+  @keyframes fan{50%{transform:rotate(4deg)}}
+
+  /* the green table: five things and a lamp */
+  .uv .it{cursor:pointer}
+  .uv .opt text{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:13px;letter-spacing:.12em;text-anchor:middle}
+  .uv .opt rect{fill:#2a2a2e;stroke:#6a6a74}
+  .uv .opt.on rect{fill:#e6c873;stroke:#e6c873}
+  .uv .opt.on text{fill:#1a140a}
+  .uv .opt:hover rect{stroke:#e6c873}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="roofG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfdde3"/><stop offset="1" stop-color="#9fb4bd"/></linearGradient>
+  <linearGradient id="wallG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6e1f28"/><stop offset="1" stop-color="#4e141b"/></linearGradient>
+  <linearGradient id="floorG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a3a22"/><stop offset="1" stop-color="#3a2414"/></linearGradient>
+  <linearGradient id="coneG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff2c8" stop-opacity=".0"/><stop offset=".3" stop-color="#fff2c8" stop-opacity=".22"/><stop offset="1" stop-color="#fff2c8" stop-opacity=".05"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="48%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".65" stop-color="#14040a" stop-opacity=".25"/><stop offset="1" stop-color="#0a0205" stop-opacity=".85"/></radialGradient>
+</defs>
+
+<!-- the glass roof, the red walls -->
+<rect x="-1000" y="-400" width="3600" height="470" fill="url(#roofG)"/>
+<g stroke="#3a3f44" stroke-width="7"><path d="M-1000 -60H2600M-1000 -200H2600"/></g><g id="bars" stroke="#3a3f44" stroke-width="5"></g>
+<rect class="blind" x="-1000" y="-400" width="3600" height="470" fill="#d9c9a4"/><g class="blind" stroke="#b9a882" stroke-width="3"><path d="M-1000 -300H2600M-1000 -200H2600M-1000 -100H2600M-1000 0H2600"/></g>
+<rect x="-1000" y="62" width="3600" height="548" fill="url(#wallG)"/>
+<rect x="-1000" y="56" width="3600" height="20" fill="#e9dcc0"/><rect x="-1000" y="76" width="3600" height="6" fill="#b9a882"/>
+<rect x="-1000" y="560" width="3600" height="10" fill="#3a1016"/><rect x="-1000" y="570" width="3600" height="40" fill="#43121a"/>
+<g id="hang"></g>
+<!-- the parquet floor -->
+<rect x="-1000" y="610" width="3600" height="900" fill="url(#floorG)"/><g id="parq" stroke="#2e1c10" stroke-width="2" opacity=".55"></g>
+
+<!-- the founder, over the rostrum -->
+<g id="founder" class="hot"><rect x="128" y="102" width="176" height="226" fill="#b08a35"/><rect x="140" y="114" width="152" height="202" fill="#2a2016"/>
+  <ellipse cx="216" cy="190" rx="34" ry="42" fill="#c9a07a"/><path d="M182 316q-6 -86 34 -92q40 6 34 92z" fill="#1a1612"/><path d="M204 232l12 30 12 -30z" fill="#e9e2d2"/><path d="M184 176q4 -44 32 -46q30 2 32 46q-8 -22 -32 -24q-24 2 -32 24z" fill="#d9d4cc"/>
+  <rect x="146" y="330" width="140" height="16" fill="#d9b45a"/><text x="216" y="342" class="sZ" font-size="9.500" fill="#3a2a10">LUCIUS CARDEW · 1822</text></g>
+<!-- the rostrum -->
+<g id="rostrum" class="hot"><path d="M88 690V470h196v220z" fill="#5a3a1e"/><path d="M80 470h212l-10 -36H90z" fill="#7a5028"/><rect x="80" y="466" width="212" height="8" fill="#3a2410"/>
+  <path d="M104 500h164v170H104z" fill="none" stroke="#3a2410" stroke-width="3"/><rect x="130" y="540" width="112" height="40" fill="#d9b45a"/><text x="186" y="557" class="sZ" font-size="11" fill="#3a2a10" letter-spacing="1">CARDEW &amp; LISLE</text><text x="186" y="572" class="sZ" font-size="9" fill="#3a2a10">1822</text>
+  <path d="M86 432h200" stroke="#d9b45a" stroke-width="4"/><path d="M96 432v-26M276 432v-26M96 406h180" stroke="#d9b45a" stroke-width="3" fill="none"/></g>
+
+<!-- Lot 41 on its easel, under its own lamp -->
+<path id="beam" d="M792 72h56l150 640H642z" fill="url(#coneG)" pointer-events="none"/>
+<rect x="790" y="62" width="60" height="14" rx="4" fill="#2a2a2a"/>
+<g id="easel" class="hot"><path d="M820 240L742 700M820 240L898 700M820 250V710" stroke="#6b4a2a" stroke-width="10" stroke-linecap="round"/><rect x="722" y="552" width="196" height="12" fill="#5a3a1e"/>
+  <g transform="translate(734 318) scale(.9)" id="pic"></g></g>
+<!-- the red rope -->
+<g><path d="M690 652q140 40 280 0q100 -30 180 0" fill="none" stroke="#8a1a26" stroke-width="7"/><g fill="#d9b45a"><rect x="684" y="640" width="12" height="70"/><circle cx="690" cy="636" r="9"/><rect x="964" y="640" width="12" height="70"/><circle cx="970" cy="636" r="9"/><rect x="1144" y="640" width="12" height="70"/><circle cx="1150" cy="636" r="9"/></g>
+  <g fill="#3a2a10"><ellipse cx="690" cy="712" rx="18" ry="5"/><ellipse cx="970" cy="712" rx="18" ry="5"/><ellipse cx="1150" cy="712" rx="18" ry="5"/></g></g>
+<!-- the glass case -->
+<g id="case" class="hot"><path d="M992 700V600M1100 700V600" stroke="#3a2410" stroke-width="7"/><rect x="976" y="590" width="140" height="14" fill="#5a3a1e"/>
+  <rect x="980" y="520" width="132" height="72" fill="#cfe3ea" fill-opacity=".18" stroke="#e9f4f6" stroke-opacity=".6" stroke-width="2"/>
+  <g id="sheet"><rect x="1012" y="540" width="68" height="46" fill="#e7d6ae" transform="rotate(-3 1046 563)"/><g stroke="#6b4a2a" stroke-width="1.1" transform="rotate(-3 1046 563)"><path d="M1018 550h50M1018 556h56M1018 562h52M1018 568h56M1018 574h40"/></g></g>
+  <path d="M984 524l40 64" stroke="#fff" stroke-width="3" opacity=".25"/></g>
+<g id="label" class="hot"><rect x="1010" y="608" width="72" height="26" fill="#fbfaf6"/><text x="1046" y="619" class="sB" font-size="8.500" fill="#6e1f2e" letter-spacing="1">LOT 41 · LETTER</text><text x="1046" y="629" class="sB" font-size="8" fill="#3a2a2a">1793</text></g>
+<!-- one gilt chair, with a catalogue on it -->
+<g id="cat" class="hot"><path d="M906 806v-70M954 806v-70M902 736h56" stroke="#c9a04a" stroke-width="5"/><path d="M902 734v-60q28 -8 56 0v60" fill="none" stroke="#c9a04a" stroke-width="5"/><rect x="900" y="726" width="60" height="12" fill="#8a1a26"/>
+  <path d="M912 724l26 -4 10 6 -26 4z" fill="#fbfaf6" stroke="#bdb6a8"/><rect x="916" y="718" width="20" height="3" fill="#6e1f2e" transform="rotate(-8 926 720)"/></g>
+<!-- a christening robe on a stand, Lot 212 -->
+<g id="robe" class="hot"><path d="M1370 668v-60" stroke="#3a2410" stroke-width="5"/><ellipse cx="1370" cy="670" rx="26" ry="6" fill="#2a1a10"/><path d="M1350 480q20 -14 40 0l14 20 -10 8 -6 -6 8 104h-60l8 -104 -6 6 -10 -8z" fill="#f4f1e8"/><path d="M1344 588h52" stroke="#d9d2c0" stroke-width="2"/>
+  <rect x="1394" y="512" width="16" height="10" fill="#f2b8c6" transform="rotate(12 1402 517)"/><text x="1370" y="600" class="sB" font-size="9" fill="#bdb6a8">1894</text><rect x="1346" y="640" width="48" height="14" fill="#fbfaf6"/><text x="1370" y="650" class="sB" font-size="8" fill="#6e1f2e">LOT 212</text></g>
+<!-- a sale bill of 1936, framed -->
+<g id="bill" class="hot"><rect x="1284" y="150" width="120" height="164" fill="#3a2410"/><rect x="1292" y="158" width="104" height="148" fill="#e7d39a"/>
+  <text x="1344" y="182" class="sZ" font-size="10" fill="#4a2a10" letter-spacing="1">CARDEW &amp; LISLE</text><text x="1344" y="214" class="sB" font-size="22" fill="#6e1f2e">GREAT</text><text x="1344" y="236" class="sB" font-size="22" fill="#6e1f2e">SALE</text>
+  <text x="1344" y="256" class="sB" font-size="10" fill="#4a2a10">OF PICTURES</text><text x="1344" y="290" class="sZ" font-size="16" fill="#4a2a10">1936</text></g>
+<!-- the door -->
+<g id="door"><rect x="1440" y="300" width="130" height="310" fill="#3a1a14"/><rect x="1448" y="308" width="56" height="302" fill="#e9dcc0"/><rect x="1508" y="308" width="56" height="302" fill="#e9dcc0"/>
+  <path d="M1456 320h40v130h-40zM1516 320h40v130h-40zM1456 470h40v126h-40zM1516 470h40v126h-40z" fill="none" stroke="#c9b48a" stroke-width="2"/><circle cx="1500" cy="460" r="4" fill="#b08a35"/><circle cx="1512" cy="460" r="4" fill="#b08a35"/></g>
+
+<g id="chairs"></g>
+<!-- the green table -->
+<g id="table" class="hot"><path d="M404 704v86M636 704v86" stroke="#3a2410" stroke-width="8"/><path d="M394 688h252l10 18H384z" fill="#1f4a32"/><rect x="384" y="704" width="272" height="8" fill="#3a2410"/>
+  <g id="tablething" style="display:none"><rect x="500" y="672" width="30" height="20" fill="#e7d6ae" transform="rotate(-6 515 682)"/><rect x="540" y="676" width="36" height="14" fill="#fbfaf6"/><rect x="584" y="668" width="24" height="24" fill="#e7d39a"/><path d="M612 690q10 -22 26 0z" fill="#f4f1e8"/></g></g>
+<g id="hcase" class="hot"><rect x="402" y="652" width="78" height="40" rx="5" fill="#1c1c22"/><path d="M402 652l8 -34h62l8 34" fill="#2a2a34"/><path d="M410 618h62l-4 6h-54z" fill="#4a3a7a"/><rect x="430" y="636" width="22" height="10" fill="#f0c419"/><rect x="434" y="646" width="14" height="6" rx="2" fill="#6a6a74"/></g>
+
+<!-- people -->
+<g id="hartnell" class="hot" transform="translate(300 890)"></g>
+<g id="lisle" class="hot" transform="translate(680 880) scale(.95)"></g>
+<g id="owen" class="hot" transform="translate(1190 812) scale(.84)"></g>
+<g id="roux" class="hot" transform="translate(1300 884)"></g>
+<g id="femi" class="hot" transform="translate(1506 862) scale(.97)"></g>
+
+<rect class="dimmer" x="-1000" y="-400" width="3600" height="1720" fill="#0c0612"/>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Down to the stores</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="forgery.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, bench = null, told = {};
+
+  /* the glass roof, the pictures on the walls, the floor, the chairs, the people */
+  (function () {
+    var s = '', i;
+    for (i = -16; i <= 40; i++) s += '<path d="M' + (i * 70) + ' -400V62"/>';
+    $('#bars').innerHTML = s;
+    var P = ['#3a4a3a', '#2a2a3a', '#4a3a24', '#2a3a4a', '#3a2a24'], H = [
+      [-180, 110, 150, 120, 'l'], [-20, 98, 110, 140, 'p'], [330, 108, 120, 92, 's'], [334, 220, 116, 150, 'p'], [462, 100, 200, 130, 'l'], [470, 250, 90, 110, 'f'],
+      [574, 250, 98, 120, 's'], [962, 98, 150, 110, 'l'], [1126, 96, 128, 160, 'p'], [962, 226, 112, 142, 'f'], [1090, 280, 150, 110, 's'], [1262, 336, 70, 90, 'p'],
+      [1600, 110, 170, 120, 'l'], [1600, 260, 120, 150, 'p'], [-180, 260, 130, 160, 'f'], [-30, 270, 120, 100, 's']];
+    s = '';
+    H.forEach(function (h, n) {
+      var x = h[0], y = h[1], w = h[2], ht = h[3], c = P[n % 5];
+      s += '<rect x="' + (x - 8) + '" y="' + (y - 8) + '" width="' + (w + 16) + '" height="' + (ht + 16) + '" fill="' + (n % 3 ? '#b08a35' : '#9a7428') + '"/><rect x="' + (x - 3) + '" y="' + (y - 3) + '" width="' + (w + 6) + '" height="' + (ht + 6) + '" fill="none" stroke="#e6c873" stroke-width="1.5"/>';
+      s += '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + ht + '" fill="' + c + '"/>';
+      if (h[4] === 'l') s += '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + (ht * 0.55) + '" fill="#8a9aa0" opacity=".7"/><path d="M' + x + ' ' + (y + ht * 0.62) + 'q' + (w * 0.3) + ' ' + (-ht * 0.2) + ' ' + (w * 0.6) + ' 0t' + (w * 0.4) + ' ' + (-ht * 0.05) + 'V' + (y + ht) + 'H' + x + 'z" fill="#4a5a34"/>';
+      else if (h[4] === 'p') s += '<ellipse cx="' + (x + w / 2) + '" cy="' + (y + ht * 0.4) + '" rx="' + (w * 0.18) + '" ry="' + (ht * 0.15) + '" fill="#c9a07a" opacity=".85"/><path d="M' + (x + w * 0.2) + ' ' + (y + ht) + 'q0 ' + (-ht * 0.42) + ' ' + (w * 0.3) + ' ' + (-ht * 0.44) + 'q' + (w * 0.3) + ' 0 ' + (w * 0.3) + ' ' + (ht * 0.44) + 'z" fill="#1a1612"/>';
+      else if (h[4] === 's') s += '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + (ht * 0.6) + '" fill="#9aa8b0" opacity=".6"/><path d="M' + x + ' ' + (y + ht * 0.6) + 'h' + w + 'v' + (ht * 0.4) + 'h' + (-w) + 'z" fill="#2a4a5a"/><path d="M' + (x + w * 0.4) + ' ' + (y + ht * 0.58) + 'l' + (w * 0.1) + ' ' + (-ht * 0.34) + 'l' + (w * 0.08) + ' ' + (ht * 0.34) + 'z" fill="#e9e2d2" opacity=".8"/>';
+      else s += '<ellipse cx="' + (x + w * 0.4) + '" cy="' + (y + ht * 0.7) + '" rx="' + (w * 0.16) + '" ry="' + (w * 0.12) + '" fill="#a8742a"/><ellipse cx="' + (x + w * 0.62) + '" cy="' + (y + ht * 0.72) + '" rx="' + (w * 0.12) + '" ry="' + (w * 0.1) + '" fill="#7a2a2a"/><path d="M' + x + ' ' + (y + ht * 0.82) + 'h' + w + '" stroke="#1a1410" stroke-width="3"/>';
+    });
+    $('#hang').innerHTML = s;
+    s = '';
+    for (i = -30; i <= 50; i++) s += '<path d="M' + (800 + i * 60) + ' 610L' + (800 + i * 120) + ' 1300"/>';
+    [640, 680, 730, 800, 900].forEach(function (y) { s += '<path d="M-1000 ' + y + 'H2600"/>'; });
+    $('#parq').innerHTML = s;
+    s = '';
+    [[1160, 760], [1230, 760], [1300, 760], [1370, 760], [1590, 800], [1660, 800], [-60, 800], [10, 800], [80, 800]].forEach(function (c) {
+      s += '<g transform="translate(' + c[0] + ' ' + c[1] + ')"><path d="M-22 70v-60M22 70v-60M-26 10h52" stroke="#c9a04a" stroke-width="5"/><path d="M-26 8v-58q26 -8 52 0v58" fill="none" stroke="#c9a04a" stroke-width="5"/><rect x="-28" y="0" width="56" height="12" fill="#8a1a26"/></g>';
+    });
+    $('#chairs').innerHTML = s;
+    $('#pic').innerHTML = FG.frame(190, 240) + FG.painting();
+    ['hartnell', 'lisle', 'owen', 'roux', 'femi'].forEach(function (w) { $('#' + w).innerHTML = FG.fig(w); });
+  })();
+
+  ER.init({
+    theme: 'forensic', story: 'forgery', storyTitle: 'Lot Forty-One', id: 'saleroom', no: 'I', title: 'The Saleroom',
+    go: 'Go in',
+    intro: [
+      'Cardew &amp; Lisle have sold pictures, furniture and other people&rsquo;s grandmothers&rsquo; teapots since 1822. On Thursday evening they sell Lot 41: <i>The Linnet</i>, by Lieven Sterck of Haarlem, a small painting that has been lost for three hundred and eighty years. It turned up in September, over a piano in a farmhouse. A letter found with it says exactly how it got there.',
+      'Today is viewing day, when anybody may walk in and look. At half past ten a dealer took a small lamp out of her handbag, shone it on the letter in its glass case, and said something in a loud voice.',
+      'At ten to eleven the director rang the laboratory. Dr Novak is in court all week, so Dr Leonie Hartnell has come instead. She does paint, paper and ink, and she does not like to be hurried. You are carrying her case.'
+    ],
+    exit: {"next":"stores","w":{"cb4d1e3d":"c50a4693"}}, tags: {"q1":["60723424"],"q2":["f9da753f"],"q3":["31e30f89"],"q4":["48c482c6"],"q5":["484d550c"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('a-file') || null; told = ER.flag('a-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('a-told', told); return true; }
+  function isBusy() { return busy; }
+  function heard() { return told.lisle && told.roux && told.femi; }
+  function showGo() { $('#go').classList.add('on'); }
+  function paint() {
+    $('#scene').classList.toggle('dim', !!(told.label && !nextFile));
+    $('#tablething').style.display = told.label ? '' : 'none';
+    $('#table').classList.toggle('ready', !!(told.label && !nextFile));
+    $('#hcase').classList.toggle('ready', !!(heard() && !told.label));
+    $('#sheet').style.display = told.label && !nextFile ? 'none' : '';
+    ER.pips((heard() ? 1 : 0) + (told.label ? 1 : 0) + ((ER.flag('a-seen') || []).length >= 5 ? 1 : 0) + (nextFile ? 1 : 0), 4);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The real letter is in the strongroom, in the stores under this room. Go down.']];
+    if (bench && bench.isOpen()) return [bench.step(), {
+      sweep: ['Pick the lamp up by its handle and move it slowly over each of the five things on the table. Watch inside the violet circle: a small note appears under each thing when you have looked long enough.',
+        'Something that glows blue-white has brighteners in it. Something that stays dark and dull has none. All five have to be looked at before anybody signs.'],
+      flip: ['Paper has two sides. Click the sheet from the glass case to turn it over.',
+        'Look at the back under the lamp too. What is printed there?'],
+      find: ['Read each sentence and ask: does what we saw show that it is true, show that it is wrong, or leave it open?',
+        'The lamp shows whether a thing has brighteners in it. It cannot show when words were written. The tissue&rsquo;s packet and the robe&rsquo;s labels tell you more than the lamp does.',
+        'Two sentences are true, two are wrong, and about one of them we cannot say anything yet. Which sheet did we really test?']
+    }[bench.step()]];
+    if (!heard()) return ['talk', ['Three people want to be heard before anything is touched: Mrs Lisle by the easel, Mrs Roux with her lamp, and the young woman by the door. Click each of them.']];
+    if (!told.label) return ['label', ['Dr Hartnell&rsquo;s black case is on the end of the green table. Click it: there is a label inside the lid that says what paper does under the lamp.']];
+    return ['table', ['Owen has put five things on the green table, and the blinds are down. Click the table.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; showGo(); ER.say('The real letter is downstairs, in the strongroom.'); return; }
+    if (told.in) { busy = false; ER.say('The saleroom. People are whispering about Lot 41.'); return; }
+    tell('in');
+    ER.narrate([
+      'The saleroom has red walls, a glass roof and a great many paintings in gold frames, hung so close together that the frames touch. Rows of gilt chairs face a wooden rostrum. People stand about in small groups, and none of them is talking about the weather.',
+      'Lot 41 stands alone on an easel under its own lamp: a small dark picture of a bird on a perch, in a gold frame with a gold bird on top. Beside it, under glass, is a single sheet of brown handwriting. A red rope has been put round both.',
+      'Mrs Constance Lisle, the director, meets you at the rope. &ldquo;Thank you for coming so quickly. Mrs Roux says the letter is a fake. Mr Garrick, our head of pictures, is at the bank and is not answering his telephone. And I have asked Miss Odum to go home.&rdquo;',
+      'A young woman in a green coat is standing by the door with her bag on her shoulder, not going home. Dr Hartnell looks at her, and at the glass case, and up at the glass roof. &ldquo;Nobody touches anything yet,&rdquo; she says. &ldquo;First I should like to hear what everybody saw.&rdquo;'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- the three people ---------- */
+  function done(k) { return function (seen) { if (seen && tell(k)) { paint(); if (heard()) ER.say('&ldquo;Thank you,&rdquo; says Dr Hartnell. &ldquo;Now the lamp. Mine, not Mrs Roux&rsquo;s. It is in my case, on the end of the table.&rdquo;'); } }; }
+  $('#lisle').addEventListener('click', function () {
+    if (busy) return;
+    if (told.lisle) { ER.say(nextFile ? '&ldquo;A copy,&rdquo; says Mrs Lisle. &ldquo;Of course it was a copy. Why did nobody tell me it was a copy?&rdquo;' : '&ldquo;Two hundred years,&rdquo; says Mrs Lisle, to nobody in particular.'); return; }
+    ER.talk({
+      who: 'Constance Lisle', role: 'Director · Cardew & Lisle', face: FACE('lisle'),
+      lines: [
+        { note: 'Pearls, reading glasses on a chain, and the face of a woman whose great-great-grandfather is looking down at her from the wall.', a: '&ldquo;We have never knowingly sold a fake in two hundred years. I do not intend to start on Thursday.&rdquo;' },
+        { q: 'What is the picture worth?', a: '&ldquo;As a lost Sterck, three to five hundred thousand pounds. That is our estimate. As a picture by somebody else of the same time: a few thousand. The whole difference is the letter. The letter says who painted it, when, and for whom. We call that the <b>provenance</b>: the history of a thing, owner by owner.&rdquo;' },
+        { q: 'Who has handled the letter?', a: '&ldquo;Miss Odum found it. Mr Garrick has looked after it since. He put it in the case himself, last Tuesday. The key has been in my pocket all morning.&rdquo; She pats the pocket, to be sure.' },
+        { q: 'Why did you send Miss Odum home?', a: 'She takes her glasses off. &ldquo;Because I am frightened, and that is not a good reason. She is clever, and she is young, and she very much wanted to find something. If the letter is false, people will say she wanted it too much.&rdquo;' }
+      ],
+      clue: { id: 'lisle', title: 'Mrs Lisle, at the rope', kind: 'What she said' }, done: done('lisle')
+    });
+  });
+  $('#roux').addEventListener('click', function () {
+    if (busy) return;
+    if (told.roux) { ER.say(nextFile ? '&ldquo;A facsimile,&rdquo; says Mrs Roux. &ldquo;How very disappointing. I was enjoying myself.&rdquo;' : 'Mrs Roux is turning her little purple lamp over in her fingers, like a cigarette she has given up.'); return; }
+    ER.talk({
+      who: 'Delphine Roux', role: 'Dealer in Dutch pictures · London', face: FACE('roux'),
+      lines: [
+        { note: 'A silver bob, a black coat, and a small purple lamp on her key ring. She is enjoying herself, and not trying very hard to hide it.', a: '&ldquo;I always take a lamp to a viewing. You would be amazed what glows.&rdquo;' },
+        { q: 'What did you see?', a: '&ldquo;I shone it on that letter, and the whole sheet lit up like a bathroom tile. Blue-white. Old paper doesn&rsquo;t do that, my dear. Paper has only done that since about 1950. So either a man in 1793 had a very modern shop round the corner, or somebody has been busy.&rdquo;' },
+        { q: 'Did you look at anything else?', a: '&ldquo;The picture, of course. I am a dealer. I look at everything twice and believe it once.&rdquo; She smiles. &ldquo;The bird is very good. The jug is less good. I said so to nobody. Until now.&rdquo;' },
+        { q: 'Will you bid for it?', a: '&ldquo;For a lost Sterck, with that letter? No. For a nice old picture of a bird? Perhaps, if it were cheap.&rdquo; She drops the lamp back into her bag. &ldquo;Everything is cheap on the day after a scandal.&rdquo;' }
+      ],
+      clue: { id: 'roux', title: 'Mrs Roux, with her lamp', kind: 'What she said' }, done: done('roux')
+    });
+  });
+  $('#femi').addEventListener('click', function () {
+    if (busy) return;
+    if (told.femi) { ER.say(nextFile ? '&ldquo;I didn&rsquo;t know it was a copy,&rdquo; says Femi. &ldquo;I promise I didn&rsquo;t. I never looked at the case.&rdquo;' : '&ldquo;I&rsquo;m not going home,&rdquo; says Femi quietly. &ldquo;I&rsquo;m just standing near the door.&rdquo;'); return; }
+    ER.talk({
+      who: 'Femi Odum', role: 'Junior cataloguer · Cardew & Lisle', face: FACE('femi'),
+      lines: [
+        { note: 'Twenty-four, a green coat, and a pencil behind her ear that she has forgotten about. She has been told to go home, and she is very politely not going.', a: '&ldquo;I didn&rsquo;t fake anything. I just wanted to say that to somebody who is listening.&rdquo;' },
+        { q: 'How did you find the picture?', a: '&ldquo;In September I went to value a farmhouse for Mr Tredwell. His gran had died. It was over the piano, in a gold frame with a little gold bird on top. I wrote: <i>follower of Sterck, perhaps. Three to five thousand pounds.</i>&rdquo;' },
+        { q: 'Only a follower?', a: '&ldquo;Somebody who painted like him, after him. The bird is beautiful; the jug is a bit lumpy. I thought it might be a good old copy of his lost picture, <i>The Linnet</i>. I told Mr Garrick, and he took the lot over. It&rsquo;s his department.&rdquo;' },
+        { q: 'And the letter?', a: '&ldquo;On Monday last week I took the backboard off the frame to measure the panel, and a letter fell out onto my desk. Dated 1793. It said that Sterck himself painted the picture, in 1646, for the family. I ran upstairs with it. Mr Garrick had to sit down. Then he rewrote the catalogue.&rdquo;' },
+        { q: 'Is that the letter in the case?', a: '&ldquo;I suppose so. Mr Garrick set the case up on Tuesday. I was out all day, valuing a pub.&rdquo; She stops. &ldquo;I haven&rsquo;t actually looked at it since. I&rsquo;ve been too busy being proud of myself.&rdquo;' }
+      ],
+      clue: { id: 'femi', title: 'Femi Odum, by the door', kind: 'What she said' }, done: done('femi')
+    });
+  });
+
+  /* ---------- things in the saleroom ---------- */
+  var CAT = '<h4>Thursday Evening Sale &middot; Lot 41</h4><h3>LIEVEN STERCK <small>(Haarlem 1606&ndash;1648)</small></h3>' +
+    '<p><i>The Linnet</i>. Oil on oak panel, 24 &times; 19 cm. Signed lower left: <i>L. STERCK</i>. In a gilt frame with a gold bird on top.</p>' +
+    '<p><span class="k">Provenance</span>Painted for Matthew Tredwell, an English merchant in Haarlem, in 1646; by descent in the Tredwell family; Coldharbour Farm.</p>' +
+    '<p><span class="k">Literature</span>Sterck&rsquo;s own account book, March 1646: &ldquo;a linnet on a perch, with a blue jug and half a lemon, for the English merchant, 40 guilders&rdquo;. The picture has been lost ever since.</p>' +
+    '<p>A letter of 1793 by Nathaniel Tredwell, found behind the backboard of the frame, describes the picture exactly and gives its whole history (shown in the case).</p>' +
+    '<p class="est">Estimate &pound;300,000&ndash;500,000</p><p class="pencil">R.G. &mdash; &ldquo;a gold bird&rdquo;? Gold, or gilt? &mdash; F.O.</p>';
+  $('#cat').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: CAT, cls: 'cat', clue: { id: 'catalogue', title: 'The catalogue: Lot 41', kind: 'Thursday’s catalogue' }, done: function () {
+      FG.terms(['provenance']);
+      if (tell('cat')) ER.say('Somebody has written in pencil under the entry. &ldquo;My question,&rdquo; says Femi from the door. &ldquo;Nobody answered it.&rdquo;');
+    } });
+  });
+  FG.thing('#easel', 'easel', function () { return 'The Linnet: a small brown bird with a red cap, on a wooden perch. A blue-and-white jug. Half a lemon. A white feather on the floorboards. In the bottom left corner, very small: L. STERCK. The gilt frame has a little gold bird on top, the size of a hen&rsquo;s egg.'; }, isBusy);
+  FG.thing('#case', null, function () { return told.label && !nextFile ? 'The glass case is open and empty. Its sheet is on the green table.' : 'One sheet of brown handwriting in a glass case, behind a red rope. Mrs Lisle has the key.'; }, isBusy);
+  FG.thing('#label', null, 'The card in the case says: LOT 41. LETTER, 1793. Nathaniel Tredwell to his sister, describing The Linnet. Found behind the backboard of the frame. And in small letters at the bottom: case by R.G.', isBusy);
+  FG.thing('#rostrum', 'rostrum', 'The rostrum, where the auctioneer stands on Thursday. On the shelf inside: a gavel, a glass of water, and a list of people who want to bid for Lot 41 by telephone. It is a long list.', isBusy);
+  FG.thing('#founder', null, 'LUCIUS CARDEW, 1822: the founder, in a black coat, looking as if he has just been offered a very poor price for something.', isBusy);
+  FG.thing('#robe', null, 'Lot 212: a linen christening robe, embroidered on the hem with the year 1894. A pink ticket is pinned to the sleeve.', isBusy);
+  FG.thing('#bill', null, 'An old sale bill in a frame by the door: CARDEW &amp; LISLE. GREAT SALE OF PICTURES. 1936. The paper has gone the colour of weak tea.', isBusy);
+  $('#owen').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(nextFile ? '&ldquo;Strongroom&rsquo;s downstairs,&rdquo; says Owen. &ldquo;I&rsquo;ll go first. The light on the stairs has a mind of its own.&rdquo;' : told.label ? '&ldquo;Five things, as asked,&rdquo; says Owen, the head porter. &ldquo;Mind the robe. It&rsquo;s just been washed.&rdquo;' : '&ldquo;Owen, head porter,&rdquo; says a man in a brown coat and white cotton gloves. &ldquo;Anything that wants carrying, I carry it.&rdquo;');
+  });
+  $('#hartnell').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(nextFile ? '&ldquo;We tested a copy,&rdquo; says Dr Hartnell. &ldquo;A copy tells us about itself. Now the letter.&rdquo;' : told.label ? '&ldquo;Move the lamp slowly,&rdquo; says Dr Hartnell. &ldquo;And don&rsquo;t look into it. Look at what it falls on.&rdquo;' : heard() ? '&ldquo;My lamp is in the case on the end of the table. Read the label in the lid first. Everybody always skips the label.&rdquo;' : '&ldquo;People first,&rdquo; says Dr Hartnell. &ldquo;Things will wait. People get bored and go home.&rdquo;');
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the lamp's label ---------- */
+  var DIAG = '<svg viewBox="0 0 236 196"><rect width="236" height="196" fill="#101014"/>' +
+    '<rect x="70" y="10" width="96" height="20" rx="4" fill="#3a3a44"/><rect x="78" y="28" width="80" height="6" fill="#9a7aff"/>' +
+    '<g stroke="#9a7aff" stroke-width="1.6" stroke-dasharray="4 4"><path d="M86 36l-34 70M118 36v70M150 36l34 70"/></g>' +
+    '<rect x="14" y="110" width="96" height="60" fill="#e9f0ff"/><rect x="14" y="110" width="96" height="60" fill="none" stroke="#bcd0ff" stroke-width="5" opacity=".7"/>' +
+    '<g stroke="#bcd0ff" stroke-width="2"><path d="M30 104l-6 -12M62 104v-14M94 104l6 -12"/></g>' +
+    '<rect x="128" y="110" width="96" height="60" fill="#5a4a5a"/>' +
+    '<text x="62" y="186" font-family="Patrick Hand,cursive" font-size="14" fill="#e9f0ff" text-anchor="middle">brighteners: glows</text><text x="176" y="186" font-family="Patrick Hand,cursive" font-size="14" fill="#c9b9c9" text-anchor="middle">none: stays dull</text>' +
+    '<text x="166" y="58" font-family="Patrick Hand,cursive" font-size="13" fill="#9a7aff">UV (unseen)</text><text x="6" y="96" font-family="Patrick Hand,cursive" font-size="13" fill="#bcd0ff">blue light</text></svg>';
+  var LABEL = '<h4>Long-wave UV lamp &middot; laboratory kit 7</h4><h3>What paper does under this lamp</h3><div class="two"><div>' +
+    '<p>Since about 1950, most white paper has been made with <b>optical brighteners</b> in it. They are dyes that take in invisible <b>ultraviolet</b> (UV) light and give it out again as blue light. In daylight that makes paper look whiter. Under this lamp it <b>glows blue-white</b>.</p>' +
+    '<p>Paper made before brighteners stays <b>dull</b>: dark, often a little brown or violet.</p>' +
+    '<p><b>What a glow tells you:</b> there are brighteners in the sheet, or on it, so the sheet is almost certainly modern.</p>' +
+    '<p><b>What it does not tell you:</b></p><ul><li>when the words were written on the sheet;</li><li>that a sheet with no glow is old: some new papers are made without brighteners, on purpose;</li>' +
+    '<li>where the brighteners came from: washing powder has them too, so a thing that has been washed glows, however old it is.</li></ul></div>' + DIAG + '</div>' +
+    '<p class="warn">Never look into the lamp. Look at what it falls on.</p>';
+  $('#hcase').addEventListener('click', function () {
+    if (busy) return;
+    if (!heard()) { ER.say('&ldquo;Not yet,&rdquo; says Dr Hartnell. &ldquo;First everybody tells us what they saw. Three people, and none of them has said a word to us.&rdquo;'); return; }
+    ER.read({ html: LABEL, cls: 'uvlabel', clue: { id: 'uvlabel', title: 'What paper does under UV', kind: 'Label in the lamp’s case' }, done: function () {
+      FG.terms(['ultraviolet', 'optical brightener', 'glow']);
+      if (!tell('label')) return;
+      busy = true;
+      ER.narrate([
+        '&ldquo;Blinds, please,&rdquo; says Dr Hartnell. Owen turns a handle by the door, and long canvas blinds roll down across the glass roof. The saleroom goes the colour of a cinema before the film.',
+        'Mrs Lisle unlocks the glass case. Dr Hartnell lifts the sheet out by its edges and lays it on the green table. &ldquo;And something to compare it with,&rdquo; she says. &ldquo;Things whose dates we know.&rdquo;',
+        'Owen brings them: today&rsquo;s catalogue, the old sale bill of 1936 from its frame by the door, a sheet of the framers&rsquo; tissue in its packet, and the christening robe from Lot 212. Five things in a row on green cloth.'
+      ], function () { busy = false; paint(); FG.sfx.lamp(); });
+    } });
+  });
+  $('#table').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The five things, in a row on the green cloth. The lamp has been switched off.'); return; }
+    if (!heard()) { ER.say('A green table in front of the rostrum. Dr Hartnell&rsquo;s case is on one end of it. &ldquo;People first,&rdquo; she says.'); return; }
+    if (!told.label) { ER.say('&ldquo;The label in my case first,&rdquo; says Dr Hartnell. &ldquo;Then the lamp.&rdquo;'); return; }
+    if (!bench) bench = makeBench();
+    bench.open();
+  });
+
+  /* ---------- the green table under the lamp ---------- */
+  function makeBench() {
+    var IT = [
+      { k: 'fac', x: 40, y: 50, w: 150, h: 200, glow: true },
+      { k: 'cat', x: 220, y: 70, w: 210, h: 150, glow: true },
+      { k: 'bill', x: 460, y: 40, w: 140, h: 210, glow: false },
+      { k: 'tissue', x: 630, y: 70, w: 190, h: 150, glow: false },
+      { k: 'robe', x: 60, y: 300, w: 230, h: 230, glow: true }];
+    var Q = [
+      'The sheet from the glass case is a printed copy of the letter, made recently.',
+      'So the letter of 1793 must be a forgery.',
+      'The framers’ tissue does not glow, so it must be old paper.',
+      'The christening robe glows, so it must have been made after 1950.',
+      'The sale bill of 1936 does not glow. That fits its date.'];
+    function wrap(t, n) { var out = [], line = ''; t.split(' ').forEach(function (w) { if ((line + ' ' + w).trim().length > n) { out.push(line.trim()); line = w; } else line += ' ' + w; }); out.push(line.trim()); return out; }
+    var seen = ER.flag('a-seen') || [], flip = !!ER.flag('a-flip'), back = false, ans = ER.flag('a-ans') || ['', '', '', '', ''], wait = false, lamp, dwell = null, on = null;
+    var box = ER.el('div', 'bn uv', '<svg viewBox="0 0 1000 600"></svg><div class="bn-foot"><p class="bmsg"></p><button type="button" class="btn" id="u-go">Sign the finding</button></div>');
+    var svg = box.querySelector('svg'), msgEl = box.querySelector('.bmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function has(k) { return seen.indexOf(k) >= 0; }
+    function keep() { ER.flag('a-seen', seen); ER.flag('a-flip', flip ? 1 : 0); ER.flag('a-ans', ans); paint(); }
+    function step() { return seen.length < 5 ? 'sweep' : !flip ? 'flip' : 'find'; }
+    /* each thing in daylight (u = false) and under the lamp (u = true) */
+    function thing(it, u) {
+      var s = '', x = it.x, y = it.y, g = u && it.glow, d = u && !it.glow, i;
+      var pap = g ? '#eef4ff' : d ? '#4a3a4e' : null;
+      if (it.k === 'fac') {
+        s += '<rect x="' + x + '" y="' + y + '" width="150" height="200" fill="' + (pap || '#ecdcb4') + '"' + (g ? ' stroke="#cfe0ff" stroke-width="10" stroke-opacity=".45"' : '') + '/>';
+        if (!back) { s += '<g stroke="' + (g ? '#5a5a78' : '#6b4a2a') + '" stroke-width="1.5">'; for (i = 0; i < 11; i++) s += '<path d="M' + (x + 16) + ' ' + (y + 30 + i * 14) + 'h' + (100 + (i * 37) % 22) + '"/>'; s += '</g><text x="' + (x + 136) + '" y="' + (y + 20) + '" class="tC" font-size="14" fill="' + (g ? '#5a5a78' : '#6b4a2a') + '" text-anchor="end">1793</text>'; }
+        else s += '<rect x="' + (x + 24) + '" y="' + (y + 70) + '" width="102" height="54" fill="none" stroke="' + (g ? '#3a3a6a' : '#3a5a8a') + '" stroke-width="2.4"/><text x="' + (x + 75) + '" y="' + (y + 88) + '" class="tB" font-size="11" fill="' + (g ? '#3a3a6a' : '#3a5a8a') + '" text-anchor="middle" letter-spacing="1">C&amp;L PHOTOGRAPHIC</text>' +
+          '<text x="' + (x + 75) + '" y="' + (y + 104) + '" class="tB" font-size="14" fill="' + (g ? '#3a3a6a' : '#3a5a8a') + '" text-anchor="middle" letter-spacing="2">FACSIMILE</text><text x="' + (x + 75) + '" y="' + (y + 118) + '" class="tM" font-size="9.500" fill="' + (g ? '#3a3a6a' : '#3a5a8a') + '" text-anchor="middle">JOB No. 2291</text>';
+        if (!u) s += '<text x="' + (x + 75) + '" y="' + (y + 216) + '" class="tB" font-size="13" fill="#e6c873" text-anchor="middle" letter-spacing="1">' + (back ? 'BACK (click to turn)' : 'FROM THE CASE (click to turn)') + '</text>';
+      } else if (it.k === 'cat') {
+        s += '<path d="M' + x + ' ' + y + 'h104v150h-104zM' + (x + 106) + ' ' + y + 'h104v150h-104z" fill="' + (pap || '#fbfaf6') + '"' + (g ? ' stroke="#cfe0ff" stroke-width="10" stroke-opacity=".45"' : '') + '/>';
+        s += '<rect x="' + (x + 14) + '" y="' + (y + 16) + '" width="76" height="92" fill="' + (g ? '#7a7aa0' : '#2a2416') + '"/><g stroke="' + (g ? '#8a8ab0' : '#6a6a6a') + '" stroke-width="2">';
+        for (i = 0; i < 8; i++) s += '<path d="M' + (x + 120) + ' ' + (y + 20 + i * 14) + 'h' + (70 - (i % 3) * 12) + '"/>';
+        s += '</g><text x="' + (x + 52) + '" y="' + (y + 132) + '" class="tZ" font-size="12" fill="' + (g ? '#5a5a88' : '#6e1f2e') + '" text-anchor="middle">LOT 41</text>';
+        if (!u) s += '<text x="' + (x + 105) + '" y="' + (y + 170) + '" class="tB" font-size="13" fill="#e6c873" text-anchor="middle" letter-spacing="1">TODAY&#8217;S CATALOGUE</text>';
+      } else if (it.k === 'bill') {
+        s += '<rect x="' + x + '" y="' + y + '" width="140" height="210" fill="' + (pap || '#e7d39a') + '"/><text x="' + (x + 70) + '" y="' + (y + 34) + '" class="tZ" font-size="11" fill="' + (d ? '#2a1a2a' : '#4a2a10') + '" text-anchor="middle">CARDEW &amp; LISLE</text>' +
+          '<text x="' + (x + 70) + '" y="' + (y + 80) + '" class="tB" font-size="34" fill="' + (d ? '#3a2030' : '#6e1f2e') + '" text-anchor="middle">GREAT</text><text x="' + (x + 70) + '" y="' + (y + 114) + '" class="tB" font-size="34" fill="' + (d ? '#3a2030' : '#6e1f2e') + '" text-anchor="middle">SALE</text>' +
+          '<text x="' + (x + 70) + '" y="' + (y + 186) + '" class="tZ" font-size="22" fill="' + (d ? '#2a1a2a' : '#4a2a10') + '" text-anchor="middle">1936</text>';
+        if (!u) s += '<text x="' + (x + 70) + '" y="' + (y + 228) + '" class="tB" font-size="13" fill="#e6c873" text-anchor="middle" letter-spacing="1">SALE BILL, 1936</text>';
+      } else if (it.k === 'tissue') {
+        s += '<rect x="' + x + '" y="' + y + '" width="120" height="150" fill="' + (pap || '#f2f2ee') + '" opacity=".92"/><path d="M' + (x + 10) + ' ' + (y + 150) + 'l110 -40" stroke="' + (d ? '#3a2a3e' : '#d9d9d2') + '" stroke-width="2"/>';
+        s += '<rect x="' + (x + 128) + '" y="' + (y + 20) + '" width="64" height="120" fill="' + (d ? '#3a3036' : '#c9d6c9') + '"/><text x="' + (x + 160) + '" y="' + (y + 44) + '" class="tB" font-size="9" fill="' + (d ? '#2a2026' : '#1f3a2a') + '" text-anchor="middle">CONSERVATION</text><text x="' + (x + 160) + '" y="' + (y + 56) + '" class="tB" font-size="9" fill="' + (d ? '#2a2026' : '#1f3a2a') + '" text-anchor="middle">TISSUE</text>' +
+          '<text x="' + (x + 160) + '" y="' + (y + 84) + '" class="tB" font-size="7.500" fill="' + (d ? '#2a2026' : '#1f3a2a') + '" text-anchor="middle">ACID-FREE</text><text x="' + (x + 160) + '" y="' + (y + 102) + '" class="tB" font-size="7" fill="' + (d ? '#2a2026' : '#1f3a2a') + '" text-anchor="middle">MADE WITHOUT</text><text x="' + (x + 160) + '" y="' + (y + 112) + '" class="tB" font-size="7" fill="' + (d ? '#2a2026' : '#1f3a2a') + '" text-anchor="middle">OPTICAL</text><text x="' + (x + 160) + '" y="' + (y + 122) + '" class="tB" font-size="7" fill="' + (d ? '#2a2026' : '#1f3a2a') + '" text-anchor="middle">BRIGHTENERS</text>';
+        if (!u) s += '<text x="' + (x + 95) + '" y="' + (y + 170) + '" class="tB" font-size="13" fill="#e6c873" text-anchor="middle" letter-spacing="1">FRAMERS&#8217; TISSUE</text>';
+      } else {
+        s += '<path d="M' + (x + 80) + ' ' + y + 'q35 -14 70 0l60 40 -20 26 -30 -18 14 172h-118l14 -172 -30 18 -20 -26z" fill="' + (pap || '#f4f1e8') + '"' + (g ? ' stroke="#cfe0ff" stroke-width="10" stroke-opacity=".45" stroke-linejoin="round"' : '') + '/>';
+        s += '<text x="' + (x + 115) + '" y="' + (y + 200) + '" class="tC" font-size="20" fill="' + (g ? '#c9d6ff' : '#c9c2b0') + '" text-anchor="middle">1894</text><rect x="' + (x + 180) + '" y="' + (y + 40) + '" width="44" height="26" fill="' + (g ? '#d9c9ff' : '#f2b8c6') + '" transform="rotate(14 ' + (x + 202) + ' ' + (y + 53) + ')"/>' +
+          '<text x="' + (x + 202) + '" y="' + (y + 52) + '" class="tB" font-size="7.500" fill="#5a2a3a" text-anchor="middle" transform="rotate(14 ' + (x + 202) + ' ' + (y + 53) + ')">WASHED &amp;</text><text x="' + (x + 202) + '" y="' + (y + 61) + '" class="tB" font-size="7.500" fill="#5a2a3a" text-anchor="middle" transform="rotate(14 ' + (x + 202) + ' ' + (y + 53) + ')">PRESSED</text>';
+        if (!u) s += '<text x="' + (x + 115) + '" y="' + (y + 236) + '" class="tB" font-size="13" fill="#e6c873" text-anchor="middle" letter-spacing="1">LOT 212: CHRISTENING ROBE</text>';
+      }
+      return s;
+    }
+    function draw() {
+      var s = '<defs><clipPath id="lc"><circle id="lcc" cx="-200" cy="-200" r="86"/></clipPath><filter id="gl" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>';
+      s += '<rect width="1000" height="600" fill="#173a27"/><rect width="1000" height="600" fill="#05040c" opacity=".45"/><g stroke="#123020" stroke-width="1" opacity=".6">';
+      for (var i = 0; i < 30; i++) s += '<path d="M0 ' + (i * 20) + 'h1000"/>';
+      s += '</g><g id="day">' + IT.map(function (it) { return '<g class="it" data-k="' + it.k + '">' + thing(it, false) + '</g>'; }).join('') + '</g>';
+      s += '<rect width="1000" height="560" fill="#05030c" opacity=".38" pointer-events="none"/>';
+      s += '<g clip-path="url(#lc)" pointer-events="none"><rect width="1000" height="600" fill="#2a1260" opacity=".55"/>' + IT.map(function (it) { return thing(it, true); }).join('') + '</g>';
+      s += '<g id="notes"></g>';
+      /* the form */
+      s += '<rect x="330" y="282" width="660" height="306" rx="6" fill="#f4efe2"/><text x="350" y="306" class="tB" font-size="14" fill="#6e1f2e" letter-spacing="3">THE FINDING &#183; WHAT THE LAMP SHOWS</text>';
+      Q.forEach(function (q, n) {
+        var y = 330 + n * 52;
+        s += '<text x="348" y="' + (y + 9) + '" class="tG" font-size="16" fill="#1e1b18">' + wrap((n + 1) + '. ' + q, 50).map(function (l, j) { return '<tspan x="' + (j ? 362 : 348) + '" dy="' + (j ? 18 : 0) + '">' + l + '</tspan>'; }).join('') + '</text>';
+        [['t', 'TRUE'], ['w', 'WRONG'], ['c', 'CAN&#8217;T SAY']].forEach(function (o, j) {
+          s += '<g class="opt' + (ans[n] === o[0] ? ' on' : '') + '" data-q="' + n + '" data-v="' + o[0] + '" transform="translate(' + (740 + j * 82) + ' ' + y + ')"><rect width="76" height="28" rx="3"/><text x="38" y="19" fill="#e9e4d8">' + o[1] + '</text></g>';
+        });
+      });
+      /* the lamp */
+      s += '<g class="tool" id="lamp"><path d="M-30 -91h60l54 85h-168z" fill="#9a7aff" opacity=".1" pointer-events="none"/><rect x="-40" y="-156" width="80" height="70" fill="#000" opacity="0"/><rect x="-36" y="-118" width="72" height="22" rx="5" fill="#2a2a34"/><rect x="-30" y="-98" width="60" height="7" fill="#9a7aff"/><rect x="-8" y="-150" width="16" height="34" rx="4" fill="#1c1c22"/><rect x="-5" y="-140" width="10" height="6" fill="#f0c419"/></g>';
+      svg.innerHTML = s;
+      notes();
+    }
+    function notes() {
+      var s = '';
+      IT.forEach(function (it) {
+        if (!has(it.k)) return;
+        var nx = it.x + it.w / 2, ny = it.k === 'robe' ? it.y + 262 : it.y - 10;
+        s += '<text x="' + nx + '" y="' + ny + '" class="tH" font-size="17" fill="' + (it.glow ? '#cfe0ff' : '#c9b9c9') + '" text-anchor="middle">' + (it.glow ? 'glows blue-white' : 'stays dull') + '</text>';
+      });
+      svg.querySelector('#notes').innerHTML = s;
+    }
+    function under(p) { for (var i = 0; i < IT.length; i++) { var it = IT[i]; if (p.x > it.x && p.x < it.x + it.w && p.y > it.y && p.y < it.y + it.h) return it; } return null; }
+    function wire() {
+      var lc = svg.querySelector('#lcc');
+      lamp = FG.tool(svg, svg.querySelector('#lamp'), { x: 900, y: 250 }, {
+        start: function () { return !wait; },
+        move: function (p) {
+          var c = { x: p.x, y: p.y - 6 }, it = under(c);
+          lc.setAttribute('cx', c.x); lc.setAttribute('cy', c.y);
+          if (it !== on) {
+            clearTimeout(dwell); on = it;
+            if (it && !has(it.k)) dwell = setTimeout(function () {
+              if (on !== it || has(it.k)) return;
+              seen.push(it.k); keep(); notes(); FG.sfx.dot();
+              msg(it.glow ? ({ fac: 'The sheet from the case glows blue-white, evenly, all over, like a bathroom tile. The brown writing sits on top of the glow like a shadow.', cat: 'Today&rsquo;s catalogue glows bright blue-white. No surprise: it was printed last month.', robe: 'The christening robe glows like snow under a street lamp. A robe of 1894.' })[it.k] :
+                ({ bill: 'The sale bill of 1936 stays dull: a flat, dark brown-violet. No brighteners.', tissue: 'The framers&rsquo; tissue stays dull, as dark as the bill. So does its packet.' })[it.k]);
+              if (seen.length === 5) setTimeout(function () { msg(flip ? 'All five have been under the lamp. Now read the finding, and decide each sentence.' : 'All five have been under the lamp. Before anybody signs anything: paper has two sides.'); }, 1800);
+            }, 380);
+          }
+        },
+        end: function (p) { clearTimeout(dwell); on = null; }
+      }, [40, 70, 980, 600]);
+      lc.setAttribute('cx', -200);
+      ER.$$('.it', svg).forEach(function (n) {
+        n.addEventListener('click', function () {
+          var k = n.getAttribute('data-k');
+          if (wait) return;
+          if (k === 'fac') {
+            back = !back; FG.sfx.pencil(); draw(); wire();
+            if (back && !flip) { flip = true; keep(); }
+            msg(back ? 'The back of the sheet. A blue stamp: <b>C&amp;L PHOTOGRAPHIC &middot; FACSIMILE &middot; JOB No. 2291</b>. The house&rsquo;s own photographer. Femi, at your shoulder, says something under her breath that is not in any catalogue.' : 'The front again: brown handwriting, dated 1793. Look closely, and the brown is made of tiny printed dots.');
+            return;
+          }
+          msg({ cat: 'Today&rsquo;s catalogue, printed last month, open at Lot 41.',
+            bill: 'The sale bill from the frame by the door: CARDEW &amp; LISLE, GREAT SALE OF PICTURES, 1936. Yellow at the edges.',
+            tissue: 'A sheet of the framers&rsquo; tissue, and its packet: CONSERVATION TISSUE. ACID-FREE. MADE WITHOUT OPTICAL BRIGHTENERS. &ldquo;Bought it last month,&rdquo; says Owen. &ldquo;Framers like it that way.&rdquo;',
+            robe: 'Lot 212: a linen christening robe. The year 1894 is embroidered on the hem in white thread. On the sleeve, a pink ticket from the laundry: WASHED AND PRESSED, for the sale.' }[k]);
+        });
+      });
+      ER.$$('.opt', svg).forEach(function (o) {
+        o.addEventListener('click', function () {
+          if (wait) return;
+          var n = +o.getAttribute('data-q');
+          ans[n] = o.getAttribute('data-v'); keep(); FG.sfx.pencil();
+          ER.$$('.opt[data-q="' + n + '"]', svg).forEach(function (b) { b.setAttribute('class', 'opt' + (b === o ? ' on' : '')); });
+        });
+      });
+    }
+    function answer(n) {
+      var a = ans[n];
+      return [
+        a === 't' ? '' : !flip ? '&ldquo;Before you decide about the copy,&rdquo; says Dr Hartnell, &ldquo;turn it over. Paper has two sides. People forget.&rdquo;' : '&ldquo;It glows like today&rsquo;s catalogue, and the back is stamped FACSIMILE by your own photographer,&rdquo; says Dr Hartnell. &ldquo;A facsimile is a copy. How sure do you need to be?&rdquo;',
+        a === 'c' ? '' : a === 't' ? '&ldquo;We have tested a copy,&rdquo; says Dr Hartnell. &ldquo;A copy printed last week would glow if the letter had been written by Shakespeare. Where is the letter itself?&rdquo;' : '&ldquo;Wrong?&rdquo; says Dr Hartnell. &ldquo;We haven&rsquo;t seen the letter. We have seen a copy of it. That tells us nothing about the letter, either way.&rdquo;',
+        a === 'w' ? '' : 'Owen holds up the packet. &ldquo;Bought it last month. Says on the side: made without optical brighteners.&rdquo; New paper that does not glow. So no glow does not mean old: we know this one is new.',
+        a === 'w' ? '' : 'Mrs Lisle turns the hem of the robe. &ldquo;1894, embroidered in. And look: the laundry has pinned its ticket on. Washed and pressed.&rdquo; Washing powder has brighteners in it, says the label in the lamp&rsquo;s case. We know this robe is old.',
+        a === 't' ? '' : '&ldquo;Old paper stays dull,&rdquo; says Dr Hartnell. &ldquo;This one stays dull, and it says 1936. A dull sheet proves nothing by itself, but this one at least agrees with its own date. That is all &lsquo;fits&rsquo; means.&rdquo;'][n];
+    }
+    box.querySelector('#u-go').addEventListener('click', function () {
+      var i, bad = -1, cand, file;
+      if (wait || nextFile) return;
+      if (seen.length < 5) { ER.sfx.no(); msg('&ldquo;Nobody signs for what they haven&rsquo;t seen,&rdquo; says Dr Hartnell. &ldquo;' + (5 - seen.length) + ' of the five things have not been under the lamp yet.&rdquo;'); return; }
+      for (i = 0; i < 5; i++) if (!ans[i]) { ER.sfx.no(); msg('Sentence ' + (i + 1) + ' has no answer yet: true, wrong, or can&rsquo;t say.'); return; }
+      if (!flip) { ER.sfx.no(); msg('&ldquo;Before anybody decides anything about that copy,&rdquo; says Dr Hartnell, &ldquo;turn it over. Paper has two sides. People forget.&rdquo;'); return; }
+      for (i = 0; i < 5; i++) if (!ER.check('q' + (i + 1), ans[i])) { bad = i; break; }
+      if (bad >= 0) { ER.sfx.no(); msg('<b>Sentence ' + (bad + 1) + '.</b> ' + answer(bad)); return; }
+      cand = ans.join('-'); file = ER.exit([cand], { wait: true });
+      if (!file) { ER.sfx.no(); msg('Dr Hartnell reads it twice and does not sign. &ldquo;Again, please. Slowly.&rdquo;'); return; }
+      wait = true; nextFile = file; ER.flag('a-file', file); FG.sfx.stamp(); paint();
+      msg('Dr Hartnell signs: <b>L. Hartnell</b>. &ldquo;The sheet in the case is a modern copy. About the letter itself, the lamp has told us nothing at all.&rdquo;');
+      setTimeout(function () {
+        ER.closeAll(); busy = true;
+        ER.narrate([
+          'Owen rolls the blinds up again. The saleroom blinks. Mrs Roux puts her little lamp away. &ldquo;A facsimile,&rdquo; she says. &ldquo;How very disappointing. I was enjoying myself.&rdquo;',
+          '&ldquo;I didn&rsquo;t know it was a copy,&rdquo; says Femi. &ldquo;I swear I didn&rsquo;t. I never looked at the case.&rdquo; Mrs Lisle is already turning the pages of a small black book from her pocket.',
+          '&ldquo;Here. Tuesday: <i>letter of 1793 to the strongroom, for safety. R.G.</i> So the original has been downstairs all along.&rdquo; She closes the book. &ldquo;Then we shall go downstairs. Miss Odum, you had better come too. You found it.&rdquo;',
+          'Lot 41 is lifted off its easel, very gently, by a man in white gloves. It is going down to the strongroom as well, until somebody knows what it is.'
+        ], function () { busy = false; showGo(); });
+      }, 3200);
+    });
+    draw(); wire();
+    msg(step() === 'sweep' ? 'The blinds are down. On the green cloth: the sheet from the case, today&rsquo;s catalogue, the sale bill of 1936, the framers&rsquo; tissue and the christening robe. Pick up the lamp by its handle and move it slowly over each of them.' :
+      step() === 'flip' ? 'All five have been under the lamp. Paper has two sides: click the sheet from the case.' : 'Read the finding, decide each sentence, and sign.');
+    return {
+      open: function () { ER.open('ov-lock', box); },
+      isOpen: function () { return !!box.parentNode; },
+      step: step
+    };
+  }
+})();
+</script>
+</body>
+</html>

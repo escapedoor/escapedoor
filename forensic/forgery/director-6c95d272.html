@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Director’s Office · Lot Forty-One</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-forensic.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="forgery.css">
+<style>
+  body{--bg:#0e0b10;--accent:#d9b45a;--font-display:'Cinzel',serif;--font-ui:'Barlow Condensed',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(16,12,18,.96);--tc-ink:#efe6d6;--cap-bg:rgba(18,14,20,.94);--panel:#1a1418;--face-bg:#2e2230;--q-ink:#d9b45a;--fade:#060408;--hud-bg:rgba(18,14,20,.84)}
+  .tc-room{font-family:'Cinzel',serif;font-weight:400;letter-spacing:.1em;font-size:clamp(32px,4.6vw,60px)}
+  .tk-name{font-family:'Cinzel',serif;font-weight:700}
+  .sZ{font-family:'Cinzel',serif;font-weight:700;text-anchor:middle}
+  .lampl{animation:lampl 9s steps(1,end) infinite}
+  @keyframes lampl{0%{opacity:.55}80%{opacity:.55}81%{opacity:.48}83%{opacity:.55}}
+  .sway{animation:sway 6s ease-in-out infinite;transform-origin:1390px 100px}
+  @keyframes sway{50%{transform:rotate(.6deg)}}
+
+  /* setting a line of the letter against a piece of evidence */
+  .xm{width:min(1060px,96vw);display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:16px;-webkit-user-select:none;user-select:none}
+  .xm-l{background:#e9dcb8;color:#3b2812;padding:20px 30px 16px;max-height:calc(100vh - 200px);overflow:auto;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+  .xm-l h5,.xm-r h5{margin:0 0 8px;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:14px;letter-spacing:.26em;text-transform:uppercase}
+  .xm-l h5{color:#7a5a2a}
+  .xm-l .lt{font-family:'EB Garamond',Georgia,serif;font-style:italic;font-size:17.5px;line-height:1.42}
+  .xm-l .lt p{margin:0 0 7px}
+  .xm-l .lt .ld,.xm-l .lt .sg{text-align:right}
+  .xm .ln{cursor:pointer;border-bottom:2px dotted #b08a4a;padding:0 1px}
+  .xm .ln:hover{background:rgba(217,180,90,.25)}
+  .xm .ln.sel{background:#d9b45a;color:#1a1208;border-bottom-color:#7a5a1c}
+  .xm .ln.done{background:none;border-bottom:3px solid #b3261c;text-decoration:line-through;text-decoration-color:#b3261c;cursor:default}
+  .xm .sm{display:block;margin:0 0 10px;padding:10px 14px;background:#fbf6e8;border-left:5px solid #8a6a3a;font-family:'EB Garamond',serif;font-style:normal;font-size:17.5px;line-height:1.35;cursor:pointer;text-align:left;width:100%;color:#2a2018}
+  .xm .sm b{display:block;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:#7a5a2a;margin-bottom:2px}
+  .xm .sm:hover{background:#fff}
+  .xm .sm.sel{background:#d9b45a;border-left-color:#7a5a1c}
+  .xm-r{background:#1f1a20;border:1px solid #4a3a4a;padding:16px 16px 12px;color:#efe6d6;max-height:calc(100vh - 200px);overflow:auto}
+  .xm-r h5{color:#d9b45a}
+  .xm-cards{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+  .xm .ev{display:block;width:100%;margin:0;padding:7px 10px;background:#2a2430;border:1px solid #5a4a5a;color:#efe6d6;font-family:'EB Garamond',serif;font-size:15px;line-height:1.22;text-align:left;cursor:pointer;border-radius:2px}
+  .xm .ev small{display:block;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#b9a9b9}
+  .xm .ev:hover{border-color:#d9b45a}
+  .xm .ev.sel{background:#d9b45a;color:#1a1208;border-color:#d9b45a}
+  .xm .ev.sel small{color:#4a3a1a}
+  .xm-foot{grid-column:1 / span 2;display:flex;gap:16px;align-items:flex-start}
+  .xm-foot .bmsg{flex:1;min-height:56px;margin:0;font-family:'EB Garamond',Georgia,serif;font-size:19px;line-height:1.36;color:#f4eee6}
+  .xm-foot .btn{flex:0 0 auto;white-space:nowrap;background:rgba(0,0,0,.35)}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="duskG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1f2a52"/><stop offset=".7" stop-color="#4a4a78"/><stop offset="1" stop-color="#8a6a7a"/></linearGradient>
+  <radialGradient id="lampG" cx="50%" cy="0%" r="90%"><stop offset="0" stop-color="#ffe6a8" stop-opacity=".6"/><stop offset="1" stop-color="#ffe6a8" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".6" stop-color="#08040a" stop-opacity=".3"/><stop offset="1" stop-color="#040206" stop-opacity=".9"/></radialGradient>
+</defs>
+
+<!-- oak panelling -->
+<rect x="-1000" y="-400" width="3600" height="1050" fill="#3a2414"/><g id="panels"></g>
+<rect x="-1000" y="60" width="3600" height="14" fill="#5a3a1e"/><rect x="-1000" y="420" width="3600" height="10" fill="#5a3a1e"/>
+<!-- four directors -->
+<g id="portraits" class="hot"></g>
+<!-- the window and the street at dusk -->
+<g id="win" class="hot"><rect x="1236" y="96" width="300" height="470" fill="#1a1008"/><rect x="1250" y="110" width="272" height="442" fill="url(#duskG)"/>
+  <g fill="#14182a"><path d="M1250 420h50v-80l40 -30 40 30v-40h30v70h60v-60l52 -40v150h-272z"/></g><g fill="#ffd98a"><rect x="1270" y="360" width="8" height="12"/><rect x="1352" y="380" width="8" height="12"/><rect x="1440" y="350" width="8" height="12"/><rect x="1490" y="330" width="8" height="12"/></g>
+  <path d="M1300 552v-120M1300 432q10 -6 20 0" stroke="#0e1018" stroke-width="5" fill="none"/><circle cx="1320" cy="438" r="7" fill="#ffd98a"/><circle cx="1320" cy="438" r="22" fill="#ffd98a" opacity=".2"/>
+  <path d="M1470 552v-110M1470 442q10 -6 20 0" stroke="#0e1018" stroke-width="5" fill="none"/><circle cx="1490" cy="448" r="7" fill="#ffd98a"/><circle cx="1490" cy="448" r="22" fill="#ffd98a" opacity=".2"/>
+  <g stroke="#1a1008" stroke-width="8"><path d="M1386 110v442M1250 300h272"/></g>
+  <path class="sway" d="M1210 80h60q-14 240 6 500h-66z" fill="#6e1f2e"/><path class="sway" d="M1500 80h60v500h-66q20 -260 6 -500z" fill="#6e1f2e"/><rect x="1196" y="70" width="380" height="14" fill="#b08a35"/></g>
+<!-- the door -->
+<g id="door"><rect x="1060" y="230" width="130" height="410" fill="#2a1a0e"/><rect x="1070" y="240" width="110" height="400" fill="#4a2e18"/><path d="M1084 256h82v170h-82zM1084 446h82v176h-82z" fill="none" stroke="#2a1a0e" stroke-width="3"/><circle cx="1166" cy="440" r="5" fill="#d9b45a"/></g>
+<!-- the fireplace -->
+<g id="fire" class="hot"><rect x="70" y="370" width="290" height="270" fill="#d9d2c4"/><rect x="58" y="356" width="314" height="20" fill="#e9e2d4"/><rect x="120" y="440" width="190" height="200" fill="#141010"/><path d="M140 640q60 -40 150 0" fill="#2a2018"/>
+  <g fill="#3a2a1a"><rect x="150" y="610" width="130" height="10" rx="5"/></g><rect x="100" y="320" width="60" height="36" fill="#c9a04a"/><circle cx="130" cy="338" r="12" fill="#fbf6e8"/><path d="M130 338v-8M130 338l6 3" stroke="#2a2018" stroke-width="2"/>
+  <rect x="270" y="326" width="22" height="30" fill="#e9e2d4"/><rect x="300" y="316" width="16" height="40" fill="#6e1f2e"/></g>
+<!-- the floor, a rug -->
+<rect x="-1000" y="640" width="3600" height="800" fill="#2a1a10"/><path d="M-1000 640H2600" stroke="#140c06" stroke-width="4"/>
+<path d="M300 700h1000l120 200H180z" fill="#5a1e26"/><path d="M330 712h940l104 176H226z" fill="none" stroke="#c9a04a" stroke-width="3" opacity=".6"/>
+<!-- the desk -->
+<g id="lisle" class="hot" transform="translate(800 792) scale(.95)"></g>
+<path d="M560 640v220M1040 640v220" stroke="#2a1a0e" stroke-width="16"/><rect x="540" y="618" width="520" height="190" fill="#4a2e18"/><path d="M560 640h480v150H560z" fill="none" stroke="#2a1a0e" stroke-width="3"/>
+<path d="M520 596h560l20 26H500z" fill="#3a5a3a"/><rect x="500" y="620" width="600" height="10" fill="#2a1a0e"/>
+<g id="lamp"><path d="M1000 596v-70" stroke="#c9a04a" stroke-width="5"/><path d="M960 528q40 -40 80 0z" fill="#2f5a3a"/><path class="lampl" d="M964 528h72l50 70H914z" fill="url(#lampG)" pointer-events="none"/><ellipse cx="1000" cy="598" rx="22" ry="5" fill="#c9a04a"/></g>
+<g id="tray" class="hot"><path d="M590 600l8 -26h84l8 26z" fill="#2a1a0e"/><rect x="604" y="566" width="70" height="12" fill="#fbfaf6" transform="rotate(-3 640 572)"/><rect x="600" y="574" width="76" height="10" fill="#f4f2ec"/><rect x="612" y="560" width="54" height="8" fill="#fff" stroke="#c5ccd3" transform="rotate(4 640 564)"/></g>
+<g id="letter" class="hot"><rect x="760" y="580" width="90" height="18" fill="#fbfaf6" transform="rotate(-2 805 589)"/><rect x="772" y="576" width="66" height="18" fill="#e9dcb8" transform="rotate(2 805 585)"/></g>
+<g id="phone"><rect x="868" y="580" width="44" height="18" rx="4" fill="#141010"/><path d="M864 578q24 -14 52 0" stroke="#141010" stroke-width="8" fill="none" stroke-linecap="round"/></g>
+
+<!-- people -->
+<g id="garrick" class="hot" transform="translate(250 876) scale(.95)"></g>
+<g id="hartnell" class="hot" transform="translate(456 894)"></g>
+<g id="tredwell" class="hot" transform="translate(1180 884)"></g>
+<g id="femi" class="hot" transform="translate(1400 882) scale(.97)"></g>
+
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Thursday evening</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="forgery.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, bench = null, told = {};
+
+  (function () {
+    var s = '', i;
+    for (i = -6; i < 20; i++) s += '<rect x="' + (i * 120 + 10) + '" y="84" width="100" height="326" fill="none" stroke="#2a1a0e" stroke-width="4"/><rect x="' + (i * 120 + 10) + '" y="440" width="100" height="190" fill="none" stroke="#2a1a0e" stroke-width="4"/>';
+    $('#panels').innerHTML = s;
+    s = '';
+    [[420, 'CARDEW · 1822', '#d9d4cc'], [600, 'LISLE · 1871', '#3a2a1a'], [780, 'LISLE · 1923', '#6b5a4a'], [960, 'LISLE · 1968', '#c9b48a']].forEach(function (p, n) {
+      var x = p[0];
+      s += '<rect x="' + (x - 70) + '" y="110" width="140" height="180" fill="#b08a35"/><rect x="' + (x - 60) + '" y="120" width="120" height="160" fill="' + ['#2a2016', '#22202a', '#2a2a22', '#2a2226'][n] + '"/>';
+      s += '<ellipse cx="' + x + '" cy="186" rx="24" ry="30" fill="#c9a07a"/><path d="M' + (x - 40) + ' 280q0 -60 40 -64q40 4 40 64z" fill="' + ['#1a1612', '#1a1a22', '#3a2a3a', '#2a3a4a'][n] + '"/><path d="M' + (x - 26) + ' 178q2 -32 26 -34q24 2 26 34q-6 -16 -26 -18q-20 2 -26 18z" fill="' + p[2] + '"/>';
+      s += '<rect x="' + (x - 46) + '" y="296" width="92" height="14" fill="#d9b45a"/><text x="' + x + '" y="307" class="sZ" font-size="9" fill="#3a2a10" letter-spacing="1">' + p[1] + '</text>';
+    });
+    $('#portraits').innerHTML = s;
+    ['lisle', 'garrick', 'hartnell', 'tredwell', 'femi'].forEach(function (w) { $('#' + w).innerHTML = FG.fig(w); });
+  })();
+
+  ER.init({
+    theme: 'forensic', story: 'forgery', storyTitle: 'Lot Forty-One', id: 'director', no: 'V', title: 'The Director’s Office',
+    go: 'Five o’clock',
+    intro: [
+      'The panel&rsquo;s forty-one rings matched the reference chart in one place only, where its five very narrow rings fell on the narrow years 1611, 1616, 1626, 1631 and 1637. So its last ring grew in 1644.',
+      'But that ring was not the bark. The sapwood had been cut away, and Baltic oak has at least nine rings of it. So the tree was felled in 1653 at the earliest, and the panel was painted later still. Lieven Sterck died in August 1648.',
+      'The picture is old, and good, and not by Sterck. Somebody painted it after him, as Femi wrote in pencil in September. Then why does a letter of 1793 say that Sterck painted it in 1646? At five o&rsquo;clock Mrs Lisle asks everybody to her office.'
+    ],
+    exit: {"next":"sale","w":{"cad33df1":"dedeb320","5e7d6f87":"f489d150"}}, tags: {"ch":["5d098d99","35f5c269","51bc312b"],"st":["9ebe94d5"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('e-file') || null; told = ER.flag('e-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('e-told', told); return true; }
+  function isBusy() { return busy; }
+  function showGo() { $('#go').classList.add('on'); }
+  function paint() {
+    $('#letter').classList.toggle('ready', !nextFile);
+    var st = ER.flag('e-st') || {};
+    ER.pips((st.found ? st.found.length : 0) + (st.st2 ? 1 : 0) + (nextFile ? 1 : 0), 4);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['It is all over but the sale. Go on to Thursday evening.']];
+    if (bench && bench.isOpen()) return bench.stage() === 1 ? ['lines', [
+      'Click a line of the letter, then a piece of evidence on the right, then &lsquo;Set them against each other&rsquo;.',
+      'Ask of each line: could a man writing in 1793 have seen this, or known it? The paint samples, the restorer&rsquo;s note and the rings all have dates.',
+      'Two lines could not have been written in 1793. One needs what you found in the studio; the other needs what you found in the catalogue office.']] : ['who', [
+      'Somebody in this room has said something that one of the papers proves untrue. Look at the dates.',
+      'Mrs Lisle&rsquo;s in-tray, on the left of her desk, has a bill from the house&rsquo;s photographer in it. Have you read it? Its job number is the one stamped on the back of the facsimile.',
+      'When was the facsimile ordered? And when does Mr Garrick say he first saw the letter?']];
+    return ['letter', ['The letter lies on a white card in the middle of Mrs Lisle&rsquo;s desk. Click it.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; showGo(); ER.say('Mrs Lisle is on the telephone. Mr Garrick is sitting down.'); return; }
+    if (told.in) { busy = false; ER.say('The director&rsquo;s office. The street lamps are on.'); return; }
+    tell('in');
+    ER.narrate([
+      'The director&rsquo;s office has dark panelled walls, a fire that nobody has lit, and four portraits of Cardews and Lisles, each one looking more worried than the last. Through the window the street lamps are coming on.',
+      'Mrs Lisle sits behind her desk. Mr Garrick stands by the fireplace with one hand on the mantelpiece, like a man in an old play. Mr Tredwell has the chair nearest the door, and is not sitting in it. Femi has the place furthest from Mr Garrick.',
+      'In the middle of the desk, on a sheet of white card, lies the letter. &ldquo;Very well,&rdquo; says Mrs Lisle. &ldquo;The paper is old. The picture is old. Mr Garrick tells me that is the end of it. Dr Hartnell tells me it is not. I should like to know which, before Thursday.&rdquo;',
+      'Dr Hartnell turns to you. &ldquo;Every line of that letter is a claim,&rdquo; she says. &ldquo;A man writing in 1793 could only write what was true, or at least what he could see, in 1793. Set the letter against what we found today.&rdquo;'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- things in the office ---------- */
+  var BILL = '<h4>C&amp;L Photographic</h4><table>' +
+    '<tr><td>Job no.</td><td>2291</td></tr><tr><td>Work</td><td>Facsimile of a letter: 1 sheet, brown ink on cream, actual size, printed on matt paper</td></tr>' +
+    '<tr><td>For</td><td>Lot 41: the glass case at the viewing</td></tr><tr><td>Ordered by</td><td>R. Garrick, Friday 2 October</td></tr><tr><td>Delivered</td><td>Tuesday 6 October</td></tr><tr><td>Charge to</td><td>Pictures</td></tr></table>' +
+    '<p class="hw">Rollo says no hurry, but have it ready for the case on Tuesday. He brought the original down Monday evening for the photograph. &mdash; T.W.</p>';
+  $('#tray').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: BILL, cls: 'invoice', clue: { id: 'invoice', title: 'The photographer’s bill, job 2291', kind: 'Mrs Lisle’s in-tray' }, done: function () {
+      if (tell('bill')) { paint(); if (bench) bench.cards(); ER.say('Mrs Lisle&rsquo;s in-tray: bills waiting to be signed. The top one is from the house&rsquo;s own photographer.'); }
+    } });
+  });
+  FG.thing('#portraits', null, 'CARDEW 1822, LISLE 1871, LISLE 1923, LISLE 1968: two hundred years of people who never knowingly sold a fake.', isBusy);
+  FG.thing('#fire', null, 'A marble fireplace that nobody has lit since the 1970s, and a clock on the mantelpiece that is four minutes fast, on purpose.', isBusy);
+  FG.thing('#win', null, 'The street at dusk: lamps coming on, a bus, people going home with their collars up.', isBusy);
+  $('#garrick').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(nextFile ? 'Mr Garrick is sitting down now, with his umbrella across his knees. He looks older than he did at lunchtime.' : '&ldquo;Old paper, old paint,&rdquo; says Mr Garrick, to the portraits. &ldquo;I don&rsquo;t know what more anybody wants.&rdquo;');
+  });
+  $('#hartnell').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(nextFile ? '&ldquo;Every contact leaves a trace,&rdquo; says Dr Hartnell. &ldquo;Even with a pen.&rdquo;' : '&ldquo;Line by line,&rdquo; says Dr Hartnell. &ldquo;Could Nathaniel have written this in 1793? Every line, every piece of evidence.&rdquo;');
+  });
+  $('#femi').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(nextFile ? 'Femi is looking out of the window at the street lamps. She is not crying. She would like that to be clear.' : '&ldquo;I found it,&rdquo; says Femi quietly. &ldquo;That&rsquo;s all I did. I found it.&rdquo;');
+  });
+  $('#tredwell').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(nextFile ? '&ldquo;An honest description,&rdquo; says Mr Tredwell, trying the words out. &ldquo;Gran would have liked that better than the money. Well. Nearly.&rdquo;' : '&ldquo;I don&rsquo;t follow half of this,&rdquo; says Mr Tredwell. &ldquo;But I know when a man is talking too much.&rdquo; He does not look at Mr Garrick.');
+  });
+  $('#lisle').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(nextFile ? 'Mrs Lisle is on the telephone, saying very little, in a very level voice.' : '&ldquo;Take your time,&rdquo; says Mrs Lisle. &ldquo;We have until Thursday. Just about.&rdquo;');
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  $('#letter').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The letter, on its white card. Two of its lines have been crossed through in red pencil.'); return; }
+    if (!bench) bench = makeBench();
+    bench.open();
+  });
+
+  /* ---------- the letter, line by line, against the evidence ---------- */
+  function makeBench() {
+    var st = ER.flag('e-st') || { found: [], pairs: {}, st2: 0 }, wait = false, selL = null, selE = null, stage = 1;
+    var EV = [
+      ['uv', 'The lamp', 'The real letter stays dull: old paper.'],
+      ['bird', 'The bird', '8.5 g/cm³: gilded brass. 51 g in September and today.'],
+      ['receipt', 'Femi’s receipt', '14 September: frame “19th century?”, papers “nothing about the picture”.'],
+      ['painto', 'Samples A, B, E', 'The picture’s own paint: nothing newer than the 1500s, all under the varnish.'],
+      ['paintc', 'Sample C, the feather', 'Titanium white (1920s or later), on top of the old varnish.'],
+      ['paintd', 'Sample D, the name', 'Prussian blue (about 1704 or later), on top of the old varnish.'],
+      ['henshaw', 'The back of the panel', 'W. Henshaw 1958: old loss in floor filled and painted.'],
+      ['rings', 'The rings', 'Last ring 1644; felled not before 1653.'],
+      ['jotter', 'Femi’s notebook', 'Fri 2 Oct: R.G. borrowed the picture. Mon 5 Oct: the letter fell out.'],
+      ['daybook', 'The day book of 1786', 'A blank page cut out, close to the spine.'],
+      ['stamp', 'The facsimile', 'Stamped on the back: C&L PHOTOGRAPHIC, FACSIMILE, JOB No. 2291.'],
+      ['invoice', 'The photographer’s bill', 'Job 2291. Ordered by R. Garrick.']];
+    var SM = [
+      ['femi', 'Femi Odum', '“On Monday last week I took the backboard off the frame to measure the panel, and a letter fell out onto my desk.”'],
+      ['garrick', 'Rollo Garrick', '“I first saw the letter on Monday afternoon last week, when Miss Odum ran into my room with it. I had never seen it before in my life.”'],
+      ['tredwell', 'Jack Tredwell', '“Never saw a letter in my life till it was in the papers.”'],
+      ['lisle', 'Constance Lisle', '“He put the letter in the case himself, last Tuesday.”']];
+    var box = ER.el('div', 'xm', '<div class="xm-l"></div><div class="xm-r"><h5>The evidence</h5><div class="xm-cards"></div></div><div class="xm-foot"><p class="bmsg"></p><button type="button" class="btn" id="x-go">Set them against each other</button></div>');
+    var L = box.querySelector('.xm-l'), C = box.querySelector('.xm-cards'), msgEl = box.querySelector('.bmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function keep() { ER.flag('e-st', st); paint(); }
+    function has(id) { return ER.state().clues.some(function (c) { return c.id === id; }); }
+    function shown(e) { return e === 'invoice' ? has('invoice') : e === 'daybook' ? has('daybook') : true; }
+    function cards() {
+      C.innerHTML = EV.filter(function (e) { return shown(e[0]); }).map(function (e) { return '<button type="button" class="ev' + (selE === e[0] ? ' sel' : '') + '" data-e="' + e[0] + '"><small>' + e[1] + '</small>' + e[2] + '</button>'; }).join('');
+      ER.$$('.ev', C).forEach(function (b) { b.addEventListener('click', function () { if (wait) return; selE = b.getAttribute('data-e'); FG.sfx.pencil(); cards(); }); });
+    }
+    function left() {
+      if (stage === 1) {
+        L.innerHTML = '<h5>The letter &middot; click a line</h5><div class="lt">' + ER.gloss(FG.LETTER) + '</div>';
+        ER.$$('.ln', L).forEach(function (n) {
+          var id = n.getAttribute('data-l');
+          if (st.found.indexOf(id) >= 0) n.classList.add('done');
+          else if (selL === id) n.classList.add('sel');
+          n.addEventListener('click', function (e) { if (wait || st.found.indexOf(id) >= 0) return; selL = id; FG.sfx.pencil(); left(); });
+        });
+      } else {
+        L.innerHTML = '<h5>What they said &middot; click one</h5>' + SM.map(function (s) { return '<button type="button" class="sm' + (selL === s[0] ? ' sel' : '') + '" data-s="' + s[0] + '"><b>' + s[1] + '</b>' + s[2] + '</button>'; }).join('');
+        ER.$$('.sm', L).forEach(function (b) { b.addEventListener('click', function () { if (wait) return; selL = b.getAttribute('data-s'); FG.sfx.pencil(); left(); }); });
+      }
+    }
+    function say1(l, e) {
+      var k = l + '+' + e;
+      if (e === 'uv') return '&ldquo;No glow: old paper,&rdquo; says Dr Hartnell. &ldquo;It is the one thing in the letter&rsquo;s favour, and it says nothing about the words on it. Anybody can write on an old page.&rdquo;';
+      if (['receipt', 'jotter', 'daybook', 'stamp', 'invoice'].indexOf(e) >= 0 && k !== 'l5+receipt') return '&ldquo;That may matter in a minute,&rdquo; says Dr Hartnell. &ldquo;But it doesn&rsquo;t tell us whether a man in 1793 could have written that line.&rdquo;';
+      return {
+        'l4+paintd': '&ldquo;Not before about 1704,&rdquo; says Dr Hartnell. &ldquo;Nathaniel was writing in 1793, ninety years later. He could have seen a name in the corner, whoever put it there. That line may well be true.&rdquo;',
+        'l5+bird': '&ldquo;Gilt is gold to everybody who is not holding a measuring cylinder,&rdquo; says Mr Garrick. &ldquo;Annoyingly,&rdquo; says Dr Hartnell, &ldquo;he is right. People called gilt &lsquo;gold&rsquo; then, and they do now. It tells us nothing about the date.&rdquo;',
+        'l5+receipt': '&ldquo;Nineteenth century, with a question mark,&rdquo; says Femi. &ldquo;That was a guess. I wouldn&rsquo;t hang anybody on my question marks.&rdquo;',
+        'l2+painto': '&ldquo;The jug, the lemon and the red cap are the picture&rsquo;s own paint,&rdquo; says Dr Hartnell. &ldquo;Anybody could have seen them at any time since the 1650s. That line is safe.&rdquo;',
+        'l1+painto': '&ldquo;The paint is old enough for 1646,&rdquo; says Dr Hartnell. &ldquo;The paint is not the trouble with that line.&rdquo;',
+        'l3+paintd': '&ldquo;Sample D is the name in the corner,&rdquo; says Femi. &ldquo;Not the feather.&rdquo;',
+        'l4+paintc': '&ldquo;Sample C is the feather,&rdquo; says Femi. &ldquo;Not the name.&rdquo;',
+        'l4+henshaw': '&ldquo;Mr Henshaw mended the floor,&rdquo; says Dr Hartnell. &ldquo;He says nothing about the corner.&rdquo;',
+        'l1+paintd': '&ldquo;A name added later doesn&rsquo;t prove that the picture isn&rsquo;t his,&rdquo; says Dr Hartnell. &ldquo;He signed rarely. Something else says when this panel could be painted.&rdquo;',
+        'l2+paintc': '&ldquo;The feather isn&rsquo;t in that line,&rdquo; says Dr Hartnell. &ldquo;Read it again.&rdquo;'
+      }[k] || 'Mrs Lisle looks from the line to the evidence and back. &ldquo;I don&rsquo;t see what one has to do with the other,&rdquo; she says. Nor, it turns out, does anybody else.';
+    }
+    function say2(s, e) {
+      var k = s + '+' + e;
+      if (s === 'femi') return '&ldquo;Miss Odum&rsquo;s notebook, her receipt and everything she has said today agree with each other,&rdquo; says Dr Hartnell. &ldquo;Look somewhere else.&rdquo;';
+      return {
+        'garrick+stamp': '&ldquo;Job 2291,&rdquo; says Dr Hartnell. &ldquo;A number, but no date. Somewhere in this building there is a paper with that number on it and a date beside it.&rdquo;',
+        'garrick+jotter': '&ldquo;He borrowed the picture for the weekend,&rdquo; says Dr Hartnell. &ldquo;That is a chance to do something, not proof that he did it. Is there a paper that says he knew about the letter before Monday?&rdquo;',
+        'garrick+daybook': '&ldquo;The cut page is on his shelf,&rdquo; says Dr Hartnell. &ldquo;But nobody saw who cut it. We need something with a date on it.&rdquo;',
+        'tredwell+receipt': '&ldquo;A box of family papers, and nothing in it about the picture,&rdquo; says Femi. &ldquo;I read every one. He&rsquo;s telling the truth.&rdquo;',
+        'lisle+stamp': '&ldquo;A copy went into the case, not the letter,&rdquo; says Dr Hartnell. &ldquo;Mrs Lisle believed it was the letter, because that is what she was told. That is a mistake, not a lie.&rdquo;'
+      }[k] || '&ldquo;That doesn&rsquo;t contradict anything,&rdquo; says Dr Hartnell. &ldquo;It may be true. Find the thing somebody said that a paper proves untrue.&rdquo;';
+    }
+    box.querySelector('#x-go').addEventListener('click', function () {
+      var k, file, l3;
+      if (wait || nextFile) return;
+      if (!selL || !selE) { ER.sfx.no(); msg(stage === 1 ? 'Choose a line of the letter on the left, and a piece of evidence on the right.' : 'Choose something somebody said, on the left, and a piece of evidence on the right.'); return; }
+      k = selL + '+' + selE;
+      if (stage === 1) {
+        if (!ER.check('ch', k)) { ER.sfx.no(); msg(say1(selL, selE)); return; }
+        if (st.found.indexOf(selL) < 0) { st.found.push(selL); st.pairs[selL] = selE; }
+        keep(); FG.sfx.stamp();
+        msg(selL === 'l1' ? '&ldquo;1646,&rdquo; says Dr Hartnell. &ldquo;The tree this panel came from was cut down in 1653 at the earliest. Sterck cannot have painted it in 1646, for anybody. Nathaniel could not have known that it happened, because it never did.&rdquo; She draws a red line through it.' :
+          '&ldquo;The little white feather,&rdquo; says Dr Hartnell. &ldquo;Titanium white, on top of the old varnish, painted over a filled hole by Mr Henshaw in 1958. In 1793 there was no feather on those boards. Nathaniel describes a feather that was painted a hundred and sixty-five years after he wrote.&rdquo; A second red line.');
+        selL = null; selE = null; left(); cards();
+        if (st.found.length >= 2) {
+          wait = true;
+          setTimeout(function () {
+            msg('&ldquo;So the letter was written after 1958,&rdquo; says Mrs Lisle slowly, &ldquo;on a page of old paper.&rdquo; &ldquo;Then I am very sorry,&rdquo; says Mr Garrick, &ldquo;but Miss Odum found it. In her own desk. Draw your own conclusions.&rdquo; Femi stands up. Dr Hartnell puts a hand on her arm. &ldquo;Somebody in this room has said something that is not true,&rdquo; she says. &ldquo;Let us find out who.&rdquo;');
+            stage = 2; st.st2 = 1; keep(); wait = false; left(); cards();
+            try { ER.mood('tense'); } catch (e) {}
+          }, 5200);
+        }
+        return;
+      }
+      if (!ER.check('st', k)) { ER.sfx.no(); msg(say2(selL, selE)); return; }
+      l3 = st.pairs.l3 || 'paintc';
+      file = ER.exitOk(['l1+' + (st.pairs.l1 || 'rings') + '|l3+' + l3 + '|' + k]);
+      if (!file) { ER.sfx.no(); msg('Dr Hartnell shakes her head. &ldquo;Not quite. Again.&rdquo;'); return; }
+      wait = true; nextFile = file; ER.flag('e-file', file); paint();
+      var s0 = ER.state(); s0.done = s0.done || {}; s0.done.director = 1; ER.persist(true);
+      FG.sfx.stamp(); msg('<b>Friday 2 October.</b> Mrs Lisle reads the date on the bill twice, and then she reads it a third time.');
+      setTimeout(function () {
+        ER.closeAll(); FG.solved(); busy = true;
+        try { ER.mood('calm'); } catch (e) {}
+        ER.narrate([
+          '&ldquo;Friday,&rdquo; says Mrs Lisle at last. She has the bill in her hand. &ldquo;You ordered a copy of the letter on Friday, Rollo. Miss Odum found the letter on Monday.&rdquo; Nobody says anything. The clock on the mantelpiece goes on being four minutes fast.',
+          'Mr Garrick sits down, rather suddenly, in the chair Mr Tredwell has not been using. &ldquo;Thirty-one years,&rdquo; he says. &ldquo;And in June the board told me that if the autumn sale did not make a quarter of a million, there would be no pictures department in the spring. Then Miss Odum brought in a very good old copy of a lost Sterck, with a name in the corner. It was so nearly the real thing.&rdquo;',
+          '&ldquo;I cut a blank page from the back of the day book of 1786. Brown ink, a little cold tea, a week on my windowsill in the sun. I took the picture home on Friday and slid the letter behind the backboard. On Monday the cleverest person in this building found it, exactly as I knew she would.&rdquo; He looks at Femi. &ldquo;I am sorry. I knew you would find it. I did not think anybody would find me.&rdquo;',
+          '&ldquo;You described the feather,&rdquo; says Dr Hartnell, not unkindly. &ldquo;You looked at the picture and wrote down what you saw. Everybody does. Every contact leaves a trace, Mr Garrick. Even with a pen.&rdquo;',
+          'Mrs Lisle picks up the telephone. She holds it for a moment, as if it were heavy, and then she dials. Mr Tredwell turns his cap round and round in his hands. &ldquo;So it&rsquo;s not worth a barn roof,&rdquo; he says. &ldquo;It is worth an honest description,&rdquo; says Mrs Lisle, with her hand over the telephone. &ldquo;Miss Odum will write it tonight.&rdquo;'
+        ], function () { busy = false; showGo(); });
+      }, 3000);
+    });
+    stage = st.st2 ? 2 : 1;
+    left(); cards();
+    msg(stage === 1 ? 'The letter, line by line. Click a line on the left, then a piece of evidence on the right, then set them against each other. Which lines could a man in 1793 not have written?' : 'Two lines of the letter are impossible. Now: who has said something that a paper proves untrue?');
+    return {
+      open: function () { ER.open('ov-lock', box); },
+      isOpen: function () { return !!box.parentNode; },
+      stage: function () { return stage; },
+      cards: cards
+    };
+  }
+})();
+</script>
+</body>
+</html>
