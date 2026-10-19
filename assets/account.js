@@ -224,7 +224,10 @@ var CSS = '.ac-veil{position:fixed;top:0;right:0;bottom:0;left:0;z-index:95;disp
   '.ac-board th{font-family:"Oswald",Arial,sans-serif;font-weight:400;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:#6b6457;text-align:right}.ac-board th.l{text-align:left}' +
   '.ac-board td:first-child{width:34px;color:#6b6457}.ac-board td.n{width:96px;text-align:right;font-family:"Special Elite","Courier New",monospace;font-size:16px;white-space:nowrap}' +
   '.ac-board tr.me td{background:#f4e04d}.ac-board .ac-none{margin:18px 0;color:#6b6457}' +
-  '.ac-board .ac-foot{margin:16px 0 0;font-size:15.5px;color:#6b6457;line-height:1.4}' +
+  '.ac-board td.nm{font-family:"EB Garamond","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;font-size:17px;overflow-wrap:anywhere}' +
+  '.ac-board td,.ac-board th{vertical-align:middle;line-height:1.35}.ac-board tr:nth-child(n+2) td{padding-top:6px;padding-bottom:6px}' +
+  '.ac-board .ac-foot{margin:18px 0 0;padding:0;list-style:none;font-size:16px;color:#6b6457;line-height:1.5}' +
+  '.ac-board .ac-foot li:before{content:"·";display:inline-block;width:14px;color:#8c2f24;font-weight:bold}' +
   '.ac-board button{display:block;margin:14px 0 0 auto;padding:9px 22px;border:1px solid #27231d;border-radius:0;background:transparent;color:#27231d;font-family:"Oswald",Arial,sans-serif;font-size:13px;letter-spacing:.18em;text-transform:uppercase;cursor:pointer}.ac-board button:hover{background:#27231d;color:#f3ecd9}' +
   '.ac-note{position:fixed;left:50%;top:60px;transform:translateX(-50%);z-index:66;max-width:92vw;padding:10px 20px 9px;border:1px solid #27231d;background:#f3ecd9;color:#27231d;box-shadow:0 12px 34px rgba(0,0,0,.5);font-family:"Special Elite","Courier New",monospace;font-size:17px;line-height:1.35;text-align:center;pointer-events:none}' +
   '.ac-note b{font-weight:normal;background:#f4e04d;padding:0 4px}' +
@@ -285,7 +288,7 @@ A.ui.card = function (done, o) {
 A.ui.board = function () {
   css();
   var veil = el('div', 'ac-veil'), box = el('div', 'ac-board', '<h2>This week’s records</h2><div class="ac-week">…</div><div class="ac-list"><p class="ac-none">Opening the record book …</p></div>' +
-    '<p class="ac-foot">Time is the time really played, and every hint adds one minute. Only your first time through a story counts. The list starts again every Monday.</p><button type="button">Close</button>');
+    '<ul class="ac-foot"><li>Time is the time really played.</li><li>Every hint adds one minute.</li><li>Only your first time through a story counts.</li><li>The list starts again every Monday.</li></ul><button type="button">Close</button>');
   veil.appendChild(box); D.body.appendChild(veil);
   function close() { if (veil.parentNode) veil.parentNode.removeChild(veil); }
   box.querySelector('button').addEventListener('click', close);
@@ -298,7 +301,7 @@ A.ui.board = function () {
       var st = r.stories[k];
       s += '<h3>' + esc(st.title || k) + '<i>' + '★★★★★'.slice(0, st.stars || 0) + '</i></h3><table><tr><th></th><th class="l">Name</th><th>Time</th><th>Hints</th><th>Record</th></tr>';
       st.rows.slice(0, 10).forEach(function (row, i) {
-        s += '<tr' + (me && String(row.name).toLowerCase() === me.id ? ' class="me"' : '') + '><td>' + (i + 1) + '</td><td>' + esc(row.name) + '</td><td class="n">' + A.clock(row.secs) + '</td><td class="n">' +
+        s += '<tr' + (me && String(row.name).toLowerCase() === me.id ? ' class="me"' : '') + '><td>' + (i + 1) + '</td><td class="nm">' + esc(row.name) + '</td><td class="n">' + A.clock(row.secs) + '</td><td class="n">' +
           hintWord(row.hints) + '</td><td class="n"><b>' + A.clock(row.score) + '</b></td></tr>';
       });
       s += '</table>';

@@ -275,6 +275,7 @@ function buildUi() {
     '<button class="hbtn snd" type="button">' + ICON_SND + '</button>' +
     '<button class="hbtn nbk" type="button">Notebook<b>0</b></button>';
   D.body.appendChild(tl); D.body.appendChild(tr);
+  tl.querySelector('a.hbtn').addEventListener('click', function (e) { if (askLeave(this.href)) e.preventDefault(); });
   if (c.hints) ER.$('.hbtn.hnt').addEventListener('click', toggleHints);
   ER.$('.hbtn.snd').addEventListener('click', function () {      /* all -> effects only -> off -> all */
     ac();
@@ -309,6 +310,24 @@ function buildUi() {
   D.addEventListener('mouseout', function (e) { var w = e.target.closest ? e.target.closest('.w') : null; if (w) tipHide(); });
   D.addEventListener('click', function (e) { var w = e.target.closest ? e.target.closest('.w') : null; if (w) tipShow(w, true); else if (tipNode) tipHide(); });
   updateBadge();
+}
+/* "← Stories" in the middle of a story asks first: one stray click used to throw the player out of the room.
+   Not asked once the ending is reached (or on a page that keeps no game). Returns true when the question is shown. */
+var leaveEl = null;
+function askLeave(href) {
+  if (ER.cfg.transient || T().fin) return false;
+  if (leaveEl) return true;
+  leaveEl = el('div', 'leave-ov', '<div class="leave-box" role="dialog" aria-modal="true" aria-labelledby="leave-h">' +
+    '<h6 id="leave-h">Leave this story?</h6><p>You can come back later and go on from this room. Your notebook and your words are kept.</p>' +
+    '<div class="leave-btns"><button type="button" class="btn leave-stay">Stay</button><button type="button" class="btn leave-go">Leave</button></div></div>');
+  D.body.appendChild(leaveEl);
+  function stay() { if (leaveEl && leaveEl.parentNode) leaveEl.parentNode.removeChild(leaveEl); leaveEl = null; }
+  leaveEl.addEventListener('click', function (e) { if (e.target === leaveEl) stay(); });
+  leaveEl.querySelector('.leave-stay').addEventListener('click', stay);
+  leaveEl.querySelector('.leave-go').addEventListener('click', function () { stay(); save(true); ER.leave(href); });
+  leaveEl.addEventListener('keydown', function (e) { e.stopPropagation(); if (e.key === 'Escape') stay(); });
+  leaveEl.querySelector('.leave-stay').focus();
+  return true;
 }
 function updateBadge(ping) {
   var st = T(), b = ER.$('.hbtn.nbk b'); if (!b) return;

@@ -98,7 +98,7 @@ var GLYPH = { mystery: '?', scifi: '✶', fantasy: '✧', ghost: '☾', adventur
 var MEDAL = { first: '1', sharp: '◉', three: '3★', four: '4★', five: '5★', clock: '⏱', 'five-doors': '5', wings: 'III',
   full: '⌂', ten: '10', words: 'Aa', dictionary: 'Az', together: '∞', again: '↺' };
 var CSS = '.pp-veil{position:fixed;top:0;right:0;bottom:0;left:0;z-index:96;display:flex;align-items:center;justify-content:center;background:rgba(4,7,9,.84);padding:18px;-webkit-user-select:none;user-select:none}' +
-  '.pp-book{position:relative;width:1000px;max-width:100%;max-height:calc(100vh - 36px);overflow:auto;border-radius:12px;background:#1c2742;padding:12px;box-shadow:0 30px 90px rgba(0,0,0,.65),inset 0 0 0 2px #2b3a60;text-align:left;letter-spacing:0;text-transform:none}' +
+  '.pp-book{position:relative;width:1080px;max-width:100%;max-height:calc(100vh - 36px);overflow:auto;border-radius:12px;background:#1c2742;padding:12px;box-shadow:0 30px 90px rgba(0,0,0,.65),inset 0 0 0 2px #2b3a60;text-align:left;letter-spacing:0;text-transform:none}' +
   '.pp-in{display:grid;grid-template-columns:1fr 1fr;border-radius:6px;overflow:hidden;color:#27231d;font-family:"EB Garamond",Georgia,serif;' +
     'background:#f6f0de repeating-radial-gradient(circle at 50% 115%,rgba(28,39,66,.045) 0 1.5px,transparent 1.5px 8px)}' +
   '.pp-page{position:relative;padding:20px 26px 30px}.pp-page+.pp-page{box-shadow:inset 14px 0 18px -14px rgba(0,0,0,.35)}' +
@@ -112,18 +112,20 @@ var CSS = '.pp-veil{position:fixed;top:0;right:0;bottom:0;left:0;z-index:96;disp
   '.pp-f{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px}.pp-f div{min-width:0}.pp-f label{display:block;font:10.5px "Oswald",Arial,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#8a7f6a}' +
   '.pp-f b{display:block;font:500 19px "Special Elite","Courier New",monospace;color:#1c2742;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}' +
   '.pp-f .wide{grid-column:1/3}' +
-  '.pp-mrz{margin:12px 0 0;padding:8px 10px 6px;border-top:1px dashed #cbbd98;font:15px/1.35 "Courier New",monospace;letter-spacing:.14em;color:#4a443a;word-break:break-all}' +
+  '.pp-mrz{margin:12px 0 0;padding:8px 10px 6px;border-top:1px dashed #cbbd98;font:15px/1.5 "Courier New",monospace;letter-spacing:.14em;color:#6b6457;overflow:hidden}.pp-mrz div{white-space:nowrap;overflow:hidden}' +
+  '@media (max-width:620px){.pp-mrz{font-size:2.1vw;letter-spacing:.08em}}' +
   '.pp-wing{margin:14px 0 2px;font:11px "Oswald",Arial,sans-serif;letter-spacing:.26em;text-transform:uppercase;color:#8a7f6a}' +
   '.pp-stamps{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:4px 6px}' +
   '.pp-stamp{position:relative;height:94px;display:flex;align-items:center;justify-content:center}.pp-stamp svg{width:90px;height:90px;mix-blend-mode:multiply}' +
   '.pp-stamp.off svg{opacity:.13;filter:grayscale(1)}.pp-stamp small{position:absolute;bottom:4px;left:0;right:0;text-align:center;font:10.5px "Oswald",Arial,sans-serif;letter-spacing:.1em;color:#9a8f78;text-transform:uppercase}' +
-  '.pp-badges{display:grid;grid-template-columns:1fr 1fr;gap:8px}' +
+  /* one badge to a line: in two narrow columns the names and the "how to win" lines broke into three or four pieces */
+  '.pp-badges{display:grid;grid-template-columns:1fr;gap:7px}' +
   '.pp-badge{display:flex;gap:11px;align-items:center;padding:7px 10px 7px 7px;border-radius:30px 8px 8px 30px;background:rgba(255,255,255,.55);border:1px solid #ddd0ae}' +
   '.pp-medal{position:relative;flex:none;width:46px;height:46px}.pp-medal:before,.pp-medal:after{content:"";position:absolute;top:34px;width:12px;height:16px;background:#a3302c;z-index:0}' +
   '.pp-medal:before{left:10px;transform:skewX(14deg)}.pp-medal:after{right:10px;transform:skewX(-14deg);background:#1c2742}' +
   '.pp-medal i{position:relative;z-index:1;display:flex;width:46px;height:46px;border-radius:50%;align-items:center;justify-content:center;font:600 15px "Oswald",Arial,sans-serif;font-style:normal;color:#4a3608;' +
     'background:radial-gradient(circle at 35% 30%,#fff3c4,#e2b84c 55%,#a87a1c);box-shadow:inset 0 0 0 3px rgba(255,255,255,.5),0 2px 4px rgba(0,0,0,.25)}' +
-  '.pp-badge b{display:block;font:500 14.5px "Oswald",Arial,sans-serif;letter-spacing:.05em;color:#1c2742}.pp-badge span{display:block;font-size:14.5px;line-height:1.25;color:#6b6457}' +
+  '.pp-badge b{display:block;font:500 15px "Oswald",Arial,sans-serif;letter-spacing:.05em;color:#1c2742}.pp-badge span{display:block;font-size:16px;line-height:1.3;color:#5f584b}' +
   '.pp-badge em{display:block;font:11px "Oswald",Arial,sans-serif;letter-spacing:.12em;color:#2b6542;font-style:normal;text-transform:uppercase}' +
   '.pp-badge.off{opacity:.62;background:rgba(255,255,255,.25)}.pp-badge.off .pp-medal:before,.pp-badge.off .pp-medal:after{background:#c9c0ab}' +
   '.pp-badge.off i{background:radial-gradient(circle at 35% 30%,#f2eee4,#cfc7b3 60%,#aaa18c);color:#8a7f6a}' +
@@ -187,8 +189,9 @@ P.open = function () {
       var at = a.pp.badges[b.id]; if (at) got++;
       bd += '<div class="pp-badge' + (at ? '' : ' off') + '">' + medal(b) + '<div><b>' + esc(b.name) + '</b><span>' + esc(b.how) + '</span>' + (at ? '<em>' + day(at) + '</em>' : '') + '</div></div>';
     });
-    var mrz = ('P<KEYHOLE<<' + String(name).toUpperCase().replace(/[^A-Z0-9]+/g, '<') + '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<').slice(0, 44) + '<br>' +
-      ('KH' + ('000' + a.x.done).slice(-3) + '<' + ('000' + Object.keys(a.pp.stamps).length).slice(-2) + 'ST<' + ('000' + got).slice(-2) + 'BD<' + ('0000' + a.x.words).slice(-4) + 'WD<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<').slice(0, 44);
+    /* the "<" fillers must be escaped, or "<KEYHOLE<<..." is read as a tag and the whole first line disappears */
+    var mrz = '<div>' + esc(('P<KEYHOLE<<' + String(name).toUpperCase().replace(/[^A-Z0-9]+/g, '<') + '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<').slice(0, 44)) + '</div><div>' +
+      esc(('KH' + ('000' + a.x.done).slice(-3) + '<' + ('000' + Object.keys(a.pp.stamps).length).slice(-2) + 'ST<' + ('000' + got).slice(-2) + 'BD<' + ('0000' + a.x.words).slice(-4) + 'WD<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<').slice(0, 44)) + '</div>';
     book.innerHTML = '<div class="pp-top">' + KEYHOLE_MARK + '<div><h2>PASSPORT</h2><p>KEYHOLE · EVERY DOOR, ONE BOOK</p></div><button type="button" class="pp-x">Close</button></div>' +
       '<div class="pp-in"><div class="pp-page"><div class="pp-head">Holder</div>' +
       '<div class="pp-id"><div class="pp-photo"><svg viewBox="0 0 100 110"><circle cx="50" cy="40" r="22" fill="#9aa8bd"/><path d="M8 110c4-30 22-44 42-44s38 14 42 44z" fill="#9aa8bd"/>' +
@@ -199,9 +202,9 @@ P.open = function () {
       '<div><label>Stamps</label><b>' + Object.keys(a.pp.stamps).length + ' / ' + open.length + '</b></div>' +
       '<div><label>Words kept</label><b>' + a.x.words + '</b></div></div></div>' +
       '<div class="pp-mrz">' + mrz + '</div>' +
-      '<div class="pp-head" style="margin-top:16px">Stamps</div><p class="pp-sum">One stamp for every theme where you finish a story. Pale ones are still waiting.</p>' + st +
+      '<div class="pp-head" style="margin-top:16px">Stamps</div><p class="pp-sum">One stamp for every theme where you finish a story.<br>Pale ones are still waiting.</p>' + st +
       '<div class="pn">1</div></div>' +
-      '<div class="pp-page"><div class="pp-head">Badges</div><p class="pp-sum">' + got + ' of ' + BADGES.length + ' won. The pale ones say how to win them.</p><div class="pp-badges">' + bd + '</div>' +
+      '<div class="pp-page"><div class="pp-head">Badges</div><p class="pp-sum">' + got + ' of ' + BADGES.length + ' won.<br>The pale ones say how to win them.</p><div class="pp-badges">' + bd + '</div>' +
       '<div class="pn">2</div></div></div>';
     veil.appendChild(book); D.body.appendChild(veil);
     function close() { if (veil.parentNode) veil.parentNode.removeChild(veil); }
