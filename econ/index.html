@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Economics · KEYHOLE</title>
+<link rel="stylesheet" href="../assets/fonts-base.css">
+<link rel="stylesheet" href="../assets/fonts-econ.css">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%}
+  body{color:#1d2a1f;font-family:'Lora',Georgia,serif;-webkit-user-select:none;user-select:none;background:#7cc4ee;
+    background-image:linear-gradient(#5fb2ea 0,#a8dcf6 260px,#ffeeb8 420px,#8a8f96 421px,#6a6f76 100%)}
+  .back{position:fixed;left:14px;top:12px;z-index:3;height:36px;display:inline-flex;align-items:center;padding:0 14px;border:2px solid #1d2a1f;
+    background:#fffdf2;color:#1d2a1f;border-radius:4px;font-family:'Outfit',sans-serif;font-weight:700;font-size:13.5px;letter-spacing:.13em;text-transform:uppercase;text-decoration:none}
+  .back:hover{background:#f6d32b}
+  /* the bunting across the top */
+  .bunt{height:58px;background:
+    linear-gradient(135deg,transparent 50%,#fffdf2 50%) 0 0/44px 44px repeat-x,
+    linear-gradient(-135deg,transparent 50%,#fffdf2 50%) 0 0/44px 44px repeat-x}
+  .flags{position:absolute;left:0;right:0;top:0;height:60px;overflow:hidden;pointer-events:none}
+  .flags svg{display:block;width:100%;height:60px}
+  /* the board itself */
+  .board{position:relative;max-width:1180px;margin:44px auto 0;padding:26px 30px 24px;background:#2b3a32;
+    background-image:radial-gradient(ellipse at 20% 10%,rgba(255,255,255,.09),transparent 60%),radial-gradient(ellipse at 80% 90%,rgba(255,255,255,.05),transparent 60%);
+    border:18px solid #8a5a2e;border-radius:8px;box-shadow:0 30px 70px rgba(0,0,0,.45),inset 0 0 50px rgba(0,0,0,.35);color:#f4f1e6}
+  .board:before,.board:after{content:'';position:absolute;top:-34px;width:16px;height:40px;background:#6a4420;border-radius:3px}
+  .board:before{left:22%}.board:after{right:22%}
+  header{display:grid;grid-template-columns:1fr auto;gap:10px 30px;align-items:end;border-bottom:3px dashed rgba(244,241,230,.4);padding-bottom:14px}
+  h1{margin:0;font-family:'Cabin Sketch',cursive;font-weight:700;font-size:clamp(46px,6vw,78px);line-height:.95;color:#f6d32b}
+  header p{margin:8px 0 0;max-width:640px;font-family:'Architects Daughter',cursive;font-size:18px;line-height:1.45;color:#dfeee3}
+  .open{font-family:'Bungee',sans-serif;font-size:15px;padding:8px 16px 6px;border:3px solid #f8a8c8;color:#f8a8c8;border-radius:6px;transform:rotate(-4deg);white-space:nowrap}
+  main{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:28px 26px;margin-top:22px;align-items:start}
+  /* each story is a stall: an awning, and a price tag */
+  .stall{position:relative;display:block;text-align:left;border:0;padding:0;cursor:pointer;background:none;color:#1d2a1f;font:inherit;transition:transform .18s}
+  .stall:hover{transform:translateY(-5px)}
+  .awn{display:block;height:46px;border-radius:8px 8px 0 0;background:repeating-linear-gradient(90deg,#f6d32b 0 34px,#3a8a4a 34px 68px);position:relative}
+  .awn:after{content:'';position:absolute;left:0;right:0;bottom:-14px;height:16px;
+    background:radial-gradient(circle at 17px 0,#f6d32b 16px,transparent 17px) 0 0/68px 16px repeat-x,radial-gradient(circle at 51px 0,#3a8a4a 16px,transparent 17px) 0 0/68px 16px repeat-x}
+  .stall:nth-child(2) .awn{background:repeating-linear-gradient(90deg,#f2efe6 0 34px,#1f8a86 34px 68px)}
+  .stall:nth-child(3) .awn{background:repeating-linear-gradient(90deg,#fff 0 34px,#c2185b 34px 68px)}
+  .face{display:block;margin:0 10px;padding:26px 18px 50px;background:#fffdf2;border-radius:0 0 6px 6px;box-shadow:0 14px 30px rgba(0,0,0,.4)}
+  .face small{display:block;font-family:'Courier Prime',monospace;font-weight:700;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:#6a7480}
+  .face h2{margin:2px 0 6px;font-family:'Bungee',sans-serif;font-weight:400;font-size:27px;line-height:1.08;color:#1d2a1f}
+  .stars{font-family:Arial,sans-serif;font-size:21px;letter-spacing:3px;color:#e2a400;line-height:1}
+  .face em{display:block;margin-top:9px;font-style:normal;font-size:15px;line-height:1.48;color:#2f3a33}
+  .tag{position:absolute;right:-6px;top:34px;padding:9px 14px 8px 22px;background:#f8f1d6;border:2px solid #b08a4a;border-radius:4px 10px 10px 4px;transform:rotate(7deg);
+    font-family:'Architects Daughter',cursive;font-size:14px;line-height:1.25;color:#3a2a10;box-shadow:0 4px 10px rgba(0,0,0,.3)}
+  .tag:before{content:'';position:absolute;left:7px;top:50%;width:8px;height:8px;margin-top:-4px;border-radius:50%;background:#2b3a32}
+  .tag b{display:block;font-family:'Bungee',sans-serif;font-weight:400;font-size:15px}
+  .stamp{position:absolute;left:24px;bottom:16px;padding:3px 10px 1px;border:3px solid;font-family:'Bungee',sans-serif;font-size:13px;letter-spacing:.06em;transform:rotate(-8deg);display:none;background:rgba(255,253,242,.85)}
+  .stall.going .stamp{display:block;color:#2b5c9e}
+  .stall.solved .stamp{display:block;color:#3a8a4a}
+  .more{display:grid;place-items:center;min-height:230px;border:3px dashed rgba(244,241,230,.4);border-radius:8px;padding:20px;text-align:center;
+    font-family:'Cabin Sketch',cursive;font-size:23px;line-height:1.35;color:rgba(244,241,230,.8)}
+  .more span{display:block;font-family:'Architects Daughter',cursive;font-size:16px;color:rgba(244,241,230,.6);margin-top:6px}
+  footer{max-width:1180px;margin:0 auto;padding:18px 24px 40px;font-family:'Outfit',sans-serif;font-size:14px;color:#f4f1e6;text-align:center;line-height:1.8}
+  footer b{color:#f6d32b;font-weight:normal;letter-spacing:2px;font-family:Arial,sans-serif}
+  @media (max-width:700px){header{grid-template-columns:1fr}.open{justify-self:start}.board{margin:44px 10px 0;padding:18px 14px}}
+</style>
+</head>
+<body>
+<div class="flags"><svg viewBox="0 0 1600 60" preserveAspectRatio="none" id="flags"></svg></div>
+<a class="back" href="../index.html">&larr; Corridor</a>
+<div class="board">
+  <header>
+    <div>
+      <h1>The Market</h1>
+      <p>Markets, money and choices. Every price is a story, and somebody always pays it. Pick a pitch.</p>
+    </div>
+    <span class="open">OPEN TODAY</span>
+  </header>
+  <main id="files"></main>
+</div>
+<footer><b>&#9733;&#9733;&#9733;</b> one market day &nbsp;&middot;&nbsp; <b>&#9733;&#9733;&#9733;&#9733;</b> longer, and the simple sum is the wrong one &nbsp;&middot;&nbsp; <b>&#9733;&#9733;&#9733;&#9733;&#9733;</b> long, and nobody hands you the numbers</footer>
+
+<script src="../assets/account.js"></script>
+<script src="../assets/shelf.js"></script>
+<script>
+(function () {
+  var STORIES = Shelf.visible([{"id":"stall","title":"Squeezed","stars":3,"minutes":"35-45","hold":false,"level":"B1+ to B2","blurb":"Fennel Street School's Summer Market, on the hottest day of the year. The Business Club's lemonade stall has sold more cups than anybody, and its cash box is thirty pounds short. The captain knows exactly who took it: the girl next door, who runs the rival stall with the same recipe. At half past two she is going to the organiser. You are the newest member of the club, and you have just arrived.","rooms":5,"first":"playground.html","firstId":"playground","last":"table"},{"id":"bank","title":"Still Open at Four","stars":4,"minutes":"50-65","hold":false,"level":"B2","blurb":"Brockholt has one bank, and on Friday afternoon the whole town's phones say it has run out of money. The queue on Market Square is growing, the cash van is late, and the doors close at four. You are on work experience. It is your last day, and you were promised the vault.","rooms":6,"first":"hall.html","firstId":"hall","last":"steps"},{"id":"tulip","title":"Trading in Wind","stars":5,"minutes":"75-90","hold":false,"level":"B2+ to C1","blurb":"For seven Saturdays the price of a Fen Tiger tulip has doubled at Gotobed's Saleroom in Dykesend: five pounds, ten, twenty, and last week three hundred and twenty. Nobody has seen a bulb. They are still in the ground, and what changes hands is paper. Today, at three o'clock, forty more promises go under the hammer. You are the Saturday porter, and the auctioneer wants to know what a Fen Tiger is really worth before she sells it.","rooms":7,"first":"saleroom.html","firstId":"saleroom","last":"lotone"}]), box = document.getElementById('files'), s = '', i, C = ['#e2453a', '#f6d32b', '#2f8ac9', '#3a8a4a', '#fff', '#c2185b'];
+  for (i = 0; i < 34; i++) s += '<path d="M' + (i * 48) + ' 6L' + (i * 48 + 44) + ' 6L' + (i * 48 + 22) + ' 46z" fill="' + C[i % C.length] + '"/>';
+  document.getElementById('flags').innerHTML = '<path d="M0 6H1600" stroke="#5a4a3a" stroke-width="3"/>' + s;
+  Shelf.init();
+  STORIES.forEach(function (st, n) {
+    var stt = Shelf.status('econ', st), b = document.createElement('button');
+    b.type = 'button'; b.className = 'stall ' + stt.state; b.setAttribute('data-story', st.id);
+    b.innerHTML = '<span class="awn"></span><span class="face"><small class="no"></small><h2></h2><span class="stars"></span><em></em></span>' +
+      '<span class="tag"><b class="t"></b><span class="r"></span></span><span class="stamp"></span>';
+    b.querySelector('.no').textContent = 'Pitch ' + (n + 1);
+    b.querySelector('h2').textContent = st.title;
+    b.querySelector('.stars').textContent = Shelf.stars(st.stars);
+    b.querySelector('.stars').title = st.stars + ' out of 5 for difficulty';
+    b.querySelector('.t').textContent = st.minutes + ' min';
+    b.querySelector('.r').textContent = st.rooms + ' rooms' + (st.level ? ' · ' + st.level.replace(' to ', '–') : '');
+    b.querySelector('em').textContent = st.blurb;
+    b.querySelector('.stamp').textContent = stt.state === 'solved' ? 'SOLD OUT' : 'OPEN';
+    b.addEventListener('click', function () { Shelf.open('econ', st); });
+    box.appendChild(b);
+  });
+  if (STORIES.length < 5) {
+    var m = document.createElement('div'), left = 5 - STORIES.length; m.className = 'more';
+    m.innerHTML = (STORIES.length ? (left === 1 ? 'One pitch is' : 'Pitches ' + (STORIES.length + 1) + ' to 5 are') + ' still to let.' : 'Every pitch is still to let.') +
+      '<span>The other stalls are being set up. Come back on another market day.</span>';
+    box.appendChild(m);
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Behind the Canteen · Squeezed</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-econ.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="stall.css">
+<style>
+  body{--bg:#cfe3ee;--accent:#3a6fa8;--font-display:'Bungee',sans-serif;--font-ui:'Outfit',sans-serif;--font-body:'Lora',serif;
+    --tc-bg:rgba(236,246,251,.97);--tc-ink:#16324a;--cap-bg:rgba(246,251,254,.96);--cap-ink:#16324a;--panel:#f7fbfd;--panel-ink:#16324a;--face-bg:#3a6fa8;--q-ink:#c2185b;
+    --fade:#eaf4fa;--hud-bg:rgba(246,251,254,.88);--hud-ink:#16324a;--hud-line:rgba(22,50,74,.3);--ov-bg:rgba(16,36,56,.62)}
+  .tc-room{font-size:clamp(38px,5.6vw,78px);color:#3a6fa8}
+  .tc-theme{color:#c2185b}
+  .hbtn b{color:#fff}
+  #steam path{animation:steam 3.2s ease-in-out infinite;opacity:0}
+  #steam path:nth-child(2){animation-delay:-1.1s}#steam path:nth-child(3){animation-delay:-2.2s}
+  @keyframes steam{0%{opacity:0;transform:translateY(10px)}40%{opacity:.55}100%{opacity:0;transform:translateY(-60px)}}
+  #tube{animation:tube 7s steps(1,end) infinite}
+  @keyframes tube{0%{opacity:.6}4%{opacity:.3}6%{opacity:.6}61%{opacity:.45}62%{opacity:.6}}
+  #fan{animation:spin 1.4s linear infinite;transform-origin:1100px 110px}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  #spike.ready{animation:glow 1.6s steps(1,end) infinite}
+  @keyframes glow{50%{filter:brightness(1.3)}}
+
+  /* the spike, unpicked */
+  .sp{width:min(1080px,96vw)}
+  .sp-in{display:grid;grid-template-columns:1fr 360px;gap:14px;background:#d9e4ea linear-gradient(#e6eef2,#c9d6de);border:10px solid #9fb0bc;border-radius:8px;padding:14px;box-shadow:0 26px 70px rgba(0,0,0,.55)}
+  .sp-rc{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .rc{position:relative;background:#fffef8;color:#22252a;font-family:'Courier Prime',monospace;font-size:12.5px;line-height:1.28;padding:8px 10px 6px;box-shadow:0 3px 8px rgba(0,0,0,.25);border-bottom:4px dotted #d9d6cc}
+  .rc:nth-child(odd){transform:rotate(-.6deg)}.rc:nth-child(even){transform:rotate(.5deg)}
+  .rc b{display:block;font-size:12.5px;letter-spacing:.04em}
+  .rc .amt{display:block;font-weight:700;font-size:15px;margin-top:2px}
+  .rc .hand{font-family:'Architects Daughter',cursive;font-size:13px;color:#1f5a8a;line-height:1.2}
+  .rc .st{display:flex;gap:6px;margin-top:5px}
+  .rc .st button{flex:1;padding:3px 0 2px;border:2px solid #9aa3ad;border-radius:3px;font-family:'Bungee',sans-serif;font-size:10.5px;color:#7a838d}
+  .rc .st button:hover{border-color:#16324a;color:#16324a}
+  .rc.F .st .f{background:#c2185b;border-color:#c2185b;color:#fff}
+  .rc.V .st .v{background:#3a6fa8;border-color:#3a6fa8;color:#fff}
+  .rc.bad{outline:4px solid #e2453a}
+  .sp-r{display:flex;flex-direction:column;gap:10px}
+  .pad{background:#fff;color:#16324a;padding:10px 14px;border-radius:4px;box-shadow:0 3px 8px rgba(0,0,0,.2)}
+  .pad h5{margin:0 0 4px;font-family:'Bungee',sans-serif;font-weight:400;font-size:15px;color:#3a6fa8}
+  .pad p{margin:0 0 6px;font-family:'Lora',serif;font-size:14.5px;line-height:1.35}
+  .pad .row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .pad .row span{font-family:'Architects Daughter',cursive;font-size:15px}
+  .pad .dl{flex-direction:row;gap:6px}
+  .pad .dl b{font-family:'Courier Prime',monospace;font-weight:700;font-size:24px;min-width:3.4em;color:#16324a}
+  .pad .dl button{width:30px;height:30px;line-height:30px;border:2px solid #9fb0bc;border-radius:50%;font-size:11px;color:#16324a}
+  .pad.kit{border-left:8px solid #f6d32b}.pad.tom{border-left:8px solid #3a8a4a}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="tile" width="40" height="40" patternUnits="userSpaceOnUse"><rect width="40" height="40" fill="#f4f8fa"/><path d="M0 0H40V40" fill="none" stroke="#c9d6de" stroke-width="2"/></pattern>
+  <pattern id="floor" width="80" height="80" patternUnits="userSpaceOnUse"><rect width="80" height="80" fill="#c9d1d6"/><rect width="40" height="40" fill="#9fb0bc"/><rect x="40" y="40" width="40" height="40" fill="#9fb0bc"/></pattern>
+  <linearGradient id="steel" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e6ecef"/><stop offset=".5" stop-color="#b9c4cb"/><stop offset="1" stop-color="#8f9ba3"/></linearGradient>
+  <linearGradient id="steelV" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#cdd5da"/><stop offset=".5" stop-color="#eef2f4"/><stop offset="1" stop-color="#aeb9c0"/></linearGradient>
+  <radialGradient id="tubeG" cx="50%" cy="0%" r="70%"><stop offset="0" stop-color="#f0fbff" stop-opacity=".8"/><stop offset="1" stop-color="#f0fbff" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="45%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#0a2030" stop-opacity=".08"/><stop offset="1" stop-color="#0a2030" stop-opacity=".45"/></radialGradient>
+</defs>
+
+<rect x="-1000" y="-400" width="3600" height="1000" fill="url(#tile)"/>
+<rect x="-1000" y="196" width="3600" height="14" fill="#3a6fa8"/><rect x="-1000" y="214" width="3600" height="5" fill="#f6d32b"/>
+<rect x="-1000" y="-400" width="3600" height="420" fill="#e9f0f4" opacity=".4"/>
+<rect x="420" y="10" width="760" height="22" rx="4" fill="#9fb0bc"/><rect x="436" y="18" width="728" height="8" rx="4" fill="#fbffff"/>
+<ellipse id="tube" cx="800" cy="26" rx="900" ry="520" fill="url(#tubeG)" opacity=".6" pointer-events="none"/>
+
+<!-- the hood and its fan -->
+<path d="M900 40h400l60 150H840z" fill="url(#steelV)" stroke="#8f9ba3" stroke-width="3"/><circle cx="1100" cy="110" r="44" fill="#5a6470"/><g id="fan" fill="#cdd5da"><path d="M1100 110l-6 -38h12z"/><path d="M1100 110l38 -6v12z"/><path d="M1100 110l6 38h-12z"/><path d="M1100 110l-38 6v-12z"/></g><circle cx="1100" cy="110" r="8" fill="#2a2c33"/>
+
+<!-- the serving hatch, shut -->
+<g id="hatch" class="hot"><rect x="490" y="226" width="380" height="230" fill="#8f9ba3"/><rect x="502" y="238" width="356" height="206" fill="url(#steelV)"/><g stroke="#9fb0bc" stroke-width="3"><path d="M502 262h356M502 288h356M502 314h356M502 340h356M502 366h356M502 392h356M502 418h356"/></g>
+  <rect x="560" y="300" width="240" height="56" fill="#fff" stroke="#3a6fa8" stroke-width="3"/><text x="680" y="324" class="cB" font-size="15" text-anchor="middle" fill="#3a6fa8">CANTEEN CLOSED</text><text x="680" y="345" class="cH" font-size="15" text-anchor="middle" fill="#16324a">for the Summer Market</text></g>
+
+<!-- the fridge, the card beside it, the recipe -->
+<g id="fridge" class="hot"><rect x="60" y="130" width="250" height="580" rx="10" fill="url(#steelV)" stroke="#8f9ba3" stroke-width="3"/><path d="M185 140v560" stroke="#8f9ba3" stroke-width="3"/><rect x="164" y="330" width="10" height="110" rx="4" fill="#5a6470"/><rect x="196" y="330" width="10" height="110" rx="4" fill="#5a6470"/>
+  <circle cx="110" cy="200" r="12" fill="#e2453a"/><rect x="226" y="180" width="54" height="40" fill="#fff6a8" transform="rotate(5 253 200)"/></g>
+<g id="card" class="hot" transform="rotate(-2 380 290)"><rect x="322" y="214" width="124" height="160" rx="8" fill="#eef6fb" stroke="#fff" stroke-width="5"/><rect x="322" y="214" width="124" height="160" rx="8" fill="none" stroke="#9fbad0" stroke-width="2"/>
+  <text x="384" y="240" class="cB" font-size="12" text-anchor="middle" fill="#3a6fa8">HOW I COST</text><text x="384" y="256" class="cB" font-size="12" text-anchor="middle" fill="#3a6fa8">A DISH</text>
+  <path d="M336 272h96M336 284h80M336 296h92M336 308h70M336 320h88M336 332h60M336 348h96" stroke="#16324a" stroke-width="2.4" opacity=".6"/></g>
+<g id="recipe" class="hot" transform="rotate(3 935 300)"><rect x="884" y="236" width="104" height="132" fill="#fffdf4"/><rect x="884" y="236" width="104" height="12" fill="#1f8a86"/><circle cx="936" cy="232" r="6" fill="#e2453a"/>
+  <text x="936" y="268" class="cB" font-size="10.5" text-anchor="middle" fill="#1f8a86">THE LEMONADE</text><path d="M894 284h80M894 296h66M894 308h78M894 320h60M894 332h74" stroke="#5b3b8f" stroke-width="2" opacity=".7"/></g>
+
+<!-- the counter -->
+<rect x="330" y="520" width="1600" height="190" fill="url(#steel)"/><rect x="330" y="512" width="1600" height="14" fill="#eef2f4"/><path d="M330 600H1930" stroke="#8f9ba3" stroke-width="2"/>
+<g fill="#8f9ba3"><rect x="460" y="620" width="12" height="40" rx="5"/><rect x="760" y="620" width="12" height="40" rx="5"/><rect x="1060" y="620" width="12" height="40" rx="5"/></g>
+<g id="pot" class="hot"><rect x="1040" y="500" width="120" height="16" rx="3" fill="#2a2c33"/><path d="M1050 500v-64q0 -8 8 -8h84q8 0 8 8v64z" fill="#cdd5da" stroke="#8f9ba3" stroke-width="3"/><path d="M1040 440h-16M1160 440h16" stroke="#5a6470" stroke-width="6" stroke-linecap="round"/>
+  <g id="steam" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"><path d="M1076 420q-12 -18 0 -36t0 -36"/><path d="M1100 420q-12 -18 0 -36t0 -36"/><path d="M1124 420q-12 -18 0 -36t0 -36"/></g></g>
+<g id="squeezer" class="hot"><ellipse cx="640" cy="508" rx="46" ry="10" fill="#cdd5da" stroke="#8f9ba3" stroke-width="2"/><path d="M604 506q36 -50 72 0" fill="#eef2f4" stroke="#8f9ba3" stroke-width="2"/><path d="M640 466v40M620 476l8 30M660 476l-8 30" stroke="#b9c4cb" stroke-width="3"/></g>
+<g id="spike" class="hot"><rect x="740" y="500" width="64" height="14" rx="3" fill="#5a4028"/><path d="M772 500V400" stroke="#c9ced3" stroke-width="4" stroke-linecap="round"/>
+  <g fill="#fffef8" stroke="#b9b29c" stroke-width="1"><path d="M736 490l70 -6 2 12 -70 6z"/><path d="M740 476l66 4 -1 12 -66 -4z"/><path d="M734 462l72 -8 2 12 -72 8z"/><path d="M738 448l68 2 0 12 -68 -2z"/><path d="M736 434l70 -6 2 12 -70 6z"/></g></g>
+<g id="lemons"></g>
+
+<!-- the floor, the empty crate, the trolley -->
+<rect x="-1000" y="708" width="3600" height="700" fill="url(#floor)"/><rect x="-1000" y="704" width="3600" height="8" fill="#5a6470"/>
+<g id="crate" class="hot"><path d="M330 800l20 -80h170l20 80z" fill="#c9a26a" stroke="#8a6a3a" stroke-width="3"/><path d="M342 760h186" stroke="#8a6a3a" stroke-width="3"/><text x="435" y="790" class="cB" font-size="13" text-anchor="middle" fill="#5a4028">CANTEEN · LEMONS</text></g>
+<g id="trolley" class="hot"><rect x="1300" y="580" width="270" height="12" fill="#8f9ba3"/><rect x="1300" y="720" width="270" height="12" fill="#8f9ba3"/><path d="M1306 592v190M1564 592v190" stroke="#8f9ba3" stroke-width="8"/><circle cx="1316" cy="796" r="14" fill="#2a2c33"/><circle cx="1554" cy="796" r="14" fill="#2a2c33"/><g id="jugs"></g></g>
+<g id="cheung" class="hot" transform="translate(1000 884) scale(1.26)"></g>
+
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Out to the car park</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="stall.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, lock = null;
+
+  (function () {
+    var s = '', i;
+    for (i = 0; i < 7; i++) s += '<g transform="translate(' + (1322 + i * 34) + ' ' + (i % 2 ? 712 : 572) + ')"><path d="M0 0v-46q0 -6 6 -6h22q6 0 6 6v46z" fill="#eef8ff" fill-opacity=".7" stroke="#8fb0c8" stroke-width="2"/><path d="M34 -40q10 2 9 12t-9 10" fill="none" stroke="#8fb0c8" stroke-width="2"/></g>';
+    $('#jugs').innerHTML = s;
+    $('#lemons').innerHTML = STALL.lemon(880, 504, 12, 20) + STALL.slice(920, 508, 10) + '<path d="M940 512q10 -6 20 0" stroke="#f2c21b" stroke-width="3" fill="none"/>';
+    $('#cheung').innerHTML = STALL.who('cheung', { smile: 1, extra: '<path d="M39 -112l26 -24" stroke="#e8c8a8" stroke-width="12" stroke-linecap="round"/><rect x="54" y="-158" width="44" height="12" rx="3" fill="#c9a26a" transform="rotate(-30 76 -152)"/>' });
+  })();
+
+  ER.init({
+    theme: 'econ', story: 'stall', storyTitle: 'Squeezed', id: 'kitchen', no: 'II', title: 'Behind the Canteen',
+    go: 'Push open the kitchen door',
+    intro: [
+      'The schedule went on the back of the board in chalk: on a cool morning, 2 cups in ten minutes at 80p, 5 at 60p, 8 at 40p and 11 at 20p. A neat line. Then the sun came out at twenty to twelve and the whole line jumped: twelve more cups at every price. It was the heat that sold Kit&rsquo;s cups, not her twenty pence.',
+      'The kitchen behind the canteen is the only cool place in the school, and Mrs Cheung, who runs it, would like to keep it that way.',
+      'Somewhere in here are the receipts for everything LEMON AID has bought today.'
+    ],
+    exit: {"next":"carpark","w":{"81bc4515":"90eef048"}}, tags: {"fx":["533236b5"],"fr":["61c40c05","475f5074"],"cup":["1d4fd515"],"pk":["9649e5cf"],"pt":["1f2037d8"],"cupm":["75ddd058"],"cupj":["26cf4ed4"],"cupx":["27a1b7b7"],"pk0":["dbfb7eb4"],"pt8":["3dcccabd"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('b-file') || null; told = ER.flag('b-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('b-told', told); return true; }
+  function isBusy() { return busy; }
+  function ready() { return told.cheung && told.card && told.recipe; }
+  function paint() {
+    $('#spike').classList.toggle('ready', !!(ready() && !nextFile));
+    ER.pips((told.cheung ? 1 : 0) + (told.card ? 1 : 0) + (told.recipe ? 1 : 0) + (nextFile ? 1 : 0), 4);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Kit needs ice. Go out to the car park: the button at the bottom of the screen.']];
+    if (lock && lock.isOpen()) return ['lock', [
+      'Stamp each receipt first. Ask of every one: if the stall sold twice as many cups, would this cost twice as much? Then it is VARIABLE. If it would cost the same, it is FIXED.',
+      'For one cup now: cost ONE JUG at today&rsquo;s prices (the recipe card says what goes into a jug; the receipts say what each thing costs: use the newest lemons and the newest ice), then share it between the 10 cups. Do not forget the paper cups.',
+      'For the two plans you need how many cups people buy in ten minutes on a hot day, at 20p and at 40p: your note &ldquo;Two lines on the board&rdquo; has them. Profit = the money that comes in, minus what every cup that goes out costs. A taster goes out too.'
+    ]];
+    if (!told.cheung) return ['cheung', ['The cook is at the sink. Talk to Mrs Cheung.', 'Mrs Cheung, in the blue apron, in the middle of the kitchen.']];
+    if (!told.card) return ['card', ['Mrs Cheung told you to read her card first. It is by the big fridge, on the left.', 'The white card with HOW I COST A DISH on it, just to the right of the fridge.']];
+    if (!told.recipe) return ['recipe', ['To cost a cup of lemonade you need to know what goes into it. Rosa&rsquo;s recipe is pinned on the wall.', 'The small card with a blue strip at the top, to the right of the serving hatch.']];
+    return ['spike', ['Now the receipts. They are on the steel spike on the counter.', 'The spike stands between the squeezer and the pot of soup. Click it.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('Forty pence, says the board now. And no ice.'); return; }
+    if (told.in) { busy = false; ER.say('The kitchen behind the canteen. Cool, and very clean.'); return; }
+    tell('in');
+    ER.narrate([
+      'Steel, steam and white tiles. A fridge the size of a wardrobe hums to itself in the corner, and a fan turns slowly in the hood.',
+      'Mrs Cheung, the cook, is standing in the middle of her kitchen with a baking tray. Behind her, on the counter, is a steel spike with a fat wad of paper pushed down on to it.',
+      'On the wall: a laminated card by the fridge, and a recipe card in purple pen, with a blue strip along the top.'
+    ], function () { busy = false; });
+  }
+
+  $('#cheung').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Ice,&rdquo; says Mrs Cheung, without turning round. &ldquo;Car park. And take those jugs with you.&rdquo;'); return; }
+    ER.talk({
+      who: 'Mrs Cheung', role: 'Cook · twenty-two years in this kitchen', face: STALL.face('cheung'),
+      lines: [
+        { note: 'She is scrubbing a baking tray as if it had said something rude.', a: '&ldquo;Kit Ashworth wants to open again at twenty pence. With free tasters. For the Cup, she says. She sent Rory to ask if I had any more lemons. I have not.&rdquo;' },
+        { q: 'Is twenty pence a bad price?', a: 'For twenty-two years I have known what every dinner in this school costs me, to the penny. Kit knows what she sold. She does not know what it cost. That is how a person works very hard all day and goes home poorer.' },
+        { q: 'What did the lemonade cost?', a: 'Everything the club bought is on my spike. Kit leaves her receipts with me, because I am the only person in this building who does not lose things. The recipe is on the wall. Rosa Ferreira wrote it, in Year 9. Best lemonade this school has ever had.' },
+        { q: 'Why did Rosa leave the club?', a: 'Ask her. I will tell you what I saw: two clever girls who both wanted to be in charge of the price, and one recipe.' },
+        { note: 'She points the scrubbing brush at the card by the fridge.', a: '&ldquo;Read my card first. Then sort my spike and tell me what one cup costs NOW. And then tell me which is better for ten minutes of the last hour: Kit&rsquo;s twenty pence and tasters, or Tomasz&rsquo;s forty pence. In money, not in cups.&rdquo;' }
+      ],
+      clue: { id: 'cheung', title: 'Mrs Cheung: in money, not in cups', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('cheung')) { paint(); ER.say('The card is by the fridge. The recipe is by the hatch. The receipts are on the spike.'); } }
+    });
+  });
+
+  var DIA = '<svg viewBox="0 0 290 270"><g font-family="Architects Daughter,cursive" font-size="13" fill="#16324a">' +
+    '<text x="8" y="16" font-weight="700" fill="#3a6fa8">Shepherd&rsquo;s pie: one tray, 20 portions</text>' +
+    '<text x="12" y="38">mince</text><text x="190" y="38">&pound;6.00</text><text x="12" y="56">potatoes</text><text x="190" y="56">&pound;2.00</text><text x="12" y="74">onions, carrots</text><text x="190" y="74">&pound;1.00</text><text x="12" y="92">gravy</text><text x="190" y="92">&pound;1.00</text>' +
+    '<path d="M10 100H270" stroke="#16324a" stroke-width="1.5"/><text x="12" y="118" font-weight="700">one tray</text><text x="190" y="118" font-weight="700">&pound;10.00</text><text x="12" y="138" fill="#c2185b" font-weight="700">&pound;10.00 &divide; 20 = 50p a portion</text>' +
+    '<path d="M40 160V256H280" fill="none" stroke="#16324a" stroke-width="2"/><text x="6" y="172">&pound;</text><text x="222" y="268">portions</text>' +
+    '<path d="M40 222H276" stroke="#c2185b" stroke-width="3"/><text x="200" y="216" fill="#c2185b">fixed</text>' +
+    '<path d="M40 222L276 168" stroke="#3a6fa8" stroke-width="3"/><text x="150" y="176" fill="#3a6fa8">total cost</text>' +
+    '<path d="M240 177V220" stroke="#3a6fa8" stroke-width="1.5" stroke-dasharray="4 3"/><text x="246" y="202" fill="#3a6fa8" font-size="11.5">variable</text></g></svg>';
+  var CARD = '<h4>How I cost a dish<small>Mrs Cheung, every day since 2004</small></h4><div class="two"><div>' +
+    '<p>There are two kinds of cost.</p>' +
+    '<p><b>FIXED COSTS</b> stay the same however many you sell: the hire of a hall, a table or a tent for the day.</p>' +
+    '<p><b>VARIABLE COSTS</b> go up with every portion: the food, the napkin, the box it goes in.</p>' +
+    '<p>To cost one portion, add up everything in one batch and divide by the portions in the batch. Use <b>today&rsquo;s prices</b>: what the last batch cost is not what the next one will.</p>' +
+    '<p><b>REVENUE</b> is the money that comes in: price &times; how many you sell. <b>PROFIT = REVENUE &minus; COST.</b> If the cost is bigger, your profit is a <b>loss</b>.</p>' +
+    '<p>Fixed costs are paid whatever you choose. So to choose between two plans for the next hour, look at what changes: the revenue, and the variable costs.</p>' +
+    '<p class="rule">Free food is not free. Somebody pays for every portion. If it is not the customer, it is you.</p></div>' + DIA + '</div>';
+  $('#card').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: CARD, cls: 'costing', clue: { id: 'costing', title: 'Mrs Cheung’s card: how I cost a dish', kind: 'By the fridge' }, done: function () {
+      STALL.terms(['cost', 'fixed cost', 'variable cost', 'revenue', 'profit', 'loss']);
+      if (tell('card')) { paint(); ER.say('A batch, today&rsquo;s prices, divide by the portions. And free food is not free.'); }
+    } });
+  });
+  var RECIPE = '<h4>THE LEMONADE</h4><p>(R.F., Year 9)</p><p>For ONE jug. Makes 10 cups.</p><p>&middot; 4 lemons</p><p>&middot; 200 g sugar</p><p>&middot; 1 litre cold water (tap)</p><p>&middot; ice: one bag cools 5 jugs</p><p>&middot; and 10 paper cups, obviously</p>' +
+    '<p>Squeeze, stir till the sugar&rsquo;s gone, ice last. Don&rsquo;t skimp on the lemons.</p><span class="cs">Tap water: free. My squeezer: free, if you wash it. &mdash; Mrs C.</span>';
+  $('#recipe').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: RECIPE, cls: 'recipe', clue: { id: 'recipe', title: 'Rosa’s recipe: one jug', kind: 'On the wall' }, done: function () {
+      if (tell('recipe')) { paint(); ER.say('Four lemons, 200 grams of sugar, a fifth of a bag of ice and ten paper cups make ten cups of lemonade.'); }
+    } });
+  });
+  STALL.thing('#fridge', null, 'The fridge is full of Monday&rsquo;s dinners. There is no ice in it: the canteen&rsquo;s ice machine broke in May.', isBusy);
+  STALL.thing('#hatch', 'serving hatch', 'The serving hatch is shut. CANTEEN CLOSED for the Summer Market. From the other side comes the noise of three hundred people being hot.', isBusy);
+  STALL.thing('#pot', null, 'Soup, in this heat. &ldquo;For Monday,&rdquo; says Mrs Cheung. &ldquo;The weather will change. It always does.&rdquo;', isBusy);
+  STALL.thing('#squeezer', 'squeezer', 'Mrs Cheung&rsquo;s lemon squeezer, washed and shining. &ldquo;Free,&rdquo; she says, &ldquo;because I am kind. Not because it is worth nothing.&rdquo;', isBusy);
+  STALL.thing('#crate', 'crate', 'CANTEEN &middot; LEMONS: empty. Mrs Cheung sold the club sixty lemons on Thursday, and that was all she could spare.', isBusy);
+  STALL.thing('#trolley', 'trolley', 'Seven clean jugs on the jug trolley, washed by Mrs Cheung, who would like to know why they are still in her kitchen.', isBusy);
+  $('#spike').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Nine receipts, stamped and back on the spike. Two red stamps, seven blue.'); return; }
+    if (!told.cheung) { ER.say('A spike full of receipts. &ldquo;Ask before you touch my spike,&rdquo; says Mrs Cheung.'); return; }
+    if (!told.card) { ER.say('&ldquo;My card first,&rdquo; says Mrs Cheung. &ldquo;By the fridge. Otherwise you will just add them all up, like Kit.&rdquo;'); return; }
+    if (!told.recipe) { ER.say('To cost a cup you need to know what goes into one. The recipe is on the wall by the hatch.'); return; }
+    if (!lock) lock = makeLock();
+    lock.open();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the spike ---------- */
+  function makeLock() {
+    var R = [
+      { id: 'r1', h: 'FENNEL STREET SUMMER MARKET', t: 'pitch hire: one table, all day', a: 500, paid: 'paid: club card, Mon', n: 'the pitch' },
+      { id: 'r2', h: '1st FENNEL STREET SCOUTS', t: 'gazebo hire, Friday', a: 400, paid: 'paid: club card, Mon', n: 'the gazebo' },
+      { id: 'r3', h: 'SCHOOL CANTEEN', t: 'lemons 60 @ 15p', a: 900, paid: 'paid: club card, Thu', n: 'the canteen lemons' },
+      { id: 'r4', h: 'HOLLIS STORES', t: 'lemons 80 @ 20p', a: 1600, paid: 'paid: CASH 11.50', hand: 'from the box. R.A.', n: 'the lemons from Hollis&rsquo;s' },
+      { id: 'r5', h: 'CASH &amp; CARRY', t: 'sugar 8 &times; 1 kg @ &pound;1.00', a: 800, paid: 'paid: club card, Wed', n: 'the sugar' },
+      { id: 'r6', h: 'CASH &amp; CARRY', t: 'paper cups 4 &times; 100 @ &pound;5.00', a: 2000, paid: 'paid: club card, Wed', n: 'the paper cups' },
+      { id: 'r7', h: 'SANDOVAL&rsquo;S ICES 10.05', t: 'ice 2 bags @ &pound;1.00', a: 200, paid: 'paid: CASH', hand: 'Mrs O paid, from her own purse. We owe her &pound;2!', n: 'the ice' },
+      { id: 'r8', h: 'SANDOVAL&rsquo;S ICES 11.50', t: 'ice 2 bags @ &pound;2.50', a: 500, paid: 'paid: CASH', hand: 'box. T.K.', n: 'the ice' },
+      { id: 'r9', h: 'SANDOVAL&rsquo;S ICES 12.30', t: 'ice 2 bags @ &pound;2.50', a: 500, paid: 'paid: CASH', hand: 'box. T.K.', n: 'the ice' }
+    ];
+    var st = ER.flag('b-st') || {}, saved = ER.flag('b-vals') || {}, wait = false, d = {};
+    var box = ER.el('div', 'pz sp');
+    box.innerHTML = '<div class="sp-in"><div class="sp-rc">' + R.map(function (r) {
+      return '<div class="rc" data-id="' + r.id + '"><b>' + r.h + '</b>' + r.t + '<span class="amt">&pound;' + (r.a / 100).toFixed(2) + '</span>' + r.paid + (r.hand ? '<br><span class="hand">' + r.hand + '</span>' : '') +
+        '<div class="st"><button type="button" class="f">fixed</button><button type="button" class="v">variable</button></div></div>';
+    }).join('') + '</div><div class="sp-r">' +
+      '<div class="pad"><h5>One cup, now</h5><p>At today&rsquo;s prices, everything in it.</p><div class="row"><span>cost of one cup</span><i class="dlc" data-k="cup"></i></div></div>' +
+      '<div class="pad kit"><h5>Kit&rsquo;s plan</h5><p>20p a cup, and 4 free tasters every ten minutes.</p><div class="row"><span>profit in ten minutes</span><i class="dlc" data-k="pk"></i></div></div>' +
+      '<div class="pad tom"><h5>Tomasz&rsquo;s plan</h5><p>40p a cup, no tasters.</p><div class="row"><span>profit in ten minutes</span><i class="dlc" data-k="pt"></i></div></div>' +
+      '</div></div><div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="k-go">Show Mrs Cheung</button></div>';
+    var msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function paintRc() { ER.$$('.rc', box).forEach(function (n) { var v = st[n.getAttribute('data-id')]; n.classList.toggle('F', v === 'F'); n.classList.toggle('V', v === 'V'); }); }
+    ER.$$('.rc', box).forEach(function (n) {
+      var id = n.getAttribute('data-id');
+      n.querySelector('.f').addEventListener('click', function () { if (wait || nextFile) return; st[id] = st[id] === 'F' ? '' : 'F'; ER.flag('b-st', st); STALL.sfx.thud(); paintRc(); });
+      n.querySelector('.v').addEventListener('click', function () { if (wait || nextFile) return; st[id] = st[id] === 'V' ? '' : 'V'; ER.flag('b-st', st); STALL.sfx.thud(); paintRc(); });
+    });
+    paintRc();
+    function keep() { ER.flag('b-vals', { cup: d.cup.get(), pk: d.pk.get(), pt: d.pt.get() }); }
+    d.cup = STALL.dial(box.querySelector('[data-k=cup]'), { min: 0, max: 250, step: 1, val: saved.cup || 0, fmt: STALL.money, change: keep, lock: function () { return wait || !!nextFile; } });
+    d.pk = STALL.dial(box.querySelector('[data-k=pk]'), { min: -600, max: 900, step: 20, val: saved.pk || 0, fmt: function (v) { return v === 0 ? '0p' : STALL.money(v); }, change: keep, lock: function () { return wait || !!nextFile; } });
+    d.pt = STALL.dial(box.querySelector('[data-k=pt]'), { min: -600, max: 900, step: 20, val: saved.pt || 0, fmt: function (v) { return v === 0 ? '0p' : STALL.money(v); }, change: keep, lock: function () { return wait || !!nextFile; } });
+    function flash(n) { n.classList.add('bad'); setTimeout(function () { n.classList.remove('bad'); }, 1100); }
+    box.querySelector('#k-go').addEventListener('click', function () {
+      var i, r, n = 0, fx = [], cup = d.cup.get(), pk = d.pk.get(), pt = d.pt.get(), file;
+      if (wait || nextFile) return;
+      R.forEach(function (q) { if (st[q.id]) n++; if (st[q.id] === 'F') fx.push(q.id); });
+      if (n < R.length) { ER.sfx.no(); msg('&ldquo;Nine receipts,&rdquo; says Mrs Cheung, &ldquo;and ' + (n ? 'only ' + n : 'not one') + ' of them stamped. Every cost is one kind or the other.&rdquo;'); return; }
+      for (i = 0; i < R.length; i++) {
+        r = R[i];
+        if ((st[r.id] === 'F') !== ER.check('fr', r.id)) {
+          ER.sfx.no(); flash(box.querySelector('.rc[data-id="' + r.id + '"]'));
+          msg(st[r.id] === 'F' ? '&ldquo;' + r.n.charAt(0).toUpperCase() + r.n.slice(1) + ', fixed?&rdquo; says Mrs Cheung. &ldquo;Sell twice as many cups and you need twice as much. That cost goes up with every cup.&rdquo;' :
+            '&ldquo;' + r.n.charAt(0).toUpperCase() + r.n.slice(1) + ', variable?&rdquo; says Mrs Cheung. &ldquo;Does it cost more if you sell one more cup? It was paid once, for the day, whatever you sell.&rdquo;');
+          return;
+        }
+      }
+      if (!ER.check('cup', cup)) {
+        ER.sfx.no(); ER.shake(box.querySelector('.pad'));
+        if (ER.check('cupm', cup)) msg('&ldquo;Those are this morning&rsquo;s prices,&rdquo; says Mrs Cheung, &ldquo;or you have left something out. My lemons are gone: where do the next ones come from? What does ice cost now? And did you count the paper cups?&rdquo;');
+        else if (ER.check('cupj', cup)) msg('&ldquo;That is a whole jug,&rdquo; says Mrs Cheung. &ldquo;How many cups does a jug make?&rdquo;');
+        else if (ER.check('cupx', cup)) msg('&ldquo;Which ice did you use?&rdquo; says Mrs Cheung. &ldquo;Lucia&rsquo;s van is not charging what it charged at ten o&rsquo;clock.&rdquo;');
+        else msg('&ldquo;Not what my card would say,&rdquo; says Mrs Cheung. &ldquo;One jug, at today&rsquo;s prices, every single thing in it. Then share it out between the cups.&rdquo;');
+        return;
+      }
+      if (!ER.check('pk', pk)) {
+        ER.sfx.no(); ER.shake(box.querySelector('.pad.kit'));
+        if (ER.check('pk0', pk)) msg('&ldquo;And the four tasters?&rdquo; says Mrs Cheung. &ldquo;They cost exactly as much as the cups she sells.&rdquo;');
+        else msg('&ldquo;Kit&rsquo;s plan,&rdquo; says Mrs Cheung. &ldquo;How many cups do people buy in ten minutes at twenty pence, on a day like this? And how many more does she give away? Money in, minus what every cup that goes out costs.&rdquo;');
+        return;
+      }
+      if (!ER.check('pt', pt)) {
+        ER.sfx.no(); ER.shake(box.querySelector('.pad.tom'));
+        if (ER.check('pt8', pt)) msg('&ldquo;That is the money that comes in,&rdquo; says Mrs Cheung. &ldquo;What goes out?&rdquo;');
+        else msg('&ldquo;Tomasz&rsquo;s plan: forty pence, no tasters,&rdquo; says Mrs Cheung. &ldquo;How many cups in ten minutes at forty pence, on a day like this?&rdquo;');
+        return;
+      }
+      file = ER.exit([fx.sort().join('') + '-' + cup + '-' + (pk < 0 ? 'm' + (-pk) : pk) + '-' + pt], { wait: true });
+      if (!file) { msg('The door will not open. Something is wrong with this page: tell your teacher.'); return; }
+      wait = true; nextFile = file; ER.flag('b-file', file);
+      STALL.mine('cup', 'One cup, now', '<p>One jug at today&rsquo;s prices: lemons 4 &times; 20p = 80p, sugar 20p, ice &pound;2.50 &divide; 5 = 50p, cups 10 &times; 5p = 50p.</p><p>&pound;2.00 a jug: 20p a cup. (This morning it was 15p.)</p><p>Fixed: the pitch &pound;5 and the gazebo &pound;4.</p><p>Ten minutes at 20p + 4 tasters: 23 &times; 20p &minus; 27 &times; 20p = &minus;80p.</p><p>Ten minutes at 40p: 20 &times; 40p &minus; 20 &times; 20p = &pound;4.00.</p>', true);
+      msg('Mrs Cheung reads your figures upside down, which is how cooks read everything. &ldquo;Yes,&rdquo; she says. &ldquo;In money, not in cups.&rdquo;');
+      setTimeout(function () {
+        ER.closeAll(); paint(); busy = true;
+        ER.narrate([
+          '&ldquo;Twenty pence and tasters,&rdquo; says Mrs Cheung. &ldquo;Twenty-seven cups out every ten minutes, and eighty pence gone. Forty pence: twenty cups out, and four pounds in. Fewer cups. More money.&rdquo;',
+          'Kit is in the doorway. Nobody heard her come in. She has the price board under her arm, and she is looking at the receipts as if they had bitten her.',
+          '&ldquo;Selling more,&rdquo; she says slowly, &ldquo;isn&rsquo;t the same as earning more.&rdquo; She rubs out 20p + FREE TASTER with her sleeve, and chalks 40p.',
+          '&ldquo;Fine. Forty. Tomasz&rsquo;s plan. It&rsquo;s the most the rule allows anyway.&rdquo; She looks at the empty jugs. &ldquo;But it doesn&rsquo;t matter what the price is. We&rsquo;ve got thirty-two lemons and no ice, and Tomasz has been in the queue at the van for a quarter of an hour.&rdquo;',
+          '&ldquo;Then go and help him,&rdquo; says Mrs Cheung, and turns back to her tray. &ldquo;And take those jugs. They make my kitchen look untidy.&rdquo;'
+        ], function () { busy = false; $('#go').classList.add('on'); });
+      }, 2800);
+    });
+    msg('Stamp every receipt FIXED or VARIABLE. Then set the three figures with the arrows (or the mouse wheel), and show Mrs Cheung.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+})();
+</script>
+</body>
+</html>

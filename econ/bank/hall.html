@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Banking Hall · Still Open at Four</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-econ.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="bank.css">
+<style>
+  body{--bg:#d9c9a4;--accent:#7a1f2b;--font-display:'Lora',serif;--font-ui:'Outfit',sans-serif;--font-body:'Lora',serif;
+    --tc-bg:rgba(246,238,218,.97);--tc-ink:#2a1a10;--cap-bg:rgba(251,246,232,.96);--cap-ink:#2a1a10;--panel:#fbf6e8;--panel-ink:#2a1a10;--face-bg:#7a1f2b;--q-ink:#7a1f2b;
+    --fade:#efe4c8;--hud-bg:rgba(251,246,232,.88);--hud-ink:#2a1a10;--hud-line:rgba(42,26,16,.3);--ov-bg:rgba(30,16,10,.62)}
+  .tc-room{font-size:clamp(40px,5.8vw,82px);color:#7a1f2b}
+  .tc-theme{color:#8a6a2a}
+  .hbtn b{color:#fff}
+  #sun{animation:sun 9s ease-in-out infinite alternate}
+  @keyframes sun{to{opacity:.55}}
+  #hand{transform-origin:940px 150px;animation:tick 60s steps(60,end) infinite}
+  @keyframes tick{to{transform:rotate(360deg)}}
+
+  /* the felt board for Monday's school visit */
+  .fp{width:min(1100px,96vw)}
+  .fp-in{background:#2f5a3e radial-gradient(ellipse at 30% 20%,rgba(255,255,255,.08),transparent 60%);border:14px solid #8a5a32;border-radius:4px;padding:12px 18px 12px;color:#f4ecd4;box-shadow:0 26px 70px rgba(0,0,0,.55)}
+  .fp h4{margin:0;font-family:'Cabin Sketch',cursive;font-weight:700;font-size:27px;color:#f2c45a}
+  .fp .sub{margin:0 0 8px;font-family:'Architects Daughter',cursive;font-size:15.5px;color:#d8e8d8}
+  .fp .row{display:flex;align-items:center;gap:7px;margin:0 0 7px;padding:6px 8px;background:rgba(0,0,0,.14);border-radius:4px;font-family:'Architects Daughter',cursive;font-size:16px}
+  .fp .row i{font-style:normal;font-family:'Courier Prime',monospace;font-weight:700;color:#f2c45a;width:20px}
+  .fp .amt{display:inline-block;min-width:70px;font-family:'Courier Prime',monospace;font-weight:700;font-size:17px;color:#fff}
+  .fp .fixed{display:inline-block;min-width:150px;padding:3px 6px;border:2px dashed rgba(244,236,212,.35);border-radius:4px;color:#d8e8d8;font-size:14px}
+  .slot{display:inline-flex;align-items:center;justify-content:center;min-height:32px;border:2px dashed rgba(244,236,212,.55);border-radius:4px;background:rgba(0,0,0,.12)}
+  .slot.ps{min-width:150px}.slot.ms{min-width:78px}
+  .tok{display:inline-block;padding:4px 9px 3px;background:#f4ecd4;color:#2a1a10;border-radius:3px;font-family:'Lora',serif;font-weight:700;font-size:13.5px;line-height:1.15;box-shadow:0 2px 0 #b8a87a}
+  .tok small{display:block;font-family:'Outfit',sans-serif;font-weight:500;font-size:10.5px;color:#6a5a40}
+  .note{display:inline-block;padding:5px 9px 3px;background:#e9c4b4 linear-gradient(90deg,#e9c4b4 0 70%,#f2dccc 70%);color:#4a1a14;border:1px solid #9a5a4a;border-radius:2px;font-family:'Courier Prime',monospace;font-weight:700;font-size:15px}
+  .tray{display:flex;flex-wrap:wrap;gap:7px;min-height:38px;padding:7px;margin-top:4px;background:rgba(0,0,0,.2);border-radius:4px}
+  .tot{display:flex;gap:26px;align-items:center;margin-top:8px;font-family:'Architects Daughter',cursive;font-size:16.5px}
+  .tot .dr{color:#f4ecd4}
+  .fp .pmsg{color:#fbf3dc}
+  .fp .bad{outline:3px solid #e2453a;outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="floor" width="120" height="60" patternUnits="userSpaceOnUse"><rect width="120" height="60" fill="#e8e0cc"/><path d="M0 30L60 0L120 30L60 60z" fill="#2a2420"/></pattern>
+  <pattern id="panel" width="160" height="200" patternUnits="userSpaceOnUse"><rect width="160" height="200" fill="#6a4428"/><rect x="14" y="16" width="132" height="168" fill="#7a5232" stroke="#4a2c18" stroke-width="3"/></pattern>
+  <linearGradient id="marble" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f2ece0"/><stop offset=".5" stop-color="#dcd2c0"/><stop offset="1" stop-color="#ece4d4"/></linearGradient>
+  <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#cfe0e8"/><stop offset="1" stop-color="#9ab4c0"/></linearGradient>
+  <linearGradient id="beam" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff6d8" stop-opacity=".55"/><stop offset="1" stop-color="#fff6d8" stop-opacity="0"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="45%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#2a1a08" stop-opacity=".08"/><stop offset="1" stop-color="#2a1a08" stop-opacity=".45"/></radialGradient>
+</defs>
+
+<!-- walls, cornice, panelling -->
+<rect x="-1000" y="-400" width="3600" height="1100" fill="#e6d7b6"/>
+<rect x="-1000" y="40" width="3600" height="26" fill="#f4ead2"/><path d="M-1000 66H2600" stroke="#c9b48a" stroke-width="4"/>
+<g fill="#f4ead2"><circle cx="-60" cy="52" r="6"/><circle cx="140" cy="52" r="6"/><circle cx="340" cy="52" r="6"/><circle cx="540" cy="52" r="6"/><circle cx="740" cy="52" r="6"/><circle cx="940" cy="52" r="6"/><circle cx="1140" cy="52" r="6"/><circle cx="1340" cy="52" r="6"/><circle cx="1540" cy="52" r="6"/><circle cx="1740" cy="52" r="6"/></g>
+<rect x="-1000" y="480" width="3600" height="240" fill="url(#panel)"/><rect x="-1000" y="470" width="3600" height="14" fill="#4a2c18"/>
+<text x="940" y="238" class="cZ" font-size="21" text-anchor="middle" fill="#7a1f2b" letter-spacing="5">BROCKHOLT &amp; DISTRICT BANK · 1923</text>
+
+<!-- the front door and its window -->
+<g id="door" class="hot"><rect x="20" y="210" width="210" height="510" fill="#4a2c18"/><rect x="40" y="230" width="170" height="300" fill="url(#glass)"/><path d="M125 230v300" stroke="#4a2c18" stroke-width="6"/>
+  <text x="125" y="262" class="cZ" font-size="15" text-anchor="middle" fill="#c9a24a">PUSH</text><rect x="150" y="440" width="44" height="30" rx="3" fill="#2a6a9a"/><text x="172" y="459" class="cO" font-size="11" text-anchor="middle" fill="#fff">FSCS</text>
+  <rect x="40" y="550" width="170" height="150" fill="#5a3820"/><circle cx="196" cy="560" r="7" fill="#c9a24a"/></g>
+<g id="window" class="hot"><rect x="270" y="150" width="170" height="320" rx="80" fill="#4a2c18"/><rect x="284" y="164" width="142" height="300" rx="70" fill="url(#glass)"/>
+  <rect x="300" y="300" width="110" height="150" fill="#7a1f2b"/><text x="355" y="328" class="cO" font-size="13" text-anchor="middle" fill="#f2c45a">100 YEARS</text><text x="355" y="370" class="cO" font-size="25" font-weight="700" text-anchor="middle" fill="#fff">£41,000,000</text><text x="355" y="392" class="cO" font-size="12" text-anchor="middle" fill="#fff">LENT TO</text><text x="355" y="410" class="cO" font-size="12" text-anchor="middle" fill="#fff">BROCKHOLT</text><text x="355" y="438" class="cP" font-size="7" text-anchor="middle" fill="#e8c8c8">since 1923</text></g>
+<path id="sun" d="M300 170L860 900H560L300 460z" fill="url(#beam)" opacity=".7" pointer-events="none"/>
+
+<!-- the framed print -->
+<g id="print" class="hot"><rect x="458" y="190" width="132" height="160" fill="#5a3a22"/><rect x="470" y="202" width="108" height="136" fill="#f4ecd4" stroke="#c9a24a" stroke-width="2"/>
+  <path d="M484 290h80M490 290v30M558 290v30" stroke="#5a3a22" stroke-width="4"/><circle cx="506" cy="270" r="9" fill="#8a6a4a"/><circle cx="542" cy="268" r="9" fill="#8a6a4a"/><rect x="514" y="276" width="20" height="10" fill="#c9a24a"/>
+  <text x="524" y="226" class="cZ" font-size="12" text-anchor="middle" fill="#5a3a22">BANCA</text></g>
+
+<!-- the hall clock -->
+<g id="clock" class="hot"><circle cx="940" cy="150" r="58" fill="#4a2c18"/><circle cx="940" cy="150" r="48" fill="#f8f2e0"/><g stroke="#2a1a10" stroke-width="3"><path d="M940 106v8M940 186v8M896 150h8M976 150h8"/></g>
+  <path d="M940 150l-14 -26" stroke="#2a1a10" stroke-width="5" stroke-linecap="round"/><path id="hand" d="M940 150v-40" stroke="#7a1f2b" stroke-width="2.5" stroke-linecap="round"/><circle cx="940" cy="150" r="4" fill="#2a1a10"/></g>
+
+<!-- behind the counter: the back wall, Yuki -->
+<rect x="560" y="250" width="760" height="220" fill="#d8c8a2"/>
+<g fill="#5a4a3a" opacity=".5"><rect x="1150" y="300" width="120" height="150"/></g>
+<g id="yuki" class="hot" transform="translate(700 690) scale(1.02)"></g>
+
+<!-- the counter and its grilles -->
+<rect x="540" y="480" width="800" height="250" fill="#6a4428"/><rect x="560" y="500" width="760" height="210" fill="url(#panel)" opacity=".9"/>
+<rect x="530" y="468" width="820" height="24" rx="3" fill="url(#marble)" stroke="#b8ac98"/>
+<path d="M560 476q60 -6 140 2t180 -2M900 480q90 4 200 -4t180 2" stroke="#c8bca8" stroke-width="1.5" fill="none"/>
+<g id="grilles"></g>
+<g id="shut2" class="hot"><rect x="1040" y="380" width="120" height="58" fill="#f4ecd4" stroke="#7a1f2b" stroke-width="2"/><text x="1100" y="404" class="cO" font-size="13" text-anchor="middle" fill="#7a1f2b">POSITION</text><text x="1100" y="424" class="cO" font-size="13" text-anchor="middle" fill="#7a1f2b">CLOSED</text></g>
+<g id="manual" class="hot"><rect x="930" y="452" width="80" height="22" rx="2" fill="#7a1f2b"/><rect x="934" y="446" width="74" height="10" fill="#fbf6e8"/><rect x="930" y="446" width="10" height="28" fill="#5a1520"/><text x="975" y="468" class="cP" font-size="9" text-anchor="middle" fill="#f2c45a">STAFF MANUAL</text></g>
+<g id="pens"><path d="M820 466l40 -8" stroke="#2a2420" stroke-width="2"/><circle cx="820" cy="466" r="3" fill="#c9a24a"/></g>
+
+<!-- the floor -->
+<rect x="-1000" y="720" width="3600" height="700" fill="url(#floor)"/><rect x="-1000" y="716" width="3600" height="8" fill="#4a2c18"/>
+<path d="M-1000 900L2600 900" stroke="#000" stroke-opacity=".1" stroke-width="60"/>
+
+<!-- the easel and Monday's board -->
+<g id="board" class="hot"><path d="M1390 860l50 -470M1540 860l-50 -470M1465 400v460" stroke="#8a5a32" stroke-width="10" stroke-linecap="round"/>
+  <rect x="1360" y="400" width="210" height="250" fill="#8a5a32"/><rect x="1372" y="412" width="186" height="226" fill="#2f5a3e"/>
+  <text x="1465" y="442" class="cS" font-size="20" font-weight="700" text-anchor="middle" fill="#f2c45a">FOLLOW A</text><text x="1465" y="466" class="cS" font-size="20" font-weight="700" text-anchor="middle" fill="#f2c45a">POUND!</text>
+  <g fill="#f4ecd4"><rect x="1390" y="486" width="46" height="18"/><rect x="1494" y="486" width="46" height="18"/><rect x="1390" y="530" width="46" height="18"/><rect x="1494" y="530" width="46" height="18"/><rect x="1390" y="574" width="46" height="18"/><rect x="1494" y="574" width="46" height="18"/></g>
+  <path d="M1440 495h50M1440 539h50M1440 583h50M1465 504v22M1465 548v22" stroke="#f2c45a" stroke-width="2" stroke-dasharray="4 3"/>
+  <text x="1465" y="626" class="cH" font-size="12" text-anchor="middle" fill="#d8e8d8">Brockholt Primary · Mon 10 a.m.</text></g>
+
+<!-- the queue, and Mr Ellwood at window 1 -->
+<g id="queue" class="hot"></g>
+<g id="ellwood" class="hot" transform="translate(790 880) scale(1.12)"></g>
+
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Into the manager’s office</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="bank.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, lock = null;
+
+  (function () {
+    var s = '', i, x;
+    for (i = 0; i < 4; i++) {                       /* three cashier positions, each with a brass grille */
+      x = 560 + i * 240;
+      if (i < 3) {
+        s += '<rect x="' + (x + 20) + '" y="260" width="200" height="210" fill="none"/>';
+        for (var b = 0; b <= 10; b++) s += '<path d="M' + (x + 20 + b * 20) + ' 270V' + (i === 0 && b > 1 && b < 9 ? 380 : 466) + '" stroke="#c9a24a" stroke-width="' + (b % 5 ? 2 : 4) + '"/>';
+        s += '<path d="M' + (x + 20) + ' 270h200M' + (x + 20) + ' 330h200' + (i === 0 ? 'M' + (x + 60) + ' 380h120' : '') + '" stroke="#c9a24a" stroke-width="5"/>';
+        s += '<text x="' + (x + 120) + '" y="296" class="cZ" font-size="16" text-anchor="middle" fill="#7a1f2b">' + (i + 1) + '</text>';
+      }
+      s += '<rect x="' + (x + 10) + '" y="250" width="12" height="220" fill="#4a2c18"/>';
+    }
+    $('#grilles').innerHTML = s;
+    $('#yuki').innerHTML = BANK.who('yuki', { smile: 2 });
+    $('#ellwood').innerHTML = BANK.who('ellwood', { back: false, smile: -4, extra: '<rect x="30" y="-158" width="30" height="40" rx="2" fill="#2f5a44"/><rect x="34" y="-154" width="22" height="6" fill="#c9a24a"/>' });
+    var q = '', cols = [['#5a6a8a', '#3a2a20'], ['#8a4a3a', '#c9c4bc'], ['#3a5a4a', '#1a1412'], ['#a08a5a', '#8a5a2a']];
+    for (i = 0; i < 4; i++) q += '<g transform="translate(' + (600 - i * 70) + ' ' + (860 - i * 6) + ') scale(' + (0.86 - i * 0.04) + ')">' + BANK.person({ top: cols[i][0], hair: cols[i][1], style: i % 2 ? 'bob' : 'short', back: true, shadow: 0.15 }) + '</g>';
+    $('#queue').innerHTML = q;
+  })();
+
+  ER.init({
+    theme: 'econ', story: 'bank', storyTitle: 'Still Open at Four', id: 'hall', no: 'I', title: 'The Banking Hall',
+    go: 'Back from lunch', sound: ['ledger', { root: 50, bpm: 84, drop: ['mel'], beds: [['hum', 0.3]] }],
+    intro: [
+      'Friday, twenty to two. The fifth and last day of your work experience at the Brockholt &amp; District Bank, which has stood on Market Square since 1923 and has never once been interesting.',
+      'This week you have counted coins, filed letters and learnt where the good biscuits are kept. This afternoon, you were promised, you would see the vault.',
+      'You come back from lunch through the front door, and the whole of Brockholt seems to be looking at its phone.'
+    ],
+    exit: {"next":"office","w":{"da70970d":"000a751e"}}, tags: {"d1":["f3bd8c35"],"b1":["1e9c83a6"],"d2":["16b0cc47"],"b2":["5f5b0aa1"],"d3":["ccadbe83"],"k1":["5a861ec4"],"l1":["a1a0ff41"],"k2":["981ecf66"],"l2":["04cc7ebb"],"k3":["7afbd305"],"l3":["ae595105"],"dep":["602c1823"],"cash":["467c2583"],"all":["18086206"],"same":["07bfc197"],"dep1":["09b48c6e"],"cash1":["2bf4a0f6"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('a-file') || null; told = ER.flag('a-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('a-told', told); return true; }
+  function isBusy() { return busy; }
+  function ready() { return told.ellwood && told.yuki && told.manual; }
+  function paint() {
+    $('#board').classList.toggle('ready', !!(ready() && !nextFile));
+    ER.pips((told.ellwood ? 1 : 0) + (told.yuki ? 1 : 0) + (told.manual ? 1 : 0) + (nextFile ? 1 : 0), 4);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Mrs Delacour wants you in her office: the button at the bottom of the screen.']];
+    if (lock && lock.isOpen()) return ['lock', [
+      'Begin with the people. Mr Ellwood paid in first. Yuki told you who borrowed next, who was paid with that money, and so on. Your note &ldquo;Yuki: it goes round&rdquo; is in the notebook.',
+      'For the money, use the manual&rsquo;s rule at every step: one pound in ten of what is paid in at THAT step stays in the vault, and the other nine are lent. A tenth of £4,000 is £400.',
+      'The totals: add up the three amounts that were paid in (one of them is Mr Ellwood&rsquo;s £4,000), and add up the three amounts that went into the vault. Then compare them.'
+    ]];
+    if (!told.ellwood) return ['ellwood', ['The man in the tweed cap at window 1 is cross about something. Talk to him.', 'Mr Ellwood is standing at the counter, in the middle of the hall. Click him.']];
+    if (!told.yuki) return ['yuki', ['The cashier behind window 1 knows what happened at ten to twelve.', 'Click Yuki, behind the brass grille of window 1.']];
+    if (!told.manual) return ['manual', ['Before you explain anything, read how the bank explains it. The staff manual is on the counter.', 'The red binder on the marble counter, in front of window 2.']];
+    return ['board', ['Yuki said: follow the pound for Mr Ellwood, on the board for Monday&rsquo;s school visit.', 'The green board on the easel, on the right of the hall. Click it.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('Mrs Delacour is waiting in her office.'); return; }
+    if (told.in) { busy = false; ER.say('The banking hall. The queue is a little longer than it was.'); return; }
+    tell('in');
+    ER.narrate([
+      'The banking hall: brass grilles, a marble counter, three cashier windows and a clock that has been two minutes slow since 1971. Only window 1 is open.',
+      'Behind it is Yuki Yamamoto, nineteen, the youngest cashier, who studies accountancy at evening class and does sums in her head faster than the machine.',
+      'At window 1, an elderly man in a tweed cap is drumming his fingers on the marble. Behind him four more people are waiting, holding their savings books like train tickets. On a Friday afternoon there are usually none.',
+      '&ldquo;Ah,&rdquo; says Yuki, when she sees you. &ldquo;Good. You can help me explain the whole of banking to Mr Ellwood. He&rsquo;s got about three minutes of patience left.&rdquo;'
+    ], function () { busy = false; });
+  }
+
+  $('#ellwood').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Ravi&rsquo;s oven,&rdquo; Mr Ellwood says to nobody. &ldquo;My money is in Ravi&rsquo;s oven.&rdquo;'); return; }
+    ER.talk({
+      who: 'Mr Monty Ellwood', role: 'Retired · has banked here for forty years', face: BANK.face('ellwood', 'cross'),
+      lines: [
+        { note: 'He takes off his cap, which is how you know he is serious.', a: '&ldquo;Two years ago, in March, I put four thousand pounds into this bank. Today I want it back. In cash. There&rsquo;s a camper van for sale in Northope, and the man only takes cash.&rdquo;' },
+        { q: 'What happened?', a: 'At ten to twelve this young lady told me I couldn&rsquo;t have it. Not today. Two days&rsquo; notice, she said, and the van is late. A bank without four thousand pounds! I went across the square to the café to calm down.' },
+        { q: 'Did you tell anybody?', a: 'I told Wanda, at the Toast Rack. Everybody tells Wanda. And now my phone says this bank has got no money at all. My nephew rang me from Leeds to ask.' },
+        { q: 'Where is your money now?', a: 'That is what I would like to know! It isn&rsquo;t in her drawer. Has she lent it to somebody? Has she? Somebody is walking about Brockholt with my four thousand pounds.' },
+        { note: 'Behind the grille, Yuki says quietly:', a: '&ldquo;Several people are, Mr Ellwood. That&rsquo;s sort of the point.&rdquo;' }
+      ],
+      clue: { id: 'ellwood', title: 'Mr Ellwood: where is my £4,000?', kind: 'What he said' },
+      done: function (seen) { if (seen && tell('ellwood')) { paint(); ER.say('Mr Ellwood puts his cap back on and does not move.'); } }
+    });
+  });
+  $('#yuki').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Yuki is serving the queue, one savings book at a time. &ldquo;Go on,&rdquo; she says. &ldquo;She doesn&rsquo;t bite. Much.&rdquo;'); return; }
+    ER.talk({
+      who: 'Yuki Yamamoto', role: 'Cashier, window 1 · accountancy, evening class', face: BANK.face('yuki'),
+      lines: [
+        '&ldquo;Here&rsquo;s what happened. The cash van comes every Friday at eleven. Today it broke down on the bypass. So my till is low. And anything over two thousand pounds in cash needs two days&rsquo; notice anyway: every bank has a rule like that. I offered him a banker&rsquo;s draft. He offered me his opinion.&rdquo;',
+        { q: 'What does his phone say?', a: 'She holds up her own. &ldquo;Brockholt Chat, the town noticeboard. Twelve twenty-one: <i>Just heard in the Toast Rack: the bank hasn&rsquo;t got the money to pay Monty Ellwood!!</i> Forty-two replies. Some of them in capital letters.&rdquo;' },
+        { q: 'Is it true?', a: 'No. But here&rsquo;s the awkward bit. If everybody who banks here walked in this afternoon, we couldn&rsquo;t pay them all. There&rsquo;s about a tenth of everybody&rsquo;s money in this building. That&rsquo;s how a bank works. I&rsquo;ve just never had to say it to a queue.' },
+        { q: 'So where is his money?', a: 'In the town. Ravi Pathak borrowed from us for his bakery&rsquo;s new oven, and some of that loan was Mr Ellwood&rsquo;s money. Ravi paid Wes Hartigan to build the oven in, and Wes banks here. Then we lent to Wanda Threlfall for the café, and she spent it on old chairs from Simeon Rook. Simeon banks here too, more&rsquo;s the pity.' },
+        { q: 'And then?', a: '&ldquo;And then it goes round again. It always goes round. The board for Monday&rsquo;s school visit is on the easel. Follow the pound for him, would you? I&rsquo;ll keep the queue busy.&rdquo;' }
+      ],
+      clue: { id: 'yuki1', title: 'Yuki: it goes round', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('yuki')) { paint(); ER.say(told.manual ? 'The board is on the easel on the right.' : 'Before the board: the staff manual, on the counter.'); } }
+    });
+  });
+
+  var DIA = '<svg viewBox="0 0 290 250"><g font-family="Architects Daughter,cursive" font-size="13.5" fill="#22201c">' +
+    '<rect x="96" y="6" width="98" height="30" rx="3" fill="#f4ead0" stroke="#7a1f2b" stroke-width="2"/><text x="145" y="26" text-anchor="middle" font-weight="700">£100 paid in</text>' +
+    '<path d="M120 36l-46 32M170 36l46 32" stroke="#22201c" stroke-width="2"/>' +
+    '<rect x="14" y="68" width="110" height="30" rx="3" fill="#c9a24a"/><text x="69" y="88" text-anchor="middle">£10 kept</text>' +
+    '<rect x="166" y="68" width="110" height="30" rx="3" fill="#e8dcc8" stroke="#22201c"/><text x="221" y="88" text-anchor="middle">£90 lent</text>' +
+    '<path d="M221 98v22" stroke="#22201c" stroke-width="2"/><text x="226" y="114" font-size="11.5">spent, paid in again</text>' +
+    '<rect x="166" y="124" width="110" height="30" rx="3" fill="#f4ead0" stroke="#7a1f2b" stroke-width="2"/><text x="221" y="144" text-anchor="middle" font-weight="700">£90 paid in</text>' +
+    '<path d="M196 154l-30 26M246 154l20 26" stroke="#22201c" stroke-width="2"/>' +
+    '<rect x="108" y="180" width="80" height="28" rx="3" fill="#c9a24a"/><text x="148" y="199" text-anchor="middle">£9 kept</text>' +
+    '<rect x="206" y="180" width="80" height="28" rx="3" fill="#e8dcc8" stroke="#22201c"/><text x="246" y="199" text-anchor="middle">£81 lent</text>' +
+    '<text x="246" y="228" text-anchor="middle" font-size="18">&hellip;</text><text x="8" y="238" font-size="12" fill="#7a1f2b">gold: the vault (reserves)</text></g></svg>';
+  var MANUAL = '<h4>Staff Manual &middot; Section 1</h4><h3>Where a deposit goes</h3><div class="two"><div>' +
+    '<p>When a customer pays money in, it becomes a <b>DEPOSIT</b>. The bank owes it back to the customer, every penny, whenever they ask.</p>' +
+    '<p>The bank does not keep the notes in a box with the customer&rsquo;s name on it. It keeps a part of all its deposits as cash, its <b>RESERVES</b>, for the people who want money out today. At Brockholt we keep one pound in every ten: some in the vault, most in our account at the Bank of England, the <b>CENTRAL BANK</b>.</p>' +
+    '<p>The other nine pounds become <b>LOANS</b>: to people buying houses, to shops, to farms. The borrower spends the money, and the person who is paid usually pays it into a bank. Often this one. Then it is a new deposit, and the same thing happens again.</p>' +
+    '<p>On an ordinary day, the money paid in and the money taken out are close. That is why one pound in ten is plenty.</p>' +
+    '<p class="rule">Cash withdrawals over £2,000: two working days&rsquo; notice, please. The vault is not a shop.</p></div><div class="dia">' + DIA + '</div></div>';
+  $('#manual').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: MANUAL, cls: 'man', clue: { id: 'manual1', title: 'Staff manual 1: where a deposit goes', kind: 'On the counter' }, done: function () {
+      BANK.terms(['deposit', 'reserves', 'loan', 'central bank']);
+      if (tell('manual')) { paint(); ER.say('One pound in ten stays as cash. The other nine are lent, spent, and paid in again.'); }
+    } });
+  });
+  var PRINT = '<h4>Why &lsquo;bank&rsquo;?</h4>' +
+    '<p>In the cities of medieval Italy, money-changers did their business at a bench or a table in the market place. The Italian word for it was <i>banca</i>, and from it came the English word &lsquo;bank&rsquo;.</p>' +
+    '<p>A money-changer who could not pay what he owed was said to have a broken bench: <i>banca rotta</i>. From that came the English word &lsquo;bankrupt&rsquo;.</p>' +
+    '<p class="hand">Presented to the Brockholt &amp; District Bank on its centenary, 1923&ndash;2023, by the staff. Mind the bench.</p>';
+  $('#print').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: PRINT, cls: 'frame', clue: { id: 'print', title: 'The framed print: why &lsquo;bank&rsquo;?', kind: 'On the wall' }, done: function () {
+      if (tell('print')) ER.say('A bench in an Italian market. The bench is still here; it is just marble now.');
+    } });
+  });
+  BANK.thing('#window', 'centenary', 'In the window, the poster from the bank&rsquo;s hundredth birthday: £41,000,000 LENT TO BROCKHOLT. Underneath, much smaller: since 1923.', isBusy);
+  BANK.thing('#door', null, 'The front door. On the glass, a small blue sticker: your deposits with this bank are protected by the FSCS, the Financial Services Compensation Scheme. Nobody in the queue has ever read it.', isBusy);
+  BANK.thing('#clock', null, 'The hall clock says twenty-two minutes to two. It is two minutes slow, as it has been since 1971. Nobody has dared to fix it.', isBusy);
+  BANK.thing('#shut2', 'cashier', 'POSITION CLOSED. The second cashier went home at lunch with a cold. The third has been on holiday in Portugal since Monday, and has never been missed so much.', isBusy);
+  BANK.thing('#queue', 'queue', function () { return 'The queue: ' + (nextFile ? 'six' : 'four') + ' people with savings books, standing very still, the way people stand when they do not want to look worried.'; }, isBusy);
+  $('#board').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The board for Monday: £10,840 on the books, £1,084 in the vault. Brockholt Primary is in for a treat.'); return; }
+    if (!told.ellwood) { ER.say('A board for Monday&rsquo;s school visit. First find out what Mr Ellwood wants.'); return; }
+    if (!told.yuki) { ER.say('FOLLOW A POUND! Follow whose? Yuki knows where Mr Ellwood&rsquo;s money went.'); return; }
+    if (!told.manual) { ER.say('What happens to a pound once it is paid in? The staff manual on the counter says, in Section 1.'); return; }
+    if (!lock) lock = makeLock();
+    lock.open();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the board: follow a pound ---------- */
+  function makeLock() {
+    var PEOPLE = [['delacour', 'Mrs Delacour', 'manager'], ['hartigan', 'Wes Hartigan', 'builder'], ['ellwood', 'Mr Ellwood', 'retired'], ['boe', 'Bank of England', 'central bank'],
+      ['threlfall', 'Wanda Threlfall', 'Toast Rack café'], ['rook', 'Simeon Rook', 'antiques'], ['pathak', 'Ravi Pathak', 'bakery']];
+    var NOTES = [3240, 400, 2800, 4000, 360, 2916, 40, 3600, 3200, 324];
+    var saved = ER.flag('a-board') || {}, wait = false, d = {};
+    var box = ER.el('div', 'pz fp');
+    function rowHtml(n, last) {
+      return '<div class="row"><i>' + n + '</i><span class="slot ps" data-s="d' + n + '"></span> pays in <span class="amt" id="amt' + n + '">' + (n === 1 ? '£4,000' : '£ ?') + '</span> &rarr; the vault keeps <span class="slot ms" data-s="k' + n + '"></span> and lends <span class="slot ms" data-s="l' + n + '"></span> to ' +
+        (last ? '<span class="fixed">the next person who asks</span>' : '<span class="slot ps" data-s="b' + n + '"></span>') + '</div>';
+    }
+    box.innerHTML = '<div class="fp-in"><h4>FOLLOW A POUND!</h4><p class="sub">For Brockholt Primary School, Monday at 10. Who pays in? What does the vault keep? Who borrows the rest, and who gets paid with it?</p>' +
+      rowHtml(1) + rowHtml(2) + rowHtml(3, true) +
+      '<div class="tray" id="tt">' + PEOPLE.map(function (p) { return '<span class="dnd-item tok" data-id="' + p[0] + '">' + p[1] + '<small>' + p[2] + '</small></span>'; }).join('') + '</div>' +
+      '<div class="tray" id="nt">' + NOTES.map(function (v) { return '<span class="dnd-item note" data-v="' + v + '">' + BANK.pounds(v) + '</span>'; }).join('') + '</div>' +
+      '<div class="tot"><span>Deposits on the books:</span><i id="tdep"></i><span>Cash in the vault:</span><i id="tcash"></i></div></div>' +
+      '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="a-go">Show Mr Ellwood</button></div>';
+    var msgEl = box.querySelector('.pmsg'), tt = box.querySelector('#tt'), nt = box.querySelector('#nt');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function slot(k) { return box.querySelector('[data-s="' + k + '"]'); }
+    function inSlot(k) { var it = slot(k).querySelector('.dnd-item'); return it ? (it.getAttribute('data-id') || it.getAttribute('data-v')) : ''; }
+    function keep() {
+      var o = {}; ER.$$('.slot', box).forEach(function (s) { o[s.getAttribute('data-s')] = inSlot(s.getAttribute('data-s')); });
+      o.tdep = d.dep.get(); o.tcash = d.cash.get(); ER.flag('a-board', o);
+      box.querySelector('#amt2').textContent = o.l1 ? BANK.pounds(+o.l1) : '£ ?';
+      box.querySelector('#amt3').textContent = o.l2 ? BANK.pounds(+o.l2) : '£ ?';
+    }
+    d.dep = BANK.drum(box.querySelector('#tdep'), { digits: 5, sep: true, before: '£', val: saved.tdep || 0, change: keep, lock: function () { return wait || !!nextFile; } });
+    d.cash = BANK.drum(box.querySelector('#tcash'), { digits: 5, sep: true, before: '£', val: saved.tcash || 0, change: keep, lock: function () { return wait || !!nextFile; } });
+    Object.keys(saved).forEach(function (k) {                /* put back what was on the board before a reload */
+      var s = box.querySelector('[data-s="' + k + '"]'), v = saved[k], it;
+      if (!s || !v) return;
+      it = box.querySelector('.tok[data-id="' + v + '"]') || box.querySelector('.note[data-v="' + v + '"]');
+      if (it && !it.closest('.slot')) s.appendChild(it);
+    });
+    keep();
+    function lockd() { return wait || !!nextFile; }
+    ER.dnd(box, { item: '.tok', slot: '.slot.ps', home: tt, change: keep, lock: lockd });
+    ER.dnd(box, { item: '.note', slot: '.slot.ms', home: nt, change: keep, lock: lockd });
+    function flash(n) { n.classList.add('bad'); setTimeout(function () { n.classList.remove('bad'); }, 1200); }
+    var WHO = {
+      d1: 'Whose four thousand pounds started all this? He is standing at window 1.',
+      b1: 'Who borrowed first? Yuki said: somebody with a new oven.',
+      d2: 'Who was paid with the oven money, and banks here?',
+      b2: 'Who did the bank lend to next? Yuki said: for a café.',
+      d3: 'Who sold the café its chairs, and paid the money in?'
+    };
+    box.querySelector('#a-go').addEventListener('click', function () {
+      if (wait || nextFile) return;
+      var keys = ['d1', 'b1', 'd2', 'b2', 'd3', 'k1', 'l1', 'k2', 'l2', 'k3', 'l3'], empty = keys.filter(function (k) { return !inSlot(k); }), i, k, v;
+      if (empty.length) { ER.sfx.no(); msg('&ldquo;There are still ' + empty.length + ' empty spaces on that board,&rdquo; says Mr Ellwood. &ldquo;I am not a patient man, but I can count.&rdquo;'); flash(slot(empty[0])); return; }
+      for (i = 0; i < 5; i++) {
+        k = ['d1', 'b1', 'd2', 'b2', 'd3'][i];
+        if (!ER.check(k, inSlot(k))) { ER.sfx.no(); flash(slot(k)); msg((inSlot(k) === 'boe' || inSlot(k) === 'delacour') ? '&ldquo;The ' + (inSlot(k) === 'boe' ? 'Bank of England' : 'manager') + '?&rdquo; says Yuki, through the grille. &ldquo;Nobody in this chain went anywhere near them. ' + WHO[k] + '&rdquo;' : '&ldquo;Not that one,&rdquo; says Yuki. &ldquo;' + WHO[k] + '&rdquo;'); return; }
+      }
+      for (i = 1; i <= 3; i++) {
+        v = inSlot('k' + i);
+        if (!ER.check('k' + i, v)) {
+          ER.sfx.no(); flash(slot('k' + i));
+          if (i > 1 && ER.check('same', v)) msg('&ldquo;Four hundred again?&rdquo; says Yuki. &ldquo;The vault keeps a tenth of what is paid in at THAT step, not a tenth of Mr Ellwood&rsquo;s.&rdquo;');
+          else if (ER.check('all', v)) msg('&ldquo;All of it in the vault?&rdquo; says Yuki. &ldquo;Then nobody gets a loan, and what do we pay his interest with?&rdquo;');
+          else msg('&ldquo;Line ' + i + ', the vault,&rdquo; says Yuki. &ldquo;The manual: one pound in every ten of what comes in.&rdquo;');
+          return;
+        }
+        v = inSlot('l' + i);
+        if (!ER.check('l' + i, v)) {
+          ER.sfx.no(); flash(slot('l' + i));
+          if (ER.check('all', v)) msg('&ldquo;We lend all four thousand,&rdquo; says Yuki, &ldquo;and keep nothing for the next person who wants cash? Even I wouldn&rsquo;t do that.&rdquo;');
+          else msg('&ldquo;Line ' + i + ': what is lent is what is left after the vault&rsquo;s share,&rdquo; says Yuki. &ldquo;Nine pounds in every ten.&rdquo;');
+          return;
+        }
+      }
+      if (!ER.check('dep', d.dep.get())) {
+        ER.sfx.no(); flash(box.querySelector('#tdep'));
+        msg(ER.check('dep1', d.dep.get()) ? '&ldquo;Only my money?&rdquo; says Mr Ellwood. &ldquo;Wes Hartigan&rsquo;s money is in his account, isn&rsquo;t it? And Rook&rsquo;s in his. Count every deposit.&rdquo;' : '&ldquo;Deposits on the books,&rdquo; says Yuki. &ldquo;Add up the three amounts that were paid in.&rdquo;');
+        return;
+      }
+      if (!ER.check('cash', d.cash.get())) {
+        ER.sfx.no(); flash(box.querySelector('#tcash'));
+        msg(ER.check('cash1', d.cash.get()) ? '&ldquo;Only the first four hundred?&rdquo; says Yuki. &ldquo;The vault kept a share at every step.&rdquo;' : '&ldquo;Cash in the vault,&rdquo; says Yuki. &ldquo;Add up what the vault kept on each line.&rdquo;');
+        return;
+      }
+      var file = ER.exit([['d1', 'b1', 'd2', 'b2', 'd3', 'k1', 'l1', 'k2', 'l2', 'k3', 'l3'].map(inSlot).join('-') + '-' + d.dep.get() + '-' + d.cash.get()], { wait: true });
+      if (!file) { msg('The door will not open. Something is wrong with this page: tell your teacher.'); return; }
+      wait = true; nextFile = file; ER.flag('a-file', file);
+      BANK.mine('pound', 'Follow a pound', '<p>Mr Ellwood pays in £4,000. Vault £400, lent £3,600 to Ravi Pathak.</p><p>Ravi pays Wes Hartigan, who pays in £3,600. Vault £360, lent £3,240 to Wanda Threlfall.</p><p>Wanda pays Simeon Rook, who pays in £3,240. Vault £324, lent £2,916.</p><p>Deposits: £10,840. Cash in the vault: £1,084. A tenth. Every deposit is real, and nothing has gone.</p>', true);
+      msg('Mr Ellwood reads the board with his finger, line by line. Yuki nods through the grille: <b>£10,840 on the books, £1,084 in the vault.</b>');
+      setTimeout(function () {
+        ER.closeAll(); paint(); busy = true;
+        ER.narrate([
+          '&ldquo;So my four thousand pounds,&rdquo; says Mr Ellwood slowly, &ldquo;is in Ravi Pathak&rsquo;s oven.&rdquo;',
+          '&ldquo;Three thousand six hundred of it is,&rdquo; says Yuki. &ldquo;Four hundred is in our vault. And the oven money is in Wes&rsquo;s account, and the chair money is in Simeon&rsquo;s. Ten thousand eight hundred and forty pounds of deposits, all real, all owed, from one lot of cash. And a tenth of it in the vault. Every bank in the country works like that.&rdquo;',
+          '&ldquo;A TENTH,&rdquo; says Mr Ellwood, loud enough for the whole queue. &ldquo;Only a tenth of our money in the building! Then the bank is broke!&rdquo; Two more people come in through the front door and join the end of the queue.',
+          'A door opens behind the counter. A woman in a navy suit, with half-moon glasses on a chain, looks at the queue the way a head teacher looks at a wet playground. Mrs Una Delacour, the manager.',
+          '&ldquo;Yuki, the queue, please. And you.&rdquo; She means you. &ldquo;My office. Bring Mr Ellwood&rsquo;s question with you. It deserves a proper answer.&rdquo;'
+        ], function () { busy = false; $('#go').classList.add('on'); });
+      }, 2800);
+    });
+    msg('Drag the people and the banknotes on to the board (or click one, then click its space). Set the two totals with the little wheels. Then show Mr Ellwood.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+})();
+</script>
+</body>
+</html>

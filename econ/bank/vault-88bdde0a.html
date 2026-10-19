@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Vault · Still Open at Four</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-econ.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="bank.css">
+<style>
+  body{--bg:#3a3c40;--accent:#c9a24a;--font-display:'Lora',serif;--font-ui:'Outfit',sans-serif;--font-body:'Lora',serif;
+    --tc-bg:rgba(226,228,230,.97);--tc-ink:#16181c;--cap-bg:rgba(240,240,236,.96);--cap-ink:#16181c;--panel:#f2f0ea;--panel-ink:#16181c;--face-bg:#26304a;--q-ink:#7a1f2b;
+    --fade:#16181c;--hud-bg:rgba(240,240,236,.9);--hud-ink:#16181c;--hud-line:rgba(22,24,28,.3);--ov-bg:rgba(8,10,12,.7)}
+  .tc-room{font-size:clamp(44px,6.2vw,88px);color:#3a3c40;font-family:'Stardos Stencil',serif}
+  .tc-theme{color:#7a1f2b}
+  .hbtn b{color:#fff}
+  #bulb{animation:bulb 5s steps(2,end) infinite}
+  @keyframes bulb{50%{opacity:.82}}
+  #scan{animation:scan 2.4s linear infinite}
+  @keyframes scan{from{transform:translateY(0)}to{transform:translateY(150px)}}
+  #rec{animation:rec 1.2s steps(2,end) infinite}
+  @keyframes rec{50%{opacity:0}}
+
+  /* the van order pad */
+  .vo{width:min(760px,95vw)}
+  .vo-in{background:#fbfaf2 repeating-linear-gradient(transparent 0 33px,#cfd8e4 33px 34px);color:#16181c;padding:16px 26px 14px;border-top:24px solid #7a1f2b;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+  .vo h4{margin:0 0 2px;font-family:'Stardos Stencil',serif;font-weight:700;font-size:26px;letter-spacing:.06em;color:#7a1f2b}
+  .vo .sub{margin:0 0 10px;font-family:'Courier Prime',monospace;font-size:13px}
+  .vo .ln{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px dashed #b8b0a0;font-family:'Lora',serif;font-size:16.5px}
+  .vo .ln i{font-style:normal;font-family:'Courier Prime',monospace;font-weight:700;color:#7a1f2b;margin-right:8px}
+  .vo .dr{color:#16181c}
+  .src{display:flex;gap:10px;margin-top:10px}
+  .src button{flex:1;padding:9px 10px 8px;border:2px solid #8a8a8a;border-radius:4px;background:#fff;font-family:'Lora',serif;font-size:14.5px;line-height:1.25;color:#3a3c40;text-align:left}
+  .src button b{display:block;font-family:'Outfit',sans-serif;font-size:11px;letter-spacing:.14em;color:#8a8a8a}
+  .src button.on{border-color:#7a1f2b;background:#f6e8e8;color:#16181c;box-shadow:inset 0 0 0 2px #7a1f2b}
+  .src button.on b{color:#7a1f2b}
+  .vo .bad{outline:3px solid #e2453a;outline-offset:2px}
+  .doc.cam{width:min(1000px,96vw);background:#101418;color:#c8f0c8;font-family:'Courier Prime',monospace;font-size:14px;padding:14px 16px}
+  .doc.cam h4{margin:0 0 6px;font-family:'Courier Prime',monospace;font-weight:700;font-size:14px;letter-spacing:.1em;color:#8ae08a}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="stone" width="120" height="60" patternUnits="userSpaceOnUse"><rect width="120" height="60" fill="#6a6a66"/><path d="M0 0H120M0 30H120M0 0V30M60 30V60" stroke="#4a4a46" stroke-width="3"/></pattern>
+  <pattern id="conc" width="80" height="80" patternUnits="userSpaceOnUse"><rect width="80" height="80" fill="#4a4a48"/><circle cx="20" cy="30" r="2" fill="#3a3a38"/><circle cx="60" cy="64" r="2" fill="#5a5a58"/></pattern>
+  <linearGradient id="steel" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d8dce0"/><stop offset=".45" stop-color="#9aa0a6"/><stop offset="1" stop-color="#5a6066"/></linearGradient>
+  <radialGradient id="bulbG" cx="50%" cy="20%" r="70%"><stop offset="0" stop-color="#fff2c8" stop-opacity=".6"/><stop offset="1" stop-color="#fff2c8" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="40%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".6" stop-color="#000" stop-opacity=".15"/><stop offset="1" stop-color="#000" stop-opacity=".7"/></radialGradient>
+</defs>
+
+<rect x="-1000" y="-400" width="3600" height="1140" fill="url(#stone)"/>
+<path d="M-1000 40H2600" stroke="#3a3a36" stroke-width="20"/>
+
+<!-- the door, swung open -->
+<g id="door" class="hot"><circle cx="230" cy="400" r="250" fill="#2a2c30"/><circle cx="230" cy="400" r="232" fill="#1a1c20"/>
+  <path d="M410 200q60 200 0 400l40 10q64 -210 0 -420z" fill="url(#steel)" stroke="#3a3c40" stroke-width="4"/>
+  <g fill="#c9c4b0"><circle cx="438" cy="270" r="9"/><circle cx="446" cy="400" r="9"/><circle cx="438" cy="530" r="9"/></g>
+  <circle cx="230" cy="400" r="70" fill="none" stroke="#5a5e64" stroke-width="10" opacity=".5"/><text x="230" y="700" class="cP" font-size="16" text-anchor="middle" fill="#c8c4b0">TIME LOCK · 1923</text></g>
+
+<!-- the shelves of cash -->
+<g id="shelves" class="hot"><rect x="510" y="170" width="480" height="400" fill="#2a2c30" stroke="#1a1c20" stroke-width="6"/>
+  <g fill="#8a9096"><rect x="510" y="300" width="480" height="10"/><rect x="510" y="430" width="480" height="10"/><rect x="510" y="560" width="480" height="10"/></g><g id="cash"></g>
+  <text x="750" y="196" class="cP" font-size="13" text-anchor="middle" fill="#c8c4b0">£20 · 100 TO A BUNDLE</text></g>
+
+<!-- the camera screen -->
+<g id="monitor" class="hot"><rect x="1040" y="150" width="240" height="180" rx="8" fill="#1a1c20"/><rect x="1056" y="166" width="208" height="148" fill="#0e1a12"/><g id="cctv"></g><rect id="scan" x="1056" y="166" width="208" height="4" fill="#8ae08a" opacity=".25"/>
+  <circle id="rec" cx="1250" cy="178" r="5" fill="#e2453a"/><text x="1064" y="306" class="cP" font-size="10" fill="#8ae08a">CAM 1 · MARKET SQ · 15:25</text><path d="M1160 330v40M1130 370h60" stroke="#1a1c20" stroke-width="8"/></g>
+
+<!-- the bulb -->
+<path d="M800 0v70" stroke="#1a1a1a" stroke-width="3"/><circle cx="800" cy="84" r="16" fill="#fff6d0"/><path d="M786 80l28 0M790 92h20M800 68v32" stroke="#3a3a36" stroke-width="2"/>
+<ellipse id="bulb" cx="800" cy="300" rx="900" ry="600" fill="url(#bulbG)" pointer-events="none"/>
+
+<!-- the desk: the manual, the till sheet, the order pad, the telephone -->
+<rect x="1010" y="560" width="500" height="22" fill="#5a5048"/><path d="M1030 582v170M1490 582v170" stroke="#3a3430" stroke-width="14"/>
+<g id="manual" class="hot"><rect x="1030" y="532" width="92" height="28" rx="2" fill="#7a1f2b"/><rect x="1034" y="526" width="86" height="10" fill="#fbf6e8"/><rect x="1030" y="526" width="12" height="34" fill="#5a1520"/><text x="1080" y="550" class="cP" font-size="8.5" text-anchor="middle" fill="#f2c45a">STAFF MANUAL</text></g>
+<g id="till" class="hot"><path d="M1140 560l6 -36h76l-2 36z" fill="#fdfcf6" stroke="#b8b2a0"/><rect x="1148" y="526" width="70" height="6" fill="#7a1f2b"/><path d="M1152 540h56M1151 548h44M1150 554h50" stroke="#5a5a5a" stroke-width="1.6"/></g>
+<g id="pad" class="hot"><rect x="1240" y="520" width="90" height="40" fill="#fbfaf2" stroke="#b8b2a0"/><rect x="1240" y="514" width="90" height="10" fill="#7a1f2b"/><text x="1285" y="544" class="cO" font-size="11" text-anchor="middle" fill="#7a1f2b">VAN ORDER</text></g>
+<g id="phone" class="hot"><rect x="1360" y="530" width="90" height="30" rx="6" fill="#1a1a1a"/><path d="M1352 528q50 -30 106 0l-10 10q-43 -18 -86 0z" fill="#2a2a2a"/><circle cx="1405" cy="545" r="9" fill="#3a3a3a"/></g>
+
+<rect x="-1000" y="740" width="3600" height="700" fill="url(#conc)"/><rect x="-1000" y="736" width="3600" height="8" fill="#2a2a28"/>
+<g id="yuki" class="hot" transform="translate(760 890) scale(1.06)"></g>
+<g id="delacour" class="hot" transform="translate(1550 890) scale(1.08)"></g>
+
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Up to the hall: nearly four</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="bank.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, lock = null;
+
+  (function () {
+    var s = '', i, n = 0, r, c;
+    for (r = 0; r < 3; r++) for (c = 0; c < 9; c++) { s += BANK.bundle(530 + c * 50, 262 + r * 130 - (c % 2) * 2, 42); n++; }
+    $('#cash').innerHTML = s;
+    s = '<rect x="1056" y="166" width="208" height="148" fill="#0e1a12"/><rect x="1056" y="166" width="208" height="70" fill="#1e2a22"/><rect x="1062" y="200" width="16" height="36" fill="#3a4a3a"/><rect x="1190" y="206" width="12" height="30" fill="#3a4a3a"/>';
+    for (i = 0; i < 26; i++) s += '<circle cx="' + (1082 + i * 6.8) + '" cy="' + (262 + (i % 2) * 3) + '" r="2.6" fill="#8ae08a" opacity=".8"/>';
+    $('#cctv').innerHTML = s;
+    $('#yuki').innerHTML = BANK.who('yuki', { smile: 1 });
+    $('#delacour').innerHTML = BANK.who('delacour', { smile: 0 });
+  })();
+
+  ER.init({
+    theme: 'econ', story: 'bank', storyTitle: 'Still Open at Four', id: 'vault', no: 'V', title: 'The Vault',
+    go: 'Down the stone stairs', sound: ['ledger', { root: 42, bpm: 72, mood: 'tense', drop: ['mel', 'arp'], level: 1.25 }],
+    intro: [
+      'Mr Ellwood&rsquo;s book: £120 of interest in the first year and £123.60 in the second, £4,243.60 in all, because the second year paid interest on the interest. Ravi&rsquo;s £10,000 loan pays the bank £700 a year; £300 goes to the savers whose money it is, and £400 keeps the lights on. And Simeon Rook&rsquo;s £10 from 1976, doubled four times by the rule of 72 and a little more, came to about £180: £184.20, said the old computer.',
+      'It is twenty-five past three. The van that should have come at eleven is coming at ten to four, and Mrs Delacour has to tell it what to bring.',
+      'Down the stone stairs, through a steel door as thick as a mattress, is the place you were promised all week.'
+    ],
+    exit: {"next":"steps","w":{"725f1c7a":"8871f3d2"}}, tags: {"q":["3ec22b00"],"c":["60edb351"],"b":["473dc036"],"src":["a43368ab"],"q64":["94487c5f"],"c128":["fbdf0020"],"b10":["0b53963c"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('e-file') || null; told = ER.flag('e-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('e-told', told); return true; }
+  function isBusy() { return busy; }
+  function ready() { return told.delacour && told.yuki && told.manual && told.till; }
+  function paint() {
+    $('#pad').classList.toggle('ready', !!(ready() && !nextFile));
+    ER.pips((told.delacour ? 1 : 0) + (told.yuki ? 1 : 0) + (told.manual ? 1 : 0) + (told.till ? 1 : 0) + (nextFile ? 1 : 0), 5);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['It is nearly four. Up to the hall: the button at the bottom of the screen.']];
+    if (lock && lock.isOpen()) return ['lock', [
+      'People first. Yuki counted sixty-four from the bank&rsquo;s door to the end. Is everybody on that pavement waiting for the bank? Ravi told you about three o&rsquo;clock. Look at the camera screen.',
+      'Since two o&rsquo;clock, 48 customers took £96,000: that is £2,000 each. The people waiting for the bank will want about the same each. The shelves already hold 27 bundles of £2,000.',
+      'Order only what the shelves cannot pay, in whole boxes of £10,000. A bank uses its own reserves first: the Friday sheet in Mrs Delacour&rsquo;s office said £450,000 in our account at the Bank of England. Borrowing is for when that runs out.'
+    ]];
+    if (!told.delacour) return ['delacour', ['Mrs Delacour is waiting for you, on the right.', 'Click Mrs Delacour.']];
+    if (!told.yuki) return ['yuki', ['Yuki counted the queue and has the till sheet figures.', 'Click Yuki, in front of the shelves.']];
+    if (!told.manual) return ['manual', ['Mrs Delacour said: page four of the manual.', 'The red binder on the left end of the desk.']];
+    if (!told.till) return ['till', ['The till sheet says how much has been paid out since two o&rsquo;clock.', 'The white paper on the desk, between the manual and the order pad.']];
+    if (!told.cam) return ['cam', ['Before you fill in the van order, look at the queue for yourself. The camera screen on the wall.', 'The green screen above the desk.']];
+    return ['pad', ['Fill in the van order: the pad on the desk, next to the telephone.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('Five grey boxes, and the vault looks like a vault again.'); return; }
+    if (told.in) { busy = false; ER.say('The vault. The clock on the van order is running.'); return; }
+    tell('in');
+    ER.mood('tense');
+    ER.narrate([
+      'The vault is smaller than you imagined, and colder. Stone walls, one bulb in a cage, a round steel door with a time lock from 1923, and shelves made for a great deal more money than they hold.',
+      'On the shelves: neat bundles of twenty-pound notes in paper bands. Most of the shelf is bare metal.',
+      'On the desk: the staff manual, the till sheet, a pad that says VAN ORDER, and a black telephone. On the wall, a camera screen shows Market Square in green.',
+      'Mrs Delacour looks at her watch. &ldquo;Five minutes,&rdquo; she says. &ldquo;Then I ring the order through.&rdquo;'
+    ], function () { busy = false; });
+  }
+
+  $('#delacour').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Upstairs,&rdquo; says Mrs Delacour. &ldquo;I have a speech to make, and I would like somebody in the room who knows it is true.&rdquo;'); return; }
+    ER.talk({
+      who: 'Mrs Una Delacour', role: 'Manager · in the vault, with a watch', face: BANK.face('delacour'),
+      lines: [
+        '&ldquo;The van comes at ten to four, from the cash centre. It brings what I order, in boxes of ten thousand pounds, and I must ring the order through by half past three. Too little, and we close the doors on people who want their own money. Then Monday is a real run.&rdquo;',
+        { q: 'Why not order a lot, to be safe?', a: 'Every box comes out of our account at the Bank of England, and money sitting in a vault earns nothing for anybody. I want exactly enough for everyone in that queue who is there for us. To the box.' },
+        { q: 'How do I know who is there for us?', a: 'Yuki counted the queue. Yuki has the till sheet. And there is a camera. Use all three.' },
+        { q: 'What if we run out?', a: 'Page four of the manual, please. Read it. Then tell me how many boxes, and where the money comes from.' }
+      ],
+      clue: { id: 'delacour2', title: 'Mrs Delacour: to the box', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('delacour')) { paint(); ER.say('Boxes of £10,000. Exactly enough. And where the money comes from.'); } }
+    });
+  });
+  $('#yuki').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Five boxes,&rdquo; says Yuki. &ldquo;I can count to five. It&rsquo;s the sixty-four I got wrong.&rdquo;'); return; }
+    ER.talk({
+      who: 'Yuki Yamamoto', role: 'Cashier · has counted everything twice', face: BANK.face('yuki'),
+      lines: [
+        '&ldquo;The queue at twenty-five past three: sixty-four people, from our front door to the end. I counted twice. And nobody has joined it since ten past three. It&rsquo;s stopped growing.&rdquo;',
+        { q: 'How much are people taking?', a: 'Since two o&rsquo;clock we&rsquo;ve paid forty-eight customers, ninety-six thousand pounds. It&rsquo;s on the till sheet. One of them took twenty thousand, which made Mr Ellwood go pale.' },
+        { q: 'How much is left down here?', a: 'Count the bundles. Twenties, a hundred to a band, so two thousand pounds a bundle. It agrees with the till sheet. I checked. Twice.' }
+      ],
+      clue: { id: 'yuki2', title: 'Yuki: sixty-four, from our door to the end', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('yuki')) { paint(); ER.say('Sixty-four from the door to the end. Forty-eight paid, £96,000.'); } }
+    });
+  });
+  var MANUAL = '<h4>Staff Manual &middot; Section 4</h4><h3>When too many come at once</h3>' +
+    '<p>Three things stop a bank run.</p>' +
+    '<p><b>TIME.</b> A run feeds on the fear of being last. When people see every customer paid, calmly and in full, the fear has nothing to eat. Pay everyone. Never close early. Never pay slowly on purpose.</p>' +
+    '<p><b>A LENDER OF LAST RESORT.</b> A central bank (ours is the Bank of England) will lend to a sound bank that is short of cash, and take its good loans as security. A bank uses its own reserves first; borrowing comes after. The idea is old. In 1873 the writer Walter Bagehot argued that in a panic a central bank should lend freely, at a high rate, against good security.</p>' +
+    '<p><b>DEPOSIT INSURANCE.</b> In the UK, the Financial Services Compensation Scheme (FSCS) protects each person&rsquo;s deposits in each bank up to £120,000. If a bank failed, the FSCS would pay them back. Most people have far less than that in the bank, so most people have no reason to queue at all.</p>' +
+    '<p class="rule">The van carries cash in sealed boxes of £10,000. Order by half past three.</p>';
+  $('#manual').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: MANUAL, cls: 'man', clue: { id: 'manual4', title: 'Staff manual 4: when too many come at once', kind: 'In the vault' }, done: function () {
+      BANK.terms(['lender of last resort', 'deposit insurance', 'withdrawal']);
+      if (tell('manual')) { paint(); ER.say('Time, a lender of last resort, and deposit insurance. Own reserves first; borrowing after.'); }
+    } });
+  });
+  var TILL = '<h4>TILL SHEET &middot; Friday</h4><table>' +
+    '<tr><td>Vault at 2 p.m. (the morning&rsquo;s money in and out came to almost the same, as usual)</td><td class="r">£150,000</td></tr>' +
+    '<tr><td>Customers paid since 2 p.m.</td><td class="r">48</td></tr><tr><td>Paid out since 2 p.m.</td><td class="r">£96,000</td></tr>' +
+    '<tr><td>Largest: Hartigan Builders, moving the business account to a bank in Leeds (letter on file since August)</td><td class="r">£20,000</td></tr>' +
+    '<tr><td>Smallest: a boy, for a bicycle</td><td class="r">£40</td></tr></table><p class="hand">Bundles: £20 notes, 100 to a band = £2,000. Y.</p>';
+  $('#till').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: TILL, cls: 'sheet', clue: { id: 'till', title: 'The till sheet', kind: 'In the vault' }, done: function () {
+      if (tell('till')) { paint(); ER.say('Forty-eight customers, ninety-six thousand pounds. And one big one that was planned since August.'); }
+    } });
+  });
+  function camPic() {
+    var s = '<svg viewBox="0 0 980 260"><rect width="980" height="260" fill="#0e1a12"/><rect width="980" height="120" fill="#1a2a20"/><rect y="200" width="980" height="60" fill="#16241a"/>' +
+      '<rect x="6" y="60" width="44" height="140" fill="#2a4a34" stroke="#8ae08a"/><text x="28" y="54" font-family="Courier Prime" font-size="12" text-anchor="middle" fill="#8ae08a">BANK</text>' +
+      '<text x="380" y="40" font-family="Courier Prime" font-size="14" text-anchor="middle" fill="#5aa05a">BROCKHOLT &amp; DISTRICT BANK</text>' +
+      '<rect x="752" y="70" width="40" height="130" fill="#2a4a34" stroke="#8ae08a"/><text x="772" y="40" font-family="Courier Prime" font-size="12" text-anchor="middle" fill="#8ae08a">PATHAK&apos;S</text><text x="772" y="62" font-family="Courier Prime" font-size="10" text-anchor="middle" fill="#8ae08a">3 o&apos;clock bake</text>', i, x;
+    for (i = 0; i < 50; i++) { x = 64 + i * 13.6; s += '<g transform="translate(' + x.toFixed(1) + ' ' + (196 + (i % 3)) + ')"><path d="M-4 0v-16h8v16z" fill="#6ac06a"/><path d="M-5 -14q0 -20 5 -22t5 22z" fill="#8ae08a"/><circle cy="-42" r="5" fill="#aef0ae"/><circle cx="-2" cy="-42" r="1.2" fill="#0e1a12"/></g>'; }
+    for (i = 0; i < 14; i++) { x = 806 + i * 12.4; s += '<g transform="translate(' + x.toFixed(1) + ' ' + (196 + (i % 2)) + ')"><path d="M-4 0v-16h8v16z" fill="#6ac06a"/><path d="M-5 -14q0 -20 5 -22t5 22z" fill="#8ae08a"/><circle cy="-42" r="5" fill="#aef0ae"/><circle cx="-2" cy="-42" r="1.2" fill="#0e1a12"/>' + (i < 2 ? '<rect x="4" y="-22" width="6" height="8" fill="#e8f8e8"/>' : '') + '</g>'; }
+    return s + '<text x="10" y="252" font-family="Courier Prime" font-size="12" fill="#8ae08a">CAM 1 &middot; MARKET SQ &middot; 15:25:07 &middot; REC</text></svg>';
+  }
+  $('#monitor').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: '<h4>CAM 1 &middot; MARKET SQUARE &middot; 15:25</h4>' + camPic(), cls: 'cam', clue: { id: 'cam', title: 'The camera: Market Square at 3.25', kind: 'In the vault' }, done: function () {
+      if (tell('cam')) { paint(); ER.say('One long line of people from the bank&rsquo;s door. But there is another door in the middle of it.'); }
+    } });
+  });
+  BANK.thing('#shelves', 'bundle', 'Bundles of twenty-pound notes, a hundred to a paper band: £2,000 a bundle. Three shelves of nine. The rest of each shelf is bare metal.', isBusy);
+  BANK.thing('#door', 'vault', 'The vault door: half a metre of steel, with a time lock made in 1923. Mr Yeoman had it put in before the counter.', isBusy);
+  BANK.thing('#phone', null, 'A black telephone with one button. It rings the cash centre, and nothing else.', isBusy);
+  $('#pad').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('VAN ORDER: five boxes, from our own account. Signed U. Delacour, in green ink.'); return; }
+    if (!told.delacour) { ER.say('VAN ORDER. Mrs Delacour will want to explain it first.'); return; }
+    if (!told.yuki) { ER.say('To order you need the queue and the money. Yuki counted both.'); return; }
+    if (!told.manual) { ER.say('Where does the money come from? Page four of the manual, the red binder.'); return; }
+    if (!told.till) { ER.say('How much is each person taking? The till sheet, on the desk.'); return; }
+    if (!lock) lock = makeLock();
+    lock.open();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the van order ---------- */
+  function makeLock() {
+    var saved = ER.flag('e-vals') || {}, wait = false, d = {}, src = saved.src || '';
+    var box = ER.el('div', 'pz vo');
+    box.innerHTML = '<div class="vo-in"><h4>VAN ORDER</h4><p class="sub">Brockholt &amp; District Bank &middot; Friday &middot; ring the cash centre by 3.30</p>' +
+      '<div class="ln"><span><i>1</i>People in the queue who are waiting for the bank</span><b id="q"></b></div>' +
+      '<div class="ln"><span><i>2</i>Cash they will take, about</span><b id="c"></b></div>' +
+      '<div class="ln"><span><i>3</i>Boxes to order (£10,000 a box)</span><b id="b"></b></div>' +
+      '<div class="ln" style="border:0"><span><i>4</i>Take the money from:</span></div>' +
+      '<div class="src"><button type="button" data-s="own"><b>OUR RESERVES</b>our own account at the Bank of England</button><button type="button" data-s="loan"><b>A LOAN</b>borrow from the Bank of England against our loans</button></div></div>' +
+      '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="e-go">Ring the order through</button></div>';
+    var msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function lk() { return wait || !!nextFile; }
+    function keep() { ER.flag('e-vals', { q: d.q.get(), c: d.c.get(), b: d.b.get(), src: src }); }
+    d.q = BANK.drum(box.querySelector('#q'), { digits: 2, val: saved.q, change: keep, lock: lk });
+    d.c = BANK.drum(box.querySelector('#c'), { digits: 3, before: '£', after: ',000', val: saved.c, change: keep, lock: lk });
+    d.b = BANK.drum(box.querySelector('#b'), { digits: 2, val: saved.b, change: keep, lock: lk });
+    function paintSrc() { ER.$$('.src button', box).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-s') === src); }); }
+    ER.$$('.src button', box).forEach(function (b) { b.addEventListener('click', function () { if (lk()) return; src = b.getAttribute('data-s'); BANK.sfx.stamp(); paintSrc(); keep(); }); });
+    paintSrc();
+    function flash(n) { n.classList.add('bad'); setTimeout(function () { n.classList.remove('bad'); }, 1200); }
+    box.querySelector('#e-go').addEventListener('click', function () {
+      if (wait || nextFile) return;
+      var q = d.q.get(), c = d.c.get(), b = d.b.get();
+      if (!ER.check('q', q)) { ER.sfx.no(); flash(box.querySelector('#q')); msg(ER.check('q64', q) ? '&ldquo;Sixty-four from our door to the end,&rdquo; says Yuki slowly. &ldquo;Is everybody on that pavement waiting for us? Ravi said something about three o&rsquo;clock. Look at the camera again.&rdquo;' : '&ldquo;How many are waiting for OUR door?&rdquo; says Mrs Delacour. &ldquo;Yuki&rsquo;s count, and the camera.&rdquo;'); return; }
+      if (!ER.check('c', c)) { ER.sfx.no(); flash(box.querySelector('#c')); msg(ER.check('c128', c) ? '&ldquo;That is for sixty-four people,&rdquo; says Mrs Delacour. &ldquo;We are paying fifty.&rdquo;' : '&ldquo;Forty-eight customers took ninety-six thousand pounds,&rdquo; says Mrs Delacour. &ldquo;How much each, on average? Then for the people waiting.&rdquo;'); return; }
+      if (!ER.check('b', b)) {
+        ER.sfx.no(); flash(box.querySelector('#b'));
+        if (ER.check('b10', b)) msg('&ldquo;Ten boxes is a hundred thousand pounds,&rdquo; says Mrs Delacour. &ldquo;What is already on my shelves?&rdquo;');
+        else if (b < 5) msg('&ldquo;' + (b ? b + ' boxes and' : 'Nothing, and') + ' the shelves make ' + BANK.pounds(54000 + b * 10000) + ',&rdquo; says Mrs Delacour. &ldquo;Somebody in that queue goes home without their own money. Not today.&rdquo;');
+        else msg('&ldquo;That is more than the queue needs,&rdquo; says Mrs Delacour. &ldquo;Money in a vault earns nothing. I said: to the box.&rdquo;');
+        return;
+      }
+      if (!ER.check('src', src)) { ER.sfx.no(); flash(box.querySelector('.src')); msg(src ? '&ldquo;Borrow?&rdquo; says Mrs Delacour. &ldquo;You weighed us. How much have we got of our own in our account at the Bank of England? A bank uses its own reserves first.&rdquo;' : '&ldquo;And where does the money come from?&rdquo; says Mrs Delacour. &ldquo;Choose.&rdquo;'); return; }
+      var file = ER.exit([q + '-' + c + '-' + b + '-' + src], { wait: true });
+      if (!file) { msg('The door will not open. Something is wrong with this page: tell your teacher.'); return; }
+      wait = true; nextFile = file; ER.flag('e-file', file);
+      BANK.mine('van', 'The van order', '<p>Queue: 64 from our door to the end, but the last 14 are waiting for Pathak&rsquo;s three o&rsquo;clock bake. 50 for the bank.</p><p>£96,000 &divide; 48 = £2,000 each. 50 &times; £2,000 = £100,000.</p><p>On the shelves: 27 bundles &times; £2,000 = £54,000 (= £150,000 &minus; £96,000). Short £46,000: 5 boxes of £10,000.</p><p>From our own reserves at the Bank of England (£450,000 there). Borrowing is for when that runs out.</p>', true);
+      msg('Mrs Delacour reads the pad, checks it against her watch, and picks up the telephone. <b>Fifty people, about £100,000, five boxes, from our own account.</b>');
+      setTimeout(function () {
+        ER.closeAll(); paint(); busy = true; ER.mood('calm');
+        ER.narrate([
+          '&ldquo;Brockholt and District,&rdquo; says Mrs Delacour into the telephone. &ldquo;Five boxes, please, from our own account. Yes, today. Yes, I know what the town is saying.&rdquo; She puts the phone down. &ldquo;Ten to four.&rdquo;',
+          'At ten to four the van stops at the front door, not round the back where it always stops: Mrs Delacour asked for that. Two men in helmets carry five grey boxes through the middle of the queue and across the banking hall, slowly. Everybody watches them go by.',
+          '&ldquo;Is that wise?&rdquo; says Yuki. &ldquo;Showing them?&rdquo; &mdash; &ldquo;It is the only wise thing,&rdquo; says Mrs Delacour. &ldquo;Nobody runs from a bank that is busy paying.&rdquo;',
+          '&ldquo;And if it isn&rsquo;t over on Monday?&rdquo; you ask. &mdash; &ldquo;Then I ring the Bank of England, and they lend to us against our loans, because we are sound. That is what they are for. And every saver in that queue is protected up to a hundred and twenty thousand pounds, which is a great deal more than any of them has.&rdquo;',
+          'She straightens her jacket. &ldquo;But it will be over. Come upstairs. It is nearly four o&rsquo;clock, and I have a speech to make.&rdquo;'
+        ], function () { busy = false; $('#go').classList.add('on'); });
+      }, 2800);
+    });
+    msg('Set the three figures with the little wheels and choose where the money comes from. Then ring the order through.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Jury’s Note · So That You Are Sure</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-court.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="violin.css">
+<style>
+  body{--bg:#2a3440;--accent:#f2c86a;--font-display:'Cormorant SC',serif;--font-ui:'Oswald',sans-serif;--font-body:'EB Garamond',Georgia,serif;
+    --tc-bg:rgba(30,38,48,.97);--tc-ink:#f1eee6;--cap-bg:rgba(30,38,48,.93);--panel:#222c36;--face-bg:#3a4652;--q-ink:#f0d9a6;--fade:#0e1216;--hud-bg:rgba(30,38,48,.82)}
+  #vglow{animation:vg 3.1s steps(1,end) infinite}
+  @keyframes vg{0%{opacity:1}88%{opacity:.75}92%{opacity:1}}
+  #boardtxt{animation:bd 5s steps(1,end) infinite}
+  @keyframes bd{0%{opacity:1}50%{opacity:.85}}
+
+  /* the jury's note, and a tray of paragraphs and exhibits */
+  .jq{width:min(1240px,97vw);display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:16px;align-items:start}
+  .jq-note{background:#fdfdf8 repeating-linear-gradient(transparent 0 37px,rgba(60,110,170,.2) 37px 38px);padding:10px 16px 8px 40px;box-shadow:0 22px 60px rgba(0,0,0,.6),inset 30px 0 0 #fdfdf8,inset 32px 0 0 rgba(200,60,60,.4);position:relative}
+  .jq-note h4{margin:0 0 4px;font-family:'Caveat',cursive;font-weight:700;font-size:23px;color:#2a2a30}
+  .jq-q{display:grid;grid-template-columns:minmax(0,1fr) 168px;gap:10px;align-items:center;min-height:52px;border-bottom:1px solid rgba(60,110,170,.18)}
+  .jq-q p{margin:0;font-family:'Caveat',cursive;font-weight:700;font-size:19.500px;line-height:1.1;color:#2a2a30}
+  .jq-q p small{font-family:'Oswald',sans-serif;font-weight:500;font-size:11px;letter-spacing:.12em;color:#8d9097;margin-right:5px}
+  .jq-slot{min-height:42px;border:1.500px dashed #8d9097;border-radius:3px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.6)}
+  .jq-q.ok .jq-slot{border-style:solid;border-color:#2f7a4a}
+  .jq-tray{display:flex;flex-wrap:wrap;gap:7px;align-content:flex-start;min-height:150px;padding:10px;background:rgba(10,14,18,.66);border:1px dashed rgba(242,200,106,.5)}
+  .jq-tab{padding:5px 9px 4px;background:#fdfbf2;color:#1c1d22;box-shadow:0 3px 7px rgba(0,0,0,.4);font-family:'Tinos',serif;font-size:14px;line-height:1.15;border-left:6px solid #5b3f86;max-width:164px}
+  .jq-tab.x{border-left-color:#2f6a6a}
+  .jq-tab b{font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:.06em}
+  .jq-slot .jq-tab{max-width:none;width:100%;font-size:13px}
+  .jq.holding .jq-slot .jq-tab{pointer-events:none}
+  .jq-pat{display:flex;align-items:center;gap:8px;margin:0 0 8px;font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#cdbfd6}
+  .jq-pat i{width:17px;height:17px;border-radius:50% 46% 52% 44%;background:radial-gradient(circle at 35% 30%,#f2a0a0,#b3262c 55%,#6e1015);transition:transform .4s,opacity .4s}
+  .jq-pat i.down{transform:scale(.3);opacity:.15}
+  .jq-side h6{margin:10px 0 6px;font-family:'Oswald',sans-serif;font-weight:400;font-size:11.500px;letter-spacing:.22em;text-transform:uppercase;color:#f0d9a6}
+  .jq .btn{width:100%;margin:10px 0 8px}
+  .jq .pmsg{min-height:120px;font-size:17px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8c9cae"/><stop offset=".7" stop-color="#e8c890"/><stop offset="1" stop-color="#f2d6a0"/></linearGradient>
+  <linearGradient id="floorG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a9afb4"/><stop offset="1" stop-color="#7d8388"/></linearGradient>
+  <linearGradient id="vendG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7b1f2a"/><stop offset="1" stop-color="#5d1620"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="44%" r="84%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".68" stop-color="#0c1014" stop-opacity=".12"/><stop offset="1" stop-color="#06080a" stop-opacity=".66"/></radialGradient>
+</defs>
+
+<!-- the glass wall of the first-floor concourse, and the city behind it in the late afternoon -->
+<rect x="-1000" y="-400" width="3600" height="1000" fill="url(#skyG)"/>
+<g id="city" class="hot"></g>
+<g id="mullions" stroke="#3a4652" stroke-width="10" pointer-events="none"></g>
+<rect x="-1000" y="590" width="3600" height="900" fill="url(#floorG)"/><g stroke="#8d9397" stroke-width="2" opacity=".5"><path d="M-1000 640h3600M-1000 720h3600M-1000 840h3600"/></g>
+
+<!-- the door of Court 2, the board above it, the usher -->
+<g id="door" class="hot"><rect x="640" y="250" width="300" height="380" fill="#e6dcc8"/><rect x="660" y="270" width="260" height="360" fill="#b99c6a"/><path d="M790 270v360" stroke="#8a6e44" stroke-width="4"/><rect x="700" y="320" width="50" height="70" fill="#cfe3ee" opacity=".7"/><rect x="830" y="320" width="50" height="70" fill="#cfe3ee" opacity=".7"/>
+  <rect x="770" y="430" width="8" height="40" rx="3" fill="#c9ccd0"/><rect x="802" y="430" width="8" height="40" rx="3" fill="#c9ccd0"/></g>
+<g id="board" class="hot"><rect x="660" y="140" width="260" height="70" rx="4" fill="#14181c"/><g id="boardtxt"><text x="790" y="170" class="sT" font-size="15" fill="#f2c86a" letter-spacing="2">COURT 2 · R v MALLON</text><text x="790" y="196" class="sT" font-size="14" fill="#9fe0a8" letter-spacing="2">JURY OUT 12.40</text></g></g>
+<g id="usher" class="hot"><rect x="950" y="420" width="170" height="340" fill="#000" opacity="0"/><use href="#ch-tunnicliffe" x="940" y="512" width="200" height="260"/></g>
+<g id="tannoy" class="hot"><rect x="1060" y="150" width="40" height="56" rx="6" fill="#d9dcd8"/><g fill="#55585f"><circle cx="1080" cy="168" r="3"/><circle cx="1072" cy="180" r="3"/><circle cx="1088" cy="180" r="3"/><circle cx="1080" cy="192" r="3"/></g></g>
+
+<!-- blue chairs, Miss Blackwood, her copy of the directions -->
+<g id="chairs"></g>
+<g id="ib" class="hot"><rect x="200" y="460" width="210" height="300" fill="#000" opacity="0"/><use href="#ch-blackwood" x="180" y="470" width="240" height="312"/></g>
+<path d="M-1000 760h3600v700h-3600z" fill="#5a4a3a"/><path d="M-1000 760h3600" stroke="#8a7458" stroke-width="8"/><path d="M-1000 790h3600" stroke="#4a3c2e" stroke-width="3"/>
+<g id="dirs" class="hot"><g transform="rotate(-8 520 640) translate(30 160)"><rect x="470" y="610" width="110" height="74" fill="#fdfcf6"/><rect x="470" y="610" width="8" height="74" fill="#5b3f86"/><path d="M488 626h80M488 638h70M488 650h80M488 662h60" stroke="#8d9097" stroke-width="2"/></g></g>
+<g id="cross" class="hot"><g transform="translate(0 150) rotate(10 120 650)"><rect x="80" y="620" width="90" height="60" fill="#f4f2ec"/><g stroke="#2b2f36" stroke-width="1.500"><path d="M86 630h78M86 640h78M86 650h78M86 660h78M86 670h78M96 624v52M108 624v52M120 624v52M132 624v52M144 624v52M156 624v52"/></g><rect x="108" y="640" width="12" height="10" fill="#2b2f36"/><rect x="132" y="650" width="12" height="20" fill="#2b2f36"/></g></g>
+
+<!-- the vending machine, and Mr Dewhurst with a paperback -->
+<g id="vend" class="hot"><rect x="1360" y="260" width="180" height="370" rx="6" fill="url(#vendG)"/><rect id="vglow" x="1376" y="280" width="148" height="150" fill="#f6e6b8" opacity=".9"/><text x="1450" y="312" class="sT" font-size="15" fill="#5d1620" letter-spacing="2">HOT DRINKS</text>
+  <g fill="#5d1620"><rect x="1394" y="330" width="40" height="22"/><rect x="1466" y="330" width="40" height="22"/><rect x="1394" y="366" width="40" height="22"/><rect x="1466" y="366" width="40" height="22"/></g><rect x="1410" y="520" width="80" height="60" fill="#2b1014"/></g>
+<g id="dewhurst" class="hot"><rect x="1150" y="470" width="190" height="290" fill="#000" opacity="0"/><use href="#ch-dewhurst" x="1140" y="500" width="210" height="273"/><rect x="1210" y="700" width="70" height="44" fill="#b3262c"/><rect x="1216" y="704" width="58" height="36" fill="#e9d9b8"/></g>
+
+<rect x="-1000" y="-400" width="3600" height="1760" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">The jury has a verdict</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="violin.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = false, nextFile = null, jqBox = null, PAT = 4;
+
+  /* rooftops, a spire, the glass wall, and a row of blue chairs */
+  (function () {
+    var s = '<rect x="-1000" y="420" width="3600" height="180" fill="#6b6e75" opacity=".55"/>', i, x;
+    [[-200, 360], [-60, 400], [80, 340], [240, 380], [400, 330], [560, 390], [980, 350], [1120, 380], [1260, 320], [1420, 370], [1560, 340]].forEach(function (b) { s += '<rect x="' + b[0] + '" y="' + b[1] + '" width="150" height="260" fill="#5a5e66" opacity=".7"/>'; });
+    s += '<path d="M1220 420V250l14-120 14 120v170z" fill="#4a4e56" opacity=".8"/><rect x="1196" y="260" width="76" height="160" fill="#4a4e56" opacity=".8"/>';
+    $('#city').innerHTML = s; s = '';
+    for (x = -1000; x < 2600; x += 220) s += '<path d="M' + x + ' -400V590"/>';
+    s += '<path d="M-1000 230H2600"/>';
+    $('#mullions').innerHTML = s; s = '';
+    for (i = 0; i < 6; i++) { x = 40 + i * 100; s += '<path d="M' + x + ' 600h84l-6-70h-72z" fill="#2f6a9a"/><path d="M' + (x + 8) + ' 600v40M' + (x + 76) + ' 600v40" stroke="#2b2f36" stroke-width="5"/>'; }
+    $('#chairs').innerHTML = s;
+  })();
+
+  ER.init({
+    theme: 'court', story: 'violin', storyTitle: 'So That You Are Sure', id: 'jury', no: 'V', title: 'The Jury’s Note',
+    go: 'Wait',
+    intro: [
+      'In Court 2 you turned PC Sheridan&rsquo;s reported speech back into Mrs Askew&rsquo;s own words, and Miss Blackwood put your papers to her one by one. The scaffolding had hidden the door. On the night she had said &ldquo;I couldn&rsquo;t see his face&rdquo;, and &ldquo;about your height&rdquo; to a man of 1.88 metres, and &ldquo;it might have been the busker&rdquo;, until one photograph made her sure. The lamp was out. And Mr Andreou&rsquo;s words were hearsay: the judge told the jury to put them out of their minds.',
+      'She was right about the time, the case and the way he went. She was honest all the way through. And at the end she said: &ldquo;I don&rsquo;t know any more.&rdquo;',
+      'Wednesday. This morning both barristers made their speeches, and Her Honour summed up and gave each juror her directions in writing. At twenty to one the jury went out to decide.'
+    ],
+    exit: {"next":"verdict","w":{"9fc92194":"4f43ccd0"}}, tags: {"q1":["6af77359"],"q2":["47330bbb"],"q3":["1a1983f6"],"q4":["2a0d1225"],"q5":["299adf3a"],"q6":["59434a25"],"q7":["23380878"]},
+    hints: hints, onBegin: begin
+  });
+  nextFile = ER.flag('j-file') || null;
+
+  var DIRS = '<h4>Written directions to the jury &middot; R v Mallon</h4><h5>Her Honour Judge Lennox &middot; handed to each juror on Wednesday 14 October</h5>' +
+    '<p><span class="n">1</span><b>The burden of proof.</b> The prosecution must prove that Mr Mallon is guilty. He does not have to prove anything: not where he was, and not who else it might have been.</p>' +
+    '<p><span class="n">2</span><b>The standard of proof.</b> You may find him guilty only if the prosecution has made you <b class="t">SURE</b> of it. Thinking that he probably did it is not enough. If you are not sure, your verdict must be not guilty.</p>' +
+    '<p><span class="n">3</span>&ldquo;Not guilty&rdquo; does not mean that you have decided that he is innocent. It means that the prosecution has not made you sure.</p>' +
+    '<p><span class="n">4</span><b>Identification.</b> Take special care. An honest witness who is sure can still be mistaken (see what I told you this morning).</p>' +
+    '<p><span class="n">5</span><b>Alibi.</b> If you decide that his alibi is untrue, or simply not proved, that does not by itself prove that he was on Cutler&rsquo;s Row.</p>' +
+    '<p><span class="n">6</span><b>Hearsay.</b> Put out of your minds what Mrs Askew said Mr Andreou told her. Decide only on the evidence you heard; do not guess at evidence you did not hear.</p>' +
+    '<p><span class="n">7</span>You must try to reach a verdict on which all twelve of you agree.</p>' +
+    '<p class="route">The question for you: <b>Are we sure</b> that the man who left 14 Cutler&rsquo;s Row at about 10.40 pm on 14 May was Ezra Mallon? &nbsp;Yes: guilty. &nbsp;No: not guilty.</p>';
+  var QS = [['7', 'Mrs Askew was SO sure. If she is sure, why shouldn&rsquo;t we be?'],
+    ['2', 'Nobody saw him on the canal. If his alibi isn&rsquo;t proved, does that mean he was on Cutler&rsquo;s Row?'],
+    ['11', 'Shouldn&rsquo;t the defence have to tell us who DID take the violin?'],
+    ['12', 'Some of us think he probably did it. Is that enough?'],
+    ['1', 'If we say not guilty, are we saying that he is innocent?'],
+    ['9', 'Was the street lamp outside No. 14 working that night?'],
+    ['3', 'What did Mr Andreou actually see?']];
+  var TABS = [['d1', '&para;1', 'of the directions'], ['d2', '&para;2', 'of the directions'], ['d3', '&para;3', 'of the directions'], ['d4', '&para;4', 'of the directions'], ['d5', '&para;5', 'of the directions'],
+    ['d6', '&para;6', 'of the directions'], ['d7', '&para;7', 'of the directions'], ['x1', 'JS/3', 'police photographs'], ['x2', '999 call', 'transcript'], ['x3', 'PC Sheridan', 'notebook'],
+    ['x4', 'Council', 'lamp record'], ['x5', 'Defence plan', 'of Cutler&rsquo;s Row'], ['x6', 'Agreed', 'facts']];
+  var NOTE = '<h4>TO THE JUDGE &middot; FROM THE JURY &middot; WEDNESDAY 2.45</h4><p>We have some questions. We are sorry that there are so many.</p>' +
+    QS.map(function (q, i) { return '<p>' + (i + 1) + '. (Juror ' + q[0] + ') ' + q[1] + '</p>'; }).join('') + '<p style="text-align:right">Juror 4, for all of us</p>';
+  /* what Her Honour says when the answer offered does not fit the question */
+  var SAY = {
+    1: { d2: 'Paragraph 2 tells them how sure THEY must be. They are asking why a witness who is sure might still be wrong. Is there a paragraph about that?',
+      x2: 'Miss Blackwood, if I read them the 999 call, I am making your speech again for you. They have asked about the law: why should a sure witness not settle it? Which paragraph?', x3: 'The same is true of the notebook. That is evidence, and they have heard it. They are asking how to think about a witness who is sure.',
+      '*': 'Read the question again. They are not asking what happened. They are asking whether her being sure settles it.' },
+    2: { d1: 'Paragraph 1 is quite true, and I shall remind them of it. But they have asked about the alibi in particular, and I wrote a paragraph that answers exactly that.',
+      '*': 'They are asking what follows if an alibi is not proved. One paragraph says so in nearly their own words.' },
+    3: { d5: 'This is not about the alibi. It is about who has to prove what. Which paragraph tells them that?',
+      d6: 'Not quite. They are not asking about evidence they did not hear. They are asking whether the defence has a job to do. Who has to prove things in this court?',
+      '*': 'They are asking whether the defence has to prove something. Which paragraph is about who has to prove what?' },
+    4: { d3: 'Close, but paragraph 3 is about what a verdict of not guilty means. They are asking whether &ldquo;probably&rdquo; is enough to convict.',
+      d4: 'They are not asking about the witness. They are asking how sure they themselves have to be.',
+      '*': '&lsquo;Probably&rsquo;. Which paragraph uses that very word?' },
+    5: { d2: 'Paragraph 2 tells them when to say not guilty. They want to know what saying it MEANS.',
+      d1: 'They are not asking who has to prove what. They are asking what a verdict of not guilty means.',
+      '*': 'They are asking what their verdict would mean. There is a paragraph for that.' },
+    6: { x5: 'The plan shows where the lamp stands. They have asked whether it was working.', x1: 'The photographs were taken at half past seven in the morning, in daylight. They tell them nothing about a lamp at night.',
+      x2: 'She said nothing about the lamp to the operator.', d4: 'That is the law about identification. They have asked a plain question of fact, and one exhibit answers it.',
+      '*': 'That is a question of fact, about one lamp on one night. Which exhibit answers it?' },
+    7: { x2: 'The 999 call is Mrs Askew&rsquo;s, not Mr Andreou&rsquo;s. They have asked about Mr Andreou.',
+      '*': 'Mr Andreou never gave evidence. I cannot tell them what he saw, and they must not guess. Which paragraph says so?' }
+  };
+
+  function hints() {
+    if (nextFile) return ['go', ['The jury has a verdict. The button is at the bottom of the screen.']];
+    if (jqBox) return ['note', [
+      'Seven questions, and each has exactly one answer: either a paragraph of Her Honour&rsquo;s written directions or one exhibit. The directions are in your notebook, and so are the exhibits.',
+      'Most of the questions are about the law, and paragraphs answer them. Only one is a plain question of fact, about one thing on one night, and an exhibit answers that. And careful: question 1 is about how sure the WITNESS was, and question 4 is about how sure the JURY must be.',
+      'Question 3 is about who has to prove things (&para;1). Question 2 is about the alibi (&para;5). Question 7 is about somebody who never gave evidence (&para;6). The lamp has its own record.'
+    ]];
+    if (!ER.flag('j-dirs')) return ['dirs', ['Miss Blackwood&rsquo;s copy of the written directions is lying on the chair beside her. Read it.', 'Every juror has the same paper in the jury room now.']];
+    if (!ER.flag('j-call')) return ['wait', ['Wait. Talk to Miss Blackwood, or Mr Dewhurst, or look at the board above the door. Something will happen soon.']];
+    return ['door', ['The jury has sent a note. Go into Court 2: click the door.']];
+  }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#go').classList.toggle('on', !!nextFile);
+    $('#door').classList.toggle('ready', !nextFile && !!ER.flag('j-call'));
+    $('#dirs').classList.toggle('ready', !nextFile && !ER.flag('j-dirs'));
+    ER.pips(nextFile ? 1 : 0, 1);
+  }
+  function begin() {
+    paint();
+    if (nextFile) { ER.say('The concourse. Everybody has gone back into Court 2.'); return; }
+    if (ER.flag('j-in')) { ER.say(ER.flag('j-call') ? 'The jury has sent a note. Everybody is going back into Court 2.' : 'The concourse outside Court 2. Waiting.'); return; }
+    busy = true; ER.flag('j-in', 1);
+    ER.narrate([
+      'The concourse outside Court 2: a glass wall, a view of rooftops and the cathedral spire, a vending machine, and a row of blue plastic chairs that nobody has ever been comfortable in.',
+      'Waiting for a jury is the longest kind of waiting there is. Nobody may speak to them. Mr Tunnicliffe has sworn an oath to keep them in their room, and to let nobody in.',
+      'Miss Blackwood is doing a crossword in pen. Mr Dewhurst is reading a paperback with a red cover. They were in the same chambers for eleven years, and they are perfectly friendly. It is ten to three.'
+    ], function () { busy = false; paint(); });
+  }
+  function maybeCall() {
+    if (ER.flag('j-call') || !ER.flag('j-dirs') || (ER.flag('j-talks') || 0) < 1) return;
+    ER.flag('j-call', 1); busy = true;
+    setTimeout(function () {
+      ER.narrate([
+        'A click from the speaker on the wall. &ldquo;All parties in the case of Mallon to Court 2, please. All parties in Mallon, to Court 2.&rdquo;',
+        'Mr Dewhurst closes his book on his finger. Miss Blackwood caps her pen. &ldquo;A note,&rdquo; she says. &ldquo;Juries send notes. Notes are either very good or very bad, and you can never tell which until it is read out.&rdquo;'
+      ], function () { busy = false; paint(); });
+    }, 600);
+  }
+
+  /* ---------- the room ---------- */
+  $('#dirs').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: DIRS, cls: 'dirs', clue: { id: 'dirs', title: 'Written directions to the jury', kind: 'From Her Honour' },
+      done: function () { ER.flag('j-dirs', 1); paint(); VN.learn(['burden of proof', 'standard of proof', 'sure', 'not guilty', 'verdict', 'jury']); maybeCall(); } });
+  });
+  $('#ib').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Miss Blackwood has put her wig back on, and taken it off again, twice.'); return; }
+    ER.talk({
+      who: 'Miss Blackwood', role: 'Counsel for the defence · waiting', face: window.FACE('blackwood'),
+      lines: [
+        { note: 'She does not look up from the crossword.', a: 'Five letters: &ldquo;Reasonable blank&rdquo;. Doubt. The old words for it were &lsquo;beyond reasonable doubt&rsquo;. Judges today just say &lsquo;sure&rsquo;. It means the same, and everybody understands it.' },
+        { q: 'How long will they be?', a: 'Two hours, or two days. After two hours and ten minutes the judge may tell them that she can accept a verdict on which at least ten of them agree. Until then it has to be all twelve.' },
+        { q: 'Do you think he did it?', a: 'What I think does not matter. What matters is whether twelve people are sure. That is the whole of the law, in one word, and it took about six hundred years to get it right.' }
+      ],
+      clue: { id: 'ib5', title: 'Miss Blackwood, on a blue chair', kind: 'What she said' }, last: 'Leave her to it',
+      done: function (seen) { if (seen) { ER.flag('j-talks', (ER.flag('j-talks') || 0) + 1); VN.learn(['majority', 'reasonable doubt']); maybeCall(); } }
+    });
+  });
+  $('#dewhurst').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Mr Dewhurst has finished his book. He says that the butler did it, and that he is quite sure.'); return; }
+    ER.talk({
+      who: 'Mr Dewhurst', role: 'Counsel for the Crown · waiting', face: window.FACE('dewhurst'),
+      lines: [
+        { note: 'He keeps one finger in his book.', a: 'Your Miss Blackwood did that very well yesterday. I said so to her. I meant it.' },
+        { q: 'Aren&rsquo;t you trying to win?', a: 'The Crown does not win or lose. My job is to put the evidence before the jury, fairly, and the strongest way it honestly goes. If they are not sure, then they are not sure, and that is the system working. I should hate to convict an honest man on a dark night and a borrowed photograph.' }
+      ],
+      clue: { id: 'dew1', title: 'Mr Dewhurst, with a paperback', kind: 'What he said' }, last: 'Thank you',
+      done: function (seen) { if (seen) { ER.flag('j-talks', (ER.flag('j-talks') || 0) + 1); maybeCall(); } }
+    });
+  });
+  $('#door').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Court 2. The jury is back in its room, with Her Honour&rsquo;s answers.'); return; }
+    if (!ER.flag('j-call')) { ER.say('The door of Court 2. Inside, the court is empty and the lights are low. The jury is in its own room, along another corridor that you will never see.'); return; }
+    if (ER.flag('j-read')) { openNote(); return; }
+    busy = true;
+    ER.narrate([
+      'Court 2, without the jury. Her Honour comes in, sits, and holds up a sheet of lined paper. &ldquo;A note from the jury, at a quarter to three. I shall read it to you, and then I want your help.&rdquo;',
+      'She reads it. Seven questions. Mr Dewhurst writes them down. Miss Blackwood does not write anything; she has gone very still.',
+      '&ldquo;I shall bring them back and answer each question,&rdquo; says the judge, &ldquo;and I want to answer each one by sending them to one thing: a paragraph of my written directions, or one exhibit. Not a speech. Miss Blackwood, your trainee has the papers. Tell me which, and Mr Dewhurst will tell me if you are wrong.&rdquo;'
+    ], function () { busy = false; ER.flag('j-read', 1); ER.addClue('jnote', 'The jury’s note', NOTE, 'jnote', 'From the jury room'); openNote(); });
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  VN.thing('#board', null, function () { return 'COURT 2 &middot; R v MALLON &middot; JURY OUT 12.40. The letters flicker now and then, as if the board were nervous too.'; }, isBusy);
+  VN.thing('#tannoy', null, 'The speaker on the wall. It calls people to court, and nothing else. Everybody on this floor jumps when it clicks.', isBusy);
+  VN.thing('#vend', null, 'HOT DRINKS. The tea tastes of the chicken soup, and the chicken soup tastes of the tea.', isBusy);
+  VN.thing('#usher', null, 'Mr Tunnicliffe sits on a hard chair by the door of the corridor to the jury room, as he has since twenty to one. If a juror knocks, he answers. Nobody else gets past him.', isBusy);
+  VN.thing('#city', null, 'Wyncaster in the late afternoon: rooftops, the cathedral spire, and somewhere behind them the river, and Cutler&rsquo;s Row.', isBusy);
+  VN.thing('#cross', null, 'Miss Blackwood&rsquo;s crossword, in pen. She has written DOUBT across the middle of it, very firmly.', isBusy);
+
+  /* ---------- seven questions ---------- */
+  function openNote() {
+    var box = ER.el('div', 'jq'), saved = ER.flag('j-ans') || {}, done = false, pat = ER.flag('j-pat') == null ? PAT : ER.flag('j-pat'), s;
+    s = '<div class="jq-note"><h4>To the judge, from the jury &middot; 2.45 pm</h4>';
+    QS.forEach(function (q, i) { s += '<div class="jq-q" data-n="' + (i + 1) + '"><p><small>' + (i + 1) + ' &middot; JUROR ' + q[0] + '</small>' + q[1] + '</p><div class="jq-slot"></div></div>'; });
+    s += '</div><div class="jq-side"><div class="jq-pat"><span>Her Honour&rsquo;s patience</span></div><div class="jq-tray"></div><button type="button" class="btn" id="jq-go">Hand Her Honour the list</button><p class="pmsg"></p></div>';
+    box.innerHTML = s;
+    var tray = box.querySelector('.jq-tray'), msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function pats() { var p = box.querySelector('.jq-pat'), h = '<span>Her Honour&rsquo;s patience</span>', i; for (i = 0; i < PAT; i++) h += '<i' + (i < pat ? '' : ' class="down"') + '></i>'; p.innerHTML = h; box.setAttribute('data-pat', pat); }
+    TABS.forEach(function (t) {
+      var d = ER.el('div', 'jq-tab dnd-item' + (t[0].charAt(0) === 'x' ? ' x' : ''), '<b>' + t[1] + '</b> ' + t[2]); d.setAttribute('data-k', t[0]);
+      var at = null, k; for (k in saved) if (saved[k] === t[0]) at = k;
+      (at ? box.querySelector('.jq-q[data-n="' + at + '"] .jq-slot') : tray).appendChild(d);
+    });
+    function state() { var o = {}; ER.$$('.jq-q', box).forEach(function (q) { var t = q.querySelector('.jq-tab'); if (t) o[q.getAttribute('data-n')] = t.getAttribute('data-k'); }); return o; }
+    function keep() { var o = state(); ER.flag('j-ans', o); box.setAttribute('data-in', Object.keys(o).length); }
+    ER.dnd(box, { item: '.jq-tab', slot: '.jq-slot', home: tray, lock: function () { return done; }, change: function () { VN.sfx.tab(); keep(); } });
+    box.addEventListener('click', function () { box.classList.toggle('holding', !!box.querySelector('.jq-tab.held')); });      /* while a tab is held, a tab already beside a question lets the click through to its place */
+    box.querySelector('#jq-go').addEventListener('click', function () {
+      var o = state(), wrong = [], n, file, code = [];
+      if (done) return;
+      if (Object.keys(o).length < 7) { msg('&ldquo;Seven questions,&rdquo; says the judge, &ldquo;and I can see at least one with nothing beside it. I am not going to send twelve people back to their room with a question unanswered.&rdquo;'); return; }
+      for (n = 1; n <= 7; n++) { if (!ER.check('q' + n, o[n])) wrong.push(n); code.push('q' + n + o[n]); }
+      if (wrong.length) {
+        n = wrong[0]; VN.bump('j-tries'); VN.sfx.hm(); pat = Math.max(0, pat - 1); ER.flag('j-pat', pat); pats();
+        ER.$$('.jq-q', box).forEach(function (q) { q.classList.toggle('ok', wrong.indexOf(+q.getAttribute('data-n')) < 0); });
+        msg('Her Honour puts her pen on question ' + n + '. &ldquo;' + (SAY[n][o[n]] || SAY[n]['*']) + '&rdquo;' + (wrong.length > 1 ? ' <i>Mr Dewhurst coughs. &ldquo;And ' + (wrong.length === 2 ? 'one other' : (wrong.length - 1) + ' others') + ', Your Honour, with respect.&rdquo;</i>' : ''));
+        if (pat <= 0) {
+          busy = true; done = true;
+          setTimeout(function () {
+            ER.closeAll();
+            ER.narrate([
+              'Her Honour takes off her glasses. &ldquo;We shall rise for ten minutes. Miss Blackwood, Mr Dewhurst: a jury that asks good questions deserves exact answers, and I should like you both to read my directions again, slowly, with a cup of tea.&rdquo;',
+              'In the concourse the tea tastes of chicken soup. Miss Blackwood reads the directions aloud to you, paragraph by paragraph, in a whisper. Then the speaker clicks again.'
+            ], function () { busy = false; ER.flag('j-pat', PAT); openNote(); });
+          }, 3200);
+        }
+        return;
+      }
+      file = ER.exitOk([code.join('+')]);
+      if (!file) { msg('Something is wrong with this lock: tell your teacher.'); return; }
+      done = true; nextFile = file; ER.flag('j-file', file); VN.done('jury'); VN.sfx.note();
+      ER.$$('.jq-q', box).forEach(function (q) { q.classList.add('ok'); });
+      msg('Her Honour reads the list, and looks at Mr Dewhurst. &ldquo;No objection, Your Honour.&rdquo; <b>&ldquo;Thank you both. Mr Tunnicliffe, bring in the jury.&rdquo;</b>');
+      VN.mine('answers', 'The jury’s questions, and the answers', '<p>1 She was so sure: &para;4, a sure witness can be mistaken.</p><p>2 The alibi: &para;5, not proved does not mean he was there.</p><p>3 Who did it? &para;1, the defence proves nothing.</p><p>4 Probably? &para;2, they must be sure.</p><p>5 Innocent? &para;3, not guilty means not proved.</p><p>6 The lamp: the council&rsquo;s record. It was out.</p><p>7 Mr Andreou: &para;6, he gave no evidence; do not guess.</p>', true);
+      setTimeout(function () {
+        ER.closeAll(); VN.solved(); paint(); busy = true;
+        ER.narrate([
+          'The jury files back in. Twelve faces, in two rows, watching the judge. She answers each question in turn, in plain words, and sends them to one paragraph or one page. She does not tell them what to decide. Nobody may do that.',
+          '&ldquo;Juror number one asks whether &lsquo;not guilty&rsquo; means &lsquo;innocent&rsquo;. It does not. It means that the prosecution has not made you sure. Juror number nine asks about the lamp. You have the council&rsquo;s record, exhibit D2. Look at the dates.&rdquo;',
+          'At twenty past three they go out again. At twenty-five to five the speaker on the wall clicks, and everybody on the floor stops talking. &ldquo;All parties in Mallon to Court 2. The jury has reached a verdict.&rdquo;'
+        ], function () { busy = false; paint(); });
+      }, 3400);
+    });
+    pats();
+    msg('Seven questions. Her Honour will answer each with <b>one paragraph of her written directions, or one exhibit</b>. <i>Drag a tab beside each question, or click the tab and then the question.</i>');
+    jqBox = box; keep();
+    ER.open('ov-lock', box, function () { jqBox = null; });
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Car Park · Squeezed</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-econ.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="stall.css">
+<style>
+  body{--bg:#f0c05a;--accent:#2f8ac9;--font-display:'Bungee',sans-serif;--font-ui:'Outfit',sans-serif;--font-body:'Lora',serif;
+    --tc-bg:rgba(255,240,206,.97);--tc-ink:#3a2410;--cap-bg:rgba(255,250,236,.96);--cap-ink:#2a1f14;--panel:#fffaf0;--panel-ink:#2a1f14;--face-bg:#2f8ac9;--q-ink:#c2185b;
+    --fade:#fff0c8;--hud-bg:rgba(255,250,236,.88);--hud-ink:#2a1f14;--hud-line:rgba(42,31,20,.3);--ov-bg:rgba(60,36,10,.6)}
+  .tc-room{font-size:clamp(40px,6vw,82px);color:#c2185b}
+  .tc-theme{color:#2f8ac9}
+  .hbtn b{color:#fff}
+  #shim path{animation:shim 2s ease-in-out infinite}
+  #shim path:nth-child(2n){animation-delay:-1s}
+  @keyframes shim{0%,100%{transform:translateX(0);opacity:.4}50%{transform:translateX(-18px);opacity:.12}}
+  #frost{animation:frost 3s steps(3,end) infinite}
+  @keyframes frost{50%{opacity:.6}}
+  #flannel{animation:fl 4s ease-in-out infinite}
+  @keyframes fl{50%{transform:translateY(-2px)}}
+  #tomasz.ready{animation:glow 1.6s steps(1,end) infinite}
+  @keyframes glow{50%{filter:brightness(1.25)}}
+
+  /* the back page of the handbook */
+  .gu{width:min(1060px,96vw)}
+  .gu-in{background:#fdfbf3;color:#1f2a33;border-left:12px solid #2b5c9e;padding:16px 22px 14px 30px;box-shadow:0 26px 70px rgba(0,0,0,.55);position:relative}
+  .gu h5{margin:0;font-family:'Bungee',sans-serif;font-weight:400;font-size:24px;color:#1f2a33}
+  .gu h6{margin:2px 0 10px;font-family:'Architects Daughter',cursive;font-weight:400;font-size:16px;color:#c2185b}
+  .gu-ops{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .op{position:relative;border:2px solid #9fb0c8;border-radius:10px;padding:10px 12px 10px;background:#fff;cursor:default}
+  .op h4{margin:0 0 4px;font-family:'Bungee',sans-serif;font-weight:400;font-size:15px;color:#2b5c9e;cursor:pointer}
+  .op h4 i{font-style:normal;display:inline-grid;place-items:center;width:26px;height:26px;margin-right:6px;border-radius:50%;background:#2b5c9e;color:#fff;font-size:13px}
+  .op p{margin:0 0 8px;font-family:'Lora',serif;font-size:14.5px;line-height:1.36;min-height:78px}
+  .op .lbl{font-family:'Architects Daughter',cursive;font-size:14px;color:#5a6470;line-height:1.2}
+  .op .row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:4px}
+  .gu .dl{flex-direction:row;gap:6px}
+  .gu .dl b{font-family:'Courier Prime',monospace;font-weight:700;font-size:26px;min-width:2.8em;color:#1f2a33}
+  .gu .dl button{width:30px;height:30px;line-height:30px;border:2px solid #9fb0c8;border-radius:50%;font-size:11px;color:#1f2a33}
+  .op.pick{border-color:#c2185b;box-shadow:0 0 0 4px rgba(194,24,91,.25)}
+  .op.pick:after{content:'';position:absolute;left:-8px;right:-8px;top:-8px;bottom:-8px;border:3px solid #c2185b;border-radius:50% 46% 52% 44%;pointer-events:none;transform:rotate(-2deg)}
+  .op .ch{display:block;margin-top:8px;width:100%;padding:5px 0 3px;border:2px dashed #c2185b;border-radius:6px;font-family:'Bungee',sans-serif;font-size:11.5px;color:#c2185b}
+  .op.pick .ch{background:#c2185b;color:#fff;border-style:solid}
+  .gu-oc{display:flex;align-items:center;gap:16px;margin-top:14px;padding:10px 14px;background:#fff7c2;border-left:6px solid #f2b705}
+  .gu-oc span{font-family:'Lora',serif;font-size:16px;flex:1}
+  .gu-oc b{font-family:'Bungee',sans-serif;font-weight:400;color:#c2185b}
+  .gu .facts{margin:10px 0 0;font-family:'Architects Daughter',cursive;font-size:14.5px;color:#5a6470}
+  .op.bad{outline:4px solid #e2453a}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6ab8ec"/><stop offset="1" stop-color="#fff0c0"/></linearGradient>
+  <linearGradient id="tarG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6b6e74"/><stop offset="1" stop-color="#3e4046"/></linearGradient>
+  <linearGradient id="vanG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#d6e6f2"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="45%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#5a3000" stop-opacity=".08"/><stop offset="1" stop-color="#3a1a00" stop-opacity=".42"/></radialGradient>
+</defs>
+
+<rect x="-1000" y="-400" width="3600" height="820" fill="url(#skyG)"/>
+<g id="trees"></g>
+<!-- the gym wall, the fence -->
+<rect x="900" y="120" width="1700" height="300" fill="#b9a68a"/><rect x="900" y="110" width="1700" height="16" fill="#8a7a60"/><text x="1240" y="190" class="cB" font-size="34" fill="#8a7a60" opacity=".6">GYM</text>
+<g stroke="#5a6470" stroke-width="3"><path d="M-1000 300H900"/><path d="M-1000 360H900"/></g><g id="fence" stroke="#5a6470" stroke-width="4"></g>
+<rect x="560" y="250" width="200" height="44" fill="#fff" stroke="#2b5c9e" stroke-width="3"/><text x="660" y="279" class="cB" font-size="16" text-anchor="middle" fill="#2b5c9e">STAFF CAR PARK</text>
+
+<!-- the tarmac -->
+<rect x="-1000" y="410" width="3600" height="1000" fill="url(#tarG)"/>
+<g stroke="#f2efe6" stroke-width="5" opacity=".7"><path d="M360 420l-30 140M560 420l-20 140M760 420l-10 140M960 420v140"/><path d="M-1000 590H2600" stroke="#f6d32b" stroke-dasharray="30 22"/></g>
+<g id="cars" class="hot"></g>
+
+<!-- the first-aid tent -->
+<g id="tent"><path d="M10 330L170 250L330 330z" fill="#fff"/><rect x="20" y="330" width="300" height="20" fill="#e2453a"/><path d="M28 350v290M312 350v290" stroke="#9aa3ad" stroke-width="6"/>
+  <rect x="150" y="270" width="40" height="40" fill="#fff"/><path d="M170 276v28M156 290h28" stroke="#e2453a" stroke-width="9"/>
+  <g id="y7"></g></g>
+<g id="okonjo" class="hot" transform="translate(240 646) scale(.82)"></g>
+
+<!-- the ice van -->
+<g id="van" class="hot">
+  <ellipse cx="1300" cy="660" rx="300" ry="16" fill="#000" opacity=".3"/>
+  <path d="M1040 330h420q60 0 80 60l40 120v130H1040z" fill="url(#vanG)" stroke="#9fb6c8" stroke-width="3"/>
+  <path d="M1470 340h40q30 0 44 40l26 76h-110z" fill="#9cc8e6" stroke="#6f8fa8" stroke-width="3"/>
+  <rect x="1040" y="560" width="540" height="40" fill="#2f8ac9"/><text x="1300" y="588" class="cB" font-size="22" text-anchor="middle" fill="#fff">SANDOVAL&#8217;S ICES</text>
+  <g id="frost" fill="#bfe2ff"><path d="M1060 350l20 30 18 -24 16 30 22 -20 14 24"/><path d="M1060 530l16 -20 14 16 20 -22 18 24"/></g>
+  <rect x="1090" y="380" width="200" height="130" rx="8" fill="#2a3a4a"/><rect x="1080" y="506" width="220" height="14" fill="#cfdde8"/>
+  <circle cx="1130" cy="640" r="36" fill="#2a2c33"/><circle cx="1130" cy="640" r="14" fill="#9aa3ad"/><circle cx="1490" cy="640" r="36" fill="#2a2c33"/><circle cx="1490" cy="640" r="14" fill="#9aa3ad"/>
+</g>
+<clipPath id="win"><rect x="1090" y="380" width="200" height="128" rx="8"/></clipPath>
+<g clip-path="url(#win)"><rect x="1090" y="380" width="200" height="128" fill="#bfe2ff" opacity=".35"/><g id="lucia" class="hot" transform="translate(1190 664) scale(.9)"></g></g>
+<g id="vboard" class="hot"><rect x="1310" y="386" width="140" height="106" rx="6" fill="#2b3a32" stroke="#8a5a2e" stroke-width="6"/><text x="1380" y="414" class="cS" font-size="18" font-weight="700" text-anchor="middle" fill="#f4f1e6">ICE</text>
+  <text x="1380" y="440" class="cS" font-size="15" text-anchor="middle" fill="#f4f1e6" opacity=".55" text-decoration="line-through">£1.00</text><text x="1380" y="474" class="cS" font-size="28" font-weight="700" text-anchor="middle" fill="#f6d32b">£2.50</text></g>
+<g id="queue" class="hot"></g>
+<g id="tomasz" class="hot" transform="translate(470 796) scale(.96)"></g>
+
+<!-- Rosa and her cool box -->
+<g id="coolbox" class="hot"><rect x="120" y="790" width="170" height="90" rx="10" fill="#2f8ac9"/><rect x="112" y="776" width="186" height="26" rx="8" fill="#fff"/><rect x="180" y="770" width="50" height="10" rx="4" fill="#9aa3ad"/></g>
+<g id="rosa" class="hot" transform="translate(360 888) scale(1.14)"></g>
+
+<g id="shim" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M400 470q40 -10 80 0t80 0"/><path d="M700 500q40 -10 80 0t80 0"/><path d="M1000 470q40 -10 80 0t80 0"/><path d="M200 520q40 -10 80 0t80 0"/></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">To the Business Club cupboard</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="stall.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, lock = null;
+
+  (function () {
+    var s = '', i, x;
+    for (x = -900; x < 900; x += 40) s += '<path d="M' + x + ' 290v90"/>';
+    $('#fence').innerHTML = s; s = '';
+    [[-120, 230, 90], [80, 250, 70], [300, 240, 80], [700, 236, 64]].forEach(function (t) { s += '<path d="M' + t[0] + ' 420v-' + (t[2] + 40) + '" stroke="#6b4a2a" stroke-width="14"/><circle cx="' + t[0] + '" cy="' + t[1] + '" r="' + t[2] + '" fill="#4f8a3a"/><circle cx="' + (t[0] + 30) + '" cy="' + (t[1] - 30) + '" r="' + (t[2] * 0.7) + '" fill="#6aa84a"/>'; });
+    $('#trees').innerHTML = s; s = '';
+    [[380, '#c2185b'], [620, '#3a8a4a'], [860, '#5a6470']].forEach(function (c) {
+      x = c[0];
+      s += '<g><path d="M' + (x - 90) + ' 540v-50q0 -14 14 -18l40 -8q20 -36 60 -36h40q40 0 56 36l30 8q14 4 14 18v50z" fill="' + c[1] + '"/><path d="M' + (x - 30) + ' 466q14 -26 40 -26h36q28 0 40 26z" fill="#c8d6e2"/>' +
+        '<path d="M' + (x - 26) + ' 464q14 -20 36 -20h30q24 0 36 20z" fill="#e8eef2"/><path d="M' + (x - 20) + ' 456h96" stroke="#b9c4cb" stroke-width="3"/>' +
+        '<circle cx="' + (x - 50) + '" cy="540" r="20" fill="#2a2c33"/><circle cx="' + (x + 80) + '" cy="540" r="20" fill="#2a2c33"/></g>';
+    });
+    $('#cars').innerHTML = s; s = '';
+    s += '<g id="flannel"><ellipse cx="90" cy="610" rx="60" ry="12" fill="#2f8ac9"/><circle cx="50" cy="598" r="14" fill="#f1cfb0"/><rect x="40" y="586" width="22" height="8" fill="#fff"/><path d="M64 604h80" stroke="#e2453a" stroke-width="14" stroke-linecap="round"/>' +
+      '<ellipse cx="96" cy="636" rx="60" ry="12" fill="#3a8a4a"/><circle cx="56" cy="624" r="14" fill="#8a5a3a"/><rect x="46" y="612" width="22" height="8" fill="#fff"/><path d="M70 630h80" stroke="#f6d32b" stroke-width="14" stroke-linecap="round"/></g>';
+    $('#y7').innerHTML = s; s = '';
+    [1150, 1088, 1026, 964, 902, 840, 778, 716, 654, 592].forEach(function (qx, k) {
+      s += '<g transform="translate(' + qx + ' ' + (778 + (k % 2) * 8) + ') scale(.7)">' + STALL.person({ hair: ['#2a1f18', '#c4672a', '#111', '#6b4a2a', '#e2c88a'][k % 5], face: false, top: ['#e2453a', '#2f8ac9', '#f6d32b', '#3a8a4a', '#c2185b', '#fff'][k % 6], legs: k % 3 ? 'shorts' : 'trousers', shadow: 0.15,
+        extra: k % 4 === 1 ? '<path d="M-38 -120l-14 30" stroke="#fff" stroke-width="10"/>' : '' }) + '</g>';
+    });
+    $('#queue').innerHTML = s;
+    $('#lucia').innerHTML = STALL.who('lucia', { smile: 4, extra: '<path d="M-26 -300q26 -16 52 0v-12q-26 -14 -52 0z" fill="#fff"/><rect x="40" y="-150" width="40" height="44" rx="6" fill="#e8f6ff" stroke="#9fb6c8" stroke-width="2"/>' });
+    $('#tomasz').innerHTML = STALL.who('tomasz', { smile: 0, extra: '<rect x="-60" y="-160" width="46" height="58" rx="3" fill="#2b5c9e"/><rect x="-55" y="-154" width="36" height="46" fill="#fdfbf3"/><path d="M-50 -144h26M-50 -136h22M-50 -128h26" stroke="#5a6470" stroke-width="2"/>' });
+    $('#rosa').innerHTML = STALL.who('rosa', { smile: 5, extra: '<circle cx="54" cy="-170" r="24" fill="#fff" stroke="#d9d4c4" stroke-width="2"/><path d="M39 -112l14 -34" stroke="#c99a72" stroke-width="12" stroke-linecap="round"/>' });
+    $('#okonjo').innerHTML = STALL.who('okonjo', { smile: 2, glasses: '#1a1a1a', extra: '<rect x="-60" y="-140" width="30" height="22" rx="4" fill="#fff"/><path d="M-26 -300q26 -20 52 0" fill="#f6d32b"/>' });
+  })();
+
+  ER.init({
+    theme: 'econ', story: 'stall', storyTitle: 'Squeezed', id: 'carpark', no: 'III', title: 'The Car Park',
+    go: 'Cross the car park',
+    intro: [
+      'Mrs Cheung&rsquo;s spike gave up its secrets: two fixed costs (the pitch, £5, and the gazebo, £4) and seven variable ones. At today&rsquo;s prices a jug costs £2.00, so a cup costs 20p. Kit&rsquo;s plan, 20p and four free tasters, loses 80p every ten minutes. Tomasz&rsquo;s, 40p, makes £4.00. Fewer cups, more money.',
+      'So now LEMON AID has a price, thirty-two lemons, and no ice.',
+      'The staff car park is behind the school, and it is the hottest place in it. The tarmac is soft. Lucia Sandoval&rsquo;s ice van is parked in the shade of the gym, with a queue beside it.'
+    ],
+    exit: {"next":"cupboard","w":{"6af998c3":"633f22d8"}}, tags: {"va":["3593f4c6"],"vb":["75ba4334"],"vc":["f4cd3377"],"pick":["d4332f72"],"oc":["b5d92a17"],"va27":["77df64b7"],"va28":["ca5a776c"],"va32":["e1b2637a"],"vb32":["a8a1f918"],"oc29":["4226f176"],"oc5":["c638ba7e"],"oc6":["d6985adc"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('c-file') || null; told = ER.flag('c-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('c-told', told); return true; }
+  function isBusy() { return busy; }
+  function ready() { return told.tomasz && told.page && told.rosa; }
+  function paint() {
+    $('#tomasz').classList.toggle('ready', !!(ready() && !nextFile));
+    ER.pips((told.tomasz ? 1 : 0) + (told.page ? 1 : 0) + (told.rosa ? 1 : 0) + (nextFile ? 1 : 0), 4);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The stall is open again. Kit has given you the key of the Business Club cupboard: the button at the bottom of the screen.']];
+    if (lock && lock.isOpen()) return ['lock', [
+      'Give each plan a value in pounds: the money the club will have taken by three o&rsquo;clock, minus anything new it has to pay for. For each plan ask two things: how many minutes will the stall be open, and how many jugs can it make? Whichever gives fewer cups is the number that counts.',
+      'Waiting: Tomasz moves three places in twelve minutes, so each person takes 4 minutes, and ten people take 40: he is back at 2.25. At 40p people buy 20 cups every ten minutes. Rosa&rsquo;s swap: 32 lemons minus 4 leaves 28, and a jug takes 4 lemons and makes 10 cups.',
+      'The opportunity cost of the plan you choose is the value of the best plan you did NOT choose: one plan, not the others added together. And it is not what four lemons cost at Hollis&rsquo;s.'
+    ]];
+    if (!told.tomasz) return ['tomasz', ['Tomasz is in the queue for ice: the boy in the white shirt with the blue binder.', 'He is at the back of the queue, nearest to you, on the left of the van.']];
+    if (!told.page) return ['page', ['Tomasz wants you to read page 9 of the handbook. Click him again.']];
+    if (!told.rosa) return ['rosa', ['Rosa Ferreira is at the front of the picture, on the left, beside a blue cool box. She has something to tell you, and something to offer.']];
+    return ['go2', ['You know what Tomasz knows, what Rosa offers, and what page 9 says. Click Tomasz and tell him what to do.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('Two bags of ice, wrapped in a towel. Tomasz is out of the queue.'); return; }
+    if (told.in) { busy = false; ER.say('The staff car park. The tarmac is soft underfoot.'); return; }
+    tell('in');
+    ER.narrate([
+      'The car park smells of hot tarmac. The air over the cars wobbles.',
+      'SANDOVAL&rsquo;S ICES is a blue and white van with frost painted on its sides. A woman in a white cap hands out bags of ice through the hatch, one customer at a time.',
+      'Tomasz is in the queue, the eleventh person in it, with the handbook open in one hand. He looks like a statue of somebody waiting.',
+      'In the first-aid tent, Mrs Okonjo is putting wet flannels on two Year 7s. And at the front, beside a blue cool box, is Rosa Ferreira.'
+    ], function () { busy = false; });
+  }
+
+  var DIA = '<svg viewBox="0 0 280 250"><g font-family="Architects Daughter,cursive" font-size="14" fill="#1f2a33">' +
+    '<text x="140" y="20" text-anchor="middle" font-weight="700">Saturday morning</text><circle cx="140" cy="52" r="16" fill="#2b5c9e"/><text x="140" y="57" text-anchor="middle" fill="#fff" font-size="13">you</text>' +
+    '<path d="M128 66L52 130M140 68V130M152 66L228 130" stroke="#1f2a33" stroke-width="2.5"/>' +
+    '<rect x="6" y="132" width="88" height="52" rx="8" fill="#fff7c2" stroke="#c2185b" stroke-width="3"/><text x="50" y="154" text-anchor="middle">babysitting</text><text x="50" y="174" text-anchor="middle" font-weight="700">&pound;15</text>' +
+    '<rect x="98" y="132" width="84" height="52" rx="8" fill="#fff" stroke="#1f2a33" stroke-width="2"/><text x="140" y="154" text-anchor="middle">car wash</text><text x="140" y="174" text-anchor="middle" font-weight="700">&pound;12</text>' +
+    '<rect x="186" y="132" width="88" height="52" rx="8" fill="#fff" stroke="#1f2a33" stroke-width="2"/><text x="230" y="154" text-anchor="middle">revision</text><text x="230" y="174" text-anchor="middle" font-weight="700">&pound;0 today</text>' +
+    '<text x="50" y="206" text-anchor="middle" fill="#c2185b" font-weight="700">chosen</text><path d="M140 190v18" stroke="#2b5c9e" stroke-width="2.5"/><text x="140" y="228" text-anchor="middle" fill="#2b5c9e" font-weight="700">opportunity cost: &pound;12</text><text x="140" y="246" text-anchor="middle" fill="#2b5c9e" font-size="12.5">(the best of the rest)</text></g></svg>';
+  var PAGE = '<h4>Business Club Handbook</h4><h3><i>9</i>What you give up</h3><div class="two"><div>' +
+    '<p>Every choice has a cost, even when no money changes hands.</p>' +
+    '<p>The <b>opportunity cost</b> of a choice is the best thing you give up to make it. Not everything you could have done: you could only ever have done one of them. Just the best one you said no to.</p>' +
+    '<p><b>Example.</b> Saturday morning. Babysitting pays &pound;15. Washing cars pays &pound;12. Revision pays nothing today. Choose babysitting, and its opportunity cost is the car wash: &pound;12. Choose the car wash, and its opportunity cost is &pound;15. Ouch.</p>' +
+    '<p><b>Time is scarce.</b> An hour in a queue is an hour you are not doing something else.</p>' +
+    '<p><b>A thing you swap away</b> costs what you could have done with it, not what you paid for it in the shop.</p>' +
+    '<p class="rule">To choose: give every option a value in the same units (money by the end of the day is easiest), pick the best, and say what it costs you: the best of the rest.</p></div><div class="dia">' + DIA + '</div></div>' +
+    '<p class="pg"><span class="hand">T.K. was here. T.K. is still here. 1.37</span> &middot; page 9</p>';
+  function readPage() {
+    ER.read({ html: PAGE, cls: 'hb', clue: { id: 'giveup', title: 'Handbook, page 9: What you give up', kind: 'The handbook' }, done: function () {
+      STALL.terms(['opportunity cost', 'scarce']);
+      if (tell('page')) { paint(); ER.say(told.rosa ? 'The best of the rest. Now tell Tomasz what to do.' : 'The best of the rest. Rosa is beside the cool box, at the front.'); }
+    } });
+  }
+  $('#tomasz').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;I am never queuing again,&rdquo; says Tomasz, carrying the ice like a baby. &ldquo;Unless the numbers say so.&rdquo;'); return; }
+    if (told.tomasz && !told.page) { readPage(); return; }
+    if (told.tomasz && !told.rosa) { ER.say('&ldquo;Rosa&rsquo;s been watching this queue for ten minutes,&rdquo; says Tomasz. &ldquo;She wants to talk to somebody from the club. Not Kit, I should think.&rdquo;'); return; }
+    if (ready()) { if (!lock) lock = makeLock(); lock.open(); return; }
+    ER.talk({
+      who: 'Tomasz Kowalczyk', role: 'Year 9 · treasurer, Business Club', face: STALL.face('tomasz'),
+      lines: [
+        { note: 'He is standing very still, the way people do when they have been in a queue for twenty minutes.', a: '&ldquo;I joined this queue at twenty-five past one. Since then I have moved three places in twelve minutes, and there are ten people in front of me. You can do the sum. I have done it three times, hoping it would come out differently.&rdquo;' },
+        { q: 'What will the ice cost?', a: 'Two bags at two pounds fifty. Five pounds from the cash box. Lucia serves everybody the same way: one person, then the next. She is very fair and very slow.' },
+        { q: 'What is left at the stall?', a: 'I counted before I came. Thirty-two lemons, not squeezed yet. Plenty of sugar, plenty of cups. No ice, and nobody buys warm lemonade at 31 degrees. We tried.' },
+        { q: 'And the last hour?', a: 'The market shuts at three. The price is forty pence, the most the Fair Price rule allows, and at forty pence on a day like this people buy twenty cups every ten minutes. Kit and I can pour as fast as people can pay. The lemons and the ice are the problem, not our hands.' },
+        { q: 'Is there anything else we could do?', a: 'Mr Petrie came past. The Year 7 craft club are in the full sun, and our pitch is in the shade. They will pay us six pounds to have it for the last hour. We would shut, sell nothing, and take our lemons home.</p><p>He holds up the handbook. &ldquo;Page nine is about exactly this. Read it. Then tell me what to do, because I would like to stop standing here.&rdquo;' }
+      ],
+      clue: { id: 'tomasz', title: 'Tomasz Kowalczyk: ten people in front', kind: 'What he said' },
+      done: function (seen) { if (seen && tell('tomasz')) { paint(); setTimeout(readPage, 400); } }
+    });
+  });
+  $('#rosa').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Tell Kit,&rdquo; says Rosa, &ldquo;that the note is under the tray. She never lifts the tray.&rdquo;'); return; }
+    ER.talk({
+      who: 'Rosa Ferreira', role: 'Year 11 · The Squeeze', face: STALL.face('rosa'),
+      lines: [
+        { note: 'She is sitting on a blue cool box in the shade of a car, fanning herself with a paper plate.', a: '&ldquo;Sold out at half past one. Not because nobody wanted my lemonade. Because everybody did.&rdquo;' },
+        { q: 'What happened?', a: 'Before twelve I was at eighty pence. My cousin and I squeeze every cup fresh, and fourteen cups every ten minutes is as fast as we go. At eighty pence I sold all fourteen, and my queue stayed the same length. Then Mr Petrie came round with his Fair Price rule. Forty pence.' },
+        { q: 'Wasn&rsquo;t that good for your customers?', a: 'At forty pence I still sold fourteen every ten minutes, because I can&rsquo;t squeeze any faster. But my queue grew by six people every ten minutes. By one o&rsquo;clock people were waiting forty minutes for a forty-pence lemonade. Then my lemons ran out, and the end of the queue had waited for nothing.' },
+        { q: 'Were you at Kit&rsquo;s cash box?', a: 'At twenty to one. A man gave me a five-pound note for one lemonade, and I had no coins left for his change. Nobody was at Kit&rsquo;s stall except Rory and his lolly. So I swapped: my five-pound note for five of her pound coins. I left her a note in the box, under the tray. Kit thinks I stole from her. Kit thinks a lot of things.' },
+        { q: 'Why did you leave the club?', a: 'Kit and I wanted different prices. That was all. I wrote that recipe, and I don&rsquo;t mind her using it. Lemonade isn&rsquo;t a secret.' },
+        { note: 'She knocks on the lid of the cool box.', a: '&ldquo;So here is an offer, and it&rsquo;s a real one. Two bags of ice in here. I bought them at ten o&rsquo;clock for a pound each, because ice is always cheapest before anybody wants it. I&rsquo;ve no lemons to use them with. You&rsquo;ve got lemons and no ice. Give me four lemons and both bags are yours, now. I&rsquo;ll make one last jug for the people who queued longest. Take it or leave it. But take it before it melts.&rdquo;' }
+      ],
+      clue: { id: 'rosa', title: 'Rosa Ferreira: two bags for four lemons', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('rosa')) { paint(); ER.say(told.page ? 'Three ways to spend the last hour. Tell Tomasz which.' : 'Tomasz has the handbook open at page 9.'); } }
+    });
+  });
+  STALL.thing('#lucia', null, '&ldquo;Two pounds fifty a bag,&rdquo; says the woman in the van, handing out ice as fast as she can, which is not very fast. &ldquo;It was a pound at ten. When everybody wants ice at once, ice costs more: I&rsquo;ve only got one freezer. And the Fair Price rule is for drinks. Ice isn&rsquo;t a drink.&rdquo;', isBusy);
+  STALL.thing('#vboard', null, 'SANDOVAL&rsquo;S ICES. ICE: £2.50 A BAG. Above it, crossed out: £1.00. A note in the corner says: SINCE 11.45.', isBusy);
+  STALL.thing('#van', 'ice van', 'An ice van with frost painted on its sides. The real frost is inside, and there is not as much of it as there was.', isBusy);
+  STALL.thing('#okonjo', null, '&ldquo;Not now, dear,&rdquo; says Mrs Okonjo, holding a wet flannel on a Year 7&rsquo;s head. &ldquo;I have two Year 7s who think they are melting. Handbook, page nine. And drink some water: that goes for all of you.&rdquo;', isBusy);
+  STALL.thing('#cars', null, 'Teachers&rsquo; cars, with silver sunshades in their windscreens. One of them has a sticker that says MY OTHER CAR IS A MINIBUS. It is not, yet.', isBusy);
+  STALL.thing('#coolbox', 'cool box', 'A blue cool box. When Rosa lifts the lid, cold air comes out of it like good news.', isBusy);
+  STALL.thing('#queue', null, 'Ten people between Tomasz and the van. Lucia serves one, the queue moves up one place, and everybody sighs.', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the back page of the handbook: what do we give up? ---------- */
+  function makeLock() {
+    var OPS = [
+      { k: 'a', t: 'Wait for Lucia&rsquo;s ice', p: 'Tomasz stays in the queue and buys two bags (&pound;5 from the box). The stall opens when he gets back.' },
+      { k: 'b', t: 'Rosa&rsquo;s swap', p: 'Four of our lemons for Rosa&rsquo;s two bags of ice, now. The stall opens at two o&rsquo;clock.' },
+      { k: 'c', t: 'The craft club', p: 'They pay us &pound;6 for our pitch for the last hour. We shut, and sell nothing.' }
+    ];
+    var saved = ER.flag('c-vals') || {}, pick = saved.pick || '', d = {}, wait = false;
+    var box = ER.el('div', 'pz gu');
+    box.innerHTML = '<div class="gu-in"><h5>What do we give up?</h5><h6>the back page of the handbook &middot; T.K.&rsquo;s pencil marks all over it</h6><div class="gu-ops">' + OPS.map(function (o) {
+      return '<div class="op" data-k="' + o.k + '"><h4><i>' + o.k.toUpperCase() + '</i>' + o.t + '</h4><p>' + o.p + '</p><span class="lbl">money in our hands at three o&rsquo;clock, after paying for anything new</span><div class="row"><span class="lbl">&pound;</span><i class="dlc" data-k="' + o.k + '"></i></div>' +
+        '<button type="button" class="ch">we choose this one</button></div>';
+    }).join('') + '</div><div class="gu-oc"><span>So the plan we choose <b>costs us</b> (its opportunity cost):</span><i class="dlc" data-k="oc"></i></div>' +
+      '<p class="facts">It is 1.45. The market shuts at 3.00. 40p a cup. 32 lemons. One jug: 4 lemons, 10 cups. Ice: one bag cools 5 jugs.</p></div>' +
+      '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="c-go">Tell Tomasz</button></div>';
+    var msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function keep() { ER.flag('c-vals', { a: d.a.get(), b: d.b.get(), c: d.c.get(), oc: d.oc.get(), pick: pick }); }
+    function lk() { return wait || !!nextFile; }
+    ['a', 'b', 'c', 'oc'].forEach(function (k) {
+      d[k] = STALL.dial(box.querySelector('.dlc[data-k="' + k + '"]'), { min: 0, max: 40, val: saved[k] || 0, fmt: function (v) { return '£' + v; }, change: keep, lock: lk });
+    });
+    function paintPick() { ER.$$('.op', box).forEach(function (n) { n.classList.toggle('pick', n.getAttribute('data-k') === pick); }); }
+    ER.$$('.op', box).forEach(function (n) {
+      function choose() { if (lk()) return; pick = pick === n.getAttribute('data-k') ? '' : n.getAttribute('data-k'); STALL.sfx.chalk(); paintPick(); keep(); }
+      n.querySelector('.ch').addEventListener('click', choose);
+      n.querySelector('h4').addEventListener('click', choose);
+    });
+    paintPick();
+    function flash(k) { var n = box.querySelector('.op[data-k="' + k + '"]'); n.classList.add('bad'); setTimeout(function () { n.classList.remove('bad'); }, 1100); ER.sfx.no(); }
+    box.querySelector('#c-go').addEventListener('click', function () {
+      var a = d.a.get(), b = d.b.get(), c = d.c.get(), oc = d.oc.get(), file;
+      if (lk()) return;
+      if (!ER.check('va', a)) {
+        flash('a');
+        if (ER.check('va27', a)) msg('&ldquo;Three places in twelve minutes,&rdquo; says Tomasz. &ldquo;How many minutes is that for each person? And there are ten of them in front of me.&rdquo;');
+        else if (ER.check('va28', a)) msg('&ldquo;And the ice isn&rsquo;t free,&rdquo; says Tomasz. &ldquo;Five pounds of it comes out of the box.&rdquo;');
+        else if (ER.check('va32', a)) msg('&ldquo;Could we really sell that many?&rdquo; says Tomasz. &ldquo;We only open when I get back. And the ice costs five pounds.&rdquo;');
+        else msg('&ldquo;Waiting for the ice,&rdquo; says Tomasz. &ldquo;When do I get back? How many cups will people buy at 40p between then and three? Have we got lemons for that many? Then take off what the ice costs.&rdquo;');
+        return;
+      }
+      if (!ER.check('vb', b)) {
+        flash('b');
+        if (ER.check('vb32', b)) msg('&ldquo;Rosa wants four of our lemons,&rdquo; says Tomasz. &ldquo;How many jugs does that leave us?&rdquo;');
+        else msg('&ldquo;Rosa&rsquo;s swap,&rdquo; says Tomasz. &ldquo;We open at two, so there&rsquo;s a whole hour. What runs out first: the hour, or the lemons?&rdquo;');
+        return;
+      }
+      if (!ER.check('vc', c)) { flash('c'); msg('&ldquo;The craft club,&rdquo; says Tomasz. &ldquo;That one&rsquo;s easy. Read what they offered.&rdquo;'); return; }
+      if (!pick) { ER.sfx.no(); msg('&ldquo;Three values,&rdquo; says Tomasz. &ldquo;Now choose one. Click &lsquo;we choose this one&rsquo; under it.&rdquo;'); return; }
+      if (!ER.check('pick', pick)) { flash(pick); msg('&ldquo;You&rsquo;ve given every plan a value,&rdquo; says Tomasz. &ldquo;So why would we choose that one?&rdquo;'); return; }
+      if (!ER.check('oc', oc)) {
+        ER.sfx.no(); ER.shake(box.querySelector('.gu-oc'));
+        if (ER.check('oc29', oc)) msg('&ldquo;We could never have done both of the others,&rdquo; says Tomasz. &ldquo;We&rsquo;d only ever have done one of them instead. Which one?&rdquo;');
+        else if (ER.check('oc5', oc)) msg('&ldquo;Five pounds is what the ice would cost if we waited,&rdquo; says Tomasz. &ldquo;What do we give up by choosing the swap?&rdquo;');
+        else if (ER.check('oc6', oc)) msg('&ldquo;Six pounds? Is the craft club really the best thing we&rsquo;re saying no to?&rdquo;');
+        else msg('&ldquo;Page nine,&rdquo; says Tomasz. &ldquo;The opportunity cost is the best of the rest.&rdquo;');
+        return;
+      }
+      file = ER.exit([[a, b, c, pick, oc].join('-')], { wait: true });
+      if (!file) { msg('The door will not open. Something is wrong with this page: tell your teacher.'); return; }
+      wait = true; nextFile = file; ER.flag('c-file', file);
+      STALL.terms(['trade']);
+      STALL.mine('choice', 'What do we give up?', '<p>A, wait: back at 2.25. 35 minutes at 20 cups every ten minutes = 70 cups (we have lemons for 80). 70 &times; 40p = &pound;28, minus &pound;5 of ice = &pound;23.</p><p>B, Rosa&rsquo;s swap: 28 lemons = 7 jugs = 70 cups (the hour would sell 120). 70 &times; 40p = &pound;28.</p><p>C, the craft club: &pound;6.</p><p>We choose B. Its opportunity cost: &pound;23, the best of the rest.</p>', true);
+      msg('Tomasz reads your page twice, which for Tomasz is fast. &ldquo;Twenty-eight,&rdquo; he says. &ldquo;Then it&rsquo;s the swap.&rdquo;');
+      setTimeout(function () {
+        ER.closeAll(); paint(); busy = true; STALL.sfx.ice();
+        ER.narrate([
+          '&ldquo;Waiting for Lucia: twenty-three pounds. Rosa&rsquo;s swap: twenty-eight. The craft club: six.&rdquo; Tomasz closes the handbook. &ldquo;We take the swap, and it costs us twenty-three pounds: the best thing we&rsquo;re saying no to. Not four lemons. What we could have done instead.&rdquo;',
+          'He steps out of the queue. The girl behind him steps forward at once, and looks at him as if he were a hero.',
+          'Rosa counts four lemons into her apron and hands over two bags of ice, still hard, wrapped in a towel. &ldquo;Pleasure doing business,&rdquo; she says. &ldquo;We&rsquo;re both better off. That&rsquo;s the whole point of a trade.&rdquo;',
+          'At two o&rsquo;clock LEMON AID opens its hatch at forty pence, with Kit and Tomasz pouring. Kit has not said thank you to Rosa. She has not said anything else, either, which for Kit is nearly the same thing.',
+          'Then she hands you a small key. &ldquo;The Business Club cupboard. The cash box is in there. I&rsquo;m going to Mr Petrie at half past two, ice or no ice. If you can find thirty pounds eighty in that box before then, you can come too.&rdquo;'
+        ], function () { busy = false; $('#go').classList.add('on'); });
+      }, 2800);
+    });
+    msg('Put a value in pounds on each plan, choose one, and say what it costs you. The arrows set the figures (so does the mouse wheel).');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+})();
+</script>
+</body>
+</html>

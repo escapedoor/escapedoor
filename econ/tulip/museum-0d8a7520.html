@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Dutch Room · Trading in Wind</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-econ.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="tulip.css">
+<style>
+  body{--bg:#9ab0aa;--accent:#1f3a5a;--font-display:'Cinzel',serif;--font-ui:'Outfit',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(244,246,242,.97);--tc-ink:#1a2a3a;--cap-bg:rgba(248,250,246,.96);--cap-ink:#1a2a3a;--panel:#f6f8f4;--panel-ink:#1a2a3a;--face-bg:#6a5a3a;--q-ink:#1f3a5a;
+    --fade:#e8eee8;--hud-bg:rgba(248,250,246,.9);--hud-ink:#1a2a3a;--hud-line:rgba(26,42,58,.3);--ov-bg:rgba(20,34,40,.6)}
+  .tc-room{font-size:clamp(40px,5.8vw,82px);color:#1f3a5a;font-family:'Cinzel',serif}
+  .tc-theme{color:#7a5a2a}
+  .hbtn b{color:#fff}
+  .tk-text,.cap{font-family:'EB Garamond',Georgia,serif}
+
+  /* the tulip case */
+  .cs{width:min(1140px,96vw)}
+  .cs-in{background:#e8ece6;border:12px solid #5a4028;border-radius:3px;padding:12px 14px;color:#1a2a3a;box-shadow:inset 0 0 0 2px #c9a24a,0 26px 60px rgba(0,0,0,.4)}
+  .cs h5{margin:0 0 6px;font-family:'Cinzel',serif;font-weight:700;font-size:14px;letter-spacing:.14em;color:#1f3a5a}
+  .rail{display:grid;grid-template-columns:repeat(6,1fr);gap:7px;position:relative;padding-top:6px}
+  .rail:before{content:'';position:absolute;left:0;right:0;top:20px;height:3px;background:#c9a24a}
+  .yr{display:flex;flex-direction:column;gap:4px}
+  .yr i{position:relative;z-index:1;align-self:center;font-style:normal;font-family:'Cinzel',serif;font-weight:700;font-size:13px;background:#1f3a5a;color:#f4f0e4;padding:2px 8px;border-radius:2px;white-space:nowrap}
+  .yslot{min-height:112px;border:2px dashed #9aa8a4;border-radius:3px;padding:3px;background:rgba(255,255,255,.5)}
+  .crd{display:block;padding:6px 8px;background:#fffdf6;color:#1a2a3a;border:1px solid #b8b0a0;border-left:5px solid #7a5a2a;font-family:'EB Garamond',serif;font-size:14.5px;line-height:1.25;box-shadow:0 2px 0 #b8b0a0}
+  .low{display:grid;grid-template-columns:1fr 300px;gap:12px;margin-top:10px}
+  .cpile{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;min-height:96px;padding:6px;background:#d8ded8;border-radius:3px}
+  .drawer{background:#5a4028;border-radius:3px;padding:6px 8px 8px;color:#f4e6c8}
+  .drawer h5{color:#f2d48a}
+  .drawer .yslot{min-height:76px;background:rgba(0,0,0,.2);border-color:#a8885a;margin-top:4px}
+  .cs .pmsg{color:#fbf8f0}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="tiles" width="40" height="40" patternUnits="userSpaceOnUse"><rect width="40" height="40" fill="#f4f6f8"/><rect x="1" y="1" width="38" height="38" fill="none" stroke="#3a5a8a" stroke-width="1.5"/><path d="M20 8q6 6 0 12q-6 6 0 12M10 20h20" stroke="#2a4a8a" stroke-width="2" fill="none"/><circle cx="4" cy="4" r="2" fill="#2a4a8a"/><circle cx="36" cy="36" r="2" fill="#2a4a8a"/></pattern>
+  <pattern id="parquet" width="80" height="40" patternUnits="userSpaceOnUse"><rect width="80" height="40" fill="#9a6a3a"/><path d="M0 0l40 20L80 0M0 40l40 -20 40 20" stroke="#7a4a22" stroke-width="2" fill="none"/></pattern>
+  <linearGradient id="win" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eaf2f4"/><stop offset="1" stop-color="#c4d4d8"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="45%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#1a2a2a" stop-opacity=".08"/><stop offset="1" stop-color="#0a1a1a" stop-opacity=".45"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1100" fill="#b4c6be"/>
+<rect x="-1000" y="-400" width="3600" height="480" fill="#a4b8b0"/><rect x="-1000" y="70" width="3600" height="14" fill="#f0ece0"/>
+<rect x="-1000" y="540" width="3600" height="80" fill="url(#tiles)"/><rect x="-1000" y="536" width="3600" height="6" fill="#3a5a8a"/>
+<text x="800" y="58" class="cZ" font-size="22" text-anchor="middle" fill="#1f3a5a" letter-spacing="8">THE DUTCH ROOM</text>
+
+<!-- the tall window -->
+<g><rect x="660" y="110" width="280" height="240" fill="#f0ece0"/><rect x="676" y="126" width="248" height="208" fill="url(#win)"/><path d="M800 126v208M676 230h248" stroke="#f0ece0" stroke-width="8"/><path d="M676 300q60 -30 124 -10t124 -14v58h-248z" fill="#c8d8c8" opacity=".8"/></g>
+
+<!-- Vermuyden, and the model windpump -->
+<g id="vermuyden" class="hot"><rect x="110" y="150" width="160" height="200" fill="#3a2a1a"/><rect x="122" y="162" width="136" height="176" fill="#e8dcc0"/>
+  <path d="M146 338q4 -70 44 -74t44 74z" fill="#1a1a1a"/><path d="M166 268q24 16 48 0l-4 18q-20 8 -40 0z" fill="#f4f0e4"/><circle cx="190" cy="230" r="28" fill="#d8b890"/><path d="M162 226q0 -40 28 -40t28 40q-6 -20 -28 -22t-28 22z" fill="#5a4030"/><path d="M180 248q10 6 20 0" stroke="#5a4030" stroke-width="4"/></g>
+<g id="pump" class="hot"><rect x="300" y="470" width="130" height="180" fill="#6a4a2a"/><rect x="292" y="462" width="146" height="14" fill="#5a3a20"/>
+  <path d="M340 462l12 -110h26l12 110z" fill="#e8e0d0" stroke="#5a5040" stroke-width="2"/><path d="M346 352q19 -20 38 0z" fill="#5a3a2a"/>
+  <g transform="translate(365 360)"><g><animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="14s" repeatCount="indefinite"/>
+    <g fill="#f4f0e4" stroke="#5a5040" stroke-width="2"><path d="M-3 0v-70h14v60z"/><path d="M0 -3h70v14h-60z"/><path d="M3 0v70h-14v-60z"/><path d="M0 3h-70v-14h60z"/></g></g><circle r="5" fill="#3a2a1a"/></g>
+  <text x="365" y="560" class="cZ" font-size="12" text-anchor="middle" fill="#f4e6c8">MODEL</text><text x="365" y="578" class="cZ" font-size="12" text-anchor="middle" fill="#f4e6c8">WIND PUMP</text></g>
+
+<!-- Semper Augustus, a watercolour -->
+<g id="semper" class="hot"><rect x="1050" y="150" width="140" height="190" fill="#c9a24a"/><rect x="1060" y="160" width="120" height="170" fill="#fbf8ee"/><g transform="translate(1120 310) scale(1.05)" id="saug"></g>
+  <text x="1120" y="326" class="cE" font-size="10" text-anchor="middle" font-style="italic" fill="#3a2a1a">Semper Augustus</text></g>
+<!-- the monkeys print -->
+<g id="monkeys" class="hot"><rect x="1250" y="160" width="230" height="170" fill="#3a2a1a"/><rect x="1262" y="172" width="206" height="146" fill="#c8b48a"/>
+  <g fill="#5a3a20"><circle cx="1300" cy="240" r="13"/><path d="M1286 300q0 -46 14 -48t14 48z"/><circle cx="1360" cy="232" r="13"/><path d="M1346 300q0 -54 14 -56t14 56z"/><circle cx="1420" cy="244" r="13"/><path d="M1406 300q0 -42 14 -44t14 44z"/></g>
+  <g fill="#e8d8b0"><circle cx="1300" cy="242" r="6"/><circle cx="1360" cy="234" r="6"/><circle cx="1420" cy="246" r="6"/></g>
+  <path d="M1290 228l20 -8M1350 220l20 -8M1410 232l20 -8" stroke="#2a1a10" stroke-width="5"/><g id="mtul" transform="translate(1388 300) scale(.25)"></g>
+  <path d="M1380 298q4 -16 10 -2" stroke="#b0242c" stroke-width="3" fill="none"/></g>
+
+<rect x="-1000" y="620" width="3600" height="800" fill="url(#parquet)"/><rect x="-1000" y="616" width="3600" height="6" fill="#5a3a20"/>
+
+<!-- the tulip case -->
+<g id="case" class="hot"><rect x="560" y="560" width="480" height="110" fill="#5a4028"/><rect x="550" y="548" width="500" height="18" fill="#6a4a30"/>
+  <path d="M570 548V400h460v148" fill="#e8f2f4" fill-opacity=".22" stroke="#f4fbff" stroke-width="3"/><path d="M570 400l40 -60h460l-40 60z" fill="#e8f2f4" fill-opacity=".18" stroke="#f4fbff" stroke-width="2"/>
+  <path d="M600 520h400" stroke="#c9a24a" stroke-width="4"/><g fill="#fffdf6" stroke="#b8b0a0"><rect x="610" y="470" width="50" height="40"/><rect x="760" y="476" width="50" height="40"/><rect x="900" y="472" width="50" height="40"/></g>
+  <text x="800" y="630" class="cZ" font-size="15" text-anchor="middle" fill="#f2d48a" letter-spacing="3">TULIPS, 1637</text></g>
+<g id="label53" class="hot"><rect x="604" y="530" width="90" height="34" fill="#efe2b8" transform="rotate(-6 649 547)"/><path d="M612 540h72M612 548h64M612 556h70" stroke="#6a5a40" stroke-width="2" transform="rotate(-6 649 547)"/></g>
+<g id="notes" class="hot"><rect x="930" y="520" width="70" height="90" rx="3" fill="#5a3a20" transform="rotate(5 965 565)"/><rect x="936" y="532" width="58" height="72" fill="#fbf8ee" transform="rotate(5 965 565)"/><rect x="952" y="516" width="26" height="12" rx="2" fill="#a8a8a8" transform="rotate(5 965 565)"/><path d="M944 550h42M944 560h38M944 570h42M944 580h30" stroke="#6a6a6a" stroke-width="2" transform="rotate(5 965 565)"/></g>
+
+<g id="ulric" class="hot" transform="translate(1200 820) scale(.98)"></g>
+<g id="pearl" class="hot" transform="translate(460 840) scale(.9)"></g>
+
+<!-- the rope barrier -->
+<g><path d="M140 900v-120M1460 900v-120" stroke="#c9a24a" stroke-width="10"/><circle cx="140" cy="776" r="12" fill="#c9a24a"/><circle cx="1460" cy="776" r="12" fill="#c9a24a"/><path d="M150 790q650 90 1300 0" stroke="#8a1a2a" stroke-width="12" fill="none"/></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Up Bridge Street to Tebbutt &amp; Co.</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="tulip.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, lock = null;
+
+  (function () {
+    $('#saug').innerHTML = TULIP.tulip({ cup: '#fbf6ee', flame: '#c8202a', pat: 'feather', seed: 3 });
+    $('#mtul').innerHTML = TULIP.tulip({ pat: 'feather', seed: 11 });
+    $('#ulric').innerHTML = TULIP.who('ulric', { smile: 4 });
+    $('#pearl').innerHTML = TULIP.who('pearl', { smile: 0 });
+  })();
+
+  ER.init({
+    theme: 'econ', story: 'tulip', storyTitle: 'Trading in Wind', id: 'museum', no: 'III', title: 'The Dutch Room',
+    go: 'Into the museum', sound: ['ledger', { root: 43, bpm: 66, drop: ['mel'], level: 1.1, beds: [['hum', 0.25]] }],
+    intro: [
+      'Number thirteen, on Sadie&rsquo;s beam: Purkiss to Tebbutt for £20, then Rasheed £50, Venn £120, Sowerby £250, and Yvonne Gedge £345. In July, if nobody buys from Yvonne, she cannot pay Nev, Nev cannot pay Rhoda, and Rhoda, who can pay Mo, is left with a bulb worth £14 that cost her £120. Every profit on the beam was to come out of the last buyer&rsquo;s purse.',
+      'Dykesend Museum is in the old Drainage Board house on the square. It is free, it is warm, and on Saturday mornings it is run by Mr Ulric Bevis.',
+      'The Dutch Room is upstairs. The tulip case is open, and its cards are all over the floor.'
+    ],
+    exit: {"next":"window","w":{"a13eed34":"6219898c"}}, tags: {"y1":["3d3dcecc"],"y2":["f5d00be6"],"y3":["4635083e"],"y4":["ebac4abd"],"y5":["ad04e58f"],"y6":["432922c8"],"lg":["69f4ccfa","fc6d3182"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('c-file') || null; told = ER.flag('c-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('c-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    ER.pips((told.ulric ? 1 : 0) + (told.notes ? 1 : 0) + (told.semper ? 1 : 0) + (told.label ? 1 : 0) + (nextFile ? 1 : 0), 5);
+    $('#case').classList.toggle('ready', !!(told.ulric && told.notes && told.semper && !nextFile));
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Pearl wants to see Mr Tebbutt&rsquo;s charts: the button at the bottom of the screen.']];
+    if (lock && lock.isOpen()) return ['rail', [
+      'Each card goes at the date when it happened, or the date when it was written down. The Trust&rsquo;s notes give the dates: winter 1636&ndash;37, early February 1637, afterwards, 1841, the 1920s, 2007. The tavern print (in your notebook) helps with the first.',
+      'Be careful with Mackay. That a book of 1841 told those stories is a fact, so the card about the book goes at 1841. The stories themselves are not supported by the Dutch records: they go in the LEGEND drawer.',
+      'Two cards go in the drawer: the ruin of thousands and the whole country, and the sailor who ate a bulb. The card about the virus goes in the 1920s, from the label on the watercolour.'
+    ]];
+    if (!told.ulric) return ['ulric', ['Mr Bevis is by the case, on the right. Talk to him.', 'Click the man with the white hair and the blue tie.']];
+    if (!told.notes) return ['notes', ['Mr Bevis has the Trust&rsquo;s notes for the new case.', 'The clipboard leaning on the right-hand end of the case.']];
+    if (!told.semper) return ['semper', ['One card is about the flames of broken tulips. The watercolour on the wall has a label.', 'The framed watercolour of a white and red tulip, to the right of the window.']];
+    return ['case', ['Click the tulip case in the middle of the room.', 'The old label from 1953, on the front of the case, is worth reading, and not believing.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('The new case is finished. Mr Bevis is wiping fingerprints off the glass.'); return; }
+    if (told.in) { busy = false; ER.say('The Dutch Room. Mr Bevis is holding a card about a sailor as if it were a small bird.'); return; }
+    tell('in');
+    ER.narrate([
+      'A tall room with pale green walls and a band of blue Dutch tiles. A model wind pump turns slowly in a draught. On the wall hangs a print of a serious man in a lace collar, and another of monkeys in fine clothes.',
+      'In the middle stands the glass case, TULIPS, 1637, with its lid up. Inside are a brass rail and six empty places. Its cards lie on the floor, in two heaps.',
+      'A tall old man in a blue tie is standing beside it, holding a card in each hand and looking at neither.'
+    ], function () { busy = false; });
+  }
+
+  $('#ulric').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;The sailor stays in the drawer,&rdquo; says Mr Bevis sadly. &ldquo;I may visit him.&rdquo;'); return; }
+    ER.talk({
+      who: 'Mr Ulric Bevis', role: 'Volunteer · Dykesend Museum, Saturdays', face: TULIP.face('ulric', 'smile'),
+      lines: [
+        { note: 'He holds up the card in his right hand.', a: '&ldquo;A sailor! In 1637! He sees a bulb on a merchant&rsquo;s counter, thinks it&rsquo;s an onion, and eats it with his herring. The bulb was worth more than his whole ship&rsquo;s crew earned in a year. Isn&rsquo;t that marvellous?&rdquo;' },
+        { q: 'Is it true?', a: '&ldquo;It&rsquo;s in Mackay. Charles Mackay, 1841, <i>Extraordinary Popular Delusions and the Madness of Crowds</i>. It has been in this case since 1953. Children love it.&rdquo; He lowers the card. &ldquo;The Trust says it has to come out.&rdquo;' },
+        { q: 'Why?', a: '&ldquo;New research. Their notes are on the clipboard. Every card must go at the date it happened, or at the date it was written. And anything the Dutch records don&rsquo;t support goes in the drawer marked LEGEND. They&rsquo;re checking on Monday.&rdquo;' },
+        { q: 'Mr Tebbutt says nobody was ruined in 1637.', a: '&ldquo;Roland was in here last week, reading the new notes. He was delighted. &lsquo;It was all a fuss about nothing, Ulric,&rsquo; he said. &lsquo;So there&rsquo;s nothing to worry about.&rsquo;&rdquo; Mr Bevis frowns. &ldquo;I&rsquo;m not sure the notes say that. I&rsquo;m not sure they say the opposite either.&rdquo;' },
+        { q: 'Can we help with the case?', a: '&ldquo;Would you? My eyes are good for nothing smaller than a sailor. Read the notes first, and the label on the watercolour. And please be gentle with him.&rdquo;' }
+      ],
+      clue: { id: 'ulric', title: 'Mr Bevis: the sailor and the onion', kind: 'What he said' },
+      done: function (seen) { if (seen && tell('ulric')) { paint(); ER.say('The Trust&rsquo;s notes are on the clipboard at the end of the case.'); } }
+    });
+  });
+
+  var NOTES = '<h4>Dykesend Museum Trust &middot; for the new tulip case</h4><h3>What happened in 1636&ndash;37</h3>' +
+    '<p>In the Dutch Republic in the 1630s, rare tulips became a fashion among merchants and craftsmen. In the winter of 1636&ndash;37 prices rose very fast, and bulbs still in the ground were sold as promises, in taverns.</p>' +
+    '<p>In the first days of February 1637, at a sale in Haarlem, buyers stopped coming, and within days prices collapsed. <b>TULIP MANIA</b> was over.</p>' +
+    '<p>Afterwards, many buyers refused to pay, and the courts would not make them. Towns worked out ways to settle; in Haarlem, by most accounts, a buyer could cancel a promise by paying 3.5% of its price. The paper profits vanished with the promises.</p>' +
+    '<p>In 1841, Charles Mackay&rsquo;s book told of fortunes lost, a country shaken, and a sailor who ate a bulb. Many of his stories came from pamphlets of 1637 written to mock the trade.</p>' +
+    '<p>In 2007 the historian Anne Goldgar published what she found in the Dutch records: hardly anyone in money trouble at the time, and no proof that tulips caused it. The mania was real, but smaller.</p>' +
+    '<p class="rule">Every card at its date: when it happened, or when it was written. Not supported by the records: LEGEND.</p>';
+  $('#notes').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: NOTES, cls: 'teach label', clue: { id: 'trust', title: 'The Museum Trust: what happened in 1636&ndash;37', kind: 'On the case' }, done: function () {
+      TULIP.terms(['tulip mania']);
+      if (tell('notes')) { paint(); ER.say('A crash in February 1637. Buyers who would not pay. And a book of 1841 that made it all much worse than it was.'); }
+    } });
+  });
+  var SEMPER = '<h4>Semper Augustus</h4><div class="two"><div><svg viewBox="0 0 240 260"><rect width="240" height="260" fill="#fbf8ee"/><g transform="translate(120 230) scale(1.4)">' + TULIP.tulip({ cup: '#fbf6ee', flame: '#c8202a', pat: 'feather', seed: 3 }) + '</g></svg></div><div>' +
+    '<p>The most famous tulip of the 1630s: white, with flames of crimson. At the height of the mania a single bulb is said to have been priced at 10,000 guilders, when a skilled craftsman might earn about 300 guilders in a year.</p>' +
+    '<p>Its flames were &ldquo;broken&rdquo; colour. In the 1920s scientists found the cause: a virus, carried from plant to plant by aphids.</p>' +
+    '<p>A <b>broken tulip</b>&rsquo;s flames are different on every flower. The virus weakens the bulb, so it makes fewer new bulbs, which helped to keep broken tulips rare. And it spreads to the plain tulips growing nearby.</p>' +
+    '<small>Watercolour copy made for the museum, 1961, after a Dutch tulip book of the 1630s.</small></div></div>';
+  $('#semper').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: SEMPER, cls: 'frame', clue: { id: 'semper', title: 'Semper Augustus: broken colour', kind: 'On the wall' }, done: function () {
+      TULIP.terms(['broken tulip']);
+      if (tell('semper')) {
+        paint();
+        ER.say('&ldquo;Flames,&rdquo; says Pearl, very quietly. &ldquo;The Fen Tiger has flames.&rdquo;');
+      }
+    } });
+  });
+  var LABEL = '<h4>THE TULIP MADNESS</h4><p>In 1637 the whole of Holland went mad for tulips. Noblemen and chimney sweeps alike sold their houses for a single bulb. When the crash came, thousands of families were ruined, and the trade of the country was shaken for years.</p><p>A sailor, it is said, ate a bulb worth a fortune, thinking it was an onion.</p><p class="hand">Label written 1953. To be replaced. U.B.</p>';
+  $('#label53').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: LABEL, cls: 'slip', clue: { id: 'label53', title: 'The old label, 1953', kind: 'On the case' }, done: function () {
+      if (tell('label')) { paint(); ER.say('More than seventy years old, and it reads well. That is not the same as being true.'); }
+    } });
+  });
+  var MONK = '<h4>A Satire on Tulip Mania</h4><p>After a painting by Jan Brueghel the Younger, about 1640, now in the Frans Hals Museum in Haarlem.</p><p>The traders are shown as monkeys in the fine clothes of the day, buying, selling, counting money and quarrelling over tulips. The painter made fun of them only a few years after the crash.</p><small>Print, bought for the museum in 1972.</small>';
+  $('#monkeys').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: MONK, cls: 'frame', clue: { id: 'monkeys', title: 'Brueghel: a satire on tulip mania', kind: 'On the wall' }, done: function () {
+      if (tell('monk')) ER.say('Monkeys in lace collars, arguing over flowers. People were laughing at the tulip trade almost as soon as it ended.');
+    } });
+  });
+  TULIP.thing('#vermuyden', 'engineer', 'Sir Cornelius Vermuyden, the Dutch engineer who drained the Fens for King Charles I and the Earl of Bedford, from the 1630s. Dutch workers came with him to dig. That is why Dykesend has a Dutch Room, and why its drains are so straight.', isBusy);
+  TULIP.thing('#pump', 'wind pump', 'A model of a Fen wind pump. Before steam and diesel, the wind lifted the water out of the drains into the rivers, one bucket of the sails at a time.', isBusy);
+  $('#pearl').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(nextFile ? '&ldquo;Nobody was ruined because nobody paid,&rdquo; says Pearl. &ldquo;Roland&rsquo;s right about the first half.&rdquo;' :
+      told.semper ? '&ldquo;If the Fen Tiger&rsquo;s a broken tulip,&rdquo; says Pearl, &ldquo;it&rsquo;s a disease. And it would spread to everybody&rsquo;s tulips in Dykesend.&rdquo;' :
+      '&ldquo;Gran&rsquo;s got Mackay at home,&rdquo; says Pearl. &ldquo;Her father gave it to her. She says it&rsquo;s a wonderful book, as long as you don&rsquo;t believe it.&rdquo;');
+  });
+  $('#case').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Six cards on the rail, two in the drawer. Mr Bevis has put a little card in the drawer too: &ldquo;Ask about the sailor.&rdquo;'); return; }
+    if (!told.ulric) { ER.say('The case is open. Ask Mr Bevis before you touch it.'); return; }
+    if (!told.notes) { ER.say('Every card at its date. The dates are in the Trust&rsquo;s notes, on the clipboard.'); return; }
+    if (!told.semper) { ER.say('One card is about broken tulips. Read the label on the watercolour first.'); return; }
+    if (!lock) lock = makeLock();
+    lock.open();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the tulip case ---------- */
+  function makeLock() {
+    var Y = [['y1', 'Winter 1636&ndash;37'], ['y2', 'Early Feb 1637'], ['y3', 'Afterwards'], ['y4', '1841'], ['y5', '1920s'], ['y6', '2007']];
+    var K = [
+      ['k4', 'A book tells of fortunes lost, a country shaken, and a sailor who ate a bulb.'],
+      ['k7', 'Thousands of Dutch families are ruined, and the trade of the whole country collapses.'],
+      ['k2', 'At a sale in Haarlem, buyers stop coming. Within days, prices collapse.'],
+      ['k6', 'A historian reads the Dutch records and finds hardly anyone ruined.'],
+      ['k1', 'Promises for bulbs still in the ground are bought and sold in tavern back rooms.'],
+      ['k8', 'A sailor eats a bulb worth a fortune, thinking it is an onion.'],
+      ['k5', 'Scientists find that the flames of broken tulips are caused by a virus carried by aphids.'],
+      ['k3', 'Many buyers refuse to pay. In Haarlem a buyer can cancel a promise by paying 3.5% of its price.']
+    ];
+    var saved = ER.flag('c-lock') || {}, wait = false;
+    var box = ER.el('div', 'pz cs');
+    box.innerHTML = '<div class="cs-in"><h5>Tulips, 1637 &middot; the rail</h5><div class="rail">' +
+      Y.map(function (y) { return '<div class="yr"><i>' + y[1] + '</i><span class="yslot" data-s="' + y[0] + '"></span></div>'; }).join('') + '</div>' +
+      '<div class="low"><div class="cpile" id="pile">' + K.map(function (k) { return '<span class="dnd-item crd" data-id="' + k[0] + '">' + k[1] + '</span>'; }).join('') + '</div>' +
+      '<div class="drawer"><h5>Legend: not supported by the records</h5><span class="yslot" data-s="lg" data-n="1"></span><span class="yslot" data-s="lg" data-n="2"></span></div></div></div>' +
+      '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="k-go">Close the case</button></div>';
+    var msgEl = box.querySelector('.pmsg'), pile = box.querySelector('#pile');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function slotKey(s) { return s.getAttribute('data-s') + (s.getAttribute('data-n') || ''); }
+    function keep() { var o = {}; ER.$$('.yslot', box).forEach(function (s) { var c = s.querySelector('.crd'); if (c) o[slotKey(s)] = c.getAttribute('data-id'); }); ER.flag('c-lock', o); }
+    function lk() { return wait || !!nextFile; }
+    ER.$$('.yslot', box).forEach(function (s) { var id = saved[slotKey(s)], c = id && box.querySelector('.crd[data-id="' + id + '"]'); if (c) s.appendChild(c); });
+    ER.dnd(box, { item: '.crd', slot: '.yslot', home: pile, change: keep, lock: lk });
+    ER.glossIn(box, '.crd');
+    function flash(n) { n.classList.add('bad'); setTimeout(function () { n.classList.remove('bad'); }, 1300); }
+    box.querySelector('#k-go').addEventListener('click', function () {
+      if (wait || nextFile) return;
+      var slots = ER.$$('.yslot', box), i, s, c;
+      for (i = 0; i < slots.length; i++) { s = slots[i]; if (!s.querySelector('.crd')) { ER.sfx.no(); flash(s); msg('&ldquo;There&rsquo;s still an empty place,&rdquo; says Mr Bevis. &ldquo;Six on the rail and two in the drawer. Every card has a home.&rdquo;'); return; } }
+      var wrongRail = 0, wrongLeg = 0, firstBad = null, legMix = false;
+      for (i = 0; i < slots.length; i++) {
+        s = slots[i]; c = s.querySelector('.crd'); var id = c.getAttribute('data-id'), k = s.getAttribute('data-s');
+        if (!ER.check(k, id)) {
+          if (!firstBad) firstBad = c;
+          if (k === 'lg') wrongLeg++; else { wrongRail++; if (ER.check('lg', id)) legMix = true; }
+        }
+      }
+      if (firstBad) {
+        ER.sfx.no(); flash(firstBad);
+        if (legMix) msg('&ldquo;Is that in the Dutch records?&rdquo; says Mr Bevis, looking at the rail. &ldquo;The Trust&rsquo;s notes say there was hardly anyone in money trouble. Some of these cards are stories, not events.&rdquo;');
+        else if (wrongLeg) msg('&ldquo;That card is in the drawer,&rdquo; says Mr Bevis, &ldquo;but it really happened, or it really was written. A book of 1841 is a fact, even if what it says is not.&rdquo;');
+        else msg('&ldquo;' + (wrongRail === 1 ? 'One card is' : wrongRail + ' cards are') + ' at the wrong date,&rdquo; says Mr Bevis. &ldquo;The Trust&rsquo;s notes and the watercolour&rsquo;s label have the dates.&rdquo;');
+        return;
+      }
+      var lg = ER.$$('.yslot[data-s="lg"] .crd', box).map(function (n) { return n.getAttribute('data-id'); }).sort().join('');
+      var rail = Y.map(function (y) { return box.querySelector('.yslot[data-s="' + y[0] + '"] .crd').getAttribute('data-id'); }).join('-');
+      var file = ER.exit([rail + '|' + lg], { wait: true });
+      if (!file) { msg('The door will not open. Something is wrong with this page: tell your teacher.'); return; }
+      wait = true; nextFile = file; ER.flag('c-file', file);
+      TULIP.mine('case1637', 'The tulip case, put right', '<p>Winter 1636&ndash;37: promises traded in taverns. Early February 1637: buyers stop coming at a sale in Haarlem; prices collapse.</p><p>Afterwards: buyers refuse to pay; in Haarlem they can cancel for 3.5% of the price. The paper profits vanish.</p><p>1841: Mackay&rsquo;s book of ruin, and the sailor. 1920s: the flames are a virus. 2007: Goldgar finds hardly anyone ruined.</p><p>Legend: thousands ruined; the sailor who ate a bulb.</p><p>Nobody was ruined mostly because the promises were never paid. The profits were never paid either.</p>', true);
+      msg('Mr Bevis lowers the lid. <b>Six on the rail, two in the drawer.</b> He keeps one hand on the glass for a moment, over the sailor.');
+      setTimeout(function () {
+        ER.closeAll(); paint(); busy = true;
+        ER.narrate([
+          '&ldquo;So Roland is right,&rdquo; says Mr Bevis slowly. &ldquo;Nobody was ruined. Or hardly anybody.&rdquo;',
+          '&ldquo;He&rsquo;s right about what happened,&rdquo; says Pearl. &ldquo;He&rsquo;s wrong about why. Nobody was ruined because nobody paid. The buyers walked away from their promises, and the towns let them off for three and a half per cent. All those profits were promises too. They vanished. The people who thought they were rich just weren&rsquo;t, any more.&rdquo;',
+          '&ldquo;Like number thirteen,&rdquo; you say, and Pearl nods.',
+          'Mr Bevis is looking at the watercolour. &ldquo;And the flames were a virus,&rdquo; he says. &ldquo;Your Fen Tiger has flames, hasn&rsquo;t it?&rdquo; Pearl looks at the clock on the wall. &ldquo;Twelve,&rdquo; she says. &ldquo;Roland&rsquo;s charts. And then Mrs Purkiss.&rdquo;'
+        ], function () { busy = false; $('#go').classList.add('on'); });
+      }, 2800);
+    });
+    msg('Put each card on the rail at its date, or in the LEGEND drawer (drag it, or click it and then a place). Then close the case.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+})();
+</script>
+</body>
+</html>

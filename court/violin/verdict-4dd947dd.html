@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Verdict · So That You Are Sure</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-court.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="violin.css">
+<style>
+  body{--bg:#2a2440;--accent:#f2c86a;--font-display:'Cormorant SC',serif;--font-ui:'Oswald',sans-serif;--font-body:'EB Garamond',Georgia,serif;
+    --tc-bg:rgba(34,28,50,.97);--tc-ink:#f6efe0;--cap-bg:rgba(34,28,50,.93);--panel:#2a2440;--face-bg:#3a3458;--q-ink:#f0d9a6;--fade:#100c18;--hud-bg:rgba(34,28,50,.82)}
+  #inside{transition:opacity 1.6s}
+  #scene.out #inside{opacity:0;pointer-events:none}
+  .glow{animation:gl 3.6s steps(1,end) infinite}
+  @keyframes gl{0%{opacity:.85}60%{opacity:.7}}
+  .bird{animation:bird 26s linear infinite}
+  .bird.b2{animation-duration:34s;animation-delay:-12s}
+  @keyframes bird{0%{transform:translate(-200px,0)}100%{transform:translate(1900px,-60px)}}
+
+  /* the end of the trial */
+  .done{position:fixed;right:2vw;top:60px;z-index:34;width:min(490px,94vw);max-height:calc(100vh - 74px);overflow:auto;padding:16px 26px 12px;display:none;background:#fbf8ec;color:#1c1d22;border-top:10px solid #5b3f86;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+  .done.on{display:block}
+  .okstamp{display:inline-block;padding:3px 14px 0;border:4px solid #5b3f86;color:#5b3f86;font-family:'Stardos Stencil',serif;font-weight:700;font-size:25px;letter-spacing:.12em;transform:rotate(-3deg);margin-bottom:8px}
+  .done h6{margin:8px 0 4px;font-family:'Cormorant SC',serif;font-weight:700;font-size:17px;letter-spacing:.1em;color:#5b3f86}
+  .done p{margin:0 0 2px;font-family:'Courier Prime',monospace;font-size:13.500px;line-height:1.36}
+  .done ol{margin:0;padding-left:20px;font-family:'Tinos',serif;font-size:14.500px;line-height:1.3}
+  .done li{margin:0 0 3px}
+  .done .row{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
+  .done .btn{--accent:#5b3f86;font-size:13px;padding:7px 13px}
+  .done .btn:hover:not([disabled]){color:#fbf8ec}
+  .done small{display:block;margin-top:8px;font-family:'Courier Prime',monospace;font-size:12px;opacity:.75;line-height:1.5}
+  .done small button{text-decoration:underline;font:inherit}
+  /* tell a friend */
+  .rp{width:min(760px,94vw);max-height:84vh;overflow:auto;background:#fbf8ec;color:#1c1d22;padding:24px 36px 20px;box-shadow:0 26px 70px rgba(0,0,0,.6);-webkit-user-select:text;user-select:text;border-left:8px solid #5b3f86}
+  .rp h4{margin:0 0 4px;font-family:'Oswald',sans-serif;font-weight:500;font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:#5b3f86}
+  .rp h3{margin:0 0 10px;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:29px;line-height:1.1}
+  .rp label{display:block;font-family:'Tinos',serif;font-size:18px;line-height:1.4;margin:8px 0 6px}
+  .rp textarea,.rp input[type=text]{width:100%;font-family:'Caveat',cursive;font-size:25px;line-height:34px;color:#1f3a8a;background:#eef3f6 repeating-linear-gradient(transparent 0 33px,rgba(60,110,170,.25) 33px 34px);border:1px solid #b9b09a;
+    padding:0 12px;border-radius:0;resize:vertical;-webkit-user-select:text;user-select:text}
+  .rp textarea{min-height:206px}
+  .rp input[type=text]{height:36px}
+  .rp .count{font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.6;text-align:right;margin-top:4px}
+  .rp .foot{display:flex;gap:10px;align-items:center;margin-top:10px}
+  .rp .foot span{flex:1;font-family:'Courier Prime',monospace;font-size:13.500px;opacity:.7}
+  .rp .btn{--accent:#5b3f86}.rp .btn:hover:not([disabled]){color:#fbf8ec}
+  @media print{
+    body{overflow:visible;background:#fff}
+    body>*:not(.ov){display:none!important}
+    .ov{position:static!important;display:block!important;background:#fff!important;padding:0!important;overflow:visible!important}
+    .ov-bar,.rp .foot{display:none!important}
+    .rp{box-shadow:none;max-height:none;width:auto;overflow:visible}
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a3a6a"/><stop offset=".55" stop-color="#9a6a8a"/><stop offset="1" stop-color="#f0a86a"/></linearGradient>
+  <linearGradient id="stoneG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e6dcc8"/><stop offset="1" stop-color="#c9bba0"/></linearGradient>
+  <linearGradient id="stepG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bfb39a"/><stop offset="1" stop-color="#9a8f78"/></linearGradient>
+  <linearGradient id="beechG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e2cda4"/><stop offset="1" stop-color="#cdb282"/></linearGradient>
+  <linearGradient id="tealG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2f6a6a"/><stop offset="1" stop-color="#1f4a4a"/></linearGradient>
+  <linearGradient id="brassG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8a6a26"/><stop offset=".3" stop-color="#e6c873"/><stop offset=".55" stop-color="#b08a35"/><stop offset=".8" stop-color="#f0d98f"/><stop offset="1" stop-color="#8a6a26"/></linearGradient>
+  <radialGradient id="lampG" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffe2a0" stop-opacity=".7"/><stop offset="1" stop-color="#ffe2a0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="doorG" cx="50%" cy="60%" r="70%"><stop offset="0" stop-color="#ffe9b8"/><stop offset="1" stop-color="#e8b86a"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="46%" r="84%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#140c1c" stop-opacity=".12"/><stop offset="1" stop-color="#0a0610" stop-opacity=".62"/></radialGradient>
+</defs>
+
+<!-- outside: the steps of the Crown Court at five o'clock -->
+<rect x="-1000" y="-400" width="3600" height="1100" fill="url(#skyG)"/>
+<g class="bird"><path d="M100 120q10-8 20 0q10-8 20 0" stroke="#2a2440" stroke-width="3" fill="none"/></g>
+<g class="bird b2"><path d="M60 170q8-6 16 0q8-6 16 0M110 160q8-6 16 0q8-6 16 0" stroke="#2a2440" stroke-width="3" fill="none"/></g>
+<g id="building" class="hot"><rect x="260" y="70" width="1080" height="500" fill="url(#stoneG)"/><rect x="240" y="50" width="1120" height="40" fill="#d6c9ae"/>
+  <text x="800" y="80" class="cT" font-size="26" fill="#5a4a38" letter-spacing="8">WYNCASTER CROWN COURT</text>
+  <g fill="#ebe3d2" stroke="#b9ab8e" stroke-width="2"><rect x="420" y="120" width="56" height="440"/><rect x="600" y="120" width="56" height="440"/><rect x="944" y="120" width="56" height="440"/><rect x="1124" y="120" width="56" height="440"/></g>
+  <rect x="690" y="300" width="220" height="260" fill="url(#doorG)" class="glow"/><path d="M800 300v260M690 380h220" stroke="#5a4a38" stroke-width="6"/>
+  <g transform="translate(800 200) scale(.6)"><path d="M-110 10q-12-36 12-50q16 8 14 30l12 26q-2 26-26 32q-16-10-12-38z" fill="url(#brassG)"/><path d="M110 10q12-36-12-50q-16 8-14 30l-12 26q2 26 26 32q16-10 12-38z" fill="#f4efe2"/>
+    <path d="M-46-32h92v50q0 38-46 52q-46-14-46-52z" fill="#1f3a8a"/><path d="M-46-32h46v44h-46z" fill="#b3262c"/><path d="M0 12h46v6q0 38-46 52z" fill="#b3262c"/><path d="M0-32h46v44h-46z" fill="#e6c873"/><path d="M-30-40q0-26 30-26t30 26z" fill="url(#brassG)"/></g>
+  <g fill="#f6d68a" class="glow"><rect x="300" y="160" width="80" height="110"/><rect x="1220" y="160" width="80" height="110"/><rect x="300" y="330" width="80" height="110"/><rect x="1220" y="330" width="80" height="110"/></g></g>
+<g id="usher" class="hot"><rect x="910" y="420" width="120" height="150" fill="#000" opacity="0"/><use href="#ch-tunnicliffe" x="900" y="400" width="146" height="190"/></g>
+<g id="steps"></g>
+<g id="lamps"><rect x="150" y="380" width="12" height="400" fill="#2a2440"/><circle cx="156" cy="370" r="22" fill="#ffe2a0"/><circle cx="156" cy="370" r="110" fill="url(#lampG)"/>
+  <rect x="1438" y="380" width="12" height="400" fill="#2a2440"/><circle cx="1444" cy="370" r="22" fill="#ffe2a0"/><circle cx="1444" cy="370" r="110" fill="url(#lampG)"/></g>
+
+<g id="ib" class="hot"><rect x="330" y="520" width="200" height="250" fill="#000" opacity="0"/><use href="#ch-blackwood" x="320" y="532" width="220" height="286"/></g>
+<g id="ezra" class="hot"><rect x="650" y="500" width="230" height="300" fill="#000" opacity="0"/><use href="#ch-ezra" x="640" y="490" width="250" height="325"/>
+  <g transform="rotate(-24 930 720)"><rect x="880" y="640" width="64" height="190" rx="12" fill="#1c1c22"/><rect x="890" y="650" width="44" height="170" rx="9" fill="none" stroke="#3a3a42" stroke-width="3"/></g></g>
+<g id="askew" class="hot"><rect x="1150" y="600" width="170" height="220" fill="#000" opacity="0"/><use href="#ch-askew" x="1140" y="566" width="190" height="247"/></g>
+<path d="M-1000 800h3600v700h-3600z" fill="#8a7e68"/><path d="M-1000 800h3600" stroke="#d6c9ae" stroke-width="10"/><g stroke="#6b604e" stroke-width="3"><path d="M-200 806v200M200 806v200M600 806v200M1000 806v200M1400 806v200M1800 806v200"/></g>
+
+<!-- inside: Court 2, for the verdict (it fades when the court rises) -->
+<g id="inside">
+  <rect x="-1000" y="-400" width="3600" height="1800" fill="url(#beechG)"/><rect x="-1000" y="600" width="3600" height="900" fill="#3a4a56"/>
+  <g transform="translate(800 120)"><path d="M-110 10q-12-36 12-50q16 8 14 30l12 26q-2 26-26 32q-16-10-12-38z" fill="url(#brassG)"/><path d="M110 10q12-36-12-50q-16 8-14 30l-12 26q2 26 26 32q16-10 12-38z" fill="#f4efe2"/>
+    <path d="M-46-32h92v50q0 38-46 52q-46-14-46-52z" fill="#1f3a8a"/><path d="M-46-32h46v44h-46z" fill="#b3262c"/><path d="M0 12h46v6q0 38-46 52z" fill="#b3262c"/><path d="M0-32h46v44h-46z" fill="#e6c873"/><path d="M-30-40q0-26 30-26t30 26z" fill="url(#brassG)"/></g>
+  <use href="#ch-lennox" x="690" y="200" width="220" height="286"/><rect x="470" y="380" width="660" height="20" fill="#e2cda4"/><rect x="490" y="400" width="620" height="130" fill="#c9ad7c"/><rect x="540" y="420" width="520" height="90" fill="url(#tealG)"/>
+  <use href="#ch-desai" x="710" y="460" width="180" height="234"/><rect x="560" y="640" width="480" height="16" fill="#e2cda4"/><rect x="574" y="656" width="452" height="80" fill="#c9ad7c"/>
+  <g id="jurors2"></g><rect x="1130" y="470" width="480" height="18" fill="#e2cda4"/><rect x="1144" y="488" width="460" height="120" fill="#c9ad7c"/><rect x="1160" y="504" width="428" height="88" fill="url(#tealG)"/>
+  <rect x="-200" y="760" width="2000" height="200" fill="#c9ad7c"/></g>
+
+<rect x="-1000" y="-400" width="3600" height="1760" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<div class="done" id="done">
+  <div class="okstamp">NOT GUILTY</div>
+  <p id="d-time"></p><p id="d-hints"></p><p id="d-pen"></p><p id="d-words"></p>
+  <h6>What you now know</h6>
+  <ol>
+    <li>In a criminal trial the prosecution must prove the case and make the jury sure. The defendant does not have to prove anything, not even where he was.</li>
+    <li>&ldquo;Not guilty&rdquo; means that the prosecution did not make the jury sure. It does not mean &ldquo;innocent&rdquo;.</li>
+    <li>An honest witness who is sure can still be wrong. Test what she says against facts: how far away, what light, how long, what was in the way, and whether she saw a face or a back.</li>
+    <li>What a witness said at the time is worth more than what she remembers months later. One photograph, shown at the wrong moment, can take the place of a memory.</li>
+    <li>An alibi is strong when a stranger who gains nothing, or a record made at the time, covers the very minute. A weak alibi is not a false one.</li>
+    <li>A witness tells the jury what she saw or heard herself. What somebody else told her is hearsay, and the judge decides whether the jury may use it.</li>
+    <li>Twelve jurors decide the facts. The judge directs them on the law, and answers their questions from the written directions and the exhibits, without telling them what to decide.</li>
+  </ol>
+  <div class="row"><button type="button" class="btn" id="b-task">Tell a friend</button><button type="button" class="btn" id="b-book">Notebook</button><button type="button" class="btn" id="b-lobby">Back to the list</button></div>
+  <small>So That You Are Sure &middot; <button type="button" id="b-reset">play it again from the start</button></small>
+</div>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="violin.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, MAJOR = [0, 2, 4, 5, 7, 9, 11];
+
+  /* the steps, and twelve jurors for the court room */
+  (function () {
+    var s = '', i;
+    for (i = 0; i < 6; i++) s += '<rect x="' + (220 - i * 40) + '" y="' + (570 + i * 40) + '" width="' + (1160 + i * 80) + '" height="40" fill="url(#stepG)"/><path d="M' + (220 - i * 40) + ' ' + (570 + i * 40) + 'h' + (1160 + i * 80) + '" stroke="#e6dcc8" stroke-width="3"/>';
+    s += '<rect x="-1000" y="810" width="3600" height="600" fill="#5a5048"/>';
+    $('#steps').innerHTML = s; s = '';
+    var HAIR = ['#2a1c16', '#7a4a2a', '#17120f', '#b5672c', '#9a9a96', '#d9b25a'], SKIN = ['#e8c2a2', '#c99870', '#855a40', '#f1cfb2', '#b98560', '#d6a47a'], TOP = ['#2f6a8a', '#7b1f2a', '#3f7d55', '#55585f', '#8f5a9a', '#c9a24a'];
+    for (i = 0; i < 12; i++) {
+      var back = i < 6, k = i % 6, x = 1196 + k * 72 + (back ? 0 : 18), y = back ? 410 : 470, r = back ? 18 : 21;
+      s += '<path d="M' + (x - r - 8) + ' ' + (y + 52) + 'q0-' + (r + 22) + ' ' + (r + 8) + '-' + (r + 22) + 't' + (r + 8) + ' ' + (r + 22) + 'z" fill="' + TOP[(i * 5) % 6] + '"/><circle cx="' + x + '" cy="' + y + '" r="' + r + '" fill="' + SKIN[(i * 7) % 6] + '"/><path d="M' + (x - r) + ' ' + (y - 2) + 'q0-' + (r + 4) + ' ' + r + '-' + (r + 4) + 't' + r + ' ' + (r + 4) + 'q-' + r + '-' + (r - 6) + '-' + (2 * r) + ' 0z" fill="' + HAIR[(i * 11) % 6] + '"/>';
+    }
+    $('#jurors2').innerHTML = s;
+  })();
+
+  ER.init({
+    theme: 'court', story: 'violin', storyTitle: 'So That You Are Sure', id: 'verdict', no: 'VI', title: 'The Verdict',
+    go: 'Go in',
+    intro: [
+      'The jury asked seven questions, and Her Honour answered each one with a single thing. A witness who is sure can still be wrong: paragraph 4. An alibi that is not proved does not put him on Cutler&rsquo;s Row: paragraph 5. The defence does not have to prove who did it: paragraph 1. &ldquo;Probably&rdquo; is not enough: paragraph 2. Not guilty is not innocent: paragraph 3. The lamp: the council&rsquo;s record. And Mr Andreou never gave evidence, so nobody may guess what he saw: paragraph 6.',
+      'She did not tell them what to decide. Nobody may.',
+      'Twenty-five to five. Everybody who has anything to do with the case of the King against Ezra Mallon is walking back into Court 2, not quite running.'
+    ],
+    exit: {"last":true,"rooms":6,"stars":4}, tags: {},
+    hints: hints, onBegin: begin
+  });
+
+  function isBusy() { return busy; }
+  function hints() {
+    if (ER.flag('v-verdict') && !ER.flag('v-ezra')) return ['ezra', ['Ezra has come out on to the steps with his violin case. Talk to him.']];
+    if (ER.flag('v-ezra') && !ER.flag('v-done')) return ['askew', ['Somebody is waiting at the bottom of the steps, on the right.']];
+    return null;
+  }
+  function begin() {
+    if (ER.flag('v-verdict')) $('#scene').classList.add('out');
+    if (ER.flag('v-done')) { busy = false; finish(); return; }
+    if (ER.flag('v-verdict')) { busy = false; ready(); return; }
+    ER.narrate([
+      'Court 2 is full: Miss Blackwood and Mr Dewhurst in front, you behind, Mrs Hindle in the dock beside Ezra, and in the public seats Mags Doyle, who has come straight from work, and Kostas, in his apron.',
+      '&ldquo;All rise.&rdquo; Her Honour comes in. Then the jury, in single file, to their two rows. Mr Tunnicliffe once told you that jurors who are about to say &ldquo;not guilty&rdquo; look at the defendant, and jurors who are about to say &ldquo;guilty&rdquo; look at the floor. He also told you that it was nonsense. None of them looks anywhere at all.'
+    ], verdict);
+  }
+  function verdict() {
+    ER.talk({
+      who: 'Ms Desai', role: 'Clerk of the court · Court 2', face: window.FACE('desai'),
+      lines: [
+        { note: 'The clerk stands and turns to the jury.', a: '&ldquo;Will the juror who has been chosen to speak for the jury please stand.&rdquo;</p><p class="note">Juror number four stands up. She is holding a piece of paper with both hands, although there is nothing written on it that she could forget.' },
+        { a: '&ldquo;Please answer my first question with yes or no. Have you reached a verdict on which you are all agreed?&rdquo;</p><p>&ldquo;Yes.&rdquo;' },
+        { a: '&ldquo;On the one count on this indictment, burglary, do you find the defendant, Ezra James Mallon, guilty or not guilty?&rdquo;' },
+        { a: '&ldquo;Not guilty.&rdquo;', note: 'Behind you, in the dock, somebody makes a sound that is not quite a word.' },
+        { a: '&ldquo;You find him not guilty, and that is the verdict of you all?&rdquo;</p><p>&ldquo;Yes.&rdquo;' },
+        { note: 'Her Honour Judge Lennox turns to the dock.', a: '&ldquo;Mr Mallon, you are discharged. You are free to go.&rdquo; Then to the jury: &ldquo;Members of the jury, thank you. You listened with great care, and you asked good questions. That is all that anybody can ask of you.&rdquo;</p><p>&ldquo;All rise.&rdquo;' }
+      ],
+      clue: { id: 'verdict', title: 'The verdict', kind: 'Court 2, 4.40 pm' }, last: 'Go outside',
+      done: function (seen) {
+        if (!seen) { verdict(); return; }
+        ER.flag('v-verdict', 1);
+        $('#scene').classList.add('out');
+        setTimeout(function () {
+          ER.narrate([
+            'Twenty minutes later, on the steps outside. The sky over Wyncaster has gone pink and gold, and the lamps have come on. The cathedral clock says five, in its own time.',
+            'Ezra comes out through the big doors with a plastic bag of his property and his own violin case, the cheap black one with the broken catch. He stops on the top step and breathes in, as if he had been under water.'
+          ], function () { busy = false; ready(); });
+        }, 1600);
+      }
+    });
+  }
+  function ready() {
+    $('#ezra').classList.toggle('ready', !ER.flag('v-ezra'));
+    $('#askew').classList.toggle('ready', !!ER.flag('v-ezra') && !ER.flag('v-done'));
+  }
+  $('#ezra').addEventListener('click', function () {
+    if (busy) return;
+    if (ER.flag('v-ezra')) { ER.say(ER.flag('v-done') ? 'Ezra, one step down from the top, playing. Mr Tunnicliffe has decided not to notice.' : 'Ezra is looking at the bottom of the steps.'); return; }
+    ER.talk({
+      who: 'Ezra Mallon', role: 'Free to go', face: window.FACE('ezra'),
+      lines: [
+        { note: 'He shakes your hand for a long time, as if he had forgotten how to stop.', a: 'Not guilty. So they believed me. About the canal, and the bridge, and the quarter.' },
+        { q: 'It doesn&rsquo;t quite mean that.', a: 'Go on, then. What does it mean?' },
+        { q: 'It means the Crown didn&rsquo;t make them sure it was you. Nobody proved where you were. Nobody had to.', a: 'So some of them might still think I did it.', note: 'Miss Blackwood, beside you, is putting her wig into its tin.' },
+        { a: '&ldquo;Some of them might,&rdquo; says Miss Blackwood. &ldquo;That is not their job. Their job was to be sure, or to say so if they were not. Go home, Mr Mallon. And sleep.&rdquo;' }
+      ],
+      clue: { id: 'ezra2', title: 'Ezra, on the steps', kind: 'What he said' }, last: 'Look down the steps',
+      done: function (seen) { if (seen) { ER.flag('v-ezra', 1); ready(); ER.say('At the bottom of the steps, on the right, somebody in a lavender coat is waiting.', 6000); } }
+    });
+  });
+  $('#askew').addEventListener('click', function () {
+    if (busy) return;
+    if (!ER.flag('v-ezra')) { ER.say('Somebody in a lavender coat is waiting at the bottom of the steps, holding her handbag in front of her like a shield.'); return; }
+    if (ER.flag('v-done')) { ER.say('Mrs Askew, at the bottom of the steps, listening with her eyes shut. She is not looking at anybody&rsquo;s face. She does not need to.'); return; }
+    busy = true; $('#askew').classList.remove('ready');
+    ER.narrate([
+      'Mrs Askew. She has waited two hours in the concourse, and twenty minutes on the cold steps, to say one thing. She says it to Ezra, not to the lawyers.',
+      '&ldquo;I was so sure,&rdquo; she says. &ldquo;I would have sworn to it on anything. I did swear to it.&rdquo; She looks at his face, carefully, as if she were reading music. &ldquo;I am very sorry. I think I have been seeing your photograph since May.&rdquo;',
+      'Ezra looks at her for a long moment. Then he opens the cheap black case with the broken catch, takes out his violin, and tunes it. &ldquo;You know my playing,&rdquo; he says. &ldquo;You said so. Anywhere.&rdquo;',
+      'And he plays, there on the top step: not loud, for once, and not fast. A slow tune that goes up and comes back down, like scales that have learnt to be something. You do not know its name. Mrs Askew does. She shuts her eyes.',
+      'Mr Tunnicliffe comes out through the big doors. &ldquo;Not on the steps, sir, if you don&rsquo;t mind.&rdquo; Ezra moves down one step, and goes on playing. Mr Tunnicliffe looks at the step, and at Mrs Askew, and decides that one step will do.',
+      'Nobody yet knows who took the Lusardi. Twelve people have said only that it was not proved to be Ezra. That is all a verdict ever says. On the steps of Wyncaster Crown Court, in the last of the light, it turns out to be enough.'
+    ], function () { busy = false; ER.flag('v-done', 1); ready(); finish(); VN.solved(true); });
+  });
+
+  /* ---------- the end of the trial ---------- */
+  function finish() {
+    var st = ER.state(), mins = VN.minutes(), hn = ER.hintsUsed(), pen = ((ER.flag('cx-k') || {}).laid || 0) + (ER.flag('j-tries') || 0);
+    $('#d-time').textContent = 'The trial took you ' + mins + (mins === 1 ? ' minute.' : ' minutes.');
+    $('#d-hints').textContent = hn ? 'You asked for ' + hn + (hn === 1 ? ' hint.' : ' hints.') : 'You did not ask for a single hint.';
+    $('#d-pen').textContent = pen ? 'Her Honour put down her pen and waited ' + pen + (pen === 1 ? ' time.' : ' times.') : 'Her Honour never once had to put down her pen.';
+    $('#d-words').textContent = 'In your notebook: ' + st.clues.length + ' papers and ' + Object.keys(st.words).length + ' words.';
+    $('#done').classList.add('on');
+  }
+  $('#b-book').addEventListener('click', ER.notebook);
+  $('#b-lobby').addEventListener('click', function () { ER.leave('../index.html'); });
+  $('#b-reset').addEventListener('click', function () {
+    var b = $('#b-reset');
+    if (b.getAttribute('data-sure')) { ER.resetStory(); location.href = '../index.html'; return; }
+    b.setAttribute('data-sure', '1'); b.textContent = 'this empties your notebook. click again to do it';
+  });
+  $('#b-task').addEventListener('click', function () {
+    var saved = ER.flag('v-task') || {}, box = ER.el('div', 'rp');
+    box.innerHTML = '<h4>So That You Are Sure &middot; tell a friend</h4><h3>&ldquo;But she SAW him!&rdquo;</h3>' +
+      '<label for="r1">Your friend says: &ldquo;An old lady saw him with her own eyes, and she was sure. Of course he did it.&rdquo; Explain why the jury said not guilty. Say it aloud first, and then write 60 to 100 words. Try to use: <b>the prosecution must prove, sure, mistaken, at the time, hearsay, not the same as innocent</b>.</label><textarea id="r1"></textarea>' +
+      '<div class="count"></div><label for="r2">Name</label><input type="text" id="r2" maxlength="60">' +
+      '<div class="foot"><span>Nobody marks this. It is saved in this browser as you write.</span><button type="button" class="btn" id="r-print">Print</button><button type="button" class="btn" id="r-done">Done</button></div>';
+    ER.glossIn(box, '.rp > label');
+    box.querySelector('#r1').value = saved.r1 || ''; box.querySelector('#r2').value = saved.r2 || '';
+    function keep() {
+      var o = { r1: box.querySelector('#r1').value, r2: box.querySelector('#r2').value }, n = (o.r1.match(/[A-Za-z’']+/g) || []).length;
+      box.querySelector('.count').textContent = n + (n === 1 ? ' word' : ' words');
+      ER.flag('v-task', o);
+    }
+    box.addEventListener('input', keep);
+    box.addEventListener('keydown', function (e) { e.stopPropagation(); });
+    box.querySelector('#r-print').addEventListener('click', function () { keep(); window.print(); });
+    box.querySelector('#r-done').addEventListener('click', ER.close);
+    ER.open('ov-report', box); keep();
+  });
+
+  VN.thing('#ib', null, function () { return ER.flag('v-done') ? 'Miss Blackwood has her wig tin under one arm and her eyes shut. &ldquo;I know this one,&rdquo; she says. &ldquo;My grandmother sang it.&rdquo;' : 'Miss Blackwood, with her wig in its tin. She looks ten years younger than she did at nine o&rsquo;clock yesterday.'; }, isBusy);
+  VN.thing('#usher', null, 'Mr Tunnicliffe, at the top of the steps, in his black gown. He has told people not to play on these steps for thirty years.', isBusy);
+  VN.thing('#building', null, 'Wyncaster Crown Court, with the Royal Arms over the doors and the lights coming on, one window at a time.', isBusy);
+})();
+</script>
+</body>
+</html>

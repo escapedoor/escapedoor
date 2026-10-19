@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Water Clock · Open This Together</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-duo.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="lodge.css">
+<style>
+  body{--bg:#1c0c0a;--accent:#ff8a6a;--font-display:'Fraunces',serif;--font-ui:'Space Mono',monospace;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(28,12,10,.95);--tc-ink:#fbe8e0;--cap-bg:rgba(30,12,10,.93);--panel:#261210;--face-bg:#3a1c16;--q-ink:#ffc0a8;--fade:#0a0403;--hud-bg:rgba(30,12,10,.82)}
+  .tc-room{font-family:'Space Mono',monospace;font-weight:700;letter-spacing:-.02em}
+  .pcard{border-left-color:#e2583a}
+  #lampR{animation:lampR 1.6s steps(1,end) infinite}
+  @keyframes lampR{50%{opacity:.25}}
+  #sec{animation:sec 60s steps(60,end) infinite;transform-origin:760px 420px}
+  @keyframes sec{to{transform:rotate(360deg)}}
+  #nd2{animation:nd 3s ease-in-out infinite alternate;transform-origin:1290px 400px}
+  @keyframes nd{from{transform:rotate(-8deg)}to{transform:rotate(4deg)}}
+  .steam{animation:steam 3s ease-in-out infinite}
+  @keyframes steam{0%{opacity:0;transform:translateY(0)}50%{opacity:.6}100%{opacity:0;transform:translateY(-40px)}}
+  .bx.alarm{width:min(720px,95vw);background:#2a1410}
+  .alarm-in{display:grid;grid-template-columns:260px 1fr;gap:18px;align-items:center;padding:18px 22px 4px}
+  .alarm-in svg{width:100%;height:auto}
+  .alarm-in h5{margin:0 0 6px;font-family:'Fraunces',serif;font-weight:700;font-size:24px;color:#fbe8e0}
+  .alarm-in p{margin:0 0 10px;font-family:'EB Garamond',serif;font-size:18px;line-height:1.35;color:#f3dcd2}
+  .alarm-in .set{display:flex;align-items:center;gap:6px;font-family:'Space Mono',monospace;font-size:26px;color:#fbe8e0}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <radialGradient id="redG" cx="80%" cy="30%" r="70%"><stop offset="0" stop-color="#ff5a3a" stop-opacity=".22"/><stop offset="1" stop-color="#ff5a3a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="warmG" cx="35%" cy="55%" r="60%"><stop offset="0" stop-color="#ffcf8a" stop-opacity=".3"/><stop offset="1" stop-color="#ffcf8a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vigR" cx="50%" cy="50%" r="76%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#000" stop-opacity=".2"/><stop offset="1" stop-color="#000" stop-opacity=".75"/></radialGradient>
+</defs>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="#3a2420"/>
+<rect x="-1000" y="-700" width="3600" height="1340" fill="#5a3a30"/>
+<g opacity=".25" stroke="#2a1410" stroke-width="2"><path d="M-1000 100H2600M-1000 260H2600M-1000 420H2600"/></g>
+<!-- the pump panel on the wall -->
+<g id="pump" class="hot"><rect x="1090" y="120" width="400" height="420" rx="8" fill="#5a5a52" stroke="#2a2a26" stroke-width="6"/><text x="1290" y="166" class="sv" font-size="22" fill="#f1efe4" letter-spacing="4">PUMP · YARD</text>
+  <circle cx="1290" cy="300" r="100" fill="#f1efe4" stroke="#2a2a26" stroke-width="6"/><path d="M1206 352A100 100 0 1 1 1374 352" fill="none" stroke="#c4372b" stroke-width="10" stroke-dasharray="40 300" stroke-dashoffset="-268"/>
+  <text x="1220" y="350" class="sv" font-size="16" fill="#2a2a26">0</text><text x="1290" y="226" class="sv" font-size="16" fill="#2a2a26">HALF</text><text x="1362" y="350" class="sv" font-size="16" fill="#2a2a26">FULL</text>
+  <g id="nd2"><path d="M1290 300l64 46" stroke="#1b1b1b" stroke-width="6" stroke-linecap="round"/></g><circle cx="1290" cy="300" r="10" fill="#1b1b1b"/>
+  <circle id="lampR" cx="1170" cy="470" r="16" fill="#ff4a2a"/><text x="1290" y="478" class="sv" font-size="16" fill="#f1efe4" letter-spacing="2">LEVEL RISING</text></g>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#redG)" pointer-events="none"/>
+<!-- the desk -->
+<rect x="-1000" y="640" width="3600" height="1100" fill="#4a2a18"/><path d="M-1000 640H2600" stroke="#6a3c22" stroke-width="10"/>
+<!-- Mr Blundell, with a mug of tea he has not drunk -->
+<g id="blundell" class="hot"><path d="M80 900q-20 -300 160 -320q180 20 160 320z" fill="#2c3a52"/><rect x="214" y="520" width="52" height="64" fill="#d9a888"/><ellipse cx="240" cy="460" rx="74" ry="86" fill="#e2b28e"/>
+  <path d="M168 440q-14 -54 18 -72M312 440q14 -54 -18 -72" stroke="#ece8de" stroke-width="20" stroke-linecap="round" fill="none"/><path d="M190 424q22 -14 42 -2M252 422q22 -12 42 2" stroke="#ece8de" stroke-width="8" stroke-linecap="round" fill="none"/>
+  <circle cx="214" cy="446" r="6" fill="#2a1c12"/><circle cx="268" cy="446" r="6" fill="#2a1c12"/><path d="M204 500q36 -12 72 0q-36 8 -72 0z" fill="#ece8de"/><ellipse cx="240" cy="386" rx="84" ry="18" fill="#1d2a40"/><path d="M174 386q4 -50 66 -54q62 4 66 54z" fill="#2c3a52"/>
+  <path d="M360 700q30 -40 70 -40" stroke="#2c3a52" stroke-width="40" stroke-linecap="round" fill="none"/><rect x="420" y="640" width="60" height="70" rx="6" fill="#e6e2d8"/><path d="M480 656q24 0 20 30q-4 14 -20 12" stroke="#e6e2d8" stroke-width="9" fill="none"/>
+  <path class="steam" d="M440 630q-10 -20 6 -40M462 630q-10 -20 6 -40" stroke="#f1efe4" stroke-width="4" fill="none"/></g>
+<!-- the alarm clock -->
+<g id="clockg" class="hot"><circle cx="680" cy="270" r="44" fill="#c9a94e"/><circle cx="840" cy="270" r="44" fill="#c9a94e"/><path d="M700 300l-30 -40M820 300l30 -40" stroke="#8a7230" stroke-width="10"/>
+  <circle cx="760" cy="420" r="170" fill="#c9a94e" stroke="#6a5520" stroke-width="10"/><circle cx="760" cy="420" r="148" fill="#f6f1e4"/><g id="cticks"></g>
+  <path d="M760 420l-40 -80" stroke="#1b1b1b" stroke-width="10" stroke-linecap="round"/><path d="M760 420l90 -40" stroke="#1b1b1b" stroke-width="7" stroke-linecap="round"/><g id="sec"><path d="M760 440v-130" stroke="#c4372b" stroke-width="3"/></g><circle cx="760" cy="420" r="10" fill="#1b1b1b"/>
+  <path d="M640 590l-40 70M880 590l40 70" stroke="#6a5520" stroke-width="16" stroke-linecap="round"/><rect x="668" y="606" width="184" height="30" rx="3" fill="#f1ead2"/><text x="760" y="627" class="sm" font-size="15" fill="#6a5520">SET THE ALARM</text></g>
+<!-- the catalogue card and the plan, on the desk -->
+<g id="cardg" class="hot" transform="rotate(-6 1030 720)"><rect x="960" y="680" width="200" height="120" fill="#fbf8ee"/><rect x="960" y="680" width="200" height="4" fill="#c4372b"/><g stroke="#3a3a5a" stroke-width="2"><path d="M976 704h150M976 722h120M976 740h160M976 758h90M976 776h130"/></g></g>
+<g id="splan" class="hot" transform="rotate(4 1330 740)"><rect x="1230" y="660" width="260" height="190" fill="#e9edf0"/><rect x="1260" y="680" width="200" height="150" fill="none" stroke="#1a3a5a" stroke-width="4"/><g fill="#dfe6ec" stroke="#5a7a9a" stroke-width="2"><rect x="1264" y="684" width="60" height="44"/><rect x="1396" y="684" width="60" height="44"/></g><text x="1294" y="716" class="sv" font-size="24" fill="#1a3a5a">D</text></g>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#warmG)" pointer-events="none"/>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#vigR)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Something is letting it in</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="lodge.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, nextFile = null, alarm = null;
+  (function () {
+    var s = '', i, a;
+    for (i = 0; i < 60; i++) { a = i * 6 * Math.PI / 180; var r1 = i % 5 ? 136 : 122; s += '<path d="M' + (760 + r1 * Math.sin(a)).toFixed(1) + ' ' + (420 - r1 * Math.cos(a)).toFixed(1) + 'L' + (760 + 144 * Math.sin(a)).toFixed(1) + ' ' + (420 - 144 * Math.cos(a)).toFixed(1) + '" stroke="#2a2a26" stroke-width="' + (i % 5 ? 2 : 5) + '"/>'; }
+    for (i = 1; i <= 12; i++) { a = i * 30 * Math.PI / 180; s += '<text x="' + (760 + 102 * Math.sin(a)).toFixed(1) + '" y="' + (420 - 102 * Math.cos(a) + 10).toFixed(1) + '" class="sv" font-size="28" fill="#2a2a26">' + i + '</text>'; }
+    $('#cticks').innerHTML = s;
+  })();
+
+  ER.init({
+    theme: 'duo', story: 'dive-b', storyTitle: 'Open This Together', id: 'clock', no: 'III', title: 'The Water Clock',
+    go: 'Look at the pump',
+    intro: [
+      'TIME CAPSULE said &ldquo;see RILLMOUTH BOX&rdquo;; RILLMOUTH BOX said 2025.31; and card 2025.31 said Bay D, top shelf. The plan of the Long Store is drawn from the main doors, where Bay D is the first bay on the right. The diver came in by the back doors, at the other end, facing the other way: so Bay D was the last bay on the diver&rsquo;s left. In the log: 22.56, water at 2.32 m on the pillar, air 170 bar.',
+      'Now the diver is at the top shelf of Bay D, and there are five boxes on it. Your card says, line by line, what the right one looks like.',
+      'And on the wall, the pump panel has a red lamp that will not stop blinking.'
+    ],
+    exit: {"next":"drains","w":{"010e8b49":"5ed32c49"}}, tags: {"fast":["c1b4e920","0ef59f1e"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('b3-told') || {}; nextFile = ER.flag('b3-file') || null;
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('b3-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#go').classList.toggle('on', !!nextFile);
+    ER.pips((told.blundell ? 1 : 0) + (told.alarm ? 1 : 0) + (nextFile ? 1 : 0), 3);
+    if (nextFile) LG.card([['Tell your partner', ['&ldquo;The water will reach the top shelf at &hellip;. The pump is on full and the water is still rising. Something is letting the river in.&rdquo;']], ['Ask your partner', ['&ldquo;Can you see where the water is coming from?&rdquo;']]]);
+    else LG.card([['Tell your partner', ['&ldquo;The box is made of &hellip;. It has &hellip; corners and &hellip; on the lid. The plate on the front says &hellip;.&rdquo;']], ['Ask your partner', ['&ldquo;What is the first box made of? What is on its lid?&rdquo;', '&ldquo;What time is it now? What does the gauge on the upright say? Over.&rdquo;']]]);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The alarm is set. Now find out why the water is still rising.']];
+    return ['clock', [
+      'You need the water at two different times. The first is in your dive log. Ask the diver for the second: the time on the watch now, and the water on the gauge painted on the end upright of Bay D.',
+      'How many centimetres did the water rise, and in how many minutes? Then look at the plan of the Long Store: how many centimetres are left before it reaches the top shelves?',
+      'If it rose 6 centimetres in 12 minutes, that is one centimetre every two minutes. Work out how many minutes the rest will take, and add them to the time of the second reading.'
+    ]];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; ER.say('The alarm is set. The pump&rsquo;s red lamp is still blinking.'); return; }
+    if (told.intro) { busy = false; ER.say('The alarm clock, the pump panel, and Mr Blundell&rsquo;s cold tea.'); return; }
+    ER.narrate([
+      'Mr Blundell has made tea after all, and is not drinking it. He is watching the pump panel. The needle is right over at FULL, and under it a red lamp blinks: LEVEL RISING.',
+      '&ldquo;If it goes on like this,&rdquo; he says, &ldquo;when does it reach the top shelves? That&rsquo;s what I want to know. Set my alarm clock for it. I want to hear it coming.&rdquo;',
+      'On the radio, the diver is reading out boxes: one, two, three, four, five, side by side on the top shelf of Bay D.'
+    ], function () { busy = false; tell('intro'); paint(); });
+  }
+
+  $('#blundell').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Mr Ossie Blundell', role: 'Night porter · with cold tea', face: LG.FACE.blundell,
+      lines: [
+        { note: 'He is holding a mug of tea, and not drinking it.', a: '&ldquo;Pump&rsquo;s on full. That needle hasn&rsquo;t moved since nine o&rsquo;clock. And the water&rsquo;s still coming up. That&rsquo;s not right, you know. A pump that size ought to be winning by now.&rdquo;' },
+        { q: 'Did you ever see the time capsule?', a: 'See it? I carried it down myself, on Monday, when Mrs T. said rain was coming. Heavy. A tin trunk, with 1926 painted on the lid in big white figures. &ldquo;Top shelf of D, Ossie,&rdquo; she said, and that&rsquo;s where I put it.' },
+        { q: 'Are you sure it was a tin trunk?', a: 'Sure as I&rsquo;m sitting here. Big white figures: 1926. Mind you, I carried five boxes down to D that morning, one after the other, and my knees remember them better than I do.' },
+        { q: 'How long have we got?', a: 'That&rsquo;s your department. You&rsquo;ve got the plan, and the diver&rsquo;s got the gauges. I&rsquo;ve only got a stool.' }
+      ],
+      clue: { id: 'blundell3', title: 'Mr Blundell, about the time capsule', kind: 'What he said' },
+      done: function (seen) { if (seen && tell('blundell')) paint(); }
+    });
+  });
+
+  /* ---------- the alarm clock ---------- */
+  function clockFace(h, m) {
+    var s = '<svg viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg"><circle cx="130" cy="130" r="122" fill="#c9a94e"/><circle cx="130" cy="130" r="106" fill="#f6f1e4"/>', i, a;
+    for (i = 1; i <= 12; i++) { a = i * 30 * Math.PI / 180; s += '<text x="' + (130 + 82 * Math.sin(a)).toFixed(1) + '" y="' + (130 - 82 * Math.cos(a) + 8).toFixed(1) + '" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="22" fill="#2a2a26" text-anchor="middle">' + i + '</text>'; }
+    a = ((h % 12) + m / 60) * 30;
+    s += '<g transform="rotate(' + a.toFixed(1) + ' 130 130)"><path d="M130 130V82" stroke="#c4372b" stroke-width="5" stroke-linecap="round"/><path d="M124 86l6 -12 6 12z" fill="#c4372b"/></g><circle cx="130" cy="130" r="7" fill="#1b1b1b"/>' +
+      '<text x="130" y="184" font-family="Space Mono,monospace" font-weight="700" font-size="13" fill="#c4372b" text-anchor="middle">ALARM</text></svg>';
+    return s;
+  }
+  function makeAlarm() {
+    var box = ER.el('div', 'bx alarm'), hh = LG.counter(LG.range(0, 23, 1, 0, 2), '23', { id: 'a-hh', change: face }), mm = LG.counter(LG.range(0, 59, 1, 0, 2), '00', { id: 'a-mm', big: true, change: face });
+    box.innerHTML = '<div class="alarm-in"><div class="face"></div><div><h5>Mr Blundell&rsquo;s alarm clock</h5><p>Set the red hand for the time when the water will reach the top shelves of the Long Store, if nothing changes. The clock uses the 24-hour clock for setting, like your log.</p>' +
+      '<div class="set"><i id="s-hh"></i><b>.</b><i id="s-mm"></i></div></div></div><div class="bx-foot"><p class="pmsg"></p><button type="button" class="btn" id="setal">Set the alarm</button></div>';
+    box.querySelector('#s-hh').appendChild(hh.el); box.querySelector('#s-mm').appendChild(mm.el);
+    var msg = function (t) { box.querySelector('.pmsg').innerHTML = ER.gloss(t); };
+    function face() { box.querySelector('.face').innerHTML = clockFace(parseInt(hh.value(), 10), parseInt(mm.value(), 10)); }
+    face();
+    box.querySelector('#setal').addEventListener('click', function () {
+      var t = hh.value() + '.' + mm.value(), file = ER.exit([t], { wait: true });
+      tell('alarm'); paint();
+      if (!file) {
+        ER.sfx.no();
+        if (ER.check('fast', t)) msg('&ldquo;That would mean a centimetre every minute,&rdquo; says Mr Blundell. &ldquo;Six centimetres in twelve minutes is slower than that. Do it again.&rdquo;');
+        else msg('Mr Blundell does the sum on the back of an envelope, and frowns. &ldquo;Not what I get. How much did it go up, and in how long? And how far is it now from the top shelves?&rdquo;');
+        return;
+      }
+      nextFile = file; ER.flag('b3-file', file);
+      msg('Eight minutes to midnight. Mr Blundell winds the alarm, and puts the clock where both of you can see it.');
+      setTimeout(function () {
+        ER.closeAll(); busy = true; paint();
+        ER.narrate([
+          'Forty-four minutes, if nothing changes. The clock ticks on the desk, very loudly, the way clocks do when somebody has just told them something important.',
+          'Mr Blundell looks from the clock to the pump panel and back. &ldquo;Full,&rdquo; he says. &ldquo;Full since nine. A pump like that, in a basement like this, ought to be winning. Unless the river is getting in somewhere faster than it can take it out.&rdquo;',
+          'On the radio, the diver is saying something about brown water.'
+        ], function () { busy = false; paint(); });
+      }, 2600);
+    });
+    msg('');
+    return { open: function () { ER.open('ov-lock', box); } };
+  }
+  $('#clockg').addEventListener('click', function () { if (busy) return; if (nextFile) { ER.say('The alarm is set for eight minutes to midnight.'); return; } if (!alarm) alarm = makeAlarm(); alarm.open(); });
+  $('#cardg').addEventListener('click', function () { if (!busy) ER.read({ html: LG.CARD31, cls: 'ccard', clue: { id: 'card31', title: '2025.31: the Rillmouth Box', kind: 'Catalogue card' } }); });
+  $('#splan').addEventListener('click', function () { if (!busy) LG.store(); });
+  LG.thing('#pump', 'pump', function () { return nextFile ? 'The needle is at FULL, and the red lamp says LEVEL RISING. The pump is not losing because it is weak. It is losing because more is coming in.' : 'The pump in the yard, on full since nine o&rsquo;clock. The red lamp blinks: LEVEL RISING.'; }, isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

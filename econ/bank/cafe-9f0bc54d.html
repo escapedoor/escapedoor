@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Toast Rack · Still Open at Four</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-econ.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="bank.css">
+<style>
+  body{--bg:#f0c86a;--accent:#b8322a;--font-display:'Lora',serif;--font-ui:'Outfit',sans-serif;--font-body:'Lora',serif;
+    --tc-bg:rgba(255,244,214,.97);--tc-ink:#3a1a10;--cap-bg:rgba(255,250,236,.96);--cap-ink:#2a1a10;--panel:#fffaf0;--panel-ink:#2a1a10;--face-bg:#3a7a5a;--q-ink:#b8322a;
+    --fade:#ffeec8;--hud-bg:rgba(255,250,236,.88);--hud-ink:#2a1a10;--hud-line:rgba(42,26,16,.3);--ov-bg:rgba(50,24,10,.6)}
+  .tc-room{font-size:clamp(40px,5.8vw,82px);color:#b8322a;font-family:'Cabin Sketch',cursive}
+  .tc-theme{color:#3a7a5a}
+  .hbtn b{color:#fff}
+  #steam path{animation:steam 3.4s ease-in-out infinite;opacity:0}
+  #steam path:nth-child(2){animation-delay:-1.2s}
+  @keyframes steam{0%{opacity:0;transform:translateY(8px)}40%{opacity:.6}100%{opacity:0;transform:translateY(-50px)}}
+  #fog{animation:fog 12s ease-in-out infinite alternate}
+  @keyframes fog{to{opacity:.35}}
+
+  /* the order rail */
+  .rl{width:min(1120px,97vw)}
+  .rl-in{background:#efe6d2;border-radius:4px;padding:10px 14px 12px;color:#2a1a10;box-shadow:0 26px 70px rgba(0,0,0,.55);border-top:10px solid #8a8a8a}
+  .rl h4{margin:0 0 6px;font-family:'Cabin Sketch',cursive;font-weight:700;font-size:24px;color:#b8322a}
+  .tix{display:flex;gap:8px;margin-bottom:8px}
+  .tix span{flex:1;padding:5px 7px 4px;background:#fffef6;border-top:4px solid #3a7a5a;font-family:'Courier Prime',monospace;font-size:12.5px;line-height:1.25;box-shadow:0 2px 4px rgba(0,0,0,.18)}
+  .tix b{display:block;font-size:13px}
+  .rail{position:relative;display:grid;grid-template-columns:repeat(6,1fr);gap:7px;padding:16px 6px 6px;background:linear-gradient(#bcbcbc,#8e8e8e) 0 0/100% 10px no-repeat}
+  .clip{position:relative;min-height:128px;border:2px dashed rgba(42,26,16,.3);border-radius:3px;display:flex;align-items:stretch;justify-content:center}
+  .clip:before{content:attr(data-n);position:absolute;top:-17px;left:50%;margin-left:-14px;width:28px;height:14px;background:#5a5a5a;color:#fff;border-radius:3px;font:700 10px/14px 'Outfit',sans-serif;text-align:center}
+  .rc{display:block;width:100%;padding:6px 7px 5px;background:#fffef6;font-family:'Lora',serif;font-size:13px;line-height:1.28;box-shadow:0 2px 5px rgba(0,0,0,.2);border-top:4px solid #b8322a}
+  .rc small{display:block;margin-top:4px;font-family:'Outfit',sans-serif;font-weight:700;font-size:10.5px;letter-spacing:.06em;color:#6a5a4a;text-transform:uppercase}
+  .rc.chat{border-top-color:#2a6a9a;font-family:'Outfit',sans-serif}
+  .rc.mark{outline:4px solid #e2453a;outline-offset:1px;transform:rotate(-1.5deg)}
+  .rl.marking .rc{cursor:pointer}
+  .rl.marking .rc:hover{outline:3px dashed #e2453a}
+  .ctray{display:grid;grid-template-columns:repeat(6,1fr);gap:7px;min-height:132px;margin-top:8px;padding:7px;background:#d8ccb4;border-radius:3px}
+  .rl .pmsg,.tb .pmsg{color:#fffaf0}
+  .rl .bad{outline:3px solid #e2453a}
+  /* Wanda's tablet */
+  .tb{width:min(1000px,96vw)}
+  .tb-in{background:#1a1a1e;border-radius:26px;padding:16px 22px 18px;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+  .tb-top{display:flex;gap:16px;align-items:center;margin-bottom:10px;color:#e8eef4;font-family:'Outfit',sans-serif;font-size:15px}
+  .tb-top svg{width:220px;height:110px;border:3px solid #fff;flex:none}
+  .tb-big{width:100%;height:auto;display:block;border-radius:6px;touch-action:none}
+  #frm{cursor:move}
+  .door{cursor:pointer}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="check" width="40" height="40" patternUnits="userSpaceOnUse"><rect width="40" height="40" fill="#fff6ea"/><rect width="20" height="20" fill="#d8443a"/><rect x="20" y="20" width="20" height="20" fill="#d8443a"/><rect x="20" width="20" height="20" fill="#eba49a"/><rect y="20" width="20" height="20" fill="#eba49a"/></pattern>
+  <pattern id="boards" width="200" height="40" patternUnits="userSpaceOnUse"><rect width="200" height="40" fill="#a8723e"/><path d="M0 0H200M120 0V40M40 20H200" stroke="#7a4e26" stroke-width="2"/></pattern>
+  <pattern id="paper" width="60" height="60" patternUnits="userSpaceOnUse"><rect width="60" height="60" fill="#f2d27a"/><circle cx="15" cy="15" r="4" fill="#e8bc5a"/><circle cx="45" cy="45" r="4" fill="#e8bc5a"/></pattern>
+  <linearGradient id="out" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b8c8d4"/><stop offset="1" stop-color="#d8d4c8"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="45%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#5a2a00" stop-opacity=".07"/><stop offset="1" stop-color="#3a1a00" stop-opacity=".42"/></radialGradient>
+</defs>
+
+<rect x="-1000" y="-400" width="3600" height="1000" fill="url(#paper)"/>
+<rect x="-1000" y="470" width="3600" height="260" fill="#3a7a5a"/><rect x="-1000" y="462" width="3600" height="12" fill="#2a5a40"/>
+
+<!-- the front window, the square, the bank opposite -->
+<g id="window" class="hot"><rect x="30" y="120" width="500" height="350" fill="#5a3a20"/><rect x="44" y="134" width="472" height="322" fill="url(#out)"/>
+  <rect x="80" y="200" width="290" height="200" fill="#c8b48a"/><rect x="80" y="190" width="290" height="16" fill="#a8946a"/><text x="225" y="226" class="cZ" font-size="13" text-anchor="middle" fill="#5a2a1a">BROCKHOLT &amp; DISTRICT BANK</text>
+  <rect x="104" y="246" width="56" height="70" fill="#8aa0aa"/><rect x="290" y="246" width="56" height="70" fill="#8aa0aa"/><rect x="198" y="300" width="54" height="100" fill="#5a2a1a"/>
+  <rect x="380" y="226" width="136" height="174" fill="#d89a5a"/><text x="448" y="250" class="cS" font-size="15" font-weight="700" text-anchor="middle" fill="#fff">PATHAK&apos;S</text><rect x="420" y="300" width="44" height="100" fill="#6a3a1a"/>
+  <rect x="44" y="400" width="472" height="56" fill="#a8a294"/><g id="sq"></g>
+  <rect id="fog" x="44" y="134" width="472" height="322" fill="#fff" opacity=".5"/>
+  <path d="M280 134v322M44 300h472" stroke="#5a3a20" stroke-width="7"/>
+  <text x="160" y="180" class="cS" font-size="34" font-weight="700" text-anchor="middle" fill="#b8322a" opacity=".85">TOAST</text><text x="400" y="180" class="cS" font-size="34" font-weight="700" text-anchor="middle" fill="#b8322a" opacity=".85">RACK</text></g>
+
+<!-- the film poster, the menu -->
+<g id="poster" class="hot"><rect x="590" y="130" width="140" height="196" fill="#1e1a2a" stroke="#c9a24a" stroke-width="5"/><text x="660" y="170" class="cZ" font-size="12" font-weight="700" text-anchor="middle" fill="#f2c45a">IT&apos;S A</text><text x="660" y="190" class="cZ" font-size="12" font-weight="700" text-anchor="middle" fill="#f2c45a">WONDERFUL</text><text x="660" y="210" class="cZ" font-size="12" font-weight="700" text-anchor="middle" fill="#f2c45a">LIFE</text>
+  <path d="M630 290q30 -50 60 0z" fill="#3a3450"/><circle cx="660" cy="248" r="14" fill="#c8bfa8"/><text x="660" y="312" class="cO" font-size="10" text-anchor="middle" fill="#c8bfa8">FRIDAY 7.30</text></g>
+<g id="menu" class="hot"><rect x="790" y="120" width="200" height="220" fill="#8a5a2e"/><rect x="802" y="132" width="176" height="196" fill="#2b3a32"/>
+  <text x="890" y="162" class="cS" font-size="20" font-weight="700" text-anchor="middle" fill="#f2c45a">TODAY</text>
+  <g class="cS" font-size="14" fill="#f4f1e6"><text x="814" y="194">soup (mushroom)</text><text x="966" y="194" text-anchor="end">4.50</text><text x="814" y="220">cheese toastie</text><text x="966" y="220" text-anchor="end">5.00</text><text x="814" y="246">scone</text><text x="966" y="246" text-anchor="end">2.20</text><text x="814" y="272">tea</text><text x="966" y="272" text-anchor="end">1.80</text><text x="814" y="306" font-size="12">no gossip before 10</text></g></g>
+
+<!-- the counter: the rail, the tablet, the urn, Wanda -->
+<g id="wanda" class="hot" transform="translate(1340 690) scale(1.05)"></g>
+<rect x="1140" y="520" width="900" height="240" fill="#8a4e26"/><rect x="1130" y="508" width="920" height="20" rx="3" fill="#c88a4e"/>
+<g id="rail" class="hot"><path d="M1170 286H1560" stroke="#9a9a9a" stroke-width="8" stroke-linecap="round"/><path d="M1180 260v26M1550 260v26" stroke="#7a7a7a" stroke-width="5"/>
+  <g fill="#fffef6" stroke="#b8b0a0"><rect x="1196" y="290" width="48" height="66" transform="rotate(-3 1220 290)"/><rect x="1262" y="290" width="48" height="70"/><rect x="1330" y="290" width="48" height="62" transform="rotate(4 1354 290)"/><rect x="1400" y="290" width="48" height="68" transform="rotate(-2 1424 290)"/><rect x="1470" y="290" width="48" height="64"/></g>
+  <g stroke="#3a7a5a" stroke-width="4"><path d="M1197 292h46M1262 292h48M1331 292h46M1400 292h48M1470 292h48"/></g>
+  <g stroke="#6a6a6a" stroke-width="1.6"><path d="M1204 310h30M1204 320h22M1270 312h32M1270 322h24M1338 312h28M1408 312h30M1408 322h20M1478 312h30"/></g></g>
+<g id="tablet" class="hot"><rect x="1190" y="470" width="96" height="40" rx="5" fill="#1a1a1e" transform="rotate(-8 1238 490)"/><rect x="1196" y="474" width="84" height="32" rx="2" fill="#7aa0c0" transform="rotate(-8 1238 490)"/></g>
+<g id="urn" class="hot"><rect x="1520" y="380" width="90" height="130" rx="18" fill="#c8ccd0" stroke="#8a9096" stroke-width="3"/><rect x="1540" y="360" width="50" height="24" rx="6" fill="#8a9096"/><path d="M1565 486v18" stroke="#2a2c33" stroke-width="6"/>
+  <g id="steam" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"><path d="M1556 356q-10 -16 0 -32t0 -32"/><path d="M1576 356q-10 -16 0 -32t0 -32"/></g></g>
+<g id="cakes"><path d="M1380 506h80" stroke="#c9a24a" stroke-width="4"/><path d="M1420 506v-60" stroke="#c9a24a" stroke-width="3"/><ellipse cx="1420" cy="470" rx="30" ry="6" fill="#fff"/><circle cx="1408" cy="462" r="9" fill="#e8b878"/><circle cx="1432" cy="462" r="9" fill="#e8b878"/></g>
+
+<rect x="-1000" y="730" width="3600" height="700" fill="url(#boards)"/><rect x="-1000" y="726" width="3600" height="8" fill="#5a3a1a"/>
+
+<!-- tables and the people at them -->
+<g id="rook" class="hot" transform="translate(300 790) scale(.98)"></g>
+<g><rect x="160" y="600" width="300" height="20" fill="url(#check)"/><path d="M170 620l-14 112h328l-14 -112z" fill="url(#check)"/><path d="M200 732v78M420 732v78" stroke="#5a3a1a" stroke-width="10"/>
+  <ellipse cx="300" cy="596" rx="34" ry="8" fill="#fff"/><ellipse cx="300" cy="592" rx="24" ry="5" fill="#c89a5a"/><rect x="360" y="580" width="60" height="16" fill="#e8e2d0" transform="rotate(-6 390 588)"/></g>
+<g id="ursula" class="hot" transform="translate(740 790) scale(.96)"></g>
+<g><rect x="610" y="600" width="270" height="20" fill="url(#check)"/><path d="M620 620l-14 112h298l-14 -112z" fill="url(#check)"/><path d="M650 732v78M840 732v78" stroke="#5a3a1a" stroke-width="10"/>
+  <rect x="760" y="580" width="22" height="16" rx="3" fill="#fff"/><rect x="700" y="586" width="44" height="10" fill="#f4eee4"/><rect x="790" y="586" width="20" height="10" rx="2" fill="#1a1a1e"/></g>
+<g id="cup" class="hot"><rect x="960" y="630" width="200" height="20" fill="url(#check)"/><path d="M968 650l-8 36h220l-8 -36z" fill="url(#check)"/><path d="M990 686v130M1130 686v130" stroke="#5a3a1a" stroke-width="10"/>
+  <path d="M1040 630v-18h24v18z" fill="#fff"/><path d="M1064 616q10 2 0 10" stroke="#fff" stroke-width="3" fill="none"/><ellipse cx="1052" cy="632" rx="20" ry="4" fill="#fff"/></g>
+<g id="yuki" class="hot" transform="translate(1000 890) scale(1.08)"></g>
+
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Back across the square</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="bank.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, rail = null, tab = null;
+
+  (function () {
+    var s = '', i;
+    for (i = 0; i < 18; i++) s += '<g transform="translate(' + (108 + i * 21) + ' 448) scale(.5)">' + BANK.small(0, 0, ['#5a6a8a', '#8a4a3a', '#3a5a4a', '#a08a5a', '#6a4a7a'][i % 5], ['#3a2a20', '#c9c4bc', '#1a1412'][i % 3], -1) + '</g>';
+    $('#sq').innerHTML = s;
+    $('#wanda').innerHTML = BANK.who('wanda', { smile: -2, extra: '<path d="M39 -112l20 -30" stroke="#e9b897" stroke-width="12" stroke-linecap="round"/><rect x="50" y="-160" width="34" height="20" fill="#fff" transform="rotate(-20 67 -150)"/>' });
+    $('#rook').innerHTML = BANK.who('rook', { smile: -3 });
+    $('#ursula').innerHTML = BANK.who('ursula', { smile: -5 });
+    $('#yuki').innerHTML = BANK.who('yuki', { badge: null, smile: 3, extra: '<rect x="28" y="-170" width="34" height="46" rx="2" fill="#2a6a9a"/><rect x="32" y="-166" width="26" height="6" fill="#fff"/>' });
+  })();
+
+  ER.init({
+    theme: 'econ', story: 'bank', storyTitle: 'Still Open at Four', id: 'cafe', no: 'III', title: 'The Toast Rack',
+    go: 'Into the Toast Rack', sound: ['ledger', { root: 47, bpm: 92, beds: [['crowd', 0.45]] }],
+    intro: [
+      'Mr Yeoman&rsquo;s balance came out level: £6.5 million owned, £6 million owed to customers, and £500,000 of capital as the cushion. Even if the Courier&rsquo;s three problem loans never paid a penny, the cushion took the £60,000, and every saver was still owed every penny. Solvent. But only £150,000 of it was in notes.',
+      'Now there are twenty people in the queue, and everybody says the rumour started in the café across the square.',
+      'Yuki has taken off her name badge. She says this makes her a member of the public.'
+    ],
+    exit: {"next":"backoffice","w":{"bc3ed0f3":"26682dd9"}}, tags: {"s1":["07c1e70b"],"s2":["9fb821e9"],"s3":["ad38b2da"],"s4":["f53260e0"],"s5":["a21b6e9b"],"s6":["7e39d454"],"chg":["881c0119"],"door":["ec03bdc0"],"loud":["1eca6fa1"],"rude":["6276ba34"],"true":["0b134f6f","57abbd6f"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('c-file') || null; told = ER.flag('c-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('c-told', told); return true; }
+  function isBusy() { return busy; }
+  function ready() { return told.wanda && told.ursula && told.book; }
+  function paint() {
+    var p1 = !!ER.flag('c-ord');
+    $('#rail').classList.toggle('ready', !!(ready() && !p1));
+    $('#tablet').classList.toggle('ready', !!(p1 && !nextFile));
+    ER.pips((told.wanda ? 1 : 0) + (told.ursula ? 1 : 0) + (told.book ? 1 : 0) + (p1 ? 1 : 0) + (nextFile ? 1 : 0), 5);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Simeon Rook has gone to close his account. Back to the bank: the button at the bottom of the screen.']];
+    if (tab && tab.isOpen()) return [tab.matched() ? 'door' : 'tablet', tab.matched() ? [
+      'Look at the people outside the frame. Which way are they facing? What are the people at the front holding?',
+      'The queue does not lead to the bank&rsquo;s door at all. Read the board on the pavement by the other door.'
+    ] : [
+      'The small picture at the top is what Marnie posted. Somewhere in the big picture is exactly that view. Drag the white frame over the big picture until what is inside it matches.',
+      'Look for the letters of the bank&rsquo;s name and the two windows. The frame clicks into place when it is right.'
+    ]];
+    if (rail && rail.isOpen() && rail.marking()) return ['mark', [
+      'Read the cards one after another, as if you were passing on a message. Where did the meaning first change from what really happened?',
+      'Was it true that there was not four thousand pounds at the counter? Yes. Was it true that the bank had no money? No. Find the first card that says something like the second.'
+    ]];
+    if (rail && rail.isOpen()) return ['rail', [
+      'Every card has a time somewhere. Wanda&rsquo;s tickets give the café times. Mrs Bright&rsquo;s phone gives the times of the posts. And Mr Ellwood told you when he was at window 1.',
+      'Mr Ellwood was at window 1 at ten to twelve. He came into the café at 12.05. Mrs Bright posted at 12.21, the reply came at 12.48, the photograph at 1.32.',
+      'Mr Rook&rsquo;s ticket says 12.34. So where does his card go?'
+    ]];
+    if (!told.wanda) return ['wanda', ['Wanda Threlfall runs the café. Everybody tells Wanda things.', 'Wanda is behind the counter on the right, under the order rail.']];
+    if (!told.ursula) return ['ursula', ['The woman in the purple cardigan is staring at her phone. Yuki says she is Mrs Bright.', 'Mrs Bright is at the middle table.']];
+    if (!told.book) return ['book', ['Yuki brought her evening-class book. It has a page on exactly this.', 'Click Yuki, in the front of the room, on the right.']];
+    if (!told.rook) return ['rail', ['Now put the rumour in order on Wanda&rsquo;s rail, above the counter. You may want to hear Mr Rook first: he is at the table by the window.', 'The steel rail with the order tickets on it, above the counter.']];
+    return ['rail', ['Put the rumour in order on Wanda&rsquo;s rail: the steel rail with the tickets, above the counter.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('Mr Rook has gone. His soup bowl is so clean it could go back on the shelf.'); return; }
+    if (told.in) { busy = false; ER.say('The Toast Rack. Warm, steamy and very interested in you.'); return; }
+    tell('in');
+    ER.narrate([
+      'The Toast Rack: steamed-up windows, red check tablecloths, a tea urn the size of a dustbin and a smell of toasted cheese. It is the warmest room in Brockholt, and the noisiest.',
+      'Wanda Threlfall is behind the counter. Above her head, the order tickets hang on a steel rail. At the table by the window, Simeon Rook is eating soup and reading the Courier. At the middle table, a white-haired woman in a purple cardigan is looking at her phone as if it had bitten her.',
+      '&ldquo;That&rsquo;s Mrs Bright,&rdquo; Yuki whispers. &ldquo;She taught me English. She taught everybody English.&rdquo;'
+    ], function () { busy = false; });
+  }
+
+  $('#wanda').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Free tasters,&rdquo; says Wanda. &ldquo;I could have told you. I could have told everybody. Nobody asked me.&rdquo;'); return; }
+    ER.talk({
+      who: 'Wanda Threlfall', role: 'The Toast Rack · twenty years on Market Square', face: BANK.face('wanda'),
+      lines: [
+        { note: 'She is wiping a table that is already clean.', a: '&ldquo;Monty came in just after twelve, before the soup was on. Steaming. <i>They haven&rsquo;t got four thousand pounds in there!</i> he says. <i>Two days, they said!</i> The whole café heard. Monty doesn&rsquo;t whisper. He thinks whispering is for burglars.&rdquo;' },
+        { q: 'Who else was here?', a: 'Ursula Bright, at table two, doing her crossword. She went very quiet, and then she went very busy on her phone. Simeon Rook came in later for his soup, and said what he always says about that bank, only louder.' },
+        { q: 'Who took the photograph?', a: 'My Marnie. Half past one, from this window, on the café tablet. She thought she was helping. I have told her she was not helping. The tablet is on the counter: the whole picture is still on it.' },
+        { q: 'Is it your fault?', a: 'I serve tea. People talk. Twenty years I&rsquo;ve stood here, and I have never once had a rumour come back and ask for its money. All my tickets are on the rail, if you want them. I write everything down.' }
+      ],
+      clue: { id: 'wanda', title: 'Wanda: before the soup was on', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('wanda')) { paint(); ER.say('Her tickets are on the rail above the counter. The tablet is on the counter.'); } }
+    });
+  });
+  $('#ursula').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Mrs Bright is typing her correction with one finger. &ldquo;With the times,&rdquo; she says. &ldquo;Exactly what happened, with the times.&rdquo;'); return; }
+    ER.talk({
+      who: 'Mrs Ursula Bright', role: 'Retired · taught English for thirty-four years', face: BANK.face('ursula'),
+      lines: [
+        { note: 'She has turned her phone face down on the tablecloth, as if it might bite again.', a: '&ldquo;I wrote it. I&rsquo;m so sorry. I thought I was warning people. Monty said the bank hadn&rsquo;t got the money, and my sister&rsquo;s savings are in there.&rdquo;' },
+        { q: 'What exactly did you write?', a: 'She turns the phone over. <span class="post"><i>Brockholt Chat &middot; 12.21 &middot; U. Bright</i>Just heard in the Toast Rack: the bank hasn&rsquo;t got the money to pay Monty Ellwood!! Has anyone else had trouble?</span>' },
+        { q: 'What did Mr Ellwood actually say?', a: '&ldquo;<i>They haven&rsquo;t got four thousand pounds in there.</i>&rdquo; She stops. &ldquo;Oh. That isn&rsquo;t quite the same, is it? I used to take marks off for that.&rdquo;' },
+        { q: 'What came after?', a: '<span class="post"><i>Brockholt Chat &middot; 12.48 &middot; LedgerLad</i>my cousin says theyve got NO money. get yours out before monday</span><span class="post"><i>Brockholt Chat &middot; 1.32 &middot; Marnie T.</i>Queue outside the bank already!!! (photograph)</span>&ldquo;After that I stopped reading. I don&rsquo;t even know who LedgerLad is.&rdquo;' }
+      ],
+      clue: { id: 'ursula', title: 'Mrs Bright&rsquo;s phone: 12.21, 12.48, 1.32', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('ursula')) { paint(); ER.say('Twelve twenty-one, twelve forty-eight, one thirty-two.'); } }
+    });
+  });
+  $('#rook').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Mr Rook&rsquo;s chair is empty. It is one of his own antiques: Wanda bought twenty-four of them.'); return; }
+    ER.talk({
+      who: 'Mr Simeon Rook', role: 'Rook&rsquo;s Antiques, Church Lane', face: BANK.face('rook', 'cross'),
+      lines: [
+        { note: 'He folds the Courier exactly in half and does not look up.', a: '&ldquo;I know what they&rsquo;re saying. Rook&rsquo;s got a grudge, Rook started it. They refused me a loan three weeks ago. Forty thousand, for the shop. Said my sums didn&rsquo;t add up.&rdquo;' },
+        { q: 'Did you say anything about the bank?', a: 'I said that bank deserves everything that&rsquo;s coming to it. I said it at this table, over my soup, and I&rsquo;d say it again. Saying a thing is not writing it on the internet. I haven&rsquo;t got the internet. I&rsquo;ve got a shop.' },
+        { q: 'When did you come in?', a: 'When I always come in. Half past twelve, give or take. Ask Wanda. She writes everything down. It&rsquo;s like having lunch in a police station.' },
+        { q: 'Have you taken your money out?', a: 'Not yet. I&rsquo;m going over when I&rsquo;ve finished my soup. I&rsquo;ve had an account there since I was eight years old. Imagine that. Fifty years, and they won&rsquo;t lend me forty thousand pounds.' }
+      ],
+      clue: { id: 'rook', title: 'Mr Rook: saying is not writing', kind: 'What he said' },
+      done: function (seen) { if (seen && tell('rook')) { paint(); ER.say('&ldquo;Half past twelve, give or take.&rdquo; Wanda&rsquo;s ticket will say exactly.'); } }
+    });
+  });
+
+  var LOOP = '<svg viewBox="0 0 290 240"><g font-family="Architects Daughter,cursive" font-size="13.5" fill="#1e2430" text-anchor="middle">' +
+    '<path d="M145 40A95 85 0 1 1 144 40" fill="none" stroke="#2a6a9a" stroke-width="3" stroke-dasharray="7 5"/><path d="M152 34l-12 6 12 6" fill="none" stroke="#2a6a9a" stroke-width="3"/>' +
+    '<rect x="85" y="22" width="120" height="30" rx="14" fill="#fff" stroke="#c2185b" stroke-width="2"/><text x="145" y="42">a rumour</text>' +
+    '<rect x="196" y="92" width="90" height="44" rx="10" fill="#fff" stroke="#2a6a9a" stroke-width="2"/><text x="241" y="110">&ldquo;others</text><text x="241" y="127">will go first&rdquo;</text>' +
+    '<rect x="160" y="182" width="110" height="30" rx="10" fill="#fff" stroke="#2a6a9a" stroke-width="2"/><text x="215" y="202">a queue</text>' +
+    '<rect x="16" y="182" width="120" height="44" rx="10" fill="#fff" stroke="#2a6a9a" stroke-width="2"/><text x="76" y="200">the cash</text><text x="76" y="217">runs down</text>' +
+    '<rect x="4" y="88" width="96" height="44" rx="10" fill="#fff" stroke="#c2185b" stroke-width="2"/><text x="52" y="106">&ldquo;See? It</text><text x="52" y="123">was true!&rdquo;</text></g></svg>';
+  var BOOK = '<h4>Introduction to Economics &middot; page 112</h4><h3>Confidence</h3><div class="two"><div>' +
+    '<p>A bank depends on <b>CONFIDENCE</b>: customers leave their money in because they believe they can take it out whenever they like.</p>' +
+    '<p>A <b>RUMOUR</b> can break that. Suppose you hear that your bank may run short of cash. You may not believe it. But you know that if other people believe it, they will take their money out first, and then the cash really will run short. So the sensible thing is to go now. Everybody thinks the same. The queue grows, the cash runs down, and the rumour has made itself true. Economists call this a <b>SELF-FULFILLING PROPHECY</b>, and in a bank it is called a <b>BANK RUN</b>.</p>' +
+    '<p>Every person in the queue is being sensible. The queue as a whole is not.</p>' +
+    '<p>A rumour also changes as it is passed on. Each person keeps what seems exciting and drops what seems dull: very often the time, the place, or the exact number.</p>' +
+    '<p class="pen">tested on this!! Y.Y.</p></div><div>' + LOOP + '</div></div>';
+  $('#yuki').addEventListener('click', function () {
+    if (busy) return;
+    if (told.book) { ER.say(nextFile ? '&ldquo;A queue for bread,&rdquo; says Yuki. &ldquo;I&rsquo;m going to put that in my exam.&rdquo;' : '&ldquo;Page one-twelve,&rdquo; says Yuki. &ldquo;It&rsquo;s in your notebook now. It was in my exam.&rdquo;'); return; }
+    ER.say('Yuki opens her evening-class book and folds it back. &ldquo;Page one-twelve. Read this. I had a test on it.&rdquo;');
+    setTimeout(function () {
+      ER.read({ html: BOOK, cls: 'book2', clue: { id: 'book', title: 'Yuki&rsquo;s book: confidence', kind: 'Page 112' }, done: function () {
+        BANK.terms(['confidence', 'rumour', 'self-fulfilling prophecy', 'bank run']);
+        if (tell('book')) { paint(); ER.say('Every person in the queue is being sensible. The queue as a whole is not.'); }
+      } });
+    }, 900);
+  });
+  var FILM = '<h4>It&rsquo;s a Wonderful Life</h4><h5>Toast Rack Film Night &middot; Friday at 7.30 &middot; tea and toast £3</h5>' +
+    '<p>Frank Capra&rsquo;s film of 1946, with James Stewart as George Bailey, who runs the small Bailey Building and Loan in the town of Bedford Falls.</p>' +
+    '<p>In one famous scene, a panic sweeps through the town on George&rsquo;s wedding day, and the savers crowd in to take their money out. George tells them their money is not in a safe: it is in each other&rsquo;s houses, which their savings helped to build. Then he and his new wife pay the savers out of their own honeymoon money.</p>' +
+    '<p>Bring a cushion. The chairs are antiques.</p>';
+  $('#poster').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: FILM, cls: 'poster', clue: { id: 'film', title: 'Film night: It&rsquo;s a Wonderful Life', kind: 'On the wall' }, done: function () {
+      BANK.terms(['panic']);
+      if (tell('film')) ER.say('A run on a small bank, in a film eighty years old. People in Brockholt still cry at the end of it.');
+    } });
+  });
+  BANK.thing('#menu', null, 'TODAY: soup (mushroom) £4.50, cheese toastie £5.00, scone £2.20, tea £1.80. And at the bottom, in smaller chalk: NO GOSSIP BEFORE 10.', isBusy);
+  BANK.thing('#urn', 'urn', 'The tea urn, steaming like Mr Ellwood.', isBusy);
+  BANK.thing('#cup', null, 'Table 3. Mr Ellwood&rsquo;s cup of tea, still half full. He was too angry to drink it.', isBusy);
+  BANK.thing('#window', null, function () { return 'Through the steamed-up glass: the bank across the square, and the queue outside it, longer than ever. Beside the bank is Pathak&rsquo;s Bakery.'; }, isBusy);
+  $('#rail').addEventListener('click', function () {
+    if (busy) return;
+    if (ER.flag('c-ord')) { if (nextFile) ER.say('Six cards on the rail, in order, and a red ring round 12.21.'); else ER.say('The rumour is on the rail, in order. Now Wanda&rsquo;s tablet, on the counter: the whole picture is on it.'); return; }
+    if (!told.wanda) { ER.say('Order tickets on a steel rail. Ask Wanda first: they are hers.'); return; }
+    if (!told.ursula) { ER.say('To put the rumour in order you need the times of the posts. Mrs Bright has them on her phone.'); return; }
+    if (!told.book) { ER.say('Yuki says there is a page in her book about how a rumour changes as it goes round. Read it first.'); return; }
+    ER.addClue('tickets', 'Wanda&rsquo;s tickets', '<h4>Wanda&rsquo;s tickets</h4><p>TABLE 2 &middot; 11.55 &middot; pot of tea, scone &middot; U.B.</p><p>TABLE 3 &middot; 12.05 &middot; tea, strong &middot; M.E.</p><p>TABLE 1 &middot; 12.34 &middot; soup, roll &middot; S.R.</p><p>TAKEAWAY &middot; 1.25 &middot; 2 coffees &middot; Pathak&rsquo;s</p>', 'sheet', 'On the rail', true);
+    if (!rail) rail = makeRail();
+    rail.open();
+  });
+  $('#tablet').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Marnie&rsquo;s picture, whole: a queue for free bread, with the bank in the background.'); return; }
+    if (!ER.flag('c-ord')) { ER.say('The café tablet. Marnie&rsquo;s picture is on it. First find out how the words changed: Wanda&rsquo;s rail.'); return; }
+    if (!tab) tab = makeTab();
+    tab.open();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the rail: the rumour in order ---------- */
+  function makeRail() {
+    var C = [
+      ['hv', '&ldquo;That bank deserves everything that&rsquo;s coming to it.&rdquo;', 'Mr Rook, at table 1', ''],
+      ['pn', '&ldquo;Queue outside the bank already!!!&rdquo; and a photograph', 'Brockholt Chat', 'chat'],
+      ['mt', '&ldquo;They haven&rsquo;t got four thousand pounds in there! Two days, they said!&rdquo;', 'Mr Ellwood, in the café', ''],
+      ['dw', '&ldquo;my cousin says theyve got NO money. get yours out before monday&rdquo;', 'Brockholt Chat', 'chat'],
+      ['qk', '&ldquo;Not from the counter today, Mr Ellwood. Anything over two thousand pounds needs two days&rsquo; notice, and our van is late.&rdquo;', 'Yuki, at window 1', ''],
+      ['zb', '&ldquo;Just heard in the Toast Rack: the bank hasn&rsquo;t got the money to pay Monty Ellwood!! Has anyone else had trouble?&rdquo;', 'Brockholt Chat', 'chat']
+    ];
+    var saved = ER.flag('c-rail') || [], marking = false, wait = false;
+    var box = ER.el('div', 'pz rl');
+    box.innerHTML = '<div class="rl-in"><h4>Wanda&rsquo;s rail</h4><div class="tix">' +
+      '<span><b>TABLE 2 &middot; 11.55</b>pot of tea, scone &middot; U.B.</span><span><b>TABLE 3 &middot; 12.05</b>tea, strong &middot; M.E.</span><span><b>TABLE 1 &middot; 12.34</b>soup, roll &middot; S.R.</span><span><b>TAKEAWAY &middot; 1.25</b>2 coffees &middot; Pathak&rsquo;s</span></div>' +
+      '<div class="rail">' + [1, 2, 3, 4, 5, 6].map(function (i) { return '<span class="clip" data-n="' + (i === 1 ? 'first' : i === 6 ? 'last' : i) + '" data-i="' + i + '"></span>'; }).join('') + '</div>' +
+      '<div class="ctray" id="ct">' + C.map(function (c) { return '<span class="dnd-item rc ' + c[3] + '" data-id="' + c[0] + '">' + c[1] + '<small>' + c[2] + '</small></span>'; }).join('') + '</div></div>' +
+      '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="c-go">Clip them up</button></div>';
+    var msgEl = box.querySelector('.pmsg'), ct = box.querySelector('#ct');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function at(i) { var it = box.querySelector('.clip[data-i="' + i + '"] .rc'); return it ? it.getAttribute('data-id') : ''; }
+    function keep() { var o = []; for (var i = 1; i <= 6; i++) o.push(at(i)); ER.flag('c-rail', o); }
+    saved.forEach(function (id, i) { var it = id && box.querySelector('.rc[data-id="' + id + '"]'); if (it) box.querySelector('.clip[data-i="' + (i + 1) + '"]').appendChild(it); });
+    ER.dnd(box, { item: '.rc', slot: '.clip', home: ct, change: keep, lock: function () { return marking || wait; } });
+    function flash(n) { n.classList.add('bad'); setTimeout(function () { n.classList.remove('bad'); }, 1200); }
+    function pos(id) { for (var i = 1; i <= 6; i++) if (at(i) === id) return i; return 0; }
+    function startMarking() {
+      marking = true; box.classList.add('marking'); box.querySelector('#c-go').style.display = 'none';
+      msg('All six in order. Now take Wanda&rsquo;s red pen: <b>click the first card where the words stopped meaning what really happened.</b>');
+    }
+    box.querySelector('#c-go').addEventListener('click', function () {
+      if (marking || wait) return;
+      var i, n = 0, empty = 0;
+      for (i = 1; i <= 6; i++) { if (!at(i)) empty++; else if (ER.check('s' + i, at(i))) n++; }
+      if (empty) { ER.sfx.no(); msg('&ldquo;Six cards and ' + (6 - empty) + ' on the rail,&rdquo; says Wanda. &ldquo;Even I can see that&rsquo;s not finished.&rdquo;'); return; }
+      if (n === 6) { BANK.sfx.ping(); ER.flag('c-sorted', 1); startMarking(); return; }
+      ER.sfx.no();
+      if (pos('hv') && pos('zb') && pos('hv') < pos('zb')) { flash(box.querySelector('.rc[data-id="hv"]')); msg('&ldquo;Simeon before Ursula&rsquo;s post?&rdquo; says Wanda. &ldquo;Look at my ticket for table 1. I wrote the time on it.&rdquo; (' + n + ' of the six are in the right place.)'); return; }
+      if (pos('qk') !== 1) { flash(box.querySelector('.rc[data-id="qk"]')); msg('&ldquo;Where did Monty hear it first?&rdquo; says Yuki. &ldquo;At my window, at ten to twelve. Before he ever came in here.&rdquo; (' + n + ' of the six are in the right place.)'); return; }
+      msg('&ldquo;Not yet,&rdquo; says Yuki. &ldquo;' + n + ' of the six are in the right place. Every card has a time somewhere: my window, Wanda&rsquo;s tickets, Mrs Bright&rsquo;s phone.&rdquo;');
+    });
+    var MARK = {
+      qk: '&ldquo;That&rsquo;s me,&rdquo; says Yuki, &ldquo;and it&rsquo;s exactly what happened. Not that one.&rdquo;',
+      mt: '&ldquo;Monty shouts,&rdquo; says Wanda, &ldquo;but it was true, wasn&rsquo;t it? There wasn&rsquo;t four thousand pounds at the counter today. What did the next person leave out?&rdquo;',
+      hv: '&ldquo;Rude,&rdquo; says Yuki. &ldquo;But did he say anything about money at all? And look when he said it.&rdquo;',
+      dw: '&ldquo;That&rsquo;s where it gets louder,&rdquo; says Yuki. &ldquo;NO money. But had it already changed before that?&rdquo;',
+      pn: '&ldquo;The photograph came an hour later,&rdquo; says Wanda. &ldquo;By then the words had done their work.&rdquo;'
+    };
+    box.addEventListener('click', function (e) {
+      if (!marking || wait) return;
+      var c = e.target.closest ? e.target.closest('.rc') : null; if (!c) return;
+      var id = c.getAttribute('data-id');
+      ER.$$('.rc', box).forEach(function (r) { r.classList.toggle('mark', r === c); });
+      if (!ER.check('chg', id)) { ER.sfx.no(); msg(MARK[id] || 'Not that one.'); return; }
+      wait = true; BANK.solved(true); ER.flag('c-ord', [1, 2, 3, 4, 5, 6].map(at).join('-') + '-' + id);
+      BANK.mine('rumour', 'How the rumour grew', '<p>11.50 Yuki: not from the counter today, two days&rsquo; notice, the van is late.</p><p>12.05 Monty: they haven&rsquo;t got four thousand pounds in there.</p><p>12.21 Mrs Bright: the bank hasn&rsquo;t got the money. Here the time and the number fell off.</p><p>12.34 Mr Rook: rude, but thirteen minutes too late to start it.</p><p>12.48 &ldquo;NO money&rdquo;. 1.32 the photograph.</p>', true);
+      msg('There. <b>&ldquo;Not four thousand pounds, not today&rdquo; became &ldquo;hasn&rsquo;t got the money&rdquo; at 12.21.</b> The time and the number fell off. And Mr Rook&rsquo;s soup came thirteen minutes later.');
+      setTimeout(function () { ER.close(); paint(); ER.say('&ldquo;And the photograph?&rdquo; says Yuki. &ldquo;Wanda said the whole picture is still on the tablet.&rdquo;'); }, 3200);
+    });
+    if (ER.flag('c-sorted')) startMarking();
+    else msg('Clip the six cards on to the rail in the order they were said or written: drag them, or click a card and then a clip. Then clip them up.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; }, marking: function () { return marking; } };
+  }
+
+  /* ---------- Wanda's tablet: the whole picture ---------- */
+  var FX = 250, FY = 70, FW = 300, FH = 150;                 /* where Marnie's picture was cut from, in the big picture */
+  function street(id) {
+    var s = '<rect width="900" height="300" fill="#b8c8d4"/><rect y="230" width="900" height="70" fill="#a8a294"/><rect y="226" width="900" height="6" fill="#8a8478"/>' +
+      '<rect x="30" y="40" width="520" height="190" fill="#c8b48a"/><rect x="30" y="30" width="520" height="22" fill="#a8946a"/><text x="290" y="96" font-family="Cinzel,serif" font-size="25" text-anchor="middle" fill="#5a2a1a">BROCKHOLT &amp; DISTRICT BANK</text>' +
+      '<rect x="270" y="112" width="90" height="92" fill="#8aa0aa"/><rect x="430" y="112" width="90" height="92" fill="#8aa0aa"/><g' + (id ? ' id="bd" class="door"' : '') + '><rect x="70" y="110" width="80" height="120" fill="#5a2a1a"/><circle cx="138" cy="174" r="4" fill="#c9a24a"/><text x="110" y="104" font-family="Oswald" font-size="11" text-anchor="middle" fill="#5a2a1a">BANK</text></g>' +
+      '<rect x="570" y="70" width="320" height="160" fill="#d89a5a"/><text x="730" y="104" font-family="Cabin Sketch" font-size="28" font-weight="700" text-anchor="middle" fill="#fff">PATHAK&apos;S BAKERY</text><rect x="600" y="120" width="110" height="80" fill="#f4e6c8"/>' +
+      '<g' + (id ? ' id="bk" class="door"' : '') + '><rect x="770" y="120" width="70" height="110" fill="#6a3a1a"/><rect x="778" y="128" width="54" height="40" fill="#d8e0e0"/></g>' +
+      '<g transform="translate(850 232)" pointer-events="none"><path d="M-30 0l12 -60h36l12 60" fill="#2b3a32" stroke="#6a4420" stroke-width="3"/><text x="0" y="-44" font-family="Cabin Sketch" font-size="9" text-anchor="middle" fill="#f2c45a">FIRST BAKE</text><text x="0" y="-33" font-family="Cabin Sketch" font-size="8" text-anchor="middle" fill="#fff">new oven!</text><text x="0" y="-20" font-family="Cabin Sketch" font-size="8" text-anchor="middle" fill="#fff">free tasters</text><text x="0" y="-9" font-family="Cabin Sketch" font-size="9" text-anchor="middle" fill="#f2c45a">1.30</text></g>';
+    var cols = ['#5a6a8a', '#8a4a3a', '#3a5a4a', '#a08a5a', '#6a4a7a'], i, x;
+    s += '<g pointer-events="none">';
+    for (i = 0; i < 15; i++) { x = 230 + i * 37; s += BANK.small(x, 262 + (i % 2) * 4, cols[i % 5], ['#3a2a20', '#c9c4bc', '#1a1412'][i % 3], 1, i > 12); }
+    s += BANK.small(808, 262, '#c08a3a', '#1a1412', -1) + '<rect x="814" y="216" width="14" height="10" fill="#e8dcc0"/></g>';
+    return s;
+  }
+  function makeTab() {
+    var fx = 20, fy = 20, matched = !!ER.flag('c-pic'), wait = false;
+    var box = ER.el('div', 'pz tb');
+    box.innerHTML = '<div class="tb-in"><div class="tb-top"><svg viewBox="' + FX + ' ' + FY + ' ' + FW + ' ' + FH + '" preserveAspectRatio="xMidYMid slice">' + street(false) + '</svg>' +
+      '<div><b>Marnie T. &middot; 1.32</b><br>Queue outside the bank already!!!<br><span style="opacity:.7">The small picture is what she posted. The big one is what the tablet took.</span></div></div>' +
+      '<svg class="tb-big" viewBox="0 0 900 300">' + street(true) + '<path id="dim" d="" fill="#000" opacity="0" pointer-events="none"/><rect id="frm" x="20" y="20" width="' + FW + '" height="' + FH + '" fill="#fff" fill-opacity=".08" stroke="#fff" stroke-width="4" stroke-dasharray="12 6"/></svg></div>' +
+      '<div class="pz-foot"><p class="pmsg"></p></div>';
+    var svg = box.querySelector('.tb-big'), frm = box.querySelector('#frm'), msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function place() {
+      frm.setAttribute('x', fx); frm.setAttribute('y', fy);
+      if (matched) {
+        frm.setAttribute('stroke', '#5ad06a'); frm.setAttribute('stroke-dasharray', ''); frm.setAttribute('fill-opacity', '0'); frm.style.cursor = 'default';
+        box.querySelector('#dim').setAttribute('d', 'M0 0H900V300H0z');
+      }
+    }
+    if (matched) { fx = FX; fy = FY; }
+    place();
+    var sx = 0, sy = 0, f0x = 0, f0y = 0;
+    ER.drag(frm, {
+      start: function (e) { if (matched) return false; var q = ER.pt(svg, e); sx = q.x; sy = q.y; f0x = fx; f0y = fy; },
+      move: function (e) { var q = ER.pt(svg, e); fx = Math.max(0, Math.min(900 - FW, f0x + q.x - sx)); fy = Math.max(0, Math.min(300 - FH, f0y + q.y - sy)); place(); },
+      end: function () {
+        if (Math.abs(fx - FX) < 26 && Math.abs(fy - FY) < 26) {
+          fx = FX; fy = FY; matched = true; ER.flag('c-pic', 1); place(); BANK.sfx.ping();
+          msg('Click. <b>That is exactly Marnie&rsquo;s picture.</b> Now look outside the frame. Where does the queue lead? Click the door at the front of it.');
+        } else msg('Not there. Look for the same letters and windows as in the small picture.');
+      }
+    });
+    function door(id) {
+      return function () {
+        if (wait) return;
+        if (!matched) { ER.sfx.no(); msg('First find exactly where Marnie&rsquo;s picture came from: drag the white frame.'); return; }
+        if (!ER.check('door', id)) { ER.sfx.no(); msg('&ldquo;The bank&rsquo;s door?&rdquo; says Yuki. &ldquo;It&rsquo;s shut, and nobody is facing it. Which way are they all looking? What are the people at the front holding?&rdquo;'); return; }
+        var file = ER.exit([ER.flag('c-ord') + '-' + id], { wait: true });
+        if (!file) { msg('The door will not open. Something is wrong with this page: tell your teacher.'); return; }
+        wait = true; nextFile = file; ER.flag('c-file', file);
+        BANK.terms(['crop']);
+        BANK.mine('photo', 'Marnie&rsquo;s picture, whole', '<p>The posted picture was cut from a bigger one. Outside the frame: the queue leads away from the bank&rsquo;s shut door to Pathak&rsquo;s Bakery: FIRST BAKE, NEW OVEN, FREE TASTERS 1.30.</p><p>A photograph of a queue shows the queue, not the street.</p>', true);
+        msg('The front of the queue is at Pathak&rsquo;s door, under a board that says <b>FIRST BAKE FROM OUR NEW OVEN! FREE TASTERS 1.30.</b> The people at the front are holding paper bags.');
+        setTimeout(function () {
+          ER.closeAll(); paint(); busy = true;
+          ER.narrate([
+            '&ldquo;Ravi&rsquo;s free tasters,&rdquo; says Yuki. &ldquo;The first bake from his new oven. Which our loan paid for.&rdquo; She puts the tablet down very carefully. &ldquo;So the queue that started the queue was a queue for bread.&rdquo;',
+            'Mrs Bright is already typing, slowly, with one finger, reading every word aloud. &ldquo;Correction. At twelve twenty-one I wrote&hellip;&rdquo;',
+            'Wanda looks out across the square. The queue outside the bank is not for bread. It is longer than it was ten minutes ago, and it is real now. &ldquo;It doesn&rsquo;t matter how it started, does it?&rdquo; she says. &ldquo;Not once people believe it.&rdquo;',
+            'Simeon Rook folds his Courier, puts on his coat and leaves a tip exactly the size of the bill. &ldquo;I&rsquo;m going over to take my money out,&rdquo; he says to nobody in particular. &ldquo;All fifty years of it.&rdquo;',
+            '&ldquo;Fifty years?&rdquo; says Yuki, when the door has shut behind him. &ldquo;An account that old won&rsquo;t be on the computer. It&rsquo;ll be in a ledger in the back office. Come on. We&rsquo;d better get there first.&rdquo;'
+          ], function () { busy = false; $('#go').classList.add('on'); });
+        }, 3000);
+      };
+    }
+    box.querySelector('#bd').addEventListener('click', door('bd'));
+    box.querySelector('#bk').addEventListener('click', door('bk'));
+    msg(matched ? 'That is Marnie&rsquo;s picture. Where does the queue lead? Click the door at the front of it.' : 'Drag the white frame over the big picture until it shows exactly what Marnie posted.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; }, matched: function () { return matched; } };
+  }
+})();
+</script>
+</body>
+</html>

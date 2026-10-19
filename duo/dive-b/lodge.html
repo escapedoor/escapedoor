@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Lodge · Open This Together</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-duo.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="lodge.css">
+<style>
+  body{--bg:#1a120a;--accent:#ffcf6a;--font-display:'Fraunces',serif;--font-ui:'Space Mono',monospace;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(26,18,10,.95);--tc-ink:#f8eedb;--cap-bg:rgba(30,20,10,.93);--panel:#241a10;--face-bg:#3a2c1c;--q-ink:#ffd98f;--fade:#0a0704;--hud-bg:rgba(30,20,10,.82)}
+  .rain{animation:rain .7s linear infinite}
+  @keyframes rain{from{transform:translateY(-60px)}to{transform:translateY(60px)}}
+  .dial{animation:dial 3s steps(2,end) infinite alternate}
+  @keyframes dial{from{opacity:.75}to{opacity:1}}
+  #cat .ear{animation:ear 4.2s steps(1,end) infinite;transform-origin:950px 528px}
+  @keyframes ear{0%,92%{transform:rotate(0)}94%{transform:rotate(-12deg)}}
+  #needle{animation:nd 2.2s ease-in-out infinite alternate;transform-origin:1100px 500px}
+  @keyframes nd{from{transform:rotate(52deg)}to{transform:rotate(60deg)}}
+  .bx.keys{width:min(980px,95vw)}
+  .kk{cursor:pointer}
+  .kk:hover .tag{fill:#fff8dc}
+  .kk.sel .tag{fill:#ffe48a;stroke:#c4372b;stroke-width:3}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <radialGradient id="lampL" cx="18%" cy="62%" r="70%"><stop offset="0" stop-color="#ffd890" stop-opacity=".42"/><stop offset=".55" stop-color="#ffb860" stop-opacity=".08"/><stop offset="1" stop-color="#ffb860" stop-opacity="0"/></radialGradient>
+  <linearGradient id="wallL" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6a5a3a"/><stop offset="1" stop-color="#8a7448"/></linearGradient>
+  <radialGradient id="vigL" cx="50%" cy="50%" r="76%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#000" stop-opacity=".18"/><stop offset="1" stop-color="#000" stop-opacity=".7"/></radialGradient>
+</defs>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="#5a4a30"/>
+<rect x="-1000" y="-700" width="3600" height="1300" fill="url(#wallL)"/>
+<path d="M-1000 520H2600" stroke="#4a3a24" stroke-width="12"/>
+<!-- the plan of the basement, pinned on the wall -->
+<g id="plan" class="hot" transform="translate(270 -10) rotate(-1.5 300 250)"><rect x="110" y="110" width="390" height="280" fill="#e9edf0"/><g stroke="#1a3a5a" stroke-width="3" fill="none"><rect x="150" y="190" width="60" height="50"/><rect x="210" y="140" width="140" height="100"/><rect x="350" y="140" width="80" height="100"/><rect x="150" y="270" width="60" height="40"/><rect x="210" y="270" width="140" height="60"/><rect x="350" y="270" width="80" height="40"/></g>
+  <rect x="130" y="240" width="320" height="30" fill="#cfd8e0"/><text x="300" y="132" class="sv" font-size="15" fill="#1a3a5a" letter-spacing="2">BASEMENT</text><path d="M470 150l6 -16 6 16z" fill="#1a3a5a"/><circle cx="118" cy="118" r="6" fill="#c4372b"/><circle cx="492" cy="118" r="6" fill="#c4372b"/></g>
+<!-- the window, the rain, the street lamp -->
+<g id="win" class="hot" transform="translate(-450 0)"><rect x="560" y="100" width="220" height="230" fill="#0e1622"/><circle cx="720" cy="150" r="60" fill="#ff9a3a" opacity=".25"/><circle cx="720" cy="150" r="10" fill="#ffd27a"/><path d="M720 160v200" stroke="#1b1b1b" stroke-width="6"/>
+  <g stroke="#7f9ab8" stroke-width="2" opacity=".5" class="rain"><path d="M580 100l-8 40M620 130l-8 40M660 90l-8 40M700 200l-8 40M740 120l-8 40M600 230l-8 40M680 260l-8 40M760 240l-8 40M640 180l-8 40"/></g>
+  <path d="M670 100v230M560 215h220" stroke="#4a3a24" stroke-width="8"/><rect x="560" y="100" width="220" height="230" fill="none" stroke="#3a2a18" stroke-width="12"/></g>
+<!-- the radio rules, pinned up by the dive team -->
+<g id="rules" class="hot" transform="translate(0 12) rotate(2 660 420)"><rect x="600" y="370" width="130" height="110" fill="#f6f1e4"/><rect x="600" y="370" width="130" height="16" fill="#c4372b"/><g stroke="#55504a" stroke-width="2"><path d="M612 400h100M612 412h80M612 424h104M612 436h70M612 448h96M612 460h60"/></g><circle cx="665" cy="372" r="5" fill="#2a2a2a"/></g>
+<!-- the key cupboard -->
+<g id="keys" class="hot"><rect x="830" y="120" width="250" height="300" fill="#5a3a1e" stroke="#3a2412" stroke-width="6"/><rect x="845" y="135" width="220" height="270" fill="#3a2614"/><path d="M830 120l-50 20v260l50 20z" fill="#6a4a28"/><path d="M1080 120l46 20v260l-46 20z" fill="#6a4a28"/><g id="hooks"></g></g>
+<!-- the doorway to the stairs, and Mr Blundell on his stool -->
+<g id="stairs" class="hot"><rect x="1170" y="40" width="300" height="700" fill="#0c0906"/><path d="M1170 40h300v700h-300z" fill="none" stroke="#3a2a18" stroke-width="16"/>
+  <g fill="#2a241c"><rect x="1190" y="520" width="260" height="22"/><rect x="1210" y="570" width="220" height="20"/><rect x="1230" y="615" width="180" height="18"/><rect x="1246" y="656" width="148" height="16"/><rect x="1260" y="692" width="120" height="14"/></g>
+  <ellipse cx="1320" cy="720" rx="60" ry="10" fill="#9fe0d6" opacity=".25"/></g>
+<g id="blundell" class="hot"><path d="M1236 640l-14 90M1300 640l14 90" stroke="#3a2a14" stroke-width="8"/><rect x="1216" y="624" width="110" height="18" fill="#5a3e1e"/><path d="M1224 626q-10 -150 50 -160t60 160z" fill="#2c3a52"/>
+  <circle cx="1276" cy="440" r="34" fill="#e2b28e"/><path d="M1246 432q30 -40 62 0" stroke="#ece8de" stroke-width="12" fill="none"/><ellipse cx="1276" cy="414" rx="40" ry="10" fill="#1d2a40"/><path d="M1244 414q2 -28 32 -30q30 2 32 30z" fill="#2c3a52"/>
+  <path d="M1320 530q40 30 50 90" stroke="#2c3a52" stroke-width="20" fill="none" stroke-linecap="round"/><path d="M1370 620q20 60 -40 120" stroke="#d9b34a" stroke-width="8" fill="none"/><ellipse cx="1180" cy="700" rx="40" ry="14" fill="none" stroke="#d9b34a" stroke-width="8"/></g>
+<!-- the desk -->
+<rect x="-1000" y="580" width="3600" height="1200" fill="#4a2e18"/><path d="M-1000 580H2600" stroke="#6a4424" stroke-width="10"/>
+<g id="lamp" class="hot"><path d="M130 590l40 -10 60 -150" stroke="#2a2a2a" stroke-width="10" fill="none"/><path d="M190 420l90 -40 30 70z" fill="#2a4a3a"/><ellipse cx="160" cy="590" rx="60" ry="12" fill="#2a2a2a"/></g>
+<g id="radio" class="hot"><rect x="270" y="430" width="320" height="160" rx="10" fill="#3a3a32" stroke="#1d1d18" stroke-width="5"/><circle class="dial" cx="360" cy="505" r="46" fill="#7fe0a0" opacity=".85"/><circle cx="360" cy="505" r="46" fill="none" stroke="#1d1d18" stroke-width="6"/><path d="M360 505l24 -30" stroke="#1d1d18" stroke-width="4"/>
+  <circle cx="470" cy="480" r="18" fill="#1d1d18"/><circle cx="530" cy="480" r="18" fill="#1d1d18"/><rect x="440" y="530" width="120" height="30" fill="#2a2a24"/><g stroke="#5a5a50" stroke-width="2"><path d="M448 538h104M448 546h104M448 554h104"/></g>
+  <path d="M600 570q40 -20 30 -80" stroke="#1d1d18" stroke-width="5" fill="none"/><rect x="616" y="470" width="30" height="40" rx="12" fill="#1d1d18"/></g>
+<g id="kettle" class="hot"><path d="M690 580q-10 -70 50 -80q60 10 50 80z" fill="#b8bcb6"/><path d="M790 520q30 0 20 40" stroke="#b8bcb6" stroke-width="10" fill="none"/><path d="M690 530l-30 -20" stroke="#b8bcb6" stroke-width="10"/><rect x="820" y="540" width="34" height="40" rx="4" fill="#c4372b"/><rect x="858" y="548" width="30" height="32" rx="4" fill="#2f62b0"/></g>
+<g id="cat" class="hot"><path d="M900 590q-10 -60 70 -66q80 6 70 66z" fill="#d88a3a"/><circle cx="950" cy="546" r="26" fill="#d88a3a"/><g class="ear"><path d="M932 528l6 -22 12 18z" fill="#d88a3a"/></g><path d="M958 524l10 -20 8 22z" fill="#d88a3a"/><path d="M938 548q6 4 12 0M956 548q6 4 12 0" stroke="#5a3010" stroke-width="2.5" fill="none"/><path d="M1040 586q30 -10 20 -40" stroke="#d88a3a" stroke-width="12" fill="none" stroke-linecap="round"/></g>
+<g id="pump" class="hot"><rect x="1040" y="440" width="120" height="120" rx="6" fill="#4a4a44" stroke="#2a2a26" stroke-width="4"/><circle cx="1100" cy="500" r="40" fill="#f1efe4"/><path id="needle" d="M1100 500v-34" stroke="#c4372b" stroke-width="4" stroke-linecap="round"/><text x="1100" y="550" class="sv" font-size="14" fill="#f1efe4" letter-spacing="2">PUMP</text></g>
+<g id="phone" class="hot"><path d="M10 590q0 -40 20 -50h80q20 10 20 50z" fill="#1b1b1b"/><path d="M14 532q-6 -24 16 -28h80q22 4 16 28l-14 4q-2 -14 -10 -16h-64q-8 2 -10 16z" fill="#1b1b1b"/></g>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#lampL)" pointer-events="none"/>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#vigL)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">The diver is in</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="lodge.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, nextFile = null, keybox = null;
+
+  /* twelve hooks; every key is labelled with the maker of its lock and the picture on the lock plate, never with the room */
+  var KEYS = [
+    { id: 'front', tag: 'FRONT DOOR', old: false }, { id: 'lodge', tag: 'LODGE', old: false }, { id: 'trask-ship', tag: 'TRASK · ship', old: true },
+    { id: 'trask-crown', tag: 'TRASK · crown', old: true }, { id: 'hollin-anchor', tag: 'HOLLIN · anchor', old: true }, { id: 'gate', tag: 'GARDEN GATE', old: false },
+    { id: 'hollin-fish', tag: 'HOLLIN · fish', old: true }, { id: 'trask-plain', tag: 'TRASK · plain plate', old: true }, { id: 'strong', tag: 'STRONGROOM: ask Mrs T.', old: null },
+    { id: 'trask-fish', tag: 'TRASK · fish', old: true }, { id: 'hollin-crown', tag: 'HOLLIN · crown', old: true }, { id: 'shed', tag: 'BIKE SHED', old: false }
+  ];
+  (function () {
+    var s = '', i;
+    for (i = 0; i < 12; i++) { var x = 870 + (i % 4) * 54, y = 165 + Math.floor(i / 4) * 80; s += '<circle cx="' + x + '" cy="' + y + '" r="4" fill="#c9a94e"/>' + (KEYS[i].old === null ? '' : '<path d="M' + x + ' ' + y + 'v' + (KEYS[i].old ? 46 : 28) + '" stroke="#c9a94e" stroke-width="' + (KEYS[i].old ? 5 : 4) + '"/>') + '<rect x="' + (x + 6) + '" y="' + (y + 4) + '" width="20" height="12" fill="#f1ead2"/>'; }
+    $('#hooks').innerHTML = s;
+  })();
+
+  ER.init({
+    theme: 'duo', story: 'dive-b', storyTitle: 'Open This Together', id: 'lodge', no: 'I', title: 'The Lodge',
+    go: 'Pick up the radio',
+    intro: [
+      '<b class="two">This is a story for two. Your partner plays THE DIVER (part A) on another screen. Do not show each other your screens: talk. Everything one of you can see, the other one needs.</b>',
+      'Rillmouth, a little before eleven at night. At nine o&rsquo;clock the River Rill came over its bank, ran down Ferry Street, and found the basement of Rillmouth Museum. A pump is roaring in the yard. It is not winning.',
+      'You are the operator. All summer you were a volunteer at the museum, writing catalogue cards, so when the river came in, the museum rang you. Now you are in the porter&rsquo;s Lodge at the top of the basement stairs, with the radio, the plans of the basement, the catalogue and the pump, and the night porter, Mr Ossie Blundell.',
+      'At the bottom of the stairs is a diver you have never met, who can see everything you cannot. You can see everything the diver cannot. Somewhere on a top shelf down there is a box that has been waiting since 1926.'
+    ],
+    exit: {"next":"catalogue","w":{"e91228dd":"08e98ab4"}}, tags: {},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('b1-told') || {}; nextFile = ER.flag('b1-file') || null;
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('b1-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#go').classList.toggle('on', !!nextFile);
+    ER.pips((told.plan ? 1 : 0) + (told.blundell ? 1 : 0) + (nextFile ? 1 : 0), 3);
+    if (nextFile) LG.card([['Tell your partner', ['&ldquo;Diver, this is Topside. The key is on its way down the line. Pull twice. Over.&rdquo;']]]);
+    else LG.card([['Ask your partner', ['&ldquo;Diver, this is Topside. What can you see? How many doors are there on your left? Over.&rdquo;', '&ldquo;What does the lock plate say? Please spell the name.&rdquo;']], ['Tell your partner', ['&ldquo;The Long Store is the &hellip; door on your &hellip;.&rdquo;']]]);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The key is on its way down the line. The diver is going into the Long Store.']];
+    if (!told.plan) return ['plan', [
+      'The plan of the basement is pinned on the wall, on the left. Read it before you tell the diver anything.',
+      'Ask the diver what can be seen from the bottom step, and find the same things on the plan.'
+    ]];
+    return ['key', [
+      'The diver needs two things from you: which door is the Long Store, and its key. The plan says where the door is. Remember that the diver is not looking at the plan: the diver is standing at the bottom of the stairs, looking along the corridor.',
+      'On the plan, north is at the top and the stairs come down at the west end, on the left. If you walk east along the corridor from the stairs, which side is north: your left, or your right?',
+      'The keys are labelled with the maker and the picture on the lock plate, not with the room. Ask the diver to spell the maker&rsquo;s name and describe the picture on the lock of the door they are standing at. Make sure it is the right door first.'
+    ]];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; ER.say('The key has gone down the line. Mr Blundell is paying out more rope.'); return; }
+    if (told.intro) { busy = false; ER.say('The Lodge. The radio is hissing, and the plan is on the wall.'); return; }
+    ER.narrate([
+      'The Lodge is the size of a lift, and it is full: a desk, a radio, a kettle, a key cupboard, a sleeping cat, and Mr Ossie Blundell, the night porter. He sits on a stool in the doorway, feeding the diver&rsquo;s line down the steps a little at a time, like a man flying a kite into a well.',
+      '&ldquo;Forty-one years I&rsquo;ve been porter here,&rdquo; he says, without turning round, &ldquo;and that basement has never once been wet. Damp, yes. Damp is different.&rdquo;',
+      'The radio on the desk hisses. At the bottom of twelve steps, the diver is looking along the Lower Corridor with a torch, and waiting for you. The plan of the basement is pinned on the wall beside you.'
+    ], function () { busy = false; tell('intro'); paint(); });
+  }
+
+  /* ---------- people and papers ---------- */
+  $('#plan').addEventListener('click', function () { if (!busy) LG.plan(function () { if (tell('plan')) { paint(); ER.say('Six doors, a strongroom, and the stairs at the west end. The diver is standing at the bottom of those stairs.'); } }); });
+  $('#rules').addEventListener('click', function () { if (!busy) LG.rules(); });
+  $('#blundell').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Mr Ossie Blundell', role: 'Night porter · forty-one years', face: LG.FACE.blundell,
+      lines: [
+        { note: 'He does not look round. He is paying out the line, an arm&rsquo;s length at a time.', a: '&ldquo;If that diver wants anything down there, it goes down this line, and it goes from me.&rdquo;' },
+        { q: 'Which doors are locked?', a: 'All of them, except the coal store and the lift gate, and nobody wants either of those. The plan&rsquo;s on the wall. I pinned it up myself in 1998, and I&rsquo;ve never once needed it, till tonight.' },
+        { q: 'Why not go in by the main doors of the Long Store?', a: 'The front stairs are full of water to the ceiling. And when I went down at nine with a torch, the big glass case in the store fell over, right across the main doors. So the diver goes in by the back doors, from the corridor. Nobody ever goes in by the back.' },
+        { q: 'Which key is it?', a: 'Ask the lock. I don&rsquo;t write room names on keys: a key with the name of a room on it is a present for a burglar. I write who made the lock, and the picture on its plate. There were two locksmiths in Ferry Street, Trask and Hollin. They hated each other for fifty years, and between them they made every lock in this building. The diver can see the plate. You can see the keys.' },
+        { q: 'How do I send a key down?', a: 'You give it to me. I clip it to the line, and when the diver pulls twice, down it goes. Thirty metres of line, and I can feel every move on it, like a fish.' }
+      ],
+      clue: { id: 'blundell1', title: 'Mr Blundell, about the doors and the keys', kind: 'What he said' },
+      done: function (seen) { if (seen && tell('blundell')) { paint(); ER.addWord('locksmith', 'a person who makes and mends locks'); } }
+    });
+  });
+
+  /* ---------- the key cupboard ---------- */
+  function keySvg(k, x, y) {
+    var s = '<g class="kk" data-k="' + k.id + '">';
+    if (k.old === true) s += '<circle cx="' + x + '" cy="' + (y + 18) + '" r="14" fill="none" stroke="#b39a52" stroke-width="6"/><path d="M' + x + ' ' + (y + 32) + 'v74" stroke="#b39a52" stroke-width="6"/><path d="M' + x + ' ' + (y + 92) + 'h14v8h-8v6h8" stroke="#b39a52" stroke-width="5" fill="none"/>';
+    else if (k.old === false) s += '<circle cx="' + x + '" cy="' + (y + 20) + '" r="14" fill="#c9cdc9" stroke="#8a8f8a" stroke-width="3"/><path d="M' + (x - 5) + ' ' + (y + 32) + 'h10v40l-3 4 3 4 -3 4h-7z" fill="#c9cdc9" stroke="#8a8f8a" stroke-width="2"/>';
+    s += '<rect class="tag" x="' + (x - 62) + '" y="' + (y + 112) + '" width="124" height="34" rx="3" fill="#f1ead2" stroke="#8a7a5a" stroke-width="1.5"/>' +
+      '<text x="' + x + '" y="' + (y + 135) + '" font-family="Kalam,cursive" font-weight="700" font-size="' + (k.tag.length > 16 ? 12 : 15) + '" fill="#2a2a5a" text-anchor="middle">' + k.tag + '</text>';
+    s += '<circle cx="' + x + '" cy="' + y + '" r="5" fill="#c9a94e"/><rect x="' + (x - 64) + '" y="' + (y - 8) + '" width="128" height="160" fill="#000" fill-opacity="0"/></g>';
+    return s;
+  }
+  function openKeys() {
+    if (busy) return;
+    if (nextFile) { ER.say('The key you sent is down there now, in the diver&rsquo;s hand.'); return; }
+    if (!keybox) keybox = makeKeys();
+    keybox.open();
+  }
+  function makeKeys() {
+    var box = ER.el('div', 'bx keys'), sel = null, s = '<svg viewBox="0 0 900 400" xmlns="http://www.w3.org/2000/svg"><rect width="900" height="400" fill="#3a2614"/><rect x="10" y="10" width="880" height="380" fill="none" stroke="#5a3a1e" stroke-width="10"/>';
+    KEYS.forEach(function (k, i) { s += keySvg(k, 85 + (i % 6) * 146, 30 + Math.floor(i / 6) * 190); });
+    box.innerHTML = s + '</svg><div class="bx-foot"><p class="pmsg"></p><button type="button" class="btn" id="give">Give it to Mr Blundell</button></div>';
+    var msg = function (t) { box.querySelector('.pmsg').innerHTML = ER.gloss(t); };
+    box.querySelector('svg').addEventListener('click', function (e) {
+      var g = e.target.closest ? e.target.closest('.kk') : null; if (!g) return;
+      sel = g.getAttribute('data-k');
+      ER.$$('.kk', box).forEach(function (n) { n.classList.toggle('sel', n === g); });
+      var k = KEYS.filter(function (x) { return x.id === sel; })[0];
+      LG.sfx.keys();
+      msg(k.old === null ? 'An empty hook, with a label: STRONGROOM: ask Mrs T.' : 'You take down the key labelled <b>' + k.tag + '</b>.');
+    });
+    box.querySelector('#give').addEventListener('click', function () {
+      if (!sel) { msg('Take a key down first: click on it.'); return; }
+      var k = KEYS.filter(function (x) { return x.id === sel; })[0];
+      if (k.old === null) { ER.sfx.no(); msg('&ldquo;The strongroom key is in Mrs Treharne&rsquo;s handbag, on the other side of the river,&rdquo; says Mr Blundell, &ldquo;which is exactly where it ought to be.&rdquo;'); return; }
+      if (k.old === false) { ER.sfx.no(); msg('&ldquo;That one&rsquo;s for upstairs,&rdquo; says Mr Blundell. &ldquo;Everything down there is Trask or Hollin.&rdquo;'); return; }
+      var file = ER.exit([sel], { wait: true });
+      if (!file) {
+        ER.sfx.no();
+        var mk = k.tag.split(' · ')[0], pc = k.tag.split(' · ')[1];
+        msg('&ldquo;' + mk.charAt(0) + mk.slice(1).toLowerCase() + ', and ' + (/^[aeiou]/.test(pc) ? 'an ' : 'a ') + pc + '?&rdquo; says Mr Blundell. &ldquo;Is that what&rsquo;s on the plate of the door the diver wants? The maker, and the picture: both. I&rsquo;m not sending a key down twelve steps on a guess.&rdquo;');
+        return;
+      }
+      nextFile = file; ER.flag('b1-file', file);
+      msg('&ldquo;Trask, and a fish,&rdquo; says Mr Blundell. He clips it to the line. &ldquo;Tell the diver to pull twice.&rdquo;');
+      setTimeout(function () {
+        ER.closeAll(); busy = true; paint();
+        ER.narrate([
+          'Two pulls on the line. Mr Blundell lets it run, and the key goes down the steps on its clip, bumping on every one.',
+          'The radio is quiet for a long moment. Then, from the bottom of the stairs, comes a sound that you can hear without the radio at all: two old doors opening against the water.'
+        ], function () { busy = false; paint(); });
+      }, 2600);
+    });
+    msg('Twelve hooks. Every label says who made the lock, and what picture is on the lock plate. Click on a key to take it down.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+  $('#keys').addEventListener('click', openKeys);
+
+  /* ---------- other things ---------- */
+  LG.thing('#radio', 'radio', 'The dive team&rsquo;s radio. Press the button on the microphone to talk; let go to listen. Your partner is the voice in it.', isBusy);
+  LG.thing('#win', null, 'Rain, and the street lamp in Ferry Street. The street is a river this evening, a brown one, going the wrong way.', isBusy);
+  LG.thing('#kettle', 'kettle', '&ldquo;Tea&rsquo;s for after,&rdquo; says Mr Blundell, without looking round.', isBusy);
+  LG.thing('#cat', null, 'The museum cat, asleep on the desk. Her name is Teasel. She has never been in the basement, and she has no plans to start.', isBusy);
+  LG.thing('#pump', 'pump', 'The dial for the pump in the yard. The needle is right over at FULL. The pump is doing everything it can.', isBusy);
+  LG.thing('#phone', null, 'The Lodge telephone. The curator, Mrs Treharne, rang an hour ago from the other side of the river. The bridge is shut, so she cannot get here: she can only ring.', isBusy);
+  LG.thing('#lamp', null, 'A desk lamp, bent over the desk like somebody reading.', isBusy);
+  LG.thing('#stairs', null, 'The top of the basement stairs. Twelve steps down, the steps go into the water, and somewhere beyond that, a torch moves.', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

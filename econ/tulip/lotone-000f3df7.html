@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Lot One · Trading in Wind</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-econ.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="tulip.css">
+<style>
+  body{--bg:#4a2e24;--accent:#f2c02a;--font-display:'Cabin Sketch',serif;--font-ui:'Outfit',sans-serif;--font-body:'Lora',serif;
+    --tc-bg:rgba(250,240,220,.97);--tc-ink:#2a1a10;--cap-bg:rgba(252,246,232,.96);--cap-ink:#2a1a10;--panel:#fbf4e4;--panel-ink:#2a1a10;--face-bg:#5a2a3a;--q-ink:#7a2a3a;
+    --fade:#2a1a10;--hud-bg:rgba(252,246,232,.9);--hud-ink:#2a1a10;--hud-line:rgba(42,26,16,.3);--ov-bg:rgba(30,16,8,.6)}
+  .tc-room{font-size:clamp(44px,6.4vw,90px);color:#b0242c}
+  .tc-theme{color:#3a6a3a}
+  .hbtn b{color:#fff}
+  #lamps circle{animation:lp 5s steps(2,end) infinite}
+  @keyframes lp{50%{opacity:.8}}
+  .chk{width:min(640px,94vw)}
+  .chk-in{background:#1f2a24;border:10px solid #5a3418;padding:16px 20px;color:#f4f0e4}
+  .chk h5{margin:0 0 4px;font-family:'Cabin Sketch',serif;font-size:26px;font-weight:700;text-align:center}
+  .chk p{margin:0 0 10px;font-family:'Architects Daughter',cursive;font-size:17px;text-align:center}
+  .chalks{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+  .chalks button{padding:12px 6px;border:2px dashed rgba(244,240,228,.5);border-radius:4px;font-family:'Architects Daughter',cursive;font-size:26px;color:#f4f0e4}
+  .chalks button:hover{border-color:#f2c02a}
+  .chalks button.no{opacity:.3;text-decoration:line-through}
+  .chk .pmsg{color:#fbf4e4}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="brick" width="60" height="30" patternUnits="userSpaceOnUse"><rect width="60" height="30" fill="#7a4232"/><path d="M0 0H60M0 15H60M0 0V15M30 15V30" stroke="#5a2e22" stroke-width="2"/></pattern>
+  <linearGradient id="dusk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6a7a9a"/><stop offset="1" stop-color="#f2b87a"/></linearGradient>
+  <radialGradient id="lampG" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffe0a0" stop-opacity=".6"/><stop offset="1" stop-color="#ffe0a0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="45%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#1a0800" stop-opacity=".1"/><stop offset="1" stop-color="#1a0800" stop-opacity=".55"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1100" fill="url(#brick)"/>
+<rect x="-1000" y="-400" width="3600" height="520" fill="url(#dusk)"/>
+<g stroke="#2f4a3a" stroke-width="7"><path d="M-1000 120H2600M-1000 30H2600"/><path d="M-200 -400V120M150 -400V120M500 -400V120M850 -400V120M1200 -400V120M1550 -400V120M1900 -400V120"/></g>
+<rect x="-1000" y="120" width="3600" height="20" fill="#2f4a3a"/>
+<!-- the great window at the far end -->
+<g><path d="M640 520V260q0 -100 160 -100t160 100v260z" fill="#f2c890"/><path d="M800 160v360M640 340h320" stroke="#5a3418" stroke-width="8"/><path d="M640 520V260q0 -100 160 -100t160 100v260z" fill="none" stroke="#5a3418" stroke-width="10"/></g>
+<g id="lamps"><g><circle cx="300" cy="200" r="70" fill="url(#lampG)"/><circle cx="300" cy="200" r="10" fill="#fff0c0"/><path d="M300 140v50" stroke="#2a1a10" stroke-width="3"/></g><g><circle cx="1300" cy="200" r="70" fill="url(#lampG)"/><circle cx="1300" cy="200" r="10" fill="#fff0c0"/><path d="M1300 140v50" stroke="#2a1a10" stroke-width="3"/></g></g>
+
+<!-- the price board, on the side wall -->
+<g id="board" class="hot"><path d="M1320 250l200 -30v380l-200 -10z" fill="#5a3418"/><path d="M1330 262l180 -26v352l-180 -8z" fill="#1f2a24"/>
+  <g class="cH" font-size="14" fill="#f4f0e4"><text x="1350" y="292">FEN TIGER</text><text x="1350" y="320">£5 £10 £20</text><text x="1350" y="344">£40 £80</text><text x="1350" y="368">£160 £320</text><text x="1350" y="400">7 Feb:</text></g>
+  <text id="eighth" x="1420" y="402" class="cH" font-size="22" fill="#f2c02a"></text></g>
+
+<rect x="-1000" y="520" width="3600" height="900" fill="#6a4628"/>
+<!-- the crowd, rows of chairs, from the rostrum -->
+<g id="crowd"></g>
+<g id="maud" class="hot" transform="translate(470 560) scale(.42)"></g>
+<g id="sadie" class="hot" transform="translate(1130 560) scale(.42)"></g>
+<g id="yvonne" class="hot"></g>
+<g id="purkiss" class="hot" transform="translate(560 880) scale(.66)"></g>
+<g id="tebbutt" class="hot" transform="translate(860 900) scale(.72)"></g>
+<g id="pearl" class="hot" transform="translate(1250 900) scale(.7)"></g>
+<!-- Mrs Gotobed at the rostrum, nearest to us -->
+<g id="gotobed" class="hot" transform="translate(150 1010) scale(1.15)"></g>
+<g><rect x="-200" y="760" width="460" height="300" fill="#5a3418"/><rect x="-210" y="748" width="480" height="22" fill="#7a4a26"/><g transform="translate(200 742) rotate(-14)"><rect x="-4" y="-6" width="44" height="12" rx="3" fill="#3a2010"/><rect x="34" y="-13" width="24" height="26" rx="4" fill="#5a3418"/></g></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<div class="done" id="done">
+  <div class="okstamp">LOT 1 &middot; SOLD AT £12</div>
+  <p id="d-time"></p><p id="d-hints"></p><p id="d-words"></p>
+  <h6>What you now know</h6>
+  <ol>
+    <li>A price is what somebody paid; value is what a thing is worth to the person who will use it. When people buy mainly to sell on to a &ldquo;greater fool&rdquo;, the price can float far above the value. That is a bubble.</li>
+    <li>A bubble needs new buyers with new money every week. When they run out, the price stops rising and falls back towards the value, but not to nothing.</li>
+    <li>A futures contract is a promise to buy or sell later at a price agreed now. In a chain of promises every profit is paid by the last buyer, and if one buyer defaults, the loss runs back down the chain.</li>
+    <li>The Dutch tulip mania of 1636&ndash;37 was real, and collapsed in February 1637, but it was smaller than Mackay&rsquo;s stories of 1841: most promises were never paid in full, so few people were ruined, and the paper profits vanished.</li>
+    <li>A true graph can mislead: an axis that does not start at zero, a short window that hides the long run, a log scale, a percentage from a tiny base.</li>
+    <li>An externality is a cost or a benefit that falls on people outside a deal, like run-off into a shared drain. The fix is to bring it back into the deal: the polluter pays.</li>
+    <li>A commons is used up when each user&rsquo;s sensible choice adds up to ruin for everybody. Communities save it with rules, limits and watching each other, as Elinor Ostrom showed.</li>
+  </ol>
+  <div class="row"><button type="button" class="btn" id="b-task">Explain it to a friend</button><button type="button" class="btn" id="b-book">Notebook</button><button type="button" class="btn" id="b-lobby">Back to the stories</button></div>
+  <small>Trading in Wind &middot; <button type="button" id="b-reset">play it again from the start</button></small>
+</div>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="tulip.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, ck = null;
+
+  (function () {
+    var s = '', i, j, cols = ['#5a6a8a', '#8a4a3a', '#3a5a4a', '#a08a5a', '#6a4a7a', '#4a5a6a', '#7a6a3a'], hs = ['#3a2a20', '#c9c4bc', '#1a1412', '#8a5a2a', '#d8b860'];
+    for (j = 0; j < 4; j++) for (i = 0; i < 14; i++) {
+      var x = 120 + i * 100 + (j % 2) * 50, y = 600 + j * 52, sc = 0.55 + j * 0.12;
+      if ((j === 3 && i > 3 && i < 11) || (j === 0 && (i === 3 || i === 10))) continue;
+      s += '<g transform="translate(' + x + ' ' + y + ') scale(' + sc.toFixed(2) + ')"><rect x="-26" y="-18" width="52" height="40" rx="6" fill="#3a2414"/>' +
+        '<path d="M-22 10q-4 -46 22 -50t22 50z" fill="' + cols[(i + j) % 7] + '"/><circle cx="0" cy="-56" r="15" fill="#e6c4a4"/><path d="M-15 -60q0 -17 15 -17t15 17z" fill="' + hs[(i * 3 + j) % 5] + '"/><circle cx="-5" cy="-56" r="1.8" fill="#2a2420"/><circle cx="5" cy="-56" r="1.8" fill="#2a2420"/></g>';
+    }
+    $('#crowd').innerHTML = s;
+    $('#yvonne').innerHTML = '<g transform="translate(1000 820) scale(.62)">' + TULIP.person({ skin: '#efcfb4', hair: '#b8b0a8', style: 'bob', top: '#2a5a9a', coat: '#2a5a9a', bottom: '#2a2a3a', legs: 'skirt', tights: '#5a5a64', smile: 1 }) + '</g>';
+    $('#maud').innerHTML = TULIP.who('maud', { smile: 1 });
+    $('#sadie').innerHTML = TULIP.who('sadie', { smile: 2 });
+    $('#purkiss').innerHTML = TULIP.who('purkiss', { smile: 4 });
+    $('#tebbutt').innerHTML = TULIP.who('tebbutt', { coat: null, smile: 2 });
+    $('#pearl').innerHTML = TULIP.who('pearl', { smile: 5 });
+    $('#gotobed').innerHTML = TULIP.who('gotobed', { smile: 1 });
+  })();
+
+  ER.init({
+    theme: 'econ', story: 'tulip', storyTitle: 'Trading in Wind', id: 'lotone', no: 'VII', title: 'Lot One',
+    go: 'Take your place by the rostrum', sound: ['ledger', { root: 50, bpm: 92, drop: ['mel'], beds: [['crowd', 0.45]] }],
+    intro: [
+      'In the glasshouse: pots 1, 2, 4 and 6 were the Fen Tiger, a stable sport with the same three flames for nine years and a stock that doubles every summer; pot 3 was plain; pot 5, Mr Tebbutt&rsquo;s, was a broken tulip, and went into the stove before an aphid could find it. Then his five reasons, each answered by something you found today, and the catalogue line: Lot 1, estimate £4 to £14 each.',
+      'Mrs Purkiss telephoned Mrs Gotobed. Mrs Gotobed telephoned Sadie Thurlow. Sadie telephoned everybody.',
+      'Three o&rsquo;clock. The Corn Exchange is fuller than it has been since the war. You stand beside the rostrum, where the porter stands.'
+    ],
+    exit: {"last":true,"rooms":7,"stars":5}, tags: {"chalk":["e0dd9a5c"]},
+    hints: hints, onBegin: begin
+  });
+
+  if (ER.flag('g-done')) $('#eighth').textContent = '£12';
+  function isBusy() { return busy; }
+  function hints() {
+    if (ER.flag('g-done')) return null;
+    if (ck && ck.isOpen()) return ['chalk', ['The board shows what a promise was SOLD for each Saturday: the hammer price, after it was paid. What did Lot 1 sell for this afternoon, each?', 'Mr Gapp&rsquo;s commission bid took the forty promises at twelve pounds each, one bid above Sorcha Bly.']];
+    return ['board', ['Mrs Gotobed has handed you the chalk. Click the price board on the right-hand wall.']];
+  }
+  function begin() {
+    if (ER.flag('g-done')) { busy = false; finish(true); return; }
+    if (ER.flag('g-in')) { busy = false; $('#board').classList.add('ready'); ER.say('Mrs Gotobed is holding out the chalk. The eighth line on the board is waiting.'); return; }
+    ER.flag('g-in', 1);
+    ER.narrate([
+      'Every chair is taken, and people are standing along the walls: Mr Bevis, Sadie and Maud at the back, Mo Rasheed and Rhoda Venn and Nev Sowerby in a row, and a woman in a blue coat, Yvonne Gedge, holding a lemonade she has not touched. Mr Tebbutt and Mrs Purkiss are in the front row. Pearl has the sale book open and her pencil ready.',
+      'Mrs Gotobed taps the gavel once. &ldquo;Lot one. Forty promises of one Fen Tiger bulb each, from Mrs Purkiss&rsquo;s July lifting. The catalogue says: estimate four to fourteen pounds each.&rdquo; A noise goes round the room, like wind in a field. &ldquo;That is what a Fen Tiger is worth to somebody who will plant it. It is a real tulip, a healthy one, and a beautiful one. It is not a house.&rdquo;',
+      '&ldquo;We will begin the Aalsmeer way, from the top,&rdquo; she says. &ldquo;Three hundred pounds, anybody?&rdquo; Silence. &ldquo;Two hundred?&rdquo; Mr Tebbutt&rsquo;s hand goes up an inch, from habit, and he sits on it. &ldquo;One hundred. Fifty. Twenty.&rdquo; Nothing. The price comes down the staircase, one step at a time, and nobody falls off the roof.',
+      '&ldquo;Then the ordinary way, from the bottom. I have commission bids. Five pounds. Nine. Sorcha Bly, in the room, at ten, at eleven. Against you, Sorcha, on the book, at twelve.&rdquo; Sorcha shakes her head. The gavel comes down. &ldquo;Sold, at twelve pounds each, to Gapp&rsquo;s Nursery, who mean to grow them.&rdquo;',
+      'Then Mrs Gotobed puts down the gavel and reads a note in Sadie&rsquo;s writing. &ldquo;Sadie Thurlow asks me to say: any promise in her book may be cancelled, if the buyer asks, by paying the seller three and a half per cent of its price. That is what Haarlem did after the crash of 1637. We are doing it before anybody has paid a penny. Mrs Purkiss&rsquo;s own promises stand: a real bulb, at the price agreed, in July.&rdquo;',
+      'In the third row, Yvonne Gedge does a sum on the back of her hand. &ldquo;Twelve pounds and eight pence,&rdquo; she says, out loud, and laughs for the first time in a week. &ldquo;About what it&rsquo;s worth.&rdquo;',
+      'Mrs Gotobed holds out a stick of chalk to you. &ldquo;The board, please. We chalk a price after it is paid.&rdquo;'
+    ], function () { busy = false; $('#board').classList.add('ready'); openCk(); });
+  }
+  function openCk() { if (ER.flag('g-done')) return; if (!ck) ck = makeCk(); ck.open(); }
+  $('#board').addEventListener('click', function () {
+    if (busy) return;
+    if (ER.flag('g-done')) { ER.say('Eight Saturdays: £5, £10, £20, £40, £80, £160, £320, and £12. The last line is the only one a gardener would recognise.'); return; }
+    openCk();
+  });
+  function makeCk() {
+    var V = ['640', '352', '12', '0'], done = false;
+    var box = ER.el('div', 'pz chk');
+    box.innerHTML = '<div class="chk-in"><h5>FEN TIGER &middot; 7 Feb</h5><p>Chalk the price that Lot 1 sold for, each.</p><div class="chalks">' +
+      V.map(function (v) { return '<button type="button" data-v="' + v + '">£' + v + '</button>'; }).join('') + '</div></div><div class="pz-foot"><p class="pmsg"></p></div>';
+    var msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    var NO = { '640': '&ldquo;That is what Roland said it would be,&rdquo; says Mrs Gotobed. &ldquo;We chalk what was paid.&rdquo;', '352': '&ldquo;That was Friday night in Sadie&rsquo;s back room,&rdquo; says Mrs Gotobed. &ldquo;A promise between friends. What did lot one make here, today?&rdquo;', '0': '&ldquo;Nothing?&rdquo; says Pearl. &ldquo;Mr Gapp paid real money for real bulbs. The price fell. It didn&rsquo;t vanish.&rdquo;' };
+    ER.$$('.chalks button', box).forEach(function (b) {
+      b.addEventListener('click', function () {
+        if (done) return;
+        var v = b.getAttribute('data-v');
+        if (!ER.check('chalk', v)) { ER.sfx.no(); b.classList.add('no'); msg(NO[v] || 'Not that one.'); return; }
+        done = true; TULIP.sfx.chalk(); TULIP.solved(true); $('#eighth').textContent = '£' + v;
+        msg('You chalk it on the eighth line: <b>£' + v + '</b>. Somebody at the back starts to clap, and then, oddly, everybody does.');
+        setTimeout(ending, 2400);
+      });
+    });
+    msg('Click the price to chalk.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+  function ending() {
+    ER.closeAll(); busy = true; $('#board').classList.remove('ready');
+    TULIP.sfx.gavel();
+    ER.narrate([
+      'By half past four the room is empty except for chairs. Sadie has cancelled a hundred and forty promises at three and a half per cent, and written every one in the Tiger Book. Rhoda Venn will not have to find a hundred and twenty pounds in July, only four pounds twenty today. Nev Sowerby has gone home to circle a smaller tractor.',
+      'Mr Tebbutt has cancelled eleven of his twelve promises and kept one, from Mrs Purkiss, at the full price. &ldquo;I&rsquo;ll plant it in the front garden,&rdquo; he says, &ldquo;where the other one was.&rdquo; He has also promised Maud twenty yards of grass along the Ings Drain, and the syndicate&rsquo;s share of the dredging. He grumbled, in a very pleasant voice.',
+      'Pearl is keeping number seventeen. &ldquo;Forty pounds, on the first of July, for a bulb worth fourteen,&rdquo; she says. &ldquo;I knew what I was doing. Twenty-six pounds is quite cheap for knowing it.&rdquo; She is going to call it Expensive.',
+      'Mrs Gotobed takes off her glasses. &ldquo;Ten per cent of twelve pounds, forty times,&rdquo; she says. &ldquo;Forty-eight pounds. Not two thousand five hundred and sixty. It is the best afternoon&rsquo;s work I have done in forty-one years.&rdquo; She looks at you. &ldquo;Same time next Saturday? There&rsquo;s a grandfather clock that needs carrying, and it has never once been worth more than it is.&rdquo;'
+    ], function () { busy = false; ER.flag('g-done', 1); finish(false); });
+  }
+
+  /* ---------- people, after it all ---------- */
+  function line(sel, before, after) { $(sel).addEventListener('click', function () { if (!busy) ER.say(ER.flag('g-done') ? after : before); }); }
+  line('#tebbutt', 'Mr Tebbutt is sitting very still, with a folded yellow flyer in his lap.', '&ldquo;Four to fourteen,&rdquo; says Mr Tebbutt. &ldquo;I might put that in the window. Honest charts. New for spring.&rdquo;');
+  line('#purkiss', 'Mrs Purkiss has her handbag on her knees and her eyes on the gavel.', '&ldquo;Twenty to Lisse, forty to Rufus Gapp, and a thousand in July,&rdquo; says Mrs Purkiss. &ldquo;In five years there will be Fen Tigers in every front garden in Dykesend, at a pound each. That is what I wanted all along.&rdquo;');
+  line('#pearl', 'Pearl has written LOT 1 in the sale book, and is waiting to write the rest.', '&ldquo;Expensive,&rdquo; says Pearl. &ldquo;In a pot, by my window. Every spring it will remind me.&rdquo;');
+  line('#yvonne', 'Yvonne Gedge holds her lemonade in both hands and watches the board.', '&ldquo;Twelve pounds eight,&rdquo; says Yvonne. &ldquo;I&rsquo;ve been paying more than that for lemonade all week, just to sit and worry.&rdquo;');
+  line('#maud', 'Maud Collishaw stands at the back with her arms folded, as if the Corn Exchange might try to graze her.', '&ldquo;Twenty yards of grass,&rdquo; says Maud. &ldquo;And sixty beasts. Not a bad day for the Ings.&rdquo;');
+  line('#sadie', 'Sadie Thurlow has the Tiger Book under her arm.', '&ldquo;Darts on Tuesday,&rdquo; says Sadie. &ldquo;Back to normal. Thank goodness.&rdquo;');
+  line('#gotobed', '&ldquo;The board, please,&rdquo; says Mrs Gotobed.', '&ldquo;Next Saturday,&rdquo; says Mrs Gotobed. &ldquo;The grandfather clock. Estimate thirty to fifty pounds, and I mean it.&rdquo;');
+
+  /* ---------- the end ---------- */
+  function finish(quick) {
+    var st = ER.state(), mins = TULIP.minutesPlayed(), hn = ER.hintsUsed();
+    $('#eighth').textContent = '£12'; $('#board').classList.remove('ready');
+    $('#d-time').textContent = 'From the saleroom at half past nine to lot one at three: ' + mins + (mins === 1 ? ' minute.' : ' minutes.');
+    $('#d-hints').textContent = hn ? 'Hints asked for: ' + hn + '.' : 'Hints asked for: none at all.';
+    $('#d-words').textContent = 'In your notebook: ' + st.clues.length + ' clues and ' + Object.keys(st.words).length + ' words.';
+    $('#done').classList.add('on');
+    if (quick) ER.say('Half past four. The chairs are empty, and the eighth line on the board says £12.');
+  }
+  $('#b-book').addEventListener('click', ER.notebook);
+  $('#b-lobby').addEventListener('click', function () { ER.leave('../index.html'); });
+  $('#b-reset').addEventListener('click', function () {
+    var b = $('#b-reset');
+    if (b.getAttribute('data-sure')) { ER.resetStory(); location.href = '../index.html'; return; }
+    b.setAttribute('data-sure', '1'); b.textContent = 'this empties your notebook. click again to do it';
+  });
+  $('#b-task').addEventListener('click', function () {
+    var saved = ER.flag('task') || {}, box = ER.el('div', 'rp');
+    box.innerHTML = '<h4>Trading in Wind &middot; in your own words</h4><h3>Explain it to a friend</h3>' +
+      '<p>A friend who was not in Dykesend asks you what happened. Choose ONE of these and explain it, aloud or in writing, in 70 to 100 words. Use: because, so, but, if, unless.</p>' +
+      '<p><b>A</b> What a bubble is, and why it bursts, using the Fen Tiger: price, value, the greater fool, and new buyers.<br><b>B</b> Why nobody in Dykesend was ruined, and why hardly anybody was ruined in 1637: promises, defaults, and three and a half per cent.<br><b>C</b> Your opinion: should a town make rules about its common land and its drains? Give a reason, with the Ings or the Long Field as your example.</p>' +
+      '<textarea id="r1"></textarea><div class="count"></div><label for="r2">Name</label><input type="text" id="r2" maxlength="60">' +
+      '<div class="foot"><span>Nobody marks this. It is saved in this browser as you write.</span><button type="button" class="btn" id="r-print">Print</button><button type="button" class="btn" id="r-done">Done</button></div>';
+    ER.glossIn(box, '.rp > p');
+    box.querySelector('#r1').value = saved.r1 || ''; box.querySelector('#r2').value = saved.r2 || '';
+    function keep() {
+      var o = { r1: box.querySelector('#r1').value, r2: box.querySelector('#r2').value }, n = (o.r1.match(/[A-Za-z’']+/g) || []).length;
+      box.querySelector('.count').textContent = n + (n === 1 ? ' word' : ' words');
+      ER.flag('task', o);
+    }
+    box.addEventListener('input', keep);
+    box.addEventListener('keydown', function (e) { e.stopPropagation(); });
+    box.querySelector('#r-print').addEventListener('click', function () { keep(); window.print(); });
+    box.querySelector('#r-done').addEventListener('click', ER.close);
+    ER.open('ov-report', box); keep();
+  });
+})();
+</script>
+</body>
+</html>

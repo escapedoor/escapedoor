@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Topside · Open This Together</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-duo.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="lodge.css">
+<style>
+  body{--bg:#0e0c0a;--accent:#ffd27a;--font-display:'Fraunces',serif;--font-ui:'Space Mono',monospace;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(16,13,10,.95);--tc-ink:#fbf0dc;--cap-bg:rgba(18,14,10,.93);--panel:#1e1810;--face-bg:#2e2416;--q-ink:#ffd9a0;--fade:#060403;--hud-bg:rgba(18,14,10,.82)}
+  #glow{animation:glow 2.8s steps(3,end) infinite alternate}
+  @keyframes glow{from{opacity:.55}to{opacity:1}}
+  #diver{opacity:0;transform:translateY(160px);transition:opacity 2.4s,transform 3s}
+  body.up #diver{opacity:1;transform:translateY(0)}
+  body.up #glow{display:none}
+  .rip{animation:rip 5s ease-in-out infinite alternate}
+  @keyframes rip{from{transform:translateX(-12px)}to{transform:translateX(12px)}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <radialGradient id="torchG" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fff6d6" stop-opacity=".8"/><stop offset="1" stop-color="#fff6d6" stop-opacity="0"/></radialGradient>
+  <linearGradient id="lightT" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#ffcf7a" stop-opacity=".0"/><stop offset="1" stop-color="#ffcf7a" stop-opacity=".35"/></linearGradient>
+  <linearGradient id="wT" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#16302e"/><stop offset="1" stop-color="#040c0b"/></linearGradient>
+  <radialGradient id="vigT" cx="50%" cy="50%" r="76%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".65" stop-color="#000" stop-opacity=".25"/><stop offset="1" stop-color="#000" stop-opacity=".85"/></radialGradient>
+</defs>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="#0e0c0a"/>
+<!-- looking down the basement stairs from the door of the Lodge -->
+<polygon points="-1000,-700 520,300 520,760 -1000,1700" fill="#2a2620"/>
+<polygon points="2600,-700 1080,300 1080,760 2600,1700" fill="#24201a"/>
+<rect x="520" y="300" width="560" height="460" fill="#141210"/>
+<g id="steps"></g>
+<polygon points="520,640 1080,640 1080,760 520,760" fill="url(#wT)" fill-opacity=".95"/>
+<g class="rip" stroke="#5fa79d" stroke-width="2" fill="none" opacity=".45"><path d="M560 660q40 -5 80 0t80 0M800 680q50 -6 100 0t100 0M620 720q70 -8 140 0t140 0"/></g>
+<ellipse id="glow" cx="800" cy="700" rx="120" ry="34" fill="url(#torchG)"/>
+<!-- the diver, coming up with the box -->
+<g id="diver" class="hot"><path d="M740 640q-10 -120 60 -130q70 10 60 130z" fill="#1b2324"/><circle cx="800" cy="480" r="34" fill="#1b2324"/><rect x="772" y="466" width="56" height="26" rx="10" fill="#7fb7ae" opacity=".8"/>
+  <rect x="690" y="560" width="220" height="100" rx="6" fill="#7a5530" stroke="#3e2a14" stroke-width="4"/><rect x="690" y="560" width="24" height="24" fill="#c9a94e"/><rect x="886" y="560" width="24" height="24" fill="#c9a94e"/><rect x="750" y="598" width="100" height="22" fill="#d4b45a"/>
+  <path d="M674 600h16M910 600h16" stroke="#c9a94e" stroke-width="9" stroke-linecap="round"/><circle cx="830" cy="520" r="12" fill="#fff6d6"/></g>
+<!-- the light from the Lodge falls down the steps -->
+<polygon points="300,-700 1300,-700 1080,640 520,640" fill="url(#lightT)" pointer-events="none"/>
+<!-- Mr Blundell's back, on his stool at the top, winding in the line -->
+<g id="blundell" class="hot"><path d="M180 1000q-30 -330 220 -350q250 20 220 350z" fill="#2c3a52"/><ellipse cx="400" cy="560" rx="96" ry="104" fill="#e2b28e"/><path d="M308 560q-10 -80 92 -96q102 16 92 96" fill="#ece8de"/>
+  <ellipse cx="400" cy="470" rx="110" ry="24" fill="#1d2a40"/><path d="M314 470q6 -66 86 -70q80 4 86 70z" fill="#2c3a52"/>
+  <path d="M600 800q120 -60 190 -170" stroke="#d9b34a" stroke-width="10" fill="none"/><ellipse cx="560" cy="860" rx="90" ry="26" fill="none" stroke="#d9b34a" stroke-width="10"/></g>
+<!-- the door frame -->
+<path d="M-1000 -700H2600V-80H1380V1700H220V-80H-1000Z" fill="#3a2a18" opacity=".001" pointer-events="none"/>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#vigT)" pointer-events="none"/>
+</svg>
+</div>
+<div class="done" id="done">
+  <h3><small>Open This Together · the operator&rsquo;s part</small>The box is out of the water.</h3>
+  <p id="d-time"></p><p id="d-hints"></p><p id="d-words"></p>
+  <p>Your partner&rsquo;s screen shows the same ending, from the bottom of the steps.</p>
+  <div class="row"><button type="button" class="btn" id="b-task">Write the Lodge log</button><button type="button" class="btn" id="b-book">Notebook</button><button type="button" class="btn" id="b-lobby">Back to the stories</button></div>
+  <small>Open This Together &middot; <button type="button" id="b-reset">play this part again from the start</button></small>
+</div>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="lodge.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true;
+  (function () {
+    var s = '', i, y, w;
+    for (i = 0; i < 10; i++) { y = 300 + i * 34; w = 280 - i * 0; s += '<g class="hot stp"><rect x="' + (800 - w) + '" y="' + y + '" width="' + (2 * w) + '" height="16" fill="' + (i % 2 ? '#4a463e' : '#524d44') + '"/><rect x="' + (800 - w) + '" y="' + (y + 16) + '" width="' + (2 * w) + '" height="18" fill="#2a2620"/></g>'; }
+    $('#steps').innerHTML = s;
+  })();
+
+  ER.init({
+    theme: 'duo', story: 'dive-b', storyTitle: 'Open This Together', id: 'topside', no: 'V', title: 'Topside',
+    go: 'Go to the top of the stairs',
+    intro: [
+      'The diver said the brown water was heaving up in the far right-hand corner of the Boiler Room, under the coal chute: grating No. 3 on the plan of 1898, the storm drain that runs straight to the river. Its flap at the river end had stuck open. The surveyor&rsquo;s note said: the wheel on the pipe with the RED band that goes DOWN into the floor, turned so that its top goes towards the boiler. The boiler was on the diver&rsquo;s left, so that was anticlockwise: eight turns.',
+      'It is twenty-five past eleven. The red lamp on the pump panel has gone out.'
+    ],
+    exit: {"last":true,"rooms":5,"stars":3}, tags: {},
+    hints: function () { return ER.flag('b5-done') ? null : ['end', ['Nothing to solve here. Watch the stairs.']]; },
+    onBegin: begin
+  });
+
+  function isBusy() { return busy; }
+  function begin() {
+    if (ER.flag('b5-done')) { busy = false; document.body.classList.add('up'); finish(true); return; }
+    ER.narrate([
+      'You stand in the doorway of the Lodge, beside Mr Blundell&rsquo;s stool, and look down the stairs. Twelve steps, the black water, and nothing else. The pump needle is still at FULL, but now, for the first time tonight, the pump is winning: there is a wet line on the wall above the water, a finger&rsquo;s width high.',
+      'Mr Blundell winds in the line, an arm&rsquo;s length at a time, the way he let it out. &ldquo;Coming up,&rdquo; he says. &ldquo;I can feel it.&rdquo;',
+      'Down at the bottom of the stairs, the black water turns green, then gold. A torch is coming up through it.'
+    ], function () {
+      document.body.classList.add('up');
+      ER.narrate([
+        'Then a mask comes up out of the water, and then the diver, climbing slowly, step by step, holding a box with brass corners by one of its two handles.',
+        'You have been talking to this person for forty minutes, and until now you have never seen each other&rsquo;s faces. Neither of you says anything clever. You go down two steps and take the other handle, and the two of you carry the box up together, because, it turns out, that is the only way it can be carried.',
+        'In the light from the Lodge, the brass plate says OPEN THIS TOGETHER.',
+        'Mrs Treharne is still on the telephone, from the far side of the river. &ldquo;In 1926 the school chose two girls to carry it to the wall: Dulcie Hext and Edie Tozer, best friends. Neither of them would let go of her handle, so the teacher had the plate made.&rdquo;',
+        '&ldquo;On Saturday the seventh of November, at eleven o&rsquo;clock, somebody has to open it, in front of the whole town,&rdquo; says Mrs Treharne. &ldquo;I think it had better be two people.&rdquo;'
+      ], function () { busy = false; ER.flag('b5-done', 1); finish(false); });
+    });
+  }
+  function finish(quick) {
+    var st = ER.state(), mins = LG.mins(), hn = ER.hintsUsed();
+    $('#d-time').textContent = 'From the Lodge and back: ' + mins + (mins === 1 ? ' minute.' : ' minutes.');
+    $('#d-hints').textContent = hn ? 'Hints asked for: ' + hn + '.' : 'Hints asked for: none at all.';
+    $('#d-words').textContent = 'In your notebook: ' + st.clues.length + ' papers and ' + Object.keys(st.words).length + ' words.';
+    $('#done').classList.add('on');
+    LG.card([['Ask your partner', ['&ldquo;What did it look like down there, while I was up here?&rdquo;', '&ldquo;What would you put in a box for the children of 2126?&rdquo;']]]);
+    if (quick) ER.say('The Lodge, at half past eleven. The box is on the desk, under a towel, and Teasel is asleep on it.');
+    else { try { if (ER.track && ER.music()) ER.track.play(['duet', { root: 53, bpm: 84, drop: ['ost'] }]); } catch (e) {} }
+  }
+  LG.thing('#blundell', null, function () { return '&ldquo;Forty-one years,&rdquo; says Mr Blundell, coiling the line, &ldquo;and I never once saw anybody come up those stairs wet. Damp, yes.&rdquo; He looks at the puddle on his floor. &ldquo;I suppose that&rsquo;s wet.&rdquo;'; }, isBusy);
+  LG.thing('#diver', null, function () { return 'Your partner, the diver: the voice on the radio, with a face at last, and a puddle. Ask them what they saw down there.'; }, isBusy);
+  ER.$$('.stp').forEach(function (n) { n.addEventListener('click', function () { if (!busy) ER.say('Twelve steps down to the water. When the diver went down, nine of them were dry. Now ten are.'); }); });
+  $('#b-book').addEventListener('click', ER.notebook);
+  $('#b-lobby').addEventListener('click', function () { ER.leave('../index.html'); });
+  $('#b-reset').addEventListener('click', function () {
+    var b = $('#b-reset');
+    if (b.getAttribute('data-sure')) { ER.resetStory(); location.href = '../index.html'; return; }
+    b.setAttribute('data-sure', '1'); b.textContent = 'this empties your notebook. click again to do it';
+  });
+  $('#b-task').addEventListener('click', function () {
+    var saved = ER.flag('task') || {}, box = ER.el('div', 'rp');
+    box.innerHTML = '<h4>For the records of Rillmouth Museum</h4><h3>The Lodge log</h3>' +
+      '<p>Mrs Treharne wants the night written down for the museum&rsquo;s records, from the Lodge: what happened, and when, in the order it happened.</p>' +
+      '<p><b>A</b> Write the log in 60 to 90 words, with times. Begin: &ldquo;22.48 The diver went into the water at the foot of the Lodge stairs.&rdquo; Use at least five of these: at, by, until, after, before, then, as soon as, while, because.<br><b>B</b> Or, with your partner: write a letter to go into a new box, for the children of Rillmouth in 2126. You write one sentence, your partner writes the next, and so on, until you have ten.</p>' +
+      '<textarea id="r1"></textarea><div class="count"></div><label for="r2">Written by</label><input type="text" id="r2" maxlength="60">' +
+      '<div class="foot"><span>Nobody marks this. It is saved in this browser as you write.</span><button type="button" class="btn" id="r-print">Print</button><button type="button" class="btn" id="r-done">Done</button></div>';
+    ER.glossIn(box, '.rp > p');
+    box.querySelector('#r1').value = saved.r1 || ''; box.querySelector('#r2').value = saved.r2 || '';
+    function keep() {
+      var o = { r1: box.querySelector('#r1').value, r2: box.querySelector('#r2').value }, n = (o.r1.match(/[A-Za-z’']+/g) || []).length;
+      box.querySelector('.count').textContent = n + (n === 1 ? ' word' : ' words');
+      ER.flag('task', o);
+    }
+    box.addEventListener('input', keep);
+    box.addEventListener('keydown', function (e) { e.stopPropagation(); });
+    box.querySelector('#r-print').addEventListener('click', function () { keep(); window.print(); });
+    box.querySelector('#r-done').addEventListener('click', ER.close);
+    ER.open('ov-report', box); keep();
+  });
+})();
+</script>
+</body>
+</html>

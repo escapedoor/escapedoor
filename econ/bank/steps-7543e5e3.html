@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Four O’Clock · Still Open at Four</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-econ.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="bank.css">
+<style>
+  body{--bg:#e8b07a;--accent:#7a1f2b;--font-display:'Lora',serif;--font-ui:'Outfit',sans-serif;--font-body:'Lora',serif;
+    --tc-bg:rgba(255,240,220,.97);--tc-ink:#3a1a10;--cap-bg:rgba(255,248,236,.96);--cap-ink:#2a1a10;--panel:#fffaf0;--panel-ink:#2a1a10;--face-bg:#26304a;--q-ink:#7a1f2b;
+    --fade:#ffe8c8;--hud-bg:rgba(255,248,236,.88);--hud-ink:#2a1a10;--hud-line:rgba(42,26,16,.3);--ov-bg:rgba(50,24,10,.55)}
+  .tc-room{font-size:clamp(40px,5.8vw,82px);color:#7a1f2b;font-family:'Cinzel',serif}
+  .tc-theme{color:#2f5a44}
+  .hbtn b{color:#fff}
+  #leaves g{animation:fall 9s linear infinite}
+  #leaves g:nth-child(2){animation-delay:-3s}#leaves g:nth-child(3){animation-delay:-6s}
+  @keyframes fall{from{transform:translate(0,-80px) rotate(0)}to{transform:translate(-160px,900px) rotate(540deg)}}
+  #glowdoor{animation:gd 4s steps(2,end) infinite}
+  @keyframes gd{50%{opacity:.85}}
+  #half{display:none}
+  #scene.over #half{display:block}
+
+  /* the three things to say */
+  .sp3{width:min(900px,95vw)}
+  .sp3-in{background:#fffaf0;color:#2a1a10;padding:16px 22px 14px;border-top:16px solid #7a1f2b;box-shadow:0 26px 70px rgba(0,0,0,.5)}
+  .sp3 h4{margin:0 0 4px;font-family:'Cinzel',serif;font-weight:700;font-size:23px;color:#7a1f2b}
+  .sp3 .sub{margin:0 0 10px;font-family:'Lora',serif;font-size:15.5px}
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+  .cards button{padding:10px 12px;text-align:left;background:#f6efe0;border:2px solid #d8c8a8;border-radius:4px;font-family:'Lora',serif;font-size:15px;line-height:1.35;color:#2a1a10}
+  .cards button:hover{border-color:#7a1f2b}
+  .cards button.no{opacity:.4;text-decoration:line-through}
+  .cards button.yes{background:#e6f2e6;border-color:#2f6a3a}
+  .sp3 .pmsg{color:#fffaf0}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7aa0c8"/><stop offset=".55" stop-color="#f2c08a"/><stop offset="1" stop-color="#f29a6a"/></linearGradient>
+  <pattern id="ashlar" width="80" height="40" patternUnits="userSpaceOnUse"><rect width="80" height="40" fill="#d8c8a4"/><path d="M0 0H80M0 20H80M0 0V20M40 20V40" stroke="#b8a884" stroke-width="2"/></pattern>
+  <pattern id="cobble" width="40" height="24" patternUnits="userSpaceOnUse"><rect width="40" height="24" fill="#8a7a6a"/><ellipse cx="10" cy="6" rx="9" ry="5" fill="#9a8a78"/><ellipse cx="30" cy="18" rx="9" ry="5" fill="#9a8a78"/></pattern>
+  <linearGradient id="inside" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe0a0"/><stop offset="1" stop-color="#c88a4a"/></linearGradient>
+  <linearGradient id="sunL" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ffcf8a" stop-opacity=".45"/><stop offset="1" stop-color="#ffcf8a" stop-opacity="0"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="45%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#5a2a00" stop-opacity=".08"/><stop offset="1" stop-color="#3a1a00" stop-opacity=".45"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1100" fill="url(#sky)"/>
+<g fill="#fff" opacity=".5"><ellipse cx="1300" cy="90" rx="120" ry="18"/><ellipse cx="1380" cy="70" rx="70" ry="14"/><ellipse cx="300" cy="60" rx="90" ry="12"/></g>
+
+<!-- the town hall and its clock -->
+<g id="clock" class="hot"><rect x="40" y="40" width="220" height="660" fill="#b89a74"/><path d="M30 40L150 -60L270 40z" fill="#5a4a3a"/><rect x="40" y="300" width="220" height="400" fill="url(#ashlar)"/>
+  <circle cx="150" cy="170" r="76" fill="#3a2a1a"/><circle cx="150" cy="170" r="66" fill="#f8f0dc"/><g stroke="#2a1a10" stroke-width="4"><path d="M150 110v12M150 218v12M90 170h12M198 170h12"/></g>
+  <path d="M150 170l34 20" stroke="#2a1a10" stroke-width="7" stroke-linecap="round"/><path id="minute" d="M150 170v-52" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" transform="rotate(-12 150 170)"/><circle cx="150" cy="170" r="6" fill="#2a1a10"/>
+  <text x="150" y="276" class="cZ" font-size="15" text-anchor="middle" fill="#3a2a1a">TOWN HALL</text></g>
+
+<!-- the bank: columns, pediment, open doors -->
+<rect x="400" y="140" width="800" height="520" fill="url(#ashlar)"/>
+<path d="M380 150L800 40L1220 150z" fill="#c8b490" stroke="#a8946a" stroke-width="4"/><rect x="380" y="146" width="840" height="30" fill="#b8a480"/>
+<text x="800" y="128" class="cZ" font-size="22" text-anchor="middle" fill="#5a2a1a">1923</text>
+<text x="800" y="168" class="cZ" font-size="21" text-anchor="middle" fill="#5a2a1a" letter-spacing="4">BROCKHOLT &amp; DISTRICT BANK</text>
+<g fill="#e8dcc0" stroke="#b8a884" stroke-width="3"><rect x="470" y="190" width="60" height="460"/><rect x="1070" y="190" width="60" height="460"/></g>
+<g fill="#8aa0aa" stroke="#7a6a50" stroke-width="5"><rect x="580" y="230" width="110" height="160"/><rect x="910" y="230" width="110" height="160"/></g>
+<g id="doors"><rect x="720" y="300" width="160" height="350" fill="url(#inside)"/><rect id="glowdoor" x="720" y="300" width="160" height="350" fill="#fff6d0" opacity=".5"/><path d="M720 300l-40 20v330l40 0zM880 300l40 20v330l-40 0z" fill="#4a2c18"/>
+  <rect x="770" y="250" width="60" height="30" fill="#fff" stroke="#7a1f2b" stroke-width="2"/><text id="opensign" x="800" y="271" class="cO" font-size="15" text-anchor="middle" fill="#7a1f2b">OPEN</text></g>
+<g fill="#c8bca0"><rect x="380" y="650" width="840" height="24"/><rect x="360" y="674" width="880" height="24"/><rect x="340" y="698" width="920" height="24"/></g>
+<g stroke="#a8a084" stroke-width="2"><path d="M380 674H1220M360 698H1240M340 722H1260"/></g>
+
+<!-- Pathak's Bakery next door -->
+<g id="bakery" class="hot"><rect x="1220" y="250" width="380" height="470" fill="#d89a5a"/><rect x="1220" y="250" width="380" height="60" fill="#b8783a"/><text x="1410" y="290" class="cS" font-size="30" font-weight="700" text-anchor="middle" fill="#fff">PATHAK&apos;S</text>
+  <rect x="1250" y="350" width="170" height="150" fill="#f4e6c8"/><g fill="#d8a060"><ellipse cx="1290" cy="470" rx="22" ry="12"/><ellipse cx="1340" cy="472" rx="22" ry="12"/><ellipse cx="1390" cy="470" rx="22" ry="12"/></g><rect x="1450" y="380" width="90" height="340" fill="#6a3a1a"/></g>
+
+<rect x="-1000" y="720" width="3600" height="700" fill="url(#cobble)"/><rect x="-1000" y="716" width="3600" height="8" fill="#6a5a4a"/>
+
+<!-- everybody -->
+<g id="crowd"></g>
+<g id="delacour" class="hot" transform="translate(690 668) scale(.92)"></g>
+<g id="yuki" class="hot" transform="translate(830 650) scale(.86)"></g>
+<g id="ellwood" class="hot" transform="translate(400 868) scale(1.06)"></g>
+<g id="rook" class="hot" transform="translate(580 878) scale(1.08)"></g>
+<g id="ursula" class="hot" transform="translate(990 870) scale(1.04)"></g>
+<g id="pathak" class="hot" transform="translate(1180 880) scale(1.08)"></g>
+<g id="wanda" class="hot" transform="translate(1470 890) scale(1.1)"></g>
+<g id="half"><g transform="translate(1530 880)"><path d="M-40 0l14 -80h52l14 80" fill="#2b3a32" stroke="#6a4420" stroke-width="4"/><text x="0" y="-60" class="cS" font-size="11" text-anchor="middle" fill="#f2c45a">TEA</text><text x="0" y="-46" class="cS" font-size="10" text-anchor="middle" fill="#fff">half price</text><text x="0" y="-32" class="cS" font-size="8" text-anchor="middle" fill="#fff">if you changed</text><text x="0" y="-22" class="cS" font-size="8" text-anchor="middle" fill="#fff">your mind</text></g></g>
+<g id="leaves"><g><path d="M300 0q10 -10 20 0q-10 10 -20 0z" fill="#c8602a"/></g><g><path d="M900 0q10 -10 20 0q-10 10 -20 0z" fill="#d8902a"/></g><g><path d="M1400 0q10 -10 20 0q-10 10 -20 0z" fill="#a84a2a"/></g></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#sunL)" pointer-events="none"/>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<div class="done" id="done">
+  <div class="okstamp">STILL OPEN AT FOUR</div>
+  <p id="d-time"></p><p id="d-hints"></p><p id="d-words"></p>
+  <h6>What you now know</h6>
+  <ol>
+    <li>A bank keeps only a part of its deposits as cash (its reserves) and lends the rest. The money lent is spent and paid in again, so a bank&rsquo;s deposits are many times the cash in its vault.</li>
+    <li>A balance sheet: what a bank owns (loans, cash, its account at the central bank) equals what it owes (deposits) plus its capital, the cushion that takes any loss first.</li>
+    <li>Solvent is not the same as liquid. A sound bank owns more than it owes, but it cannot turn loans into cash in one afternoon.</li>
+    <li>Simple interest is paid on the first amount only; compound interest is paid on the interest too. Over many years compound interest is most of the money. The rule of 72 gives the years it takes to double.</li>
+    <li>A bank pays savers less than it charges borrowers. The gap pays for the bank and its profit.</li>
+    <li>A rumour can make itself true: each person&rsquo;s sensible choice to queue adds up to the run everybody fears. Time, a lender of last resort and deposit insurance stop runs.</li>
+    <li>Numbers mislead without their time, their base or their frame: £41 million &ldquo;since 1923&rdquo;, &ldquo;up 50%&rdquo; from two loans to three, a photograph of a queue for bread.</li>
+  </ol>
+  <div class="row"><button type="button" class="btn" id="b-task">Explain it to a friend</button><button type="button" class="btn" id="b-book">Notebook</button><button type="button" class="btn" id="b-lobby">Back to the stories</button></div>
+  <small>Still Open at Four &middot; <button type="button" id="b-reset">play it again from the start</button></small>
+</div>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="bank.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, sp = null;
+
+  (function () {
+    var s = '', i, cols = ['#5a6a8a', '#8a4a3a', '#3a5a4a', '#a08a5a', '#6a4a7a', '#4a5a6a'];
+    for (i = 0; i < 16; i++) s += '<g transform="translate(' + (300 + i * 62) + ' ' + (800 - (i % 3) * 10) + ') scale(.8)">' + BANK.person({ top: cols[i % 6], hair: ['#3a2a20', '#c9c4bc', '#1a1412', '#8a5a2a'][i % 4], style: i % 2 ? 'bob' : 'short', back: true, shadow: 0.12 }) + '</g>';
+    $('#crowd').innerHTML = s;
+    $('#delacour').innerHTML = BANK.who('delacour', { smile: 2 });
+    $('#yuki').innerHTML = BANK.who('yuki', { smile: 5 });
+    $('#ellwood').innerHTML = BANK.who('ellwood', { smile: 2, extra: '<rect x="30" y="-158" width="30" height="40" rx="2" fill="#2f5a44"/>' });
+    $('#rook').innerHTML = BANK.who('rook', { smile: 1, extra: '<rect x="28" y="-140" width="30" height="26" fill="#8a3a2a" stroke="#5a2a1a"/><path d="M32 -140l11 -12 11 12" fill="#8a3a2a" stroke="#5a2a1a"/>' });
+    $('#ursula').innerHTML = BANK.who('ursula', { smile: 3, extra: '<rect x="30" y="-150" width="14" height="24" rx="3" fill="#1a1a1e"/>' });
+    $('#pathak').innerHTML = BANK.who('pathak', { smile: 7, extra: '<rect x="-70" y="-150" width="140" height="12" rx="3" fill="#a87a4a"/><g fill="#d8a060"><ellipse cx="-40" cy="-162" rx="24" ry="12"/><ellipse cx="0" cy="-164" rx="24" ry="12"/><ellipse cx="40" cy="-162" rx="24" ry="12"/></g>' });
+    $('#wanda').innerHTML = BANK.who('wanda', { smile: 5 });
+  })();
+
+  ER.init({
+    theme: 'econ', story: 'bank', storyTitle: 'Still Open at Four', id: 'steps', no: 'VI', title: 'Four O’Clock',
+    go: 'Out on to the steps', sound: ['ledger', { root: 50, bpm: 92, drop: ['mel'], beds: [['crowd', 0.4], ['birds', 0.3]] }],
+    intro: [
+      'The van order: Yuki had counted sixty-four from the bank&rsquo;s door to the end, but the last fourteen were waiting for Pathak&rsquo;s three o&rsquo;clock bake. Fifty for the bank, at about £2,000 each: £100,000. The shelves held £54,000, so five boxes of £10,000, from the bank&rsquo;s own account at the Bank of England. No borrowing needed.',
+      'The five grey boxes went through the middle of the queue at ten to four, slowly, and everybody watched them go.',
+      'Mrs Delacour has gone out on to the front steps. The square is full, and the town hall clock says five to four.'
+    ],
+    exit: {"last":true,"rooms":6,"stars":4}, tags: {"why":["3c67a8ce","11f9e768","2409d01f"]},
+    hints: hints, onBegin: begin
+  });
+
+  function isBusy() { return busy; }
+  function hints() {
+    if (ER.flag('f-done')) return null;
+    if (sp && sp.isOpen()) return ['say', [
+      'Choose things that are true, that you found out this afternoon, and that would make a sensible person stop queuing.',
+      'Think of the balance in the office, the board in the hall, and page four of the manual in the vault. Leave out anything that is untrue, a threat, or unfair to somebody.'
+    ]];
+    return ['steps', ['Mrs Delacour is on the top step, waiting for her three things. Click her.']];
+  }
+  function begin() {
+    if (ER.flag('f-done')) { busy = false; finish(true); return; }
+    if (ER.flag('f-in')) { busy = false; $('#delacour').classList.add('ready'); ER.say('Mrs Delacour is waiting on the top step for three true things to say.'); return; }
+    ER.flag('f-in', 1);
+    ER.narrate([
+      'Market Square, five minutes to four, on an October afternoon. The sun is low over the town hall, and every window on the square has somebody in it.',
+      'The queue goes down the steps of the bank and along the pavement. Mr Ellwood is in it, and Simeon Rook with his money box, and Mrs Bright with her phone. Ravi Pathak is in his doorway with a tray. Wanda Threlfall has come across from the café without taking her apron off.',
+      'Mrs Delacour stands on the top step. Behind her the doors are wide open, and inside, Yuki is paying out money, calmly and in full.',
+      '&ldquo;I am going to tell them three things,&rdquo; Mrs Delacour says to you quietly. &ldquo;Three, because people remember three. They must be true, every word, and they must be things a sensible person can check. You choose.&rdquo;'
+    ], function () { busy = false; $('#delacour').classList.add('ready'); openSp(); });
+  }
+
+  function openSp() { if (ER.flag('f-done')) return; if (!sp) sp = makeSp(); sp.open(); }
+  $('#delacour').addEventListener('click', function () {
+    if (busy) return;
+    if (ER.flag('f-done')) { ER.say('&ldquo;Monday morning, nine o&rsquo;clock,&rdquo; says Mrs Delacour. &ldquo;Exactly as usual. That is the whole point.&rdquo;'); return; }
+    openSp();
+  });
+  function makeSp() {
+    var C = [
+      ['c1', 'Every penny of your money is in our vault, safe and sound.', '&ldquo;It isn&rsquo;t,&rdquo; says Mrs Delacour, &ldquo;and Mr Ellwood knows it isn&rsquo;t. Never tell a queue something it can check and find false.&rdquo;'],
+      ['c2', 'Your money has not vanished. It is here in Brockholt, lent to people who are paying it back. Ravi&rsquo;s oven is one of them.', ''],
+      ['c3', 'Anybody who takes their money out today will lose all their interest.', '&ldquo;A threat?&rdquo; says Mrs Delacour. &ldquo;That is the fastest way I know to make a queue longer. And it is not even true.&rdquo;'],
+      ['c4', 'This bank owns half a million pounds more than it owes you. If loans go bad, that cushion pays first, not your savings.', ''],
+      ['c5', 'Every saver here is protected up to £120,000 by the FSCS, the deposit insurance scheme.', ''],
+      ['c6', 'The rumour was started by Mr Rook, out of spite.', '&ldquo;It wasn&rsquo;t,&rdquo; says Mrs Delacour, &ldquo;and he is standing right there. We do not mend one rumour with another.&rdquo;']
+    ];
+    var got = ER.flag('f-got') || [], done = false;
+    var box = ER.el('div', 'pz sp3');
+    box.innerHTML = '<div class="sp3-in"><h4>Three true things</h4><p class="sub">Click three things for Mrs Delacour to say to the queue. True ones, that a sensible person can check.</p><div class="cards">' +
+      C.map(function (c) { return '<button type="button" data-id="' + c[0] + '"' + (got.indexOf(c[0]) >= 0 ? ' class="yes"' : '') + '>' + c[1] + '</button>'; }).join('') + '</div></div><div class="pz-foot"><p class="pmsg"></p></div>';
+    var msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    ER.$$('.cards button', box).forEach(function (b, i) {
+      b.addEventListener('click', function () {
+        var id = b.getAttribute('data-id');
+        if (done || got.indexOf(id) >= 0) return;
+        if (!ER.check('why', id)) { ER.sfx.no(); b.classList.add('no'); msg(C[i][2]); return; }
+        got.push(id); ER.flag('f-got', got); b.classList.add('yes'); BANK.sfx.stamp();
+        if (got.length < 3) { msg('&ldquo;Yes,&rdquo; says Mrs Delacour. &ldquo;That is true, and they can check it. ' + (got.length === 1 ? 'Two' : 'One') + ' more.&rdquo;'); return; }
+        done = true; BANK.solved(true); BANK.terms(['deposit insurance']);
+        msg('&ldquo;Three,&rdquo; says Mrs Delacour, and puts her glasses on. &ldquo;Thank you.&rdquo;');
+        setTimeout(ending, 2200);
+      });
+    });
+    msg(got.length ? 'Choose ' + (3 - got.length) + ' more.' : 'Choose three.');
+    ER.glossIn(box, '.cards button');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+
+  function ending() {
+    ER.closeAll(); busy = true; $('#delacour').classList.remove('ready');
+    ER.narrate([
+      'Mrs Delacour says the three things plainly, the way you would read out a recipe: the money is in the town, lent to people who are paying it back; the bank owns half a million pounds more than it owes; every saver is protected up to £120,000.',
+      '&ldquo;And one thing more,&rdquo; she says. &ldquo;We stay open until every one of you has been served. Nobody goes home today without their money, if they still want it.&rdquo;',
+      'There is a pause. Then Simeon Rook turns round to face the queue. &ldquo;I put ten pounds in that bank when I was eight,&rdquo; he says. &ldquo;It&rsquo;s a hundred and eighty-four pounds now. I&rsquo;m leaving it there.&rdquo; He looks at Mrs Delacour. &ldquo;That is not because I like you.&rdquo;',
+      'Mr Ellwood takes a banker&rsquo;s draft for the camper van, which the man in Northope accepts after a long telephone call, and leaves the rest in his savings book at three per cent, added every March.',
+      'Mrs Bright reads her correction aloud from her phone, in the voice that once kept thirty-two children quiet: &ldquo;At twelve twenty-one I wrote that the bank hadn&rsquo;t got the money. That was wrong. Mr Ellwood was told he could not have four thousand pounds in cash today without notice. That is all that happened.&rdquo;',
+      'Ravi Pathak walks down the queue with a tray of bloomers from the three o&rsquo;clock batch, and people begin to drift away, chewing. Wanda puts a board outside the café: TEA, HALF PRICE, IF YOU CHANGED YOUR MIND.'
+    ], function () {
+      $('#scene').classList.add('over');
+      $('#minute').setAttribute('transform', 'rotate(0 150 170)');
+      var n = 0; (function strike() { ER.sfx.bell(); n++; if (n < 4) setTimeout(strike, 1300); })();
+      ER.say('The town hall clock strikes four: one, two, three, four.', 5200);
+      setTimeout(function () {
+        ER.narrate([
+          'The doors of the Brockholt &amp; District Bank are still open. Inside, Yuki is still paying people, calmly and in full, and by twenty past four there is nobody left to pay.',
+          '&ldquo;Well,&rdquo; says Mrs Delacour, turning the sign on the door to CLOSED at last. &ldquo;You were promised the vault. I hope it was worth it.&rdquo; She very nearly smiles. &ldquo;What will you write on your work experience form?&rdquo;',
+          '&ldquo;That a bank is mostly other people&rsquo;s ovens,&rdquo; says Yuki, before you can answer.'
+        ], function () { busy = false; $('#opensign').textContent = 'CLOSED'; ER.flag('f-done', 1); finish(false); });
+      }, 5600);
+    });
+  }
+
+  /* ---------- people, after it all ---------- */
+  function line(sel, before, after) { $(sel).addEventListener('click', function () { if (!busy) ER.say(ER.flag('f-done') ? after : before); }); }
+  line('#yuki', 'Yuki is paying out, one savings book at a time, and she is smiling at every single customer, which is unlike her.', '&ldquo;Five boxes,&rdquo; says Yuki. &ldquo;We used three and a half. Don&rsquo;t tell Mrs D I&rsquo;m pleased.&rdquo;');
+  line('#ellwood', '&ldquo;Well?&rdquo; says Mr Ellwood. &ldquo;Is she going to say something or not?&rdquo;', '&ldquo;Three pounds sixty,&rdquo; says Mr Ellwood, to nobody. &ldquo;And a camper van. Not a bad Friday, all in all.&rdquo;');
+  line('#rook', 'Simeon Rook holds the money box in both hands and looks at the bank as if it owed him an apology.', '&ldquo;Forty thousand pounds,&rdquo; says Mr Rook. &ldquo;I&rsquo;ll bring a better plan. With sums that add up. Somebody in there can check them.&rdquo;');
+  line('#ursula', 'Mrs Bright is holding her phone face down.', '&ldquo;With the times,&rdquo; says Mrs Bright. &ldquo;I put the times in. Forty replies already, and not one capital letter.&rdquo;');
+  line('#pathak', '&ldquo;Bloomers,&rdquo; says Ravi. &ldquo;Three o&rsquo;clock batch. Have one. Have two.&rdquo;', '&ldquo;Half the queue was mine all along,&rdquo; says Ravi. &ldquo;Next Friday I&rsquo;m putting up a sign: THIS QUEUE IS FOR BREAD.&rdquo;');
+  line('#wanda', '&ldquo;Go on,&rdquo; says Wanda. &ldquo;Tell them. I&rsquo;ll put the kettle on either way.&rdquo;', '&ldquo;Half-price tea,&rdquo; says Wanda. &ldquo;Business has never been better. I might start a rumour every Friday.&rdquo;');
+  BANK.thing('#clock', null, function () { return ER.flag('f-done') ? 'The town hall clock says twenty past four. The bank&rsquo;s own clock, inside, says eighteen minutes past. Nobody minds.' : 'The town hall clock: five to four.'; }, isBusy);
+  BANK.thing('#bakery', 'bloomer', 'Pathak&rsquo;s window: the three o&rsquo;clock bloomers from the new oven, which the bank&rsquo;s loan paid for and the town&rsquo;s savings lent.', isBusy);
+
+  /* ---------- the end ---------- */
+  function finish(quick) {
+    var st = ER.state(), mins = BANK.minutesPlayed(), hn = ER.hintsUsed();
+    $('#scene').classList.add('over'); $('#delacour').classList.remove('ready'); $('#opensign').textContent = 'CLOSED';
+    $('#minute').setAttribute('transform', 'rotate(120 150 170)');
+    $('#d-time').textContent = 'From the banking hall to the steps at four: ' + mins + (mins === 1 ? ' minute.' : ' minutes.');
+    $('#d-hints').textContent = hn ? 'Hints asked for: ' + hn + '.' : 'Hints asked for: none at all.';
+    $('#d-words').textContent = 'In your notebook: ' + st.clues.length + ' clues and ' + Object.keys(st.words).length + ' words.';
+    $('#done').classList.add('on');
+    if (quick) ER.say('Twenty past four. The queue has gone, and the doors were open the whole time.');
+  }
+  $('#b-book').addEventListener('click', ER.notebook);
+  $('#b-lobby').addEventListener('click', function () { ER.leave('../index.html'); });
+  $('#b-reset').addEventListener('click', function () {
+    var b = $('#b-reset');
+    if (b.getAttribute('data-sure')) { ER.resetStory(); location.href = '../index.html'; return; }
+    b.setAttribute('data-sure', '1'); b.textContent = 'this empties your notebook. click again to do it';
+  });
+  $('#b-task').addEventListener('click', function () {
+    var saved = ER.flag('task') || {}, box = ER.el('div', 'rp');
+    box.innerHTML = '<h4>Still Open at Four &middot; in your own words</h4><h3>Explain it to a friend</h3>' +
+      '<p>A friend who was not in Brockholt on Friday asks you what happened. Choose ONE of these and explain it, aloud or in writing, in 60 to 90 words. Use: because, so, but, if.</p>' +
+      '<p><b>A</b> Why a bank that is perfectly sound still cannot pay everybody on the same afternoon, and what stops a bank run.<br><b>B</b> How the rumour about the bank grew, and why it nearly made itself true.<br><b>C</b> The difference between simple and compound interest, with Mr Rook&rsquo;s ten pounds as your example.</p>' +
+      '<textarea id="r1"></textarea><div class="count"></div><label for="r2">Name</label><input type="text" id="r2" maxlength="60">' +
+      '<div class="foot"><span>Nobody marks this. It is saved in this browser as you write.</span><button type="button" class="btn" id="r-print">Print</button><button type="button" class="btn" id="r-done">Done</button></div>';
+    ER.glossIn(box, '.rp > p');
+    box.querySelector('#r1').value = saved.r1 || ''; box.querySelector('#r2').value = saved.r2 || '';
+    function keep() {
+      var o = { r1: box.querySelector('#r1').value, r2: box.querySelector('#r2').value }, n = (o.r1.match(/[A-Za-z’']+/g) || []).length;
+      box.querySelector('.count').textContent = n + (n === 1 ? ' word' : ' words');
+      ER.flag('task', o);
+    }
+    box.addEventListener('input', keep);
+    box.addEventListener('keydown', function (e) { e.stopPropagation(); });
+    box.querySelector('#r-print').addEventListener('click', function () { keep(); window.print(); });
+    box.querySelector('#r-done').addEventListener('click', ER.close);
+    ER.open('ov-report', box); keep();
+  });
+})();
+</script>
+</body>
+</html>

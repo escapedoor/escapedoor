@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Bottom Step · Open This Together</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-duo.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="dive.css">
+<style>
+  body{--bg:#040d0d;--accent:#5fd4c4;--font-display:'Fraunces',serif;--font-ui:'Barlow Condensed',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(3,12,13,.95);--tc-ink:#e9f4f0;--cap-bg:rgba(4,16,17,.93);--panel:#0d1b1e;--face-bg:#14282b;--q-ink:#9fe0d6;--fade:#020707;--hud-bg:rgba(4,16,17,.82)}
+  .drip{animation:drip 2.7s linear infinite}
+  .drip.b{animation-delay:1.1s;animation-duration:3.4s}
+  .drip.c{animation-delay:2s;animation-duration:2.2s}
+  @keyframes drip{0%{transform:translateY(0);opacity:0}8%{opacity:1}100%{transform:translateY(330px);opacity:0}}
+  .rip{animation:rip 5s ease-in-out infinite alternate}
+  @keyframes rip{from{transform:translateX(-14px)}to{transform:translateX(14px)}}
+  #beam{animation:beam 6s steps(3,end) infinite alternate}
+  @keyframes beam{from{opacity:.9}to{opacity:1}}
+  #leaflet{animation:bob 3.6s ease-in-out infinite alternate}
+  @keyframes bob{from{transform:translate(0,0) rotate(0)}to{transform:translate(18px,4px) rotate(3deg)}}
+  .door.here>polygon:first-child{stroke:#ffe2a8;stroke-width:4}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="beamG" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#fff6d6" stop-opacity=".22"/><stop offset="1" stop-color="#fff6d6" stop-opacity="0"/></linearGradient>
+  <radialGradient id="spotG" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fff2c8" stop-opacity=".2"/><stop offset="1" stop-color="#fff2c8" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vigA" cx="50%" cy="48%" r="75%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".62" stop-color="#000" stop-opacity=".25"/><stop offset="1" stop-color="#000" stop-opacity=".85"/></radialGradient>
+  <linearGradient id="waterG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0d3c3e"/><stop offset="1" stop-color="#03171a"/></linearGradient>
+</defs>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="#050f0f"/>
+<polygon points="-1000,-650 2600,-650 960,250 640,250" fill="#0c1716"/>
+<polygon points="-1000,-650 640,250 640,520 -1000,1650" fill="#1d2d2a"/>
+<polygon points="2600,-650 960,250 960,520 2600,1650" fill="#182825"/>
+<rect x="640" y="250" width="320" height="270" fill="#101e1c"/>
+<g id="bricks" stroke="#0f1b19" stroke-width="2" opacity=".8"></g>
+<!-- pipes along the ceiling -->
+<g id="pipes" class="hot"><path d="M-1000 -420L700 274" stroke="#37403c" stroke-width="22"/><path d="M-1000 -380L700 282" stroke="#4c5550" stroke-width="5" opacity=".6"/>
+  <path d="M2600 -470L905 268" stroke="#3a3125" stroke-width="30"/><path d="M1150 168v-30M1300 110v-30M1460 44v-30" stroke="#2a241b" stroke-width="12"/></g>
+<g id="bulb" class="hot"><path d="M800 120v50" stroke="#222" stroke-width="3"/><path d="M786 168h28l-4 14h-20z" fill="#3a3a36"/><ellipse cx="800" cy="196" rx="13" ry="17" fill="#7f8a84" fill-opacity=".55" stroke="#c9d2cc" stroke-width="1.5"/></g>
+<g id="doors"></g>
+<!-- the steel door at the end -->
+<g id="steel" class="door hot" data-d="e"><rect x="740" y="322" width="120" height="198" fill="#3d4848" stroke="#7d8b8a" stroke-width="4"/><circle cx="800" cy="384" r="24" fill="none" stroke="#a8b6b4" stroke-width="5"/><path d="M800 360v48M776 384h48M783 367l34 34M817 367l-34 34" stroke="#a8b6b4" stroke-width="3"/>
+  <text x="800" y="344" class="st" font-size="12" fill="#e8d04a" letter-spacing="1">DO NOT OPEN</text></g>
+<g fill="#7fb7ae"><circle class="drip" cx="520" cy="300" r="3.5"/><circle class="drip b" cx="1088" cy="206" r="4"/><circle class="drip c" cx="300" cy="150" r="3"/></g>
+<!-- the water -->
+<polygon points="-1000,845 640,425.5 960,425.5 2600,845 2600,1700 -1000,1700" fill="url(#waterG)" fill-opacity=".9" pointer-events="none"/>
+<g pointer-events="none" stroke="#7fd1c6" stroke-width="2.5" fill="none" opacity=".55"><path d="M-1000 845L640 425.5H960L2600 845"/></g>
+<g class="rip" pointer-events="none" stroke="#5fb7ad" stroke-width="2" fill="none" opacity=".35"><path d="M560 520q40 -6 80 0t80 0M820 470q30 -5 60 0t60 0M300 640q60 -8 120 0t120 0M1000 600q50 -7 100 0t100 0M380 780q80 -10 160 0t160 0"/></g>
+<g id="beam" pointer-events="none"><polygon points="730,980 870,980 1030,330 570,330" fill="url(#beamG)"/><ellipse cx="800" cy="400" rx="170" ry="110" fill="url(#spotG)"/></g>
+<!-- a leaflet, floating -->
+<g id="leaflet" class="hot"><path d="M392 676l76 -10 8 30 -78 12z" fill="#e9e3cf"/><path d="M394 677l74 -10 3 10 -74 10z" fill="#2f6f6a"/><path d="M404 696l52 -7M405 703l40 -5" stroke="#55615e" stroke-width="2"/></g>
+<!-- the last dry step, the line, the slate -->
+<g id="step" class="hot"><path d="M150 838H1450L1600 912H0Z" fill="#59605a"/><path d="M150 838H1450" stroke="#868d85" stroke-width="5"/><path d="M0 912H1600V1320H0Z" fill="#2c332f"/><path d="M0 912H1600" stroke="#141a17" stroke-width="4"/></g>
+<g id="line" class="hot"><path d="M1050 1320q-40 -230 70 -330q90 -80 30 -150q-60 -60 40 -100" stroke="#d9b34a" stroke-width="12" fill="none" stroke-linecap="round"/><path d="M1050 1320q-40 -230 70 -330q90 -80 30 -150q-60 -60 40 -100" stroke="#8a6b1e" stroke-width="12" fill="none" stroke-dasharray="6 14" stroke-linecap="round"/>
+  <ellipse cx="1190" cy="896" rx="110" ry="22" fill="none" stroke="#d9b34a" stroke-width="10"/><ellipse cx="1190" cy="890" rx="80" ry="15" fill="none" stroke="#b8932f" stroke-width="9"/></g>
+<g id="slateg" class="hot" transform="rotate(-8 260 840)"><path d="M232 700q-20 -40 0 -70" stroke="#d6d2c4" stroke-width="3" fill="none"/><rect x="160" y="740" width="200" height="140" rx="10" fill="#e8d04a" stroke="#8d7d1e" stroke-width="4"/><rect x="176" y="756" width="168" height="108" rx="4" fill="#f4e892"/>
+  <path d="M188 776h120M188 796h90M188 816h130" stroke="#7a6d22" stroke-width="2.5"/><path d="M160 748h200" stroke="#7a6d22" stroke-width="2" stroke-dasharray="2 8"/></g>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#vigA)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Into the Long Store</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="dive.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, here = null, pulling = false, nextFile = null;
+
+  /* ---------- the corridor, drawn in perspective: every point is (side, distance along the wall, height 0..1) ---------- */
+  function P(side, x, h) {
+    var t = (x + 1000) / 1640, f = 1650 - 1130 * t, c = -650 + 900 * t, y = f + (c - f) * h;
+    return [side === 'L' ? x : 1600 - x, y];
+  }
+  function poly(side, x1, x2, h1, h2) { return [P(side, x1, h1), P(side, x1, h2), P(side, x2, h2), P(side, x2, h1)].map(function (p) { return p[0].toFixed(1) + ',' + p[1].toFixed(1); }).join(' '); }
+  function line(side, x1, h1, x2, h2) { var a = P(side, x1, h1), b = P(side, x2, h2); return 'M' + a[0].toFixed(1) + ' ' + a[1].toFixed(1) + 'L' + b[0].toFixed(1) + ' ' + b[1].toFixed(1); }
+  var DOORS = {
+    l1: { side: 'L', x: [60, 240], kind: 'double', plate: 'trask-ship' },
+    l2: { side: 'L', x: [360, 455], kind: 'double', plate: 'trask-fish' },
+    l3: { side: 'L', x: [548, 592], kind: 'iron' },
+    r1: { side: 'R', x: [60, 240], kind: 'lift' },
+    r2: { side: 'R', x: [360, 455], kind: 'double', plate: 'hollin-fish' },
+    r3: { side: 'R', x: [548, 592], kind: 'low' }
+  };
+  (function draw() {
+    var s = '', h, k, d, x1, x2, xm, top, i, a, b;
+    for (h = 0.06; h < 1; h += 0.075) s += '<path d="' + line('L', -1000, h, 640, h) + line('R', -1000, h, 640, h) + '"/>';
+    $('#bricks').innerHTML = s; s = '';
+    for (k in DOORS) {
+      d = DOORS[k]; x1 = d.x[0]; x2 = d.x[1]; xm = (x1 + x2) / 2;
+      top = d.kind === 'low' ? 0.48 : d.kind === 'iron' ? 0.62 : 0.66;
+      s += '<g class="door hot" data-d="' + k + '">';
+      s += '<polygon points="' + poly(d.side, x1 - 6, x2 + 6, 0, top + 0.03) + '" fill="#0b1413"/>';
+      if (d.kind === 'double') {
+        s += '<polygon points="' + poly(d.side, x1, x2, 0, top) + '" fill="#2d4a3e" stroke="#16251f" stroke-width="3"/>';
+        s += '<path d="' + line(d.side, xm, 0, xm, top) + '" stroke="#16251f" stroke-width="4"/>';
+        [[x1, xm], [xm, x2]].forEach(function (lf) {
+          var c = P(d.side, (lf[0] + lf[1]) / 2, 0.5), hh = P(d.side, (lf[0] + lf[1]) / 2, 0)[1] - P(d.side, (lf[0] + lf[1]) / 2, top)[1];
+          s += '<ellipse cx="' + c[0].toFixed(1) + '" cy="' + c[1].toFixed(1) + '" rx="' + ((lf[1] - lf[0]) * 0.26).toFixed(1) + '" ry="' + (hh * 0.085).toFixed(1) + '" fill="#06100f" stroke="#b39a52" stroke-width="3"/>';
+        });
+        a = P(d.side, xm - (x2 - x1) * 0.08, 0.6); b = P(d.side, xm + (x2 - x1) * 0.08, 0.6);
+        s += '<path d="M' + a[0].toFixed(1) + ' ' + a[1].toFixed(1) + 'L' + b[0].toFixed(1) + ' ' + b[1].toFixed(1) + '" stroke="#b39a52" stroke-width="' + ((x2 - x1) * 0.06).toFixed(1) + '" opacity=".8"/>';
+        a = P(d.side, xm, 0.385);
+        s += '<circle cx="' + a[0].toFixed(1) + '" cy="' + a[1].toFixed(1) + '" r="' + ((x2 - x1) * 0.035 + 2).toFixed(1) + '" fill="#c9a94e"/>';
+      } else if (d.kind === 'iron') {
+        s += '<polygon points="' + poly(d.side, x1, x2, 0, top) + '" fill="#2a2520" stroke="#544a3e" stroke-width="2"/>';
+        for (i = 0.1; i < top; i += 0.1) { a = P(d.side, x1 + 6, i); b = P(d.side, x2 - 6, i); s += '<circle cx="' + a[0].toFixed(1) + '" cy="' + a[1].toFixed(1) + '" r="2" fill="#6b5f4e"/><circle cx="' + b[0].toFixed(1) + '" cy="' + b[1].toFixed(1) + '" r="2" fill="#6b5f4e"/>'; }
+        s += '<path d="' + line(d.side, x1 + 8, 1, x1 + 8, top + 0.06) + line(d.side, x1 + 8, top + 0.06, x2 - 4, top + 0.06) + '" stroke="#5a4636" stroke-width="10" fill="none"/>';
+        s += '<path d="' + line(d.side, x2 - 10, 1, x2 - 10, top + 0.12) + '" stroke="#4a3a2c" stroke-width="7" fill="none"/>';
+      } else if (d.kind === 'lift') {
+        s += '<polygon points="' + poly(d.side, x1, x2, 0, top) + '" fill="#050909"/>';
+        for (i = 0; i <= 8; i++) { var xx = x1 + (x2 - x1) * i / 8; s += '<path d="' + line(d.side, xx, 0, xx, top) + '" stroke="#5f6766" stroke-width="2.5"/>'; }
+        s += '<path d="' + line(d.side, x1, top * 0.5, x2, top * 0.5) + line(d.side, x1, top, x2, top) + '" stroke="#6f7877" stroke-width="4"/>';
+        a = P(d.side, xm, 0.58); s += '<rect x="' + (a[0] - 36).toFixed(1) + '" y="' + (a[1] - 12).toFixed(1) + '" width="72" height="22" fill="#e8d04a"/><text x="' + a[0].toFixed(1) + '" y="' + (a[1] + 5).toFixed(1) + '" class="sv" font-size="14" fill="#1a1a14" letter-spacing="1">OUT OF USE</text>';
+      } else {
+        s += '<polygon points="' + poly(d.side, x1, x2, 0, top) + '" fill="#4a3522" stroke="#2a1d12" stroke-width="2"/>';
+        for (i = 1; i < 4; i++) { var xp = x1 + (x2 - x1) * i / 4; s += '<path d="' + line(d.side, xp, 0, xp, top) + '" stroke="#2a1d12" stroke-width="1.5"/>'; }
+        s += '<path d="' + line(d.side, x1, top * 0.82, x2, top * 0.82) + '" stroke="#1d1a17" stroke-width="5"/>';
+      }
+      if (d.kind === 'double' || d.kind === 'iron') {           /* an empty brass frame where a sign used to be */
+        a = P(d.side, xm, top + 0.1);
+        s += '<rect x="' + (a[0] - (x2 - x1) * 0.18).toFixed(1) + '" y="' + (a[1] - 8).toFixed(1) + '" width="' + ((x2 - x1) * 0.36).toFixed(1) + '" height="16" fill="none" stroke="#b39a52" stroke-width="2.5"/>';
+      }
+      s += '</g>';
+    }
+    $('#doors').innerHTML = s;
+  })();
+
+  ER.init({
+    theme: 'duo', story: 'dive-a', storyTitle: 'Open This Together', id: 'steps', no: 'I', title: 'The Bottom Step',
+    go: 'Go down',
+    intro: [
+      '<b class="two">This is a story for two. Your partner plays THE OPERATOR (part B) on another screen. Do not show each other your screens: talk. Everything one of you can see, the other one needs.</b>',
+      'Rillmouth, a little before eleven at night. At nine o&rsquo;clock the River Rill came over its bank, ran down Ferry Street, and found the basement of Rillmouth Museum. A pump is roaring in the yard. It is not winning.',
+      'You are the diver: one of the two people in the Rillmouth harbour dive team who answered the phone tonight. You have a torch, a radio in your mask, and a line round your waist that goes up the steps to the night porter. At the top of the steps, in the porter&rsquo;s Lodge, the operator has the plans of the basement and the museum&rsquo;s catalogue. You have never met.',
+      'Somewhere on a top shelf in the Long Store, just above the water, there is a box that has been waiting since 1926.'
+    ],
+    exit: {"next":"store","w":{"69466455":"5a237770"}}, tags: {},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('a1-told') || {}; here = ER.flag('a1-here') || null; nextFile = ER.flag('a1-file') || null;
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('a1-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    ER.$$('.door').forEach(function (n) { n.classList.toggle('here', n.getAttribute('data-d') === here); });
+    $('#go').classList.toggle('on', !!nextFile);
+    ER.pips((told.looked ? 1 : 0) + (here ? 1 : 0) + (nextFile ? 1 : 0), 3);
+    if (nextFile) DV.card([['Tell your partner', ['&ldquo;Topside, this is Diver. The doors are open. I&rsquo;m going into the Long Store. Over.&rdquo;']]]);
+    else if (here) DV.card([['Tell your partner', ['&ldquo;I&rsquo;m at the ' + (DOORS[here].side === 'L' ? 'left' : 'right') + '-hand door. The lock plate says &hellip; and it has a picture of &hellip;&rdquo;', 'Spell the name: &ldquo;T for Tango &hellip;&rdquo;']], ['Ask your partner', ['&ldquo;Is this the right door? Is the key on its way?&rdquo;']]]);
+    else DV.card([['Tell your partner', ['&ldquo;Topside, this is Diver. I&rsquo;m on the bottom step. I can see &hellip; doors on my left and &hellip; on my right.&rdquo;']], ['Ask your partner', ['&ldquo;Which door is the Long Store? Is it on my left or on my right?&rdquo;']]]);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The doors are open. The Long Store is three steps down inside them.']];
+    if (!here) return ['doors', [
+      'Your partner has the plan of the basement, and you have the view. Tell them what you can see from the bottom step: how many doors, on which side, and what each one looks like.',
+      'The plan is drawn from above. You are standing at the bottom of the stairs, looking along the corridor. Ask your partner which side of the corridor the Long Store is on as YOU look along it: your left, or your right?',
+      'Three doors look almost exactly alike: double doors with round windows. Only where they are is different. When your partner says &ldquo;the second one&rdquo;, check: the second counting from the stairs, on which side?'
+    ]];
+    return ['key', [
+      'Doors this old are always locked. Topside has the key cupboard; the keys are labelled by what is on the lock plate, not by the name of the room. Tell your partner exactly what you see on this lock.',
+      'Spell the maker&rsquo;s name with the spelling alphabet on your slate, and say what the little picture is. When your partner says the key is on its way, pull the line.'
+    ]];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; ER.say('The doors of the Long Store are open. The water inside is very still, and very black.'); return; }
+    if (told.intro) { busy = false; ER.say('The bottom step. Six doors, a steel one at the end, and two hours of river.'); return; }
+    ER.narrate([
+      'Twelve steps down, the stairs stop being stairs and start being a river. You stand on the last dry one. The water is black, and cold enough to make you say a word you will not repeat on the radio.',
+      'Your torch goes down the corridor ahead of you: doors on the left, doors on the right, a steel door at the end. Every door has a brass frame for a sign, and every frame is empty. The new signs are upstairs, in a box marked SIGNS.',
+      'Your radio clicks. Somebody you have never met is listening at the top of the stairs, waiting for you to speak first.'
+    ], function () { busy = false; tell('intro'); paint(); });
+  }
+
+  /* ---------- the doors ---------- */
+  var PIC = {
+    ship: '<path d="M60 128h80l-12 16H72z" fill="#5a4a1c"/><path d="M98 124V70l34 50z" fill="#5a4a1c"/><path d="M94 124V80l-26 40z" fill="#5a4a1c"/>',
+    fish: '<path d="M58 110q30 -30 66 0q-36 30 -66 0z" fill="#5a4a1c"/><path d="M124 110l20 -16v32z" fill="#5a4a1c"/><circle cx="74" cy="106" r="3.5" fill="#e3c66e"/><path d="M90 96q6 14 0 28" stroke="#e3c66e" stroke-width="2" fill="none"/>'
+  };
+  function plateSvg(p) {
+    var m = p.split('-'), name = m[0] === 'trask' ? 'J. TRASK' : 'HOLLIN &amp; SON';
+    return '<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#1d332b"/><ellipse cx="100" cy="100" rx="84" ry="92" fill="#c9a94e" stroke="#6a5520" stroke-width="5"/>' +
+      '<ellipse cx="100" cy="100" rx="72" ry="80" fill="none" stroke="#8a7230" stroke-width="2"/><text x="100" y="52" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="21" letter-spacing="2" fill="#4a3a12" text-anchor="middle">' + name + '</text>' +
+      '<text x="100" y="72" font-family="Barlow Condensed,sans-serif" font-weight="600" font-size="13" letter-spacing="3" fill="#4a3a12" text-anchor="middle">RILLMOUTH</text>' + PIC[m[1]] +
+      '<path d="M92 150h16l-3 26h-10z" fill="#2a210a"/><circle cx="100" cy="150" r="9" fill="#2a210a"/></svg>';
+  }
+  function doorSvg(d) {
+    var s = '<svg viewBox="0 0 380 300" xmlns="http://www.w3.org/2000/svg"><rect width="380" height="300" fill="#0b1615"/><rect y="200" width="380" height="100" fill="#0b3a3c" fill-opacity=".9"/>';
+    if (d.kind === 'double') s += '<rect x="90" y="20" width="200" height="270" fill="#2d4a3e" stroke="#16251f" stroke-width="5"/><path d="M190 20v270" stroke="#16251f" stroke-width="5"/>' +
+      '<circle cx="140" cy="100" r="30" fill="#06100f" stroke="#b39a52" stroke-width="6"/><circle cx="240" cy="100" r="30" fill="#06100f" stroke="#b39a52" stroke-width="6"/><rect x="150" y="34" width="80" height="20" fill="none" stroke="#b39a52" stroke-width="3"/>' +
+      '<path d="M174 166h-14M206 166h14" stroke="#c9a94e" stroke-width="7" stroke-linecap="round"/><ellipse cx="190" cy="190" rx="14" ry="16" fill="#c9a94e"/><path d="M188 186h4v10h-4z" fill="#2a210a"/>';
+    else if (d.kind === 'iron') s += '<rect x="130" y="40" width="120" height="250" fill="#2a2520" stroke="#544a3e" stroke-width="4"/><path d="M140 0v30h110M240 0v20" stroke="#5a4636" stroke-width="12" fill="none"/><circle cx="232" cy="170" r="8" fill="#6b5f4e"/>';
+    else if (d.kind === 'lift') s += '<rect x="90" y="20" width="200" height="270" fill="#050909"/><g stroke="#5f6766" stroke-width="4">' + [0, 1, 2, 3, 4, 5, 6, 7, 8].map(function (i) { return '<path d="M' + (90 + i * 25) + ' 20v270"/>'; }).join('') + '</g><rect x="140" y="110" width="100" height="26" fill="#e8d04a"/><text x="190" y="129" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="17" text-anchor="middle" fill="#1a1a14">OUT OF USE</text>';
+    else if (d.kind === 'low') s += '<rect x="120" y="130" width="140" height="160" fill="#4a3522" stroke="#2a1d12" stroke-width="3"/><path d="M155 130v160M190 130v160M225 130v160" stroke="#2a1d12" stroke-width="2"/><path d="M120 170h140" stroke="#1d1a17" stroke-width="8"/>';
+    else s += '<rect x="120" y="40" width="140" height="250" fill="#3d4848" stroke="#7d8b8a" stroke-width="5"/><circle cx="190" cy="120" r="34" fill="none" stroke="#a8b6b4" stroke-width="7"/><path d="M190 86v68M156 120h68" stroke="#a8b6b4" stroke-width="5"/><text x="190" y="66" font-family="Stardos Stencil,serif" font-weight="700" font-size="17" text-anchor="middle" fill="#e8d04a">DO NOT OPEN IN A FLOOD</text>';
+    return s + '<path d="M0 200q47 -6 95 0t95 0t95 0t95 0" stroke="#7fd1c6" stroke-width="3" fill="none"/></svg>';
+  }
+  function where(k) {
+    if (k === 'e') return 'At the far end of the corridor, facing you.';
+    var d = DOORS[k], n = { 60: 'nearest to you', 360: 'in the middle', 548: 'furthest from you' }[d.x[0]];
+    return 'On your ' + (d.side === 'L' ? 'left' : 'right') + ', the door ' + n + '.';
+  }
+  var LOOKS = {
+    double: 'Double doors, painted dark green, with a round window in each half, like the portholes of a ship. Behind the glass there is nothing but black water. An empty brass frame for a sign, two brass handles, and a brass lock plate just above the water.',
+    iron: 'A narrow door of black iron, with rows of rivets. Two old pipes come down the wall and go into the wall just above it. An empty brass frame for a sign.',
+    lift: 'Not a door: a folding metal gate, like a fence, with a yellow sign on it that says OUT OF USE. Behind the gate, a lift shaft full of water.',
+    low: 'A low wooden door, made of planks, with an iron bar across it. Most of it is under the water. Anyone going through it would have to swim.',
+    steel: 'A steel door with a wheel in the middle instead of a handle, like the door of a ship. Somebody has painted on it, in yellow letters: DO NOT OPEN IN A FLOOD.'
+  };
+  var TRY = {
+    l3: 'You pull the iron door. It opens an inch, and brown water pushes out through the gap, cold, as if it were in a hurry to be somewhere. There is nothing to see in there but brown. You let the door shut.',
+    r1: 'You rattle the gate. Behind it, in the lift, a filing cabinet is floating on its back, with all its drawers open. It is not a store. It is not even a lift any more.',
+    r3: 'You lift the bar and duck under. Coal, water, and a bucket floating upside down. No shelves, no boxes: a coal store is a coal store, even in a flood. You come back out.',
+    e: 'DO NOT OPEN IN A FLOOD, says the door. You do not open it. On the radio, that is called a good decision.'
+  };
+  function door(k) {
+    if (busy) return;
+    if (nextFile) { ER.say('The doors of the Long Store are open. The others can stay shut.'); return; }
+    var d = DOORS[k] || { kind: 'steel' }, look;
+    tell('looked');
+    look = DV.look({
+      kicker: where(k), title: d.kind === 'double' ? 'Double doors' : d.kind === 'iron' ? 'An iron door' : d.kind === 'lift' ? 'A metal gate' : d.kind === 'low' ? 'A low door' : 'A steel door',
+      pic: doorSvg(d), text: '<p>' + LOOKS[d.kind] + '</p>' + (here === k ? '<p>This is the door you are waiting at.</p>' : ''),
+      acts: [{ id: 'try', label: here === k ? 'Look at the lock' : 'Wade to it and try it', fn: function (api) { tryDoor(k, api); } }]
+    });
+    paint();
+  }
+  function tryDoor(k, api) {
+    var d = DOORS[k];
+    DV.sfx.wade();
+    if (!d || d.kind !== 'double') { api.msg(TRY[k]); return; }
+    here = k; ER.flag('a1-here', here); paint();
+    api.pic(plateSvg(d.plate));
+    api.msg('Locked. You hold the torch close to the lock plate: a brass oval, with a name, a word, and a small picture.');
+    api.acts([{ id: 'pull', label: 'Pull the line for the key', fn: function () { pull(k, api); } }]);
+    ER.addWord('lock plate', 'the metal plate round a keyhole');
+  }
+  function pull(k, api) {
+    if (pulling) return;
+    pulling = true;
+    api.acts([]);
+    api.msg('You give the line two pulls. At the top of the steps, Mr Blundell says something about his knees. Then a key comes down the line on its clip, bumping on every step &hellip;');
+    setTimeout(function () {
+      DV.sfx.clink();
+      var file = ER.exit([k], { wait: true });
+      pulling = false;
+      if (!file) {
+        ER.sfx.no();
+        api.msg('The key goes into the lock, and stops. It will not turn. You send it back up the line with one pull. Either this is the wrong door, or that was the wrong key. Check both with your partner.');
+        api.acts([{ id: 'pull', label: 'Pull the line again', fn: function () { pull(k, api); } }]);
+        return;
+      }
+      nextFile = file; ER.flag('a1-file', file);
+      api.msg('The key turns, with a noise like an old man getting out of a chair.');
+      setTimeout(function () {
+        ER.closeAll(); busy = true; paint();
+        ER.narrate([
+          'The two doors open inwards, slowly, pushing the water in front of them. Inside, three more steps go down, and then there is nothing under your feet at all.',
+          'Your torch finds shelves: tall ones, in rows, with black water up to their shoulders and odd shapes standing on top of them. The Long Store. Eleven thousand things that are not on show, and one that has waited a hundred years.'
+        ], function () { busy = false; paint(); });
+      }, 2400);
+    }, 4200);
+  }
+  ER.$$('.door').forEach(function (n) { n.addEventListener('click', function () { door(n.getAttribute('data-d')); }); });
+
+  /* ---------- other things ---------- */
+  DV.thing('#step', 'step', 'The last dry step. The one below it is under the water, and so is the one below that, and so on, presumably, for ever.', isBusy);
+  DV.thing('#pipes', 'pipe', 'Pipes along the ceiling. One of them is dripping steadily into the corridor, which, tonight, makes no difference at all.', isBusy);
+  DV.thing('#bulb', 'bulb', 'A light bulb. The power to the basement was switched off at nine o&rsquo;clock, very sensibly, by Mr Blundell.', isBusy);
+  $('#line').addEventListener('click', function (e) {
+    if (busy) return;
+    ER.wordAt(e.clientX, e.clientY, 'line');
+    ER.say(here && !nextFile ? 'The line goes up the steps to Mr Blundell. Go to the door, and pull the line from there when the key is on its way.' : 'Your line: thirty metres of yellow rope from your belt to Mr Blundell, at the top of the steps. Two pulls mean &ldquo;send it down&rdquo;. As long as the line is there, you can always find the way back.');
+  });
+  $('#slateg').addEventListener('click', function () { if (!busy) DV.slate(); });
+  var LEAF = '<h4>Rillmouth Museum</h4><p><b>Three Hundred Years of River Life</b></p><p>Downstairs, our Long Store keeps the eleven thousand things that are not on show: from a stuffed bear to a figurehead, from a penny-farthing to a time capsule sealed by the children of Rillmouth School in 1926.</p><p>The river has always been part of Rillmouth. Come and see it!</p>';
+  $('#leaflet').addEventListener('click', function () { if (!busy) ER.read({ html: LEAF, cls: 'leaf', clue: { id: 'leaf', title: 'A museum leaflet', kind: 'Floating past' } }); });
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

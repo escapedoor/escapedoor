@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Window · Trading in Wind</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-econ.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="tulip.css">
+<style>
+  body{--bg:#d8dcdc;--accent:#c8202a;--font-display:'Bungee',sans-serif;--font-ui:'Outfit',sans-serif;--font-body:'Outfit',sans-serif;
+    --tc-bg:rgba(250,250,248,.97);--tc-ink:#1a2040;--cap-bg:rgba(252,252,250,.96);--cap-ink:#1a2040;--panel:#fbfbf8;--panel-ink:#1a2040;--face-bg:#3a4a7a;--q-ink:#2a6a8a;
+    --fade:#f4f4f2;--hud-bg:rgba(252,252,250,.9);--hud-ink:#1a2040;--hud-line:rgba(26,32,64,.3);--ov-bg:rgba(20,26,40,.6)}
+  .tc-room{font-size:clamp(36px,5.2vw,74px);color:#c8202a;font-family:'Bungee',sans-serif}
+  .tc-theme{color:#2a6a8a}
+  .hbtn b{color:#fff}
+  #steam path{animation:st 3s steps(3,end) infinite}
+  @keyframes st{50%{opacity:.25}}
+
+  /* the drawing table */
+  .dt{width:min(1180px,97vw)}
+  .dt-in{background:#eef0ee;border:3px solid #8a9aa0;border-radius:4px;padding:10px 12px;color:#1a2040}
+  .panels{display:grid;grid-template-columns:1.35fr 1fr;gap:12px}
+  .pan{background:#fff;border:1px solid #b8c0c4;border-radius:3px;padding:6px 8px 8px}
+  .pan h5{margin:0 0 2px;font-family:'Bungee',sans-serif;font-size:15px;color:#c8202a}
+  .pan svg{width:100%;height:208px;display:block}
+  .ctl{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;font-size:13px;margin-top:4px}
+  .ctl span{font-weight:700;color:#2a6a8a;letter-spacing:.06em;text-transform:uppercase;font-size:11.5px}
+  .seg{display:inline-flex;border:2px solid #2a6a8a;border-radius:3px;overflow:hidden}
+  .seg button{padding:3px 9px;font-size:12.5px;font-weight:600;color:#2a6a8a}
+  .seg button.on{background:#2a6a8a;color:#fff}
+  .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px}
+  .tiles button{padding:7px 8px;border:2px solid #c8c8c0;border-radius:3px;background:#fff8e6;font-family:'Bungee',sans-serif;font-size:12.5px;line-height:1.2;color:#1a2040}
+  .tiles button.on{border-color:#c8202a;background:#ffe8d8}
+  .read{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;margin-top:8px;padding:7px 10px;background:#1a2040;color:#f4f4f0;border-radius:3px;font-size:14px}
+  .read label{display:flex;gap:8px;align-items:center}
+  .dt .pmsg{color:#fbfbf8}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="carpet" width="60" height="60" patternUnits="userSpaceOnUse"><rect width="60" height="60" fill="#6a7078"/><rect width="30" height="30" fill="#646a72"/><rect x="30" y="30" width="30" height="30" fill="#646a72"/></pattern>
+  <linearGradient id="street" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d8e4ec"/><stop offset="1" stop-color="#f4f6f8"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="45%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".75" stop-color="#1a2030" stop-opacity=".06"/><stop offset="1" stop-color="#1a2030" stop-opacity=".35"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1100" fill="#e8e6e0"/>
+<rect x="-1000" y="-400" width="3600" height="470" fill="#f4f2ec"/><rect x="-1000" y="60" width="3600" height="10" fill="#c8202a"/>
+<g fill="#fffbe8" opacity=".9"><rect x="200" y="0" width="160" height="14" rx="4"/><rect x="760" y="0" width="160" height="14" rx="4"/><rect x="1300" y="0" width="160" height="14" rx="4"/></g>
+
+<!-- the big front window, from inside -->
+<g id="window" class="hot"><rect x="30" y="110" width="540" height="520" fill="#2a2e38"/><rect x="44" y="124" width="512" height="492" fill="url(#street)"/>
+  <g fill="#c8b8a0"><rect x="60" y="260" width="140" height="240"/><rect x="220" y="230" width="150" height="270"/><rect x="390" y="270" width="150" height="230"/></g>
+  <g fill="#7a8a9a"><rect x="80" y="300" width="40" height="50"/><rect x="140" y="300" width="40" height="50"/><rect x="240" y="270" width="44" height="54"/><rect x="304" y="270" width="44" height="54"/><rect x="410" y="310" width="44" height="50"/><rect x="474" y="310" width="44" height="50"/></g>
+  <rect x="44" y="500" width="512" height="116" fill="#e8ecee"/>
+  <text x="300" y="168" class="cB" font-size="34" text-anchor="middle" fill="#c8202a" transform="translate(600 0) scale(-1 1)" opacity=".85">TEBBUTT &amp; CO.</text>
+  <g fill="#fff" stroke="#c8c8c8"><rect x="80" y="400" width="70" height="90"/><rect x="170" y="390" width="70" height="90"/><rect x="360" y="400" width="70" height="90"/><rect x="450" y="390" width="70" height="90"/></g>
+  <rect x="254" y="370" width="92" height="120" fill="#fff8e6" stroke="#c8202a" stroke-width="3"/></g>
+
+<!-- the clock -->
+<g id="clock" class="hot"><circle cx="760" cy="150" r="40" fill="#fff" stroke="#1a2040" stroke-width="5"/><path d="M760 150v-30M760 150v-28" stroke="#1a2040" stroke-width="5" stroke-linecap="round"/><circle cx="760" cy="150" r="4" fill="#c8202a"/></g>
+<text x="1100" y="150" class="cB" font-size="30" text-anchor="middle" fill="#1a2040">TEBBUTT &amp; CO.</text><text x="1100" y="180" class="cO" font-size="15" text-anchor="middle" fill="#2a6a8a" letter-spacing="4">ESTATE AGENTS · SINCE 1979</text>
+
+<!-- the poster on its easel -->
+<g id="poster" class="hot"><path d="M650 640l60 -460M830 640l-60 -460M740 640V200" stroke="#8a6a3a" stroke-width="8"/>
+  <rect x="620" y="220" width="240" height="300" fill="#fff8e6" stroke="#c8202a" stroke-width="5"/><text x="740" y="256" class="cB" font-size="22" text-anchor="middle" fill="#c8202a">TIGER INDEX</text>
+  <path d="M650 480H840M650 480V290" stroke="#1a2040" stroke-width="2"/><path d="M660 470L835 300" stroke="#c8202a" stroke-width="5"/><g fill="#c8202a"><circle cx="660" cy="470" r="5"/><circle cx="689" cy="442" r="5"/><circle cx="718" cy="413" r="5"/><circle cx="747" cy="385" r="5"/><circle cx="776" cy="357" r="5"/><circle cx="805" cy="329" r="5"/><circle cx="835" cy="300" r="5"/></g>
+  <text x="740" y="508" class="cB" font-size="18" text-anchor="middle" fill="#1a2040">UP 6,300%!</text></g>
+
+<!-- the coffee machine -->
+<g id="coffee" class="hot"><rect x="1400" y="300" width="130" height="160" rx="8" fill="#2a2e38"/><rect x="1420" y="320" width="90" height="40" rx="4" fill="#4a5a6a"/><rect x="1446" y="400" width="36" height="40" fill="#f4f4f0"/><g id="steam" stroke="#fff" stroke-width="3" fill="none" opacity=".7"><path d="M1456 392q-6 -10 0 -20t0 -20"/><path d="M1472 392q6 -10 0 -20t0 -20"/></g><rect x="1390" y="460" width="150" height="180" fill="#c8c4b8"/></g>
+
+<rect x="-1000" y="640" width="3600" height="800" fill="url(#carpet)"/><rect x="-1000" y="636" width="3600" height="6" fill="#3a3e48"/>
+
+<!-- the desk, Mr Tebbutt, the flyers -->
+<g id="tebbutt" class="hot" transform="translate(1120 770) scale(1)"></g>
+<g><rect x="900" y="560" width="440" height="18" fill="#f4f2ec"/><rect x="910" y="578" width="420" height="110" fill="#dcd8cc"/>
+  <rect x="1180" y="470" width="120" height="84" rx="4" fill="#1a2040"/><rect x="1188" y="478" width="104" height="66" fill="#3a6a8a"/><path d="M1196 530l20 -14 20 6 20 -24 20 -10" stroke="#f2c02a" stroke-width="3" fill="none"/><rect x="1230" y="554" width="20" height="8" fill="#1a2040"/>
+  <g id="plate"><ellipse cx="1110" cy="556" rx="38" ry="8" fill="#fff" stroke="#c8c8c8"/><g fill="#c8944a"><ellipse cx="1098" cy="550" rx="12" ry="5"/><ellipse cx="1122" cy="551" rx="12" ry="5"/></g></g></g>
+<g id="flyers" class="hot"><path d="M940 560l6 -22h90l-4 22z" fill="#fff8e6" stroke="#c8202a" stroke-width="2"/><path d="M944 556l6 -22h90l-4 22z" fill="#fff8e6" stroke="#c8202a" stroke-width="2"/><text x="990" y="552" class="cB" font-size="9" text-anchor="middle" fill="#c8202a">STILL CLIMBING!</text></g>
+
+<!-- the drawing table -->
+<g id="table" class="hot"><path d="M1380 680l40 -150M1540 680l-30 -150" stroke="#5a5a5a" stroke-width="8"/><path d="M1350 560l40 -90h190l-10 90z" fill="#f4f6f4" stroke="#8a9aa0" stroke-width="4"/><path d="M1380 540l20 -50h150" stroke="#2a6a8a" stroke-width="2" fill="none"/><path d="M1400 540q50 -10 70 -40t60 -30" stroke="#c8202a" stroke-width="3" fill="none"/><rect x="1500" y="470" width="60" height="6" fill="#c8a020" transform="rotate(-8 1530 473)"/></g>
+
+<g id="pearl" class="hot" transform="translate(560 850) scale(.92)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Out of town to the Ings</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="tulip.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, lock = null;
+
+  (function () {
+    $('#tebbutt').innerHTML = TULIP.who('tebbutt', { coat: null, extra: '<g transform="translate(-22 -214) scale(.22)">' + TULIP.tulip({ pat: 'tiger' }) + '</g>' });
+    $('#pearl').innerHTML = TULIP.who('pearl', { smile: -1, extra: '<rect x="30" y="-150" width="26" height="34" rx="2" fill="#fff" stroke="#2a6a8a" stroke-width="2"/>' });
+  })();
+
+  ER.init({
+    theme: 'econ', story: 'tulip', storyTitle: 'Trading in Wind', id: 'window', no: 'IV', title: 'The Window',
+    go: 'Go into the office', sound: ['ledger', { root: 50, bpm: 96, beds: [['hum', 0.2]] }],
+    intro: [
+      'The tulip case: in the winter of 1636&ndash;37 promises were traded in taverns; in early February 1637 the buyers stopped coming in Haarlem; afterwards many buyers would not pay, and in Haarlem they could cancel for 3.5%. Mackay&rsquo;s ruin and his sailor (1841) went in the LEGEND drawer. Nobody was ruined mostly because nobody paid, and the paper profits vanished with the promises.',
+      'Tebbutt &amp; Co. is on Bridge Street, between the bakery and the bank. It is twelve o&rsquo;clock, and the window is full of houses and one very large chart.',
+      'Mr Tebbutt opens the door before you can knock.'
+    ],
+    exit: {"next":"ings","w":{"ab81f0e6":"330a6880"}}, tags: {"sc":["97af219b"],"fr":["3acc0479"],"to":["2c25e67c"],"ax":["140e41dc"],"hd":["df3ca9fa"],"rise":["bb6a14fd"],"pct":["f6489cfa"],"r352":["4a5dfbc4"],"p100":["0e036354"],"p9":["673105d2","10d52a30"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('d-file') || null; told = ER.flag('d-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('d-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    ER.pips((told.tebbutt ? 1 : 0) + (told.card ? 1 : 0) + (told.poster ? 1 : 0) + (told.flyer ? 1 : 0) + (nextFile ? 1 : 0), 5);
+    $('#table').classList.toggle('ready', !!(told.tebbutt && told.card && !nextFile));
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Mr Tebbutt has sent you to the Ings: the button at the bottom of the screen.']];
+    if (lock && lock.isOpen()) return ['draw', [
+      'Pearl&rsquo;s card gives four tests: a plain scale, an axis from zero, the whole story (before and since), and the numbers themselves instead of a percentage with no base. Use every one, on both charts.',
+      'The poster: PLAIN scale, starting TEN YEARS AGO, ending YESTERDAY so that this week is in it. The flyer: move the bottom of its axis down to £0. The headline that passes the test gives the starting price.',
+      'Last Saturday the price was £320; on Friday it was £352. The rise is the difference. For the per cent, divide the rise by £320 and multiply by 100.'
+    ]];
+    if (!told.tebbutt) return ['tebbutt', ['Mr Tebbutt is behind his desk. Talk to him.', 'Click the big man in the blue suit with the paper tulip in his buttonhole.']];
+    if (!told.card) return ['card', ['Pearl has something in her hand that will help with charts. Click her.', 'Pearl is on the left, near the window.']];
+    return ['table', ['The charts are made on the drawing table at the back, on the right. Click it.', 'Look at the poster on the easel and the flyers on the desk first, if you have not.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('Mr Tebbutt is looking at the honest chart and eating a biscuit, slowly.'); return; }
+    if (told.in) { busy = false; ER.say('Tebbutt &amp; Co. The coffee machine hisses. The charts wait on the drawing table.'); return; }
+    tell('in');
+    ER.narrate([
+      'A bright office with a grey carpet, a red stripe round the walls, and a big window full of houses for sale. The backs of the property cards face you. In the middle of the window, facing the street, hangs a poster you can read through the glass backwards, and a copy of it stands on an easel inside: THE TIGER INDEX. UP 6,300%!',
+      'On the desk: a plate of biscuits, a computer, and a pile of bright yellow flyers. At the back, a drawing table with a ruler and a red pen.',
+      '&ldquo;Coffee?&rdquo; says Mr Tebbutt. &ldquo;Biscuit? Sit down, sit down. You are about to see the future of Dykesend.&rdquo;'
+    ], function () { busy = false; });
+  }
+
+  $('#tebbutt').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;A breather,&rdquo; says Mr Tebbutt. &ldquo;That&rsquo;s all. Go and see Maud. Tell her the Long Field is good news.&rdquo;'); return; }
+    ER.talk({
+      who: 'Mr Roland Tebbutt', role: 'Tebbutt & Co. · chairman, Dykesend Bulb Club', face: TULIP.face('tebbutt', 'smile'),
+      lines: [
+        { note: 'Coffee, biscuits, and a smile that has sold a great many houses.', a: '&ldquo;Welcome to the Tiger Index. Everything you need to know, in two pictures.&rdquo;' },
+        { q: 'What does the poster show?', a: '&ldquo;The Saturday price, on a proper scientific scale. Look at that line: dead straight. Steady, reliable growth, like a savings account. There is nothing frightening about a straight line.&rdquo;' },
+        { q: 'And the flyers?', a: '&ldquo;This week in the back room, day by day. Monday to Friday, and up every single day. STILL CLIMBING! One goes through every letterbox in Dykesend this afternoon.&rdquo;' },
+        { q: 'Up 6,300 per cent?', a: '&ldquo;Since the first sale in December. Find me anything else that has gone up six thousand three hundred per cent. Houses in Dykesend went up three per cent last year, and I should know.&rdquo;' },
+        { q: 'Are the numbers true?', a: '&ldquo;Every single one. I would never put a false number in my window. They are on Nerys&rsquo;s board and on Sadie&rsquo;s slate. Go on: the drawing table is at the back, and the charts are made on it. Play with the settings all you like. However you draw it, it goes up.&rdquo;' }
+      ],
+      clue: { id: 'tebbutt2', title: 'Mr Tebbutt: the Tiger Index', kind: 'What he said' },
+      done: function (seen) { if (seen && tell('tebbutt')) { paint(); ER.say('Every number true, he says. Pearl is already looking in her bag.'); } }
+    });
+  });
+
+  var DIA = '<svg viewBox="0 0 290 150"><g font-family="Architects Daughter,cursive" font-size="12" fill="#1a2040">' +
+    '<text x="70" y="14" text-anchor="middle" fill="#c8202a">axis from £96</text><path d="M20 130H130M20 130V24" stroke="#1a2040" stroke-width="2"/><rect x="40" y="96" width="26" height="34" fill="#2a6a8a"/><rect x="84" y="30" width="26" height="100" fill="#c8202a"/><text x="14" y="134" text-anchor="end" font-size="10">96</text><text x="14" y="30" text-anchor="end" font-size="10">104</text>' +
+    '<text x="220" y="14" text-anchor="middle" fill="#2f6a3a">axis from £0</text><path d="M170 130H280M170 130V24" stroke="#1a2040" stroke-width="2"/><rect x="190" y="34" width="26" height="96" fill="#2a6a8a"/><rect x="234" y="30" width="26" height="100" fill="#c8202a"/><text x="164" y="134" text-anchor="end" font-size="10">0</text>' +
+    '<text x="145" y="148" text-anchor="middle">£98 and £104: the same two numbers</text></g></svg>';
+  var CARD = '<h4>Pearl Gotobed &middot; maths &middot; revision card 14</h4><h3>Four ways a true graph can mislead</h3><div class="two"><div>' +
+    '<p>1. <b>THE Y-AXIS THAT DOES NOT START AT ZERO.</b> Cut off the bottom of the scale and a small change looks like a cliff. (Darrell Huff called it the &ldquo;Gee-Whiz Graph&rdquo; in <i>How to Lie with Statistics</i>, 1954.)</p>' +
+    '<p>2. <b>THE SHORT WINDOW.</b> A chart of a few weeks can hide the <b>LONG RUN</b>. Ask what happened before, and since.</p>' +
+    '<p>3. <b>THE LOG SCALE.</b> Each step up a <b>LOG SCALE</b> is the same number of TIMES bigger (5, 10, 20, 40), not the same number of pounds. A price that doubles every week looks like a gentle straight line. Good for scientists. Misleading in a shop window.</p>' +
+    '<p>4. <b>THE PERCENTAGE FROM A TINY BASE.</b> £5 to £320 is &ldquo;up 6,300%&rdquo;. A percentage means nothing until you know what it started from: the <b>BASE</b>.</p>' +
+    '<p class="rule">The test: plain scale, axis from zero, the whole story, and the real numbers.</p></div><div class="dia">' + DIA + '</div></div>';
+  $('#pearl').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Ten per cent,&rdquo; says Pearl. &ldquo;After seven weeks of a hundred. The new money&rsquo;s stopped coming.&rdquo;'); return; }
+    if (!told.tebbutt) { ER.say('&ldquo;Let him do his speech first,&rdquo; Pearl whispers. &ldquo;He&rsquo;s been practising.&rdquo;'); return; }
+    ER.read({ html: CARD, cls: 'teach card', clue: { id: 'card14', title: 'Pearl&rsquo;s revision card: four ways a graph misleads', kind: 'From Pearl&rsquo;s bag' }, done: function () {
+      TULIP.terms(['y-axis', 'log scale', 'long run', 'base']);
+      if (tell('card')) { paint(); ER.say('&ldquo;GCSE maths,&rdquo; says Pearl. &ldquo;I never thought I&rsquo;d use it on an adult.&rdquo;'); }
+    } });
+  });
+  $('#poster').addEventListener('click', function () {
+    if (busy) return;
+    tell('poster'); paint();
+    ER.say('The Tiger Index: seven dots in a perfectly straight line, each one higher than the last by exactly the same step. UP 6,300%! On the left of the axis, very small: 5, 10, 20, 40, 80, 160, 320.');
+  });
+  var FLY = '<h4>STILL CLIMBING!</h4><p>Fen Tiger promises in the Leaping Eel&rsquo;s back room, <b>this week</b>:</p><svg viewBox="0 0 300 150"><g font-family="Outfit" font-size="11" fill="#1a2040"><path d="M40 130H290M40 130V10" stroke="#1a2040" stroke-width="2"/>' +
+    '<text x="34" y="134" text-anchor="end">£328</text><text x="34" y="14" text-anchor="end">£354</text>' +
+    '<path d="M60 121L115 84L170 52L225 28L280 19" stroke="#c8202a" stroke-width="4" fill="none"/>' + [[60, 121], [115, 84], [170, 52], [225, 28], [280, 19]].map(function (p) { return '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="5" fill="#c8202a"/>'; }).join('') +
+    '<text x="60" y="146" text-anchor="middle">Mon</text><text x="115" y="146" text-anchor="middle">Tue</text><text x="170" y="146" text-anchor="middle">Wed</text><text x="225" y="146" text-anchor="middle">Thu</text><text x="280" y="146" text-anchor="middle">Fri</text></g></svg>' +
+    '<p>Monday £330 &middot; Tuesday £338 &middot; Wednesday £345 &middot; Thursday £350 &middot; Friday £352</p><p><b>Don&rsquo;t miss out. Join the Dykesend Bulb Club!</b> R. Tebbutt, chairman</p>';
+  $('#flyers').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: FLY, cls: 'flyer', clue: { id: 'flyer', title: 'The flyer: STILL CLIMBING!', kind: 'On the desk' }, done: function () {
+      if (tell('flyer')) { paint(); ER.say('A line like a ski jump. But the axis on the left begins at £328, not at nothing.'); }
+    } });
+  });
+  TULIP.thing('#window', null, 'Through the window, backwards: TEBBUTT &amp; CO. Across the street, two women have stopped to read the Tiger Index. One of them takes a photograph of it.', isBusy);
+  TULIP.thing('#clock', null, 'Twelve o&rsquo;clock exactly. The sale is in three hours.', isBusy);
+  TULIP.thing('#coffee', null, 'A coffee machine the size of a small car, which hisses whenever somebody says a number.', isBusy);
+  $('#table').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The honest chart is pinned to the drawing table. Mr Tebbutt has turned it slightly to the wall.'); return; }
+    if (!told.tebbutt) { ER.say('Mr Tebbutt&rsquo;s drawing table. Ask him first.'); return; }
+    if (!told.card) { ER.say('You will need some way to tell a fair chart from a misleading one. Pearl has an idea: click her.'); return; }
+    if (!lock) lock = makeLock();
+    lock.open();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the drawing table ---------- */
+  function makeLock() {
+    var SAT = [5, 10, 20, 40, 80, 160, 320], WK = [330, 338, 345, 350, 352], YRS = [0.40, 0.40, 0.42, 0.42, 0.45, 0.45, 0.45, 0.48, 0.50, 0.50];
+    var AX = [328, 300, 200, 100, 0];
+    var HD = [['h1', 'UP 6,300% SINCE DECEMBER!'], ['h2', 'STILL CLIMBING, EVERY DAY'], ['h3', '£5 TO £320 IN SEVEN WEEKS, £352 THIS FRIDAY'], ['h4', 'TIGER PRICES CRASH!']];
+    var sv = ER.flag('d-lock') || {}, wait = false, d = {};
+    var st = { sc: sv.sc || 'log', fr: sv.fr || 'dec', to: sv.to || 'sat', ax: sv.ax != null ? sv.ax : 0, hd: sv.hd || 'h1' };
+    var box = ER.el('div', 'pz dt');
+    box.innerHTML = '<div class="dt-in"><div class="panels">' +
+      '<div class="pan"><h5>The poster: the Tiger Index</h5><svg viewBox="0 0 520 210" id="pa"></svg><div class="ctl">' +
+      '<span>Scale</span><span class="seg" data-k="sc"><button data-v="log">Log</button><button data-v="plain">Plain</button></span>' +
+      '<span>From</span><span class="seg" data-k="fr"><button data-v="dec">December</button><button data-v="long">Ten years ago</button></span>' +
+      '<span>To</span><span class="seg" data-k="to"><button data-v="sat">Last Saturday</button><button data-v="fri">Yesterday</button></span></div></div>' +
+      '<div class="pan"><h5>The flyer: this week</h5><svg viewBox="0 0 380 210" id="pb"></svg><div class="ctl"><span>Bottom of the axis</span><span class="seg" data-k="ax">' +
+      AX.map(function (v, i) { return '<button data-v="' + i + '">£' + v + '</button>'; }).join('') + '</span></div></div></div>' +
+      '<div class="tiles">' + HD.map(function (h) { return '<button type="button" data-h="' + h[0] + '">' + h[1] + '</button>'; }).join('') + '</div>' +
+      '<div class="read"><label>From last Saturday to Friday the price rose by <i id="r-rise"></i></label><label>That is <i id="r-pct"></i> of last Saturday&rsquo;s price</label></div></div>' +
+      '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="w-go">Show Mr Tebbutt</button></div>';
+    var msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function keep() { var o = { sc: st.sc, fr: st.fr, to: st.to, ax: st.ax, hd: st.hd, rise: d.rise.get(), pct: d.pct.get() }; ER.flag('d-lock', o); }
+    function lk() { return wait || !!nextFile; }
+    d.rise = TULIP.drum(box.querySelector('#r-rise'), { digits: 3, before: '£', val: sv.rise || 0, change: keep, lock: lk });
+    d.pct = TULIP.drum(box.querySelector('#r-pct'), { digits: 3, after: '%', val: sv.pct || 0, change: keep, lock: lk });
+
+    function drawA() {
+      var pts = [], i, W = 520, H = 210, L = 58, R = 506, T = 16, B = 178;
+      /* time in days: the Saturdays are 0, 7 ... 42; this week's days 44 to 48; ten years back, one point a year */
+      if (st.fr === 'long') for (i = 0; i < YRS.length; i++) pts.push({ t: -3650 + i * 365, v: YRS[i], k: 'y' });
+      for (i = 0; i < SAT.length; i++) pts.push({ t: i * 7, v: SAT[i], k: 's' });
+      if (st.to === 'fri') for (i = 0; i < WK.length; i++) pts.push({ t: 44 + i, v: WK[i], k: 'w' });
+      var t0 = pts[0].t, t1 = pts[pts.length - 1].t, vmax = st.to === 'fri' ? 400 : 350;
+      function X(t) { return L + (t - t0) / ((t1 - t0) || 1) * (R - L); }
+      function Y(v) {
+        if (st.sc === 'log') { var a = Math.log(0.4), b = Math.log(400); return B - (Math.log(v) - a) / (b - a) * (B - T); }
+        return B - v / vmax * (B - T);
+      }
+      var s = '<rect width="' + W + '" height="' + H + '" fill="#fffdf6"/><g font-family="Outfit" font-size="11" fill="#1a2040">';
+      var ticks = st.sc === 'log' ? [0.5, 1, 2, 5, 10, 20, 40, 80, 160, 320] : (vmax === 400 ? [0, 100, 200, 300, 400] : [0, 50, 100, 150, 200, 250, 300, 350]);
+      ticks.forEach(function (v) { var y = Y(v); s += '<path d="M' + L + ' ' + y.toFixed(1) + 'H' + R + '" stroke="#e4e4dc"/><text x="' + (L - 6) + '" y="' + (y + 4).toFixed(1) + '" text-anchor="end">£' + (v < 1 ? v.toFixed(2) : v) + '</text>'; });
+      s += '<path d="M' + L + ' ' + B + 'H' + R + 'M' + L + ' ' + B + 'V' + T + '" stroke="#1a2040" stroke-width="2"/>';
+      s += '<path d="M' + pts.map(function (p) { return X(p.t).toFixed(1) + ' ' + Y(p.v).toFixed(1); }).join('L') + '" stroke="#c8202a" stroke-width="3" fill="none"/>';
+      pts.forEach(function (p) { s += '<circle cx="' + X(p.t).toFixed(1) + '" cy="' + Y(p.v).toFixed(1) + '" r="' + (p.k === 'w' ? 3 : 4) + '" fill="' + (p.k === 'y' ? '#2f6a3a' : p.k === 'w' ? '#2a6a8a' : '#c8202a') + '"/>'; });
+      s += '<text x="' + L + '" y="' + (B + 18) + '">' + (st.fr === 'long' ? 'ten years ago' : '20 Dec') + '</text><text x="' + R + '" y="' + (B + 18) + '" text-anchor="end">' + (st.to === 'fri' ? 'Fri 6 Feb' : 'Sat 31 Jan') + '</text>';
+      if (st.fr === 'long') s += '<text x="' + (L + 8) + '" y="' + (B - 10) + '" fill="#2f6a3a">tulip bulbs, Purkiss&apos;s catalogue: 40p to 50p</text>';
+      s += '<text x="' + ((L + R) / 2) + '" y="' + (B + 18) + '" text-anchor="middle" fill="#6a6a6a">' + (st.sc === 'log' ? 'log scale' : 'plain scale') + '</text></g>';
+      box.querySelector('#pa').innerHTML = s;
+    }
+    function drawB() {
+      var W = 380, H = 210, L = 52, R = 366, T = 14, B = 176, lo = AX[st.ax], hi = 360, s;
+      function Y(v) { return B - (v - lo) / (hi - lo) * (B - T); }
+      s = '<rect width="' + W + '" height="' + H + '" fill="#fffdf6"/><g font-family="Outfit" font-size="11" fill="#1a2040">';
+      [lo, lo + (hi - lo) / 2, hi].forEach(function (v) { var y = Y(v); s += '<path d="M' + L + ' ' + y.toFixed(1) + 'H' + R + '" stroke="#e4e4dc"/><text x="' + (L - 6) + '" y="' + (y + 4).toFixed(1) + '" text-anchor="end">£' + Math.round(v) + '</text>'; });
+      s += '<path d="M' + L + ' ' + B + 'H' + R + 'M' + L + ' ' + B + 'V' + T + '" stroke="#1a2040" stroke-width="2"/>';
+      var xs = WK.map(function (v, i) { return L + 24 + i * 70; });
+      s += '<path d="M' + WK.map(function (v, i) { return xs[i] + ' ' + Y(v).toFixed(1); }).join('L') + '" stroke="#c8202a" stroke-width="3" fill="none"/>';
+      WK.forEach(function (v, i) { s += '<circle cx="' + xs[i] + '" cy="' + Y(v).toFixed(1) + '" r="4.5" fill="#c8202a"/><text x="' + xs[i] + '" y="' + (B + 16) + '" text-anchor="middle">' + ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'][i] + '</text>'; });
+      s += '</g>';
+      box.querySelector('#pb').innerHTML = s;
+    }
+    function paintCtl() {
+      ER.$$('.seg', box).forEach(function (g) { var k = g.getAttribute('data-k'); ER.$$('button', g).forEach(function (b) { b.classList.toggle('on', String(st[k]) === b.getAttribute('data-v')); }); });
+      ER.$$('.tiles button', box).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-h') === st.hd); });
+      drawA(); drawB();
+    }
+    ER.$$('.seg button', box).forEach(function (b) {
+      b.type = 'button';
+      b.addEventListener('click', function () { if (lk()) return; var k = b.parentNode.getAttribute('data-k'), v = b.getAttribute('data-v'); st[k] = k === 'ax' ? +v : v; ER.sfx.click(); paintCtl(); keep(); });
+    });
+    ER.$$('.tiles button', box).forEach(function (b) { b.addEventListener('click', function () { if (lk()) return; st.hd = b.getAttribute('data-h'); ER.sfx.click(); paintCtl(); keep(); }); });
+    paintCtl();
+    function flash(n) { n.classList.add('bad'); setTimeout(function () { n.classList.remove('bad'); }, 1300); }
+    box.querySelector('#w-go').addEventListener('click', function () {
+      if (wait || nextFile) return;
+      var seg = function (k) { return box.querySelector('.seg[data-k="' + k + '"]'); };
+      if (!ER.check('sc', st.sc)) { ER.sfx.no(); flash(seg('sc')); msg('&ldquo;Lovely and straight, isn&rsquo;t it?&rdquo; says Mr Tebbutt. Pearl taps her card: &ldquo;Each step up that axis is twice the last one. Draw it in pounds.&rdquo;'); return; }
+      if (!ER.check('fr', st.fr)) { ER.sfx.no(); flash(seg('fr')); msg('&ldquo;December is when it all started,&rdquo; says Mr Tebbutt. &ldquo;That&rsquo;s the point,&rdquo; says Pearl. &ldquo;What did a tulip bulb cost before December? Show the long run.&rdquo;'); return; }
+      if (!ER.check('to', st.to)) { ER.sfx.no(); flash(seg('to')); msg('&ldquo;The poster stops last Saturday,&rdquo; says Pearl. &ldquo;We know what happened this week. Put it in.&rdquo;'); return; }
+      if (!ER.check('ax', AX[st.ax])) { ER.sfx.no(); flash(seg('ax')); msg('&ldquo;Still climbing, every day!&rdquo; says Mr Tebbutt. &ldquo;Where does the flyer&rsquo;s axis start?&rdquo; says Pearl. &ldquo;Card, number one.&rdquo;'); return; }
+      if (!ER.check('hd', st.hd)) {
+        ER.sfx.no(); flash(box.querySelector('.tiles'));
+        msg(st.hd === 'h4' ? '&ldquo;Crash?&rdquo; says Mr Tebbutt, delighted. &ldquo;It went up every day this week! You can&rsquo;t print that.&rdquo; He is right.' :
+          st.hd === 'h2' ? '&ldquo;True,&rdquo; says Pearl, &ldquo;and it tells you nothing about how much. Which headline gives the real numbers, starting price and all?&rdquo;' :
+          '&ldquo;Six thousand three hundred per cent of five pounds,&rdquo; says Pearl. &ldquo;Card, number four. Which headline tells you the base?&rdquo;');
+        return;
+      }
+      var r = d.rise.get(), p = d.pct.get();
+      if (!ER.check('rise', r)) { ER.sfx.no(); flash(d.rise.node); msg(ER.check('r352', r) ? '&ldquo;Three hundred and fifty-two is the price on Friday,&rdquo; says Pearl. &ldquo;How much more is that than last Saturday?&rdquo;' : '&ldquo;Last Saturday, three hundred and twenty,&rdquo; says Pearl. &ldquo;Friday, three hundred and fifty-two. The difference?&rdquo;'); return; }
+      if (!ER.check('pct', p)) { ER.sfx.no(); flash(d.pct.node); msg(ER.check('p100', p) ? '&ldquo;A hundred per cent is what it did every week before,&rdquo; says Pearl. &ldquo;Doubling. What about this week?&rdquo;' : ER.check('p9', p) ? '&ldquo;Close,&rdquo; says Pearl. &ldquo;Thirty-two out of three hundred and twenty. Do it exactly.&rdquo;' : '&ldquo;Per cent of last Saturday&rsquo;s price,&rdquo; says Pearl. &ldquo;The rise, divided by three hundred and twenty, times a hundred.&rdquo;'); return; }
+      var file = ER.exit([st.sc + '-' + st.fr + '-' + st.to + '-' + AX[st.ax] + '-' + st.hd + '-' + r + '-' + p], { wait: true });
+      if (!file) { msg('The door will not open. Something is wrong with this page: tell your teacher.'); return; }
+      wait = true; nextFile = file; ER.flag('d-file', file);
+      TULIP.mine('honest', 'The honest chart', '<p>Plain scale, axis from zero, ten years long: tulip bulbs at 40p to 50p for ten years, then a spike in seven weeks: £5, £10, £20, £40, £80, £160, £320.</p><p>This week in the back room, from zero: almost flat. £330, £338, £345, £350, £352.</p><p>From Saturday to Friday: up £32, which is 10%. Every week before: up 100%.</p><p>The doubling has stopped. A bubble needs new money every week, and the new money has stopped coming.</p>', true);
+      msg('The red pen squeaks. <b>Up £32 this week: 10%, after seven weeks of 100%.</b> The flyer&rsquo;s ski jump is now a flat line along the top.');
+      setTimeout(function () {
+        ER.closeAll(); paint(); busy = true;
+        ER.narrate([
+          'Mr Tebbutt looks at the honest chart for a long time. On the plain scale, ten years of tulips lie along the bottom like a ruler on a table, and then, in the last seven weeks, the line goes straight up the wall. And this week it has stopped going up.',
+          '&ldquo;Ten per cent in a week is still a very good week,&rdquo; he says at last. &ldquo;My bank gives me two per cent a year.&rdquo;',
+          '&ldquo;It&rsquo;s been a hundred per cent every week,&rdquo; says Pearl. &ldquo;For a price to keep doubling, somebody new has to come in with twice as much money every Saturday. Sadie&rsquo;s book had no new names this week. Not one. The new money has stopped.&rdquo;',
+          '&ldquo;A breather!&rdquo; says Mr Tebbutt, cheerful again. &ldquo;And the Bulb Club syndicate has ploughed up the Long Field by the Ings, to grow Tigers on. Maud Collishaw is making a fuss about her precious drain. Go and tell her it&rsquo;s good news for Dykesend. And Zillah&rsquo;s glasshouse is right next door.&rdquo;'
+        ], function () { busy = false; $('#go').classList.add('on'); });
+      }, 2800);
+    });
+    msg('Fix both charts with the buttons until they pass Pearl&rsquo;s four tests, choose a headline that does too, and read the honest numbers on to the two wheels. Then show Mr Tebbutt.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+})();
+</script>
+</body>
+</html>

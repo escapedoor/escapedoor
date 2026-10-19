@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Boiler Room · Open This Together</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-duo.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="dive.css">
+<style>
+  body{--bg:#140805;--accent:#ff9a4a;--font-display:'Stardos Stencil',serif;--font-ui:'Barlow Condensed',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(22,9,5,.95);--tc-ink:#f8e6d6;--cap-bg:rgba(24,10,6,.93);--panel:#1d0e08;--face-bg:#2e160c;--q-ink:#ffc08a;--fade:#070302;--hud-bg:rgba(24,10,6,.82)}
+  .tc-room{font-family:'Stardos Stencil',serif;font-style:normal;text-transform:uppercase;letter-spacing:.05em}
+  .pcard{background:rgba(252,238,226,.95);color:#2a140a;border-left-color:#ff9a4a}
+  .pcard h6,.pcard .fold{color:#b4531a}
+  .lk{background:#1d0e08;border-color:rgba(255,154,74,.3)}
+  .lk-pic{background:#0e0604}
+  .ring{animation:ring 2.6s ease-out infinite;transform-origin:1240px 452px}
+  .ring.b{animation-delay:1.3s}
+  @keyframes ring{0%{transform:scale(.3);opacity:.9}100%{transform:scale(1.6);opacity:0}}
+  body.shut .ring,body.shut #boil{display:none}
+  .glow{animation:glow 4s steps(2,end) infinite alternate}
+  @keyframes glow{from{opacity:.8}to{opacity:1}}
+  .shim{animation:shim 4.4s ease-in-out infinite alternate}
+  @keyframes shim{from{transform:translateX(-14px)}to{transform:translateX(14px)}}
+  #bucket{animation:bob 4s ease-in-out infinite alternate}
+  @keyframes bob{from{transform:translate(0,0)}to{transform:translate(-30px,3px)}}
+  body.shut #bucket{animation:none}
+  .wheel:hover circle{stroke:#ffe2a8}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wD" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a3018"/><stop offset=".3" stop-color="#2a1a0c"/><stop offset="1" stop-color="#0a0503"/></linearGradient>
+  <radialGradient id="winG" cx="50%" cy="50%" r="60%"><stop offset="0" stop-color="#ffb35a" stop-opacity=".5"/><stop offset="1" stop-color="#ff8a2a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vigD" cx="52%" cy="46%" r="74%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".6" stop-color="#000" stop-opacity=".25"/><stop offset="1" stop-color="#000" stop-opacity=".88"/></radialGradient>
+  <linearGradient id="boilG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3a1a10"/><stop offset=".5" stop-color="#7a3a22"/><stop offset="1" stop-color="#4a2214"/></linearGradient>
+</defs>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="#0e0604"/>
+<!-- walls: the far wall (east) faces you; the boiler stands against the left wall (north); the corridor door is in the right wall (south) -->
+<polygon points="-1000,-700 2600,-700 1300,200 300,200" fill="#170b07"/>
+<polygon points="-1000,-700 300,200 300,440 -1000,1600" fill="#2a1710"/>
+<polygon points="2600,-700 1300,200 1300,440 2600,1600" fill="#24140e"/>
+<rect x="300" y="200" width="1000" height="240" fill="#3a2016"/>
+<g stroke="#2a150e" stroke-width="2" opacity=".8"><path d="M300 230H1300M300 262H1300M300 294H1300M300 326H1300M300 358H1300M300 390H1300M300 422H1300"/></g>
+<path d="M300 200L-1000 -700M1300 200L2600 -700" stroke="#0e0604" stroke-width="6"/>
+<!-- the window, high on the far wall, and the street lamp outside -->
+<g id="win" class="hot"><rect x="430" y="214" width="150" height="62" fill="#ff9a3a" opacity=".8"/><path d="M505 214v62M430 245h150" stroke="#2a150e" stroke-width="6"/><rect x="430" y="214" width="150" height="62" fill="none" stroke="#5a3020" stroke-width="7"/></g>
+<rect class="glow" x="250" y="100" width="520" height="320" fill="url(#winG)" pointer-events="none"/>
+<!-- the coal chute: a square iron hatch high on the far wall, in the right-hand corner -->
+<g id="chute" class="hot"><rect x="1140" y="212" width="120" height="96" fill="#2a2522" stroke="#5a4a3e" stroke-width="6"/><path d="M1150 224h100M1150 296h100" stroke="#4a3e34" stroke-width="3"/><circle cx="1200" cy="260" r="7" fill="#6b5f4e"/><text x="1200" y="246" class="st" font-size="16" fill="#8a7a64">COAL</text></g>
+<g id="pipes"></g>
+<!-- the boiler -->
+<g id="boiler" class="hot"><path d="M-200 80H330q50 0 50 50V700H-200z" fill="url(#boilG)"/><g fill="#2a120a" id="rivets"></g><circle cx="200" cy="300" r="70" fill="#2a120a" stroke="#8a4a2a" stroke-width="10"/><circle cx="200" cy="300" r="40" fill="#120604"/>
+  <path d="M330 120v-260M290 100v-240" stroke="#5a3020" stroke-width="22"/><circle cx="90" cy="180" r="26" fill="#e8dcc4" stroke="#5a3020" stroke-width="6"/><path d="M90 180l14 -12" stroke="#2a120a" stroke-width="3"/></g>
+<!-- the corridor door, from the inside -->
+<g id="cdoor" class="hot"><polygon points="1420,90 1560,10 1560,620 1420,560" fill="#2a2520" stroke="#544a3e" stroke-width="4"/><circle cx="1440" cy="330" r="8" fill="#6b5f4e"/></g>
+<!-- the water -->
+<polygon points="-1000,1600 300,440 1300,440 2600,1600" fill="url(#wD)" fill-opacity=".92" pointer-events="none"/>
+<path d="M-1000 1600L300 440H1300L2600 1600" stroke="#c98a4e" stroke-width="2.5" fill="none" opacity=".45" pointer-events="none"/>
+<g class="shim" pointer-events="none" stroke="#a87a4a" stroke-width="2" fill="none" opacity=".35"><path d="M520 470q40 -5 80 0t80 0M760 500q50 -6 100 0t100 0M420 580q70 -8 140 0t140 0M900 640q80 -9 160 0t160 0"/></g>
+<g id="oil" class="hot"><ellipse cx="430" cy="530" rx="90" ry="16" fill="#6a4aa0" opacity=".28"/><ellipse cx="440" cy="528" rx="60" ry="9" fill="#4aa06a" opacity=".25"/></g>
+<g id="bucket" class="hot"><path d="M900 560l70 0 -8 30h-54z" fill="#4a4440"/><path d="M904 560q31 -30 62 0" stroke="#2a2522" stroke-width="3" fill="none"/></g>
+<!-- where the river is coming in: the water heaves, brown, in the far right-hand corner, under the coal hatch -->
+<g id="leak" class="hot"><ellipse id="boil" cx="1240" cy="452" rx="70" ry="14" fill="#8a5a2a" opacity=".85"/><ellipse class="ring" cx="1240" cy="452" rx="70" ry="14" fill="none" stroke="#c99a5a" stroke-width="3"/><ellipse class="ring b" cx="1240" cy="452" rx="70" ry="14" fill="none" stroke="#c99a5a" stroke-width="3"/>
+  <path d="M1170 470l-26 6M1300 470l30 8M1236 436l-4 -10" stroke="#3a2a14" stroke-width="5" stroke-linecap="round"/><ellipse cx="1240" cy="452" rx="110" ry="26" fill="#000" fill-opacity="0"/></g>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#vigD)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Back to the steps</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="dive.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, nextFile = null, turns = {};
+
+  /* five pipes on the far wall, left to right, each with a wheel just above the water */
+  var PIPES = {
+    w1: { x: 620, thick: 9, col: '#3f8a6a', band: null, way: 'boiler', text: 'A thin copper pipe, green with age. It comes down out of the ceiling, has a small wheel on it here, and then bends away to the left, into the side of the boiler.' },
+    w2: { x: 720, thick: 20, col: '#3a3632', band: '#c4372b', way: 'up', text: 'A thick iron pipe, with a red band painted round it just above the wheel. From the wheel it goes straight UP, into the ceiling. Below the wheel it stops, with a cap on the end.' },
+    w3: { x: 830, thick: 20, col: '#3a3632', band: '#c4372b', way: 'down', text: 'A thick iron pipe, with a red band painted round it just above the wheel. Above the wheel it comes out of the far wall. From the wheel it goes straight DOWN: you take a breath, dive, and follow it with the torch until it disappears into the floor.' },
+    w4: { x: 940, thick: 20, col: '#3a3632', band: '#2f62b0', way: 'down', text: 'A thick iron pipe, with a blue band painted round it just above the wheel. Above the wheel it comes out of the far wall. From the wheel it goes straight DOWN: you dive and follow it until it disappears into the floor.' },
+    w5: { x: 1040, thick: 9, col: '#8a8f93', band: null, way: 'wall', text: 'A thin grey pipe, soft-looking, like lead. From the wheel it runs away to the right along the wall and goes through into the yard.' }
+  };
+  var ORDER = ['w1', 'w2', 'w3', 'w4', 'w5'];
+  function pipeSvg(p, x, y, big, rot) {
+    var t = big ? 2.2 : 1, s = '', r = 24 * t, k = p.thick * t;
+    if (p.way === 'up') s += '<path d="M' + x + ' ' + (y - 400) + 'V' + (y + 30 * t) + '" stroke="' + p.col + '" stroke-width="' + k + '"/><rect x="' + (x - k * 0.7) + '" y="' + (y + 30 * t) + '" width="' + (k * 1.4) + '" height="' + (10 * t) + '" fill="#2a2522"/>';
+    else if (p.way === 'down') s += '<path d="M' + (x + 200) + ' ' + (y - 60 * t) + 'H' + x + 'V' + (y + 500) + '" stroke="' + p.col + '" stroke-width="' + k + '" fill="none"/>';
+    else if (p.way === 'boiler') s += '<path d="M' + x + ' ' + (y - 400) + 'V' + (y + 40 * t) + 'q0 20 -20 20H' + (x - 600) + '" stroke="' + p.col + '" stroke-width="' + k + '" fill="none"/>';
+    else s += '<path d="M' + x + ' ' + (y - 50 * t) + 'V' + (y + 30 * t) + 'q0 16 16 16H' + (x + 600) + '" stroke="' + p.col + '" stroke-width="' + k + '" fill="none"/>';
+    if (p.band) s += '<rect x="' + (x - k / 2 - 1) + '" y="' + (y - 46 * t) + '" width="' + (k + 2) + '" height="' + (10 * t) + '" fill="' + p.band + '"/>';
+    s += '<g transform="rotate(' + (rot || 0) + ' ' + x + ' ' + y + ')"><circle cx="' + x + '" cy="' + y + '" r="' + r + '" fill="none" stroke="#7a2a1a" stroke-width="' + (5 * t) + '"/>' +
+      '<path d="M' + (x - r) + ' ' + y + 'H' + (x + r) + 'M' + x + ' ' + (y - r) + 'V' + (y + r) + '" stroke="#7a2a1a" stroke-width="' + (3.5 * t) + '"/><circle cx="' + x + '" cy="' + (y - r) + '" r="' + (4 * t) + '" fill="#e8d04a"/><circle cx="' + x + '" cy="' + y + '" r="' + (5 * t) + '" fill="#3a1a10"/></g>';
+    return s;
+  }
+  (function draw() {
+    var s = '', i;
+    ORDER.forEach(function (id) { s += '<g class="wheel hot" data-w="' + id + '">' + pipeSvg(PIPES[id], PIPES[id].x, 400, false, 0) + '<rect x="' + (PIPES[id].x - 34) + '" y="360" width="68" height="80" fill="#000" fill-opacity="0"/></g>'; });
+    $('#pipes').innerHTML = s; s = '';
+    for (i = 0; i < 10; i++) s += '<circle cx="' + (-120 + i * 46) + '" cy="96" r="5"/><circle cx="' + (-120 + i * 46) + '" cy="520" r="5"/>';
+    $('#rivets').innerHTML = s;
+  })();
+
+  ER.init({
+    theme: 'duo', story: 'dive-a', storyTitle: 'Open This Together', id: 'boiler', no: 'IV', title: 'The Boiler Room',
+    go: 'Swim through',
+    intro: [
+      'The box was the one in the middle of the shelf: oak, with brass corners and a handle at each end, a ship under sail carved on the lid, and OPEN THIS TOGETHER on its plate. It was about one and a half of your slates long: 45 centimetres, and the card said 46. The tin trunk with 1926 on it belonged to the Rowing Club: silver cups from the regatta of 1926, and nothing to do with children.',
+      'From your two readings, 2.32 at four minutes to eleven and 2.38 at eight minutes past, the operator worked out that the water was rising one centimetre every two minutes. At that speed it would reach the top shelves of the Long Store at eight minutes to midnight, whatever the pump did.',
+      'Unless somebody found out where it was coming in. You follow the brown water across the aisle, past the bear, and through the little door in the corner.'
+    ],
+    exit: {"next":"landing","w":{"0f1d00de":"1f4e5c59"}}, tags: {"pipe":["c1ce9a83"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('a4-told') || {}; nextFile = ER.flag('a4-file') || null;
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('a4-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#go').classList.toggle('on', !!nextFile);
+    document.body.classList.toggle('shut', !!nextFile);
+    ER.pips((told.leak ? 1 : 0) + (told.wheel ? 1 : 0) + (nextFile ? 1 : 0), 3);
+    if (nextFile) DV.card([['Tell your partner', ['&ldquo;Topside, this is Diver. It&rsquo;s shut. Eight turns. The water has stopped coming in. I&rsquo;m coming up with the box. Over.&rdquo;']]]);
+    else if (!told.leak) DV.card([['Tell your partner', ['&ldquo;I&rsquo;m in the Boiler Room. The boiler is on my left. In front of me there is a wall with five pipes on it.&rdquo;']], ['Ask your partner', ['&ldquo;Where does the old drain come in? What does your plan show?&rdquo;']]]);
+    else DV.card([['Tell your partner', ['&ldquo;The brown water is coming up in the corner on my &hellip;, under &hellip;.&rdquo;', '&ldquo;The second pipe from the left is thick, with a red band, and it goes up into the ceiling.&rdquo;']], ['Ask your partner', ['&ldquo;Which wheel shuts that drain? Which way do I turn it?&rdquo;']]]);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The drain is shut. Go back to the steps, with the box.']];
+    if (!told.leak) return ['leak', [
+      'Somewhere in this room the river is coming in. Look at the surface of the water: one place is not like the rest.',
+      'When you have found it, tell your partner exactly where it is: which wall, what is above it, what is next to it. Your partner has an old plan of the drains.'
+    ]];
+    return ['wheel', [
+      'Your partner can find the drain on the old plan, and the plan says which wheel shuts it. Describe the pipes to each other: the colour of the band, thick or thin, and where each one goes: up, down, or into a wall.',
+      'The plan says which way the top of the wheel must go. Turn that into clockwise or anticlockwise as YOU look at the wheel: where is the thing the plan names, on your left or on your right?',
+      'If the brown water comes up harder, you are opening the drain, not shutting it. Turn the other way. A drain that is shutting needs every one of its turns.'
+    ]];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; ER.say('The Boiler Room. The water in the corner is still now, and the brown is settling.'); return; }
+    if (told.intro) { busy = false; ER.say('The Boiler Room. The water is heaving somewhere in here, and five wheels are waiting on the far wall.'); return; }
+    ER.narrate([
+      'The Boiler Room is smaller than the store, and warmer, and it smells of rust and coal. The water is brown here, not black.',
+      'On your left, against the wall, stands the old boiler, as big as a van, with the river up to its middle. On the far wall, facing you, five pipes come down to the water, each with an iron wheel on it, just above the surface. High up on the same wall: a small window, orange from the street lamp outside, and in the right-hand corner, a square iron hatch.',
+      'Somewhere in here the river is pushing its way in. The water is pulling at you, gently, as if it wants to show you where.'
+    ], function () { busy = false; tell('intro'); paint(); });
+  }
+
+  /* ---------- the leak ---------- */
+  $('#leak').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The corner under the coal hatch is quiet now. The last of the brown is sinking.'); return; }
+    var first = tell('leak'); paint();
+    DV.look({
+      kicker: 'In the far corner, on your right', title: 'Where the water heaves',
+      pic: '<svg viewBox="0 0 380 300" xmlns="http://www.w3.org/2000/svg"><rect width="380" height="300" fill="#140a05"/><rect y="0" width="380" height="80" fill="#3a2016"/><rect x="150" y="6" width="120" height="66" fill="#2a2522" stroke="#5a4a3e" stroke-width="5"/>' +
+        '<text x="210" y="46" font-family="Stardos Stencil,serif" font-weight="700" font-size="18" fill="#8a7a64" text-anchor="middle">COAL</text><rect y="80" width="380" height="220" fill="#2a1a0c"/>' +
+        '<rect x="140" y="250" width="140" height="40" fill="#1a1a18"/><g stroke="#3a3a36" stroke-width="5"><path d="M150 250v40M170 250v40M190 250v40M210 250v40M230 250v40M250 250v40M270 250v40"/></g>' +
+        '<path d="M150 250q-30 -60 10 -120q20 -40 -10 -50M210 250q10 -80 -10 -140M270 250q40 -60 0 -130q-20 -30 10 -40" stroke="#8a5a2a" stroke-width="22" fill="none" opacity=".75" stroke-linecap="round"/></svg>',
+      text: '<p>In the far corner on your right, right under the square iron hatch of the coal chute, the surface of the water heaves up in a slow brown bulge, again and again, pushing bits of coal and leaves away from it.</p><p>You take a breath and dive. Two metres down, on the floor, there is an iron grating, and brown water is pouring UP out of it, like smoke out of a chimney, if smoke were cold and smelled of river.</p>',
+      lock: false
+    });
+    if (first) ER.addWord('grating', 'a cover of metal bars over a hole in the floor');
+  });
+
+  /* ---------- the wheels ---------- */
+  function wheel(id) {
+    if (busy) return;
+    if (nextFile) { ER.say('The drain is shut. Leave the wheels alone now.'); return; }
+    var p = PIPES[id], n = ORDER.indexOf(id), rot = 0, api;
+    tell('wheel'); paint();
+    turns[id] = turns[id] || 0;
+    function pic() { return '<svg viewBox="200 120 400 440" xmlns="http://www.w3.org/2000/svg"><rect x="200" y="120" width="400" height="440" fill="#1a0c06"/><rect x="200" y="420" width="400" height="140" fill="#2a1a0c" fill-opacity=".9"/>' + pipeSvg(p, 400, 360, true, rot) + '</svg>'; }
+    api = DV.look({
+      kicker: ['The first pipe from the left', 'The second pipe from the left', 'The pipe in the middle', 'The second pipe from the right', 'The last pipe on the right'][n],
+      title: 'A pipe, and its wheel', pic: pic(), text: '<p>' + p.text + '</p>',
+      acts: [{ id: 'acw', label: '&#8634; Turn it anticlockwise', fn: function () { turn('acw'); } }, { id: 'cw', label: 'Turn it clockwise &#8635;', fn: function () { turn('cw'); } }]
+    });
+    function turn(dir) {
+      var key = id + ':' + dir;
+      if (nextFile) return;
+      DV.sfx.turn();
+      rot += dir === 'cw' ? 45 : -45; api.pic(pic());
+      if (ER.check('pipe', id)) {
+        if (ER.exitOk([key])) {
+          turns[id] = Math.max(0, turns[id]) + 1;
+          if (turns[id] < 8) { api.msg('One more turn: ' + turns[id] + '. The wheel is stiff, and getting stiffer. In the corner, the brown bulge is a little smaller each time.'); return; }
+          var file = ER.exit([key], { wait: true });
+          nextFile = file; ER.flag('a4-file', file);
+          api.msg('Eight. The wheel stops dead, and will not go a hair further. In the corner under the coal hatch, the water heaves once more, and then lies still.');
+          api.acts([]);
+          setTimeout(function () {
+            ER.closeAll(); busy = true; paint();
+            ER.narrate([
+              'For a long minute you hold on to the wheel and watch the corner. The brown sinks slowly back to the floor, and the water over the grating goes clear, and quiet, and stays quiet.',
+              'Somewhere under Ferry Street, nearly a hundred and thirty years ago, a man laid a drain from the coal chute to the river, with a flap at the river end to keep the river out, and a wheel in here in case the flap ever stuck. Tonight it stuck. Tonight, for the first time, somebody turned his wheel.',
+              'Out in the yard the pump is still roaring, and now, for the first time tonight, it is winning.'
+            ], function () { busy = false; paint(); });
+          }, 2800);
+          return;
+        }
+        turns[id] = 0;
+        api.msg('The wheel turns easily. Too easily. In the corner, the brown water heaves up harder than before: you are opening the drain, not shutting it. You turn it quickly back.');
+        rot = 0; setTimeout(function () { api.pic(pic()); }, 700);
+        return;
+      }
+      turns[id] += 1;
+      if (Math.abs(turns[id]) >= 2) {
+        api.msg(p.way === 'up' ? 'You turn it twice. Somewhere above you, a radiator gives a loud clank. In the corner under the coal hatch, nothing changes at all. This is not the drain&rsquo;s wheel.' :
+          p.way === 'boiler' ? 'You turn it twice. Something inside the boiler gurgles. In the corner under the coal hatch, nothing changes at all. This is not the drain&rsquo;s wheel.' :
+          'You turn it twice. In the corner under the coal hatch, nothing changes at all. This is not the drain&rsquo;s wheel. You turn it back the way it was.');
+        turns[id] = 0; rot = 0; setTimeout(function () { api.pic(pic()); }, 700);
+      } else api.msg('It turns. You watch the corner under the coal hatch &hellip;');
+    }
+  }
+  ER.$$('.wheel').forEach(function (g) { g.addEventListener('click', function () { wheel(g.getAttribute('data-w')); }); });
+
+  /* ---------- other things ---------- */
+  DV.thing('#boiler', 'boiler', 'The old boiler, on your left, against the wall: iron, red with rust, as big as a van. It used to heat the whole museum. Tonight it is up to its middle in river, and looks as if it has stopped caring.', isBusy);
+  DV.thing('#win', null, 'A small window, high in the far wall, on the left. The street lamp outside makes it orange. Outside it, the yard is water as well.', isBusy);
+  DV.thing('#chute', 'coal chute', 'A square iron hatch, high in the far wall, in the right-hand corner, with COAL on it. A hundred years ago, coal came down a chute from the street through this hatch.', isBusy);
+  DV.thing('#oil', null, 'A rainbow of oil on the water, in front of the boiler. It is not moving at all, not even a little.', isBusy);
+  DV.thing('#bucket', 'coal scuttle', function () { return nextFile ? 'A coal scuttle, floating quietly in the middle of the room.' : 'A coal scuttle, floating. It keeps drifting away from the corner on your right, and coming back, and drifting away again.'; }, isBusy);
+  DV.thing('#cdoor', null, 'The iron door to the corridor, seen from the inside. This is the door that opened an inch when you pulled it from the bottom step, and let out a cloud of brown.', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Back Office · Still Open at Four</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-econ.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="bank.css">
+<style>
+  body{--bg:#c8c4a8;--accent:#2f5a44;--font-display:'Lora',serif;--font-ui:'Outfit',sans-serif;--font-body:'Lora',serif;
+    --tc-bg:rgba(240,238,222,.97);--tc-ink:#1f2a24;--cap-bg:rgba(248,246,234,.96);--cap-ink:#1f2a24;--panel:#f8f6ea;--panel-ink:#1f2a24;--face-bg:#2f5a44;--q-ink:#2f5a44;
+    --fade:#e8e4cc;--hud-bg:rgba(248,246,234,.9);--hud-ink:#1f2a24;--hud-line:rgba(31,42,36,.3);--ov-bg:rgba(16,24,18,.64)}
+  .tc-room{font-size:clamp(40px,5.8vw,82px);color:#2f5a44;font-family:'Courier Prime',monospace}
+  .tc-theme{color:#7a1f2b}
+  .hbtn b{color:#fff}
+  #tube{animation:tube 8s steps(1,end) infinite}
+  @keyframes tube{0%{opacity:.5}3%{opacity:.2}5%{opacity:.5}70%{opacity:.4}71%{opacity:.5}}
+
+  /* the ledger desk */
+  .lg{width:min(1140px,97vw)}
+  .lg-in{display:grid;grid-template-columns:1.05fr 1fr 1fr;gap:12px;background:#5a3a20;padding:12px;border-radius:4px;box-shadow:0 26px 70px rgba(0,0,0,.55)}
+  .lc{background:#f6f0dc;color:#1f2a24;padding:10px 12px 10px;font-family:'Courier Prime',monospace;font-size:13.5px;line-height:1.32;box-shadow:0 3px 8px rgba(0,0,0,.35)}
+  .lc h5{margin:0 0 4px;font-family:'Lora',serif;font-weight:700;font-size:16px;color:#2f5a44}
+  .lc p{margin:0 0 5px}
+  .lc table{width:100%;border-collapse:collapse;margin:3px 0 6px}
+  .lc td{padding:2px 3px;border-bottom:1px solid #d8d0b8;white-space:nowrap}
+  .lc td.r{text-align:right}
+  .lc .hand{font-family:'Caveat',cursive;font-size:18px;color:#2a3a6a;line-height:1.1}
+  .lc .stain{background:radial-gradient(ellipse at 50% 50%,rgba(140,110,60,.55),rgba(140,110,60,.25) 60%,transparent 72%);color:transparent;text-align:center}
+  .lc .row{display:flex;justify-content:space-between;align-items:center;gap:6px;margin:6px 0 0;padding-top:5px;border-top:1px dashed #b8ac90}
+  .lc .row span{font-family:'Lora',serif;font-size:13.5px;line-height:1.2}
+  .lc.pass{border-top:16px solid #2f5a44}
+  .lc.loan{border-top:16px solid #7a1f2b}
+  .lc.saver{border-top:16px solid #c9a24a;background:#fbf2d8}
+  .lc .dr{color:#1f2a24}.lc .dr-w b{font-size:19px}.lc .dr-fix{font-size:17px}
+  .lg .bad{outline:3px solid #e2453a;outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="lino" width="60" height="60" patternUnits="userSpaceOnUse"><rect width="60" height="60" fill="#8a8a6a"/><rect width="30" height="30" fill="#9a9a7a"/><rect x="30" y="30" width="30" height="30" fill="#9a9a7a"/></pattern>
+  <linearGradient id="green" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3a6a50"/><stop offset=".5" stop-color="#4a7a5e"/><stop offset="1" stop-color="#2f5a44"/></linearGradient>
+  <radialGradient id="tubeG" cx="50%" cy="0%" r="70%"><stop offset="0" stop-color="#f4ffe8" stop-opacity=".75"/><stop offset="1" stop-color="#f4ffe8" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="45%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#101a10" stop-opacity=".1"/><stop offset="1" stop-color="#101a10" stop-opacity=".5"/></radialGradient>
+</defs>
+
+<rect x="-1000" y="-400" width="3600" height="1100" fill="#d8d4b4"/>
+<rect x="-1000" y="420" width="3600" height="300" fill="#b8b494"/><path d="M-1000 420H2600" stroke="#8a866a" stroke-width="6"/>
+<rect x="420" y="0" width="760" height="20" rx="4" fill="#8a8a7a"/><rect x="436" y="8" width="728" height="8" rx="4" fill="#fbfff4"/>
+<ellipse id="tube" cx="800" cy="14" rx="900" ry="500" fill="url(#tubeG)" pointer-events="none"/>
+
+<!-- filing cabinets, the kettle -->
+<g id="cabinets" class="hot"><rect x="30" y="300" width="130" height="430" fill="url(#green)" stroke="#1f3a2a" stroke-width="3"/><rect x="170" y="300" width="130" height="430" fill="url(#green)" stroke="#1f3a2a" stroke-width="3"/>
+  <g fill="#c9c4b0"><rect x="70" y="340" width="50" height="10" rx="3"/><rect x="70" y="446" width="50" height="10" rx="3"/><rect x="70" y="552" width="50" height="10" rx="3"/><rect x="70" y="658" width="50" height="10" rx="3"/><rect x="210" y="340" width="50" height="10" rx="3"/><rect x="210" y="446" width="50" height="10" rx="3"/><rect x="210" y="552" width="50" height="10" rx="3"/><rect x="210" y="658" width="50" height="10" rx="3"/></g>
+  <g fill="#fff"><rect x="78" y="358" width="34" height="14"/><rect x="218" y="358" width="34" height="14"/><rect x="218" y="464" width="34" height="14"/></g>
+  <text x="95" y="369" class="cP" font-size="8" text-anchor="middle" fill="#1f2a24">A-F</text><text x="235" y="369" class="cP" font-size="8" text-anchor="middle" fill="#1f2a24">OLD</text><text x="235" y="475" class="cP" font-size="8" text-anchor="middle" fill="#1f2a24">1970s</text></g>
+<g><path d="M60 300v-30h40v30z" fill="#c8ccd0"/><path d="M100 278q14 4 0 16" stroke="#c8ccd0" stroke-width="4" fill="none"/><rect x="190" y="262" width="34" height="38" fill="#fff"/><text x="207" y="285" class="cH" font-size="9" text-anchor="middle" fill="#7a1f2b">MRS D</text></g>
+
+<!-- the barred window, the calendar -->
+<g id="window" class="hot"><rect x="350" y="130" width="190" height="200" fill="#5a4a3a"/><rect x="362" y="142" width="166" height="176" fill="#9aaab0"/><rect x="362" y="250" width="166" height="68" fill="#7a7a72"/><rect x="380" y="200" width="60" height="50" fill="#5a5a52"/>
+  <g stroke="#2a2420" stroke-width="5"><path d="M390 142v176M420 142v176M450 142v176M480 142v176M510 142v176"/></g></g>
+<g id="calendar" class="hot"><rect x="1020" y="140" width="110" height="140" fill="#fff" stroke="#b8b494"/><rect x="1020" y="140" width="110" height="34" fill="#7a1f2b"/><text x="1075" y="164" class="cO" font-size="15" text-anchor="middle" fill="#fff">OCTOBER</text>
+  <g fill="#c8c4b0"><rect x="1032" y="186" width="14" height="12"/><rect x="1052" y="186" width="14" height="12"/><rect x="1072" y="186" width="14" height="12"/><rect x="1092" y="186" width="14" height="12"/><rect x="1112" y="186" width="10" height="12"/><rect x="1032" y="206" width="14" height="12"/><rect x="1052" y="206" width="14" height="12"/><rect x="1072" y="206" width="14" height="12"/><rect x="1092" y="206" width="14" height="12"/></g>
+  <circle cx="1099" cy="212" r="10" fill="none" stroke="#c2185b" stroke-width="2"/><text x="1075" y="262" class="cH" font-size="10" text-anchor="middle" fill="#1f2a24">last day: work exp.</text></g>
+
+<!-- the sloping desk and its ledgers -->
+<g id="ledger" class="hot"><path d="M560 520l20 -60h420l20 60z" fill="#6a4428"/><rect x="560" y="520" width="460" height="22" fill="#4a2c18"/>
+  <path d="M640 500l10 -36h150l-4 36z" fill="#f6f0dc" stroke="#a89878"/><path d="M800 500l-4 -36h150l10 36z" fill="#f2ead2" stroke="#a89878"/><path d="M798 464v36" stroke="#8a7a5a" stroke-width="2"/>
+  <g stroke="#9a8a6a" stroke-width="1.4"><path d="M660 476h130M658 484h130M656 492h132M812 476h130M814 484h130M816 492h132"/></g>
+  <rect x="700" y="452" width="56" height="14" fill="#2f5a44"/><rect x="830" y="452" width="40" height="14" fill="#c9a24a"/><rect x="890" y="450" width="44" height="16" fill="#7a1f2b"/></g>
+<path d="M580 542v200M1000 542v200" stroke="#4a2c18" stroke-width="14"/>
+<g id="manual" class="hot"><rect x="590" y="430" width="90" height="26" rx="2" fill="#7a1f2b"/><rect x="594" y="424" width="84" height="10" fill="#fbf6e8"/><rect x="590" y="424" width="12" height="32" fill="#5a1520"/><text x="638" y="448" class="cP" font-size="8.5" text-anchor="middle" fill="#f2c45a">STAFF MANUAL</text></g>
+<g id="report" class="hot"><rect x="930" y="424" width="64" height="40" fill="#fff" stroke="#b8b494" transform="rotate(6 962 444)"/><rect x="934" y="428" width="56" height="10" fill="#2f5a44" transform="rotate(6 962 444)"/><text x="962" y="456" class="cP" font-size="7" text-anchor="middle" fill="#1f2a24" transform="rotate(6 962 444)">REPORT</text></g>
+
+<!-- the broken adding machine -->
+<g id="machine" class="hot"><rect x="1040" y="560" width="160" height="180" fill="#5a5048"/><rect x="1050" y="470" width="140" height="90" rx="6" fill="#d8d0b8" stroke="#8a8270" stroke-width="3"/><g fill="#5a5048"><rect x="1062" y="500" width="16" height="12" rx="2"/><rect x="1084" y="500" width="16" height="12" rx="2"/><rect x="1106" y="500" width="16" height="12" rx="2"/><rect x="1062" y="518" width="16" height="12" rx="2"/><rect x="1084" y="518" width="16" height="12" rx="2"/><rect x="1106" y="518" width="16" height="12" rx="2"/><rect x="1062" y="536" width="16" height="12" rx="2"/><rect x="1084" y="536" width="16" height="12" rx="2"/><rect x="1106" y="536" width="16" height="12" rx="2"/></g><rect x="1134" y="500" width="40" height="48" rx="3" fill="#7a1f2b"/><path d="M1180 480l20 -40" stroke="#8a8270" stroke-width="5"/>
+  <rect x="1070" y="452" width="100" height="22" fill="#fff" stroke="#c2185b" stroke-width="2" transform="rotate(-4 1120 463)"/><text x="1120" y="468" class="cO" font-size="11" text-anchor="middle" fill="#c2185b" transform="rotate(-4 1120 463)">OUT OF ORDER</text></g>
+
+<!-- the half-door to the corridor, and who is at it -->
+<rect x="1230" y="180" width="380" height="560" fill="#4a3a2a"/><rect x="1250" y="200" width="340" height="540" fill="#e8e0c4"/><path d="M1250 420H1590" stroke="#c8c0a4" stroke-width="3"/>
+<g id="ellwood" class="hot" transform="translate(1300 700) scale(1)"></g>
+<g id="pathak" class="hot" transform="translate(1418 704) scale(1.02)"></g>
+<g id="rook" class="hot" transform="translate(1535 700) scale(1)"></g>
+<rect x="1240" y="520" width="360" height="220" fill="#6a4a2a" stroke="#4a3018" stroke-width="5"/><rect x="1236" y="512" width="368" height="14" fill="#8a6a40"/><path d="M1260 560h320M1260 690h320" stroke="#4a3018" stroke-width="3"/>
+<text x="1420" y="640" class="cP" font-size="14" text-anchor="middle" fill="#e8d8b0">STAFF ONLY</text>
+
+<rect x="-1000" y="740" width="3600" height="700" fill="url(#lino)"/><rect x="-1000" y="736" width="3600" height="8" fill="#5a5a44"/>
+<g id="yuki" class="hot" transform="translate(860 890) scale(1.06)"></g>
+
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Down to the vault</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="bank.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, lock = null;
+
+  (function () {
+    $('#ellwood').innerHTML = BANK.who('ellwood', { smile: -2 });
+    $('#pathak').innerHTML = BANK.who('pathak', { smile: 4, extra: '<rect x="-70" y="-226" width="140" height="12" rx="3" fill="#a87a4a"/><g fill="#d8a060"><ellipse cx="-44" cy="-234" rx="14" ry="9"/><ellipse cx="-14" cy="-236" rx="14" ry="9"/><ellipse cx="16" cy="-234" rx="14" ry="9"/><ellipse cx="46" cy="-236" rx="14" ry="9"/></g>' });
+    $('#rook').innerHTML = BANK.who('rook', { smile: -3, extra: '<rect x="28" y="-222" width="30" height="26" fill="#8a3a2a" stroke="#5a2a1a"/><path d="M32 -222l11 -12 11 12" fill="#8a3a2a" stroke="#5a2a1a"/><rect x="38" y="-216" width="10" height="3" fill="#2a1a10"/>' });
+    $('#yuki').innerHTML = BANK.who('yuki', { badge: null, smile: 2, extra: '<rect x="28" y="-158" width="30" height="22" fill="#fbf2d8" stroke="#c9a24a" stroke-width="2"/>' });
+  })();
+
+  ER.init({
+    theme: 'econ', story: 'bank', storyTitle: 'Still Open at Four', id: 'backoffice', no: 'IV', title: 'The Back Office',
+    go: 'Through the STAFF ONLY door', sound: ['ledger', { root: 43, bpm: 72, drop: ['mel'], level: 1.1, beds: [['hum', 0.35]] }],
+    intro: [
+      'On Wanda&rsquo;s rail the rumour went in order: at 11.50 Yuki said &ldquo;not from the counter today&rdquo;; at 12.05 Mr Ellwood said &ldquo;they haven&rsquo;t got four thousand pounds&rdquo;; at 12.21 Mrs Bright wrote &ldquo;the bank hasn&rsquo;t got the money&rdquo;, and the time and the number fell off. Mr Rook&rsquo;s rude remark came at 12.34, too late to start anything. And Marnie&rsquo;s photograph, whole, showed a queue for Ravi Pathak&rsquo;s free bread.',
+      'The queue outside the bank is real now. The back office is where the old paper lives: ledgers, savings books, and accounts too old for the computer.',
+      'Three people have followed you round to the STAFF ONLY door, and each of them wants a sum done before deciding anything.'
+    ],
+    exit: {"next":"vault","w":{"1ab076d3":"a4b23a2e"}}, tags: {"ei":["6faf0684"],"eb":["7bfcbfd9"],"pi":["15db1c92"],"ps":["575ae8fe"],"pb":["3914ff90"],"rk":["164e31cb","3c1431b1","406d8902","90158b06","136932fc","7b1b4287","de294ed4","641e3b9b","25f6eef5"],"ei0":["a0be3fda"],"eb0":["89ce4a68"],"rk0":["c90e359c"],"pb7":["56b38669"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('d-file') || null; told = ER.flag('d-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('d-told', told); return true; }
+  function isBusy() { return busy; }
+  function ready() { return told.ellwood && told.pathak && told.rook && told.manual; }
+  function paint() {
+    $('#ledger').classList.toggle('ready', !!(ready() && !nextFile));
+    ER.pips((told.ellwood ? 1 : 0) + (told.pathak ? 1 : 0) + (told.rook ? 1 : 0) + (told.manual ? 1 : 0) + (nextFile ? 1 : 0), 5);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Mrs Delacour wants you both in the vault: the button at the bottom of the screen.']];
+    if (lock && lock.isOpen()) return ['lock', [
+      'Mr Ellwood&rsquo;s book is COMPOUND: the interest is added every March. So in the second year, 3% is worked out on £4,120, not on £4,000. (1% of £4,120 is £41.20.)',
+      'Ravi&rsquo;s loan: 7% of £10,000 is what he pays. The money lent to him belongs to savers, who get 3% of the same £10,000. The bank keeps the difference.',
+      'Mr Rook&rsquo;s card: at 6% the rule of 72 says money doubles in about 72 &divide; 6 = 12 years (look at 1988). From 1976 to 2024 is 48 years: four doublings of £10. The last two years add about 12% more.'
+    ]];
+    if (!told.ellwood) return ['ellwood', ['Three people are at the half-door. Begin with Mr Ellwood, on the left.', 'Click Mr Ellwood, in the tweed cap, at the STAFF ONLY door.']];
+    if (!told.pathak) return ['pathak', ['The baker with the tray of rolls is worried about his loan.', 'Click Ravi Pathak, in the middle of the doorway.']];
+    if (!told.rook) return ['rook', ['Simeon Rook has come to close his account.', 'Click Mr Rook, on the right of the doorway.']];
+    if (!told.manual) return ['manual', ['Before you do anybody&rsquo;s sums, read how interest works. The staff manual is on the sloping desk.', 'The red binder at the left end of the sloping desk.']];
+    return ['ledger', ['Now write the three sums up. The open ledger on the sloping desk.', 'Click the big open book on the sloping desk in the middle.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('Mrs Delacour&rsquo;s voice is still in the corridor: the vault, now.'); return; }
+    if (told.in) { busy = false; ER.say('The back office. The adding machine is still broken.'); return; }
+    tell('in');
+    ER.narrate([
+      'The back office: green filing cabinets, a sloping desk with ledgers on it, a strip light that flickers, and a window with bars on to the yard. It smells of paper and of a kettle that has boiled a great many times.',
+      'On a side table sits an electric adding machine with a card taped to it: OUT OF ORDER. The card is brown with age.',
+      'At the STAFF ONLY half-door stand Mr Ellwood with his savings book, Ravi Pathak from the bakery with a tray of warm rolls, and Simeon Rook with a small rusty money box in the shape of the bank.',
+      '&ldquo;One at a time,&rdquo; says Yuki, &ldquo;and nobody comes past the door.&rdquo; She has found an old card in the 1970s drawer, and she is holding it as if it might explode.'
+    ], function () { busy = false; });
+  }
+
+  $('#ellwood').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Three pounds sixty,&rdquo; Mr Ellwood says, to his savings book. &ldquo;Nobody told me about the three pounds sixty.&rdquo;'); return; }
+    ER.talk({
+      who: 'Mr Monty Ellwood', role: 'Savings book 0388 · 3% a year', face: BANK.face('ellwood'),
+      lines: [
+        { note: 'He holds up his savings book like a ticket inspector.', a: '&ldquo;I&rsquo;ll take it all, thank you. Every penny, with the interest. Four thousand pounds at three per cent, for two years. Three per cent of four thousand is a hundred and twenty pounds a year. Two years: four thousand two hundred and forty. I did it on the bus.&rdquo;' },
+        { q: 'Is it the same every year?', a: 'Of course it is. Three per cent is three per cent. The book says the interest is added every March. I haven&rsquo;t brought it in since March last year, so the second line is empty. Write it up.' },
+        { q: 'Do you really want it all?', a: 'I want the camper van. The man in Northope wants cash. And the whole town says you&rsquo;re finished, though I must say this office looks very much the same as usual.' }
+      ],
+      clue: { id: 'ellwood2', title: 'Mr Ellwood: I did it on the bus', kind: 'What he said' },
+      done: function (seen) { if (seen && tell('ellwood')) { paint(); ER.say('Four thousand pounds, three per cent, added every March.'); } }
+    });
+  });
+  $('#pathak').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Four hundred a year for the bank,&rdquo; says Ravi. &ldquo;And I make bread. Fair enough. Have a roll.&rdquo;'); return; }
+    ER.talk({
+      who: 'Ravi Pathak', role: 'Pathak&rsquo;s Bakery, next door', face: BANK.face('pathak', 'smile'),
+      lines: [
+        { note: 'He has flour up to his elbows.', a: '&ldquo;Rolls, for the staff, from the new oven. Now tell me straight. Is the bank in trouble? Because if the bank needs money, does it ask for my loan back? I can&rsquo;t pay ten thousand pounds back on a Friday. It&rsquo;s in the oven. I&rsquo;d have to give you the oven.&rdquo;' },
+        { note: 'Yuki answers before you can.', a: '&ldquo;Not because we&rsquo;re nervous, Ravi. It&rsquo;s a five-year loan. You pay it back the way the paper says, and not a day sooner.&rdquo;' },
+        { q: 'What does the bank get from your loan?', a: 'That is what I would like to know. Seven per cent a year, Mrs Delacour said. Seven per cent of ten thousand pounds. And the bank keeps it all, I suppose, and buys more brass.' },
+        { q: 'Is the queue outside yours too?', a: 'Half of the people on that pavement are mine, I&rsquo;ll have you know. The three o&rsquo;clock batch. People queue for the bloomers. The other half are yours, and I wish they weren&rsquo;t.' }
+      ],
+      clue: { id: 'pathak', title: 'Ravi Pathak: the three o&rsquo;clock batch', kind: 'What he said' },
+      done: function (seen) { if (seen && tell('pathak')) { paint(); ER.say('A £10,000 loan at 7%. And half the pavement is queuing for bread.'); } }
+    });
+  });
+  $('#rook').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Simeon Rook is sitting on the bench in the corridor, holding his money box in both hands.'); return; }
+    ER.talk({
+      who: 'Mr Simeon Rook', role: 'Little Saver No. 412', face: BANK.face('rook', 'cross'),
+      lines: [
+        { note: 'He puts the rusty money box on the half-door. It is a tin model of the bank, with a slot in the roof.', a: '&ldquo;Little Saver, number four hundred and twelve. Opened when I was eight, with ten pounds from my gran. Six per cent, they said, for life. I have never touched it. I want it closed. Today.&rdquo;' },
+        { q: 'How much is in it?', a: 'Don&rsquo;t try anything. Six per cent of ten pounds is sixty pence. Sixty pence a year for fifty years is thirty pounds. Forty pounds altogether. In cash, if you&rsquo;ve got any left.' },
+        { q: 'Why close it now?', a: 'Because you lend money to a man who sells bread and not to a man who sells history. Because the whole town says you&rsquo;re finished. And because I can.' },
+        { note: 'He looks at the money box.', a: '&ldquo;My gran said a bank was the safest place in Brockholt. She said it every Saturday.&rdquo;' }
+      ],
+      clue: { id: 'rook2', title: 'Mr Rook: sixty pence a year', kind: 'What he said' },
+      done: function (seen) { if (seen && tell('rook')) { paint(); ER.say('Ten pounds in 1976, at six per cent a year, added every August.'); } }
+    });
+  });
+  $('#yuki').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(nextFile ? '&ldquo;Doubled four times while he wasn&rsquo;t looking,&rdquo; says Yuki. &ldquo;I love compound interest. Don&rsquo;t tell anyone.&rdquo;' : '&ldquo;His account&rsquo;s on a card, not the computer,&rdquo; says Yuki. &ldquo;Do all three sums before we say anything to anyone. And no, you can&rsquo;t use the adding machine.&rdquo;');
+  });
+
+  var DIA = '<svg viewBox="0 0 290 200"><g font-family="Architects Daughter,cursive" font-size="13" fill="#22201c">' +
+    '<path d="M30 180H280M30 180V20" stroke="#22201c" stroke-width="2"/><text x="150" y="198" text-anchor="middle">years</text><text x="6" y="16">£</text>' +
+    '<path d="M30 160L270 112" stroke="#2f5a44" stroke-width="3"/><text x="200" y="116" fill="#2f5a44">simple</text>' +
+    '<path d="M30 160Q170 150 270 36" stroke="#7a1f2b" stroke-width="3" fill="none"/><text x="176" y="62" fill="#7a1f2b">compound</text>' +
+    '<g fill="#c9a24a"><circle cx="120" cy="140" r="4"/><circle cx="190" cy="110" r="4"/><circle cx="240" cy="70" r="4"/></g><text x="96" y="132" font-size="11.5">×2</text><text x="166" y="102" font-size="11.5">×4</text><text x="216" y="62" font-size="11.5">×8</text></g></svg>';
+  var MANUAL = '<h4>Staff Manual &middot; Section 3</h4><h3>Interest</h3><div class="two"><div>' +
+    '<p><b>INTEREST</b> is the price of using money. The bank pays it to savers and charges it to borrowers. The <b>INTEREST RATE</b> is the interest for one year, as a percentage.</p>' +
+    '<p><b>SIMPLE INTEREST</b> is worked out on the first amount only: £100 at 5% earns £5 every year.</p>' +
+    '<p><b>COMPOUND INTEREST</b> is added to the account, and next year the interest is worked out on the new, bigger amount. £100 at 5% is £105 after one year and £110.25 after two. The interest earns interest. Over two years the difference is pennies. Over fifty years it is most of the money.</p>' +
+    '<p><b>THE RULE OF 72:</b> divide 72 by the rate to find roughly how many years money takes to double. At 6%, about 12 years. (At 6%, two years add about 12%.) The rule is old: it is in a book by the Italian mathematician Luca Pacioli, printed in 1494.</p>' +
+    '<p class="rule">Brockholt today: savings 3% a year, loans 7%. The gap pays for this building, its staff, and our profit.</p></div><div class="dia">' + DIA + '</div></div>';
+  $('#manual').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: MANUAL, cls: 'man', clue: { id: 'manual3', title: 'Staff manual 3: interest', kind: 'On the sloping desk' }, done: function () {
+      BANK.terms(['interest', 'interest rate', 'simple interest', 'compound interest', 'rule of 72']);
+      if (tell('manual')) { paint(); ER.say('Simple: on the first amount only. Compound: interest on the interest. At 6%, money doubles in about 12 years.'); }
+    } });
+  });
+  var REPORT = '<h4>Brockholt &amp; District Bank &middot; Report for last year</h4><table>' +
+    '<tr><td>Interest received from borrowers</td><td class="r">£413,000</td></tr><tr><td>Interest paid to savers</td><td class="r">£180,000</td></tr>' +
+    '<tr><td>Staff, building, heating, the van</td><td class="r">£138,000</td></tr><tr><td><b>Profit</b></td><td class="r"><b>£95,000</b></td></tr><tr><td>Profit the year before</td><td class="r">£120,000</td></tr></table>' +
+    '<p class="hand">Mr Rook asked for a copy. U.D.</p>';
+  $('#report').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: REPORT, cls: 'sheet', clue: { id: 'report', title: 'Last year&rsquo;s report', kind: 'On the desk' }, done: function () {
+      if (tell('report')) ER.say('&ldquo;Profits down!&rdquo; Mr Rook says through the door. &ldquo;True,&rdquo; says Yuki. &ldquo;A smaller profit is still a profit. It has nothing to do with today.&rdquo;');
+    } });
+  });
+  BANK.thing('#machine', null, 'OUT OF ORDER, on a card gone brown with age. It has been broken since 1998. Mrs Delacour says arithmetic is good for the soul.', isBusy);
+  BANK.thing('#calendar', null, 'October. Today is circled in red: LAST DAY, WORK EXP. Somebody has drawn a small vault next to it, with a question mark.', isBusy);
+  BANK.thing('#window', null, 'Through the bars: the yard, the bins, and the back of Pathak&rsquo;s Bakery. A smell of warm bread is coming in round the window frame.', isBusy);
+  BANK.thing('#cabinets', 'ledger', 'Green filing cabinets. The bottom drawer on the right says 1970s. It is open, and it is where Yuki found Mr Rook&rsquo;s card.', isBusy);
+  $('#ledger').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Three sums, written up in Yuki&rsquo;s neatest hand. Mrs Delacour will check them anyway.'); return; }
+    if (!told.ellwood || !told.pathak || !told.rook) { ER.say('The ledger desk. Find out first what each of the three people at the door wants.'); return; }
+    if (!told.manual) { ER.say('Before you write anything in a ledger, read Section 3 of the staff manual: interest.'); return; }
+    if (!lock) lock = makeLock();
+    lock.open();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the ledger desk: three sums ---------- */
+  function makeLock() {
+    var saved = ER.flag('d-vals') || {}, wait = false, d = {};
+    var box = ER.el('div', 'pz lg');
+    box.innerHTML = '<div class="lg-in">' +
+      '<div class="lc pass"><h5>Savings book &middot; M. Ellwood</h5><p>Account 0388 &middot; interest 3% a year, added every March</p>' +
+      '<table><tr><td></td><td class="r">interest</td><td class="r">balance</td></tr><tr><td>Mar 2024</td><td class="r">paid in</td><td class="r">4,000.00</td></tr><tr><td>Mar 2025</td><td class="r">120.00</td><td class="r">4,120.00</td></tr><tr><td>Mar 2026</td><td class="r">?</td><td class="r">?</td></tr></table>' +
+      '<div class="row"><span>Interest, March 2026</span><i id="ei"></i></div><div class="row"><span>Balance, March 2026</span><i id="eb"></i></div></div>' +
+      '<div class="lc loan"><h5>Loan &middot; R. Pathak, bakery</h5><p>£10,000 for a new oven, lent in April. Interest 7% a year. Five years.</p><p>The money lent is savers&rsquo; deposits, which earn 3% a year.</p><p class="hand">Ravi asks: what does the bank get out of me in the first year?</p>' +
+      '<div class="row"><span>Interest Ravi pays in the first year</span><i id="pi"></i></div><div class="row"><span>Paid to the savers whose money it is</span><i id="ps"></i></div><div class="row"><span>Left for the bank</span><i id="pb"></i></div></div>' +
+      '<div class="lc saver"><h5>Little Saver &middot; No. 412</h5><p>S. ROOK, aged 8 &middot; opened 2 August 1976 with £10.00</p><p>6% a year, added every August. <span class="hand">For life. Q. Ramsbottom, Manager</span></p>' +
+      '<table><tr><td>1976</td><td class="r">10.00</td></tr><tr><td>1977</td><td class="r">10.60</td></tr><tr><td>1978</td><td class="r">11.24</td></tr><tr><td>1979</td><td class="r">11.91</td></tr><tr><td class="stain" colspan="2">&middot;</td></tr><tr><td>1988</td><td class="r">20.12</td></tr><tr><td class="stain" colspan="2">&middot;</td></tr></table>' +
+      '<p class="hand">The roof leaked in 2012. Sorry. Y.</p><div class="row"><span>Owed to Mr Rook this August, to the nearest pound</span><i id="rk"></i></div></div>' +
+      '</div><div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="d-go">Write them up</button></div>';
+    var msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function lk() { return wait || !!nextFile; }
+    function keep() { var o = {}; Object.keys(d).forEach(function (k) { o[k] = d[k].get(); }); ER.flag('d-vals', o); }
+    d.ei = BANK.drum(box.querySelector('#ei'), { digits: 5, dec: 2, before: '£', val: saved.ei, change: keep, lock: lk });
+    d.eb = BANK.drum(box.querySelector('#eb'), { digits: 6, dec: 2, sep: true, before: '£', val: saved.eb, change: keep, lock: lk });
+    d.pi = BANK.drum(box.querySelector('#pi'), { digits: 4, before: '£', val: saved.pi, change: keep, lock: lk });
+    d.ps = BANK.drum(box.querySelector('#ps'), { digits: 4, before: '£', val: saved.ps, change: keep, lock: lk });
+    d.pb = BANK.drum(box.querySelector('#pb'), { digits: 4, before: '£', val: saved.pb, change: keep, lock: lk });
+    d.rk = BANK.drum(box.querySelector('#rk'), { digits: 3, before: '£', val: saved.rk, change: keep, lock: lk });
+    function flash(n) { n.classList.add('bad'); setTimeout(function () { n.classList.remove('bad'); }, 1200); }
+    box.querySelector('#d-go').addEventListener('click', function () {
+      if (wait || nextFile) return;
+      var v;
+      v = d.ei.get();
+      if (!ER.check('ei', v)) { ER.sfx.no(); flash(box.querySelector('#ei')); msg(ER.check('ei0', v) ? '&ldquo;That&rsquo;s Mr Ellwood&rsquo;s bus sum,&rdquo; says Yuki. &ldquo;Three per cent of four thousand, again. But the interest was ADDED last March. Three per cent of what, this year?&rdquo;' : '&ldquo;Mr Ellwood&rsquo;s interest for the second year,&rdquo; says Yuki. &ldquo;Three per cent of the balance after the first year.&rdquo;'); return; }
+      v = d.eb.get();
+      if (!ER.check('eb', v)) { ER.sfx.no(); flash(box.querySelector('#eb')); msg(ER.check('eb0', v) ? '&ldquo;Four thousand two hundred and forty is the bus again,&rdquo; says Yuki. &ldquo;Add this year&rsquo;s interest to last year&rsquo;s balance.&rdquo;' : '&ldquo;The new balance,&rdquo; says Yuki. &ldquo;Last March&rsquo;s balance, plus this year&rsquo;s interest.&rdquo;'); return; }
+      if (!ER.check('pi', d.pi.get())) { ER.sfx.no(); flash(box.querySelector('#pi')); msg('&ldquo;What Ravi pays,&rdquo; says Yuki. &ldquo;Seven per cent of ten thousand pounds, for one year.&rdquo;'); return; }
+      if (!ER.check('ps', d.ps.get())) { ER.sfx.no(); flash(box.querySelector('#ps')); msg(d.ps.get() ? '&ldquo;The savers get three per cent,&rdquo; says Yuki, &ldquo;of the same ten thousand pounds.&rdquo;' : '&ldquo;Nothing for the savers?&rdquo; says Yuki. &ldquo;It&rsquo;s their money we lent him. We pay them three per cent on it.&rdquo;'); return; }
+      if (!ER.check('pb', d.pb.get())) { ER.sfx.no(); flash(box.querySelector('#pb')); msg(ER.check('pb7', d.pb.get()) ? '&ldquo;All seven hundred?&rdquo; says Yuki. &ldquo;The savers would like a word.&rdquo;' : '&ldquo;Left for the bank,&rdquo; says Yuki. &ldquo;What Ravi pays us, minus what we pay the savers.&rdquo;'); return; }
+      v = d.rk.get();
+      if (!ER.check('rk', v)) {
+        ER.sfx.no(); flash(box.querySelector('#rk'));
+        if (ER.check('rk0', v)) msg('&ldquo;That&rsquo;s Mr Rook&rsquo;s own sum,&rdquo; says Yuki. &ldquo;Sixty pence every year: simple interest. But look at the card: sixty pence in 1977, sixty-four pence in 1978. The interest was added every August.&rdquo;');
+        else if (v < 178) msg('&ldquo;More than that,&rdquo; says Yuki. &ldquo;The rule of 72: at six per cent, how often does it double? Look at 1988. How many doublings fit into fifty years?&rdquo;');
+        else msg('&ldquo;Less than that,&rdquo; says Yuki. &ldquo;Ten pounds, doubled every twelve years or so, for fifty years. Count the doublings.&rdquo;');
+        return;
+      }
+      var file = ER.exit([d.ei.get() + '-' + d.eb.get() + '-' + d.pi.get() + '-' + d.ps.get() + '-' + d.pb.get() + '-rk'], { wait: true });
+      if (!file) { msg('The door will not open. Something is wrong with this page: tell your teacher.'); return; }
+      wait = true; nextFile = file; ER.flag('d-file', file);
+      BANK.mine('sums', 'Three sums', '<p>Mr Ellwood, compound: 2025 £120, 2026 3% of £4,120 = £123.60. Balance £4,243.60 (simple would be £4,240).</p><p>Ravi: 7% of £10,000 = £700. Savers get 3% = £300. The bank keeps £400 for its costs and profit.</p><p>Mr Rook: £10 at 6%, doubling every 12 years: 1988 £20, 2000 £40, 2012 £80, 2024 £160, +12% = about £180. The computer says £184.20. Simple interest would give £40.</p>', true);
+      msg('Yuki reads your figures down, then up again, which is how she checks everything. <b>£123.60, £4,243.60; £700, £300, £400; and about £180.</b>');
+      setTimeout(function () {
+        ER.closeAll(); paint(); busy = true;
+        ER.narrate([
+          'Yuki turns to the half-door. &ldquo;Mr Ellwood: four thousand two hundred and forty-three pounds sixty. Not forty. In the second year you got three per cent of your interest too.&rdquo; Mr Ellwood looks at the book for a long time. &ldquo;Three pounds sixty,&rdquo; he says. &ldquo;Nobody told me about the three pounds sixty.&rdquo;',
+          '&ldquo;Ravi: seven hundred pounds a year from your loan. Three hundred goes to the savers whose money it is. Four hundred stays here and pays for the lights, the heating and me.&rdquo; Ravi thinks about it. &ldquo;Fair enough. I charge more for a loaf than the flour costs. Same thing.&rdquo;',
+          '&ldquo;Mr Rook.&rdquo; Yuki holds up the card, and a sheet from the old computer in the corner. &ldquo;Not forty pounds. One hundred and eighty-four pounds and twenty pence. Your ten pounds doubled four times while you weren&rsquo;t looking, and then a bit more.&rdquo;',
+          'Simeon Rook sits down on the bench in the corridor, which he has never done in a bank before. He looks at the rusty money box for a long time and says nothing at all.',
+          'Then Mrs Delacour&rsquo;s voice comes down the corridor, very calm, which is worse than loud. &ldquo;Yuki. The vault, please. Both of you. Now.&rdquo;'
+        ], function () { busy = false; $('#go').classList.add('on'); });
+      }, 2800);
+    });
+    msg('Set each answer with the little wheels: click above or below a figure, or turn the mouse wheel over it. No adding machine. Then write them up.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Catalogue · Open This Together</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-duo.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="lodge.css">
+<style>
+  body{--bg:#141a1c;--accent:#9fd8ff;--font-display:'Fraunces',serif;--font-ui:'Space Mono',monospace;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(16,22,26,.95);--tc-ink:#eef4f6;--cap-bg:rgba(16,22,26,.93);--panel:#182024;--face-bg:#26323a;--q-ink:#bfe4ff;--fade:#05080a;--hud-bg:rgba(16,22,26,.82)}
+  .tc-room{font-family:'Special Elite',monospace;font-weight:normal}
+  .pcard{border-left-color:#5aa8e0}
+  .tube{animation:tube 7s steps(1,end) infinite}
+  @keyframes tube{0%,93%{opacity:1}94%{opacity:.35}95%{opacity:1}97%{opacity:.5}98%{opacity:1}}
+  .bx.cat{width:min(1000px,95vw);background:#2a221a}
+  .cat-in{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:0;min-height:430px}
+  .cat-tabs{grid-column:1/3;display:flex;gap:6px;padding:12px 14px 0;border-bottom:1px solid #5a4a36}
+  .cat-tabs button{padding:8px 14px 6px;font-family:'Space Mono',monospace;font-weight:700;font-size:13px;letter-spacing:.06em;color:#d9c49a;border:1px solid transparent;border-bottom:0;border-radius:3px 3px 0 0}
+  .cat-tabs button.on{background:#f3ead0;color:#2a2016;border-color:#5a4a36}
+  .cat-list{padding:10px 8px;max-height:min(440px,58vh);overflow:auto;border-right:1px solid #5a4a36;background:#3a2c1c repeating-linear-gradient(90deg,rgba(255,255,255,.02) 0 2px,transparent 2px 6px)}
+  .cat-list button{display:block;width:100%;text-align:left;margin:0 0 4px;padding:6px 10px 5px;background:#f1ead2;color:#2a2016;font-family:'Special Elite',monospace;font-size:14px;line-height:1.2;border-radius:2px 8px 0 0;box-shadow:0 2px 0 #bfb08a}
+  .cat-list button:hover{background:#fff8dc}
+  .cat-list button.on{background:#ffe48a}
+  .cat-view{padding:16px;display:grid;justify-items:center;align-content:start;background:#1e1810}
+  .cat-view .doc{max-height:none;width:100%;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+  .bx.dlog{width:min(860px,95vw);background:#2a2620}
+  .dlog-in{padding:18px 22px 6px;background:#f3f0e6;color:#1d1d24;font-family:'Space Mono',monospace;font-size:14px;line-height:1.55;border-top:22px solid #4a4038}
+  .dlog-in h5{margin:0 0 6px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:18px;letter-spacing:.14em;text-transform:uppercase}
+  .dlog-in .old{color:#3a3a6a;font-family:'Kalam',cursive;font-size:17px;margin:0 0 2px}
+  .dlog-in .row{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin:12px 0 12px;padding:10px 0;border-top:1px dashed #8a8270;border-bottom:1px dashed #8a8270}
+  .dlog-in .row span{font-weight:700}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallC" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a4a4e"/><stop offset="1" stop-color="#4e6064"/></linearGradient>
+  <radialGradient id="tubeG" cx="50%" cy="0%" r="80%"><stop offset="0" stop-color="#e8f6ff" stop-opacity=".35"/><stop offset="1" stop-color="#e8f6ff" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vigC" cx="50%" cy="50%" r="76%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#000" stop-opacity=".2"/><stop offset="1" stop-color="#000" stop-opacity=".72"/></radialGradient>
+</defs>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="#2a3436"/>
+<rect x="-1000" y="-700" width="3600" height="1440" fill="url(#wallC)"/>
+<rect x="-1000" y="740" width="3600" height="1000" fill="#3a3028"/><path d="M-1000 740H2600" stroke="#22201c" stroke-width="8"/>
+<g class="tube"><rect x="560" y="20" width="480" height="18" rx="9" fill="#f2fbff"/><rect x="-1000" y="-700" width="3600" height="1600" fill="url(#tubeG)" pointer-events="none"/></g>
+<!-- the catalogue cabinet: thirty little drawers, two of them pulled out -->
+<g id="cabinet" class="hot"><rect x="80" y="170" width="480" height="560" fill="#7a5530" stroke="#4a3018" stroke-width="6"/><g id="drawers"></g>
+  <path d="M190 430h120l20 70H170z" fill="#8a6038" stroke="#4a3018" stroke-width="4"/><g fill="#f1ead2"><rect x="196" y="420" width="12" height="24"/><rect x="212" y="418" width="12" height="26"/><rect x="228" y="421" width="12" height="23"/><rect x="244" y="417" width="12" height="27"/><rect x="260" y="420" width="12" height="24"/><rect x="276" y="419" width="12" height="25"/><rect x="292" y="421" width="12" height="23"/></g>
+  <path d="M370 560h120l20 70H350z" fill="#8a6038" stroke="#4a3018" stroke-width="4"/><g fill="#f1ead2"><rect x="376" y="550" width="12" height="24"/><rect x="392" y="548" width="12" height="26"/><rect x="408" y="551" width="12" height="23"/><rect x="424" y="547" width="12" height="27"/><rect x="440" y="550" width="12" height="24"/><rect x="456" y="549" width="12" height="25"/></g>
+  <text x="250" y="482" class="sm" font-size="13" fill="#f1ead2">INDEX A-Z</text><text x="430" y="612" class="sm" font-size="13" fill="#f1ead2">NUMBERS</text></g>
+<!-- the plan of the Long Store -->
+<g id="splan" class="hot" transform="rotate(1 820 320)"><rect x="640" y="100" width="360" height="440" fill="#e9edf0"/><rect x="680" y="150" width="280" height="340" fill="none" stroke="#1a3a5a" stroke-width="5"/>
+  <g fill="#dfe6ec" stroke="#5a7a9a" stroke-width="2"><rect x="686" y="160" width="90" height="100"/><rect x="686" y="265" width="90" height="105"/><rect x="686" y="375" width="90" height="105"/><rect x="864" y="160" width="90" height="100"/><rect x="864" y="265" width="90" height="105"/><rect x="864" y="375" width="90" height="105"/></g>
+  <g class="sv" font-size="34" fill="#1a3a5a"><text x="731" y="222">D</text><text x="731" y="330">E</text><text x="731" y="440">F</text><text x="909" y="222">A</text><text x="909" y="330">B</text><text x="909" y="440">C</text></g>
+  <text x="820" y="135" class="sv" font-size="14" fill="#1a3a5a" letter-spacing="2">MAIN DOORS</text><text x="820" y="514" class="sv" font-size="13" fill="#1a3a5a">back doors</text><circle cx="648" cy="108" r="6" fill="#c4372b"/><circle cx="992" cy="108" r="6" fill="#c4372b"/></g>
+<!-- the dive log on its hook -->
+<g id="log" class="hot"><path d="M1160 130v24" stroke="#2a2a2a" stroke-width="4"/><rect x="1070" y="150" width="180" height="250" rx="6" fill="#6a5a44"/><rect x="1084" y="176" width="152" height="210" fill="#f3f0e6"/><rect x="1130" y="160" width="60" height="24" rx="4" fill="#9a9a92"/>
+  <g stroke="#3a3a6a" stroke-width="2"><path d="M1094 200h120M1094 214h100M1094 232h124M1094 246h90M1094 264h110"/></g><path d="M1094 290h130" stroke="#c4372b" stroke-width="2" stroke-dasharray="6 4"/></g>
+<!-- the telephone on the wall, and the radio on its shelf -->
+<g id="phone" class="hot"><rect x="1330" y="200" width="90" height="150" rx="8" fill="#1b1b1b"/><circle cx="1375" cy="290" r="30" fill="#e8e0cc"/><circle cx="1375" cy="290" r="10" fill="#1b1b1b"/><path d="M1336 214q-14 50 8 90" stroke="#1b1b1b" stroke-width="16" fill="none"/></g>
+<rect x="1060" y="600" width="420" height="16" fill="#4a3a28"/>
+<g id="radio" class="hot"><rect x="1120" y="500" width="260" height="100" rx="8" fill="#3a3a32"/><circle cx="1180" cy="550" r="32" fill="#7fe0a0" opacity=".8"/><circle cx="1290" cy="540" r="14" fill="#1d1d18"/><circle cx="1340" cy="540" r="14" fill="#1d1d18"/></g>
+<g id="cat" class="hot"><path d="M1440 600q-6 -40 40 -44q46 4 40 44z" fill="#d88a3a"/><circle cx="1470" cy="568" r="18" fill="#d88a3a"/><path d="M1458 556l4 -16 9 13zM1476 553l7 -14 6 16z" fill="#d88a3a"/></g>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#vigC)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">The diver is at the bay</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="lodge.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, nextFile = null, cat = null, dlog = null;
+  (function () {
+    var s = '', r, c;
+    for (r = 0; r < 6; r++) for (c = 0; c < 5; c++) {
+      var x = 96 + c * 92, y = 186 + r * 90;
+      if ((r === 2 && c === 1) || (r === 3 && c === 3)) continue;
+      s += '<rect x="' + x + '" y="' + y + '" width="80" height="76" fill="#8a6038" stroke="#4a3018" stroke-width="3"/><rect x="' + (x + 24) + '" y="' + (y + 14) + '" width="32" height="14" fill="#e6dcc0"/><circle cx="' + (x + 40) + '" cy="' + (y + 50) + '" r="6" fill="#c9a94e"/>';
+    }
+    $('#drawers').innerHTML = s;
+  })();
+
+  var INDEX = [
+    ['BEAR (stuffed, brown)', '1899.7. Long Store, Bay A, on top.', 'Do not stroke. A.T.'],
+    ['BELLS, bicycle (a box of 30)', '1961.5. Long Store, Bay B, top shelf.'],
+    ['DABCHICK (rowing boat)', '1972.9. Long Store, Bay C, on top.'],
+    ['DOLLS&rsquo; HOUSES (3)', '1950.2 to 1950.4. Long Store, Bay F, top shelf.'],
+    ['HALCYON (a brig): her figurehead', '1934.1. Long Store, Bay D, on top.'],
+    ['PENNY-FARTHING (bicycle)', '1961.4. Long Store, Bay B, on top.', 'Do not ride. (This means you, Ossie.)'],
+    ['PIKE, in a glass case', '1911.2. Long Store, Bay E, on top.'],
+    ['RILLMOUTH BOX', 'See the drawer of numbers: 2025.31.'],
+    ['RILLMOUTH ROWING CLUB: cups, 1926', 'See the drawer of numbers: 2025.30.'],
+    ['ROCKING HORSE', '1978.12. Long Store, Bay F, on top.', 'Has bitten nobody since 1978.'],
+    ['TIME CAPSULE', 'See RILLMOUTH BOX.'],
+    ['TIN SOLDIERS', '1950.5. Long Store, Bay F, top shelf.']
+  ];
+  var NUMS = [
+    ['2025.27', 'Enamel street sign: FERRY STREET.', 'Long Store, Bay F, bottom shelf.'],
+    ['2025.28', 'Ship in a bottle: the brig Halcyon.', 'Long Store, Bay C, top shelf.'],
+    ['2025.29', 'School bell, Rillmouth School.', 'Office.'],
+    ['2025.30', 'Tin trunk, painted dark green, with 1926 R.R.C. in white on the lid. Two iron handles. Silver cups and medals of the Rillmouth Rowing Club regatta, 1926. Given by the Club, April 2025. 60 &times; 36 &times; 34 cm.', 'Long Store, Bay D, top shelf.'],
+    ['2025.31', null],
+    ['2025.32', 'Oak box with iron corners and an iron handle at each end; a ship carved on the lid; the brass plate is missing. Sea charts of the river Rill. 46 &times; 30 &times; 20 cm.', 'Long Store, Bay D, top shelf.'],
+    ['2025.33', 'Oak box with brass corners, one handle on the lid, a fish carved on the lid. Brass plate: OPEN THIS END. Fishing flies. 46 &times; 28 &times; 18 cm.', 'Long Store, Bay D, top shelf.'],
+    ['2025.34', 'Small oak box with brass corners; a ship carved on the lid. Brass plate: R.S. 1926. Rillmouth School prize medal. 16 &times; 10 &times; 8 cm.', 'Long Store, Bay D, top shelf.']
+  ];
+  function cardHtml(set, i) {
+    var c = set[i];
+    if (set === NUMS && !c[1]) return LG.CARD31;
+    if (set === NUMS) return '<h4>' + c[0] + '</h4><p>' + c[1] + '</p><p>Where: ' + c[2] + '</p>';
+    return '<h4>' + c[0] + '</h4><p>' + c[1] + '</p>' + (c[2] ? '<p class="hand">' + c[2] + '</p>' : '');
+  }
+
+  ER.init({
+    theme: 'duo', story: 'dive-b', storyTitle: 'Open This Together', id: 'catalogue', no: 'II', title: 'The Catalogue',
+    go: 'Open the drawers',
+    intro: [
+      'The Long Store was the second door on the diver&rsquo;s left. On the plan, north is at the top and the stairs come down at the west end: so a diver walking east along the corridor has north on the left, and the Long Store is on the north side. Its lock plate said J. TRASK, with a fish on it, and the key labelled &ldquo;TRASK · fish&rdquo; turned.',
+      'Now the diver is inside the Long Store, at the back doors, swimming. The museum has a card for every one of its eleven thousand things. Somewhere in the catalogue is the card that says where the time capsule is.',
+      'And the dive log is waiting for its next line.'
+    ],
+    exit: {"next":"clock","w":{"e48f3474":"260f17f4"}}, tags: {"time":["83501686"],"water":["577e2b78"],"air":["c3694f1c"],"bay":["29f33dda"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('b2-told') || {}; nextFile = ER.flag('b2-file') || null;
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('b2-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#go').classList.toggle('on', !!nextFile);
+    ER.pips((told.card ? 1 : 0) + (told.store ? 1 : 0) + (nextFile ? 1 : 0), 3);
+    if (nextFile) LG.card([['Ask your partner', ['&ldquo;What can you see on the top shelf? How many boxes?&rdquo;']]]);
+    else if (!told.card) LG.card([['Ask your partner', ['&ldquo;Diver, this is Topside. What can you see on top of the bays near you, on your left and on your right?&rdquo;']], ['Tell your partner', ['&ldquo;Wait one. I&rsquo;m looking for the card.&rdquo;']]]);
+    else LG.card([['Tell your partner', ['&ldquo;You need Bay D. It has &hellip; on top. It&rsquo;s on your &hellip;, the &hellip; one from you.&rdquo;']], ['Ask your partner', ['&ldquo;What time is it on your watch? What does the pillar say? How much air have you got? Over.&rdquo;']]]);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The log is written, and the diver is on the way to Bay D.']];
+    if (!told.card) return ['card', [
+      'Mrs Treharne said the time capsule is in the catalogue. The catalogue cabinet has two drawers pulled out: one of names, from A to Z, and one of numbers.',
+      'Look up TIME CAPSULE in the drawer of names. It sends you on to another name, and that name gives you a number.',
+      'Then find that number in the drawer of numbers. Its card says where the box is: which bay, which shelf. It also says what the box looks like. Keep it: the diver will need it.'
+    ]];
+    return ['log', [
+      'The log needs three things that only the diver can see: the time on the diver&rsquo;s watch, the water on the painted pillar inside the back doors, and the air on the diver&rsquo;s gauge. Ask for them one at a time, and say each one back to check.',
+      'The diver&rsquo;s watch has hands, and the log uses the 24-hour clock: ten past four in the afternoon is 16.10. On the pillar, each small line between two numbers is 2 centimetres.',
+      'The diver needs Bay D. The plan is drawn from the main doors, and the diver came in by the back doors, at the other end: so what is on the left of the plan&rsquo;s visitor is on the diver&rsquo;s right, and the first bay is the last.'
+    ]];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; ER.say('The log is written. The diver is swimming to Bay D.'); return; }
+    if (told.intro) { busy = false; ER.say('The catalogue cabinet, the plan of the Long Store, and the dive log on its hook.'); return; }
+    ER.narrate([
+      'The key turned. The diver is in the Long Store. And the Lodge telephone is ringing.',
+      'It is Mrs Treharne, the curator, from the far side of the river. &ldquo;Save the time capsule,&rdquo; she says. &ldquo;Save that, and I will forgive the river everything else. It&rsquo;s in the catalogue, it&rsquo;s in the Long Store, and you wrote half those cards yourself this summer.&rdquo; Then the line goes dead.',
+      'The catalogue cabinet was carried up here last month, to be mended. Tonight it is the only thing from the basement that is dry. Beside it, the plan of the Long Store is pinned on the wall, and the dive log hangs on its hook.'
+    ], function () { busy = false; tell('intro'); paint(); });
+  }
+
+  /* ---------- the catalogue ---------- */
+  function makeCat() {
+    var box = ER.el('div', 'bx cat'), set = INDEX, pick = -1;
+    box.innerHTML = '<div class="cat-in"><div class="cat-tabs"><button type="button" class="on" data-s="i">Names, A to Z</button><button type="button" data-s="n">Numbers, 2025</button></div><div class="cat-list"></div><div class="cat-view"></div></div><div class="bx-foot"><p class="pmsg"></p></div>';
+    var list = box.querySelector('.cat-list'), view = box.querySelector('.cat-view'), msg = function (t) { box.querySelector('.pmsg').innerHTML = ER.gloss(t); };
+    function fill() {
+      list.innerHTML = '';
+      set.forEach(function (c, i) { var b = ER.el('button', i === pick ? 'on' : '', set === NUMS ? c[0] + (c[1] ? '' : ' THE RILLMOUTH BOX') : c[0]); b.type = 'button'; b.setAttribute('data-i', i); list.appendChild(b); });
+      view.innerHTML = pick < 0 ? '<p style="color:#d9c49a;font-family:Special Elite,monospace;margin:40px 10px">Choose a card from the drawer.</p>' : '';
+      if (pick >= 0) view.appendChild(ER.el('div', 'doc ccard', ER.gloss(cardHtml(set, pick))));
+    }
+    box.querySelector('.cat-tabs').addEventListener('click', function (e) {
+      var b = e.target.closest ? e.target.closest('button') : null; if (!b) return;
+      ER.$$('.cat-tabs button', box).forEach(function (o) { o.classList.toggle('on', o === b); });
+      set = b.getAttribute('data-s') === 'i' ? INDEX : NUMS; pick = -1; fill(); LG.sfx.drawer();
+      msg(set === INDEX ? 'The drawer of names, from A to Z.' : 'The drawer of numbers. Every number is the year a thing came to the museum, and then its place in that year.');
+    });
+    list.addEventListener('click', function (e) {
+      var b = e.target.closest ? e.target.closest('button') : null; if (!b) return;
+      pick = parseInt(b.getAttribute('data-i'), 10); fill(); ER.sfx.paper();
+      if (set === NUMS && pick === 4) {
+        ER.addClue('card31', '2025.31: the Rillmouth Box', LG.CARD31, 'ccard', 'Catalogue card');
+        if (tell('card')) { paint(); msg('There it is, in your own typing from July. You put the card in your notebook.'); }
+      } else if (set === NUMS && pick === 3) { ER.addClue('card30', '2025.30: a tin trunk', cardHtml(NUMS, 3), 'ccard', 'Catalogue card', true); msg('A tin trunk with 1926 on the lid.'); }
+      else msg('');
+    });
+    fill(); msg('Two drawers. Every card in them was typed on the museum&rsquo;s old typewriter, and some of them by you.');
+    return { open: function () { ER.open('ov-lock', box); } };
+  }
+  $('#cabinet').addEventListener('click', function () { if (busy) return; if (!cat) cat = makeCat(); cat.open(); });
+  $('#splan').addEventListener('click', function () { if (!busy) LG.store(function () { if (tell('store')) { paint(); ER.say('Six bays, lettered from the main doors. The diver came in by the back doors.'); } }); });
+
+  /* ---------- the dive log ---------- */
+  function makeLog() {
+    var box = ER.el('div', 'bx dlog');
+    var hh = LG.counter(LG.range(0, 23, 1, 0, 2), '12', { id: 'c-hh' }), mm = LG.counter(LG.range(0, 59, 1, 0, 2), '00', { id: 'c-mm', big: true }),
+      wa = LG.counter(LG.range(2, 2.6, 0.01, 2), '2.00', { id: 'c-wa', big: true, cls: 'wide' }), ai = LG.counter(LG.range(0, 300, 10), '200', { id: 'c-ai', cls: 'wide' }),
+      by = LG.counter(['?', 'A', 'B', 'C', 'D', 'E', 'F'], '?', { id: 'c-by' });
+    box.innerHTML = '<div class="dlog-in"><h5>Dive log · Rillmouth Harbour Dive Team</h5>' +
+      '<p class="old">22.48 &nbsp; Diver in the water at the foot of the Lodge stairs. Air 200 bar. O.B.</p><p class="old">22.53 &nbsp; Key (Trask, fish) sent down the line. Long Store back doors open.</p>' +
+      '<div class="row"><span>Diver into the Long Store at</span><i id="s-hh"></i><b>.</b><i id="s-mm"></i><span>&middot; water on the pillar</span><i id="s-wa"></i><span>m &middot; air</span><i id="s-ai"></i><span>bar &middot; sent to Bay</span><i id="s-by"></i></div></div>' +
+      '<div class="bx-foot"><p class="pmsg"></p><button type="button" class="btn" id="write">Write it in the log</button></div>';
+    [['#s-hh', hh], ['#s-mm', mm], ['#s-wa', wa], ['#s-ai', ai], ['#s-by', by]].forEach(function (p) { box.querySelector(p[0]).appendChild(p[1].el); });
+    var msg = function (t) { box.querySelector('.pmsg').innerHTML = ER.gloss(t); };
+    box.querySelector('#write').addEventListener('click', function () {
+      var t = hh.value() + '.' + mm.value(), cand = t + '|' + wa.value() + '|' + ai.value() + '|' + by.value();
+      var file = ER.exit([cand], { wait: true });
+      if (!file) {
+        ER.sfx.no();
+        var bad = [];
+        if (!ER.check('time', t)) bad.push('the time');
+        if (!ER.check('water', wa.value())) bad.push('the water');
+        if (!ER.check('air', ai.value())) bad.push('the air');
+        var s = '';
+        if (bad.length) s = 'Mr Blundell, who has been listening to every word on the radio, reads it over your shoulder. &ldquo;' + bad.join(' and ').replace(/^t/, 'T') + (bad.length > 1 ? ' are' : ' is') + ' not what I heard. Ask again, and say it back.&rdquo; ';
+        if (!ER.check('bay', by.value())) s += (bad.length ? '' : 'Mr Blundell reads it over your shoulder. ') + (by.value() === '?' ? '&ldquo;And which bay? The card will tell you.&rdquo;' : '&ldquo;Bay ' + by.value() + '? Are you sure? Check the card.&rdquo;');
+        msg(s);
+        return;
+      }
+      nextFile = file; ER.flag('b2-file', file);
+      ER.addClue('log2', 'The dive log', '<h4>Dive log</h4><p>22.48 Diver in the water. Air 200 bar.</p><p>22.53 Key (Trask, fish) sent down.</p><p>' + t + ' Diver into the Long Store. Water on the pillar ' + wa.value() + ' m. Air ' + ai.value() + ' bar. Sent to Bay ' + by.value() + '.</p>', 'log', 'Your own writing', true);
+      msg('You write it in, in capitals. Mr Blundell nods once, which from him is a speech.');
+      setTimeout(function () {
+        ER.closeAll(); busy = true; paint();
+        ER.narrate([
+          'On the radio, the diver&rsquo;s breathing, and the slow splash of somebody swimming a long way in the dark.',
+          'Then the diver&rsquo;s voice again: there are boxes on the top shelf of Bay D, side by side. The card in your notebook says what the right one looks like. Every word of it.'
+        ], function () { busy = false; paint(); });
+      }, 2400);
+    });
+    msg('Fill in the next line with the arrows. Only the diver can tell you the time, the water and the air.');
+    return { open: function () { ER.open('ov-lock', box); } };
+  }
+  $('#log').addEventListener('click', function () { if (busy) return; if (nextFile) { ER.say('The line is written. The next one will be about the box.'); return; } if (!dlog) dlog = makeLog(); dlog.open(); });
+
+  /* ---------- other things ---------- */
+  LG.thing('#phone', null, 'The Lodge telephone. Mrs Treharne rang off before you could ask her anything. She does that.', isBusy);
+  LG.thing('#radio', 'radio', 'The radio, on its shelf. The diver is breathing into it, slowly, like somebody swimming.', isBusy);
+  LG.thing('#cat', null, 'Teasel has moved to the radio shelf, where it is warm. She is watching the radio as if something might come out of it.', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

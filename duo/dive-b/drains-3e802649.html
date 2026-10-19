@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Old Drains · Open This Together</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-duo.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="lodge.css">
+<style>
+  body{--bg:#1e1608;--accent:#e8c060;--font-display:'Cinzel',serif;--font-ui:'Space Mono',monospace;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(30,22,8,.95);--tc-ink:#f6ead0;--cap-bg:rgba(32,24,10,.93);--panel:#2a2010;--face-bg:#3a2c16;--q-ink:#f2d690;--fade:#0a0703;--hud-bg:rgba(32,24,10,.82)}
+  .tc-room{font-family:'Cinzel',serif;font-weight:700;letter-spacing:.04em}
+  .pcard{border-left-color:#c9952e}
+  #cat .tail{animation:tail 2.4s ease-in-out infinite alternate;transform-origin:1250px 760px}
+  @keyframes tail{from{transform:rotate(-6deg)}to{transform:rotate(8deg)}}
+  .bx.dr{width:min(940px,95vw);background:#2a2010}
+  .gr{cursor:pointer}
+  .gr:hover rect{fill:#c9952e}
+  .gr.sel rect{fill:#c4372b}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <radialGradient id="lampD" cx="45%" cy="40%" r="60%"><stop offset="0" stop-color="#ffe0a0" stop-opacity=".35"/><stop offset="1" stop-color="#ffe0a0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="paperD" cx="40%" cy="30%" r="90%"><stop offset="0" stop-color="#efe0bc"/><stop offset="1" stop-color="#c9a870"/></radialGradient>
+  <radialGradient id="vigD" cx="50%" cy="48%" r="76%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".65" stop-color="#000" stop-opacity=".22"/><stop offset="1" stop-color="#000" stop-opacity=".8"/></radialGradient>
+</defs>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="#4a2e18"/>
+<g opacity=".25" stroke="#2a1a0c" stroke-width="3"><path d="M-1000 120H2600M-1000 300H2600M-1000 480H2600M-1000 660H2600M-1000 840H2600"/></g>
+<!-- the plan of 1898, unrolled across the desk and held down at the corners -->
+<g id="oldplan" class="hot"><path d="M220 120L1320 100L1340 780L200 800Z" fill="url(#paperD)" stroke="#7a5a30" stroke-width="3"/>
+  <path d="M220 120q-30 340 -20 680" stroke="#a8875a" stroke-width="14" fill="none" opacity=".6"/><path d="M1320 100q30 340 20 680" stroke="#a8875a" stroke-width="14" fill="none" opacity=".6"/>
+  <text x="770" y="170" font-family="Cinzel,serif" font-weight="700" font-size="30" fill="#4a3018" text-anchor="middle" letter-spacing="3">RILLMOUTH HOUSE</text>
+  <text x="770" y="204" font-family="Cinzel,serif" font-size="18" fill="#4a3018" text-anchor="middle" letter-spacing="4">DRAINAGE OF THE BASEMENT · 1898</text>
+  <g stroke="#4a3018" stroke-width="5" fill="none"><rect x="480" y="260" width="460" height="400"/><rect x="300" y="260" width="180" height="400" stroke-dasharray="10 8"/></g>
+  <rect x="520" y="270" width="240" height="70" fill="none" stroke="#4a3018" stroke-width="3"/><text x="640" y="314" font-family="Cinzel,serif" font-size="20" fill="#4a3018" text-anchor="middle">BOILER</text>
+  <g fill="#4a3018"><rect x="510" y="401" width="22" height="22"/><rect x="650" y="325" width="22" height="22"/><rect x="896" y="582" width="22" height="22"/><rect x="896" y="344" width="22" height="22"/><rect x="650" y="609" width="22" height="22"/></g><rect x="934" y="550" width="12" height="96" fill="#4a3018"/><path d="M940 340v76" stroke="#a8c8e8" stroke-width="8"/>
+  
+  <text x="1120" y="740" font-family="Homemade Apple,cursive" font-size="16" fill="#3a2a14">J.R. Pengelly</text></g>
+<!-- the things holding it down: the mug, the stapler, the radio and the cat -->
+<g id="mug" class="hot"><ellipse cx="240" cy="140" rx="52" ry="20" fill="#3a2010"/><rect x="190" y="70" width="100" height="72" rx="10" fill="#c4372b"/><ellipse cx="240" cy="72" rx="50" ry="16" fill="#8a2a1a"/><path d="M290 90q30 6 22 34" stroke="#c4372b" stroke-width="12" fill="none"/></g>
+<g id="stapler" class="hot"><path d="M1260 80l120 -10 6 30 -120 12z" fill="#2a2a2a"/><path d="M1262 96l122 -10 4 20 -124 10z" fill="#4a4a48"/></g>
+<g id="radio" class="hot"><rect x="120" y="700" width="230" height="110" rx="8" fill="#3a3a32"/><circle cx="180" cy="755" r="30" fill="#7fe0a0" opacity=".8"/><circle cx="270" cy="745" r="12" fill="#1d1d18"/><circle cx="310" cy="745" r="12" fill="#1d1d18"/></g>
+<g id="cat" class="hot"><path d="M1170 820q-14 -90 100 -96q114 6 100 96z" fill="#d88a3a"/><circle cx="1220" cy="740" r="32" fill="#d88a3a"/><path d="M1196 718l6 -26 14 20zM1228 712l12 -24 8 26z" fill="#d88a3a"/><path d="M1206 744q8 6 14 0M1226 744q8 6 14 0" stroke="#5a3010" stroke-width="3" fill="none"/>
+  <path class="tail" d="M1360 812q60 -10 50 -70" stroke="#d88a3a" stroke-width="16" fill="none" stroke-linecap="round"/></g>
+<!-- the telephone, off the hook: Mrs Treharne is still on the line -->
+<g id="phone" class="hot"><path d="M1400 600q0 -50 24 -62h100q24 12 24 62z" fill="#1b1b1b"/><circle cx="1474" cy="570" r="22" fill="#e8e0cc"/><path d="M1380 470q-10 -30 20 -40l120 -10q30 4 24 34l-18 6q-4 -16 -14 -18l-90 8q-10 4 -12 22z" fill="#1b1b1b" transform="rotate(-12 1460 450)"/>
+  <path d="M1548 560q40 40 0 120" stroke="#1b1b1b" stroke-width="5" fill="none"/></g>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#lampD)" pointer-events="none"/>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#vigD)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">The diver says: shut</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="lodge.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, nextFile = null, dr = null;
+
+  var NOTE3 = '<h4>No. 3</h4><p class="copper">Storm drain from under the coal shoot, direct to the River. A flap is fitted at the river end, to keep the River out.</p>' +
+    '<p class="copper">Stop valve on the east wall, in case the flap should stick: the wheel upon the pipe with the RED band that goes DOWN into the floor.</p>' +
+    '<p class="copper">To shut it, turn the wheel so that its top goes towards the boiler. Eight turns.</p><p class="copper">J. R. Pengelly, surveyor, 1898.</p>';
+
+  ER.init({
+    theme: 'duo', story: 'dive-b', storyTitle: 'Open This Together', id: 'drains', no: 'IV', title: 'The Old Drains',
+    go: 'Pick up the telephone',
+    intro: [
+      'Between 22.56 and 23.08 the water rose from 2.32 m to 2.38 m on the gauges: six centimetres in twelve minutes, one centimetre every two minutes. The top shelves are at 2.60 m, 22 centimetres higher: 44 minutes more. So you set the alarm for 23.52, eight minutes to midnight.',
+      'The box was the one the card described, line by line: oak, brass corners, a handle at each end, a ship on the lid, OPEN THIS TOGETHER on the plate, 46 centimetres long. It was not the tin trunk with 1926 on it that Mr Blundell remembered so clearly: that one was the Rowing Club&rsquo;s cups.',
+      'The box is in the diver&rsquo;s bag. But the pump is on full, and the water is still coming up. And the diver says that there is brown water, moving, coming out of the Boiler Room.'
+    ],
+    exit: {"next":"topside","w":{"10ee96b0":"ce9e6d9d"}}, tags: {},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('b4-told') || {}; nextFile = ER.flag('b4-file') || null;
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('b4-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#go').classList.toggle('on', !!nextFile);
+    ER.pips((told.phone ? 1 : 0) + (told.plan ? 1 : 0) + (nextFile ? 1 : 0), 3);
+    if (nextFile) LG.card([['Tell your partner', ['&ldquo;It&rsquo;s the thick pipe with the &hellip; band that goes &hellip;. Turn the wheel so that its top goes towards the boiler. Eight turns.&rdquo;']], ['Ask your partner', ['&ldquo;Where is the boiler, as you look at the wheel? So is that clockwise or anticlockwise?&rdquo;']]]);
+    else LG.card([['Ask your partner', ['&ldquo;Diver, this is Topside. Where exactly is the water coming in? Which wall? What is above it? What is next to it? Over.&rdquo;']], ['Tell your partner', ['&ldquo;Wait one. I have the old plan of the drains.&rdquo;']]]);
+  }
+  function hints() {
+    if (nextFile) return ['valve', [
+      'Read the note for drain No. 3 to the diver: which pipe the wheel is on, and which way to turn it, and how many turns.',
+      'The diver has to change &ldquo;the top goes towards the boiler&rdquo; into clockwise or anticlockwise. Ask where the boiler is as the diver looks at the wheel. When the diver says it is shut, press the button.'
+    ]];
+    return ['grate', [
+      'Ask the diver where the brown water is coming up: which wall, near what, under what. Then open the old plan on the desk.',
+      'The plan of 1898 has north at the top. Find the boiler, the window and the coal chute on it. The Victorians called a window a &ldquo;light&rdquo;, and they spelt chute &ldquo;shoot&rdquo;.',
+      'The diver came into the Boiler Room from the Long Store, through the door in the west wall, so the diver is facing east: the boiler on the diver&rsquo;s left is against the north wall, and the far wall, in front of the diver, is the east wall.'
+    ]];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; ER.say('Drain No. 3. The diver is at the wheel.'); return; }
+    if (told.intro) { busy = false; ER.say('The plan of 1898 is unrolled on the desk. Mrs Treharne is still on the telephone.'); return; }
+    ER.narrate([
+      'The telephone rings again. Mr Blundell answers it, listens, says &ldquo;Yes, Mrs T.&rdquo; three times, and puts the receiver down on the desk without hanging up. &ldquo;She wants you,&rdquo; he says.',
+      'Then he pulls open the drawer under the kettle, and the one under that, and takes out a long roll of brown paper tied with string. He unrolls it across the desk, and holds it down with his mug, a stapler, the radio and, after a short argument, the cat.'
+    ], function () { busy = false; tell('intro'); paint(); });
+  }
+
+  $('#phone').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Mrs Avril Treharne', role: 'Curator · across the river', face: LG.FACE.phone,
+      lines: [
+        { note: 'Her voice is small and crackly, coming out of the receiver on the desk.', a: '&ldquo;Still rising? With the pump on full? Then it is not only the river coming down Ferry Street. It is coming up from underneath.&rdquo;' },
+        { q: 'From underneath? How?', a: 'Through the drains. This building was a merchant&rsquo;s house before it was a museum, and in 1898 they put drains in the basement that run straight down to the river. Ossie has the plan. Ossie, not that drawer, the &hellip; yes. That one.' },
+        { q: 'Which drain is it?', a: 'I have no idea. I am a curator, not a plumber. But your diver is down there with a torch, and water that is coming in does not look like water that is going out. Ask where.' },
+        { q: 'And the time capsule?', a: 'If it is in a bag on your diver&rsquo;s belt, then it is the safest thing in Rillmouth tonight. Now save the rest of my museum, please.' }
+      ],
+      clue: { id: 'treharne', title: 'Mrs Treharne, on the telephone', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('phone')) paint(); }
+    });
+  });
+
+  /* ---------- the plan of 1898, close up ---------- */
+  var GR = { g1: [130, 230], g2: [300, 150], g3: [600, 420], g4: [600, 170], g5: [300, 448] };
+  function makeDr() {
+    var box = ER.el('div', 'bx dr'), sel = null, s = '<svg viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg"><rect width="900" height="520" fill="#e8d9b4"/>' +
+      '<rect x="80" y="70" width="560" height="420" fill="#efe3c4" stroke="#4a3018" stroke-width="6"/>' +
+      '<path d="M80 110v40" stroke="#efe3c4" stroke-width="8"/><text x="40" y="128" font-family="EB Garamond,serif" font-size="16" fill="#4a3018" text-anchor="middle">Door</text><text x="40" y="146" font-family="EB Garamond,serif" font-size="16" fill="#4a3018" text-anchor="middle">to Store</text>' +
+      '<path d="M280 490h50" stroke="#efe3c4" stroke-width="8"/><text x="305" y="512" font-family="EB Garamond,serif" font-size="16" fill="#4a3018" text-anchor="middle">Door to Passage</text>' +
+      '<rect x="150" y="80" width="300" height="60" fill="none" stroke="#4a3018" stroke-width="3"/><text x="300" y="118" font-family="Cinzel,serif" font-weight="700" font-size="20" fill="#4a3018" text-anchor="middle">BOILER</text>' +
+      '<path d="M640 140v80" stroke="#a8c8e8" stroke-width="10"/><text x="690" y="184" font-family="EB Garamond,serif" font-size="17" fill="#4a3018">Light</text>' +
+      '<rect x="600" y="380" width="40" height="100" fill="#4a3018"/><text x="690" y="430" font-family="EB Garamond,serif" font-size="17" fill="#4a3018">Coal shoot</text>' +
+      '<g fill="none" stroke="#4a3018" stroke-width="2"><circle cx="630" cy="250" r="7"/><circle cx="630" cy="280" r="7"/><circle cx="630" cy="310" r="7"/><circle cx="630" cy="340" r="7"/><circle cx="630" cy="365" r="5"/></g><text x="690" y="300" font-family="EB Garamond,serif" font-size="15" fill="#4a3018">Valves</text>' +
+      '<g transform="translate(830 90)"><path d="M0 -30l12 30h-24z" fill="#4a3018"/><text x="0" y="24" font-family="Cinzel,serif" font-weight="700" font-size="20" fill="#4a3018" text-anchor="middle">N</text></g>' +
+      '<text x="360" y="40" font-family="Cinzel,serif" font-weight="700" font-size="20" fill="#4a3018" text-anchor="middle" letter-spacing="3">THE BOILER ROOM</text><text x="770" y="500" font-family="Homemade Apple,cursive" font-size="13" fill="#4a3018">J.R.P. 1898</text>';
+    Object.keys(GR).forEach(function (k, i) { var p = GR[k]; s += '<g class="gr" data-g="' + k + '"><rect x="' + (p[0] - 16) + '" y="' + (p[1] - 16) + '" width="32" height="32" fill="#4a3018"/><path d="M' + (p[0] - 10) + ' ' + (p[1] - 16) + 'v32M' + p[0] + ' ' + (p[1] - 16) + 'v32M' + (p[0] + 10) + ' ' + (p[1] - 16) + 'v32" stroke="#efe3c4" stroke-width="2"/><text x="' + (p[0] + 26) + '" y="' + (p[1] + 8) + '" font-family="Cinzel,serif" font-weight="700" font-size="22" fill="#7a2a1a">' + (i + 1) + '</text><rect x="' + (p[0] - 24) + '" y="' + (p[1] - 24) + '" width="70" height="48" fill="#000" fill-opacity="0"/></g>'; });
+    box.innerHTML = s + '</svg><div class="bx-foot"><p class="pmsg"></p><button type="button" class="btn" id="this">This is the one</button></div>';
+    var msg = function (t) { box.querySelector('.pmsg').innerHTML = ER.gloss(t); };
+    box.querySelector('svg').addEventListener('click', function (e) {
+      var g = e.target.closest ? e.target.closest('.gr') : null; if (!g || nextFile) return;
+      sel = g.getAttribute('data-g');
+      ER.$$('.gr', box).forEach(function (n) { n.classList.toggle('sel', n === g); });
+      ER.sfx.paper();
+      msg('Grating No. ' + sel.charAt(1) + '. The plan does not say where it goes. Is this where the diver says the water is coming up?');
+    });
+    box.querySelector('#this').addEventListener('click', function () {
+      if (nextFile) return;
+      if (!sel) { msg('Click on one of the five gratings first.'); return; }
+      var file = ER.exit([sel], { wait: true });
+      if (!file) {
+        ER.sfx.no();
+        msg('&ldquo;Number ' + sel.charAt(1) + '?&rdquo; says Mrs Treharne&rsquo;s small voice from the receiver. &ldquo;That runs to the yard drain, not to the river. Is that really where your diver says the water is coming up? Ask again: which wall, and under what.&rdquo;');
+        return;
+      }
+      nextFile = file; ER.flag('b4-file', file); paint();
+      ER.addClue('drain3', 'Drain No. 3, on the plan of 1898', NOTE3, 'old', 'In the corner of the plan');
+      msg('No. 3, under the coal shoot. In the corner of the plan, in brown ink, the surveyor has written a note about it.');
+      box.querySelector('#this').style.display = 'none';
+      setTimeout(function () { ER.closeAll(); ER.read({ html: NOTE3, cls: 'old' }); }, 2200);
+    });
+    msg('Five gratings in the floor of the Boiler Room, numbered 1 to 5. Click on the one the diver describes.');
+    return { open: function () { ER.open('ov-lock', box); } };
+  }
+  $('#oldplan').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.read({ html: NOTE3, cls: 'old' }); return; }
+    tell('plan'); paint();
+    if (!dr) dr = makeDr(); dr.open();
+  });
+  LG.thing('#mug', null, 'Mr Blundell&rsquo;s mug, holding down the north-west corner of 1898.', isBusy);
+  LG.thing('#stapler', null, 'A stapler, holding down the north-east corner.', isBusy);
+  LG.thing('#radio', 'radio', 'The radio, holding down the south-west corner, and talking.', isBusy);
+  LG.thing('#cat', null, 'Teasel, holding down the south-east corner. She agreed to do it after a short argument, and has been asleep ever since.', isBusy);
+  $('#go').addEventListener('click', function () {
+    if (!nextFile || busy) return;
+    busy = true;
+    ER.narrate([
+      'On the radio, a long silence, and the sound of somebody breathing hard. Then the diver&rsquo;s voice: eight turns. Shut.',
+      'For a minute nothing happens at all. Then the red lamp on the pump panel goes out.'
+    ], function () { ER.leave(nextFile); });
+  });
+})();
+</script>
+</body>
+</html>

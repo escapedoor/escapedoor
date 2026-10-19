@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Court 2 · So That You Are Sure</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-court.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="violin.css">
+<link rel="stylesheet" href="crossx.css">
+<style>
+  body{--bg:#22303a;--accent:#d9b25a;--font-display:'Cormorant SC',serif;--font-ui:'Oswald',sans-serif;--font-body:'EB Garamond',Georgia,serif;
+    --tc-bg:rgba(24,30,38,.97);--tc-ink:#f1ede2;--cap-bg:rgba(24,30,38,.93);--panel:#1e2830;--face-bg:#3a2a4a;--q-ink:#e6d3a6;--fade:#0c1014;--hud-bg:rgba(24,30,38,.82)}
+  #redlamp{animation:rl 2.4s steps(1,end) infinite}
+  @keyframes rl{50%{opacity:.3}}
+  .juror{animation:jur 7s steps(1,end) infinite}
+  .juror.j2{animation-delay:-2.5s}.juror.j3{animation-delay:-4.7s}
+  @keyframes jur{0%{transform:translate(0,0)}86%{transform:translate(0,2px)}94%{transform:translate(0,0)}}
+
+  /* her own words: the officer's notebook, a line at a time */
+  .rs{width:min(1120px,96vw);display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:18px;align-items:start}
+  .rs-rows{display:grid;gap:8px}
+  .rs-row{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:10px;align-items:stretch}
+  .rs-pnb{padding:6px 12px 5px 30px;position:relative;background:#fbfbf6 repeating-linear-gradient(transparent 0 25px,rgba(70,100,150,.2) 25px 26px);font-family:'Caveat',cursive;font-weight:700;font-size:19px;line-height:1.3;color:#1d2a52;border-left:4px solid #1c1c22}
+  .rs-pnb:before{content:attr(data-n);position:absolute;left:8px;top:7px;font-family:'Oswald',sans-serif;font-weight:500;font-size:12px;color:#8d9097}
+  .rs-opts{display:grid;gap:4px}
+  .rs-opts button{text-align:left;padding:3px 10px 3px 28px;position:relative;background:#fdfbf2;border:1px solid #c9c4b4;color:#1c1d22;font-family:'Tinos',serif;font-size:14.500px;line-height:1.25;border-radius:2px}
+  .rs-opts button:before{content:'';position:absolute;left:9px;top:7px;width:10px;height:10px;border-radius:50%;border:2px solid #5b3f86}
+  .rs-opts button.on{background:#efe7f8;border-color:#5b3f86}
+  .rs-opts button.on:before{background:#5b3f86}
+  .rs .btn{width:100%;margin-bottom:10px}
+  .rs .pmsg{min-height:170px;font-size:17.500px}
+  .rs h6{margin:0 0 8px;font-family:'Oswald',sans-serif;font-weight:400;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#e6d3a6}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="beechG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e2cda4"/><stop offset="1" stop-color="#cdb282"/></linearGradient>
+  <linearGradient id="beechD" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c9ad7c"/><stop offset="1" stop-color="#a98d5c"/></linearGradient>
+  <linearGradient id="tealG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2f6a6a"/><stop offset="1" stop-color="#1f4a4a"/></linearGradient>
+  <linearGradient id="brassG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8a6a26"/><stop offset=".3" stop-color="#e6c873"/><stop offset=".55" stop-color="#b08a35"/><stop offset=".8" stop-color="#f0d98f"/><stop offset="1" stop-color="#8a6a26"/></linearGradient>
+  <radialGradient id="spot" cx="50%" cy="0%" r="70%"><stop offset="0" stop-color="#fffbe8" stop-opacity=".4"/><stop offset="1" stop-color="#fffbe8" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="42%" r="84%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".66" stop-color="#0a1014" stop-opacity=".14"/><stop offset="1" stop-color="#05080b" stop-opacity=".72"/></radialGradient>
+</defs>
+
+<!-- a modern court room: pale beech, teal seats, no windows, square lights in the ceiling -->
+<rect x="-1000" y="-400" width="3600" height="1000" fill="url(#beechG)"/>
+<g id="panels" stroke="#b99c6a" stroke-width="2" opacity=".7"></g>
+<rect x="-1000" y="-400" width="3600" height="440" fill="#ece8de"/><g id="lights"></g>
+<rect x="-1000" y="36" width="3600" height="8" fill="#b99c6a"/>
+<rect x="-1000" y="600" width="3600" height="800" fill="#3a4a56"/>
+
+<!-- the Royal Arms over the bench -->
+<g id="arms" class="hot" transform="translate(800 102) scale(.85)">
+  <path d="M-110 10q-12-36 12-50q16 8 14 30l12 26q-2 26-26 32q-16-10-12-38z" fill="url(#brassG)"/><path d="M-104-42q4-14 16-12l-2 14z" fill="url(#brassG)"/>
+  <path d="M110 10q12-36-12-50q-16 8-14 30l-12 26q2 26 26 32q16-10 12-38z" fill="#f4efe2"/><path d="M100-48l10-26 4 28z" fill="#f4efe2"/>
+  <path d="M-46-32h92v50q0 38-46 52q-46-14-46-52z" fill="#1f3a8a"/><path d="M-46-32h46v44h-46z" fill="#b3262c"/><path d="M0 12h46v6q0 38-46 52z" fill="#b3262c"/><path d="M0-32h46v44h-46z" fill="#e6c873"/>
+  <path d="M-46-32h92v50q0 38-46 52q-46-14-46-52z" fill="none" stroke="url(#brassG)" stroke-width="4"/>
+  <path d="M-30-40q0-26 30-26t30 26z" fill="url(#brassG)"/><path d="M-30-40h60" stroke="#8f2947" stroke-width="6"/>
+  <path d="M-96 76q96 24 192 0l-6 18q-90 20-180 0z" fill="#f4efe2"/><text x="0" y="90" class="sT" font-size="11" fill="#3a2a1e" letter-spacing="2">DIEU ET MON DROIT</text></g>
+
+<!-- the judge, the bench, the clerk -->
+<g id="judge" class="hot"><rect x="700" y="200" width="200" height="210" fill="#000" opacity="0"/><use href="#ch-lennox" x="690" y="140" width="220" height="286"/></g>
+<g transform="translate(0 30)">
+<rect x="470" y="380" width="660" height="20" fill="#e2cda4"/><rect x="490" y="400" width="620" height="130" fill="url(#beechD)"/><rect x="540" y="420" width="520" height="90" fill="url(#tealG)"/>
+<g pointer-events="none"><path d="M560 380v-30q0-14 18-14" stroke="url(#brassG)" stroke-width="5" fill="none"/><path d="M572 330h40l-6 16h-28z" fill="#1f4a4a"/></g>
+<circle id="redlamp" cx="1080" cy="372" r="5" fill="#e0412f"/>
+<g id="clerk" class="hot"><rect x="740" y="470" width="120" height="70" fill="#000" opacity="0"/><path d="M770 540q0-50 30-50t30 50z" fill="#1c1c22"/><circle cx="800" cy="476" r="18" fill="#a2764f"/><path d="M782 470q18-24 36 0" fill="#1d1410"/></g>
+<rect x="560" y="530" width="480" height="16" fill="#e2cda4"/><rect x="574" y="546" width="452" height="64" fill="url(#beechD)"/></g>
+
+<!-- the witness box, and Mrs Askew -->
+<g id="askew" class="hot"><rect x="180" y="300" width="210" height="230" fill="#000" opacity="0"/><use href="#ch-askew" x="170" y="236" width="230" height="300"/></g>
+<rect x="140" y="500" width="300" height="18" fill="#e2cda4"/><rect x="156" y="518" width="268" height="110" fill="url(#beechD)"/><rect x="176" y="534" width="228" height="78" fill="url(#tealG)"/>
+<path d="M410 500v-56" stroke="#8d9097" stroke-width="4"/><circle cx="410" cy="440" r="8" fill="#2b2f36"/>
+<g pointer-events="none"><rect x="168" y="486" width="46" height="14" fill="#fbfbf8"/><path d="M224 500v-26h22v26z" fill="#cfe6ee" opacity=".8"/></g>
+
+<!-- the usher by the door -->
+<g id="usher" class="hot"><rect x="-40" y="230" width="150" height="380" fill="#2f4a6a" opacity=".25"/><path d="M8 640L18 372Q48 344 78 372L88 640z" fill="#1c1c22"/><path d="M38 364l10 34 10-34z" fill="#dfe4ea"/><rect x="40" y="340" width="16" height="22" fill="#e3c2a0"/><ellipse cx="48" cy="322" rx="21" ry="26" fill="#eccfb2"/><path d="M27 316q2-26 21-26t21 26q-8-12-21-12t-21 12z" fill="#a9abb0"/><path d="M36 322h9M51 322h9" stroke="#3a3a3a" stroke-width="2.500"/><rect x="40" y="410" width="16" height="12" fill="#fbfbf8"/></g>
+
+<!-- the jury box: twelve people -->
+<g id="jury" class="hot"><rect x="1150" y="300" width="460" height="290" fill="#000" opacity="0"/><g id="jurors"></g>
+  <rect x="1130" y="470" width="480" height="18" fill="#e2cda4"/><rect x="1144" y="488" width="460" height="120" fill="url(#beechD)"/><rect x="1160" y="504" width="428" height="88" fill="url(#tealG)"/></g>
+
+<!-- counsel's row: Miss Blackwood turned round to you, Mr Dewhurst beyond -->
+<g id="dewhurst" class="hot"><rect x="1000" y="500" width="210" height="260" fill="#000" opacity="0"/><use href="#ch-dewhurst" x="990" y="470" width="230" height="300"/></g>
+<g id="ib" class="hot"><rect x="420" y="470" width="230" height="290" fill="#000" opacity="0"/><use href="#ch-blackwood" x="400" y="440" width="260" height="338"/></g>
+<path d="M-200 760h2000v200h-2000z" fill="url(#beechD)"/><path d="M-200 760h2000" stroke="#e2cda4" stroke-width="6"/>
+<g id="bundle"><rect x="120" y="780" width="200" height="60" fill="#2f4a6a"/><rect x="128" y="770" width="184" height="14" fill="#f4f2ec"/><path d="M140 800h160M140 816h120" stroke="#9fc3d8" stroke-width="3"/></g>
+<g id="pnb" class="hot"><g transform="rotate(-6 800 820)"><rect x="736" y="782" width="128" height="80" fill="#fbfbf6"/><rect x="736" y="782" width="128" height="10" fill="#1c1c22"/><g stroke="#22408a" stroke-width="2"><path d="M748 806h100M748 818h86M748 830h100M748 842h70"/></g></g></g>
+<g pointer-events="none"><path d="M1340 790v-54h46v54z" fill="#cfe6ee" opacity=".75"/><ellipse cx="1363" cy="736" rx="23" ry="5" fill="#e6f2f6"/></g>
+
+<rect x="-1000" y="-400" width="3600" height="1760" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">The next afternoon</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="violin.js"></script>
+<script src="crossx.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = false, nextFile = null, rsBox = null, TOTAL = 6;
+
+  /* panels, ceiling lights, and twelve jurors in two rows */
+  (function () {
+    var s = '', i, x;
+    for (i = -8; i < 26; i++) s += '<path d="M' + (i * 90) + ' 44V600"/>';
+    $('#panels').innerHTML = s; s = '';
+    for (i = -4; i < 12; i++) s += '<rect x="' + (i * 190 + 60) + '" y="-30" width="90" height="40" fill="#fffbe8" opacity=".85"/>';
+    $('#lights').innerHTML = s; s = '';
+    var HAIR = ['#2a1c16', '#7a4a2a', '#17120f', '#b5672c', '#9a9a96', '#d9b25a'], SKIN = ['#e8c2a2', '#c99870', '#855a40', '#f1cfb2', '#b98560', '#d6a47a'], TOP = ['#2f6a8a', '#7b1f2a', '#3f7d55', '#55585f', '#8f5a9a', '#c9a24a'];
+    for (i = 0; i < 12; i++) {
+      var back = i < 6, k = i % 6; x = 1196 + k * 72 + (back ? 0 : 18);
+      var y = back ? 410 : 470, r = back ? 18 : 21;
+      s += '<g class="juror' + (i % 3 ? ' j' + (i % 3 + 1) : '') + '"><path d="M' + (x - r - 8) + ' ' + (y + 52) + 'q0-' + (r + 22) + ' ' + (r + 8) + '-' + (r + 22) + 't' + (r + 8) + ' ' + (r + 22) + 'z" fill="' + TOP[(i * 5) % 6] + '"/><circle cx="' + x + '" cy="' + y + '" r="' + r + '" fill="' + SKIN[(i * 7) % 6] + '"/><path d="M' + (x - r) + ' ' + (y - 2) + 'q0-' + (r + 4) + ' ' + r + '-' + (r + 4) + 't' + r + ' ' + (r + 4) + 'q-' + r + '-' + (r - 6) + '-' + (2 * r) + ' 0z" fill="' + HAIR[(i * 11) % 6] + '"/></g>';
+    }
+    $('#jurors').innerHTML = s;
+  })();
+
+  ER.init({
+    theme: 'court', story: 'violin', storyTitle: 'So That You Are Sure', id: 'court', no: 'IV', title: 'Court 2',
+    go: 'All rise',
+    intro: [
+      'At Andreou&rsquo;s you took two pens to Mrs Askew&rsquo;s statement. Green for what she knew herself: the alarm, a man walking away with a case, the rain, a busker who plays under her window. Pink for what somebody told her. Every pink line pointed at Ezra: the busker &ldquo;hanging about&rdquo;, the busker who &ldquo;wanted that violin&rdquo;, and his name.',
+      'Then Mr Andreou told you what he really said: &ldquo;a busker&rdquo;, a lad with a guitar. On its way up the stairs it became &ldquo;the busker&rdquo;.',
+      'Two o&rsquo;clock. Juror number eight has arrived, out of breath. Mrs Askew is back in the witness box, and Miss Blackwood is about to cross-examine her.'
+    ],
+    exit: {"next":"jury","w":{"c5fd94e7":"aca46ed7","1cfc9643":"76e07df6","394133a8":"b486d0c3","05eb3216":"291f29fd"}}, tags: {"cx":["c35b6fee","71376b5b","cfed9fcc","ea1f0082","5fc212b5","fbed445d","c5fe7d59","ae96527e"],"r1":["1925f822"],"r2":["afb16b76"],"r3":["64f1810d"],"r4":["176f30f5"],"r5":["c20a8b53"]},
+    hints: hints, onBegin: begin
+  });
+  nextFile = ER.flag('k-file') || null;
+
+  var RSNOTE = '<h4>Reported speech</h4>' +
+    '<p>A police officer writes down what a witness says in <b class="t">REPORTED SPEECH</b>: not her words, but his report of them.</p>' +
+    '<p>&ldquo;I can&rsquo;t see his face,&rdquo; she says. &rarr; She said that she couldn&rsquo;t see his face.</p>' +
+    '<p>When we report, the verb usually moves one step back in time (can &rarr; could, is &rarr; was, saw &rarr; had seen, will &rarr; would), and the people and places change to fit the reporter: I &rarr; she, my &rarr; her, here &rarr; there, tonight &rarr; that night.</p>' +
+    '<p>To get her own words back, go the other way: one step forward, and turn the people round again. &ldquo;She said that she had seen him&rdquo; &rarr; &ldquo;I saw him.&rdquo;</p>' +
+    '<p>Words inside quotation marks in a notebook are her exact words. Leave them alone.</p>' +
+    '<p>In court I put a witness&rsquo;s own words back to her. People know their own words.</p><p class="ib">I.B.</p>';
+  var PNB = '<h4>PC 2291 O. SHERIDAN &middot; THURSDAY 14 MAY 2026</h4>' +
+    '<p><span class="tm">23.20</span>Flat 1, 9 Cutler&rsquo;s Row. Spoke to Mrs Gwendolen ASKEW.</p>' +
+    '<p>She said that she had heard the alarm at about twenty to eleven and had gone to her window.</p>' +
+    '<p>She said that she had not seen his face, because he had his back to her.</p>' +
+    '<p>She said that he was &lsquo;about your height&rsquo;. (I am 1.88 m.)</p>' +
+    '<p>She said that it might have been the busker who played under her window.</p>' +
+    '<p><span class="tm">23.35</span>I showed Mrs Askew a photograph of Ezra MALLON from the council&rsquo;s busking permits. She said, &lsquo;That&rsquo;s him. I&rsquo;m sure now.&rsquo;</p>' +
+    '<p style="text-align:right">O. Sheridan</p>';
+  var RS = [
+    ['She said that she had heard the alarm at about twenty to eleven and had gone to her window.', [['a', 'She heard the alarm at about twenty to eleven and went to her window.'], ['b', 'I heard the alarm at about twenty to eleven and went to my window.'], ['c', 'I had heard the alarm at about twenty to eleven and had gone to her window.']]],
+    ['She said that she had not seen his face, because he had his back to her.', [['a', 'I had not seen her face, because she had her back to me.'], ['b', 'She didn&rsquo;t see his face, because he had his back to her.'], ['c', 'I didn&rsquo;t see his face, because he had his back to me.']]],
+    ['She said that he was &lsquo;about your height&rsquo;. (I am 1.88 m.)', [['a', 'He was about your height.'], ['b', 'He was about my height.'], ['c', 'He is about her height.']]],
+    ['She said that it might have been the busker who played under her window.', [['a', 'It must have been the busker who plays under my window.'], ['b', 'It was the busker who played under her window.'], ['c', 'It might have been the busker who plays under my window.']]],
+    ['23.35 &middot; She said, &lsquo;That&rsquo;s him. I&rsquo;m sure now.&rsquo;', [['a', 'That was him. I was sure then.'], ['b', 'That&rsquo;s him. I&rsquo;m sure now.'], ['c', 'It might be him. I&rsquo;m not sure.']]]];
+  var RSWHY = {
+    1: { a: 'That is still the officer, talking about her. In the witness box she will say &lsquo;I&rsquo;, not &lsquo;she&rsquo;.', c: 'Turn the people round: to her, it was MY window. And one step forward in time: &lsquo;had heard&rsquo; becomes &lsquo;heard&rsquo;.' },
+    2: { a: 'Whose face, and whose back? It was his face, and it was her that he had his back to.', b: 'Still the officer&rsquo;s voice. Give me hers: I, me, my.' },
+    3: { b: 'Look at the quotation marks. Those are her exact words, and she said them to the officer. Whose height did she mean?', c: 'Quotation marks mean her exact words. Leave them as they are.' },
+    4: { a: 'Might is not must. She was guessing, and she said so. On this whole page, nothing matters more than that one word.', b: 'She did not say that it WAS the busker. Read the verb again.' },
+    5: { a: 'Quotation marks again. The officer wrote down exactly what she said. Do not move it.', c: 'That is the opposite of what she said.' }
+  };
+
+  function hints() {
+    if (nextFile) return ['go', ['The court has risen for the day. The button at the bottom of the screen takes you to the next afternoon.']];
+    if (rsBox) return ['words', [
+      'Read Miss Blackwood&rsquo;s note on reported speech: it is in your notebook. For each line, choose the sentence that Mrs Askew herself said to the officer.',
+      'Turn the people round (she &rarr; I, her &rarr; my) and move the verb one step forward (had seen &rarr; saw). But a word like &ldquo;might&rdquo; does not move, and words in quotation marks are left exactly as they are.',
+      'In the third line, &lsquo;about your height&rsquo; is in quotation marks: she was speaking to the officer, and &ldquo;your&rdquo; means him. The last line is in quotation marks too.'
+    ]];
+    if (!ER.flag('k-ib')) return ['ib', ['Miss Blackwood has turned round in her seat to speak to you. Click her.']];
+    if (!ER.flag('k-words')) return ['pnb', ['The copy of PC Sheridan&rsquo;s notebook is on the desk in front of you. Click it.']];
+    if (!CX.isOpen()) return ['start', ['Miss Blackwood is waiting for your notes. Click her, and the cross-examination begins.']];
+    for (var i = 0; i < TARGET.length; i++) if (!has(TARGET[i][0])) return ['t-' + TARGET[i][0], TARGET[i][1]];
+    return null;
+  }
+  function isBusy() { return busy; }
+  function wonList() { return (ER.flag('cx-k') || {}).won || []; }
+  function has(card) { return wonList().some(function (p) { return p.split('>')[0] === card; }); }
+  function paint() {
+    $('#go').classList.toggle('on', !!nextFile);
+    $('#pnb').classList.toggle('ready', !nextFile && !!ER.flag('k-ib') && !ER.flag('k-words'));
+    $('#ib').classList.toggle('ready', !nextFile && (!ER.flag('k-ib') || !!ER.flag('k-words')) && !busy);
+    ER.pips(nextFile ? TOTAL : wonList().length, TOTAL);
+  }
+  function begin() {
+    paint();
+    if (nextFile) { ER.say('Court 2 is empty. The usher is collecting the water glasses.'); return; }
+    if (ER.flag('k-in')) { ER.say('Court 2. Mrs Askew is in the witness box, waiting.'); return; }
+    busy = true; ER.flag('k-in', 1);
+    ER.narrate([
+      '&ldquo;All rise.&rdquo; Everybody in Court 2 stands, and Her Honour Judge Lennox comes in through the door behind the bench, in a short wig and a violet robe. She bows to the court, the court bows back, and everybody sits.',
+      'The usher brings in the jury: twelve people in two rows, with notebooks on their knees. Ezra is in the dock behind you, behind glass, with Mrs Hindle beside him.',
+      '&ldquo;Mrs Askew,&rdquo; says the judge, &ldquo;you are still on the oath that you took yesterday. Miss Blackwood is now going to ask you some questions for Mr Mallon.&rdquo; Mrs Askew grips the edge of the witness box and nods.',
+      'Miss Blackwood stands. Then, before she says a word, she turns round to you, behind her, and holds out her hand for a note.'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- the room ---------- */
+  $('#ib').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Miss Blackwood is taking off her wig, very carefully, as if it might break. &ldquo;Tomorrow,&rdquo; she says. &ldquo;Speeches, and the summing up. And then twelve people go into a room.&rdquo;'); return; }
+    if (ER.flag('k-words')) { openCx(); return; }
+    if (ER.flag('k-ib')) { ER.say('&ldquo;The notebook,&rdquo; whispers Miss Blackwood. &ldquo;Her words, not his. Quickly, please: the judge is looking at me.&rdquo;'); return; }
+    ER.talk({
+      who: 'Miss Blackwood', role: 'Counsel for the defence · on her feet', face: window.FACE('blackwood'),
+      lines: [
+        { note: 'She whispers, with her back to the judge.', a: 'The officer&rsquo;s notebook. When I put to her what she said that night, I want to put her own words, not his. People know their own words.' },
+        { a: 'He wrote everything in reported speech. Turn it back for me. Here: how it works.', note: 'She drops a folded sheet on the desk in front of you, and turns back to the court. &ldquo;Your Honour, a moment.&rdquo; &ldquo;Take your time, Miss Blackwood.&rdquo;' }
+      ],
+      clue: { id: 'ib4', title: 'Miss Blackwood, on her feet', kind: 'What she whispered' }, last: 'Read it',
+      done: function (seen) {
+        if (!seen) return;
+        ER.read({ html: RSNOTE, cls: 'cn', clue: { id: 'rsnote', title: 'Miss Blackwood’s notes: reported speech', kind: 'Folded, passed back' },
+          done: function () {
+            ER.flag('k-ib', 1); paint(); VN.learn(['reported speech', 'cross-examine']);
+            ER.addClue('pnb', 'PC Sheridan’s notebook, 14 May', PNB, 'pnb', 'Prosecution bundle', true);
+          } });
+      }
+    });
+  });
+  $('#pnb').addEventListener('click', function () {
+    if (busy) return;
+    if (ER.flag('k-words')) { ER.say('PC Sheridan&rsquo;s notebook, with Mrs Askew&rsquo;s own words written beside his, in your writing.'); return; }
+    if (!ER.flag('k-ib')) { ER.say('A copy of PC Sheridan&rsquo;s notebook from the night of 14 May. Miss Blackwood wants something: she has turned round.'); return; }
+    openWords();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  VN.thing('#askew', null, function () { return nextFile ? 'The witness box is empty. Mrs Askew left on Mr Tunnicliffe&rsquo;s arm, and did not look at the dock.' : 'Mrs Askew, in a lavender cardigan, with a brooch shaped like a treble clef. She looks as if she has not slept either.'; }, isBusy);
+  VN.thing('#judge', null, 'Her Honour Judge Lennox writes down everything, in green ink, and looks up only when something matters.', isBusy);
+  VN.thing('#jury', null, 'Twelve people. Juror number seven writes down every word. Juror number three has not written anything down since lunch, and is watching Mrs Askew very closely.', isBusy);
+  VN.thing('#arms', 'royal arms', 'The Royal Arms: a lion, a unicorn, and DIEU ET MON DROIT. You will see them in court rooms all over England.', isBusy);
+  VN.thing('#clerk', 'clerk', 'Ms Desai, the court clerk, sits below the judge. She swears in the witnesses, keeps the exhibits, and will ask the jury for its verdict.', isBusy);
+  VN.thing('#usher', 'usher', 'Mr Tunnicliffe, the usher, in a black gown and no wig. He brings in the jury, carries the exhibits to the witness box, and says &ldquo;All rise&rdquo; in a voice that could stop traffic.', isBusy);
+  VN.thing('#dewhurst', null, 'Mr Dewhurst, for the Crown. He prosecutes as if he were reading a train timetable aloud: politely, and in the right order.', isBusy);
+
+  /* ---------- her own words ---------- */
+  function openWords() {
+    var box = ER.el('div', 'rs'), saved = ER.flag('k-rs') || {}, done = false, s = '<div><h6>PC Sheridan wrote &nbsp;&middot;&nbsp; what Mrs Askew said</h6><div class="rs-rows">';
+    RS.forEach(function (r, i) {
+      s += '<div class="rs-row" data-n="' + (i + 1) + '"><div class="rs-pnb" data-n="' + (i + 1) + '">' + r[0] + '</div><div class="rs-opts">';
+      r[1].forEach(function (o) { s += '<button type="button" data-v="' + o[0] + '"' + (saved[i + 1] === o[0] ? ' class="on"' : '') + '>&ldquo;' + o[1] + '&rdquo;</button>'; });
+      s += '</div></div>';
+    });
+    s += '</div></div><div><button type="button" class="btn" id="rs-go">Pass it forward</button><p class="pmsg"></p></div>';
+    box.innerHTML = s;
+    var msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function state() { var o = {}; ER.$$('.rs-row', box).forEach(function (r) { var b = r.querySelector('button.on'); if (b) o[r.getAttribute('data-n')] = b.getAttribute('data-v'); }); return o; }
+    ER.$$('.rs-row', box).forEach(function (r) {
+      ER.$$('button', r).forEach(function (b) {
+        b.addEventListener('click', function () { if (done) return; ER.$$('button', r).forEach(function (x) { x.classList.toggle('on', x === b); }); VN.sfx.card(); ER.flag('k-rs', state()); box.setAttribute('data-in', Object.keys(state()).length); });
+      });
+    });
+    box.querySelector('#rs-go').addEventListener('click', function () {
+      var o = state(), wrong = [], n;
+      if (done) return;
+      if (Object.keys(o).length < 5) { msg('Miss Blackwood glances back. Five lines, she mouths, and holds up five fingers behind her back.'); return; }
+      for (n = 1; n <= 5; n++) if (!ER.check('r' + n, o[n])) wrong.push(n);
+      if (wrong.length) {
+        VN.bump('k-rtries'); VN.sfx.hm();
+        msg('Miss Blackwood reads it, and passes it straight back with line ' + wrong[0] + ' underlined. <i>&ldquo;' + RSWHY[wrong[0]][o[wrong[0]]] + '&rdquo;</i>' + (wrong.length > 1 ? ' <i>Underneath she has written: &ldquo;+' + (wrong.length - 1) + '&rdquo;.</i>' : ''));
+        return;
+      }
+      done = true; ER.flag('k-words', 1); VN.sfx.note(); paint();
+      msg('Miss Blackwood reads your note once, folds it, and keeps it in her hand. <b>&ldquo;Her own words,&rdquo;</b> she whispers. <b>&ldquo;And one of them is &lsquo;might&rsquo;.&rdquo;</b>');
+      VN.mine('words', 'Mrs Askew’s own words, at 23.20 and 23.35', '<p>&ldquo;I heard the alarm at about twenty to eleven and went to my window.&rdquo;</p><p>&ldquo;I didn&rsquo;t see his face, because he had his back to me.&rdquo;</p><p>&ldquo;He was about your height.&rdquo; (to the officer: 1.88 m)</p><p>&ldquo;It might have been the busker who plays under my window.&rdquo;</p><p>After one photograph: &ldquo;That&rsquo;s him. I&rsquo;m sure now.&rdquo;</p>', true);
+      setTimeout(function () { ER.closeAll(); busy = true; ER.narrate([
+        'Miss Blackwood turns to the witness box with your note in her hand, and her voice drops to the one she uses for frightened people.',
+        '&ldquo;Mrs Askew, I am not going to suggest that you have told this court a single lie. I am going to suggest that you are mistaken. Do you understand the difference?&rdquo; &ldquo;I do,&rdquo; says Mrs Askew. &ldquo;I taught for forty years.&rdquo;'
+      ], function () { busy = false; openCx(); }); }, 3600);
+    });
+    msg('PC Sheridan&rsquo;s notebook, a line at a time. <b>For each line, choose what Mrs Askew herself said to him that night.</b> Then pass it forward.');
+    rsBox = box; box.setAttribute('data-in', Object.keys(saved).length);
+    ER.open('ov-lock', box, function () { rsBox = null; });
+  }
+
+  /* ---------- Mrs Askew's evidence ---------- */
+  var CARDS = [
+    { id: 'a', tab: 'Forty years', from: 'Her evidence yesterday', text: 'I taught music for forty years, and for two years that young man has played under my window every single day. I know him.', press: [
+      { q: 'You watch him from your window, Mrs Askew? From the first floor?', a: 'Of course. I am upstairs. I look down on him, and I listen.' },
+      { q: 'So what you see of him most is the top of his hat, and his shoulders?', a: 'And his bow arm. He has a good bow arm. And I hear him. I would know his playing anywhere.', j: 'Thank you, Mrs Askew.' },
+      { q: 'Was he playing that night, when you saw the man?', a: 'No. Of course not. There was only the alarm.', j: 'So on this occasion there was nothing to hear.' }] },
+    { id: 'b', tab: 'The door', from: 'Her evidence yesterday', text: 'When the alarm went, I went straight to my window, and I saw him come out of the door of number fourteen.', press: [
+      { q: 'You saw the door itself open?', a: 'I saw him come out of the shop. Where else would he have come from?', j: 'Mrs Askew, the question was whether you saw the door.' }] },
+    { id: 'c', tab: 'His face', from: 'Her evidence yesterday', text: 'I saw his face as clearly as I can see yours now.', press: [
+      { q: 'From your window, at night?', a: 'From my window. I have very good eyes. I read music without my glasses.' },
+      { q: 'And when did you first say that you had seen his face?', a: 'When the policeman showed me the photograph. Then I knew. I knew him at once.', gives: 'i' }] },
+    { id: 'i', hidden: true, tab: 'The photograph', from: 'In answer to Miss Blackwood', text: 'When the policeman showed me his photograph, I knew him at once.', press: [
+      { q: 'One photograph, Mrs Askew? Not a row of faces?', a: 'One. Why would he show me a row? He knew who it was.', j: 'I shall have something to say to the jury about that, Mrs Askew. Not to you.' }] },
+    { id: 'd', tab: 'Slight', from: 'Her evidence yesterday', text: 'He was a slight young man. Not tall. Just like Mr Mallon.', press: [
+      { q: 'You can see Mr Mallon from where you are standing?', a: 'Yes. He is exactly the size I remember.' }] },
+    { id: 'e', tab: 'The lamp', from: 'Her evidence yesterday', text: 'There is a street lamp right outside that shop, and it was lit. It always is.', press: [
+      { q: 'Which lamp is that, Mrs Askew?', a: 'The one outside number fourteen. It has been there for years. I can see it from my bed.' }] },
+    { id: 'f', tab: 'Mr Andreou', from: 'Her evidence yesterday', text: 'Mr Andreou from the café told me that the busker had been hanging about outside the shop at half past ten.', press: [
+      { q: 'Did you see anybody hanging about at half past ten yourself?', a: 'No. I was listening to the radio. Mr Andreou told me in the morning.' }] },
+    { id: 'g', tab: 'Twenty to eleven', from: 'Her evidence yesterday', text: 'It was twenty to eleven. I looked at my clock as I got up.', press: [
+      { q: 'And your clock is right, Mrs Askew?', a: 'I set it by the radio every Sunday. I was a music teacher. Time is the one thing I am never wrong about.' }] },
+    { id: 'h', tab: 'The case', from: 'Her evidence yesterday', text: 'He was carrying a violin case, and he walked away towards the river, quickly.', press: [
+      { q: 'Towards Wherry Steps?', a: 'Towards the steps, yes. And round the corner. Then he was gone.' }] }
+  ];
+  var WON = {
+    b: { note: 'The scaffolding hid the door. She first saw him outside No. 16.', clue: { id: 'x1', title: 'She gives way: the door' }, lines: [
+      ['you', 'Mrs Askew, this is a photograph taken by the police the next morning: Exhibit JS/3, number 2. Next door to the violin shop is No. 12. What is in front of No. 12?'],
+      ['wit', 'The builders. They were there for weeks. Green netting, all the way up.'],
+      ['note', 'Mr Dewhurst saw the defence plan over lunch. He nods: he does not object to it.'],
+      ['you', 'And this is a plan of Cutler&rsquo;s Row, measured this morning. From your window, the netting at No. 12 stands between you and the door of No. 14. You could not see that door, could you?'],
+      ['note', 'Mr Tunnicliffe carries the plan to the witness box. Mrs Askew looks at it for a long time, and turns it round, and back again.'],
+      ['wit', 'I saw him on the pavement, walking away. I thought he must have come out of the door. Where else could he have come from?'],
+      ['judge', 'Members of the jury, the witness accepts that she did not see the door. She saw a man on the pavement, beyond the scaffolding.']] },
+    c: { note: 'At 10.41 and at 11.20 she said: I didn&rsquo;t see his face.', clue: { id: 'x2', title: 'She gives way: his face' }, lines: [
+      ['you', 'A minute after the man walked away, you telephoned 999, Mrs Askew. The call was recorded. The operator asked you, &ldquo;Did you see his face?&rdquo; And you said: &ldquo;No. I couldn&rsquo;t see his face. He had his back to me, and it&rsquo;s pouring.&rdquo;'],
+      ['wit', 'Did I? I was upset. The alarm was going.'],
+      ['you', 'And forty minutes later you told the officer the same thing: &ldquo;I didn&rsquo;t see his face, because he had his back to me.&rdquo; Those were your words, weren&rsquo;t they?'],
+      ['wit', 'Yes. If he wrote them down, then I said them.'],
+      ['judge', 'Then which is the jury to accept, Mrs Askew: what you said that night, or what you say today?'],
+      ['wit', 'But I can see his face. I can see it now, quite clearly, when I shut my eyes.']] },
+    i: { note: 'Before the photograph: might. After it: sure.', clue: { id: 'x3', title: 'She gives way: the photograph' }, lines: [
+      ['you', 'At twenty past eleven you told PC Sheridan, &ldquo;It might have been the busker who plays under my window.&rdquo; Might. Then at twenty-five to twelve he showed you one photograph, of one man, and you said, &ldquo;That&rsquo;s him. I&rsquo;m sure now.&rdquo;'],
+      ['wit', 'Yes. Because it was him.'],
+      ['you', 'Before the photograph you were not sure. After the photograph you were. The face you see when you shut your eyes, Mrs Askew: is it the face of the man on Cutler&rsquo;s Row, or the face in the photograph?'],
+      ['note', 'Mrs Askew opens her mouth, and closes it again. For a long moment nobody in Court 2 moves at all.'],
+      ['wit', 'I don&rsquo;t know. I have looked at that photograph in my head so many times. I don&rsquo;t know any more.'],
+      ['judge', 'Thank you, Mrs Askew. That is an honest answer.']] },
+    d: { note: 'At 11.20: &ldquo;about your height&rdquo;. The officer is 1.88 m. Ezra is 1.70 m.', clue: { id: 'x4', title: 'She gives way: his height' }, lines: [
+      ['you', 'That night you told PC Sheridan that the man was &ldquo;about your height&rdquo;. Your exact words: he put them in quotation marks. And beside them he wrote: &ldquo;I am 1.88 metres.&rdquo;'],
+      ['wit', 'He is a tall young man, the officer. I remember that.'],
+      ['you', 'Mr Mallon is 1.70 metres. It is one of the agreed facts. That is eighteen centimetres shorter than the officer: most of a head.'],
+      ['wit', 'The man was tall. I remember now. I thought, he is tall, like the policeman. I don&rsquo;t know why I said slight yesterday.'],
+      ['judge', 'Members of the jury, you will remember the agreed facts. Mr Mallon is 1.70 metres tall.']] },
+    e: { note: 'Lamp CR-07 was out from 9 to 21 May.', clue: { id: 'x5', title: 'She gives way: the lamp' }, lines: [
+      ['you', 'Mrs Askew, the lamp outside No. 14 is column CR-07. This is the council&rsquo;s record. Fault reported on Saturday 9 May: &ldquo;lamp out&rdquo;. Repaired on Thursday 21 May. The burglary was on Thursday 14 May. That lamp was out, wasn&rsquo;t it?'],
+      ['wit', 'It is always lit. I see it from my bed.'],
+      ['judge', 'Mrs Askew, do you remember seeing it lit on that particular night?'],
+      ['wit', 'No. I remember that it is always lit. I suppose I am remembering all the other nights.'],
+      ['judge', 'That is a very fair answer.']] },
+    f: { note: 'Hearsay. The jury must put it out of their minds.', clue: { id: 'x6', title: 'The judge: hearsay' }, lines: [
+      ['note', 'Miss Blackwood turns towards the bench. She does not shout, and nobody says &ldquo;Objection!&rdquo;. This is not television.'],
+      ['you', 'Your Honour, the witness has told the jury what Mr Andreou is supposed to have said to her. Mr Andreou is not a witness in this trial.'],
+      ['judge', 'Yes, Miss Blackwood. Members of the jury, Mrs Askew told you what Mr Andreou said to her about a busker. That is hearsay. Mr Andreou is not here, and nobody can ask him what he saw or what he meant. You must put it out of your minds completely.'],
+      ['judge', 'Mrs Askew, please tell us only what you saw and heard yourself.'],
+      ['wit', 'I am sorry. I thought it would help.']] }
+  };
+  var NO = {
+    'g>*': 'Miss Blackwood, the alarm company agrees with her to within a minute. Whatever else she may be wrong about, she is not wrong about the time.',
+    'h>*': 'She told the operator at 10.40 that he had a case and went towards the river, and she has told us exactly the same today. On that, she has never once changed her story.',
+    'a>*': 'Nobody doubts that she has heard Mr Mallon play every day for two years. Ask her about it by all means. But which of your papers says otherwise?',
+    'b>call': 'The call says that he walked off towards the river. It says nothing about the door. Is there something of yours that shows what she could see from her window?',
+    'b>lamp': 'A dark lamp makes a door harder to see, I grant you. Is there anything in your papers that says she could not see that door at all?',
+    'c>plan': 'Your plan tells me how far away she was, and from which side. It does not tell me what she said at the time. Which of your papers does?',
+    'c>lamp': 'The lamp makes it harder. But she says she saw his face. Did she ever say anything different?',
+    'd>custody': 'His height, yes: 1.70 metres. But she says the man was just like Mr Mallon. Where did she ever describe the man differently?',
+    'd>call': 'She gave the operator no height at all. Was there somebody else she described him to that night?',
+    'e>plan': 'Your plan shows me where the lamp stands. It does not show me whether it was lit.',
+    'f>call': 'The call is her own words, at the time. This card is somebody else&rsquo;s words. What does the law say about those?',
+    'f>note': 'The officer&rsquo;s notebook says nothing about Mr Andreou. The trouble with this card is not what she said then. It is whose words they are.',
+    'i>plan': 'The photograph was shown to her in her own flat, an hour later. Your plan of the street cannot help with that. What did she say before she saw it?',
+    '*>custody': 'The custody record tells me about Mr Mallon. It tells me nothing about what this witness saw or said.',
+    '*>hear': 'Your note about hearsay is about things that a witness was told by somebody else. On that card she is telling us what she says she saw herself.',
+    '*>plan': 'I have looked at your plan. I do not see that it touches that.',
+    '*>lamp': 'The council&rsquo;s record is about one lamp. I do not see what it has to do with that.',
+    '*>call': 'I have read the call again. It does not quarrel with that.',
+    '*>note': 'I have read the officer&rsquo;s note again. It does not quarrel with that.',
+    '*': 'I have put those two side by side, Miss Blackwood. They sit together quite comfortably.'
+  };
+  var TARGET = [
+    ['b', ['Begin with the card called &ldquo;The door&rdquo;. She says that she saw him come out of the door of No. 14. Your morning on Cutler&rsquo;s Row has something to say about that.',
+      'Choose the card and press &ldquo;Put something to her&rdquo;. Then choose the paper that shows what was between her window and the door.',
+      'It is your own plan: the scaffolding at No. 12 hid the door of No. 14 from her window.']],
+    ['c', ['The card called &ldquo;His face&rdquo;: she says that she saw it clearly. What did she say about his face on the night itself?',
+      'Two of your papers were made that night, while she was speaking. Either of them will do.',
+      'The 999 call at 10.41: &ldquo;I couldn&rsquo;t see his face.&rdquo; Or the officer&rsquo;s notebook at 11.20. Put one of them beside &ldquo;His face&rdquo;.']],
+    ['i', ['Ask her more about &ldquo;His face&rdquo;, twice. Her second answer goes on a new card at the end of the row.',
+      'The new card says that she knew him at once from the photograph. How sure was she BEFORE the photograph?',
+      'Before the photograph she said &ldquo;might&rdquo;: to the officer, and on the 999 call too. Put either paper beside &ldquo;The photograph&rdquo;.']],
+    ['d', ['The card called &ldquo;Slight&rdquo;: a slight young man, not tall. How tall did she say he was on the night?',
+      'She told the officer, in words he put in quotation marks. And he wrote his own height beside them.',
+      'The officer&rsquo;s notebook: &ldquo;about your height&rdquo;, and he is 1.88 m. Ezra is 1.70 m. Put the notebook beside &ldquo;Slight&rdquo;.']],
+    ['e', ['The card called &ldquo;The lamp&rdquo;: she says it was lit, as it always is. Is there a record of that lamp?',
+      'The lamp outside No. 14 has a number. You looked it up this morning.',
+      'The council&rsquo;s record: CR-07 was out from 9 May to 21 May. Put it beside &ldquo;The lamp&rdquo;.']],
+    ['f', ['The card called &ldquo;Mr Andreou&rdquo; is not about what she saw at all. Whose words are on it?',
+      'You do not need to show that the card is false. You need to show what kind of evidence it is. One of your papers explains that.',
+      'Miss Blackwood&rsquo;s note on hearsay. Put it beside &ldquo;Mr Andreou&rdquo;, and the judge will speak to the jury.']]
+  ];
+  function openCx(hello) {
+    var papers = [{ id: 'call', tab: 'A', name: '999 call', look: function () { VN.look('call', 'The transcript of the 999 call.'); } },
+      { id: 'note', tab: 'B', name: 'Officer&rsquo;s notebook', look: function () { VN.look('pnb', 'PC Sheridan&rsquo;s notebook.'); } },
+      { id: 'plan', tab: 'C', name: 'Your plan', look: function () { VN.look('plan', 'Your plan of Cutler&rsquo;s Row.'); } },
+      { id: 'lamp', tab: 'D', name: 'Lamp record', look: function () { VN.look('lamps', 'The council&rsquo;s record of the street lamps.'); } },
+      { id: 'hear', tab: 'E', name: 'Note: hearsay', look: function () { VN.look('hearsay', 'Miss Blackwood&rsquo;s note on hearsay.'); } },
+      { id: 'custody', tab: 'F', name: 'Custody record', look: function () { VN.look('custody', 'Ezra&rsquo;s custody record: height 1.70 m.'); } }];
+    papers.forEach(function (p) { p.name = p.name.replace(/&rsquo;/g, '’'); });
+    CX.open({
+      key: 'k', pencils: 4, total: TOTAL, cards: CARDS, won: WON, papers: papers,
+      witness: { name: 'Mrs Askew', role: 'Witness for the Crown · Flat 1, 9 Cutler’s Row', face: window.FACE('askew') },
+      judge: { name: 'Her Honour Judge Lennox', face: window.FACE('lennox') },
+      words: { today: 'said in answer today', patience: 'Her Honour&rsquo;s<br>patience', cost: 'Her Honour puts down her pen, and waits.', kind: 'Said in Court 2', him: 'her', his: 'her', gave: 'She has given way on', you: 'Miss Blackwood' },
+      sfx: { card: VN.sfx.card, win: VN.sfx.pen, lose: VN.sfx.hm },
+      hello: hello || (wonList().length ? 'Go on, Miss Blackwood.' : 'Yes, Miss Blackwood. She is the Crown&rsquo;s witness: you may lead her.'),
+      idle: 'Every card is something that Mrs Askew has told the jury. Choose one. Miss Blackwood can ask her more about it, or put one of your papers beside it.',
+      bites: function (card, w) { return ER.check('cx', card + '>' + w); },
+      refuse: function (card, w) { return NO[card + '>' + w] || NO[card + '>*'] || NO['*>' + w] || NO['*']; },
+      onWin: function (n) { ER.pips(n, TOTAL); },
+      onOut: function () {
+        VN.bump('k-outs'); busy = true;
+        setTimeout(function () {
+          ER.closeAll();
+          ER.narrate([
+            'Her Honour takes off her glasses, polishes them, and puts them back on.',
+            '&ldquo;Miss Blackwood. A paper only answers a witness if the two cannot both be true. If she can look at your paper and say &lsquo;yes, and?&rsquo;, the jury has learnt nothing, and I have lost my place.&rdquo;',
+            '&ldquo;We will take five minutes.&rdquo; Mr Tunnicliffe brings Mrs Askew a fresh glass of water, and Miss Blackwood reads your papers again, very fast, with her finger.'
+          ], function () { busy = false; openCx('Thank you. Let us go on, Miss Blackwood.'); });
+        }, 3400);
+      },
+      done: function (pairs) {
+        var file = ER.exitOk([pairs.join('+')]);
+        if (!file) { ER.toast('Something is wrong with this lock: tell your teacher.'); return; }
+        nextFile = file; ER.flag('k-file', file); VN.done('court');
+        setTimeout(function () {
+          ER.closeAll(); VN.solved(); paint(); busy = true;
+          ER.narrate([
+            'Mrs Askew holds the edge of the witness box with both hands. &ldquo;I came here to tell the truth,&rdquo; she says. &ldquo;I still believe I saw him. But I do not know any more whether I am remembering Cutler&rsquo;s Row or a photograph.&rdquo;',
+            '&ldquo;Thank you, Mrs Askew,&rdquo; says Miss Blackwood. &ldquo;I have no more questions.&rdquo; She sits down. Under the desk, her hand is shaking a little. Nobody can see it but you.',
+            'Mr Dewhurst stands, looks at his notes, and sits down again. &ldquo;No questions in re-examination, Your Honour.&rdquo; Mrs Askew leaves the witness box on Mr Tunnicliffe&rsquo;s arm. She does not look at the dock.',
+            'At half past three Ezra gives evidence himself. He tells the jury about the Fleece, the towpath, and the quarter chimes under the bridge. Mr Dewhurst asks him whether he wanted the Lusardi. &ldquo;Every day,&rdquo; says Ezra. &ldquo;Same as wanting the moon.&rdquo;',
+            '&ldquo;Speeches tomorrow morning,&rdquo; says the judge, &ldquo;and then I shall sum up. Members of the jury, do not talk about this case to anybody at all, not even at home.&rdquo; &ldquo;All rise.&rdquo;'
+          ], function () { busy = false; paint(); });
+        }, 1400);
+      }
+    });
+  }
+})();
+</script>
+</body>
+</html>

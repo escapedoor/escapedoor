@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Andreou’s · So That You Are Sure</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-court.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="violin.css">
+<style>
+  body{--bg:#3a2a1e;--accent:#f0c068;--font-display:'Cormorant SC',serif;--font-ui:'Oswald',sans-serif;--font-body:'EB Garamond',Georgia,serif;
+    --tc-bg:rgba(40,28,20,.97);--tc-ink:#f6eedc;--cap-bg:rgba(40,28,20,.93);--panel:#2e2118;--face-bg:#4a3a2a;--q-ink:#f0d8a8;--fade:#150e08;--hud-bg:rgba(40,28,20,.82)}
+  .rain path{stroke:#dfe8ee;stroke-width:2;opacity:.45;animation:rain .9s linear infinite}
+  .rain path:nth-child(2n){animation-duration:1.15s;animation-delay:-.4s}
+  .rain path:nth-child(3n){animation-duration:.8s;animation-delay:-.7s}
+  @keyframes rain{0%{transform:translateY(-60px)}100%{transform:translateY(60px)}}
+  #steam{animation:steam 4s ease-in-out infinite;opacity:.0}
+  @keyframes steam{0%{opacity:0;transform:translateY(0)}40%{opacity:.6}100%{opacity:0;transform:translateY(-40px)}}
+
+  /* the statement, two highlighters, and a ring of soup on the corner */
+  .hl{width:min(1120px,96vw);display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:18px;align-items:start}
+  .hl .doc.mg{width:auto;max-height:76vh;overflow:auto;position:relative;transform:rotate(-.3deg);box-shadow:0 22px 60px rgba(0,0,0,.6)}
+  .hl .doc.mg:after{content:'';position:absolute;right:30px;bottom:24px;width:90px;height:90px;border-radius:50%;border:5px solid rgba(160,110,40,.18);pointer-events:none}
+  .hl-s{display:block;width:100%;margin:0 0 4px;padding:3px 8px 3px 30px;position:relative;text-align:left;font-family:'Caveat',cursive;font-weight:700;font-size:21px;line-height:1.2;color:#1d2a52;border-radius:2px;cursor:pointer;background:none}
+  .hl-s:before{content:attr(data-n);position:absolute;left:4px;top:4px;font-family:'Oswald',sans-serif;font-weight:500;font-size:12px;color:#8d9097}
+  .hl-s:hover{background:rgba(0,0,0,.04)}
+  .hl-s.g{background:linear-gradient(transparent 12%,rgba(120,230,120,.55) 12%,rgba(120,230,120,.55) 88%,transparent 88%)}
+  .hl-s.p{background:linear-gradient(transparent 12%,rgba(255,120,190,.5) 12%,rgba(255,120,190,.5) 88%,transparent 88%)}
+  .hl-pens{display:grid;gap:8px;margin-bottom:10px}
+  .hl-pens div{display:flex;align-items:center;gap:10px;font-family:'EB Garamond',serif;font-size:16.500px;line-height:1.2;color:#f6eedc}
+  .hl-pens i{flex:none;width:58px;height:16px;border-radius:3px 9px 9px 3px}
+  .hl-pens .pg i{background:#62d262}.hl-pens .pp i{background:#ff78be}
+  .hl .btn{width:100%;margin-bottom:10px}
+  .hl .pmsg{min-height:180px;font-size:17.500px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f0e2c4"/><stop offset="1" stop-color="#e2cfa8"/></linearGradient>
+  <linearGradient id="fogG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".6" stop-color="#fff" stop-opacity=".18"/><stop offset="1" stop-color="#fff" stop-opacity=".55"/></linearGradient>
+  <linearGradient id="chromeG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8d9097"/><stop offset=".4" stop-color="#eef0f2"/><stop offset=".7" stop-color="#b9bcc2"/><stop offset="1" stop-color="#6b6e75"/></linearGradient>
+  <linearGradient id="tableG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c8433a"/><stop offset="1" stop-color="#a3302a"/></linearGradient>
+  <radialGradient id="lampG" cx="50%" cy="0%" r="80%"><stop offset="0" stop-color="#ffe7b0" stop-opacity=".55"/><stop offset="1" stop-color="#ffe7b0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="45%" r="82%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".68" stop-color="#1c1006" stop-opacity=".16"/><stop offset="1" stop-color="#120a04" stop-opacity=".74"/></radialGradient>
+  <pattern id="tiles" width="40" height="40" patternUnits="userSpaceOnUse"><rect width="40" height="40" fill="#f6f4ee"/><path d="M20 4l16 16-16 16L4 20z" fill="none" stroke="#3a6aa8" stroke-width="2.500"/><circle cx="20" cy="20" r="4" fill="#3a6aa8"/><path d="M0 0h40v40" fill="none" stroke="#c9ccd0" stroke-width="1.500"/></pattern>
+  <clipPath id="winC"><rect x="50" y="130" width="560" height="430"/></clipPath>
+</defs>
+
+<rect x="-1000" y="-400" width="3600" height="1000" fill="url(#wallG)"/>
+<rect x="-1000" y="440" width="3600" height="300" fill="url(#tiles)"/><rect x="-1000" y="434" width="3600" height="10" fill="#7a4a2a"/>
+<rect x="-1000" y="740" width="3600" height="700" fill="#6b4a32"/><g stroke="#5a3c26" stroke-width="3"><path d="M-1000 790h3600M-1000 850h3600M-1000 930h3600"/></g>
+<g id="ceiling" class="hot"><rect x="-1000" y="-400" width="3600" height="470" fill="#000" opacity="0"/><g fill="#7a4a2a"><rect x="-1000" y="30" width="3600" height="22"/><rect x="200" y="-400" width="26" height="452"/><rect x="900" y="-400" width="26" height="452"/><rect x="1400" y="-400" width="26" height="452"/></g></g>
+<g pointer-events="none"><path d="M760 52v60" stroke="#2b2f36" stroke-width="3"/><path d="M730 112h60l-10 26h-40z" fill="#3a6a5a"/><path d="M640 138h240l200 520h-640z" fill="url(#lampG)"/></g>
+
+<!-- the window on to Cutler's Row: Gilchrist's across the way, and rain -->
+<g id="window" class="hot"><rect x="36" y="116" width="588" height="458" fill="#5a3c26"/>
+  <g clip-path="url(#winC)"><rect x="50" y="130" width="560" height="430" fill="#9aa4ad"/><rect x="50" y="470" width="560" height="90" fill="#6d747a"/>
+    <rect x="60" y="150" width="190" height="320" fill="#cfc6b4"/><rect x="80" y="230" width="150" height="130" fill="#e8e6df"/>
+    <rect x="250" y="140" width="250" height="330" fill="#3a2a22"/><rect x="262" y="160" width="226" height="34" fill="#1c1d22"/><text x="375" y="184" class="cT" font-size="21" fill="#d9b25a">GILCHRIST &amp; CO.</text>
+    <rect x="270" y="210" width="130" height="180" fill="#a9b8c8"/><rect x="414" y="210" width="72" height="260" fill="#2a3f63"/><rect x="500" y="140" width="110" height="330" fill="#e6dcc8"/>
+    <path d="M330 470v-170" stroke="#2b2f36" stroke-width="6"/>
+    <g class="rain"><path d="M80 130l-6 60"/><path d="M140 160l-6 60"/><path d="M200 140l-6 60"/><path d="M260 180l-6 60"/><path d="M320 150l-6 60"/><path d="M380 170l-6 60"/><path d="M440 140l-6 60"/><path d="M500 190l-6 60"/><path d="M560 150l-6 60"/><path d="M110 300l-6 60"/><path d="M230 330l-6 60"/><path d="M350 310l-6 60"/><path d="M470 340l-6 60"/><path d="M590 300l-6 60"/></g>
+    <rect x="50" y="130" width="560" height="430" fill="url(#fogG)"/>
+    <text x="330" y="250" class="cT" font-size="40" fill="#e8c46a" opacity=".55" transform="scale(-1 1) translate(-660 0)">ANDREOU’S</text></g>
+  <path d="M330 130v430M50 345h560" stroke="#5a3c26" stroke-width="10"/><rect x="26" y="566" width="608" height="18" fill="#7a4a2a"/></g>
+
+<!-- the wall: a menu, a photograph -->
+<g id="menu" class="hot"><rect x="1060" y="100" width="300" height="200" fill="#5a3c26"/><rect x="1072" y="112" width="276" height="176" fill="#2a2e2a"/>
+  <text x="1210" y="146" class="hT" font-size="30" fill="#f4f2ec">TODAY</text><text x="1210" y="186" class="hT" font-size="23" fill="#f4f2ec">lentil soup  3.80</text><text x="1210" y="218" class="hT" font-size="23" fill="#f4f2ec">cheese toastie  4.20</text><text x="1210" y="250" class="hT" font-size="23" fill="#f0c068">baklava (my mother’s)</text></g>
+<g id="photo" class="hot"><rect x="730" y="160" width="130" height="160" fill="#c9a24a"/><rect x="740" y="170" width="110" height="120" fill="#8d8170"/><rect x="760" y="210" width="70" height="80" fill="#5a5048"/><circle cx="795" cy="200" r="16" fill="#c9b49a"/><text x="795" y="308" class="sT" font-size="11" fill="#3a2a1e">1979</text></g>
+
+<!-- Miss Blackwood at the window table -->
+<g id="ib" class="hot"><rect x="430" y="400" width="200" height="250" fill="#000" opacity="0"/><use href="#ch-blackwood" x="420" y="390" width="220" height="286"/></g>
+<path d="M200 640h640l40 50h-720z" fill="url(#tableG)"/><path d="M160 690h720v18h-720z" fill="#7a2420"/><path d="M500 708v200" stroke="#2b2f36" stroke-width="14"/>
+<g id="soup"><ellipse cx="680" cy="660" rx="54" ry="14" fill="#f6f4ee"/><ellipse cx="680" cy="656" rx="42" ry="9" fill="#c98a3a"/><g id="steam"><path d="M664 640q-8-14 0-26M688 636q-8-14 0-26" stroke="#fff" stroke-width="4" fill="none"/></g></g>
+<g id="stmt" class="hot"><g transform="rotate(-4 330 664)"><rect x="250" y="644" width="170" height="44" fill="#fdfdfb"/><rect x="250" y="644" width="170" height="8" fill="#1c1d22"/><path d="M262 662h140M262 672h120M262 682h140" stroke="#8d9097" stroke-width="2"/></g>
+  <g transform="rotate(12 450 670)"><rect x="430" y="662" width="56" height="12" rx="4" fill="#62d262"/><rect x="430" y="678" width="56" height="12" rx="4" fill="#ff78be"/></g></g>
+
+<!-- the counter: cakes, the machine, and Kostas -->
+<g id="kostas" class="hot"><rect x="1150" y="220" width="220" height="280" fill="#000" opacity="0"/><use href="#ch-kostas" x="1140" y="196" width="240" height="312"/></g>
+<rect x="960" y="500" width="700" height="24" fill="#d9cfb8"/><rect x="980" y="524" width="680" height="240" fill="#7a4a2a"/><g stroke="#5a3c26" stroke-width="4"><path d="M1100 524v240M1240 524v240M1380 524v240M1520 524v240"/></g>
+<g id="machine" class="hot"><rect x="1000" y="400" width="130" height="100" rx="8" fill="url(#chromeG)"/><rect x="1014" y="414" width="102" height="30" rx="4" fill="#2b2f36"/><path d="M1040 460v24M1090 460v24" stroke="#2b2f36" stroke-width="6"/><circle cx="1065" cy="429" r="9" fill="#e8c46a"/></g>
+<g id="cakes" class="hot"><path d="M1420 500v-70q60-50 120 0v70z" fill="#dfeaf0" opacity=".55" stroke="#b9c4ca" stroke-width="3"/><rect x="1440" y="470" width="80" height="30" fill="#d9a85a"/><path d="M1440 470h80" stroke="#8a5a2a" stroke-width="4"/></g>
+
+<rect x="-1000" y="-400" width="3600" height="1760" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Back to Court 2</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="violin.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = false, solved = false, nextFile = null, hlBox = null;
+
+  ER.init({
+    theme: 'court', story: 'violin', storyTitle: 'So That You Are Sure', id: 'cafe', no: 'III', title: 'Andreou’s',
+    go: 'Go in out of the rain',
+    intro: [
+      'On Cutler&rsquo;s Row you put the scaffolding back in front of No. 12 and ran a string from Mrs Askew&rsquo;s window along his way. Until he passed No. 16 the netting hid him. After that she saw him from behind, thirty-six metres away, in the rain, with the lamp outside No. 14 out, for about five seconds. Then he turned the corner.',
+      'Every question on Her Honour&rsquo;s list had an answer in that street. Not one of the answers was a face.',
+      'Now it is lunchtime, and it has started to rain. The café under Mrs Askew&rsquo;s window does a lentil soup.'
+    ],
+    exit: {"next":"court","w":{"155d2740":"d7b4ac94"}}, tags: {"h1":["a8d61a3b"],"h2":["5892e19a"],"h3":["a525cdcf"],"h4":["198e21ca"],"h5":["8ec8690b"],"h6":["fd15d81e"],"h7":["1601d216"],"h8":["d681209a"],"h9":["fb25b11b"]},
+    hints: hints, onBegin: begin
+  });
+  solved = !!ER.flag('f-hl'); nextFile = ER.flag('f-kostas') ? ER.flag('f-file') : null;
+
+  var NOTE = '<h4>Saw it, or was told it?</h4>' +
+    '<p>A witness may tell the jury what she saw, heard or did herself. That is <b class="t">FIRST-HAND</b> evidence.</p>' +
+    '<p>If she repeats what somebody else told her, so that the jury will believe it, that is <b class="t">HEARSAY</b>. In a criminal trial hearsay is allowed only in a few special cases, and the judge decides.</p>' +
+    '<p>Why so careful? The person who really saw the thing is not in the witness box. Nobody can ask him where he stood, what the light was like, or how sure he is. And a story changes a little every time it is passed on.</p>' +
+    '<p>If a witness repeats hearsay that should not have been heard, the judge tells the jury to put it out of their minds.</p>' +
+    '<p>Words to watch for: <i>he told me &middot; I am told &middot; everybody knows &middot; apparently &middot; she says</i>. But &ldquo;I heard the alarm&rdquo; is first-hand: she heard it herself.</p><p class="ib">I.B.</p>';
+  var LINES = ['At about twenty to eleven last night I heard the burglar alarm go off at the violin shop across the road.',
+    'I went to my window and saw a man in a long dark coat walking away towards Wherry Steps, carrying a case.',
+    'This morning Mr Andreou from the café told me that the busker had been hanging about outside the violin shop at half past ten.',
+    'Everybody on Cutler&rsquo;s Row knows that the busker wanted that violin.',
+    'The police officer told me that the man in the photograph is called Ezra Mallon.',
+    'I have heard the busker play under my window nearly every day for two years.',
+    'I am told that the alarm went off at 10.39 exactly.',
+    'It was raining hard, and the rain was running down my window.',
+    'Mr Gilchrist says that the violin is worth more than his whole building.'];
+  var WHY = {
+    1: { p: 'She heard the alarm herself, with her own ears. Hearing is first-hand, just as seeing is. The word &lsquo;heard&rsquo; does not make a thing hearsay.' },
+    2: { p: 'Nobody told her that. She stood at her own window and saw it.' },
+    3: { g: 'Did she see the busker hanging about? Read the line again. Who saw it, and who is only passing it on?' },
+    4: { g: 'How does she know what everybody knows? She does not. She is repeating what people say, and my note has those very words in it.' },
+    5: { g: 'She saw a photograph. She did not see a name. Who gave her the name?' },
+    6: { p: 'She heard him play herself, every day, through her window. That is first-hand, even if it is about his music and not his face.' },
+    7: { g: 'Did she look at a clock at 10.39 exactly? She says &lsquo;I am told&rsquo;. It happens to be true, and it is agreed. But in her mouth it is still something somebody told her.' },
+    8: { p: 'She watched the rain run down her own window. Nobody needed to tell her.' },
+    9: { g: 'She has not valued the violin. Mr Gilchrist did, and she is repeating him.' }
+  };
+
+  function hints() {
+    if (nextFile) return ['go', ['Half past one. Court 2 sits at two. The button is at the bottom of the screen.']];
+    if (hlBox) return ['pens', [
+      'Take each line by itself and ask: did Mrs Askew see it, hear it, or do it herself? Or is she passing on what somebody else saw, said or thinks?',
+      'Look for the words in Miss Blackwood&rsquo;s note: told me, I am told, everybody knows, says. But careful: &ldquo;I heard the alarm&rdquo; and &ldquo;I have heard the busker play&rdquo; are things she heard with her own ears.',
+      'Four lines are green: the alarm, the man walking away, his playing under her window, and the rain. The other five came to her from somebody else, even the one that happens to be true.'
+    ]];
+    if (solved && !ER.flag('f-kostas')) return ['kostas', ['Mr Andreou is behind the counter. Ask him what he really told Mrs Askew.']];
+    if (!ER.flag('f-ib')) return ['ib', ['Miss Blackwood is at the table by the window. Talk to her.']];
+    return ['open', ['Mrs Askew&rsquo;s statement is on the table, beside two highlighter pens. Click it.']];
+  }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#go').classList.toggle('on', !!nextFile);
+    $('#stmt').classList.toggle('ready', !solved && !!ER.flag('f-ib'));
+    $('#kostas').classList.toggle('ready', solved && !ER.flag('f-kostas'));
+    ER.pips(solved ? 1 : 0, 1);
+  }
+  function begin() {
+    paint();
+    if (nextFile) { ER.say('Andreou&rsquo;s. Miss Blackwood is paying for the soup.'); return; }
+    if (ER.flag('f-in')) { ER.say('Andreou&rsquo;s caf&eacute;. Upstairs, somebody is still playing scales.'); return; }
+    busy = true; ER.flag('f-in', 1);
+    ER.narrate([
+      'Andreou&rsquo;s has six tables, a glass dome of cakes, and a coffee machine older than you are. Its window looks straight across Cutler&rsquo;s Row at the door of Gilchrist &amp; Co.',
+      'Miss Blackwood takes the table by the window and orders soup. Then she lays a witness statement on the table between the salt and the pepper, and takes two highlighter pens out of her bag: one green, one pink.',
+      'Through the ceiling, from the flat upstairs, somebody is playing scales on a piano. Slowly, up and down, and then again from the bottom.'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- the room ---------- */
+  $('#ib').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Half past one,&rdquo; says Miss Blackwood. &ldquo;She will be in the witness box at two, and she will still be sure. Bring everything.&rdquo;'); return; }
+    if (solved) { ER.say('&ldquo;Now ask Mr Andreou,&rdquo; says Miss Blackwood, &ldquo;what he really said to her. You may ask. I may not.&rdquo;'); return; }
+    if (ER.flag('f-ib')) { ER.say('&ldquo;Green for what she knows herself,&rdquo; says Miss Blackwood. &ldquo;Pink for what came from somebody else. Every line.&rdquo;'); return; }
+    ER.talk({
+      who: 'Miss Blackwood', role: 'Counsel for the defence', face: window.FACE('blackwood'),
+      lines: [
+        { note: 'She taps the statement with her spoon.', a: 'Mrs Askew made this the morning after. Most of it the jury has heard already, yesterday, in her own words. Some of it they should never have heard at all.' },
+        { q: 'Which parts?', a: 'That is your job. A witness can tell the jury what she saw, heard or did herself. What somebody else told her is another thing, and it has a name. Read my note.' },
+        { a: 'Then take the pens. Green for what she knows herself. Pink for what she was told, or is only repeating. Every line, one or the other. And then we shall see what is left.' }
+      ],
+      clue: { id: 'ib3', title: 'Miss Blackwood, over the soup', kind: 'What she said' }, last: 'Read the note',
+      done: function (seen) {
+        if (!seen) return;
+        ER.read({ html: NOTE, cls: 'cn', clue: { id: 'hearsay', title: 'Miss Blackwood’s notes: hearsay', kind: 'On a paper napkin' },
+          done: function () { ER.flag('f-ib', 1); paint(); VN.learn(['first-hand', 'hearsay', 'witness statement']); } });
+      }
+    });
+  });
+  $('#stmt').addEventListener('click', function () {
+    if (busy) return;
+    if (solved) { ER.say('The statement, striped green and pink. Every pink line points at Ezra. Not one green line does.'); return; }
+    if (!ER.flag('f-ib')) { ER.say('A witness statement, and two highlighter pens. Miss Blackwood has not finished her soup, or her explanation.'); return; }
+    openPens();
+  });
+  $('#kostas').addEventListener('click', function () {
+    if (busy) return;
+    if (!solved) { ER.say('Kostas Andreou is behind the counter, wiping a cup that is already dry. &ldquo;Eat first,&rdquo; he says. &ldquo;Then questions.&rdquo;'); return; }
+    if (ER.flag('f-kostas')) { ER.say('&ldquo;A busker,&rdquo; says Kostas, to the coffee machine. &ldquo;Not THE busker. A.&rdquo;'); return; }
+    ER.talk({
+      who: 'Kostas Andreou', role: 'Andreou’s café · 9 Cutler’s Row', face: window.FACE('kostas'),
+      lines: [
+        { note: 'Kostas puts two pieces of baklava on the table that nobody ordered.', a: 'You are Ezra&rsquo;s people. I watched him pack up at five to ten. I told the police that. He plays too loud, and he is a good boy. Both things are true.' },
+        { q: 'Mrs Askew says that you told her the busker was hanging about outside the violin shop at half past ten.', a: 'No! I said to her, &ldquo;There was a busker on the corner at half past ten.&rdquo; A busker. Not the busker. A young lad with a guitar, by the bins at the market end, playing the same four chords. I was doing my accounts with the door open. Ezra had gone half an hour before.' },
+        { q: 'Did you see anybody near the violin shop?', a: 'Nobody. I locked up at twenty-five to eleven and went the other way, to the market, for the bus. I heard the alarm from the bus stop. That is all I know, and that is all I told her.' },
+        { note: 'You write it down as he says it. He reads it, and signs the bottom of the page with a flourish.', a: 'Listen. Scales again. Every day since May. When somebody plays in the street now, she does not go to her window. She goes to the piano.' }
+      ],
+      clue: { id: 'kostas2', title: 'Mr Andreou, at the counter', kind: 'What he said' }, last: 'Thank you',
+      done: function (seen) {
+        if (!seen) return;
+        VN.mine('kostasnote', 'What Mr Andreou said (my note)', '<p>Mr Andreou said that he had told Mrs Askew that there had been a busker on the corner at half past ten.</p><p>He said that it had been a lad with a guitar, not Ezra.</p><p>He said that Ezra had gone at five to ten.</p><p>He said that he had seen nobody near No. 14.</p><p>Signed: K. Andreou</p>');
+        busy = true;
+        ER.narrate([
+          'Miss Blackwood has heard every word, while not listening. &ldquo;We shall not call him,&rdquo; she says quietly. &ldquo;We do not need to. What he told her is hearsay, and Her Honour will tell the jury to put it out of their minds, if I ask her at the right moment.&rdquo;',
+          '&ldquo;And if we called him, Mr Dewhurst would spend twenty minutes on how loud Ezra plays.&rdquo; She finishes her soup. &ldquo;But now you know how a story changes on its way down the stairs. &lsquo;A busker&rsquo; at the bottom. &lsquo;The busker&rsquo; at the top.&rdquo;',
+          'Half past one. The rain has stopped. Upstairs, the scales stop too, in the middle, and a door closes. Mrs Askew is on her way to court.'
+        ], function () { busy = false; ER.flag('f-kostas', 1); nextFile = ER.flag('f-file'); paint(); });
+      }
+    });
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  VN.thing('#window', null, 'Across the road, the door of Gilchrist &amp; Co. From down here, at a table, in daylight, you can see it perfectly. From down here.', isBusy);
+  VN.thing('#ceiling', null, 'Through the ceiling: scales on a piano, slow and careful. Every so often the player stops, and starts the same scale again from the bottom.', isBusy);
+  VN.thing('#menu', null, 'TODAY: lentil soup, cheese toastie, and baklava (my mother&rsquo;s). The baklava is underlined twice.', isBusy);
+  VN.thing('#photo', null, 'A photograph from 1979: a young man with a large moustache, outside this café, on its first day. The moustache has been in the family ever since.', isBusy);
+  VN.thing('#machine', null, 'The coffee machine. Kostas speaks to it in Greek, and it seems to understand him better than it understands anybody else.', isBusy);
+  VN.thing('#cakes', null, 'Baklava under a glass dome. It glistens.', isBusy);
+
+  /* ---------- green and pink ---------- */
+  function openPens() {
+    var box = ER.el('div', 'hl'), saved = ER.flag('f-pens') || {}, done = false, s;
+    s = '<div class="doc mg"><h4>WITNESS STATEMENT <small>MG 11 &middot; CJ Act 1967, s.9</small></h4>' +
+      '<div class="grid"><b>Name</b><span>Gwendolen Askew</span><b>Age</b><span>over 18</span><b>Occupation</b><span>retired teacher of music</span><b>Date</b><span>Friday 15 May 2026</span></div>' +
+      '<div class="decl">This statement is true to the best of my knowledge and belief, and I make it knowing that, if it is tendered in evidence, I shall be liable to prosecution if I have wilfully stated in it anything which I know to be false, or do not believe to be true.</div>';
+    LINES.forEach(function (l, i) { s += '<button type="button" class="hl-s" data-n="' + (i + 1) + '">' + ER.gloss(l) + '</button>'; });
+    s += '<p class="hw" style="text-align:right">G. Askew</p></div><div><div class="hl-pens"><div class="pg"><i></i>green: she saw it, heard it or did it herself</div><div class="pp"><i></i>pink: somebody told her, or she is only repeating it</div></div>' +
+      '<button type="button" class="btn" id="hl-go">Show Miss Blackwood</button><p class="pmsg"></p></div>';
+    box.innerHTML = s;
+    var msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function keep() { var o = {}; ER.$$('.hl-s', box).forEach(function (b) { o[b.getAttribute('data-n')] = b.classList.contains('g') ? 'g' : b.classList.contains('p') ? 'p' : ''; }); ER.flag('f-pens', o); box.setAttribute('data-g', box.querySelectorAll('.hl-s.g').length); box.setAttribute('data-p', box.querySelectorAll('.hl-s.p').length); return o; }
+    ER.$$('.hl-s', box).forEach(function (b) {
+      var c = saved[b.getAttribute('data-n')]; if (c) b.classList.add(c);
+      b.addEventListener('click', function (e) {
+        if (done || (e.target.closest && e.target.closest('.w'))) return;
+        if (b.classList.contains('g')) { b.classList.remove('g'); b.classList.add('p'); } else if (b.classList.contains('p')) b.classList.remove('p'); else b.classList.add('g');
+        VN.sfx.pen(); keep();
+      });
+    });
+    box.querySelector('#hl-go').addEventListener('click', function () {
+      var o = keep(), wrong = [], n, file, code = '';
+      if (done) return;
+      for (n = 1; n <= 9; n++) { if (!o[n]) { msg('&ldquo;Every line gets a colour,&rdquo; says Miss Blackwood. &ldquo;Line ' + n + ' has none yet.&rdquo;'); return; } }
+      for (n = 1; n <= 9; n++) { if (!ER.check('h' + n, o[n])) wrong.push(n); code += n + o[n]; }
+      if (wrong.length) {
+        VN.bump('f-tries'); VN.sfx.hm();
+        msg('Miss Blackwood puts her spoon on line ' + wrong[0] + '. &ldquo;' + WHY[wrong[0]][o[wrong[0]]] + '&rdquo;' + (wrong.length > 1 ? ' <i>&ldquo;And ' + (wrong.length === 2 ? 'one more line wants' : (wrong.length - 1) + ' more lines want') + ' another look.&rdquo;</i>' : ''));
+        return;
+      }
+      file = ER.exitOk([code]);
+      if (!file) { msg('Something is wrong with this lock: tell your teacher.'); return; }
+      done = true; solved = true; ER.flag('f-hl', 1); ER.flag('f-file', file); VN.done('cafe'); VN.solved();
+      msg('Miss Blackwood reads the green lines, and then the pink ones. <b>&ldquo;Four things she knows herself: an alarm, a man walking away with a case, the rain, and a busker who plays under her window. Now look at the pink. The busker hanging about, the busker wanting the violin, the busker&rsquo;s name. Everything that points at Ezra came to her from somebody else.&rdquo;</b>');
+      VN.mine('pens', 'Mrs Askew’s statement, in two colours', '<p>GREEN (her own): the alarm &middot; a man walking away with a case &middot; his playing under her window &middot; the rain.</p><p>PINK (told): &ldquo;the busker hanging about&rdquo; (Mr Andreou) &middot; &ldquo;everybody knows he wanted it&rdquo; &middot; his name (the officer) &middot; 10.39 exactly &middot; the value (Mr Gilchrist).</p><p>Everything that points at Ezra is pink.</p>', true);
+      setTimeout(function () { ER.closeAll(); paint(); ER.say('&ldquo;Now go and ask Mr Andreou what he really told her,&rdquo; says Miss Blackwood. &ldquo;You may. I may not.&rdquo;', 7000); }, 5200);
+    });
+    msg('Mrs Askew&rsquo;s statement, made the morning after. <b>Click a line to colour it</b>: once for green, twice for pink, three times to clean it. Every line gets one colour.');
+    hlBox = box; keep();
+    ER.open('ov-lock', box, function () { hlBox = null; });
+  }
+})();
+</script>
+</body>
+</html>

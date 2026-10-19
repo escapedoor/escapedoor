@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Ings · Trading in Wind</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-econ.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="tulip.css">
+<style>
+  body{--bg:#a8c0c8;--accent:#3a5a2a;--font-display:'Cabin Sketch',serif;--font-ui:'Outfit',sans-serif;--font-body:'Lora',serif;
+    --tc-bg:rgba(240,242,230,.97);--tc-ink:#1f2a18;--cap-bg:rgba(246,248,238,.96);--cap-ink:#1f2a18;--panel:#f4f4e8;--panel-ink:#1f2a18;--face-bg:#4a5a3a;--q-ink:#3a5a2a;
+    --fade:#e8ece0;--hud-bg:rgba(246,248,238,.9);--hud-ink:#1f2a18;--hud-line:rgba(31,42,24,.3);--ov-bg:rgba(20,30,20,.6)}
+  .tc-room{font-size:clamp(44px,6.2vw,88px);color:#3a5a2a}
+  .tc-theme{color:#6a4a1a}
+  .hbtn b{color:#fff}
+  #swans g{animation:sw 18s ease-in-out infinite alternate}
+  @keyframes sw{to{transform:translateX(60px)}}
+  #ripple{animation:rp 3s steps(3,end) infinite}
+  @keyframes rp{50%{opacity:.4}}
+
+  /* the map table */
+  .mp{width:min(1160px,97vw)}
+  .mp-in{display:grid;grid-template-columns:520px 1fr;gap:12px;background:#e8e2c8;border:3px solid #6a5a3a;border-radius:4px;padding:10px 12px;color:#1f2a18}
+  .mp svg{width:100%;height:auto;display:block;background:#f4f0dc;border:1px solid #a89a70}
+  .cards2{display:flex;flex-direction:column;gap:6px}
+  .pile2{display:grid;grid-template-columns:1fr 1fr;gap:5px;min-height:70px;padding:5px;background:#d4ccac;border-radius:3px}
+  .cmp{display:block;padding:5px 8px;background:#fffdf2;border-left:5px solid #6a5a3a;font-family:'Lora',serif;font-size:12.8px;line-height:1.25;color:#1f2a18;box-shadow:0 2px 0 #a89a70}
+  .cmp b{font-family:'Outfit',sans-serif;font-size:11.5px;letter-spacing:.06em;color:#6a4a1a;display:block}
+  .bins{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .bin{border:2px dashed #6a5a3a;border-radius:4px;padding:4px;min-height:150px;display:flex;flex-direction:column;gap:4px;background:rgba(255,255,255,.35)}
+  .bin h5{margin:0;font:800 11.5px 'Outfit',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#6a2a1a}
+  .bin .slot{min-height:26px}
+  .bin .cmp{font-size:12px}
+  .tot{display:flex;align-items:center;gap:10px;justify-content:space-between;padding:6px 10px;background:#2a3a20;color:#f4f0dc;border-radius:3px;font-family:'Lora',serif;font-size:14.5px}
+  /* the stint board */
+  .sb{width:min(1060px,96vw)}
+  .sb-in{background:#5a4a2a;border:4px solid #3a2e18;border-radius:4px;padding:10px 14px;color:#f4ecd4}
+  .sb table{width:100%;border-collapse:collapse;font-family:'Lora',serif;font-size:14.5px}
+  .sb th{font:800 11.5px 'Outfit',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#f2d48a;text-align:left;padding:3px 6px;border-bottom:2px solid #8a7a4a}
+  .sb td{padding:3px 6px;border-bottom:1px solid rgba(244,236,212,.18)}
+  .sb td.n{text-align:center;font-family:'Courier Prime',monospace;font-weight:700}
+  .sb tr.h{cursor:pointer}
+  .sb tr.h:hover td{background:rgba(255,255,255,.06)}
+  .sb tr.h.on td{background:rgba(242,212,138,.22)}
+  .sb tr.h td.mk:before{content:'\25CB';color:#c8b88a}
+  .sb tr.h.on td.mk:before{content:'\25CF  held by hay';color:#f2d48a;font-family:'Outfit',sans-serif;font-size:12px}
+  .sb .row2{display:flex;gap:18px;align-items:center;margin-top:8px;font-family:'Lora',serif;font-size:15px}
+  .sb .pmsg{color:#fbf8ee}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7a9ab8"/><stop offset=".7" stop-color="#d8e0e0"/><stop offset="1" stop-color="#f2e8d0"/></linearGradient>
+  <linearGradient id="grass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a9a6a"/><stop offset="1" stop-color="#5a7a3a"/></linearGradient>
+  <linearGradient id="brown" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a6a42"/><stop offset=".11" stop-color="#9a8a62"/><stop offset=".16" stop-color="#8aa0a8"/><stop offset="1" stop-color="#8aa0a8"/></linearGradient>
+  <pattern id="plough" width="30" height="12" patternUnits="userSpaceOnUse"><rect width="30" height="12" fill="#5a4030"/><path d="M0 6H30" stroke="#3a2a1e" stroke-width="3"/></pattern>
+  <pattern id="planks" width="40" height="200" patternUnits="userSpaceOnUse"><rect width="40" height="200" fill="#6a5a3a"/><path d="M0 0V200" stroke="#4a3e26" stroke-width="3"/></pattern>
+  <radialGradient id="sun" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fff8e0"/><stop offset="1" stop-color="#fff8e0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="45%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".75" stop-color="#1a2a1a" stop-opacity=".06"/><stop offset="1" stop-color="#1a2a1a" stop-opacity=".38"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="880" fill="url(#sky)"/>
+<circle cx="1250" cy="330" r="120" fill="url(#sun)"/><circle cx="1250" cy="330" r="22" fill="#fffbe8"/>
+<g fill="#fff" opacity=".6"><ellipse cx="400" cy="140" rx="160" ry="18"/><ellipse cx="520" cy="120" rx="90" ry="14"/><ellipse cx="1000" cy="200" rx="120" ry="12"/></g>
+<!-- horizon: poplars, the pumping station, the glasshouse -->
+<g fill="#4a5a4a"><path d="M-1000 476H2600V490H-1000z"/><g><ellipse cx="820" cy="452" rx="8" ry="30"/><ellipse cx="844" cy="456" rx="7" ry="26"/><ellipse cx="866" cy="450" rx="8" ry="32"/><ellipse cx="1020" cy="458" rx="7" ry="24"/><ellipse cx="1040" cy="454" rx="8" ry="28"/></g></g>
+<g id="pumpst" class="hot"><rect x="560" y="410" width="120" height="70" fill="#8a4a32"/><path d="M554 410l66 -34 66 34z" fill="#5a3a2a"/><rect x="652" y="350" width="16" height="66" fill="#7a3e28"/><rect x="606" y="440" width="26" height="40" fill="#3a2a1e"/></g>
+<g id="ghouse" class="hot"><rect x="1330" y="440" width="170" height="44" fill="#d8eaf0" stroke="#f4fbff" stroke-width="2"/><path d="M1330 440l85 -30 85 30z" fill="#e8f4f8" stroke="#f4fbff" stroke-width="2"/><path d="M1372 425v59M1415 410v74M1458 425v59" stroke="#f4fbff" stroke-width="2"/><g fill="#c8202a"><circle cx="1350" cy="474" r="3"/><circle cx="1366" cy="476" r="3"/><circle cx="1390" cy="474" r="3"/></g></g>
+
+<!-- the Ings, the Long Field, the drain -->
+<rect x="-1000" y="484" width="3600" height="1000" fill="url(#grass)"/>
+<path id="longfield" class="hot" d="M820 484H2600V610L1000 560z" fill="url(#plough)"/>
+<text x="1240" y="540" class="cH" font-size="18" fill="#f4ecd4">the Long Field</text>
+<g fill="#b8ccd4" opacity=".75"><ellipse cx="400" cy="600" rx="140" ry="16"/><ellipse cx="760" cy="540" rx="100" ry="10"/><ellipse cx="260" cy="700" rx="110" ry="14"/></g>
+<g id="swans"><g><path d="M380 596q10 -14 26 -6q-4 -14 4 -18" stroke="#fff" stroke-width="4" fill="none"/><ellipse cx="392" cy="598" rx="18" ry="7" fill="#fff"/></g><g><path d="M450 604q10 -14 26 -6q-4 -14 4 -18" stroke="#fff" stroke-width="4" fill="none"/><ellipse cx="462" cy="606" rx="18" ry="7" fill="#fff"/></g></g>
+<path id="drain" class="hot" d="M600 484L650 484L2958 1400L2141 1400z" fill="url(#brown)"/>
+<path d="M1000 560q-30 20 -62 44" stroke="#7a5a3a" stroke-width="12" fill="none"/><path id="ripple" d="M880 600q30 12 60 4" stroke="#a88a5a" stroke-width="5" fill="none" opacity=".7"/>
+<path d="M600 484L2141 1400M650 484L2958 1400" stroke="#4a5a3a" stroke-width="5"/>
+
+<!-- eel traps and beehives -->
+<g id="traps" class="hot"><path d="M700 528l3 -18M732 538l3 -18" stroke="#3a2a1a" stroke-width="3"/><ellipse cx="701" cy="532" rx="10" ry="4" fill="#a88a50" stroke="#6a5a2a"/><ellipse cx="733" cy="542" rx="10" ry="4" fill="#a88a50" stroke="#6a5a2a"/></g>
+<g id="hives" class="hot"><g fill="#f0ead8" stroke="#8a7a5a" stroke-width="2"><rect x="474" y="566" width="34" height="30"/><rect x="516" y="570" width="34" height="30"/><rect x="558" y="566" width="34" height="30"/></g><g fill="#8a7a5a"><rect x="470" y="560" width="42" height="8"/><rect x="512" y="564" width="42" height="8"/><rect x="554" y="560" width="42" height="8"/></g></g>
+
+<!-- the hayward's hut -->
+<g><rect x="40" y="430" width="420" height="330" fill="url(#planks)"/><path d="M20 440L250 330L480 440z" fill="#3a3a30"/><rect x="200" y="560" width="90" height="200" fill="#3a2e1a"/><circle cx="276" cy="660" r="5" fill="#c9a24a"/></g>
+<g id="mapb" class="hot"><rect x="70" y="490" width="110" height="90" fill="#f4f0dc" stroke="#3a2e1a" stroke-width="4"/><path d="M80 570L170 500M90 570L180 520" stroke="#6a8aa0" stroke-width="3"/><rect x="120" y="500" width="50" height="22" fill="#8a6a42"/><g fill="#fff" stroke="#6a5a3a"><rect x="76" y="586" width="30" height="20"/><rect x="112" y="590" width="30" height="20"/><rect x="148" y="586" width="30" height="20"/></g></g>
+<g id="cutting" class="hot"><rect x="214" y="580" width="62" height="70" fill="#ece6d6" transform="rotate(-3 245 615)"/><path d="M222 594h46M222 604h40M222 614h46M222 624h36M222 634h44" stroke="#6a6a6a" stroke-width="2" transform="rotate(-3 245 615)"/></g>
+<g id="board" class="hot"><rect x="310" y="480" width="130" height="150" fill="#5a4a2a" stroke="#3a2e18" stroke-width="5"/><text x="375" y="504" class="cH" font-size="13" text-anchor="middle" fill="#f2d48a">STINTS</text>
+  <g fill="#f4ecd4"><circle cx="330" cy="520" r="3"/><circle cx="342" cy="520" r="3"/><circle cx="354" cy="520" r="3"/><circle cx="330" cy="540" r="3"/><circle cx="342" cy="540" r="3"/><circle cx="330" cy="560" r="3"/><circle cx="342" cy="560" r="3"/><circle cx="354" cy="560" r="3"/><circle cx="366" cy="560" r="3"/><circle cx="330" cy="580" r="3"/><circle cx="330" cy="600" r="3"/><circle cx="342" cy="600" r="3"/></g></g>
+<g id="rules" class="hot"><rect x="330" y="650" width="96" height="80" fill="#efe9d2" stroke="#3a5a2a" stroke-width="3"/><rect x="330" y="650" width="96" height="12" fill="#3a5a2a"/><path d="M340 676h76M340 686h70M340 696h76M340 706h60M340 716h70" stroke="#6a6a5a" stroke-width="2"/></g>
+<g id="ostrom" class="hot"><rect x="66" y="620" width="96" height="104" fill="#ece6d6" transform="rotate(2 114 672)"/><g transform="rotate(2 114 672)"><rect x="72" y="628" width="84" height="16" fill="#3a3a3a"/><rect x="76" y="652" width="34" height="40" fill="#9a9a9a"/><path d="M116 656h36M116 666h36M116 676h30M76 702h76M76 712h70" stroke="#6a6a6a" stroke-width="2"/></g></g>
+
+<g id="maud" class="hot" transform="translate(640 850) scale(1)"></g>
+<g id="pearl" class="hot" transform="translate(500 880) scale(.92)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Along the bank to the glasshouse</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="tulip.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, lockA = null, lockB = null;
+
+  (function () {
+    $('#maud').innerHTML = TULIP.who('maud', { smile: 0, extra: '<path d="M40 -112l40 60" stroke="#3a2a1a" stroke-width="4"/><ellipse cx="86" cy="-44" rx="14" ry="22" fill="#a88a50" stroke="#6a5a2a" stroke-width="2"/>' });
+    $('#pearl').innerHTML = TULIP.who('pearl', { smile: 1 });
+  })();
+
+  ER.init({
+    theme: 'econ', story: 'tulip', storyTitle: 'Trading in Wind', id: 'ings', no: 'V', title: 'The Ings',
+    go: 'Over the stile', sound: ['ledger', { root: 47, bpm: 80, drop: ['mel'], beds: [['wind', 0.5], ['birds', 0.35]] }],
+    intro: [
+      'The honest chart: on a plain scale, from zero, ten years long, tulip bulbs lay at 40p to 50p, then shot up in seven weeks from £5 to £320. And this week, from Saturday to Friday, the price rose only £32, which is 10%, after seven weeks of 100%. The new money has stopped coming.',
+      'Mr Tebbutt called it a breather, and sent you to tell Maud Collishaw that the Long Field is good news.',
+      'The Ings is the town&rsquo;s water meadow, a mile out along the Drove: wide, flat and wet, with a straight drain down the middle, and a sky that goes all the way down to the ground. It is one o&rsquo;clock.'
+    ],
+    exit: {"next":"glasshouse","w":{"79ba9238":"9087c170"}}, tags: {"harm":["e1301c3e","42e3bea1","d1d66ddc"],"total":["e3980013"],"stint":["cda03a7e"],"s4":["f1ee401b"],"s6":["ee16bf68"],"held":["60c79c01"],"t3000":["aa3ae0bf"],"t3420":["12e54207"],"t3300":["abf15635"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('e-file') || null; told = ER.flag('e-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('e-told', told); return true; }
+  function isBusy() { return busy; }
+  function partA() { return !!ER.flag('e-a'); }
+  function paint() {
+    ER.pips((told.maud ? 1 : 0) + (told.cutting ? 1 : 0) + (partA() ? 1 : 0) + (told.rules ? 1 : 0) + (told.ostrom ? 1 : 0) + (nextFile ? 1 : 0), 6);
+    $('#mapb').classList.toggle('ready', !!(told.maud && told.cutting && !partA()));
+    $('#board').classList.toggle('ready', !!(partA() && told.rules && told.ostrom && !nextFile));
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Maud has sent you along the bank to Mrs Purkiss&rsquo;s glasshouse: the button at the bottom of the screen.']];
+    if (lockB && lockB.isOpen()) return ['stint', [
+      'The Ings feeds 60 cattle in a summer. There are 15 rights (nine houses with one, three with two). 60 divided by 15 is 4, but read Rule 2: some houses cannot winter as many as the stint allows, so they graze fewer, and that leaves room.',
+      'For a stint you try, each house grazes the stint times its rights, or what it can winter, whichever is smaller. Add them up. The right stint is the largest one whose total is not more than 60.',
+      'At a stint of 5 the total is exactly 60. The houses held back by their hay are those that can winter fewer than five a right: mark those six rows.'
+    ]];
+    if (lockA && lockA.isOpen()) return ['map', [
+      'Follow the water. The arrows on the map show which way each drain flows. The Long Field&rsquo;s grip runs into one drain only. Who is downstream of it, on that drain?',
+      'The Catchwater is on higher ground and runs to the river by itself: nothing from the Long Field reaches it. Mrs Purkiss takes her water from the Ings Drain above the grip, upstream. The eel traps, the drinking bay and the pumping station are below it.',
+      'Three complaints are the run-off. Add their costs for one year: £35 a month for twelve months, £25 a week for twelve weeks, and the dredging.'
+    ]];
+    if (!told.maud) return ['maud', ['The hayward is at the edge of the drain with an eel trap. Talk to her.', 'Click Maud Collishaw, in the green coat and flat cap.']];
+    if (!told.cutting) return ['cutting', ['Maud pinned something about who pays on her hut door.', 'The newspaper cutting on the door of the hut, on the left.']];
+    if (!partA()) return ['mapb', ['The map and the complaints are on the hut wall. Click them.', 'The map is on the left-hand end of the hut, with three cards pinned under it.']];
+    if (!told.rules) return ['rules', ['Now the stints. The rules of the Ings are on the notice under the STINTS board.', 'The cream notice with a green top, at the right-hand end of the hut.']];
+    if (!told.ostrom) return ['ostrom', ['Maud has kept a newspaper cutting about how real towns share land.', 'The cutting with a photograph, low down on the left of the hut.']];
+    return ['board', ['The stints board is on the hut wall, with the pegs. Click it.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('Five a right, sixty beasts, and a strip of grass along the drain. Mrs Purkiss&rsquo;s glasshouse is shining at the end of the bank.'); return; }
+    if (told.in) { busy = false; ER.say('The Ings. Maud is pulling up another empty eel trap.'); return; }
+    tell('in');
+    ER.narrate([
+      'Flat green meadow as far as the poplars, with sheets of floodwater lying on it like dropped mirrors. Two swans. A hut of black planks. On the far side of the drain, twenty acres of new ploughing, brown and raw: the Long Field.',
+      'The drain runs dead straight to a brick pumping station on the horizon. Where a little ditch comes into it from the Long Field, the water turns the colour of strong tea.',
+      'At the edge of the drain, a small square woman in a waxed coat is pulling up an eel trap. It is empty. She looks at it, and then at you, in exactly the same way.'
+    ], function () { busy = false; });
+  }
+
+  $('#maud').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Go on,&rdquo; says Maud. &ldquo;Zillah&rsquo;s waiting. And tell Roland: twenty yards of grass, by Monday.&rdquo;'); return; }
+    ER.talk({
+      who: 'Mrs Maud Collishaw', role: 'Hayward of the Ings · eel catcher', face: TULIP.face('maud'),
+      lines: [
+        { note: 'She drops the empty trap back into the brown water.', a: '&ldquo;Roland&rsquo;s messengers. He&rsquo;s sent you to tell me the Long Field is good news.&rdquo;' },
+        { q: 'What is wrong with the Long Field?', a: '&ldquo;In January his syndicate ploughed it, twenty acres of old grass, and spread it thick with fertiliser for next autumn&rsquo;s Tigers. Then it rained for a fortnight. Look at the drain. That&rsquo;s their field, going past my traps, down to the pump, and out to the river.&rdquo;' },
+        { q: 'But it is their field.', a: '&ldquo;Their field, their bulbs, their profits. Not their drain. The Ings Drain is everybody&rsquo;s. When it silts up, the Drainage Board dredges it, and every house in Dykesend pays on the drainage rate, including people who never bought a Tiger in their lives.&rdquo;' },
+        { q: 'What is a hayward?', a: '&ldquo;The one who looks after the common. The Ings is common land: twelve old houses have the right to graze it in summer. Not to own it. To use it. At half past one I set this summer&rsquo;s stints, and every one of them wants more than last year.&rdquo;' },
+        { q: 'Can we help?', a: '&ldquo;Two things. First, my map and the complaints on the hut: tell me which are the Long Field&rsquo;s doing, and what they cost in a year, so I can put it to Roland. The cutting on my door says how to think about it. Then the stints. The Ings doesn&rsquo;t forgive bad arithmetic.&rdquo;' }
+      ],
+      clue: { id: 'maud', title: 'Maud: their field, not their drain', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('maud')) { paint(); ER.say('The cutting on the hut door, then the map and the complaints.'); } }
+    });
+  });
+
+  var DIA1 = '<svg viewBox="0 0 290 170"><g font-family="Architects Daughter,cursive" font-size="12.5" fill="#1f2a18">' +
+    '<rect x="10" y="20" width="110" height="50" fill="#8a6a42"/><text x="65" y="50" text-anchor="middle" fill="#fff">the deal</text><text x="65" y="88" text-anchor="middle">seller + buyer:</text><text x="65" y="103" text-anchor="middle">they count these</text>' +
+    '<path d="M120 45h40" stroke="#7a5a3a" stroke-width="6"/><path d="M160 45h120" stroke="#9a8a62" stroke-width="14"/><path d="M262 37l16 8 -16 8" fill="#9a8a62"/>' +
+    '<circle cx="180" cy="90" r="11" fill="#f4f0dc" stroke="#6a2a1a"/><circle cx="215" cy="90" r="11" fill="#f4f0dc" stroke="#6a2a1a"/><circle cx="250" cy="90" r="11" fill="#f4f0dc" stroke="#6a2a1a"/>' +
+    '<text x="215" y="124" text-anchor="middle" fill="#6a2a1a">downstream: they pay,</text><text x="215" y="139" text-anchor="middle" fill="#6a2a1a">nobody asked them</text><text x="215" y="25" text-anchor="middle">run-off</text></g></svg>';
+  var CUT = '<h4>The Fen Grower &middot; February</h4><h3>Who pays for the mud?</h3><div class="two"><div>' +
+    '<p>When a buyer and a seller make a deal, they count their own costs and their own gains. An <b>EXTERNALITY</b> is a cost (or a benefit) that falls on people outside the deal, who were never asked.</p>' +
+    '<p>Soil and fertiliser washing off a field into a shared drain, called <b>RUN-OFF</b>, is a cost of that kind. The grower gains; the people downstream pay. Because the cost is not in the price, there is more of it than there should be.</p>' +
+    '<p>The fix is to bring the cost back inside the deal: a rule, a charge, or a payment. <b>THE POLLUTER PAYS.</b></p>' +
+    '<p>The economist Arthur Pigou explained the idea in 1920. His example was the steam railway: sparks from its engines set fire to the woods beside the line, and the railway did not pay for the trees.</p>' +
+    '<p class="rule">In the Fens, water runs to the pumps. To find who pays, follow the water.</p></div><div class="dia">' + DIA1 + '</div></div>';
+  $('#cutting').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: CUT, cls: 'teach hut', clue: { id: 'pigou', title: 'The cutting: who pays for the mud?', kind: 'On the hut door' }, done: function () {
+      TULIP.terms(['externality', 'run-off', 'polluter pays']);
+      if (tell('cutting')) { paint(); ER.say('A cost that falls on people outside the deal. Follow the water.'); }
+    } });
+  });
+  var RULES = '<h4>The Ings &middot; common land</h4><h3>Rules for grazing</h3>' +
+    '<p>The Ings is a <b>COMMONS</b>: land that belongs to nobody alone, which twelve old houses have the right to graze in summer. Each right is a <b>STINT</b>: so many cattle. A house with two rights grazes twice the stint.</p>' +
+    '<p>The danger: an extra cow is good for its owner, who gets all its milk, while the harm (less grass) is shared by everybody. So each commoner, quite sensibly, wants one more, and together they eat the grass to the roots. Next year it grows back thinner. This is called the <b>TRAGEDY OF THE COMMONS</b>.</p>' +
+    '<p>The Ings grows grass for 60 cattle in a summer, and no more.</p>' +
+    '<p><b>RULE 1.</b> The hayward sets one stint for each right, as high as the Ings allows and not a beast higher.</p>' +
+    '<p><b>RULE 2.</b> Nobody may put more cattle on the Ings in summer than they can feed through the winter on their own hay. (Dykesend Manor Court, 1612)</p>';
+  $('#rules').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: RULES, cls: 'teach hut', clue: { id: 'ingsrules', title: 'The Ings: rules for grazing', kind: 'On the hut' }, done: function () {
+      TULIP.terms(['commons', 'stint', 'tragedy of the commons']);
+      if (tell('rules')) { paint(); ER.say('Sixty cattle and no more. And nobody grazes more than they can winter.'); }
+    } });
+  });
+  var OSTROM = '<small>Dykesend &amp; District News &middot; 15 October 2009</small><h4>First woman wins the economics Nobel</h4>' +
+    '<p>Elinor Ostrom, of Indiana University, has won the Nobel prize for economics, shared with Oliver Williamson. She is the first woman to win it.</p>' +
+    '<p>Professor Ostrom spent her life studying how real communities share pastures, forests, fisheries and water without ruining them: not by selling them off, and not by leaving everything to a government far away, but by making and keeping their own rules, watching each other, and punishing cheats a little at first.</p>' +
+    '<p>In the Swiss village of T&ouml;rbel, a rule written in 1517 says that nobody may send more cows to the summer pasture than they can feed through the winter.</p>';
+  $('#ostrom').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: OSTROM, cls: 'news', clue: { id: 'ostrom', title: 'The cutting: Elinor Ostrom, 2009', kind: 'On the hut' }, done: function () {
+      if (tell('ostrom')) { paint(); ER.say('&ldquo;Same rule as ours,&rdquo; says Maud. &ldquo;The Swiss had it first. We had it longer than the Swiss have had chocolate.&rdquo;'); }
+    } });
+  });
+  TULIP.thing('#hives', 'beehive', 'Maud&rsquo;s three beehives, on the bank, upwind of the Long Field and above the water. Quiet: it is February, and bees have more sense than to fly.', isBusy);
+  TULIP.thing('#traps', 'eel trap', 'Maud&rsquo;s eel traps, below the place where the brown water comes in. Empty, and the willow is stained brown.', isBusy);
+  TULIP.thing('#pumpst', 'pumping station', 'Dyke End pumping station. Every drain on this side of Dykesend runs to it, and its pumps lift the water up into the river, which is higher than the fields.', isBusy);
+  TULIP.thing('#longfield', null, 'The Long Field, ploughed to the very edge of the drain. A board at the corner says: DYKESEND BULB CLUB SYNDICATE &middot; FEN TIGERS &middot; COMING SOON.', isBusy);
+  TULIP.thing('#drain', 'drain', 'The Ings Drain: brown below the Long Field&rsquo;s ditch, clear above it.', isBusy);
+  TULIP.thing('#ghouse', 'glasshouse', 'Mrs Purkiss&rsquo;s glasshouse, at the end of the bank, catching the sun. There are red dots inside it.', isBusy);
+  $('#pearl').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(nextFile ? '&ldquo;Everybody wanted one more cow,&rdquo; says Pearl. &ldquo;Everybody wanted one more Tiger. Same thing, isn&rsquo;t it?&rdquo;' :
+      '&ldquo;Gran says Maud is the only person in Dykesend who has never bought anything at auction,&rdquo; says Pearl. &ldquo;She says it like a compliment.&rdquo;');
+  });
+  $('#mapb').addEventListener('click', function () {
+    if (busy) return;
+    if (partA()) { ER.say('The map, with three complaints pinned to the Long Field. £3,720 a year, paid by people outside the deal.'); return; }
+    if (!told.maud) { ER.say('A map and some complaints. Ask Maud first.'); return; }
+    if (!told.cutting) { ER.say('Maud said to read the cutting on her door first: how to think about who pays.'); return; }
+    if (!lockA) lockA = makeMap();
+    lockA.open();
+  });
+  $('#board').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Five a right. Every peg in its hole, and sixty beasts in all.'); return; }
+    if (!partA()) { ER.say('The stints come second, says Maud. First the map, and the Long Field.'); return; }
+    if (!told.rules) { ER.say('The rules of the Ings first: the notice under the board.'); return; }
+    if (!told.ostrom) { ER.say('Maud nods at a newspaper cutting low on the wall. &ldquo;Read that. Somebody got a prize for it.&rdquo;'); return; }
+    if (!lockB) lockB = makeBoard();
+    lockB.open();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- lock A: the map and the complaints ---------- */
+  function makeMap() {
+    var C = [
+      ['school', 'Dykesend School', 'Our pond went brown in January. The children are upset.'],
+      ['eel', 'M. Collishaw', 'Eel catch down by half since January: about £35 a month lost.'],
+      ['purkiss', 'Z. Purkiss', 'Will my glasshouse water be spoilt? My pump takes it from the Ings Drain.'],
+      ['dredge', 'Dyke End Drainage Board', 'The Ings Drain is silting up and must be dredged this summer: £3,000, from the drainage rate (600 houses, £5 each).'],
+      ['gapp', 'Gapp&rsquo;s Nursery', 'Our water from the Catchwater is muddy this month.'],
+      ['cattle', 'The commoners', 'The drinking bay is brown and silted. Water must be carted to the cattle all summer: £25 a week for 12 weeks.']
+    ];
+    var MAP = '<svg viewBox="0 0 520 380"><g font-family="Architects Daughter,cursive" font-size="13" fill="#1f2a18">' +
+      '<rect width="520" height="380" fill="#eef0d8"/><path d="M0 0H140V380H0z" fill="#e2dcbc"/><text x="70" y="22" text-anchor="middle" font-size="12">HIGHER GROUND</text>' +
+      '<path d="M90 380V40" stroke="#6a8aa0" stroke-width="7"/><text x="100" y="200" transform="rotate(-90 100 200)" text-anchor="middle" font-size="12">CATCHWATER</text><path d="M84 70l6 -14 6 14" fill="#2a4a6a"/><path d="M84 300l6 -14 6 14" fill="#2a4a6a"/><text x="90" y="34" text-anchor="middle" font-size="11">to the river</text>' +
+      '<rect x="20" y="300" width="56" height="40" fill="#fff" stroke="#6a5a3a"/><text x="48" y="324" text-anchor="middle" font-size="11">School</text><path d="M76 316h12" stroke="#6a8aa0" stroke-width="3"/>' +
+      '<rect x="20" y="120" width="56" height="40" fill="#fff" stroke="#6a5a3a"/><text x="48" y="138" text-anchor="middle" font-size="10.5">Gapp&apos;s</text><text x="48" y="152" text-anchor="middle" font-size="10.5">Nursery</text><path d="M76 140h12" stroke="#6a8aa0" stroke-width="3"/>' +
+      '<path d="M330 380V40" stroke="#6a8aa0" stroke-width="10"/><text x="342" y="370" font-size="12">INGS DRAIN</text>' + [330, 250, 170, 90].map(function (y) { return '<path d="M322 ' + y + 'l8 -16 8 16" fill="#2a4a6a"/>'; }).join('') +
+      '<rect x="296" y="10" width="68" height="30" fill="#8a4a32"/><text x="330" y="30" text-anchor="middle" fill="#fff" font-size="11">PUMP</text><text x="400" y="30" font-size="11">Dyke End pumping station</text>' +
+      '<rect x="380" y="150" width="130" height="100" fill="#8a6a42"/><text x="445" y="196" text-anchor="middle" fill="#fff">LONG FIELD</text><text x="445" y="214" text-anchor="middle" fill="#fff" font-size="11">ploughed in January</text>' +
+      '<path d="M380 200H338" stroke="#7a5a3a" stroke-width="5"/><path d="M350 194l-12 6 12 6" fill="#7a5a3a"/><text x="358" y="190" font-size="11">grip</text>' +
+      '<rect x="380" y="290" width="110" height="44" fill="#d8eaf0" stroke="#6a8aa0"/><text x="435" y="310" text-anchor="middle" font-size="11">Purkiss&apos;s</text><text x="435" y="324" text-anchor="middle" font-size="11">glasshouse</text><path d="M380 312H340" stroke="#6a8aa0" stroke-width="3" stroke-dasharray="4 3"/><text x="356" y="306" font-size="10">pump</text>' +
+      '<ellipse cx="290" cy="150" rx="22" ry="9" fill="#a88a50"/><text x="258" y="154" text-anchor="end" font-size="11">eel traps</text>' +
+      '<path d="M300 90q-34 0 -34 20t34 20" fill="#b8ccd4" stroke="#6a8aa0"/><text x="258" y="114" text-anchor="end" font-size="11">drinking bay</text>' +
+      '<g fill="#f0ead8" stroke="#8a7a5a"><rect x="200" y="270" width="14" height="12"/><rect x="218" y="270" width="14" height="12"/></g><text x="216" y="298" text-anchor="middle" font-size="11">hives</text>' +
+      '<text x="240" y="364" text-anchor="middle" font-size="11" fill="#6a4a1a">In a wet January the Catchwater always runs brown with peat. M.C.</text></g></svg>';
+    var saved = ER.flag('e-mapl') || {}, wait = false, d = {};
+    var box = ER.el('div', 'pz mp');
+    box.innerHTML = '<div class="mp-in"><div>' + MAP + '</div><div class="cards2"><div class="pile2" id="p2">' +
+      C.map(function (c) { return '<span class="dnd-item cmp" data-id="' + c[0] + '"><b>' + c[1] + '</b>' + c[2] + '</span>'; }).join('') + '</div>' +
+      '<div class="bins"><div class="bin"><h5>Caused by the Long Field&rsquo;s run-off</h5>' + [1, 2, 3, 4].map(function () { return '<span class="slot" data-b="lf"></span>'; }).join('') + '</div>' +
+      '<div class="bin"><h5>Not the Long Field</h5>' + [1, 2, 3, 4].map(function () { return '<span class="slot" data-b="no"></span>'; }).join('') + '</div></div>' +
+      '<div class="tot"><span>What the run-off costs people outside the deal, in one year</span><i id="m-tot"></i></div></div></div>' +
+      '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="m-go">Show Maud</button></div>';
+    var msgEl = box.querySelector('.pmsg'), pile = box.querySelector('#p2');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function where(id) { var it = box.querySelector('.cmp[data-id="' + id + '"]'), s = it.closest('.slot'); return s ? s.getAttribute('data-b') : ''; }
+    function keep() { var o = { at: {}, tot: d.tot.get() }; C.forEach(function (c) { o.at[c[0]] = where(c[0]); }); ER.flag('e-mapl', o); }
+    function lk() { return wait || partA(); }
+    d.tot = TULIP.drum(box.querySelector('#m-tot'), { digits: 4, sep: true, before: '£', val: saved.tot || 0, change: keep, lock: lk });
+    Object.keys(saved.at || {}).forEach(function (id) {
+      var b = saved.at[id], it = box.querySelector('.cmp[data-id="' + id + '"]'), s;
+      if (!b || !it) return;
+      s = ER.$$('.slot[data-b="' + b + '"]', box).filter(function (x) { return !x.querySelector('.cmp'); })[0];
+      if (s) s.appendChild(it);
+    });
+    ER.dnd(box, { item: '.cmp', slot: '.slot', home: pile, change: keep, lock: lk });
+    function flash(n) { n.classList.add('bad'); setTimeout(function () { n.classList.remove('bad'); }, 1300); }
+    var WHY = {
+      school: '&ldquo;The school is on the Catchwater,&rdquo; says Maud. &ldquo;Higher ground. Nothing from the Long Field gets up there. And read my note at the bottom of the map.&rdquo;',
+      gapp: '&ldquo;Gapp takes his water from the Catchwater,&rdquo; says Maud. &ldquo;Which way does the Long Field&rsquo;s grip run?&rdquo;',
+      purkiss: '&ldquo;Where does Zillah&rsquo;s pump take its water?&rdquo; says Maud. &ldquo;Above the grip or below it? The drain runs north, to the pumping station.&rdquo;',
+      eel: '&ldquo;My traps are below the grip,&rdquo; says Maud. &ldquo;Everything from the Long Field goes past them.&rdquo;',
+      cattle: '&ldquo;The drinking bay is between the grip and the pump,&rdquo; says Maud. &ldquo;Downstream. Brown.&rdquo;',
+      dredge: '&ldquo;Where does the soil end up?&rdquo; says Maud. &ldquo;In the drain, all the way down to the pump. Somebody has to dig it out.&rdquo;'
+    };
+    box.querySelector('#m-go').addEventListener('click', function () {
+      if (wait || partA()) return;
+      var i, id;
+      for (i = 0; i < C.length; i++) { id = C[i][0]; if (!where(id)) { ER.sfx.no(); flash(box.querySelector('.cmp[data-id="' + id + '"]')); msg('&ldquo;Every complaint goes on one side or the other,&rdquo; says Maud. &ldquo;I want to tell Roland which are his.&rdquo;'); return; } }
+      for (i = 0; i < C.length; i++) {
+        id = C[i][0];
+        if ((where(id) === 'lf') !== ER.check('harm', id)) { ER.sfx.no(); flash(box.querySelector('.cmp[data-id="' + id + '"]')); msg(WHY[id]); return; }
+      }
+      var t = d.tot.get();
+      if (!ER.check('total', t)) {
+        ER.sfx.no(); flash(d.tot.node);
+        msg(ER.check('t3000', t) ? '&ldquo;That&rsquo;s only the dredging,&rdquo; says Maud. &ldquo;My eels and the cattle water cost money too.&rdquo;' :
+          ER.check('t3420', t) ? '&ldquo;You&rsquo;ve left out the cattle water,&rdquo; says Maud. &ldquo;Twenty-five pounds a week, for twelve weeks.&rdquo;' :
+          ER.check('t3300', t) ? '&ldquo;And my eels?&rdquo; says Maud. &ldquo;Thirty-five pounds a month, every month of the year.&rdquo;' :
+          '&ldquo;For a whole year,&rdquo; says Maud. &ldquo;Thirty-five a month is how much a year? Twenty-five a week for twelve weeks? Then the dredging.&rdquo;');
+        return;
+      }
+      var harm = C.map(function (c) { return c[0]; }).filter(function (k) { return where(k) === 'lf'; }).sort().join('-');
+      ER.flag('e-a', harm + '-' + t); TULIP.solved(true);
+      TULIP.mine('runoff', 'The Long Field&rsquo;s run-off', '<p>Downstream of the grip, on the Ings Drain: the eel traps (£35 a month = £420 a year), the drinking bay (£25 a week for 12 weeks = £300), the dredging (£3,000, which is £5 from each of 600 houses).</p><p>Total: £3,720 a year, paid by people outside the deal.</p><p>Not the Long Field: the school and Gapp&rsquo;s are on the Catchwater; Mrs Purkiss pumps from above the grip.</p>', true);
+      msg('Maud reads the cards twice. <b>£3,720 a year, and not a penny of it in the price of a Tiger.</b>');
+      setTimeout(function () {
+        ER.closeAll(); paint(); busy = true;
+        ER.narrate([
+          '&ldquo;Three thousand seven hundred and twenty pounds a year,&rdquo; says Maud. &ldquo;Paid by me, by the commoners, and by six hundred houses that never bought a Tiger. And the syndicate doesn&rsquo;t pay a penny of it, so it doesn&rsquo;t count it.&rdquo;',
+          '&ldquo;So the cost isn&rsquo;t in the price,&rdquo; says Pearl. &ldquo;If it were, the Long Field wouldn&rsquo;t look so clever.&rdquo;',
+          '&ldquo;A strip of grass twenty yards wide along the drain would stop most of it,&rdquo; says Maud. &ldquo;It would cost the syndicate the bulbs they&rsquo;d have grown there. Let the polluter pay. Roland will grumble. Roland grumbles in a very pleasant voice.&rdquo;',
+          'She looks at her watch. &ldquo;Half past one. Stints. Read the rules on the hut, and the cutting about the Swiss lady. Then come to the board.&rdquo;'
+        ], function () { busy = false; });
+      }, 2600);
+    });
+    msg('Read the map. Put each complaint on one side: caused by the Long Field&rsquo;s run-off, or not. Set what the run-off costs in a year. Then show Maud.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+
+  /* ---------- lock B: the stint board ---------- */
+  function makeBoard() {
+    var H = [
+      ['h1', 'Hayward&rsquo;s Cottage (M. Collishaw)', 1, 3, 3], ['h2', 'Mill House', 1, 8, 8], ['h3', 'Drove End', 1, 2, 4], ['h4', 'Bank Farm', 1, 6, 7],
+      ['h5', 'Ings Farm', 1, 10, 10], ['h6', 'Rose Cottage', 1, 4, 5], ['h7', 'Sluice House', 1, 6, 6], ['h8', 'The Old Forge', 1, 7, 7],
+      ['h9', 'Pump Cottage', 1, 1, 3], ['h10', 'Manor Farm', 2, 12, 14], ['h11', 'Glebe Farm', 2, 6, 8], ['h12', 'Rectory Farm', 2, 9, 9]
+    ];
+    var saved = ER.flag('e-board') || {}, wait = false, d = {}, held = saved.held || [];
+    var box = ER.el('div', 'pz sb');
+    box.innerHTML = '<div class="sb-in"><table><tr><th>House</th><th>Rights</th><th>Can winter</th><th>Wants this summer</th><th>Rule 2</th></tr>' +
+      H.map(function (h) { return '<tr class="h" data-id="' + h[0] + '"><td>' + h[1] + '</td><td class="n">' + h[2] + '</td><td class="n">' + h[3] + '</td><td class="n">' + h[4] + '</td><td class="mk"></td></tr>'; }).join('') +
+      '</table><div class="row2"><label>Stint for each right: <i id="s-st"></i></label><span class="want">Everybody wants 84 beasts. The Ings feeds 60.</span></div></div>' +
+      '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="s-go">Peg it up</button></div>';
+    var msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function keep() { ER.flag('e-board', { st: d.st.get(), held: held }); }
+    function lk() { return wait || !!nextFile; }
+    d.st = TULIP.drum(box.querySelector('#s-st'), { digits: 1, val: saved.st || 0, change: keep, lock: lk });
+    function paintH() { ER.$$('tr.h', box).forEach(function (r) { r.classList.toggle('on', held.indexOf(r.getAttribute('data-id')) >= 0); }); }
+    ER.$$('tr.h', box).forEach(function (r) {
+      r.addEventListener('click', function () { if (lk()) return; var id = r.getAttribute('data-id'), i = held.indexOf(id); if (i >= 0) held.splice(i, 1); else held.push(id); ER.sfx.click(); paintH(); keep(); });
+    });
+    paintH();
+    ER.glossIn(box, '.row2 .want');
+    function flash(n) { n.classList.add('bad'); setTimeout(function () { n.classList.remove('bad'); }, 1300); }
+    box.querySelector('#s-go').addEventListener('click', function () {
+      if (wait || nextFile) return;
+      var s = d.st.get();
+      if (!s) { ER.sfx.no(); flash(d.st.node); msg('&ldquo;A stint of nothing?&rdquo; says Maud. &ldquo;Then the grass grows for the swans. Set the wheel.&rdquo;'); return; }
+      if (!ER.check('stint', s)) {
+        ER.sfx.no(); flash(d.st.node);
+        msg(ER.check('s4', s) ? '&ldquo;Sixty divided by fifteen rights,&rdquo; says Maud. &ldquo;That&rsquo;s four, if everybody can winter four a right. Can they? Read the hay column, and Rule 2. The Ings would be part empty.&rdquo;' :
+          ER.check('s6', s) || s > 6 ? '&ldquo;Count the beasts that would go on,&rdquo; says Maud. &ldquo;Each house: the stint times its rights, or what it can winter, whichever is less. More than sixty, and the grass goes to the roots.&rdquo;' :
+          '&ldquo;Too few,&rdquo; says Maud. &ldquo;The Ings can feed more than that. Rule 1: as high as the Ings allows.&rdquo;');
+        return;
+      }
+      var hk = held.slice().sort().join('');
+      if (!ER.check('held', hk)) { ER.sfx.no(); flash(box.querySelector('table')); msg('&ldquo;Right stint,&rdquo; says Maud. &ldquo;Now mark the houses whose hay holds them back: the ones that can winter fewer than the stint gives them. I&rsquo;ll want to check them in October.&rdquo;'); return; }
+      var file = ER.exit([ER.flag('e-a') + '-' + s + '-' + hk], { wait: true });
+      if (!file) { msg('The door will not open. Something is wrong with this page: tell your teacher.'); return; }
+      wait = true; nextFile = file; ER.flag('e-file', file);
+      TULIP.mine('stints', 'The stints of the Ings', '<p>The Ings feeds 60 cattle. 15 rights. Sixty divided by fifteen is four, but six houses cannot winter that many (Rule 2), so the stint can be five.</p><p>At five a right: 35 cattle from the one-right houses, 25 from the two-right houses: 60 in all. At six it would be 67: too many.</p><p>Everybody wanted 84. Each one sensible, together the ruin of the grass.</p>', true);
+      msg('Maud moves the pegs, one house at a time. <b>Five a right. Sixty beasts exactly.</b>');
+      setTimeout(function () {
+        ER.closeAll(); paint(); busy = true;
+        ER.narrate([
+          '&ldquo;Five,&rdquo; says Maud. &ldquo;Not four, because Pump Cottage and Drove End and the rest haven&rsquo;t the hay to winter their share, and the grass doesn&rsquo;t care who eats it. Not six, because sixty-seven beasts on grass for sixty and in two summers there&rsquo;s nothing but mud and thistles.&rdquo;',
+          '&ldquo;They all wanted more,&rdquo; says Pearl. &ldquo;Eighty-four.&rdquo;',
+          '&ldquo;Course they did. Each of them is right, on his own. One more cow, one more Tiger.&rdquo; Maud shoulders her trap. &ldquo;That&rsquo;s why there&rsquo;s a hayward, and a board, and a rule older than the Corn Exchange. Nobody ever made a common last by hoping.&rdquo;',
+          'Along the bank, Mrs Purkiss&rsquo;s glasshouse is flashing in the sun. &ldquo;Zillah&rsquo;s waiting for you,&rdquo; says Maud. &ldquo;Roland got there first. He&rsquo;s brought her something in a pot, and she rang me to say she doesn&rsquo;t like the look of it.&rdquo;'
+        ], function () { busy = false; $('#go').classList.add('on'); });
+      }, 2600);
+    });
+    msg('Set the stint for each right on the wheel. Click each house that Rule 2 holds back at that stint. Then peg it up.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+})();
+</script>
+</body>
+</html>

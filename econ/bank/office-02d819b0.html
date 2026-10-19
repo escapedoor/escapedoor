@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Manager’s Office · Still Open at Four</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-econ.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="bank.css">
+<style>
+  body{--bg:#22362c;--accent:#c9a24a;--font-display:'Lora',serif;--font-ui:'Outfit',sans-serif;--font-body:'Lora',serif;
+    --tc-bg:rgba(236,232,214,.97);--tc-ink:#1a2a20;--cap-bg:rgba(246,242,228,.96);--cap-ink:#1a2a20;--panel:#f6f2e4;--panel-ink:#1a2a20;--face-bg:#26304a;--q-ink:#2f5a44;
+    --fade:#1a2a20;--hud-bg:rgba(246,242,228,.9);--hud-ink:#1a2a20;--hud-line:rgba(26,42,32,.3);--ov-bg:rgba(10,20,14,.66)}
+  .tc-room{font-size:clamp(38px,5.4vw,76px);color:#2f5a44}
+  .tc-theme{color:#8a6a2a}
+  .hbtn b{color:#fff}
+  #glow{animation:lamp 6s steps(3,end) infinite}
+  @keyframes lamp{50%{opacity:.8}}
+  #beamS{transition:transform .6s ease-out;transform-origin:760px 392px}
+
+  /* Mr Yeoman's balance */
+  .yb{width:min(1100px,96vw)}
+  .yb-in{background:#2a1f16 radial-gradient(ellipse at 50% 0%,rgba(255,220,150,.18),transparent 60%);border:3px solid #6a4a28;border-radius:6px;padding:10px 16px 12px;color:#f4ead0;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+  .yb svg{width:100%;height:150px}
+  #ybeam{transition:transform .5s ease-out;transform-origin:450px 40px}
+  .pans{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:-6px}
+  .pan{background:radial-gradient(ellipse at 50% 30%,#e6c873,#a8842e);border-radius:0 0 60px 60px/0 0 26px 26px;padding:8px 10px 14px;box-shadow:inset 0 -8px 12px rgba(0,0,0,.3)}
+  .pan h5{margin:0 0 5px;text-align:center;font-family:'Cinzel',serif;font-weight:700;font-size:16px;letter-spacing:.1em;color:#3a2a08}
+  .hooks{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+  .hook{min-height:46px;border:2px dashed rgba(58,42,8,.45);border-radius:6px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.12)}
+  .wt{display:inline-block;width:100%;padding:4px 8px 3px;background:linear-gradient(#5a5048,#2e2824);color:#f4ead0;border-radius:10px 10px 4px 4px;text-align:center;font-family:'Lora',serif;font-size:13px;line-height:1.15;box-shadow:inset 0 2px 0 rgba(255,255,255,.2),0 3px 0 #1a1410}
+  .wt b{display:block;font-family:'Courier Prime',monospace;font-size:15px;color:#f2c45a}
+  .wtray{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;min-height:52px;margin-top:10px;padding:8px;background:#1a140e;border:2px solid #4a3420;border-radius:4px}
+  .eng{display:flex;flex-wrap:wrap;gap:8px 20px;align-items:center;margin-top:9px;padding:8px 10px;background:rgba(255,255,255,.06);border-radius:4px;font-family:'Lora',serif;font-size:14.5px}
+  .eng label{display:flex;gap:7px;align-items:center}
+  .eng .dr{color:#f4ead0}.eng .dr-w b{font-size:20px}
+  .eng .hide{display:none}
+  .yb .bad{outline:3px solid #e2453a;outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="oak" width="140" height="180" patternUnits="userSpaceOnUse"><rect width="140" height="180" fill="#4a3018"/><rect x="12" y="14" width="116" height="152" fill="#5a3a20" stroke="#3a2210" stroke-width="3"/></pattern>
+  <pattern id="carpet" width="80" height="80" patternUnits="userSpaceOnUse"><rect width="80" height="80" fill="#6a1f26"/><path d="M40 8l32 32-32 32-32-32z" fill="none" stroke="#8a3a3a" stroke-width="3"/><circle cx="40" cy="40" r="5" fill="#c9a24a" opacity=".5"/></pattern>
+  <linearGradient id="brass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8a6a26"/><stop offset=".3" stop-color="#e6c873"/><stop offset=".6" stop-color="#b08a35"/><stop offset="1" stop-color="#f0d98f"/></linearGradient>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a8c4d8"/><stop offset="1" stop-color="#dfe6e0"/></linearGradient>
+  <radialGradient id="lampL" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffe7a8" stop-opacity=".55"/><stop offset="1" stop-color="#ffe7a8" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".65" stop-color="#0a140e" stop-opacity=".14"/><stop offset="1" stop-color="#0a140e" stop-opacity=".6"/></radialGradient>
+</defs>
+
+<rect x="-1000" y="-400" width="3600" height="1000" fill="#2f4a3a"/>
+<g opacity=".12" stroke="#c9d8c0" stroke-width="2"><path d="M-1000 40H2600M-1000 120H2600M-1000 200H2600M-1000 280H2600M-1000 360H2600"/></g>
+<rect x="-1000" y="440" width="3600" height="300" fill="url(#oak)"/><rect x="-1000" y="430" width="3600" height="14" fill="#3a2210"/>
+
+<!-- the bookcase -->
+<g><rect x="-400" y="80" width="500" height="660" fill="#3a2210"/><g id="books"></g></g>
+
+<!-- the portrait of the founder -->
+<g id="portrait" class="hot"><rect x="170" y="100" width="190" height="240" fill="url(#brass)"/><rect x="184" y="114" width="162" height="212" fill="#2a2018"/>
+  <path d="M206 326q10 -90 59 -96t59 96z" fill="#1a1410"/><circle cx="265" cy="196" r="36" fill="#d8b08a"/><path d="M229 200q-4 -50 36 -52t36 52q-8 -22 -36 -24t-36 24z" fill="#5a4a3a"/><path d="M234 214q10 26 31 24t31 -24q-8 18 -31 18t-31 -18z" fill="#8a7a6a"/><path d="M254 192h6M272 192h6" stroke="#2a1a10" stroke-width="3"/><path d="M252 236h26" stroke="#5a3a2a" stroke-width="3"/>
+  <rect x="226" y="300" width="80" height="16" fill="url(#brass)"/><text x="266" y="312" class="cZ" font-size="8" text-anchor="middle" fill="#3a2a08">P. YEOMAN</text></g>
+
+<!-- the photograph from 2007 -->
+<g id="photo" class="hot"><rect x="420" y="170" width="160" height="124" fill="#1a1a1a"/><rect x="430" y="180" width="140" height="104" fill="#d8d8d4"/>
+  <rect x="430" y="180" width="140" height="58" fill="#a8acae"/><g id="tiny"></g><rect x="508" y="190" width="54" height="16" fill="#3a3a3a"/></g>
+
+<!-- the window on to Market Square -->
+<g id="window" class="hot"><rect x="1070" y="90" width="400" height="360" fill="#3a2210"/><rect x="1086" y="106" width="368" height="328" fill="url(#sky)"/>
+  <rect x="1086" y="250" width="368" height="184" fill="#c8bca0"/><rect x="1120" y="220" width="130" height="150" fill="#b8a080"/><rect x="1134" y="296" width="44" height="74" fill="#3a5a3a"/><text x="1185" y="244" class="cO" font-size="13" text-anchor="middle" fill="#2a3a2a">THE TOAST RACK</text>
+  <rect x="1290" y="200" width="150" height="170" fill="#a89470"/><rect x="1300" y="240" width="60" height="50" fill="#d8e0e0"/><rect x="1380" y="240" width="50" height="50" fill="#d8e0e0"/>
+  <rect x="1086" y="370" width="368" height="64" fill="#9a9488"/><g id="sq"></g>
+  <path d="M1270 106v328M1086 270h368" stroke="#3a2210" stroke-width="8"/></g>
+
+<!-- the lamp's light -->
+<ellipse id="glow" cx="470" cy="520" rx="300" ry="200" fill="url(#lampL)" pointer-events="none"/>
+
+<!-- Mrs Delacour, behind the desk -->
+<g id="delacour" class="hot" transform="translate(560 712) scale(1.12)"></g>
+
+<!-- the desk -->
+<rect x="360" y="560" width="900" height="200" fill="#4a2a14"/><rect x="340" y="548" width="940" height="22" rx="3" fill="#6a3f20"/><rect x="380" y="590" width="260" height="150" fill="#3a2010" stroke="#2a1608" stroke-width="3"/><rect x="980" y="590" width="260" height="150" fill="#3a2010" stroke="#2a1608" stroke-width="3"/><circle cx="510" cy="664" r="6" fill="#c9a24a"/><circle cx="1110" cy="664" r="6" fill="#c9a24a"/>
+<rect x="420" y="540" width="220" height="10" fill="#2f5a44" opacity=".8"/>
+
+<!-- the lamp -->
+<g><path d="M455 548v-90" stroke="#c9a24a" stroke-width="6"/><ellipse cx="455" cy="548" rx="34" ry="7" fill="url(#brass)"/><path d="M405 460q50 -40 100 0z" fill="#1f6a3a"/><path d="M405 460h100" stroke="#c9a24a" stroke-width="3"/></g>
+
+<!-- the Courier -->
+<g id="courier" class="hot"><path d="M520 548l12 -24h96l-8 24z" fill="#e8e2d0" stroke="#8a8478"/><path d="M540 532h70M538 538h60" stroke="#3a3a3a" stroke-width="2"/><text x="574" y="530" class="cO" font-size="7" text-anchor="middle" fill="#1a1a1a">COURIER</text></g>
+
+<!-- Mr Yeoman's balance -->
+<g id="balance" class="hot"><rect x="700" y="536" width="120" height="14" rx="3" fill="url(#brass)"/><path d="M760 536V396" stroke="#b8902e" stroke-width="10"/><circle cx="760" cy="392" r="10" fill="url(#brass)"/>
+  <g id="beamS"><path d="M640 392H880" stroke="#d8b050" stroke-width="8" stroke-linecap="round"/><path d="M648 392l-26 86M648 392l26 86M872 392l-26 86M872 392l26 86" stroke="#8a6a26" stroke-width="2"/>
+    <path d="M612 478q36 22 72 0z" fill="url(#brass)"/><path d="M836 478q36 22 72 0z" fill="url(#brass)"/><path d="M760 392l-4 -22h8z" fill="#3a2a08"/></g></g>
+<g id="box"><rect x="850" y="524" width="70" height="24" fill="#5a3a20"/><g fill="url(#brass)"><rect x="858" y="514" width="12" height="12" rx="2"/><rect x="874" y="510" width="14" height="16" rx="2"/><rect x="892" y="516" width="10" height="10" rx="2"/><rect x="906" y="512" width="10" height="14" rx="2"/></g></g>
+
+<!-- papers -->
+<g id="sheet" class="hot"><path d="M932 548l6 -30h70l-4 30z" fill="#fdfcf6" stroke="#b8b2a0"/><rect x="940" y="520" width="64" height="5" fill="#7a1f2b"/><path d="M944 532h52M943 538h40M942 543h48" stroke="#5a5a5a" stroke-width="1.6"/><circle cx="986" cy="541" r="5" fill="#2f6a3a" opacity=".7"/></g>
+<g id="file" class="hot"><path d="M1024 548l4 -28h86l-2 28z" fill="#d8b878" stroke="#a8884a"/><rect x="1040" y="516" width="30" height="6" fill="#d8b878"/><text x="1070" y="540" class="cP" font-size="9" text-anchor="middle" fill="#5a3a10">LOANS</text></g>
+<g id="manual" class="hot"><rect x="1140" y="520" width="96" height="28" rx="2" fill="#7a1f2b"/><rect x="1144" y="514" width="90" height="10" fill="#fbf6e8"/><rect x="1140" y="514" width="12" height="34" fill="#5a1520"/><text x="1192" y="538" class="cP" font-size="9" text-anchor="middle" fill="#f2c45a">STAFF MANUAL</text></g>
+
+<rect x="-1000" y="740" width="3600" height="700" fill="url(#carpet)"/><rect x="-1000" y="736" width="3600" height="8" fill="#2a1608"/>
+<g id="stand"><path d="M1380 860V560M1340 860l40 -40 40 40" stroke="#3a2210" stroke-width="10" stroke-linecap="round"/><path d="M1350 580q30 -30 60 0" stroke="#3a2210" stroke-width="7" fill="none"/><path d="M1352 584q-10 120 10 200h36q20 -80 6 -200z" fill="#26304a"/></g>
+
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Across the square to the café</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="bank.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, lock = null;
+
+  (function () {
+    var s = '', i, cols = ['#7a1f2b', '#2f5a44', '#26304a', '#8a6a2a', '#5a3a20', '#3a5a6a'];
+    for (i = 0; i < 6; i++) {
+      for (var j = 0; j < 14; j++) s += '<rect x="' + (-380 + j * 34) + '" y="' + (110 + i * 106 + (j % 3) * 4) + '" width="' + (24 + (j % 4) * 3) + '" height="' + (88 - (j % 3) * 4) + '" fill="' + cols[(i + j) % 6] + '"/>';
+      s += '<rect x="-400" y="' + (198 + i * 106) + '" width="500" height="10" fill="#2a1608"/>';
+    }
+    $('#books').innerHTML = s;
+    s = ''; for (i = 0; i < 9; i++) s += '<rect x="' + (440 + i * 13) + '" y="' + (226 + (i % 2) * 3) + '" width="8" height="' + (30 + (i % 3) * 4) + '" fill="#4a4a4a"/><circle cx="' + (444 + i * 13) + '" cy="' + (222 + (i % 2) * 3) + '" r="5" fill="#5a5a5a"/>';
+    $('#tiny').innerHTML = s;
+    s = ''; for (i = 0; i < 16; i++) s += '<g transform="translate(' + (1296 + i * 9.5) + ' 424) scale(.42)">' + BANK.small(0, 0, ['#5a6a8a', '#8a4a3a', '#3a5a4a', '#a08a5a'][i % 4], '#3a2a20', -1) + '</g>';
+    $('#sq').innerHTML = s;
+    $('#beamS').style.transform = 'rotate(5deg)';
+    $('#delacour').innerHTML = BANK.who('delacour', { smile: 0, extra: '<path d="M30 -150l30 -24" stroke="#2f6a3a" stroke-width="4"/>' });
+  })();
+
+  ER.init({
+    theme: 'econ', story: 'bank', storyTitle: 'Still Open at Four', id: 'office', no: 'II', title: 'The Manager’s Office',
+    go: 'Knock and go in', sound: ['ledger', { root: 45, bpm: 76, drop: ['mel'], level: 1.1 }],
+    intro: [
+      'On the board, Mr Ellwood&rsquo;s £4,000 went round the town three times: £400 into the vault and £3,600 lent to Ravi Pathak; paid to Wes Hartigan and paid in again; lent to Wanda Threlfall, paid to Simeon Rook and paid in again. £10,840 of deposits on the books and £1,084 in the vault. A tenth, and not a penny gone.',
+      'Mr Ellwood was not comforted. &ldquo;Only a tenth!&rdquo; he told the queue, and the queue grew.',
+      'The manager&rsquo;s office is up three steps behind the counter, with a window on to Market Square.'
+    ],
+    exit: {"next":"cafe","w":{"5a6a68ea":"d8c6446e"}}, tags: {"own":["2cf85041","e6c90e2e","89c13c11"],"owe":["b2a0f1c1","9d0ef7a2"],"cap":["a20f7dd4"],"l2":["1fb6c2c0"],"c2":["889699b8"],"d0":["ab0ef53f"],"v0":["d2573dbe"],"b0":["dba32404"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('b-file') || null; told = ER.flag('b-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('b-told', told); return true; }
+  function isBusy() { return busy; }
+  function ready() { return told.delacour && told.manual && told.sheet; }
+  function paint() {
+    $('#balance').classList.toggle('ready', !!(ready() && !nextFile));
+    ER.pips((told.delacour ? 1 : 0) + (told.manual ? 1 : 0) + (told.sheet ? 1 : 0) + (ER.flag('b-p1') ? 1 : 0) + (nextFile ? 1 : 0), 5);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Mrs Delacour has sent you and Yuki to the café: the button at the bottom of the screen.']];
+    if (lock && lock.isOpen() && ER.flag('b-p1')) return ['worst', [
+      'The loans file says how much is owed on the three problem loans. If none of it is ever paid back, the bank owns that much less. Which weight is that?',
+      'The loans weight goes down by £60,000, to £5.84 million. The customers are still owed every penny, so the deposits do not change. Something on the other side must take the loss, so that the beam is level again: which weight is the cushion?'
+    ]];
+    if (lock && lock.isOpen()) return ['lock', [
+      'Only what the bank owns or owes TODAY goes on the balance. Three of the weights are something else: a total over a hundred years, money that was paid out last year, and a loan that was never made.',
+      'In the pan for what the bank OWNS: the loans, the cash in the vault, the account at the Bank of England. In the pan for what it OWES: the customers&rsquo; deposits, and the capital.',
+      'The capital is whatever makes the beam level: add up the three things the bank owns, and take away the deposits. Engrave that on the blank weight with the little wheels.'
+    ]];
+    if (!told.delacour) return ['delacour', ['The manager is behind her desk. Talk to her.', 'Click Mrs Delacour, in the navy suit, on the left of the desk.']];
+    if (!told.manual) return ['manual', ['Mrs Delacour said: page two of the manual first.', 'The red binder at the right-hand end of the desk.']];
+    if (!told.sheet) return ['sheet', ['To weigh the bank you need its figures: the Friday sheet.', 'The white typed paper on the desk, just to the right of the balance.']];
+    if (!told.file) return ['file', ['Now Mr Yeoman&rsquo;s balance, in the middle of the desk. Mrs Delacour also said to read the loans file before believing a percentage.', 'The balance is the brass beam with two pans. The loans file is the brown folder beside the Friday sheet.']];
+    return ['balance', ['Click Mr Yeoman&rsquo;s balance, the brass beam in the middle of the desk.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#beamS').style.transform = 'rotate(0deg)'; $('#go').classList.add('on'); ER.say('Yuki is waiting by the door, without her badge.'); return; }
+    if (told.in) { busy = false; ER.say('The manager&rsquo;s office. Mrs Delacour is still writing in green ink.'); return; }
+    tell('in');
+    ER.narrate([
+      'Oak panels, green walls, a lamp with a green glass shade, and a window on to Market Square. On the wall, a portrait of a large man with whiskers: Percival Yeoman, corn merchant, who founded the bank in 1923.',
+      'On the desk stands his balance: a brass beam with two brass pans, from the days when he weighed grain. Beside it, a box of brass weights, the Friday sheet, a brown folder, the staff manual and this week&rsquo;s Brockholt Courier.',
+      'Mrs Delacour is writing a list in green ink. She does that when she is angry.'
+    ], function () { busy = false; });
+  }
+
+  $('#delacour').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;The café,&rdquo; says Mrs Delacour, without looking up. &ldquo;And bring back the truth, not just the gossip.&rdquo;'); return; }
+    ER.talk({
+      who: 'Mrs Una Delacour', role: 'Manager · with the bank since 2009', face: BANK.face('delacour'),
+      lines: [
+        { note: 'She finishes her sentence before she looks up.', a: '&ldquo;Sit, please. Mr Ellwood says we are broke because only a tenth of the money is in the building. He is wrong. He is also exactly right about the tenth, which is what makes this difficult.&rdquo;' },
+        { q: 'Are we broke?', a: 'Broke means you owe more than you own. A bank can be perfectly sound and still not have everybody&rsquo;s money in the building on a Friday afternoon. Nobody does. Not us, and not the biggest bank in London.' },
+        { q: 'How do we show that?', a: 'We weigh ourselves. Mr Yeoman&rsquo;s balance, his weights, and this morning&rsquo;s Friday sheet. What the bank owns goes in one pan, what it owes in the other. If the beam is level, we are what we say we are.' },
+        { q: 'And the newspaper?', a: '&ldquo;Problem loans up fifty per cent.&rdquo; Read the loans file before you believe a percentage. And be careful with the poster from our birthday. Big numbers are very persuasive. That is what is wrong with them.' },
+        { q: 'Why do you keep that photograph?', a: 'Read the back of it. I was in a queue once. I know what it feels like from the outside. Now, page two of the manual, please. It is on the desk.' }
+      ],
+      clue: { id: 'delacour', title: 'Mrs Delacour: weigh us', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('delacour')) { paint(); ER.say('Page two of the manual, then the Friday sheet, then the balance.'); } }
+    });
+  });
+
+  var DIA = '<svg viewBox="0 0 290 210"><g font-family="Architects Daughter,cursive" font-size="13.5" fill="#22201c">' +
+    '<path d="M145 30V190M100 196h90" stroke="#a8842e" stroke-width="6"/><path d="M35 40H255" stroke="#a8842e" stroke-width="6" stroke-linecap="round"/>' +
+    '<path d="M45 40l-26 60M45 40l26 60M245 40l-26 60M245 40l26 60" stroke="#8a6a26" stroke-width="1.5"/><path d="M12 100q33 18 66 0zM212 100q33 18 66 0z" fill="#e6c873" stroke="#8a6a26"/>' +
+    '<text x="45" y="20" text-anchor="middle" font-weight="700" fill="#7a1f2b">OWNS</text><text x="245" y="20" text-anchor="middle" font-weight="700" fill="#7a1f2b">OWES</text>' +
+    '<text x="45" y="130" text-anchor="middle">loans</text><text x="45" y="148" text-anchor="middle">cash in vault</text><text x="45" y="166" text-anchor="middle">at the central bank</text>' +
+    '<text x="245" y="130" text-anchor="middle">deposits</text><text x="245" y="148" text-anchor="middle">+ capital</text><text x="245" y="166" text-anchor="middle" font-size="12">(the cushion)</text></g></svg>';
+  var MANUAL = '<h4>Staff Manual &middot; Section 2</h4><h3>What we own and what we owe</h3><div class="two"><div>' +
+    '<p>A bank&rsquo;s <b>BALANCE SHEET</b> has two sides, and they are always equal.</p>' +
+    '<p><b>WHAT THE BANK OWNS:</b> its loans (money that borrowers will pay back), the cash in its vault, and its account at the Bank of England.</p>' +
+    '<p><b>WHAT THE BANK OWES:</b> its deposits, owed to its customers, and its <b>CAPITAL</b>: the owners&rsquo; own money, what they put in and the profits they kept. Capital is whatever is left when the deposits are taken away from everything the bank owns.</p>' +
+    '<p>Capital is the cushion. If a loan is never paid back, the bank owns less, and the capital gets smaller by the same amount. The depositors are still owed every penny.</p>' +
+    '<p>A bank is <b>SOLVENT</b> if it owns more than it owes its depositors. It is <b>LIQUID</b> if it has enough cash for today. They are not the same thing. A loan cannot become cash this afternoon: it is a house, a van, an oven.</p>' +
+    '<p class="rule">A balance sheet is a photograph of one moment: what we own and owe now. Not last year, and not since 1923.</p></div><div class="dia">' + DIA + '</div></div>';
+  $('#manual').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: MANUAL, cls: 'man', clue: { id: 'manual2', title: 'Staff manual 2: what we own and what we owe', kind: 'On the desk' }, done: function () {
+      BANK.terms(['balance sheet', 'capital', 'solvent', 'liquid']);
+      if (tell('manual')) { paint(); ER.say('Owns on one side, owes on the other, and capital is the cushion. Solvent is not the same as liquid.'); }
+    } });
+  });
+  var SHEET = '<h4>FRIDAY SHEET &middot; 9 a.m.</h4><table>' +
+    '<tr><td>Loans to people and firms in Brockholt</td><td class="r">£5,900,000</td></tr>' +
+    '<tr><td>Cash in the vault</td><td class="r">£150,000</td></tr>' +
+    '<tr><td>Our account at the Bank of England</td><td class="r">£450,000</td></tr>' +
+    '<tr><td>Customers&rsquo; deposits</td><td class="r">£6,000,000</td></tr>' +
+    '<tr><td>Capital</td><td class="r"><span class="ink"></span></td></tr></table>' +
+    '<p class="hand">Sorry, Mrs D. My pen leaked. Y.</p>' +
+    '<p>For the annual report: interest paid to savers last year, £180,000.</p>';
+  $('#sheet').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: SHEET, cls: 'sheet', clue: { id: 'sheet', title: 'The Friday sheet', kind: 'On the desk' }, done: function () {
+      if (tell('sheet')) { paint(); ER.say('Green ink right across the capital. Yuki&rsquo;s pen, and Yuki&rsquo;s apology.'); }
+    } });
+  });
+  var FILE = '<h4>LOANS FILE &middot; this week</h4>' +
+    '<p>Loans behind with their payments: <b>3</b>, owing £60,000 between them. This time last year: 2, owing £45,000.</p>' +
+    '<p>All loans: 412, owing £5,900,000.</p>' +
+    '<p>Applications refused this month: 1. S. Rook, Rook&rsquo;s Antiques, Church Lane. £40,000 to build on to the back of the shop. Refused three weeks ago: the plan expected to sell three times as many antiques as last year.</p>' +
+    '<p class="hand">He was not pleased. U.D.</p>';
+  $('#file').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: FILE, cls: 'sheet', clue: { id: 'loans', title: 'The loans file', kind: 'On the desk' }, done: function () {
+      BANK.terms(['problem loan']);
+      if (tell('file')) { paint(); ER.say('Up fifty per cent: from two loans to three. And one man who was refused, and was not pleased.'); }
+    } });
+  });
+  var COURIER = '<small>The Brockholt Courier &middot; this week</small><h4>Bank&rsquo;s problem loans up 50%</h4>' +
+    '<p>The number of Brockholt &amp; District Bank customers who are behind with their loan payments has risen by fifty per cent in a year, the Courier can reveal.</p>' +
+    '<p>The bank&rsquo;s manager, Mrs Una Delacour, said that the bank was &ldquo;perfectly sound&rdquo; and that she did not &ldquo;comment on percentages without numbers&rdquo;.</p>';
+  $('#courier').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: COURIER, cls: 'news', clue: { id: 'courier', title: 'The Courier: problem loans up 50%', kind: 'On the desk' }, done: function () {
+      if (tell('courier')) ER.say('Fifty per cent of what? The story does not say.');
+    } });
+  });
+  var QPIC = '<svg viewBox="0 0 250 170"><rect width="250" height="170" fill="#c8c8c4"/><rect width="250" height="80" fill="#9a9e9e"/><rect x="150" y="12" width="90" height="24" fill="#3a3a3a"/><text x="195" y="29" font-family="Oswald" font-size="11" text-anchor="middle" fill="#e8e8e8">BRANCH</text>' +
+    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(function (i) { return '<g transform="translate(' + (20 + i * 22) + ' ' + (150 - (i % 2) * 4) + ')"><path d="M-7 0v-24h14v24z" fill="#4a4a4a"/><path d="M-9 -22q-1 -30 9 -32t9 32z" fill="#5e5e5e"/><circle cy="-62" r="8" fill="#7a7a7a"/></g>'; }).join('') +
+    '<g transform="translate(40 152)"><path d="M-7 0v-18h14v18z" fill="#3a3a3a"/><circle cy="-46" r="7" fill="#8a8a8a"/></g></svg>';
+  var PHOTO = '<h4>Newcastle, Friday 14 September 2007</h4><div class="two"><div>' + QPIC + '</div><div>' +
+    '<p class="hand">Mum and me, fourth hour in the queue outside Northern Rock.</p>' +
+    '<p>On Thursday evening the BBC reported that the bank had asked the Bank of England for emergency help. By Friday morning there were queues outside its branches all over the country.</p>' +
+    '<p>Northern Rock had borrowed a great deal from other banks and investors, and in the summer they stopped lending. But the queue did not know that. The queue knew that the law only promised the first £2,000 of your savings in full, and 90% of the next £33,000. So everybody went to get their money out before everybody else did.</p>' +
+    '<p>The queues went on until Monday the 17th, when the Chancellor said that all the deposits were safe. Mum got her money back. I got a job in a bank.</p></div></div>';
+  $('#photo').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: PHOTO, cls: 'frame', clue: { id: 'rock', title: 'The photograph: Northern Rock, 2007', kind: 'On the wall' }, done: function () {
+      BANK.terms(['bank run']);
+      if (tell('photo')) ER.say('A real queue, outside a real bank, in 2007. Mrs Delacour has kept it for nineteen years.');
+    } });
+  });
+  BANK.thing('#portrait', 'corn merchant', 'Percival Yeoman, 1871&ndash;1950, corn merchant and founder. He looks like a man who has weighed things all his life, and found most of them light.', isBusy);
+  BANK.thing('#window', null, 'Through the window: Market Square. The queue now stretches past the bakery next door. Across the square, Wanda Threlfall is standing in the doorway of the Toast Rack café with her arms folded.', isBusy);
+  BANK.thing('#box', 'brass', 'Mr Yeoman&rsquo;s weights, in their velvet box. Somebody has engraved new labels on them for the school visits.', isBusy);
+  $('#balance').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The beam is perfectly level. Mr Yeoman would be pleased. He was not often pleased.'); return; }
+    if (!told.delacour) { ER.say('A brass balance. Ask Mrs Delacour before you touch it: it is older than the building.'); return; }
+    if (!told.manual) { ER.say('Which weights go in which pan? Page two of the manual, the red binder.'); return; }
+    if (!told.sheet) { ER.say('You need the bank&rsquo;s figures to weigh it: the Friday sheet, beside the balance.'); return; }
+    if (!lock) lock = makeLock();
+    lock.open();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- Mr Yeoman's balance ---------- */
+  function makeLock() {
+    /* values in hundredths of a million pounds (£10,000 each) */
+    var W = [['since', 'Lent since 1923', 4100], ['dep', 'Customers&rsquo; deposits', 600], ['paid', 'Interest paid to savers last year', 18], ['loans', 'Loans', 590],
+      ['cap', 'Capital', 0], ['boe', 'Account at the Bank of England', 45], ['rook', 'Mr Rook&rsquo;s loan (refused)', 4], ['cash', 'Cash in the vault', 15]];
+    var saved = ER.flag('b-lock') || {}, wait = false, d = {}, p1 = !!ER.flag('b-p1');
+    var box = ER.el('div', 'pz yb');
+    box.innerHTML = '<div class="yb-in"><svg viewBox="0 0 900 150"><path d="M450 40V146M380 146h140" stroke="#c9a24a" stroke-width="10"/><g id="ybeam"><path d="M150 40H750" stroke="#e6c873" stroke-width="9" stroke-linecap="round"/><path d="M160 40l-60 110M160 40l60 110M740 40l-60 110M740 40l60 110" stroke="#a8842e" stroke-width="2"/><path d="M450 40l-6 -30h12z" fill="#f2c45a"/></g><circle cx="450" cy="40" r="10" fill="#e6c873"/><path d="M450 6v12" stroke="#f4ead0" stroke-width="2"/></svg>' +
+      '<div class="pans"><div class="pan"><h5>WHAT THE BANK OWNS</h5><div class="hooks">' + [1, 2, 3, 4].map(function (i) { return '<span class="hook" data-p="own"></span>'; }).join('') + '</div></div>' +
+      '<div class="pan"><h5>WHAT THE BANK OWES</h5><div class="hooks">' + [1, 2, 3, 4].map(function (i) { return '<span class="hook" data-p="owe"></span>'; }).join('') + '</div></div></div>' +
+      '<div class="wtray" id="wt">' + W.map(function (w) { return '<span class="dnd-item wt" data-id="' + w[0] + '">' + w[1] + '<b></b></span>'; }).join('') + '</div>' +
+      '<div class="eng"><span>Engraving wheels:</span><label class="e-cap">capital <i id="e-cap"></i></label>' +
+      '<label class="e2 hide">loans <i id="e-loans"></i></label><label class="e2 hide">cash in the vault <i id="e-cash"></i></label><label class="e2 hide">Bank of England <i id="e-boe"></i></label><label class="e2 hide">deposits <i id="e-dep"></i></label></div></div>' +
+      '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="b-go">Ask Mrs Delacour</button></div>';
+    var msgEl = box.querySelector('.pmsg'), wt = box.querySelector('#wt');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function val(id) {
+      if (d[id]) return d[id].get();
+      for (var i = 0; i < W.length; i++) if (W[i][0] === id) return W[i][2];
+      return 0;
+    }
+    function fmt(v) { return '£' + (v / 100).toFixed(2) + ' m'; }
+    function where(id) { var it = box.querySelector('.wt[data-id="' + id + '"]'), h = it.closest('.hook'); return h ? h.getAttribute('data-p') : ''; }
+    function sum(p) { var s = 0; W.forEach(function (w) { if (where(w[0]) === p) s += val(w[0]); }); return s; }
+    function draw() {
+      W.forEach(function (w) { box.querySelector('.wt[data-id="' + w[0] + '"] b').textContent = (w[0] === 'cap' && !val('cap')) ? '£ ?' : fmt(val(w[0])); });
+      var diff = sum('own') - sum('owe'), a = Math.max(-12, Math.min(12, diff * 0.25));
+      box.querySelector('#ybeam').style.transform = 'rotate(' + (-a) + 'deg)';
+      var o = { at: {} }; W.forEach(function (w) { o.at[w[0]] = where(w[0]); });
+      ['cap', 'loans', 'cash', 'boe', 'dep'].forEach(function (k) { if (d[k]) o[k] = d[k].get(); });
+      ER.flag('b-lock', o);
+    }
+    function lk() { return wait || !!nextFile; }
+    function eng(id, v0) { d[id] = BANK.drum(box.querySelector('#e-' + id), { digits: 3, dec: 2, before: '£', after: ' m', val: saved[id] != null ? saved[id] : v0, change: draw, lock: lk }); }
+    eng('cap', 0);
+    function part2() {
+      p1 = true; ER.$$('.e2', box).forEach(function (n) { n.classList.remove('hide'); });
+      if (!d.loans) { eng('loans', 590); eng('cash', 15); eng('boe', 45); eng('dep', 600); }
+      draw();
+    }
+    Object.keys(saved.at || {}).forEach(function (id) {
+      var p = saved.at[id], it = box.querySelector('.wt[data-id="' + id + '"]'), h;
+      if (!p || !it) return;
+      h = ER.$$('.hook[data-p="' + p + '"]', box).filter(function (x) { return !x.querySelector('.wt'); })[0];
+      if (h) h.appendChild(it);
+    });
+    if (p1) part2();
+    ER.dnd(box, { item: '.wt', slot: '.hook', home: wt, change: draw, lock: lk });
+    draw();
+    function flash(n) { n.classList.add('bad'); setTimeout(function () { n.classList.remove('bad'); }, 1200); }
+    var OUT = {
+      since: '&ldquo;Forty-one million pounds, since 1923,&rdquo; says Mrs Delacour. &ldquo;Most of those loans were paid back before you were born. A balance sheet is today: what we own and owe this minute.&rdquo;',
+      paid: '&ldquo;The interest we paid last year has gone,&rdquo; says Mrs Delacour. &ldquo;It is in the savers&rsquo; pockets, or spent. Do we own it today? Do we owe it?&rdquo;',
+      rook: '&ldquo;We refused Mr Rook,&rdquo; says Mrs Delacour. &ldquo;A loan we never made is not something anybody owes us.&rdquo;'
+    };
+    var SIDE = {
+      loans: '&ldquo;A loan is money that somebody owes US,&rdquo; says Mrs Delacour. &ldquo;Ravi Pathak owes it to the bank. Which pan?&rdquo;',
+      cash: '&ldquo;The cash in our vault is ours,&rdquo; says Mrs Delacour. &ldquo;Which pan?&rdquo;',
+      boe: '&ldquo;Our account at the Bank of England is our own money there,&rdquo; says Mrs Delacour. &ldquo;Which pan?&rdquo;',
+      dep: '&ldquo;Deposits are the customers&rsquo; money,&rdquo; says Mrs Delacour. &ldquo;We owe every penny of it back. Which pan?&rdquo;',
+      cap: '&ldquo;Capital is the owners&rsquo; own money in the bank,&rdquo; says Mrs Delacour. &ldquo;The manual puts it with what we owe, and so do I.&rdquo;'
+    };
+    box.querySelector('#b-go').addEventListener('click', function () {
+      if (wait || nextFile) return;
+      var i, id, it;
+      for (i = 0; i < W.length; i++) {
+        id = W[i][0]; it = box.querySelector('.wt[data-id="' + id + '"]');
+        if (OUT[id] && where(id)) { ER.sfx.no(); flash(it); msg(OUT[id]); return; }
+      }
+      for (i = 0; i < W.length; i++) {
+        id = W[i][0]; it = box.querySelector('.wt[data-id="' + id + '"]');
+        if (OUT[id]) continue;
+        if (!where(id)) { ER.sfx.no(); flash(it); msg('&ldquo;You have left something in the box: ' + (id === 'cap' ? 'the blank weight' : W[i][1].replace(/^./, function (c) { return c.toLowerCase(); })) + ',&rdquo; says Mrs Delacour. &ldquo;Everything we own or owe today goes on the balance.&rdquo;'); return; }
+        if (!ER.check(where(id), id)) { ER.sfx.no(); flash(it); msg(SIDE[id]); return; }
+      }
+      if (!p1) {
+        if (!ER.check('cap', d.cap.get())) {
+          ER.sfx.no(); flash(box.querySelector('#e-cap'));
+          msg(d.cap.get() ? '&ldquo;The beam is not level,&rdquo; says Mrs Delacour. &ldquo;Capital is whatever is left when the deposits are taken away from everything we own.&rdquo;' : '&ldquo;A blank weight weighs nothing,&rdquo; says Mrs Delacour. &ldquo;Engrave it. What is left when the deposits are taken away from everything we own?&rdquo;');
+          return;
+        }
+        ER.flag('b-p1', 1); BANK.sfx.clank(); part2(); paint();
+        msg('Level. &ldquo;Good,&rdquo; says Mrs Delacour. &ldquo;Now the worst case. The Courier&rsquo;s problem loans: suppose we never see a penny of them. Engrave the weights again to show me what happens.&rdquo;');
+        return;
+      }
+      if (!ER.check('d0', d.dep.get())) { ER.sfx.no(); flash(box.querySelector('#e-dep')); msg('&ldquo;A man in Mill Lane cannot pay, so Mr Ellwood&rsquo;s savings get smaller?&rdquo; says Mrs Delacour. &ldquo;No. We owe every customer every penny, whatever our borrowers do. Put the deposits back as they were.&rdquo;'); return; }
+      if (!ER.check('v0', d.cash.get()) || !ER.check('b0', d.boe.get())) { ER.sfx.no(); flash(box.querySelector(ER.check('v0', d.cash.get()) ? '#e-boe' : '#e-cash')); msg('&ldquo;Nobody has touched our cash,&rdquo; says Mrs Delacour. &ldquo;The problem is three loans. Put that one back as it was.&rdquo;'); return; }
+      if (!ER.check('l2', d.loans.get())) { ER.sfx.no(); flash(box.querySelector('#e-loans')); msg(d.loans.get() === 590 ? '&ldquo;The loans weigh exactly what they did,&rdquo; says Mrs Delacour. &ldquo;If three of them are never paid back, do we own as much?&rdquo;' : '&ldquo;How much is owed on the three problem loans?&rdquo; says Mrs Delacour. &ldquo;The loans file says.&rdquo;'); return; }
+      if (!ER.check('c2', d.cap.get())) { ER.sfx.no(); flash(box.querySelector('#e-cap')); msg('&ldquo;Now the beam tips,&rdquo; says Mrs Delacour. &ldquo;We own less, and we still owe every customer the same. Somebody has to take the loss. Who?&rdquo;'); return; }
+      var file = ER.exit(['w-' + 50 + '-' + d.loans.get() + '-' + d.cap.get()], { wait: true });
+      if (!file) { msg('The door will not open. Something is wrong with this page: tell your teacher.'); return; }
+      wait = true; nextFile = file; ER.flag('b-file', file);
+      BANK.mine('weigh', 'Weighing the bank', '<p>Owns: loans £5.90 m + cash £0.15 m + Bank of England £0.45 m = £6.50 m.</p><p>Owes: deposits £6.00 m + capital £0.50 m = £6.50 m. Level.</p><p>Worst case, three problem loans never paid: loans £5.84 m, capital £0.44 m. The deposits are still £6.00 m. Still solvent.</p><p>But only £0.15 m is cash in the building. Solvent is not the same as liquid.</p>', true);
+      msg('The beam swings once and settles, perfectly level. <b>Loans £5.84 m, capital £0.44 m, and every deposit still owed in full.</b>');
+      setTimeout(function () {
+        ER.closeAll(); paint(); busy = true;
+        $('#beamS').style.transform = 'rotate(0deg)';
+        ER.narrate([
+          'Mrs Delacour takes off her glasses and lets them hang on their chain. &ldquo;Six and a half million pounds owned. Six million owed to our customers. Half a million of our own, as the cushion. And if the Courier&rsquo;s three problem loans never pay a penny, the cushion loses sixty thousand pounds, and not one saver loses anything. We are solvent. Sound as a bell.&rdquo;',
+          '&ldquo;And yet.&rdquo; She taps the left pan. &ldquo;Of everything we own, one hundred and fifty thousand pounds is downstairs, in notes. Four hundred and fifty thousand is at the Bank of England, in London. The rest is houses on Mill Lane, Ravi&rsquo;s oven and a great many tractors. Sound is not the same as cash.&rdquo;',
+          'Yuki puts her head round the door. &ldquo;Mrs D? It&rsquo;s twenty people now. And they&rsquo;re all saying it started in the Toast Rack.&rdquo;',
+          '&ldquo;Then go and find out how,&rdquo; says Mrs Delacour. &ldquo;Both of you. Yuki, take your badge off. A rumour is like a loan: it always comes from somewhere, and somebody always pays for it.&rdquo;'
+        ], function () { busy = false; $('#go').classList.add('on'); });
+      }, 2800);
+    });
+    msg(p1 ? 'Level. Now the worst case: the problem loans. Engrave the weights again.' : 'Hang each weight that belongs on a hook in the right pan (drag it, or click it and then the hook). Engrave the blank weight with the wheels. Then ask Mrs Delacour.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+})();
+</script>
+</body>
+</html>

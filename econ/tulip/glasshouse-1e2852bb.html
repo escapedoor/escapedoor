@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Glasshouse · Trading in Wind</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-econ.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="tulip.css">
+<style>
+  body{--bg:#c8d8c0;--accent:#b0242c;--font-display:'Cabin Sketch',serif;--font-ui:'Outfit',sans-serif;--font-body:'Lora',serif;
+    --tc-bg:rgba(250,246,232,.97);--tc-ink:#2a2a14;--cap-bg:rgba(252,250,238,.96);--cap-ink:#2a2a14;--panel:#fbf8ea;--panel-ink:#2a2a14;--face-bg:#8a5a7a;--q-ink:#6a3a5a;
+    --fade:#fbf4dc;--hud-bg:rgba(252,250,238,.9);--hud-ink:#2a2a14;--hud-line:rgba(42,42,20,.3);--ov-bg:rgba(30,30,14,.58)}
+  .tc-room{font-size:clamp(40px,5.8vw,82px);color:#b0242c}
+  .tc-theme{color:#3a6a3a}
+  .hbtn b{color:#fff}
+  #beams{animation:bm 8s steps(3,end) infinite}
+  @keyframes bm{50%{opacity:.65}}
+
+  /* the magnifier */
+  .mg{width:min(1120px,96vw)}
+  .mg-in{background:#2a3a24 radial-gradient(ellipse at 50% 0%,rgba(255,240,180,.18),transparent 60%);border:3px solid #6a5a3a;border-radius:5px;padding:12px;color:#f4f0dc}
+  .pots{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+  .pot{background:#f8f4e6;border-radius:4px;padding:4px 4px 6px;text-align:center;color:#2a2a14}
+  .pot svg{width:100%;height:190px;display:block}
+  .pot b{display:block;font:800 12px 'Outfit',sans-serif;letter-spacing:.1em;color:#6a3a5a}
+  .pot small{display:block;font-family:'Lora',serif;font-size:12px;line-height:1.2;min-height:30px}
+  .pot button{margin-top:4px;width:100%;padding:5px 2px;border:2px solid #8a7a5a;border-radius:3px;font:700 12px 'Outfit',sans-serif;color:#2a2a14;background:#fff}
+  .pot button[data-v="stb"]{background:#e2f0dc;border-color:#3a6a3a}
+  .pot button[data-v="brk"]{background:#f6dcd8;border-color:#b0242c}
+  .pot button[data-v="pln"]{background:#f0ece0;border-color:#6a6a5a}
+  /* Mr Tebbutt's five reasons */
+  .rs{width:min(1180px,97vw)}
+  .rs-in{display:grid;grid-template-columns:1fr 300px;gap:10px;background:#fbf8ea;border-top:10px solid #b0242c;padding:10px 14px;color:#2a2a14;box-shadow:0 26px 70px rgba(0,0,0,.45)}
+  .claim{display:grid;grid-template-columns:1fr 230px;gap:8px;align-items:center;padding:4px 8px;margin-bottom:4px;background:#f2ecd8;border-left:5px solid #3a4a7a;border-radius:2px}
+  .claim p{margin:0;font-family:'Lora',serif;font-size:14.5px;line-height:1.3}
+  .claim p:before{content:'R.T.  ';font:800 11px 'Outfit',sans-serif;color:#3a4a7a;letter-spacing:.1em}
+  .cslot{min-height:44px;border:2px dashed #a89a70;border-radius:3px;background:#fff}
+  .ev{display:block;padding:5px 7px;background:#1f3a24;color:#f4f0dc;border-radius:3px;font-family:'Lora',serif;font-size:12.5px;line-height:1.25;box-shadow:0 2px 0 #0e1c12}
+  .ev b{font:800 10.5px 'Outfit',sans-serif;letter-spacing:.1em;color:#f2c02a;display:block;text-transform:uppercase}
+  .evs{display:flex;flex-direction:column;gap:5px;padding:6px;background:#e8e2c8;border-radius:3px}
+  .evs h5,.proof h5{margin:0 0 2px;font:800 11.5px 'Outfit',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#6a3a5a}
+  .proof{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;padding:8px 12px;background:#fffdf4;border:1px solid #c8bca0;font-family:'EB Garamond',serif;font-size:17px}
+  .proof .tel{flex-basis:100%;font-family:'Caveat',cursive;font-size:19px;color:#2a3a7a;line-height:1.15}
+  .proof .dr-w{background:#2a2a14}
+  .rs .pmsg,.mg .pmsg{color:#fbf8ea}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="out" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a8c4d8"/><stop offset=".62" stop-color="#e8eadc"/><stop offset=".63" stop-color="#8a9a6a"/><stop offset="1" stop-color="#6a7a4a"/></linearGradient>
+  <linearGradient id="beam" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff2c0" stop-opacity=".5"/><stop offset="1" stop-color="#fff2c0" stop-opacity="0"/></linearGradient>
+  <pattern id="brickf" width="40" height="20" patternUnits="userSpaceOnUse"><rect width="40" height="20" fill="#9a5a42"/><path d="M0 0H40M0 10H40M20 0V10M0 10V20" stroke="#7a4430" stroke-width="2"/></pattern>
+  <radialGradient id="vig" cx="50%" cy="45%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".72" stop-color="#2a2a10" stop-opacity=".06"/><stop offset="1" stop-color="#2a2a10" stop-opacity=".4"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1100" fill="url(#out)"/>
+<g fill="#6a6a5a"><rect x="900" y="330" width="22" height="70"/><path d="M896 330l15 -30 15 30z"/></g>
+<!-- the glass and its white frames -->
+<g stroke="#f4f4ee" stroke-width="10" fill="none"><path d="M-1000 120L800 -80L2600 120"/><path d="M-1000 420H2600"/></g>
+<g stroke="#f4f4ee" stroke-width="6"><path d="M-100 -400V700M120 -400V700M340 -400V700M560 -400V700M780 -400V700M1000 -400V700M1220 -400V700M1440 -400V700M1660 -400V700"/><path d="M-1000 250H2600" stroke-width="4"/></g>
+<g id="beams" pointer-events="none"><path d="M1500 -100L1700 -100L900 900L500 900z" fill="url(#beam)"/></g>
+<rect x="-1000" y="560" width="3600" height="240" fill="url(#brickf)"/>
+
+<!-- the cards on the frames -->
+<g id="letter" class="hot"><rect x="1236" y="300" width="78" height="100" fill="#fffdf6" transform="rotate(3 1275 350)"/><g transform="rotate(3 1275 350)"><rect x="1236" y="300" width="78" height="8" fill="#e07a1a"/><path d="M1244 320h60M1244 330h52M1244 340h60M1244 350h44M1244 360h56M1244 370h40" stroke="#6a6a6a" stroke-width="2"/><circle cx="1275" cy="302" r="3" fill="#b0242c"/></g></g>
+<g id="cert" class="hot"><rect x="1340" y="296" width="80" height="104" fill="#eef2ea" stroke="#3a6a3a" stroke-width="3"/><path d="M1350 318h60M1350 330h56M1350 342h60M1350 354h40" stroke="#6a6a6a" stroke-width="2"/><circle cx="1396" cy="380" r="10" fill="#3a6a3a"/></g>
+<g id="show" class="hot"><rect x="1452" y="290" width="76" height="90" fill="#f4e8c8" transform="rotate(-4 1490 335)"/><g transform="rotate(-4 1490 335)"><rect x="1452" y="290" width="76" height="16" fill="#6a2a5a"/><g id="showt" transform="translate(1490 372) scale(.32)"></g><path d="M1462 318h56M1462 326h50" stroke="#6a6a6a" stroke-width="2"/></g></g>
+
+<!-- the stove -->
+<g id="stove" class="hot"><rect x="60" y="560" width="150" height="200" rx="8" fill="#2a2a2a"/><rect x="84" y="620" width="100" height="70" rx="4" fill="#3a3a3a"/><rect x="96" y="632" width="76" height="46" fill="#e86a20" opacity=".85"/><path d="M134 560V-400" stroke="#2a2a2a" stroke-width="22"/></g>
+
+<!-- the staging and the pots -->
+<g><rect x="230" y="520" width="1260" height="16" fill="#8a6a42"/><path d="M260 536v240M1460 536v240M860 536v240" stroke="#6a4a2a" stroke-width="12"/><rect x="230" y="700" width="1260" height="12" fill="#6a4a2a"/></g>
+<g id="plains"></g>
+<g id="six" class="hot"></g>
+<g id="book" class="hot"><path d="M1150 520l6 -14h90l-4 14z" fill="#3a5a2a"/><path d="M1156 512l4 -6h80" stroke="#e8e0c8" stroke-width="2"/><text x="1200" y="516" class="cP" font-size="7" text-anchor="middle" fill="#e8e0c8">FEN TIGER Z.P.</text></g>
+<g id="can"><path d="M300 690q0 -40 40 -40h40v40z" fill="#5a7a5a"/><path d="M380 660l40 -26" stroke="#5a7a5a" stroke-width="8"/></g>
+
+<rect x="-1000" y="790" width="3600" height="600" fill="#5a5048"/><rect x="-1000" y="786" width="3600" height="6" fill="#3a3028"/>
+<g id="purkiss" class="hot" transform="translate(470 860) scale(.9)"></g>
+<g id="tebbutt" class="hot" transform="translate(1380 870) scale(1)"></g>
+<g id="pearl" class="hot" transform="translate(1060 890) scale(.9)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Back to the saleroom for three o’clock</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="tulip.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, lockA = null, lockB = null;
+  /* the six pots on the end of the staging: what is in each, as drawn */
+  var POTS = [['p1', 'tiger', 0], ['p2', 'tiger', 0], ['p3', 'plain', 0], ['p4', 'tiger', 0], ['p5', 'feather', 5], ['p6', 'tiger', 0]];
+  function potSvg(p, big) {
+    var t = p[1] === 'plain' ? TULIP.tulip({}) : p[1] === 'tiger' ? TULIP.tulip({ pat: 'tiger' }) : TULIP.tulip({ pat: 'feather', seed: p[2], flame: '#f2c02a' });
+    return '<path d="M-26 0l6 34h40l6 -34z" fill="#b8643a"/><rect x="-30" y="-4" width="60" height="8" fill="#a8542a"/><g transform="translate(0 -2)">' + t + '</g>';
+  }
+
+  (function () {
+    var s = '', i;
+    for (i = 0; i < 5; i++) s += '<g transform="translate(' + (290 + i * 58) + ' 520) scale(.62)">' + potSvg(['x', 'plain', 0]) + '</g>';
+    $('#plains').innerHTML = s;
+    s = '';
+    POTS.forEach(function (p, i) { s += '<g transform="translate(' + (560 + i * 92) + ' 520) scale(.72)">' + potSvg(p) + '</g>'; });
+    s += '<rect x="900" y="462" width="44" height="14" fill="#fff" transform="rotate(-6 922 469)"/><text x="922" y="473" class="cC" font-size="11" text-anchor="middle" fill="#3a4a7a" transform="rotate(-6 922 469)">R.T.&apos;s!</text>';
+    $('#six').innerHTML = s;
+    $('#showt').innerHTML = TULIP.tulip({ pat: 'feather', seed: 9, cup: '#f6e6c8', flame: '#6a2a5a' });
+    $('#purkiss').innerHTML = TULIP.who('purkiss', { smile: 1, extra: '<circle cx="0" cy="-200" r="7" fill="none" stroke="#c9a24a" stroke-width="2"/><path d="M0 -236v29" stroke="#c9a24a" stroke-width="1.5"/>' });
+    $('#tebbutt').innerHTML = TULIP.who('tebbutt', { coat: null, smile: 6 });
+    $('#pearl').innerHTML = TULIP.who('pearl', { smile: 0 });
+  })();
+
+  ER.init({
+    theme: 'econ', story: 'tulip', storyTitle: 'Trading in Wind', id: 'glasshouse', no: 'VI', title: 'The Glasshouse',
+    go: 'Shut the door behind you', sound: ['ledger', { root: 45, bpm: 76, mood: 'tense', drop: ['mel'], level: 1.1, beds: [['drips', 0.3]] }],
+    intro: [
+      'At the Ings, the Long Field&rsquo;s run-off went down the Ings Drain past Maud&rsquo;s eel traps (£420 a year), the drinking bay (£300) and on to the pumping station (£3,000 of dredging from 600 houses): £3,720 a year, paid by people outside the deal. The school and Gapp&rsquo;s were on the Catchwater, and Mrs Purkiss pumps from above the grip.',
+      'Then the stints: not four a right, because six houses cannot winter that many, but five, which put exactly sixty cattle on the Ings.',
+      'Mrs Purkiss&rsquo;s glasshouse is warm, and smells of earth and paraffin. It is two o&rsquo;clock. The sale is in an hour.'
+    ],
+    exit: {"next":"lotone","w":{"9a8113a8":"8e60983c"}}, tags: {"brk":["77bb5723"],"pln":["75b6f6ef"],"stb":["1d3d8b17","370d71c7","1d6fc302","c5524971"],"c1":["1f432ce1"],"c2":["c4c19d4b"],"c3":["ea16d00f"],"c4":["49741cc4"],"c5":["6f8762ef","21828d9b"],"lo":["229b9fc2"],"hi":["01857597"],"lo5":["507f86f9","27c58d2d"],"hi320":["271be836","a62eeb38"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('f-file') || null; told = ER.flag('f-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('f-told', told); return true; }
+  function isBusy() { return busy; }
+  function partA() { return !!ER.flag('f-a'); }
+  function paint() {
+    ER.pips((told.purkiss ? 1 : 0) + (told.book ? 1 : 0) + (told.cert ? 1 : 0) + (partA() ? 1 : 0) + (told.letter ? 1 : 0) + (nextFile ? 1 : 0), 6);
+    $('#six').classList.toggle('ready', !!(told.purkiss && told.book && told.cert && !partA()));
+    $('#tebbutt').classList.toggle('ready', !!(partA() && told.letter && !nextFile));
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The sale is at three: the button at the bottom of the screen.']];
+    if (lockB && lockB.isOpen()) return ['reasons', [
+      'Each of Mr Tebbutt&rsquo;s reasons is answered by one thing you found today, in an earlier room or in this one. Ask what each reason gets wrong: the future, the word &ldquo;made&rdquo;, the word &ldquo;why&rdquo;, the word &ldquo;never&rdquo;, the word &ldquo;nothing&rdquo;.',
+      'Doubling: what happened this week (the honest chart)? Made money: was any of it paid (number thirteen)? Nobody ruined: why not (Haarlem)? Never enough: how fast do they multiply (the ledger)? Worth nothing: what will a planter pay (the lot ticket or the letter from Lisse)? Two exhibits answer nothing.',
+      'For the estimate, Mrs Gotobed&rsquo;s message says: from the lowest to the highest bid on the lot ticket by a buyer who means to use it. The lot ticket is in your notebook from the saleroom.'
+    ]];
+    if (lockA && lockA.isOpen()) return ['pots', [
+      'The watercolour label in the museum: a broken tulip&rsquo;s flames are different on every flower. Mrs Purkiss&rsquo;s paintings: the Fen Tiger has had the same three flames every year. Compare the six flowers closely.',
+      'Four flowers are exactly alike: three gold flames on each petal, the middle one longest. One is plain red. One has thin, uneven feathers, not like the others: it is Mr Tebbutt&rsquo;s.',
+      'Pots 1, 2, 4 and 6 are Fen Tigers, stable. Pot 3 is plain. Pot 5 is a broken tulip.'
+    ]];
+    if (!told.purkiss) return ['purkiss', ['Mrs Purkiss is by the staging on the left. Talk to her.', 'Click the small woman in the purple cardigan with a magnifying glass on a string.']];
+    if (!told.book) return ['book', ['Mrs Purkiss keeps paintings and a ledger of the Fen Tiger.', 'The green notebook on the staging, on the right.']];
+    if (!told.cert) return ['cert', ['There is an inspector&rsquo;s report on the frame of the glasshouse.', 'The white card with a green border and a round stamp, near the right.']];
+    if (!partA()) return ['six', ['Now compare the flowers in the six pots at the end of the staging, under Mrs Purkiss&rsquo;s magnifying glass. Click the pots.']];
+    if (!told.letter) return ['letter', ['A letter came from a bulb firm in the Netherlands. It is pinned to the frame.', 'The white letter with an orange stripe, on the right.']];
+    return ['tebbutt', ['Mr Tebbutt has written his reasons for the catalogue. Click him.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('Mrs Purkiss has her coat on. Mr Tebbutt is holding the car door for everybody.'); return; }
+    if (told.in) { busy = false; ER.say('The glasshouse. The sun has moved along the staging.'); return; }
+    tell('in');
+    ER.narrate([
+      'An old glasshouse of white frames and small panes, so warm that your eyes water. Outside, the Fens lie flat to the church tower. Inside, the low sun comes in across rows of clay pots on the staging, and the pots are full of tulips in flower in February: plain red ones, and at the end of the row, scarlet ones with gold flames.',
+      'One pot at the end has a label in different writing: R.T.&rsquo;S! Mr Tebbutt is standing beside it with his hands behind his back, like a proud uncle.',
+      'A tiny old woman in a purple cardigan is looking at that pot through a magnifying glass on a string. She does not look happy.'
+    ], function () { busy = false; });
+  }
+
+  $('#purkiss').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Seventy-five promises,&rdquo; says Mrs Purkiss, &ldquo;and every one of them a real bulb in July. That part, at least, is honest.&rdquo;'); return; }
+    ER.talk({
+      who: 'Mrs Zillah Purkiss', role: 'Purkiss’s Bulbs, Dyke Lane · grower since 1966', face: TULIP.face('purkiss'),
+      lines: [
+        { note: 'She lets the magnifying glass drop on its string.', a: '&ldquo;Nerys&rsquo;s porter, and Pearl. Come in and shut the door. You&rsquo;re letting February in.&rdquo;' },
+        { q: 'Where did the Fen Tiger come from?', a: '&ldquo;Nine springs ago, in a field of plain red tulips, one flower came up scarlet with three gold flames. Just one. A sport, growers call it: a plant that comes up different from its parents, all by itself. I dug it up and grew it on, and every year since it has come up exactly the same. Three flames on every petal. Like a signature.&rdquo;' },
+        { q: 'Is it a broken tulip? A virus?', a: '&ldquo;That is what Pearl&rsquo;s face has been asking since she came in. Look for yourselves. My paintings of it, one every spring, are in my notebook, with the ledger. And the inspector&rsquo;s report is on the frame. I had it tested in January, when the prices went silly.&rdquo;' },
+        { q: 'How many Fen Tigers are there?', a: '&ldquo;One bulb, nine years ago. Every year each bulb makes new ones, and a few get lost, so near enough it doubles. About five hundred in the ground now, a thousand when I lift them in July. I&rsquo;ve promised seventy-five: thirty-five so far, and forty today, if Nerys sells them.&rdquo;' },
+        { q: 'And Mr Tebbutt&rsquo;s pot?', a: '&ldquo;Roland found a striped tulip in his own front garden this week. He says it&rsquo;s a second Fen Tiger, and he wants to sell promises of it too. He would like my blessing.&rdquo; She looks at the pot. &ldquo;I would like a closer look. Those six pots on the end: four of mine, one plain red, and his. Tell me what you see.&rdquo;' }
+      ],
+      clue: { id: 'purkiss', title: 'Mrs Purkiss: a sport, nine years ago', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('purkiss')) { paint(); ER.say('Her notebook is on the staging, and the inspector&rsquo;s report is on the frame.'); } }
+    });
+  });
+
+  var BOOK = '<h4>FEN TIGER &middot; Z.P.</h4><div class="two"><div><svg viewBox="0 0 260 150"><rect width="260" height="150" fill="#fffdf6"/>' +
+    [0, 1, 2, 3].map(function (i) { return '<g transform="translate(' + (36 + i * 62) + ' 120) scale(.62)">' + TULIP.tulip({ pat: 'tiger' }) + '</g><text x="' + (36 + i * 62) + '" y="142" font-family="Caveat" font-size="14" text-anchor="middle" fill="#2a3a7a">' + (2019 + i * 2) + '</text>'; }).join('') + '</svg>' +
+    '<p class="hand">One painting every April since 2018. Every one the same: three gold flames on each petal, the middle one longest.</p></div><div><table>' +
+    '<tr><td>Bulbs lifted each July</td><td class="r"></td></tr>' +
+    [[2017, 2], [2018, 4], [2019, 8], [2020, 16], [2021, 32], [2022, 64], [2023, 128], [2024, 256], [2025, 512]].map(function (r) { return '<tr><td>' + r[0] + '</td><td class="r">' + r[1] + '</td></tr>'; }).join('') +
+    '</table><p class="hand">About 500 planted in October. Near enough doubles every year. The plain reds in the next bed: nine years, and never one stripe.</p></div></div>';
+  $('#book').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: BOOK, cls: 'slip', clue: { id: 'ledger', title: 'Mrs Purkiss&rsquo;s notebook: paintings and ledger', kind: 'On the staging' }, done: function () {
+      TULIP.terms(['sport']);
+      if (tell('book')) { paint(); ER.say('The same three flames for eight springs, and the stock doubling every year. A weakened bulb would not double.'); }
+    } });
+  });
+  var CERT = '<h4>Plant health inspection &middot; report</h4><p>Grower: Z. Purkiss, Purkiss&rsquo;s Bulbs, Dyke Lane, Dykesend.<br>Stock: tulip &lsquo;Fen Tiger&rsquo;, about 500 bulbs, field 3.</p>' +
+    '<p>Leaf samples from 20 plants were tested in January for tulip breaking virus. <b>Virus not found in any sample.</b></p>' +
+    '<p>The stripes are the same on every plant seen, and appear to be a stable sport: a change in the plant itself, not a virus break.</p><p class="hand">Inspected 19 January. Keep any striped tulip of unknown origin well away from this stock.</p>';
+  $('#cert').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: CERT, cls: 'letter', clue: { id: 'cert', title: 'The inspector&rsquo;s report: no virus found', kind: 'On the frame' }, done: function () {
+      if (tell('cert')) { paint(); ER.say('No virus in Mrs Purkiss&rsquo;s stock. And a warning about striped tulips of unknown origin.'); }
+    } });
+  });
+  var LETTER = '<h4>Van der Kroft Bulbs &middot; Lisse, the Netherlands</h4><p>Dear Mrs Purkiss,</p>' +
+    '<p>Thank you for the photographs of &lsquo;Fen Tiger&rsquo;. A new striped tulip that keeps its pattern is interesting. We would be glad to buy twenty bulbs for trial planting in our fields this autumn, at <b>£6 per bulb</b>.</p>' +
+    '<p>If it grows well, after some years of growing it on, there might be enough to sell to gardeners at about the price of other good striped tulips.</p>' +
+    '<p>We have read about the prices in Dykesend. We do not understand them.</p><p class="hand">With kind regards, J. van der Kroft</p>';
+  $('#letter').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: LETTER, cls: 'letter', clue: { id: 'lisse', title: 'The letter from Lisse: £6 a bulb', kind: 'On the frame' }, done: function () {
+      if (tell('letter')) { paint(); ER.say('A bulb firm in the Netherlands, where tulips are grown by the million: six pounds a bulb. &ldquo;We do not understand them.&rdquo;'); }
+    } });
+  });
+  var SHOW = '<h4>Wakefield and North of England Tulip Society</h4><p>Founded in 1836, the Society still holds its show every May. It is one of the last places where the old English florists&rsquo; tulips are grown and shown.</p>' +
+    '<p>Its classes keep the old words: a <i>breeder</i> is a tulip of one colour; when one breaks, its pattern is called <i>flamed</i> or <i>feathered</i>.</p><small>Pinned to the frame: &ldquo;Z. Purkiss. Third prize, breeders, 1979.&rdquo;</small>';
+  $('#show').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: SHOW, cls: 'frame', clue: { id: 'wakefield', title: 'The show card: flamed and feathered', kind: 'On the frame' }, done: function () {
+      if (tell('show')) ER.say('Flamed and feathered. Old words for broken tulips, still used at a show that began in 1836.');
+    } });
+  });
+  TULIP.thing('#stove', 'stove', 'The paraffin stove that keeps the glasshouse warm enough to bring tulips into flower in February. On top, a kettle and a paper bag.', isBusy);
+  $('#pearl').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(nextFile ? '&ldquo;Number seventeen,&rdquo; says Pearl. &ldquo;Forty pounds for a bulb worth fourteen. I&rsquo;m going to plant it. I&rsquo;m going to call it Expensive.&rdquo;' :
+      partA() ? '&ldquo;Not a virus,&rdquo; says Pearl. &ldquo;So it&rsquo;s a real, nice tulip. That doesn&rsquo;t make it worth six hundred and forty pounds.&rdquo;' :
+      '&ldquo;If the Fen Tiger&rsquo;s got the virus,&rdquo; says Pearl, &ldquo;it&rsquo;s worth nothing, and it&rsquo;s a danger to every tulip in Dykesend. If it hasn&rsquo;t, it&rsquo;s just a tulip. I don&rsquo;t know which I want.&rdquo;');
+  });
+  $('#six').addEventListener('click', function () {
+    if (busy) return;
+    if (partA()) { ER.say('Four Fen Tigers, one plain red, and an empty place where Mr Tebbutt&rsquo;s pot stood.'); return; }
+    if (!told.purkiss) { ER.say('Six pots of tulips. Ask Mrs Purkiss before you touch them.'); return; }
+    if (!told.book || !told.cert) { ER.say('To tell a sport from a virus break, read Mrs Purkiss&rsquo;s notebook and the inspector&rsquo;s report first.'); return; }
+    if (!lockA) lockA = makePots();
+    lockA.open();
+  });
+  $('#tebbutt').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Fourteen pounds,&rdquo; says Mr Tebbutt, to the car keys in his hand. &ldquo;Well. It&rsquo;s a very nice tulip.&rdquo;'); return; }
+    if (!partA()) { ER.say('&ldquo;A Tiger!&rdquo; says Mr Tebbutt. &ldquo;Born in my own front garden. Lightning strikes twice in Dykesend!&rdquo;'); return; }
+    if (!told.letter) { ER.say('&ldquo;Read the letter on the frame,&rdquo; says Mr Tebbutt. &ldquo;From Holland. They&rsquo;ve heard of us in Holland!&rdquo;'); return; }
+    if (!lockB) lockB = makeReasons();
+    lockB.open();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- lock A: under the magnifying glass ---------- */
+  function makePots() {
+    var LBL = { p1: 'Z.P. row 3', p2: 'Z.P. row 3', p3: 'Z.P. plain red', p4: 'Z.P. row 5', p5: 'R.T.&rsquo;s front garden', p6: 'Z.P. row 5' };
+    var CYC = ['', 'stb', 'brk', 'pln'], NAME = { '': 'what is it?', stb: 'Fen Tiger: stable', brk: 'broken: virus', pln: 'plain red' };
+    var saved = ER.flag('f-pots') || {}, wait = false;
+    var box = ER.el('div', 'pz mg');
+    box.innerHTML = '<div class="mg-in"><div class="pots">' + POTS.map(function (p, i) {
+      return '<div class="pot"><b>POT ' + (i + 1) + '</b><svg viewBox="-60 -170 120 210">' + potSvg(p) + '</svg><small>' + LBL[p[0]] + '</small><button type="button" data-p="' + p[0] + '" data-v="' + (saved[p[0]] || '') + '">' + NAME[saved[p[0]] || ''] + '</button></div>';
+    }).join('') + '</div></div><div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="g-go">Tell Mrs Purkiss</button></div>';
+    var msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function keep() { var o = {}; ER.$$('.pot button', box).forEach(function (b) { o[b.getAttribute('data-p')] = b.getAttribute('data-v'); }); ER.flag('f-pots', o); }
+    ER.$$('.pot button', box).forEach(function (b) {
+      b.addEventListener('click', function () {
+        if (wait || partA()) return;
+        var v = CYC[(CYC.indexOf(b.getAttribute('data-v')) + 1) % CYC.length];
+        if (!v) v = 'stb';
+        b.setAttribute('data-v', v); b.textContent = NAME[v]; ER.sfx.click(); keep();
+      });
+    });
+    function flash(n) { n.classList.add('bad'); setTimeout(function () { n.classList.remove('bad'); }, 1300); }
+    box.querySelector('#g-go').addEventListener('click', function () {
+      if (wait || partA()) return;
+      var bs = ER.$$('.pot button', box), i, b, id, v, brk = '', pln = '';
+      for (i = 0; i < bs.length; i++) { if (!bs[i].getAttribute('data-v')) { ER.sfx.no(); flash(bs[i]); msg('&ldquo;Pot ' + (i + 1) + '?&rdquo; says Mrs Purkiss. &ldquo;Every pot, please.&rdquo;'); return; } }
+      for (i = 0; i < bs.length; i++) {
+        b = bs[i]; id = b.getAttribute('data-p'); v = b.getAttribute('data-v');
+        if (!ER.check(v, id)) {
+          ER.sfx.no(); flash(b);
+          msg(v === 'brk' ? '&ldquo;Look again at pot ' + (i + 1) + ',&rdquo; says Mrs Purkiss. &ldquo;A broken tulip&rsquo;s flames are different on every flower. Are these different from the others?&rdquo;' :
+            v === 'stb' ? '&ldquo;Pot ' + (i + 1) + ' a Fen Tiger?&rdquo; says Mrs Purkiss. &ldquo;Put it beside my paintings. Three flames on every petal, the middle one longest. Is that what you see?&rdquo;' :
+            '&ldquo;Plain?&rdquo; says Mrs Purkiss. &ldquo;Pot ' + (i + 1) + ' has stripes of some kind. Which kind?&rdquo;');
+          return;
+        }
+        if (v === 'brk') brk = id; if (v === 'pln') pln = id;
+      }
+      ER.flag('f-a', brk + '-' + pln); TULIP.solved(true);
+      TULIP.mine('pots', 'Sport or virus?', '<p>Pots 1, 2, 4, 6: the Fen Tiger. The same three flames on every flower, as in eight years of paintings; the stock doubles every year; the plain reds beside it never broke; the inspector found no virus. A stable sport.</p><p>Pot 3: plain red.</p><p>Pot 5, Mr Tebbutt&rsquo;s: thin, uneven feathers, different from every other flower. A broken tulip: the virus. It must go before aphids carry it to everybody&rsquo;s tulips.</p>', true);
+      msg('Mrs Purkiss lets the glass drop. <b>Four Fen Tigers, one plain red, and one broken tulip.</b>');
+      setTimeout(function () {
+        ER.closeAll(); paint(); busy = true;
+        ER.narrate([
+          '&ldquo;Pot five,&rdquo; says Mrs Purkiss. &ldquo;Thin feathers, all different, like somebody scribbled on it. That&rsquo;s a broken tulip, Roland. That&rsquo;s the virus, the very thing in the museum&rsquo;s watercolour. Mine have had the same three flames for nine years, and they double every summer. A sick bulb doesn&rsquo;t double.&rdquo;',
+          'Mr Tebbutt&rsquo;s face falls a long way. &ldquo;But it&rsquo;s beautiful.&rdquo;',
+          '&ldquo;So was Semper Augustus. And if one aphid takes it from your garden to the allotments, half the tulips in Dykesend come up broken next spring, and nobody who grows them for a living can sell a bulb. That&rsquo;s a cost on everybody, and none of them bought your pot.&rdquo; She puts it, very gently, into a paper bag, and the paper bag into the stove.',
+          '&ldquo;So the Fen Tiger is real,&rdquo; says Pearl slowly. &ldquo;A real, healthy, rather beautiful tulip. And that doesn&rsquo;t make it worth six hundred and forty pounds either.&rdquo; Mr Tebbutt has sat down on an upturned pot and is writing something on the back of a flyer. On the frame, a letter with an orange stripe flutters in the warm air.'
+        ], function () { busy = false; });
+      }, 2600);
+    });
+    msg('Click the label under each pot until it says what that flower is. Then tell Mrs Purkiss.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+
+  /* ---------- lock B: Mr Tebbutt's five reasons, and the catalogue ---------- */
+  function makeReasons() {
+    var CL = [
+      ['c1', 'It has doubled every Saturday for seven Saturdays. It will be £640 today.'],
+      ['c2', 'Every single person who has bought a Fen Tiger has made money.'],
+      ['c3', 'Historians now say nobody was ruined in 1637. So there is nothing to fear.'],
+      ['c4', 'A Fen Tiger is rare. There will never be enough to go round.'],
+      ['c5', 'And if the price ever falls, they will be worth nothing at all. Sell now, at any price!']
+    ];
+    var EV = [
+      ['runoff', 'The Ings', 'The Long Field&rsquo;s run-off costs other people £3,720 a year.'],
+      ['ledger', 'Mrs Purkiss&rsquo;s ledger', 'The stock doubles every year: 1,000 in July, 2,000 next year.'],
+      ['chain', 'Number thirteen', 'Every profit is a promise that the last buyer must pay. Nobody has paid yet.'],
+      ['bids', 'The lot ticket', 'Gardeners, a florist, a nursery and the museum will pay real money to plant or show one.'],
+      ['stints', 'The stints', 'Sixty beasts on the Ings, and not one more.'],
+      ['haarlem', 'The tulip case', '1637: buyers would not pay; Haarlem let them cancel for 3.5%. The profits vanished.'],
+      ['dutch', 'The letter from Lisse', 'A bulb firm will pay £6 a bulb for trial planting.'],
+      ['chart', 'The honest chart', 'This week: up £32, which is 10%, after seven weeks of 100%. No new names in Sadie&rsquo;s book.']
+    ];
+    var NUDGE = {
+      c1: '&ldquo;That doesn&rsquo;t say anything about today,&rdquo; says Mr Tebbutt. Pearl: &ldquo;What happened to the price THIS week?&rdquo;',
+      c2: '&ldquo;I don&rsquo;t see what that has to do with making money,&rdquo; says Mr Tebbutt. Pearl: &ldquo;Made it? Or been promised it? Who pays?&rdquo;',
+      c3: '&ldquo;Nothing to do with 1637,&rdquo; says Mr Tebbutt. Pearl: &ldquo;He&rsquo;s right that nobody was ruined. Why was nobody ruined?&rdquo;',
+      c4: '&ldquo;That doesn&rsquo;t make them common,&rdquo; says Mr Tebbutt. Pearl: &ldquo;How many Fen Tigers will there be in three years?&rdquo;',
+      c5: '&ldquo;Exactly, nothing!&rdquo; says Mr Tebbutt. Pearl: &ldquo;Nothing to whom? What will somebody who wants to plant one pay?&rdquo;'
+    };
+    var saved = ER.flag('f-rs') || {}, wait = false, d = {};
+    var box = ER.el('div', 'pz rs');
+    box.innerHTML = '<div class="rs-in"><div><div class="evs" style="background:none;padding:0 0 4px"><h5>Notes for bidders, by R. Tebbutt, on the back of a flyer</h5></div>' +
+      CL.map(function (c) { return '<div class="claim"><p>' + c[1] + '</p><span class="cslot" data-c="' + c[0] + '"></span></div>'; }).join('') + '</div>' +
+      '<div class="evs" id="evs"><h5>What you found today</h5>' + EV.map(function (e) { return '<span class="dnd-item ev" data-id="' + e[0] + '"><b>' + e[1] + '</b>' + e[2] + '</span>'; }).join('') + '</div>' +
+      '<div class="proof"><span class="tel">Telephone message, 2.20: &ldquo;Estimates at Gotobed&rsquo;s run from the lowest to the highest bid on the lot ticket by a buyer who means to use the lot. Send me the line for the catalogue. N.G.&rdquo;</span>' +
+      '<span><b>LOT 1.</b> Forty promises of one Fen Tiger bulb each, for 1 July. Estimate, each:</span><i id="e-lo"></i><span>to</span><i id="e-hi"></i></div></div>' +
+      '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="r-go">Read it to Mr Tebbutt</button></div>';
+    var msgEl = box.querySelector('.pmsg'), evs = box.querySelector('#evs');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function at(c) { var e = box.querySelector('.cslot[data-c="' + c + '"] .ev'); return e ? e.getAttribute('data-id') : ''; }
+    function keep() { var o = { at: {}, lo: d.lo.get(), hi: d.hi.get() }; CL.forEach(function (c) { o.at[c[0]] = at(c[0]); }); ER.flag('f-rs', o); }
+    function lk() { return wait || !!nextFile; }
+    d.lo = TULIP.drum(box.querySelector('#e-lo'), { digits: 3, before: '£', val: saved.lo || 0, change: keep, lock: lk });
+    d.hi = TULIP.drum(box.querySelector('#e-hi'), { digits: 3, before: '£', val: saved.hi || 0, change: keep, lock: lk });
+    Object.keys(saved.at || {}).forEach(function (c) { var id = saved.at[c], e = id && box.querySelector('.ev[data-id="' + id + '"]'), s = box.querySelector('.cslot[data-c="' + c + '"]'); if (e && s) s.appendChild(e); });
+    ER.dnd(box, { item: '.ev', slot: '.cslot', home: evs, change: keep, lock: lk });
+    ER.glossIn(box, '.claim p');
+    function flash(n) { n.classList.add('bad'); setTimeout(function () { n.classList.remove('bad'); }, 1300); }
+    box.querySelector('#r-go').addEventListener('click', function () {
+      if (wait || nextFile) return;
+      var i, c;
+      for (i = 0; i < CL.length; i++) { c = CL[i][0]; if (!at(c)) { ER.sfx.no(); flash(box.querySelector('.cslot[data-c="' + c + '"]')); msg('&ldquo;You haven&rsquo;t answered that one,&rdquo; says Mr Tebbutt, pleased. &ldquo;So I&rsquo;m right about it.&rdquo;'); return; } }
+      for (i = 0; i < CL.length; i++) { c = CL[i][0]; if (!ER.check(c, at(c))) { ER.sfx.no(); flash(box.querySelector('.cslot[data-c="' + c + '"]')); msg(NUDGE[c]); return; } }
+      var lo = d.lo.get(), hi = d.hi.get();
+      if (!ER.check('hi', hi)) { ER.sfx.no(); flash(d.hi.node); msg(ER.check('hi320', hi) ? '&ldquo;That&rsquo;s last week&rsquo;s price, or the hope in it,&rdquo; says Pearl. &ldquo;Gran&rsquo;s message says: bids by buyers who mean to USE it. The lot ticket.&rdquo;' : '&ldquo;The highest bid on the lot ticket from somebody who&rsquo;d plant it,&rdquo; says Pearl. &ldquo;It&rsquo;s in the notebook, from the saleroom.&rdquo;'); return; }
+      if (!ER.check('lo', lo)) { ER.sfx.no(); flash(d.lo.node); msg(ER.check('lo5', lo) ? '&ldquo;Is that the lowest bid on the ticket from a buyer who&rsquo;d use it?&rdquo; says Pearl. &ldquo;Somebody bid less, and they wanted it for a pot.&rdquo;' : '&ldquo;The lowest bid on the lot ticket from a buyer who means to use it,&rdquo; says Pearl.'); return; }
+      var file = ER.exit([ER.flag('f-a') + '-' + lo + '-' + hi], { wait: true });
+      if (!file) { msg('The door will not open. Something is wrong with this page: tell your teacher.'); return; }
+      wait = true; nextFile = file; ER.flag('f-file', file);
+      TULIP.terms(['estimate']);
+      TULIP.mine('reasons', 'Five answers, and the catalogue', '<p>&ldquo;It will double again&rdquo;: this week it rose 10%, and no new buyers came. A bubble needs new money every week.</p><p>&ldquo;Everybody has made money&rdquo;: only on paper. Every profit is a promise that the last buyer must pay.</p><p>&ldquo;Nobody was ruined in 1637&rdquo;: because the promises were cancelled for 3.5%, and the profits vanished too.</p><p>&ldquo;Never enough&rdquo;: the stock doubles every year.</p><p>&ldquo;Worth nothing&rdquo;: no; worth what a planter will pay, £4 to £14.</p><p>LOT 1: estimate £4 to £14 each.</p>', true);
+      msg('Pearl reads it all aloud, and then the catalogue line: <b>Lot 1, estimate £4 to £14 each.</b> Mr Tebbutt does not say anything for some time.');
+      setTimeout(function () {
+        ER.closeAll(); paint(); busy = true;
+        ER.narrate([
+          '&ldquo;Four to fourteen,&rdquo; says Mr Tebbutt at last. He looks at the flyer in his hand, STILL CLIMBING!, and folds it in half. &ldquo;I have twelve promises. I bought most of them last week. I&rsquo;m the last buyer, aren&rsquo;t I? I&rsquo;m Yvonne.&rdquo;',
+          '&ldquo;Half the town is somebody&rsquo;s Yvonne,&rdquo; says Pearl. &ldquo;If the price falls at three o&rsquo;clock, then on the first of July everybody at the end of a chain defaults, and it runs back down the chains like Sadie&rsquo;s beam. Rhoda, and Nev, and all of them.&rdquo;',
+          'Mrs Purkiss takes off her apron. &ldquo;Nobody has paid anybody a penny yet,&rdquo; she says. &ldquo;That&rsquo;s the one good thing about promises. They can be let go before they hurt. Haarlem did it after the crash. We can do it before.&rdquo; She picks up the telephone. &ldquo;Nerys? It&rsquo;s Zillah. About lot one. And about Sadie&rsquo;s back room. I have an idea, and it&rsquo;s nearly four hundred years old.&rdquo;'
+        ], function () { busy = false; $('#go').classList.add('on'); });
+      }, 3000);
+    });
+    msg('Drag one thing you found today on to each of Mr Tebbutt&rsquo;s reasons, the thing that shows what is wrong with it (or click it, then the space). Set the estimate. Then read it to him.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+})();
+</script>
+</body>
+</html>

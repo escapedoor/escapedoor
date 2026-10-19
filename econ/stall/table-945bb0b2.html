@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Organiser’s Table · Squeezed</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-econ.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="stall.css">
+<style>
+  body{--bg:#f2b25a;--accent:#c2185b;--font-display:'Bungee',sans-serif;--font-ui:'Outfit',sans-serif;--font-body:'Lora',serif;
+    --tc-bg:rgba(255,238,206,.97);--tc-ink:#3a1a10;--cap-bg:rgba(255,248,232,.96);--cap-ink:#2a1a10;--panel:#fffaf0;--panel-ink:#2a1a10;--face-bg:#a3242a;--q-ink:#2b5c9e;
+    --fade:#ffe8c0;--hud-bg:rgba(255,248,232,.88);--hud-ink:#2a1a10;--hud-line:rgba(42,26,16,.3);--ov-bg:rgba(60,30,10,.55)}
+  .tc-room{font-size:clamp(36px,5.2vw,74px);color:#c2185b}
+  .tc-theme{color:#3a8a4a}
+  .hbtn b{color:#fff}
+  #castle{animation:sag 14s ease-in forwards;transform-origin:1480px 560px}
+  @keyframes sag{to{transform:scaleY(.55)}}
+  #shine{animation:shine 2.4s steps(2,end) infinite}
+  @keyframes shine{50%{opacity:.2}}
+  #water{display:none}
+  #scene.over #water{display:block}
+  #wb.ready{animation:glow 1.6s steps(1,end) infinite}
+  @keyframes glow{50%{filter:brightness(1.2)}}
+
+  /* Mrs Okonjo's whiteboard */
+  .wq{width:min(1040px,96vw)}
+  .wq-in{display:grid;grid-template-columns:1fr 470px;gap:18px;background:#fbfdff;color:#1f2a44;border:14px solid #c9cfd6;border-radius:8px;padding:16px 20px;box-shadow:0 26px 70px rgba(0,0,0,.55)}
+  .wq h4{margin:0 0 8px;font-family:'Architects Daughter',cursive;font-weight:700;font-size:28px;color:#1f5a8a}
+  .wq p{margin:0 0 8px;font-family:'Lora',serif;font-size:16px;line-height:1.45}
+  .wq b{color:#c2185b}
+  .wq .task{margin-top:12px;padding:8px 12px;background:#fff7c2;border-left:5px solid #f2b705;font-weight:600}
+  .wq svg{width:100%;height:auto;touch-action:none}
+  .wq .nudge{display:flex;justify-content:center;gap:10px;margin-top:4px}
+  .wq .nudge button{width:40px;height:32px;border:2px solid #9fb0c8;border-radius:6px;font-size:14px;color:#1f2a44}
+  .wq .nudge button:hover{border-color:#c2185b;color:#c2185b}
+  .wq .pmsg{color:#fffaf0}
+  #dline{cursor:ew-resize}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7ab4e0"/><stop offset=".6" stop-color="#ffd9a0"/><stop offset="1" stop-color="#ffb870"/></linearGradient>
+  <linearGradient id="tarG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a08a78"/><stop offset="1" stop-color="#6a5a4e"/></linearGradient>
+  <pattern id="brick" width="40" height="20" patternUnits="userSpaceOnUse"><rect width="40" height="20" fill="#c87050"/><path d="M0 0H40M0 10H40M0 0V10M20 10V20" stroke="#a05436" stroke-width="1.4"/></pattern>
+  <linearGradient id="sunL" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ffcf7a" stop-opacity="0"/><stop offset="1" stop-color="#ffcf7a" stop-opacity=".45"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="45%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#5a2a00" stop-opacity=".08"/><stop offset="1" stop-color="#3a1a00" stop-opacity=".45"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="900" fill="url(#skyG)"/>
+<rect x="-1000" y="200" width="3600" height="300" fill="url(#brick)"/><rect x="-1000" y="190" width="3600" height="14" fill="#e8dcc4"/>
+<g id="wins"></g>
+<g id="castle"><rect x="1360" y="400" width="240" height="160" rx="16" fill="#e2453a"/><rect x="1360" y="350" width="50" height="80" rx="10" fill="#2f8ac9"/><rect x="1550" y="350" width="50" height="80" rx="10" fill="#2f8ac9"/></g>
+<rect x="-1000" y="500" width="3600" height="900" fill="url(#tarG)"/>
+<g opacity=".25" fill="#3a1a00"><path d="M520 880l-260 40h120l220 -40z"/><path d="M760 885l-280 40h120l240 -40z"/><path d="M990 880l-280 40h120l240 -40z"/></g>
+<g id="bunt"></g>
+
+<!-- the totals board -->
+<g id="totals" class="hot"><path d="M90 600l40 -360h140l40 360" fill="none" stroke="#6a4420" stroke-width="10"/><rect x="70" y="250" width="270" height="250" rx="4" fill="#8a5a2e"/><rect x="80" y="260" width="250" height="230" fill="#2b3a32"/>
+  <text x="205" y="290" class="cS" font-size="19" font-weight="700" text-anchor="middle" fill="#f6d32b">MARKET TOTALS</text><text x="205" y="310" class="cS" font-size="13" text-anchor="middle" fill="#cfe3d4">things sold, by stall</text>
+  <g class="cS" font-size="16" fill="#f4f1e6"><text x="96" y="344">Lemon Aid</text><text x="314" y="344" text-anchor="end">340</text><text x="96" y="372">The Squeeze</text><text x="314" y="372" text-anchor="end">268</text>
+  <text x="96" y="400">Tombola</text><text x="314" y="400" text-anchor="end">212</text><text x="96" y="428">Cakes</text><text x="314" y="428" text-anchor="end">186</text><text x="96" y="456">Craft club</text><text x="314" y="456" text-anchor="end">41</text></g></g>
+
+<!-- the gazebo, the table, the Cup -->
+<path d="M300 250L560 120H1040L1300 250z" fill="#fff"/><path d="M300 250h1000v24H300z" fill="#e8e2d4"/><g id="scal"></g>
+<path d="M320 270V640M1280 270V640" stroke="#9aa3ad" stroke-width="8"/>
+<g id="petrie" class="hot" transform="translate(690 650) scale(1.08)"></g>
+<rect x="380" y="516" width="840" height="140" fill="#a3242a"/><rect x="380" y="510" width="840" height="12" fill="#c2303a"/><path d="M380 656h840" stroke="#7a1a20" stroke-width="4"/>
+<g id="mic"><path d="M600 512v-38" stroke="#2a2c33" stroke-width="4"/><ellipse cx="600" cy="468" rx="9" ry="13" fill="#2a2c33"/><rect x="584" y="508" width="32" height="6" fill="#2a2c33"/></g>
+<g id="cup" class="hot"><path d="M860 440h60q0 50 -30 60q-30 -10 -30 -60z" fill="#d9dde2"/><path d="M860 448q-20 0 -18 18t22 16M920 448q20 0 18 18t-22 16" fill="none" stroke="#d9dde2" stroke-width="5"/><rect x="878" y="498" width="24" height="10" fill="#d9dde2"/><rect x="868" y="506" width="44" height="8" fill="#5a4028"/>
+  <path id="shine" d="M870 452l6 22" stroke="#fff" stroke-width="4" stroke-linecap="round"/></g>
+<g id="tin"><rect x="1000" y="480" width="70" height="32" rx="4" fill="#3a6fa8"/><rect x="1000" y="480" width="70" height="8" fill="#5a8fc8"/></g>
+<g id="water"><path d="M1110 512v-60q0 -10 10 -10h40q10 0 10 10v60z" fill="#d6f0ff" fill-opacity=".85" stroke="#6fa8c8" stroke-width="3"/><rect x="1102" y="420" width="76" height="22" fill="#fff" stroke="#6fa8c8"/><text x="1140" y="436" class="cB" font-size="10.5" text-anchor="middle" fill="#2f8ac9">FREE WATER</text></g>
+
+<!-- the whiteboard on its easel -->
+<g id="wb" class="hot"><path d="M1340 640l30 -400h160l30 400" fill="none" stroke="#5a6470" stroke-width="8"/><rect x="1320" y="240" width="250" height="190" rx="4" fill="#fbfdff" stroke="#c9cfd6" stroke-width="8"/>
+  <path d="M1350 260V410H1550" fill="none" stroke="#1f2a44" stroke-width="3"/><path d="M1370 300L1500 400" stroke="#2b5c9e" stroke-width="4"/><path d="M1350 360H1550" stroke="#c2185b" stroke-width="3" stroke-dasharray="8 5"/><path d="M1460 270V410" stroke="#3a8a4a" stroke-width="4"/></g>
+
+<!-- everybody -->
+<g id="kit" class="hot" transform="translate(520 884) scale(1.15)"></g>
+<g id="rosa" class="hot" transform="translate(760 888) scale(1.15)"></g>
+<g id="tomasz" class="hot" transform="translate(990 884) scale(1.1)"></g>
+<g id="rory" class="hot" transform="translate(1160 884) scale(.96)"></g>
+<g id="okonjo" class="hot" transform="translate(1390 888) scale(1.15)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#sunL)" pointer-events="none"/>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<div class="done" id="done">
+  <div class="okstamp">SOLD OUT</div>
+  <p id="d-time"></p><p id="d-hints"></p><p id="d-words"></p>
+  <h6>What you now know</h6>
+  <ol>
+    <li>Demand is how many people will buy at each price: the higher the price, the fewer they buy. Changing the price moves you along the demand curve.</li>
+    <li>Other things (the weather, a rival, a rumour) move the whole curve. Never mix points from two different days.</li>
+    <li>Where supply and demand meet, everything made is sold and nobody waits. A price held below that point makes a shortage: a queue.</li>
+    <li>Fixed costs stay the same however much you sell; variable costs go up with every cup. Cost one cup at today&rsquo;s prices.</li>
+    <li>Profit = revenue &minus; cost. Selling more is not the same as earning more, and a free cup still costs money.</li>
+    <li>The opportunity cost of a choice is the best thing you give up: one thing, not all of them. Time and swaps have costs too.</li>
+    <li>People respond to incentives. A prize for selling the most things rewarded giving lemonade away, and a &ldquo;fair price&rdquo; made people pay in time instead of money.</li>
+  </ol>
+  <div class="row"><button type="button" class="btn" id="b-task">Tell a friend</button><button type="button" class="btn" id="b-book">Notebook</button><button type="button" class="btn" id="b-lobby">Back to the market board</button></div>
+  <small>Squeezed &middot; <button type="button" id="b-reset">play it again from the start</button></small>
+</div>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="stall.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, wq = null;
+
+  (function () {
+    var s = '', x, i;
+    for (x = -600; x < 2200; x += 150) s += '<rect x="' + x + '" y="260" width="90" height="110" fill="#e8dcc4"/><rect x="' + (x + 6) + '" y="266" width="78" height="98" fill="#ffd9a0"/><path d="M' + (x + 45) + ' 266v98M' + (x + 6) + ' 315h78" stroke="#e8dcc4" stroke-width="5"/>';
+    $('#wins').innerHTML = s;
+    s = 'M300 270'; for (i = 0; i < 25; i++) s += 'q20 22 40 0'; $('#scal').innerHTML = '<path d="' + s + 'z" fill="#fff"/>';
+    $('#bunt').innerHTML = STALL.bunting(-200, 60, 800, 90, 26, 18, ['#e2453a', '#f6d32b', '#2f8ac9', '#3a8a4a', '#fff']) + STALL.bunting(800, 90, 1800, 50, 30, 18, ['#f6d32b', '#c2185b', '#1f8a86', '#fff']);
+    $('#petrie').innerHTML = STALL.who('petrie', { smile: 2, extra: '<path d="M-28 -298q28 -18 56 0q-6 -16 -28 -16t-28 16z" fill="#e9dfb8"/><rect x="34" y="-170" width="40" height="54" rx="3" fill="#8a6a3a"/><rect x="38" y="-162" width="32" height="42" fill="#fff"/>' });
+    $('#kit').innerHTML = STALL.who('kit', { smile: 4 });
+    $('#rosa').innerHTML = STALL.who('rosa', { smile: 6 });
+    $('#tomasz').innerHTML = STALL.who('tomasz', { smile: 5, extra: '<rect x="-62" y="-160" width="40" height="52" rx="3" fill="#c2303a"/>' });
+    $('#rory').innerHTML = STALL.who('rory', { smile: 8, extra: '<path d="M39 -112l10 -40" stroke="#fff" stroke-width="3"/><rect x="40" y="-176" width="18" height="28" rx="7" fill="#3a8a4a"/>' });
+    $('#okonjo').innerHTML = STALL.who('okonjo', { smile: 6, glasses: '#1a1a1a', extra: '<path d="M-26 -300q26 -20 52 0" fill="#f6d32b"/><rect x="34" y="-150" width="12" height="40" rx="3" fill="#2b5c9e"/>' });
+  })();
+
+  ER.init({
+    theme: 'econ', story: 'stall', storyTitle: 'Squeezed', id: 'table', no: 'V', title: 'The Organiser’s Table',
+    go: 'Three minutes to three',
+    intro: [
+      'The cash box balanced to the penny. Kit&rsquo;s missing £30.80 was £16 of lemons and £10 of ice paid out of the box, and 24 free tasters, counted at 20p each, that nobody ever paid for. Rosa&rsquo;s note was under the coin tray: a five-pound note in, five pound coins out. Nobody stole anything.',
+      'Kit folded her complaint very small. She still wants to see Mr Petrie. Not about Rosa, now: about his rules.',
+      'The organiser&rsquo;s table is under the big white gazebo by the gate, and the Market Cup is on it.'
+    ],
+    exit: {"last":true,"rooms":5,"stars":3}, tags: {"coda":["563485b1"]},
+    hints: hints, onBegin: begin
+  });
+
+  function isBusy() { return busy; }
+  function hints() {
+    if (ER.flag('e-done')) return null;
+    if (wq && wq.isOpen()) return ['wq', [
+      'Put the mouse on the blue demand line and drag it to the right. Rosa&rsquo;s two crosses are where it has to go.',
+      'Rosa sold 14 cups every ten minutes at 80p with a steady queue, and her queue grew by 6 at 40p: 20 people wanted a cup. Move the line until it goes through both crosses. The arrow buttons move it one cup at a time.'
+    ]];
+    return ['wb', ['Mrs Okonjo&rsquo;s whiteboard is on the easel on the right. Click it.']];
+  }
+  function begin() {
+    if (!ER.flag('tEnd')) ER.flag('tEnd', Date.now());
+    if (ER.flag('e-done')) { busy = false; finish(true); return; }
+    if (ER.flag('e-in')) { busy = false; $('#wb').classList.add('ready'); ER.say('Mrs Okonjo&rsquo;s whiteboard is waiting on its easel.'); return; }
+    ER.flag('e-in', 1);
+    ER.narrate([
+      'Three minutes to three, under the big white gazebo by the gate. Mr Petrie is behind his table with a microphone, a cash tin and the Market Cup, which is small and silver and extremely shiny.',
+      'LEMON AID sold its last cup at twenty-five to three: seventy cups at forty pence, with Rosa&rsquo;s ice. The cash box holds eighty-two pounds, float and all, and Tomasz has written down where every penny came from.',
+      'Kit has told Mr Petrie everything: the twenty pence, the tasters, the Cup. He listened with his glasses pushed up on his head.',
+      '&ldquo;But the Fair Price rule,&rdquo; he says. &ldquo;Surely that one was a good idea? Nobody paid more than forty pence for a drink all afternoon.&rdquo;',
+      'Mrs Okonjo has come over from the first-aid tent with her whiteboard. She sets it on the easel and hands you the pen. &ldquo;Show him Rosa&rsquo;s stall,&rdquo; she says.'
+    ], function () { busy = false; $('#wb').classList.add('ready'); openWq(); });
+  }
+
+  /* ---------- the whiteboard: a price ceiling ---------- */
+  function openWq() {
+    if (ER.flag('e-done')) return;
+    if (!wq) wq = makeWq();
+    wq.open();
+  }
+  $('#wb').addEventListener('click', function () {
+    if (busy) return;
+    if (ER.flag('e-done')) { ER.say('Rosa&rsquo;s crosses, the line through them, and a red bracket at forty pence with QUEUE written beside it.'); return; }
+    openWq();
+  });
+  function makeWq() {
+    var s = 0, done = false, box = ER.el('div', 'pz wq');
+    /* the graph: cups 0 to 30 across, price 0 to 120p up */
+    function gx(c) { return 50 + c * 13.5; } function gy(p) { return 360 - p * 2.6; }
+    function dAt(p) { return 2 + s + (80 - p) * 0.15; }        /* the cool morning's line, moved s cups to the right */
+    box.innerHTML = '<div class="wq-in"><div><h4>A price ceiling</h4>' +
+      '<p>A <b>price ceiling</b> is a top price set by a rule. If it is above the price where supply and demand meet (the <b>market price</b>), it changes nothing.</p>' +
+      '<p>If it is <b>below</b> that price, more people want to buy than there is to sell. Economists call that a <b>shortage</b>. On a playground it is called a queue.</p>' +
+      '<p>The people at the front pay less. The people at the back pay in time, and some of them get nothing at all.</p>' +
+      '<p class="task">The blue line is this morning&rsquo;s demand. Drag it until it goes through Rosa&rsquo;s two crosses, the hot afternoon. Then look at forty pence.</p></div>' +
+      '<div><svg viewBox="0 0 470 410"><g id="ax"></g><g id="live"></g><path id="dline" d="" stroke="transparent" stroke-width="36" fill="none"/></svg><div class="nudge"><button type="button" data-d="-1">&#9664;</button><button type="button" data-d="1">&#9654;</button></div></div></div>' +
+      '<div class="pz-foot"><p class="pmsg"></p></div>';
+    var svg = box.querySelector('svg'), msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    (function () {
+      var a = '<g font-family="Architects Daughter,cursive" fill="#1f2a44"><path d="M50 20V360H460" fill="none" stroke="#1f2a44" stroke-width="3"/>', i;
+      for (i = 20; i <= 120; i += 20) a += '<path d="M44 ' + gy(i) + 'h12" stroke="#1f2a44" stroke-width="2"/><text x="40" y="' + (gy(i) + 5) + '" font-size="14" text-anchor="end">' + (i >= 100 ? '£' + (i / 100).toFixed(2) : i + 'p') + '</text>';
+      for (i = 5; i <= 30; i += 5) a += '<path d="M' + gx(i) + ' 354v12" stroke="#1f2a44" stroke-width="2"/><text x="' + gx(i) + '" y="384" font-size="14" text-anchor="middle">' + i + '</text>';
+      a += '<text x="458" y="404" font-size="15" text-anchor="end">cups in ten minutes</text><text x="10" y="14" font-size="15">price</text>';
+      a += '<path d="M' + gx(14) + ' 30V360" stroke="#3a8a4a" stroke-width="5"/><text x="' + (gx(14) + 6) + '" y="40" font-size="13.5" fill="#3a8a4a">Rosa&rsquo;s supply: all she</text><text x="' + (gx(14) + 6) + '" y="56" font-size="13.5" fill="#3a8a4a">and her cousin can squeeze</text>';
+      a += '<path d="M50 ' + gy(40) + 'H460" stroke="#c2185b" stroke-width="3" stroke-dasharray="10 6"/><text x="456" y="' + (gy(40) - 8) + '" font-size="14" text-anchor="end" fill="#c2185b">FAIR PRICE: 40p</text>';
+      a += '<g stroke="#e2453a" stroke-width="4" stroke-linecap="round"><path d="M' + (gx(14) - 8) + ' ' + (gy(80) - 8) + 'l16 16m0 -16l-16 16M' + (gx(20) - 8) + ' ' + (gy(40) - 8) + 'l16 16m0 -16l-16 16"/></g>';
+      a += '<text x="' + (gx(14) + 12) + '" y="' + (gy(80) + 22) + '" font-size="13" fill="#e2453a">80p: 14, queue steady</text><text x="' + (gx(20) + 12) + '" y="' + (gy(40) + 26) + '" font-size="13" fill="#e2453a">40p: 14 + 6</text></g>';
+      box.querySelector('#ax').innerHTML = a;
+    })();
+    function path() { var c1 = dAt(120), c2 = dAt(10); return 'M' + gx(c1).toFixed(1) + ' ' + gy(120) + 'L' + gx(c2).toFixed(1) + ' ' + gy(10); }
+    function draw() {
+      var l = '', p = path();
+      l += '<path d="' + p + '" stroke="#2b5c9e" stroke-width="5" stroke-linecap="round" fill="none"/><text x="' + (gx(dAt(110)) + 8).toFixed(0) + '" y="' + gy(110) + '" font-family="Architects Daughter,cursive" font-size="15" fill="#2b5c9e">demand</text>';
+      if (done) {
+        l += '<g font-family="Architects Daughter,cursive"><circle cx="' + gx(14) + '" cy="' + gy(80) + '" r="9" fill="#f2b705" stroke="#1f2a44" stroke-width="2"/><text x="' + (gx(14) - 14) + '" y="' + (gy(80) - 14) + '" font-size="14" text-anchor="end" fill="#1f2a44">they meet at 80p</text>' +
+          '<path d="M' + gx(14) + ' ' + (gy(40) + 14) + 'v10H' + gx(20) + 'v-10" fill="none" stroke="#c2185b" stroke-width="3"/><text x="' + gx(17) + '" y="' + (gy(40) + 44) + '" font-size="15" text-anchor="middle" fill="#c2185b" font-weight="700">QUEUE: +6</text></g>';
+      }
+      box.querySelector('#live').innerHTML = l;
+      box.querySelector('#dline').setAttribute('d', p);
+    }
+    function settle() {
+      if (done) return;
+      if (Math.abs(s - 12) <= 1.5) s = 12;
+      draw();
+      if (ER.check('coda', String(Math.round(s))) && s === Math.round(s)) {
+        done = true; draw(); STALL.solved(); STALL.terms(['price ceiling', 'shortage', 'market price']);
+        msg('The line sits on both crosses: twelve more cups at every price than on a cool morning. At forty pence, twenty people want a cup every ten minutes, and fourteen get one.');
+        setTimeout(ending, 2600);
+      } else msg(s < 12 ? 'Not far enough yet: Rosa&rsquo;s crosses are further to the right.' : 'Too far: the line has gone past Rosa&rsquo;s crosses.');
+    }
+    var start = 0, s0 = 0;
+    ER.drag(box.querySelector('#dline'), {
+      start: function (e) { if (done) return false; start = ER.pt(svg, e).x; s0 = s; },
+      move: function (e) { s = Math.max(0, Math.min(18, s0 + (ER.pt(svg, e).x - start) / 13.5)); draw(); },
+      end: function () { s = Math.round(s * 2) / 2; settle(); STALL.sfx.chalk(); }
+    });
+    ER.$$('.nudge button', box).forEach(function (b) {
+      b.addEventListener('click', function () { if (done) return; s = Math.max(0, Math.min(18, Math.round(s) + +b.getAttribute('data-d'))); STALL.sfx.chalk(); settle(); });
+    });
+    draw();
+    msg('Drag the blue line to the right (or use the arrows under the board).');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+
+  function ending() {
+    ER.closeAll(); busy = true;
+    ER.narrate([
+      'Where the line crosses Rosa&rsquo;s supply, the price is eighty pence: the price she was charging before twelve. At forty pence the line runs on past her supply. Twenty people every ten minutes want a cup; fourteen get one. Six more join the queue every ten minutes, and it never gets shorter.',
+      '&ldquo;So my rule made the queue,&rdquo; says Mr Petrie slowly.',
+      '&ldquo;The heat made the lemonade dear,&rdquo; says Mrs Okonjo. &ldquo;Your rule made it cheap for whoever could stand in the sun for forty minutes. It only changed how people paid: in pennies, or in minutes. And the ones at the back paid in minutes and got nothing.&rdquo;',
+      '&ldquo;Then what IS fair?&rdquo; says Mr Petrie. It is a real question, and for a moment nobody answers it.',
+      '&ldquo;Free water,&rdquo; says Rosa. &ldquo;Here, at your table, for anybody who&rsquo;s thirsty. Then nobody goes without a drink, and the lemonade can cost what it costs.&rdquo;',
+      'Mr Petrie writes FREE WATER on his clipboard. Under it he writes: MARKET CUP: THE MOST MONEY FOR THE MINIBUS, NOT THE MOST THINGS. Then he picks up the microphone.',
+      '&ldquo;This year,&rdquo; he says, and every speaker in the playground squeals, &ldquo;the Market Cup goes to two stalls, for the best deal of the day: four lemons for two bags of ice. LEMON AID, and THE SQUEEZE.&rdquo;',
+      'Kit and Rosa hold the Cup between them, not quite looking at each other. &ldquo;Next year,&rdquo; says Kit, &ldquo;one stall?&rdquo; &mdash; &ldquo;One stall,&rdquo; says Rosa. &ldquo;I do the prices.&rdquo; &mdash; &ldquo;We&rsquo;ll see,&rdquo; says Kit.'
+    ], function () { busy = false; ER.flag('e-done', 1); finish(false); });
+  }
+
+  /* ---------- people, after it all ---------- */
+  function line(sel, before, after) { $(sel).addEventListener('click', function () { if (!busy) ER.say(ER.flag('e-done') ? after : before); }); }
+  line('#petrie', '&ldquo;Show me,&rdquo; says Mr Petrie, looking at the whiteboard. &ldquo;I am a deputy head. I can take it.&rdquo;', '&ldquo;The most money for the minibus,&rdquo; says Mr Petrie, writing it down a third time. &ldquo;Not the most things. I should have seen that.&rdquo;');
+  line('#okonjo', '&ldquo;The pen,&rdquo; says Mrs Okonjo. &ldquo;The board. Rosa&rsquo;s stall.&rdquo;', '&ldquo;Monday,&rdquo; says Mrs Okonjo. &ldquo;Business Club, half past three. Bring Rosa. Bring the receipts. Bring Rory, if you must.&rdquo;');
+  line('#kit', 'Kit is very quiet, which nobody has ever seen before.', '&ldquo;Eighty-two pounds in the box,&rdquo; says Kit. &ldquo;Tomasz says that isn&rsquo;t profit. Tomasz says a lot of things. He&rsquo;s usually right. Don&rsquo;t tell him.&rdquo;');
+  line('#rosa', '&ldquo;Go on,&rdquo; says Rosa. &ldquo;Show him.&rdquo;', '&ldquo;The note was under the tray,&rdquo; says Rosa. &ldquo;It&rsquo;s always under the tray.&rdquo;');
+  line('#tomasz', 'Tomasz is adding something up on his fingers, under his breath.', '&ldquo;Revenue, ninety-eight pounds,&rdquo; Tomasz murmurs. &ldquo;Minus the costs. Minus the two pounds we owe Mrs Okonjo.&rdquo; He will be happy until Monday.');
+  line('#rory', 'Rory is eating a lolly. It may be the last one in the school.', '&ldquo;I saw the whole thing,&rdquo; Rory tells a Year 7. &ldquo;I was watching.&rdquo;');
+  STALL.thing('#totals', null, 'MARKET TOTALS, things sold: LEMON AID 340, THE SQUEEZE 268, TOMBOLA 212, CAKES 186, CRAFT CLUB 41. Not a single penny on the whole board.', isBusy);
+  STALL.thing('#cup', 'trophy', 'The Market Cup: small, silver, and engraved SUMMER MARKET. Somebody has polished it so hard that you can see the whole playground in it, upside down.', isBusy);
+
+  /* ---------- the end ---------- */
+  function finish(quick) {
+    var st = ER.state(), mins = STALL.minutesPlayed(), hn = ER.hintsUsed();
+    $('#scene').classList.add('over'); $('#wb').classList.remove('ready');
+    $('#d-time').textContent = 'From the playground to the organiser’s table: ' + mins + (mins === 1 ? ' minute.' : ' minutes.');
+    $('#d-hints').textContent = hn ? 'Hints asked for: ' + hn + '.' : 'Hints asked for: none at all.';
+    $('#d-words').textContent = 'In your notebook: ' + st.clues.length + ' clues and ' + Object.keys(st.words).length + ' words.';
+    $('#done').classList.add('on');
+    if (quick) ER.say('Three o&rsquo;clock. The Cup is shared, and there is free water on the table.');
+  }
+  $('#b-book').addEventListener('click', ER.notebook);
+  $('#b-lobby').addEventListener('click', function () { ER.leave('../index.html'); });
+  $('#b-reset').addEventListener('click', function () {
+    var b = $('#b-reset');
+    if (b.getAttribute('data-sure')) { ER.resetStory(); location.href = '../index.html'; return; }
+    b.setAttribute('data-sure', '1'); b.textContent = 'this empties your notebook. click again to do it';
+  });
+  $('#b-task').addEventListener('click', function () {
+    var saved = ER.flag('task') || {}, box = ER.el('div', 'rp');
+    box.innerHTML = '<h4>Squeezed &middot; in your own words</h4><h3>Tell a friend</h3>' +
+      '<p>A friend who was not at the market asks you what happened. Choose ONE of these and explain it, aloud or in writing, in 60 to 90 words. Use: because, so, but, if.</p>' +
+      '<p><b>A</b> Why the price of lemonade (and of ice) went up on the hottest day, and whether the Fair Price rule made things fairer.<br><b>B</b> Why selling more cups did not mean earning more money.<br><b>C</b> What it really costs you to wait forty minutes in a queue.</p>' +
+      '<textarea id="r1"></textarea><div class="count"></div><label for="r2">Name</label><input type="text" id="r2" maxlength="60">' +
+      '<div class="foot"><span>Nobody marks this. It is saved in this browser as you write.</span><button type="button" class="btn" id="r-print">Print</button><button type="button" class="btn" id="r-done">Done</button></div>';
+    ER.glossIn(box, '.rp > p');
+    box.querySelector('#r1').value = saved.r1 || ''; box.querySelector('#r2').value = saved.r2 || '';
+    function keep() {
+      var o = { r1: box.querySelector('#r1').value, r2: box.querySelector('#r2').value }, n = (o.r1.match(/[A-Za-z’']+/g) || []).length;
+      box.querySelector('.count').textContent = n + (n === 1 ? ' word' : ' words');
+      ER.flag('task', o);
+    }
+    box.addEventListener('input', keep);
+    box.addEventListener('keydown', function (e) { e.stopPropagation(); });
+    box.querySelector('#r-print').addEventListener('click', function () { keep(); window.print(); });
+    box.querySelector('#r-done').addEventListener('click', ER.close);
+    ER.open('ov-report', box); keep();
+  });
+})();
+</script>
+</body>
+</html>

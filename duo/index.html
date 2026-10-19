@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Together · KEYHOLE</title>
+<link rel="stylesheet" href="../assets/fonts-base.css">
+<link rel="stylesheet" href="../assets/fonts-duo.css">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%}
+  body{color:#f3ecdc;font-family:'EB Garamond',Georgia,serif;-webkit-user-select:none;user-select:none;background:#14302c;
+    background-image:radial-gradient(ellipse 1000px 560px at 50% 0,rgba(255,214,140,.22),rgba(255,214,140,0) 70%),
+      repeating-linear-gradient(45deg,rgba(255,255,255,.025) 0 2px,transparent 2px 9px),linear-gradient(#1b3d38,#0d211e)}
+  .back{position:fixed;left:14px;top:12px;z-index:5;height:36px;display:inline-flex;align-items:center;padding:0 14px;border:1px solid rgba(255,255,255,.24);
+    background:rgba(6,16,14,.6);color:#efe9dc;border-radius:3px;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:15px;letter-spacing:.14em;text-transform:uppercase;text-decoration:none}
+  .back:hover{border-color:#f2c46b;color:#f2c46b}
+  header{text-align:center;padding:58px 20px 18px}
+  h1{margin:0;font-family:'Fraunces',serif;font-style:italic;font-weight:800;font-size:clamp(50px,7vw,86px);line-height:1;color:#f6d58a;letter-spacing:-.01em}
+  h1 span{display:inline-block;transform:rotate(-3deg)}
+  h1 span+span{transform:rotate(3deg);margin-left:.06em}
+  header p{margin:12px auto 0;max-width:720px;font-family:'Kalam',cursive;font-size:20px;line-height:1.3;color:#d9e6dc}
+  main{max-width:1060px;margin:0 auto;padding:10px 24px 20px;display:grid;gap:34px}
+  /* a ticket for two (or three), torn into one piece for each player */
+  .ticket{position:relative;color:#2a2214;filter:drop-shadow(0 18px 30px rgba(0,0,0,.5))}
+  .t-top{position:relative;display:block;width:100%;text-align:left;padding:20px 30px 16px 120px;border:0;cursor:pointer;font:inherit;color:inherit;
+    background:#f4ead2;background-image:radial-gradient(circle at 0 50%,transparent 16px,#f4ead2 17px),linear-gradient(90deg,rgba(196,55,43,.0),rgba(196,55,43,0));border-radius:6px 6px 0 0}
+  .t-top:hover{background-color:#fff4dc}
+  .t-top .adm{position:absolute;left:0;top:0;bottom:0;width:92px;display:flex;align-items:center;justify-content:center;background:#c4372b;color:#f4ead2;border-radius:6px 0 0 0;
+    font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:22px;letter-spacing:.24em;-webkit-writing-mode:vertical-rl;writing-mode:vertical-rl;transform:rotate(180deg);text-transform:uppercase}
+  .t-top h2{margin:0 0 4px;font-family:'Fraunces',serif;font-weight:800;font-size:clamp(28px,3.4vw,40px);line-height:1.05}
+  .t-top .meta{font-family:'Space Mono',monospace;font-weight:700;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:#7a5a2a;margin:0 0 8px}
+  .t-top .stars{font-size:22px;letter-spacing:3px;color:#c4372b;margin-right:10px;vertical-align:-2px}
+  .t-top p{margin:0;font-size:19px;line-height:1.38;max-width:820px}
+  .t-top .who{display:block;margin-top:10px;font-family:'Kalam',cursive;font-size:19px;color:#1f6f78}
+  .t-stubs{display:flex;background:#f4ead2;border-radius:0 0 6px 6px;border-top:3px dashed #b9a676}
+  .stub{position:relative;flex:1;display:block;text-align:left;padding:14px 22px 16px;border:0;font:inherit;color:inherit;cursor:pointer;background:transparent;min-height:120px}
+  .stub+.stub{border-left:3px dashed #b9a676}
+  .stub:hover{background:#fff4dc}
+  .stub .part{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:14px;letter-spacing:.24em;text-transform:uppercase;color:#c4372b}
+  .stub h3{margin:2px 0 4px;font-family:'Fraunces',serif;font-style:italic;font-weight:700;font-size:26px;line-height:1.05}
+  .stub p{margin:0;font-size:17.5px;line-height:1.3;max-width:420px;color:#3a3020}
+  .stub .no{position:absolute;right:18px;top:12px;font-family:'Space Mono',monospace;font-size:12px;color:#9a8a6a}
+  .stamp{position:absolute;right:18px;bottom:14px;padding:3px 10px 1px;border:3px solid;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;letter-spacing:.18em;
+    transform:rotate(-8deg);opacity:.85;display:none}
+  .stub.going .stamp{display:block;color:#1f4a8a}
+  .stub.solved .stamp{display:block;color:#b3261c}
+  .more{display:grid;place-items:center;min-height:120px;border:2px dashed rgba(246,213,138,.35);color:rgba(246,213,138,.7);border-radius:6px;
+    font-family:'Kalam',cursive;font-size:20px;text-align:center;padding:20px}
+  footer{max-width:1060px;margin:0 auto;padding:4px 24px 46px;font-family:'Space Mono',monospace;font-size:13px;color:#9fbab0;text-align:center;line-height:1.7}
+  footer b{color:#f6d58a;font-weight:normal;letter-spacing:2px}
+  /* "Who are you?" */
+  .whoami{position:fixed;top:0;right:0;bottom:0;left:0;z-index:40;display:none;align-items:center;justify-content:center;background:rgba(4,12,10,.78);padding:20px}
+  .whoami.on{display:flex}
+  .wa{width:min(900px,96vw);background:#f4ead2;color:#2a2214;border-radius:8px;box-shadow:0 30px 80px rgba(0,0,0,.6);overflow:hidden}
+  .wa-head{padding:20px 28px 12px;text-align:center}
+  .wa-head h2{margin:0;font-family:'Fraunces',serif;font-style:italic;font-weight:800;font-size:44px;line-height:1}
+  .wa-head h4{margin:0 0 6px;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#7a5a2a}
+  .wa-head p{margin:8px auto 0;max-width:640px;font-size:18.5px;line-height:1.35}
+  .wa-roles{display:flex;gap:0;border-top:3px dashed #b9a676}
+  .wa-role{flex:1;display:flex;flex-direction:column;padding:18px 24px 18px;border:0;text-align:left;font:inherit;color:inherit;background:transparent;cursor:pointer}
+  .wa-role+.wa-role{border-left:3px dashed #b9a676}
+  .wa-role:hover{background:#fff4dc}
+  .wa-role .part{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:14px;letter-spacing:.24em;text-transform:uppercase;color:#c4372b}
+  .wa-role h3{margin:2px 0 6px;font-family:'Fraunces',serif;font-style:italic;font-weight:700;font-size:30px;line-height:1.05}
+  .wa-role p{margin:0 0 12px;font-size:18px;line-height:1.35;flex:1}
+  .wa-role .st{font-family:'Space Mono',monospace;font-size:12.5px;color:#7a5a2a;margin:0 0 10px}
+  .wa-role .go{align-self:flex-start;padding:9px 16px 8px;border:1px solid #2a2214;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;letter-spacing:.14em;text-transform:uppercase}
+  .wa-role:hover .go{background:#2a2214;color:#f4ead2}
+  .wa-foot{display:flex;justify-content:space-between;align-items:center;padding:10px 24px 14px;border-top:1px solid #d8c9a0;font-family:'Kalam',cursive;font-size:17px;color:#5a4a2a}
+  .wa-foot button{border:0;background:none;font-family:'Space Mono',monospace;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:#5a4a2a;cursor:pointer;text-decoration:underline}
+  @media (max-width:700px){.t-stubs,.wa-roles{flex-direction:column}.stub+.stub,.wa-role+.wa-role{border-left:0;border-top:3px dashed #b9a676}.t-top{padding-left:24px}.t-top .adm{display:none}}
+</style>
+</head>
+<body>
+<a class="back" href="../index.html">&larr; Corridor</a>
+<header>
+  <h1><span>To</span><span>gether</span></h1>
+  <p>Stories for two or three. One ticket, torn in pieces: each of you keeps one piece and plays it on your own screen. Do not show each other your screens. Talk.</p>
+</header>
+<main id="tickets"></main>
+<footer><b>&#9733;&#9733;&#9733;</b> a full story for two &nbsp;&middot;&nbsp; <b>&#9733;&#9733;&#9733;&#9733;</b> longer, and more to say &nbsp;&middot;&nbsp; <b>&#9733;&#9733;&#9733;&#9733;&#9733;</b> three of you, and nothing is handed over</footer>
+<div class="whoami" id="whoami"></div>
+
+<script src="../assets/account.js"></script>
+<script src="../assets/shelf.js"></script>
+<script>
+(function () {
+  var STORIES = Shelf.visible([{"id":"dive-a","title":"Open This Together","stars":3,"minutes":"35-45","hold":false,"level":"B1+–B2","blurb":"You go down into the flooded basement with a torch and a line, and you say what you see. The River Rill has come into Rillmouth Museum, the water is still rising, and on a top shelf somewhere in the dark is a box that has been waiting since 1926. One of you can see the water; the other has the plans. Neither of you can do it alone.","rooms":5,"first":"steps.html","firstId":"steps","last":"landing","team":"dive","role":"A","roleName":"The Diver","players":2},{"id":"dive-b","title":"Open This Together","stars":3,"minutes":"35-45","hold":false,"level":"B1+–B2","blurb":"You stay at the top of the stairs with the radio, the plans, the catalogue and the pump, and you tell the diver where to go. The River Rill has come into Rillmouth Museum, the water is still rising, and on a top shelf somewhere in the dark is a box that has been waiting since 1926. One of you can see the water; the other has the plans. Neither of you can do it alone.","rooms":5,"first":"lodge.html","firstId":"lodge","last":"topside","team":"dive","role":"B","roleName":"The Operator","players":2}]), box = document.getElementById('tickets'), sheet = document.getElementById('whoami');
+  var WORDS = { 1: 'one', 2: 'two', 3: 'three' }, teams = [], byTeam = {};
+  Shelf.init();
+  function el(t, cls, txt) { var e = document.createElement(t); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; }
+  /* the first sentence of a part's blurb says what that player does; the rest is the story, the same in every part */
+  function split(b) { var m = /^(.*?[.!?])\s+(.*)$/.exec(b || ''); return m ? [m[1], m[2]] : [b || '', '']; }
+  STORIES.forEach(function (s) {
+    var k = s.team || s.id;
+    if (!byTeam[k]) { byTeam[k] = []; teams.push(k); }
+    byTeam[k].push(s);
+  });
+  teams.forEach(function (k) { byTeam[k].sort(function (a, b) { return (a.role || '').localeCompare(b.role || ''); }); });
+
+  function stateWord(st) { return st.state === 'solved' ? 'Finished' : st.state === 'going' ? 'Going: you got as far as ' + st.at.title : 'Not started yet'; }
+  function ask(k) {
+    var parts = byTeam[k], s0 = parts[0], n = s0.players || parts.length;
+    sheet.innerHTML = '';
+    var wa = el('div', 'wa'), head = el('div', 'wa-head'), roles = el('div', 'wa-roles'), foot = el('div', 'wa-foot');
+    head.appendChild(el('h4', '', s0.title));
+    head.appendChild(el('h2', '', 'Who are you?'));
+    head.appendChild(el('p', '', 'This is a story for ' + (WORDS[n] || n) + '. Each of you chooses a different part, on your own screen, and nobody looks at anybody else’s screen.'));
+    parts.forEach(function (s) {
+      var st = Shelf.status('duo', s), b = el('button', 'wa-role ' + st.state);
+      b.type = 'button'; b.setAttribute('data-part', s.id);
+      b.appendChild(el('span', 'part', 'Part ' + (s.role || '')));
+      b.appendChild(el('h3', '', s.roleName || s.title));
+      b.appendChild(el('p', '', split(s.blurb)[0]));
+      b.appendChild(el('span', 'st', stateWord(st)));
+      b.appendChild(el('span', 'go', 'I am ' + (s.roleName ? s.roleName.replace(/^The /, 'the ') : 'this one')));
+      b.addEventListener('click', function () { sheet.classList.remove('on'); Shelf.open('duo', s); });
+      roles.appendChild(b);
+    });
+    foot.appendChild(el('span', '', 'Your partner chooses the other part.'));
+    var x = el('button', '', 'Not now'); x.type = 'button'; x.addEventListener('click', function () { sheet.classList.remove('on'); });
+    foot.appendChild(x);
+    wa.appendChild(head); wa.appendChild(roles); wa.appendChild(foot); sheet.appendChild(wa);
+    sheet.classList.add('on');
+  }
+  sheet.addEventListener('click', function (e) { if (e.target === sheet) sheet.classList.remove('on'); });
+
+  teams.forEach(function (k, i) {
+    var parts = byTeam[k], s0 = parts[0], n = s0.players || parts.length, t = el('div', 'ticket'), top = el('button', 't-top'), stubs = el('div', 't-stubs');
+    t.setAttribute('data-team', k);
+    top.type = 'button';
+    top.appendChild(el('span', 'adm', 'Admit ' + (WORDS[n] || n)));
+    top.appendChild(el('h2', '', s0.title));
+    var meta = el('div', 'meta'), stars = el('span', 'stars', Shelf.stars(s0.stars));
+    stars.title = s0.stars + ' out of 5 for difficulty';
+    meta.appendChild(stars);
+    meta.appendChild(document.createTextNode(s0.minutes + ' min · ' + s0.rooms + ' rooms each · ' + n + ' players' + (s0.level ? ' · level ' + s0.level : '')));
+    top.appendChild(meta);
+    top.appendChild(el('p', '', split(s0.blurb)[1]));
+    top.appendChild(el('span', 'who', 'Who are you? Each of you tears off one piece of the ticket.'));
+    top.addEventListener('click', function () { ask(k); });
+    parts.forEach(function (s, j) {
+      var st = Shelf.status('duo', s), b = el('button', 'stub ' + st.state);
+      b.type = 'button'; b.setAttribute('data-story', s.id);
+      b.appendChild(el('span', 'part', 'Part ' + (s.role || '')));
+      b.appendChild(el('span', 'no', 'No. ' + (1926 + i * 7 + j)));
+      b.appendChild(el('h3', '', s.roleName || s.title));
+      b.appendChild(el('p', '', split(s.blurb)[0]));
+      b.appendChild(el('span', 'stamp', st.state === 'solved' ? 'DONE' : 'GOING'));
+      b.addEventListener('click', function () { Shelf.open('duo', s); });
+      stubs.appendChild(b);
+    });
+    t.appendChild(top); t.appendChild(stubs);
+    box.appendChild(t);
+  });
+  if (teams.length < 5) {
+    var m = el('div', 'more', teams.length ? 'More tickets are being printed: stories for two and for three, coming soon.' : 'The first tickets are still being printed.');
+    box.appendChild(m);
+  }
+})();
+</script>
+</body>
+</html>

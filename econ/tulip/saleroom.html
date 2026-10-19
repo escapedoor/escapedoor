@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Saleroom · Trading in Wind</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-econ.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="tulip.css">
+<style>
+  body{--bg:#3a2a26;--accent:#e2b04a;--font-display:'Cabin Sketch',serif;--font-ui:'Outfit',sans-serif;--font-body:'Lora',serif;
+    --tc-bg:rgba(240,232,214,.97);--tc-ink:#2a1a14;--cap-bg:rgba(248,242,228,.96);--cap-ink:#2a1a14;--panel:#f8f2e4;--panel-ink:#2a1a14;--face-bg:#5a2a3a;--q-ink:#7a2a3a;
+    --fade:#2a1a14;--hud-bg:rgba(248,242,228,.9);--hud-ink:#2a1a14;--hud-line:rgba(42,26,20,.3);--ov-bg:rgba(24,14,10,.66)}
+  .tc-room{font-size:clamp(40px,5.8vw,82px);color:#7a2a3a}
+  .tc-theme{color:#a8742a}
+  .hbtn b{color:#fff}
+  #shafts{animation:sh 7s steps(3,end) infinite}
+  @keyframes sh{50%{opacity:.6}}
+  #dome:hover{filter:brightness(1.15)}
+
+  /* the lot ticket */
+  .tkt{width:min(1120px,96vw)}
+  .tkt-in{display:grid;grid-template-columns:330px 1fr;gap:16px;background:#2a1e1a radial-gradient(ellipse at 50% 0%,rgba(255,220,150,.14),transparent 60%);border:3px solid #6a4a30;border-radius:5px;padding:12px 14px;color:#f4ead0}
+  .spike{background:#1a120e;border:2px solid #4a3020;border-radius:4px;padding:8px;display:flex;flex-direction:column;gap:6px;min-height:200px}
+  .spike h5,.tag h5{margin:0 0 4px;font-family:'Outfit',sans-serif;font-weight:800;font-size:12px;letter-spacing:.16em;color:#e2b04a;text-transform:uppercase}
+  .bid{display:block;padding:6px 9px 5px;background:#f6efdc;color:#2a1a14;border-radius:2px;font-family:'Lora',serif;font-size:13px;line-height:1.28;box-shadow:0 2px 0 #8a7a5a;border-left:5px solid #a89a7a}
+  .bid b{font-family:'Courier Prime',monospace;font-size:14px;color:#7a2a3a}
+  .bid i{display:block;font-style:italic}
+  .bid.rsv{border-left-color:#7a2a3a;background:#efe2d4}
+  .tag{position:relative;background:#e9d9b0;color:#2a1a14;border-radius:8px 30px 30px 8px;padding:12px 16px 12px 46px;box-shadow:0 8px 20px rgba(0,0,0,.4)}
+  .tag:before{content:'';position:absolute;left:14px;top:50%;width:18px;height:18px;margin-top:-9px;border-radius:50%;background:#2a1e1a;box-shadow:inset 0 0 0 3px #b8a070}
+  .tag .lotno{font-family:'Bungee',sans-serif;font-size:18px;color:#7a2a3a;margin:0 0 6px}
+  .halves{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .half{border:2px dashed #8a6a3a;border-radius:4px;padding:6px;min-height:168px;display:flex;flex-direction:column;gap:5px;background:rgba(255,255,255,.25)}
+  .half h5{color:#7a2a3a}
+  .half .slot{min-height:30px;border-radius:3px}
+  .half .bid{font-size:12px}
+  .half .bid i{display:none}
+  .sums{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px;font-family:'Lora',serif;font-size:14.5px}
+  .sums label{display:flex;align-items:center;justify-content:space-between;gap:8px;background:#2a1e1a;color:#f4ead0;padding:6px 10px;border-radius:4px}
+  .tkt .pmsg{color:#fbf3dc}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="brick" width="60" height="30" patternUnits="userSpaceOnUse"><rect width="60" height="30" fill="#8a4a36"/><path d="M0 0H60M0 15H60M0 0V15M30 15V30" stroke="#6a3426" stroke-width="2"/></pattern>
+  <pattern id="boards" width="200" height="40" patternUnits="userSpaceOnUse"><rect width="200" height="40" fill="#7a5232"/><path d="M0 0H200M0 20H200M60 0V20M150 20V40" stroke="#5a3a20" stroke-width="2"/></pattern>
+  <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c8d4dc"/><stop offset="1" stop-color="#9aaab4"/></linearGradient>
+  <linearGradient id="wood" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#4a2a16"/><stop offset=".5" stop-color="#6a3e20"/><stop offset="1" stop-color="#4a2a16"/></linearGradient>
+  <linearGradient id="shaft" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff6dc" stop-opacity=".32"/><stop offset="1" stop-color="#fff6dc" stop-opacity="0"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".65" stop-color="#1a0e08" stop-opacity=".12"/><stop offset="1" stop-color="#1a0e08" stop-opacity=".6"/></radialGradient>
+</defs>
+
+<rect x="-1000" y="-400" width="3600" height="1100" fill="url(#brick)"/>
+<!-- the glass roof -->
+<rect x="-1000" y="-400" width="3600" height="560" fill="url(#glass)"/>
+<g stroke="#2f4a3a" stroke-width="7"><path d="M-1000 160H2600M-1000 60H2600"/><path d="M-200 -400V160M100 -400V160M400 -400V160M700 -400V160M1000 -400V160M1300 -400V160M1600 -400V160M1900 -400V160"/></g>
+<g stroke="#2f4a3a" stroke-width="3" opacity=".7"><path d="M-50 -400V160M250 -400V160M550 -400V160M850 -400V160M1150 -400V160M1450 -400V160M1750 -400V160"/></g>
+<rect x="-1000" y="160" width="3600" height="22" fill="#2f4a3a"/>
+<text x="800" y="210" class="cZ" font-size="22" text-anchor="middle" fill="#f0dcae" letter-spacing="6">CORN EXCHANGE · 1856</text>
+<!-- columns -->
+<g fill="#2f4a3a"><rect x="96" y="182" width="34" height="460"/><rect x="560" y="182" width="34" height="460"/><rect x="1500" y="182" width="34" height="460"/><path d="M86 182h54l-8 20h-38zM550 182h54l-8 20h-38zM1490 182h54l-8 20h-38z"/><rect x="86" y="628" width="54" height="16"/><rect x="550" y="628" width="54" height="16"/><rect x="1490" y="628" width="54" height="16"/></g>
+
+<!-- light from the roof -->
+<g id="shafts" pointer-events="none"><path d="M300 160L620 160L820 900L380 900z" fill="url(#shaft)"/><path d="M1000 160L1180 160L1300 900L1000 900z" fill="url(#shaft)"/></g>
+
+<!-- the photograph of Aalsmeer on the column -->
+<g id="photo" class="hot"><rect x="524" y="268" width="106" height="84" fill="#1a1a1a"/><rect x="530" y="274" width="94" height="72" fill="#c8ccc8"/>
+  <circle cx="577" cy="300" r="20" fill="#f4f4ee" stroke="#4a4a4a" stroke-width="2"/><path d="M577 300l10 -12" stroke="#c8202a" stroke-width="2.5"/><g fill="#6a6a6a"><rect x="536" y="326" width="82" height="4"/><rect x="536" y="334" width="82" height="4"/><rect x="536" y="342" width="82" height="3"/></g></g>
+
+<!-- the grandfather clock, lot 14 -->
+<g id="gclock" class="hot"><rect x="440" y="372" width="64" height="270" fill="#5a3418"/><rect x="434" y="360" width="76" height="24" fill="#4a2a12"/><circle cx="472" cy="420" r="24" fill="#f2e6c8" stroke="#3a2010" stroke-width="3"/><path d="M472 420v-16M472 420l-12 6" stroke="#2a1a10" stroke-width="2.5"/><rect x="454" y="470" width="36" height="110" fill="#3a2010"/><circle cx="472" cy="560" r="10" fill="#c9a24a"/>
+  <rect x="452" y="600" width="40" height="18" fill="#f4ead0"/><text x="472" y="613" class="cP" font-size="11" text-anchor="middle" fill="#2a1a14">LOT 14</text></g>
+
+<!-- the rostrum, and Mrs Gotobed behind it -->
+<g id="gotobed" class="hot" transform="translate(300 640) scale(.95)"></g>
+<g id="rostrum"><path d="M170 450h260v200h-260z" fill="url(#wood)"/><rect x="160" y="438" width="280" height="20" rx="3" fill="#7a4a26"/><rect x="186" y="480" width="228" height="150" fill="none" stroke="#3a2010" stroke-width="3"/>
+  <text x="300" y="610" class="cZ" font-size="17" text-anchor="middle" fill="#e2b04a" letter-spacing="3">GOTOBED’S</text>
+  <g transform="translate(352 432) rotate(-14)"><rect x="-4" y="-6" width="40" height="12" rx="3" fill="#3a2010"/><rect x="30" y="-12" width="22" height="24" rx="4" fill="#5a3418"/></g></g>
+<g id="notes" class="hot"><rect x="200" y="492" width="70" height="86" fill="#fbf6e4" transform="rotate(-4 235 535)"/><g transform="rotate(-4 235 535)"><rect x="200" y="492" width="70" height="12" fill="#7a2a3a"/><path d="M208 516h52M208 526h46M208 536h52M208 546h40M208 556h50" stroke="#6a6a6a" stroke-width="2"/><circle cx="235" cy="498" r="3" fill="#c9a24a"/></g></g>
+
+<!-- the price board -->
+<g id="board" class="hot"><rect x="1140" y="226" width="340" height="360" fill="#5a3418"/><rect x="1152" y="238" width="316" height="336" fill="#1f2a24"/>
+  <text x="1310" y="270" class="cS" font-size="24" text-anchor="middle" fill="#f4f0e4">FEN TIGER</text><text x="1310" y="292" class="cH" font-size="14" text-anchor="middle" fill="#d8d4c4">price at the Saturday sale</text>
+  <g class="cH" font-size="17" fill="#f4f0e4"><text x="1172" y="324">20 Dec</text><text x="1172" y="354">27 Dec</text><text x="1172" y="384">3 Jan</text><text x="1172" y="414">10 Jan</text><text x="1172" y="444">17 Jan</text><text x="1172" y="474">24 Jan</text><text x="1172" y="504">31 Jan</text><text x="1172" y="534">7 Feb</text>
+    <text x="1448" y="324" text-anchor="end">£5</text><text x="1448" y="354" text-anchor="end">£10</text><text x="1448" y="384" text-anchor="end">£20</text><text x="1448" y="414" text-anchor="end">£40</text><text x="1448" y="444" text-anchor="end">£80</text><text x="1448" y="474" text-anchor="end">£160</text><text x="1448" y="504" text-anchor="end">£320</text></g>
+  <path d="M1360 536h88" stroke="#f4f0e4" stroke-width="2" stroke-dasharray="4 5" opacity=".6"/><rect x="1300" y="580" width="40" height="8" fill="#f4f0e4"/></g>
+
+<!-- the viewing table and the Fen Tiger under its dome -->
+<g><rect x="650" y="560" width="320" height="16" fill="#5a1a2a"/><path d="M660 576h300l-10 66h-280z" fill="#6a2232"/><path d="M680 642v60M940 642v60" stroke="#3a2010" stroke-width="10"/></g>
+<g id="dome" class="hot"><ellipse cx="810" cy="560" rx="56" ry="9" fill="#3a2010"/><path d="M780 560l6 -40h48l6 40z" fill="#a8542a"/><g transform="translate(810 524) scale(.82)" id="tig"></g>
+  <path d="M760 560v-150q0 -46 50 -46t50 46v150" fill="#e8f4f8" fill-opacity=".14" stroke="#f4fbff" stroke-opacity=".7" stroke-width="2.5"/><path d="M776 420q4 -36 30 -42" stroke="#fff" stroke-opacity=".7" stroke-width="3" fill="none"/>
+  <rect x="842" y="548" width="60" height="22" fill="#f4ead0" transform="rotate(6 872 559)"/><text x="872" y="563" class="cP" font-size="11" text-anchor="middle" fill="#2a1a14" transform="rotate(6 872 559)">LOT 1</text></g>
+
+<!-- Pearl's desk and the spike -->
+<g><rect x="980" y="590" width="150" height="14" fill="#6a3e20"/><path d="M990 604h130v40h-130z" fill="#4a2a16"/>
+  <g id="book" class="hot"><path d="M996 590l4 -14h56l-4 14z" fill="#2f5a4a"/><path d="M1000 586h50" stroke="#e8e0c8" stroke-width="2"/></g>
+  <g id="spike" class="hot"><rect x="1074" y="584" width="30" height="8" rx="2" fill="#c9a24a"/><path d="M1089 584V520" stroke="#c9a24a" stroke-width="3"/><g fill="#f6efdc" stroke="#a89a7a"><path d="M1072 560l34 -4v12l-34 4z"/><path d="M1070 548l36 2v12l-36 -2z"/><path d="M1074 536l30 -6v12l-30 6z"/></g></g></g>
+
+<!-- the stuffed pike, lot 22 -->
+<g id="pike" class="hot"><rect x="20" y="560" width="160" height="70" fill="#2a3a30" stroke="#5a3418" stroke-width="6"/><path d="M40 600q40 -22 100 -6l20 -12v30l-20 -10q-60 16 -100 -2z" fill="#7a8a4a"/><circle cx="52" cy="598" r="3" fill="#1a1a1a"/><path d="M60 604l14 -2" stroke="#2a2a1a" stroke-width="2"/></g>
+<rect x="-1000" y="640" width="3600" height="800" fill="url(#boards)"/><rect x="-1000" y="636" width="3600" height="8" fill="#3a2010"/>
+<!-- the bicycle, lot 9 -->
+<g id="bike" class="hot" stroke="#1a1a1a" stroke-width="5" fill="none"><rect x="1180" y="580" width="176" height="116" fill="#000" fill-opacity="0" stroke="none"/><circle cx="1218" cy="660" r="34"/><circle cx="1318" cy="660" r="34"/><path d="M1218 660l34 -56h50l16 56M1252 604l-6 -14h-16M1302 604l-4 -16h18M1252 604l24 56"/></g>
+
+<g id="pearl" class="hot" transform="translate(920 800) scale(.88)"></g>
+<g id="tebbutt" class="hot" transform="translate(1380 840) scale(1.02)"></g>
+
+<!-- rows of chairs -->
+<g id="chairs" fill="#2a1a10"></g>
+
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Down the street to the Leaping Eel</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="tulip.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, lock = null;
+
+  (function () {
+    var s = '', i, j;
+    for (j = 0; j < 2; j++) for (i = 0; i < 9; i++) {
+      var x = 120 + i * 160 + j * 70, y = 830 + j * 70;
+      s += '<g transform="translate(' + x + ' ' + y + ')"><rect x="-34" y="-70" width="68" height="10" rx="3"/><path d="M-30 -60v60M30 -60v60" stroke="#2a1a10" stroke-width="6"/><rect x="-36" y="-110" width="72" height="44" rx="5" fill="#3a2414"/></g>';
+    }
+    $('#chairs').innerHTML = s;
+    $('#tig').innerHTML = TULIP.tulip({ pat: 'tiger' });
+    $('#gotobed').innerHTML = TULIP.who('gotobed');
+    $('#pearl').innerHTML = TULIP.who('pearl', { smile: 2, extra: '<path d="M18 -300l14 22" stroke="#f2c02a" stroke-width="4"/>' });
+    $('#tebbutt').innerHTML = TULIP.who('tebbutt', { extra: '<g transform="translate(-22 -214) scale(.22)">' + TULIP.tulip({ pat: 'tiger' }) + '</g>' });
+  })();
+
+  ER.init({
+    theme: 'econ', story: 'tulip', storyTitle: 'Trading in Wind', id: 'saleroom', no: 'I', title: 'The Saleroom',
+    go: 'Unlock the side door', sound: ['ledger', { root: 48, bpm: 84, drop: ['mel'], beds: [['crowd', 0.25]] }],
+    intro: [
+      'Dykesend is a small market town in the Fens, where the land is as flat as a table and the roads run straight beside the drains. On your way in this morning, the bulb fields were grey and frosty, with green shoots in rows. The sun came up at about half past seven, exactly where the road ends.',
+      'For seven Saturdays, Gotobed&rsquo;s Saleroom in the old Corn Exchange has sold promises of a new tulip, the Fen Tiger. The bulbs are still in the ground, and will be until July. And every Saturday the price has doubled.',
+      'You are the Saturday porter: you carry the lots, set out the chairs and keep out of the way. It is half past nine. The sale starts at three.'
+    ],
+    exit: {"next":"backroom","w":{"edd26e76":"cc738328"}}, tags: {"use":["12f2bf2c","00731cab","406fd30e","603f4497"],"res":["5142f0fe","a45d3504","bc038a39"],"none":["97b52a00"],"val":["3624d6ae"],"bub":["bdc7f565"],"v20":["e8846b54"],"v4":["62c591bf"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('a-file') || null; told = ER.flag('a-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('a-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    ER.pips((told.gotobed ? 1 : 0) + (told.notes ? 1 : 0) + (told.tebbutt ? 1 : 0) + (told.pearl ? 1 : 0) + (nextFile ? 1 : 0), 5);
+    $('#spike').classList.toggle('ready', !!(told.gotobed && told.notes && told.pearl && !nextFile));
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Mrs Gotobed has sent you and Pearl to the Leaping Eel: the button at the bottom of the screen.']];
+    if (lock && lock.isOpen()) return ['ticket', [
+      'Read each bidder&rsquo;s reason, not the size of the bid. Does this person mean to USE the Fen Tiger (plant it, show it, sell what it grows), or to sell the promise itself on, unchanged, for more? And one slip is not a bid at all.',
+      'Two slips are traps. A florist who sells the flowers and the little bulbs a plant makes is using it: the porters&rsquo; notes say so. Mr Rix only says &ldquo;front garden&rdquo;. Why would he pay twenty pounds, and not five? The seller&rsquo;s reserve is the least she will accept, and belongs on neither side.',
+      'When the USE side is right, the first wheel is the biggest bid on that side. The second wheel is last Saturday&rsquo;s £320 take away that.'
+    ]];
+    if (!told.gotobed) return ['gotobed', ['The auctioneer is at the rostrum, on the left. Talk to her.', 'Click Mrs Gotobed, behind the high wooden desk with GOTOBED&rsquo;S on it.']];
+    if (!told.notes) return ['notes', ['Mrs Gotobed told you to read the porters&rsquo; notes, number three.', 'The little card pinned to the front of the rostrum.']];
+    if (!told.pearl) return ['pearl', ['Pearl keeps the commission bids. Talk to her first.', 'Pearl is standing by the clerk&rsquo;s desk, to the right of the viewing table.']];
+    return ['spike', ['The commission bids are on the brass spike on Pearl&rsquo;s desk. Click it.', 'Mr Tebbutt, by the price board, is worth hearing too, if you have not.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('Pearl has her coat on. The Leaping Eel opens at half past ten.'); return; }
+    if (told.in) { busy = false; ER.say('Gotobed&rsquo;s Saleroom. Mrs Gotobed is still going through the catalogue with a red pen.'); return; }
+    tell('in');
+    ER.narrate([
+      'The Corn Exchange: a glass roof on iron ribs, tall green columns, a floor of old boards, and rows of folding chairs, which you put out at nine. Grey February light comes down from the roof in long slabs.',
+      'Today&rsquo;s lots wait along the walls: a grandfather clock, a stuffed pike in a glass case, a box of books, a bicycle. In the middle, on red velvet, under a glass dome, stands one tulip in a pot. It is scarlet, with three gold flames up each petal. LOT 1, says its ticket.',
+      'At the rostrum, Mrs Gotobed is reading the catalogue with a red pen. By the price board, a large man in a camel coat is admiring the numbers. And at the clerk&rsquo;s desk, a girl with a pencil behind her ear has been watching you since you came in.'
+    ], function () { busy = false; });
+  }
+
+  $('#gotobed').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;The Eel,&rdquo; says Mrs Gotobed. &ldquo;Number thirteen. And Pearl, do not buy anything.&rdquo;'); return; }
+    ER.talk({
+      who: 'Mrs Nerys Gotobed', role: 'Auctioneer · Gotobed’s Saleroom, since 1985', face: TULIP.face('gotobed'),
+      lines: [
+        { note: 'She finishes the line she is reading before she looks up.', a: '&ldquo;Lot one at three o&rsquo;clock: forty Fen Tiger promises, from Mrs Purkiss&rsquo;s July lifting. Last Saturday they made three hundred and twenty pounds each.&rdquo;' },
+        { q: 'Is that good?', a: '&ldquo;I take ten per cent of every hammer price. If Roland Tebbutt is right and they make six hundred and forty today, I earn two thousand five hundred and sixty pounds for twenty minutes&rsquo; shouting. I should be delighted.&rdquo;' },
+        { q: 'But you are not?', a: '&ldquo;I have been an auctioneer for forty-one years. I know the difference between a price and a value. Read the porters&rsquo; notes, number three: they are pinned to the front of the rostrum. Then sort the commission bids on Pearl&rsquo;s spike, and tell me two things. What is a Fen Tiger worth? And how much of last week&rsquo;s price is hope?&rdquo;' },
+        { q: 'Why not just stop selling them?', a: '&ldquo;Because if Gotobed&rsquo;s refuses to sell Fen Tigers, the whole town will think I know something. Then everybody tries to sell at once, and nobody buys. I would rather the price came down a staircase than fell off the roof.&rdquo;' },
+        { q: 'Who is the man in the camel coat?', a: '&ldquo;Roland. Estate agent, chairman of the Bulb Club, and a kind man who believes every word he says. That is what makes him dangerous. Listen to him. Then check.&rdquo;' }
+      ],
+      clue: { id: 'gotobed', title: 'Mrs Gotobed: price and value', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('gotobed')) { paint(); ER.say('The porters&rsquo; notes, number three, on the front of the rostrum. Then the bids on Pearl&rsquo;s spike.'); } }
+    });
+  });
+
+  var DIA = '<svg viewBox="0 0 290 200"><g font-family="Architects Daughter,cursive" font-size="13" fill="#22201c">' +
+    '<path d="M30 170H275M30 170V15" stroke="#22201c" stroke-width="2"/><text x="150" y="192" text-anchor="middle">weeks</text><text x="14" y="95" transform="rotate(-90 14 95)" text-anchor="middle">£</text>' +
+    '<path d="M32 150H272" stroke="#2f6a3a" stroke-width="4"/><text x="232" y="143" fill="#2f6a3a">value</text>' +
+    '<path d="M32 148C110 146 170 138 210 100S250 30 262 20" stroke="#b0242c" stroke-width="4" fill="none"/><text x="168" y="62" fill="#b0242c">price</text>' +
+    '<path d="M244 46V146" stroke="#7a2a3a" stroke-width="1.5" stroke-dasharray="4 3"/><path d="M238 46h12M238 146h12" stroke="#7a2a3a" stroke-width="1.5"/>' +
+    '<text x="196" y="100" fill="#7a2a3a" font-size="12">the bubble</text><text x="204" y="114" fill="#7a2a3a" font-size="12">part</text></g></svg>';
+  var NOTES = '<h4>Gotobed&rsquo;s Saleroom &middot; Notes for New Porters &middot; No. 3</h4><h3>Price and value</h3><div class="two"><div>' +
+    '<p>A <b>PRICE</b> is what somebody paid, once, on one day. <b>VALUE</b> is what a thing is worth to the person who will <i>use</i> it: what it does for them. Using it includes growing it, showing it, and selling what it makes (flowers, eggs, new bulbs).</p>' +
+    '<p>At most sales, price and value stay close. But sometimes a crowd buys a thing not to use, but because they expect to <b>SELL IT ON</b>, unchanged, for more. That is <b>SPECULATION</b>. Each buyer is counting on a <b>GREATER FOOL</b>: somebody who will pay even more. Rising prices bring in new buyers, and new buyers push the price up again.</p>' +
+    '<p>When the price floats far above the value, that is a <b>BUBBLE</b>. It lasts only while new buyers keep coming, with new money. When they run out, the price falls back towards the value, though not usually to nothing.</p>' +
+    '<p class="rule">Commission bids: a bidder who cannot come writes down the most he will pay, and why. Read the why.</p></div><div class="dia">' + DIA + '</div></div>';
+  $('#notes').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: NOTES, cls: 'teach porter', clue: { id: 'notes3', title: 'Porters&rsquo; notes 3: price and value', kind: 'On the rostrum' }, done: function () {
+      TULIP.terms(['price', 'value', 'speculation', 'greater fool', 'bubble', 'resale', 'commission bid']);
+      if (tell('notes')) { paint(); ER.say('Value is what a thing does for the person who uses it. A price far above it, kept up by people who mean to sell on, is a bubble.'); }
+    } });
+  });
+
+  $('#tebbutt').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Twelve o&rsquo;clock, my office,&rdquo; says Mr Tebbutt. &ldquo;Charts don&rsquo;t worry. Charts just go up.&rdquo;'); return; }
+    ER.talk({
+      who: 'Mr Roland Tebbutt', role: 'Tebbutt & Co., estate agents · chairman, Dykesend Bulb Club', face: TULIP.face('tebbutt', 'smile'),
+      lines: [
+        { note: 'A big, cheerful man in a camel coat, with a paper Fen Tiger in his buttonhole.', a: '&ldquo;Morning! You&rsquo;ll be the new porter. Lucky you, on today of all days.&rdquo;' },
+        { q: 'Why today?', a: '&ldquo;Five pounds, ten, twenty, forty, eighty, a hundred and sixty, three hundred and twenty. It has doubled every Saturday for seven Saturdays. Today it&rsquo;ll be six hundred and forty. That isn&rsquo;t a guess. That&rsquo;s arithmetic.&rdquo;' },
+        { q: 'Has anybody made money?', a: '&ldquo;Every single person who has bought a Fen Tiger has made money. Every one. Name me a savings account that can say that.&rdquo;' },
+        { q: 'What is a Fen Tiger, exactly?', a: '&ldquo;Scarlet, with three gold flames. Zillah Purkiss found the first one in her field nine years ago: one striped flower in a field of plain red. Once in a lifetime, and Dykesend&rsquo;s got it.&rdquo;' },
+        { q: 'Mrs Gotobed looks worried.', a: '&ldquo;Nerys worries for a living. Come to my office at twelve and I&rsquo;ll show you the Tiger Index, in proper charts. Charts don&rsquo;t worry. Charts just go up.&rdquo;' }
+      ],
+      clue: { id: 'tebbutt', title: 'Mr Tebbutt: it will double again', kind: 'What he said' },
+      done: function (seen) { if (seen && tell('tebbutt')) { paint(); ER.say('Every buyer has made money, he says. Made it, or been promised it?'); } }
+    });
+  });
+
+  $('#pearl').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Sadie opens at half ten,&rdquo; says Pearl. &ldquo;She&rsquo;ll be cleaning the slate. She cleans it like other people pray.&rdquo;'); return; }
+    ER.talk({
+      who: 'Pearl Gotobed', role: 'Saturday clerk · sixteen', face: TULIP.face('pearl'),
+      lines: [
+        { note: 'The sale book open, a yellow pencil behind her ear.', a: '&ldquo;You&rsquo;re the new porter. I&rsquo;m Pearl: Gran&rsquo;s granddaughter, Saturday clerk, and before you ask, yes. I&rsquo;ve got one.&rdquo;' },
+        { q: 'Got one what?', a: '&ldquo;A Fen Tiger promise. Number seventeen. I bought it here on the fourth Saturday, for forty pounds of my own. Roland says it&rsquo;s worth three hundred and twenty now. That&rsquo;s two hundred and eighty pounds of profit. On paper.&rdquo;' },
+        { q: 'Why did you buy it?', a: '&ldquo;Not to plant, if that&rsquo;s what you mean. I bought it because I thought somebody would pay me more for it. I&rsquo;m not stupid. I know exactly what I&rsquo;m doing. That&rsquo;s what worries me.&rdquo;' },
+        { q: 'Have you paid the forty pounds?', a: '&ldquo;Not a penny yet. Nobody has. It&rsquo;s a promise: I pay forty pounds on the first of July, and Mrs Purkiss gives me a bulb when she lifts them. Gran says that&rsquo;s the bit nobody thinks about.&rdquo;' },
+        { q: 'And the commission bids?', a: '&ldquo;On the brass spike on my desk. People who can&rsquo;t come at three write down the most they&rsquo;ll pay for one promise, and why. Gran wants them sorted on the lot ticket: the ones who&rsquo;ll use it, and the ones who&rsquo;ll sell it on.&rdquo;' }
+      ],
+      clue: { id: 'pearl', title: 'Pearl: number seventeen', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('pearl')) { paint(); ER.say('The commission bids are on the brass spike on Pearl&rsquo;s desk.'); } }
+    });
+  });
+
+  $('#board').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.boardSeen) { told.boardSeen = 1; ER.flag('a-told', told); }
+    ER.say(nextFile ? 'The eighth line is still empty. &ldquo;We chalk a price after it is paid,&rdquo; Mrs Gotobed said, &ldquo;not before.&rdquo;' :
+      'Seven Saturdays, seven prices, each one twice the last. The eighth line is empty. Mr Tebbutt offers you the chalk. &ldquo;Go on. Six hundred and forty.&rdquo; Mrs Gotobed, without looking up: &ldquo;We chalk a price after it is paid. Not before.&rdquo;');
+  });
+  $('#dome').addEventListener('click', function (e) {
+    if (busy) return;
+    ER.wordAt(e.clientX, e.clientY, 'bulb');
+    ER.say('A Fen Tiger in flower, in February. Mrs Purkiss grew it early, in her glasshouse, for the viewing. Scarlet, with three gold flames up each petal, exactly alike. It does not look like six hundred and forty pounds. It looks like a tulip.');
+  });
+  var PHOTO = '<h4>Aalsmeer, the Netherlands</h4><div class="two"><div><svg viewBox="0 0 260 190"><rect width="260" height="190" fill="#c8ccc8"/><rect width="260" height="40" fill="#9aa0a0"/>' +
+    '<circle cx="130" cy="78" r="46" fill="#f4f4ee" stroke="#3a3a3a" stroke-width="3"/>' + [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(function (i) { var a = i * Math.PI / 6; return '<circle cx="' + (130 + 38 * Math.sin(a)).toFixed(1) + '" cy="' + (78 - 38 * Math.cos(a)).toFixed(1) + '" r="3" fill="#3a3a3a"/>'; }).join('') +
+    '<path d="M130 78l26 -22" stroke="#c8202a" stroke-width="4" stroke-linecap="round"/><g fill="#7a7a7a">' + [0, 1, 2, 3].map(function (r) { return '<rect x="20" y="' + (134 + r * 13) + '" width="220" height="8"/>'; }).join('') + '</g></svg></div><div>' +
+    '<p>The great flower auction at Aalsmeer, near Amsterdam, where millions of flowers are sold every working day.</p>' +
+    '<p>Here the price is set by a clock. Its hand starts at a high price and moves down. The first buyer to press the button buys, at that price. An auction where the price falls instead of rising is called a &ldquo;Dutch auction&rdquo;.</p>' +
+    '<p>Today most buyers press their button from a screen, far away.</p><small>A present from the Bulb Club&rsquo;s trip, 1998. N.G. is third from the left, in a hat.</small></div></div>';
+  $('#photo').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: PHOTO, cls: 'frame', clue: { id: 'aalsmeer', title: 'The photograph: the clock at Aalsmeer', kind: 'On the column' }, done: function () {
+      if (tell('photo')) ER.say('At Aalsmeer, a price that falls until somebody wants the flowers. Here, a price that has only gone up.');
+    } });
+  });
+  TULIP.thing('#gclock', 'grandfather clock', 'Lot 14, a grandfather clock. It says twenty to ten, and will go on saying it until somebody buys a new spring for it.', isBusy);
+  TULIP.thing('#pike', 'pike', 'Lot 22, a stuffed pike, caught in the Ings Drain in 1931. It has the look of a fish that has heard every price there is.', isBusy);
+  TULIP.thing('#bike', null, 'Lot 9, a black bicycle with a basket. Estimate £30 to £50. Nobody has ever bought a bicycle in order to sell it to somebody else next Saturday.', isBusy);
+  TULIP.thing('#book', null, 'The sale book. On the fourth Saturday, in Pearl&rsquo;s tidy writing: &ldquo;Fen Tiger promises 16 to 20, £40 each. No. 17 to P. Gotobed.&rdquo; She has underlined her own name, and then crossed out the line under it.', isBusy);
+  $('#spike').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The bids are sorted and the ticket is filled in. Fourteen pounds of value, and three hundred and six of hope.'); return; }
+    if (!told.gotobed) { ER.say('Commission bids on a brass spike. Ask Mrs Gotobed what she wants done with them.'); return; }
+    if (!told.notes) { ER.say('To sort them you need to know what counts as using a thing: the porters&rsquo; notes, number three, on the rostrum.'); return; }
+    if (!told.pearl) { ER.say('They are Pearl&rsquo;s bids. Ask her about them first.'); return; }
+    if (!lock) lock = makeLock();
+    lock.open();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the lot ticket ---------- */
+  function makeLock() {
+    var BIDS = [
+      ['olwen', 'Mrs Olwen Dewey', '£5', 'One for the front garden, by the gate. I paid six pounds for a pot of tulips in flower last spring, and this one will come up every year.'],
+      ['rix', 'Mr Vic Rix', '£20', 'For the front garden. Unless somebody at the Eel offers me forty before July. Which they will.'],
+      ['bly', 'Sorcha Bly, Dykesend Flowers', '£9', 'I&rsquo;ll grow it behind the shop for cut flowers, three or four springs of them, and sell the little bulbs it makes to my customers.'],
+      ['tebbutt', 'Mr Roland Tebbutt', '£700', 'To sell on in the back room, long before July. It will be £1,280 next Saturday.'],
+      ['museum', 'Dykesend Museum (U. Bevis)', '£4', 'To show in a pot in the Dutch Room, beside the case about 1637, every spring.'],
+      ['reserve', 'Mrs Zillah Purkiss, the seller', 'reserve £4', 'Do not let one go for less than a gardener would pay.'],
+      ['gapp', 'Mr Rufus Gapp, Gapp&rsquo;s Nursery', '£14', 'To grow on. I&rsquo;ll sell the flowers, and the new bulbs it makes, to gardeners. A new tulip is worth a bit to a nursery, for a few years.'],
+      ['rasheed', 'Mr Mo Rasheed', '£660', 'Everybody&rsquo;s buying. I&rsquo;ll let it go at the Eel for a thousand by Easter.']
+    ];
+    var saved = ER.flag('a-lock') || {}, wait = false, d = {};
+    var box = ER.el('div', 'pz tkt');
+    box.innerHTML = '<div class="tkt-in"><div class="spike" id="sp"><h5>Commission bids, on the spike</h5>' +
+      BIDS.map(function (b) { return '<span class="dnd-item bid' + (b[0] === 'reserve' ? ' rsv' : '') + '" data-id="' + b[0] + '"><b>' + b[2] + '</b> ' + b[1] + '<i>&ldquo;' + b[3] + '&rdquo;</i></span>'; }).join('') + '</div>' +
+      '<div><div class="tag"><div class="lotno">LOT 1 &middot; one Fen Tiger promise</div><div class="halves">' +
+      '<div class="half" data-p="use"><h5>Bought to use</h5>' + [1, 2, 3, 4, 5].map(function () { return '<span class="slot" data-p="use"></span>'; }).join('') + '</div>' +
+      '<div class="half" data-p="res"><h5>Bought to sell on</h5>' + [1, 2, 3, 4, 5].map(function () { return '<span class="slot" data-p="res"></span>'; }).join('') + '</div></div></div>' +
+      '<div class="sums"><label>The most that a buyer who means to USE it will pay <i id="t-val"></i></label><label>The part of last Saturday&rsquo;s £320 that is only hope of selling on <i id="t-bub"></i></label></div></div></div>' +
+      '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="t-go">Show Mrs Gotobed</button></div>';
+    var msgEl = box.querySelector('.pmsg'), sp = box.querySelector('#sp');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function where(id) { var it = box.querySelector('.bid[data-id="' + id + '"]'), s = it.closest('.slot'); return s ? s.getAttribute('data-p') : ''; }
+    function keep() { var o = { at: {} }; BIDS.forEach(function (b) { o.at[b[0]] = where(b[0]); }); o.val = d.val.get(); o.bub = d.bub.get(); ER.flag('a-lock', o); }
+    function lk() { return wait || !!nextFile; }
+    d.val = TULIP.drum(box.querySelector('#t-val'), { digits: 3, before: '£', val: saved.val || 0, change: keep, lock: lk });
+    d.bub = TULIP.drum(box.querySelector('#t-bub'), { digits: 3, before: '£', val: saved.bub || 0, change: keep, lock: lk });
+    Object.keys(saved.at || {}).forEach(function (id) {
+      var p = saved.at[id], it = box.querySelector('.bid[data-id="' + id + '"]'), s;
+      if (!p || !it) return;
+      s = ER.$$('.slot[data-p="' + p + '"]', box).filter(function (x) { return !x.querySelector('.bid'); })[0];
+      if (s) s.appendChild(it);
+    });
+    ER.dnd(box, { item: '.bid', slot: '.slot', home: sp, change: keep, lock: lk });
+    function flash(n) { n.classList.add('bad'); setTimeout(function () { n.classList.remove('bad'); }, 1300); }
+    var WHY = {
+      rix: '&ldquo;Read Mr Rix again,&rdquo; says Pearl. &ldquo;Twenty pounds for a front garden, when Olwen pays five? He&rsquo;s paying for the forty he&rsquo;ll get at the Eel. He means to sell the promise on.&rdquo;',
+      bly: '&ldquo;Sorcha sells flowers, and the little bulbs the plant makes,&rdquo; says Pearl. &ldquo;Selling what a thing grows is using it. The porters&rsquo; notes say so: flowers, eggs, new bulbs.&rdquo;',
+      gapp: '&ldquo;A nursery grows things and sells what they make,&rdquo; says Pearl. &ldquo;That&rsquo;s using it. He isn&rsquo;t selling the promise itself.&rdquo;',
+      olwen: '&ldquo;Olwen wants it by her gate,&rdquo; says Pearl. &ldquo;She won&rsquo;t be selling it to anybody.&rdquo;',
+      museum: '&ldquo;Mr Bevis wants it in a pot in the museum,&rdquo; says Pearl. &ldquo;Showing it is using it.&rdquo;',
+      tebbutt: '&ldquo;Roland says it himself,&rdquo; says Pearl. &ldquo;To sell on, long before July.&rdquo;',
+      rasheed: '&ldquo;Mo isn&rsquo;t going to plant anything,&rdquo; says Pearl. &ldquo;He wants a thousand by Easter.&rdquo;'
+    };
+    box.querySelector('#t-go').addEventListener('click', function () {
+      if (wait || nextFile) return;
+      var i, id, it;
+      for (i = 0; i < BIDS.length; i++) {
+        id = BIDS[i][0]; it = box.querySelector('.bid[data-id="' + id + '"]');
+        if (ER.check('none', id)) { if (where(id)) { ER.sfx.no(); flash(it); msg('&ldquo;That&rsquo;s Mrs Purkiss&rsquo;s reserve,&rdquo; says Mrs Gotobed. &ldquo;The least the seller will take. It is not a bid. It goes on neither side: leave it on the spike.&rdquo;'); return; } continue; }
+        if (!where(id)) { ER.sfx.no(); flash(it); msg('&ldquo;There&rsquo;s still a bid on the spike,&rdquo; says Pearl. &ldquo;' + BIDS[i][1].replace(/,.*$/, '') + '. Every bid goes on one side or the other.&rdquo;'); return; }
+      }
+      for (i = 0; i < BIDS.length; i++) {
+        id = BIDS[i][0]; it = box.querySelector('.bid[data-id="' + id + '"]');
+        if (ER.check('none', id)) continue;
+        if (!ER.check(where(id), id)) { ER.sfx.no(); flash(it); msg(WHY[id]); return; }
+      }
+      var v = d.val.get(), b = d.bub.get();
+      if (!ER.check('val', v)) {
+        ER.sfx.no(); flash(d.val.node);
+        msg(ER.check('v20', v) ? '&ldquo;Twenty pounds is Mr Rix,&rdquo; says Mrs Gotobed, &ldquo;and Mr Rix is on the other side of the ticket. The most a buyer who means to use it will pay.&rdquo;' :
+          ER.check('v4', v) ? '&ldquo;That is the least anybody would pay,&rdquo; says Mrs Gotobed. &ldquo;I asked for the most that a buyer who means to use it will pay.&rdquo;' :
+          '&ldquo;Look along the USE side of the ticket,&rdquo; says Mrs Gotobed. &ldquo;Which of those buyers would pay the most?&rdquo;');
+        return;
+      }
+      if (!ER.check('bub', b)) { ER.sfx.no(); flash(d.bub.node); msg('&ldquo;Last Saturday a promise made three hundred and twenty pounds,&rdquo; says Mrs Gotobed. &ldquo;Take away what it is worth to somebody who will use it. What is left is hope.&rdquo;'); return; }
+      var file = ER.exit([v + '-' + b], { wait: true });
+      if (!file) { msg('The door will not open. Something is wrong with this page: tell your teacher.'); return; }
+      wait = true; nextFile = file; ER.flag('a-file', file);
+      TULIP.mine('ticket', 'Lot 1: use and resale', '<p>Bought to use: Mrs Dewey £5, the museum £4, Dykesend Flowers £9, Gapp&rsquo;s Nursery £14.</p><p>Bought to sell on: Mr Rix £20, Mr Rasheed £660, Mr Tebbutt £700.</p><p>The seller&rsquo;s reserve (£4) is not a bid.</p><p>Value to a user: up to £14. Of last Saturday&rsquo;s £320, £306 is only the hope of selling on.</p>', true);
+      msg('Mrs Gotobed reads the ticket twice, and writes in red: <b>worth up to £14 to a user; £306 of £320 is hope.</b>');
+      setTimeout(function () {
+        ER.closeAll(); paint(); busy = true;
+        ER.narrate([
+          '&ldquo;Fourteen pounds,&rdquo; says Mrs Gotobed. &ldquo;The most that anybody who means to plant one will pay. And three hundred and six pounds of every three hundred and twenty is hope: hope that somebody else will pay more.&rdquo;',
+          'Pearl looks at her own name in the sale book. &ldquo;Mine cost forty. So twenty-six pounds of it was hope.&rdquo; She thinks. &ldquo;And the other two hundred and eighty, the profit, is somebody else&rsquo;s hope.&rdquo;',
+          'Mr Tebbutt laughs, kindly. &ldquo;Nerys, if everybody waited for a gardener, nothing would ever be worth anything. Twelve o&rsquo;clock, my office. Bring the porter.&rdquo; He goes out whistling.',
+          '&ldquo;The saleroom sells each promise once,&rdquo; says Mrs Gotobed. &ldquo;After that they go round the back room of the Leaping Eel every night, and Sadie Thurlow writes them in her book. Find out where number thirteen has got to. It was the first one Roland bought, and I want to know who is holding it now.&rdquo;'
+        ], function () { busy = false; $('#go').classList.add('on'); });
+      }, 2800);
+    });
+    msg('Drag each commission bid on to the side of the lot ticket where it belongs, or click it and then a space. Set the two wheels. Then show Mrs Gotobed.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+})();
+</script>
+</body>
+</html>

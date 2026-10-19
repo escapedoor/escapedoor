@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Bay D, Top Shelf · Open This Together</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-duo.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="dive.css">
+<style>
+  body{--bg:#140d06;--accent:#f2c46b;--font-display:'Fraunces',serif;--font-ui:'Barlow Condensed',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(22,14,6,.95);--tc-ink:#f6ecd8;--cap-bg:rgba(24,15,7,.93);--panel:#1b130a;--face-bg:#2b1e10;--q-ink:#f2d28f;--fade:#080502;--hud-bg:rgba(24,15,7,.82)}
+  .pcard{background:rgba(250,242,226,.95);color:#2a1c0c}
+  .pcard h6,.pcard .fold{color:#9a5a12}
+  .lk{background:#1b130a;border-color:rgba(242,196,107,.3)}
+  .lk-pic{background:#0f0a05}
+  #eel{animation:eel 16s linear infinite}
+  @keyframes eel{0%{transform:translateX(-500px)}100%{transform:translateX(2200px)}}
+  .wig{animation:wig .9s ease-in-out infinite alternate}
+  @keyframes wig{from{transform:translateY(-4px)}to{transform:translateY(4px)}}
+  .lamp{animation:lamp 3s steps(2,end) infinite alternate}
+  @keyframes lamp{from{opacity:.75}to{opacity:1}}
+  .shim{animation:shim 4.4s ease-in-out infinite alternate}
+  @keyframes shim{from{transform:translateX(-16px)}to{transform:translateX(16px)}}
+  .box.picked>rect:first-of-type{stroke:#ffe2a8;stroke-width:4}
+  #pull{opacity:0;transition:opacity 1.6s}
+  body.pull #pull{opacity:1}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <radialGradient id="lampG" cx="50%" cy="0%" r="90%"><stop offset="0" stop-color="#ffd68a" stop-opacity=".42"/><stop offset=".5" stop-color="#ffb04a" stop-opacity=".1"/><stop offset="1" stop-color="#ffb04a" stop-opacity="0"/></radialGradient>
+  <linearGradient id="wC" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a2a14"/><stop offset=".12" stop-color="#14201a"/><stop offset="1" stop-color="#020806"/></linearGradient>
+  <radialGradient id="vigC" cx="50%" cy="42%" r="74%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".6" stop-color="#000" stop-opacity=".2"/><stop offset="1" stop-color="#000" stop-opacity=".85"/></radialGradient>
+</defs>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="#0c0805"/>
+<!-- the back of the bay, the shelves above, the figurehead's feet and her lantern -->
+<rect x="-1000" y="-700" width="3600" height="1300" fill="#1a130c"/>
+<g opacity=".7"><rect x="-1000" y="80" width="3600" height="26" fill="#4a3a26"/><rect x="-1000" y="-160" width="3600" height="26" fill="#4a3a26"/></g>
+<g id="fig" class="hot" transform="translate(0 168)"><path d="M690 -40q-30 -200 60 -260h120q80 60 50 260z" fill="#e9dcc0"/><path d="M700 -60q-20 -120 30 -200h130q50 80 40 200z" fill="#2f5a8a"/><path d="M640 -40h340v40H640z" fill="#5a4630"/>
+  <path d="M920 -150q90 30 130 120" stroke="#e9dcc0" stroke-width="30" stroke-linecap="round" fill="none"/><g class="lamp"><rect x="1030" y="-40" width="56" height="74" rx="6" fill="#c9952e"/><rect x="1041" y="-30" width="34" height="50" fill="#ffe48a"/></g></g>
+<rect x="-1000" y="-700" width="3600" height="1500" fill="url(#lampG)" pointer-events="none"/>
+<rect x="-1000" y="160" width="3600" height="20" fill="#3a2c1c"/>
+<g id="uprights"><rect x="40" y="-700" width="46" height="1700" fill="#6b5a3e"/><rect x="1514" y="-700" width="46" height="1700" fill="#5e4e34"/><rect x="40" y="-700" width="10" height="1700" fill="#8a7650"/></g>
+<!-- the top shelf and its boxes -->
+<rect x="-1000" y="480" width="3600" height="34" fill="#7a6040"/><rect x="-1000" y="480" width="3600" height="6" fill="#9c8058"/><rect x="-1000" y="514" width="3600" height="200" fill="#1d150c"/>
+<!-- the gauge painted on the end upright -->
+<g id="gauge" class="hot"><rect x="1466" y="440" width="48" height="300" fill="#b7b2a2"/><g id="gticks"></g></g>
+<g id="boxes"></g>
+<g id="slateg" class="hot" transform="translate(26 468) rotate(-2)"><rect x="0" y="-26" width="138" height="26" rx="5" fill="#e8d04a" stroke="#8d7d1e" stroke-width="3"/><path d="M6 -26v8M20 -26v5M34 -26v5M48 -26v5M62 -26v5M76 -26v8M90 -26v5M104 -26v5M118 -26v5M132 -26v8" stroke="#5a4e14" stroke-width="2"/></g>
+<!-- the water, a hand's width below the shelf -->
+<rect x="-1000" y="606" width="3600" height="1100" fill="url(#wC)" fill-opacity=".93" pointer-events="none"/>
+<path d="M-1000 606H2600" stroke="#c9a46a" stroke-width="3" opacity=".6" pointer-events="none"/>
+<g class="shim" pointer-events="none" stroke="#8a7a4e" stroke-width="2" fill="none" opacity=".4"><path d="M200 640q60 -6 120 0t120 0M900 660q50 -5 100 0t100 0M500 720q80 -8 160 0t160 0M1100 760q70 -7 140 0t140 0"/></g>
+<g id="pull" pointer-events="none" stroke="#8a5a2a" stroke-width="3" fill="none" opacity=".7"><path d="M1600 700q-200 10 -380 -6M1600 760q-260 6 -460 -10M1600 820q-180 4 -300 -4"/></g>
+<g id="eel" class="hot"><g class="wig"><path d="M0 700q40 -16 80 0t80 0t80 0t70 -4" stroke="#3a3a22" stroke-width="16" fill="none" stroke-linecap="round"/><circle cx="302" cy="694" r="3" fill="#d8d0a0"/></g></g>
+<!-- your arm, holding the edge of the shelf, with the watch -->
+<g id="arm" class="hot"><path d="M1700 1000L1300 700q-20 -30 10 -60l40 -30q40 -10 60 20l330 280z" fill="#1b2324"/><path d="M1230 640q40 -40 90 -30l30 30q-30 40 -90 30z" fill="#222a2b"/>
+  <g id="watchg"><circle cx="1450" cy="800" r="44" fill="#15191b"/><circle cx="1450" cy="800" r="38" fill="#e8d04a"/><circle cx="1450" cy="800" r="30" fill="#0d1416"/><path d="M1450 800l6 -16M1450 800l10 -22" stroke="#8ff7d8" stroke-width="4" stroke-linecap="round"/></g></g>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#vigC)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Follow the brown water</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="dive.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, nextFile = null;
+
+  /* five boxes on the shelf, left to right. One centimetre is 4.6 units; your slate (30 cm) lies on the shelf for scale */
+  var BOX = {
+    box1: { x: 330, cm: 60, h: 120, kind: 'tin', lid: 'none', corner: null, handles: 2, plate: null, size: 'about two of your slates long',
+      text: 'A tin trunk, painted dark green, dented at one corner. On the lid, in big white figures, somebody has painted 1926, and under that, smaller, R.R.C. There is no carving on it anywhere. Two iron handles, one at each end.' },
+    box2: { x: 640, cm: 46, h: 104, kind: 'oak', lid: 'fish', corner: '#c9a94e', handles: 1, plate: 'OPEN THIS END', size: 'about one and a half of your slates long',
+      text: 'A box of oak, dark with age, with brass corners. Carved on the lid: a fish. A brass plate on the front says OPEN THIS END. There is one brass handle, in the middle of the lid.' },
+    box3: { x: 900, cm: 46, h: 104, kind: 'oak', lid: 'ship', corner: '#c9a94e', handles: 2, plate: 'OPEN THIS TOGETHER', size: 'about one and a half of your slates long, and heavy',
+      text: 'A box of oak, dark with age, with brass corners and a brass handle at each end. Carved on the lid: a ship under sail. A brass plate on the front says OPEN THIS TOGETHER.' },
+    box4: { x: 1160, cm: 46, h: 104, kind: 'oak', lid: 'ship', corner: '#1c1c1c', handles: 2, plate: 'holes', size: 'about one and a half of your slates long',
+      text: 'A box of oak, dark with age, with black iron corners and an iron handle at each end. Carved on the lid: a ship under sail. On the front there are four little screw holes where a plate used to be. The plate is not there.' },
+    box5: { x: 1350, cm: 16, h: 52, kind: 'oak', lid: 'ship', corner: '#c9a94e', handles: 0, plate: 'R.S. 1926', size: 'only half as long as your slate: you could hold it in one hand',
+      text: 'A small box of oak with brass corners. Carved on the lid: a ship under sail. A brass plate on the front says R.S. 1926.' }
+  };
+  var ORDER = ['box1', 'box2', 'box3', 'box4', 'box5'];
+  function front(b, w, h, big) {
+    var s = '', t = big ? 1 : 0.5, cw = Math.max(10, w * 0.09);
+    if (b.kind === 'tin') {
+      s += '<rect x="0" y="' + (-h) + '" width="' + w + '" height="' + h + '" fill="#3e5244" stroke="#1d2a22" stroke-width="3"/><path d="M0 ' + (-h + 18 * t + 6) + 'h' + w + '" stroke="#2a382e" stroke-width="' + (6 * t + 2) + '"/>' +
+        '<path d="M' + (w * 0.7) + ' ' + (-h) + 'q20 30 0 50" stroke="#2a382e" stroke-width="3" fill="none"/>' +
+        '<text x="' + (w / 2) + '" y="' + (-h * 0.42) + '" font-family="Stardos Stencil,serif" font-weight="700" font-size="' + (h * 0.36).toFixed(0) + '" fill="#f1efe4" text-anchor="middle">1926</text>' +
+        '<text x="' + (w / 2) + '" y="' + (-h * 0.14) + '" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="' + (h * 0.15).toFixed(0) + '" letter-spacing="2" fill="#f1efe4" text-anchor="middle">R.R.C.</text>';
+    } else {
+      s += '<rect x="0" y="' + (-h) + '" width="' + w + '" height="' + h + '" fill="#7a5530" stroke="#3e2a14" stroke-width="3"/>';
+      for (var i = 1; i < 4; i++) s += '<path d="M4 ' + (-h * i / 4) + 'h' + (w - 8) + '" stroke="#5e4022" stroke-width="1.5" opacity=".7"/>';
+      s += '<path d="M0 ' + (-h * 0.78) + 'h' + w + '" stroke="#3e2a14" stroke-width="2.5"/>';
+      [[0, -h], [w - cw, -h], [0, -cw], [w - cw, -cw]].forEach(function (c) { s += '<rect x="' + c[0] + '" y="' + c[1] + '" width="' + cw + '" height="' + cw + '" fill="' + b.corner + '"/>'; });
+      if (b.plate === 'holes') { [-12, 12].forEach(function (dx) { [-6, 6].forEach(function (dy) { s += '<circle cx="' + (w / 2 + dx * t * 2) + '" cy="' + (-h * 0.42 + dy * t * 1.6) + '" r="' + (2 * t + 1) + '" fill="#1d1208"/>'; }); }); }
+      else if (b.plate) {
+        var pw = Math.min(w * 0.7, b.plate.length * (big ? 13 : 6.4) + 16), ph = big ? 30 : 14;
+        s += '<rect x="' + (w / 2 - pw / 2) + '" y="' + (-h * 0.42 - ph / 2) + '" width="' + pw + '" height="' + ph + '" fill="#d4b45a" stroke="#6a5520" stroke-width="1.5"/>';
+        if (big) s += '<text x="' + (w / 2) + '" y="' + (-h * 0.42 + 7) + '" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="18" letter-spacing="1" fill="#3a2a08" text-anchor="middle">' + b.plate + '</text>';
+        else s += '<path d="M' + (w / 2 - pw / 2 + 6) + ' ' + (-h * 0.42) + 'h' + (pw - 12) + '" stroke="#6a5520" stroke-width="2"/>';
+      }
+    }
+    if (b.handles === 2) s += '<path d="M-' + (8 * t + 4) + ' ' + (-h * 0.62) + 'h' + (8 * t + 4) + 'M' + w + ' ' + (-h * 0.62) + 'h' + (8 * t + 4) + '" stroke="' + (b.corner === '#1c1c1c' || b.kind === 'tin' ? '#1c1c1c' : '#c9a94e') + '" stroke-width="' + (6 * t + 3) + '" stroke-linecap="round"/>';
+    if (b.handles === 1) s += '<path d="M' + (w / 2 - 14 * t - 6) + ' ' + (-h) + 'q' + (14 * t + 6) + ' -' + (14 * t + 6) + ' ' + (28 * t + 12) + ' 0" stroke="#c9a94e" stroke-width="' + (4 * t + 2) + '" fill="none"/>';
+    return s;
+  }
+  function lid(b) {
+    var s = '<rect x="20" y="10" width="340" height="150" rx="4" fill="' + (b.kind === 'tin' ? '#3e5244' : '#7a5530') + '" stroke="' + (b.kind === 'tin' ? '#1d2a22' : '#3e2a14') + '" stroke-width="4"/>';
+    if (b.kind === 'tin') s += '<text x="190" y="104" font-family="Stardos Stencil,serif" font-weight="700" font-size="64" fill="#f1efe4" text-anchor="middle">1926</text><text x="190" y="140" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="22" letter-spacing="3" fill="#f1efe4" text-anchor="middle">R.R.C.</text>';
+    else {
+      [[20, 10], [330, 10], [20, 130], [330, 130]].forEach(function (c) { s += '<rect x="' + c[0] + '" y="' + c[1] + '" width="30" height="30" fill="' + b.corner + '"/>'; });
+      if (b.lid === 'fish') s += '<path d="M120 86q70 -60 140 0q-70 56 -140 0z" fill="none" stroke="#3e2a14" stroke-width="5"/><path d="M260 86l36 -28v56z" fill="none" stroke="#3e2a14" stroke-width="5"/><circle cx="150" cy="80" r="5" fill="#3e2a14"/>';
+      else s += '<path d="M120 120h140l-18 20H138z" fill="none" stroke="#3e2a14" stroke-width="5"/><path d="M196 116V40l50 72zM188 116V54l-40 58z" fill="none" stroke="#3e2a14" stroke-width="5"/><path d="M90 146q30 -8 60 0t60 0t60 0t60 0" stroke="#3e2a14" stroke-width="3" fill="none"/>';
+      if (b.handles === 1) s += '<path d="M160 86q30 -30 60 0" stroke="#c9a94e" stroke-width="8" fill="none"/>';
+    }
+    return s;
+  }
+  (function draw() {
+    var s = '', k, b, w, h;
+    ORDER.forEach(function (id) {
+      b = BOX[id]; w = b.cm * 4.6; h = b.h;
+      s += '<g class="box hot" data-b="' + id + '" transform="translate(' + (b.x - w / 2).toFixed(0) + ' 480)">' + front(b, w, h, false) + '</g>';
+    });
+    $('#boxes').innerHTML = s; s = '';
+    /* the gauge on the upright: 2.2 to 2.6, a small mark every 2 cm; the water is at 2.38 */
+    for (k = 0; k <= 20; k++) { var v = 2.6 - k * 0.02, y = 480 + k * 11.46; s += '<path d="M1474 ' + y + 'h' + (k % 5 ? 14 : 30) + '" stroke="#1d1d1a" stroke-width="' + (k % 5 ? 2 : 3.5) + '"/>'; if (!(k % 5)) s += '<text x="1508" y="' + (y + 6) + '" class="sv" font-size="15" fill="#1d1d1a" text-anchor="end">' + v.toFixed(1) + '</text>'; }
+    $('#gticks').innerHTML = s;
+  })();
+
+  ER.init({
+    theme: 'duo', story: 'dive-a', storyTitle: 'Open This Together', id: 'bay', no: 'III', title: 'Bay D, Top Shelf',
+    go: 'Look at the boxes',
+    intro: [
+      'Bay D was the far bay on your left, under the wooden woman with the lantern. The plan in the Lodge is drawn from the main doors, where everybody always comes in, and from there Bay D is the first bay on the right. You came in at the other end, facing the other way: so your left was the plan&rsquo;s right, and the first bay was the last.',
+      'Now your head and shoulders are out of the water, and the top shelf is in front of your face. Five boxes are standing on it, side by side. One of them has been waiting since 1926. The others have just been waiting.',
+      'The water is less than a forearm&rsquo;s length below the shelf.'
+    ],
+    exit: {"next":"boiler","w":{"00dca6d9":"b1b92cd6"}}, tags: {},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('a3-told') || {}; nextFile = ER.flag('a3-file') || null;
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('a3-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#go').classList.toggle('on', !!nextFile);
+    document.body.classList.toggle('pull', !!nextFile);
+    ER.pips((told.read ? 1 : 0) + (told.boxes ? 1 : 0) + (nextFile ? 1 : 0), 3);
+    if (nextFile) DV.card([['Tell your partner', ['&ldquo;I&rsquo;ve got the box. But the water is moving: it&rsquo;s coming from a small door in the far corner, beyond the bear, and it&rsquo;s brown.&rdquo;']], ['Ask your partner', ['&ldquo;What&rsquo;s through that door? Where is the river getting in?&rdquo;']]]);
+    else DV.card([['Tell your partner', ['&ldquo;There are five boxes. The first one, on the left, is made of &hellip;. It has &hellip; on the lid.&rdquo;', 'And your watch and the gauge on the upright: how fast is the water coming up?']], ['Ask your partner', ['&ldquo;What does the catalogue card say? What is it made of? What is on the front?&rdquo;']]]);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The box is safe in the bag. The brown water is coming from the small door in the far corner, across the aisle, beyond the bear. Follow it.']];
+    return ['box', [
+      'Your partner has the catalogue card for the box. Tell them what each box looks like: what it is made of, its corners, what is carved on the lid, and what the plate on the front says.',
+      'Your slate is 30 centimetres long. The catalogue card gives the size of the box in centimetres. Ask your partner how long the box should be, and compare.',
+      'One of the boxes has 1926 painted on it in big white figures. Do not let that decide for you. Ask your partner what the card says the box is made of, and check every line of the card, not just the year.'
+    ]];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; ER.say('The box is in your dry bag. The water is pushing at your legs, from the small door beyond the bear.'); return; }
+    if (told.intro) { busy = false; ER.say('Five boxes on the top shelf of Bay D, and the water less than a forearm&rsquo;s length below them.'); return; }
+    ER.narrate([
+      'Above you, the wooden woman holds her lantern over the shelf as if she has been waiting for somebody to come and read by it.',
+      'Something long and dark slides past your knee, and you say a second word that you will not repeat on the radio. It is an eel. It came in with the river, and it is the only one down here who is enjoying the evening.',
+      'On the end upright of the bay there is another depth gauge. The water has gone up since the door.'
+    ], function () { busy = false; tell('intro'); paint(); });
+  }
+
+  /* ---------- the boxes ---------- */
+  function boxPic(b) {
+    var w = Math.min(340, b.cm * 6.2), h = b.h * 1.35;
+    return '<svg viewBox="0 0 380 400" xmlns="http://www.w3.org/2000/svg"><rect width="380" height="400" fill="#0f0a05"/><text x="190" y="26" font-family="Barlow Condensed,sans-serif" font-weight="600" font-size="14" letter-spacing="3" fill="#c9a46a" text-anchor="middle">THE LID</text>' +
+      '<g transform="translate(0 30)">' + lid(b) + '</g><text x="190" y="226" font-family="Barlow Condensed,sans-serif" font-weight="600" font-size="14" letter-spacing="3" fill="#c9a46a" text-anchor="middle">THE FRONT</text>' +
+      '<g transform="translate(' + (190 - w / 2).toFixed(0) + ' ' + (250 + h).toFixed(0) + ')">' + front(b, w, h, true) + '</g></svg>';
+  }
+  function box(id) {
+    if (busy) return;
+    if (nextFile) { ER.say('The box you need is in your dry bag. The others can wait for the pump.'); return; }
+    var b = BOX[id], n = ORDER.indexOf(id);
+    tell('boxes'); paint();
+    ER.$$('.box').forEach(function (g) { g.classList.toggle('picked', g.getAttribute('data-b') === id); });
+    DV.look({
+      kicker: ['The first box from the left', 'The second box from the left', 'The box in the middle', 'The second box from the right', 'The last box on the right'][n],
+      title: b.kind === 'tin' ? 'A tin trunk' : n === 4 ? 'A small box' : 'An oak box',
+      pic: boxPic(b),
+      text: '<p>' + b.text + '</p><p>It is ' + b.size + '.</p>',
+      acts: [{ id: 'take', label: 'Put it in the dry bag', fn: function (api) { take(id, api); } }]
+    });
+  }
+  function take(id, api) {
+    var file = ER.exit([id], { wait: true });
+    if (!file) {
+      ER.sfx.no();
+      api.msg(id === 'box1' ? 'You lift the lid an inch. Silver cups, a lot of them, and a medal on a ribbon that says REGATTA. Whatever this is, it is not letters from children. You close it, and put it back.' :
+        'You hold it for a moment and check it against what your partner read you from the card, line by line. Something does not match. You put it back exactly where it was.');
+      return;
+    }
+    nextFile = file; ER.flag('a3-file', file);
+    DV.sfx.splash();
+    api.msg('It matches, line by line. You slide it into the dry bag, roll the top over three times, and clip it to your belt.');
+    api.acts([]);
+    setTimeout(function () {
+      ER.closeAll(); busy = true; paint();
+      ER.narrate([
+        'The box is in the bag, and the bag is on your belt, and for a moment the water seems almost friendly.',
+        'Then you notice that it is moving. A slow, cold push against your legs, coming across the aisle from the far corner on the other side, beyond the bear, where a small door leads through to the Boiler Room. In your torch, threads of brown curl through the water and drift past you from that door.',
+        'Water that a pump is taking out does not move like that. Water that is coming in does. Somewhere, the river is still getting into this basement, and the pump in the yard will never catch it up.'
+      ], function () { busy = false; paint(); });
+    }, 2600);
+  }
+  ER.$$('.box').forEach(function (g) { g.addEventListener('click', function () { box(g.getAttribute('data-b')); }); });
+
+  /* ---------- your dials ---------- */
+  var READ = '<h4>Your dials, at Bay D</h4><div class="row">' + DV.watch(11, 8) + DV.pillar(2.38) + DV.air(150) + '</div><p>Your watch, the gauge on the end upright of Bay D, and your air, as you saw them at the top shelf.</p>';
+  function dial(title, pic, text) {
+    if (busy) return;
+    tell('read'); paint();
+    DV.look({ kicker: 'Look closely', title: title, pic: pic, text: text, lock: false });
+    ER.addClue('dials3', 'Your dials at Bay D', READ, 'read', 'What you saw', true);
+  }
+  $('#watchg').addEventListener('click', function (e) { e.stopPropagation(); dial('Your watch', DV.watch(11, 8), '<p>Your dive watch, glowing green.</p>'); });
+  $('#gauge').addEventListener('click', function () { dial('The gauge on the upright', DV.pillar(2.38), '<p>The same kind of depth gauge as the pillar by the door, painted on the end of the bay.</p>'); });
+  $('#arm').addEventListener('click', function () { if (!busy) dial('Your air gauge', DV.air(150), '<p>You check your air while you are here. Plenty: the red part is a long way off.</p>'); });
+  $('#slateg').addEventListener('click', function () { if (!busy) { DV.slate(); ER.wordAt(innerWidth * 0.2, innerHeight * 0.62, 'ruler'); } });
+  DV.thing('#fig', 'figurehead', 'The figurehead, seen from underneath: her painted feet, the hem of her blue dress, and her lantern, held out over the shelf. The lantern is wood, painted yellow. It only looks as if it were lit.', isBusy);
+  DV.thing('#eel', 'eel', 'An eel, as long as your arm, swimming past as if it owned the place. Tonight, it more or less does.', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

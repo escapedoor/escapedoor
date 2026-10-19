@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Back Room · Trading in Wind</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-econ.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="tulip.css">
+<style>
+  body{--bg:#1e140e;--accent:#e8a040;--font-display:'Cabin Sketch',serif;--font-ui:'Outfit',sans-serif;--font-body:'Lora',serif;
+    --tc-bg:rgba(236,224,200,.97);--tc-ink:#2a1a0e;--cap-bg:rgba(246,236,214,.96);--cap-ink:#2a1a0e;--panel:#f6ecd6;--panel-ink:#2a1a0e;--face-bg:#2a3a2a;--q-ink:#6a4a1a;
+    --fade:#140c08;--hud-bg:rgba(246,236,214,.9);--hud-ink:#2a1a0e;--hud-line:rgba(42,26,14,.3);--ov-bg:rgba(14,8,4,.7)}
+  .tc-room{font-size:clamp(40px,5.8vw,82px);color:#6a4a1a}
+  .tc-theme{color:#2a3a2a}
+  .hbtn b{color:#fff}
+  #flames path{animation:fl 1.2s steps(3,end) infinite;transform-origin:220px 640px}
+  #flames path:nth-child(2){animation-delay:-.4s}#flames path:nth-child(3){animation-delay:-.8s}
+  @keyframes fl{50%{transform:scaleY(.82)}}
+  #glowF{animation:gf 2.4s steps(3,end) infinite}
+  @keyframes gf{50%{opacity:.7}}
+
+  /* the beam of promises */
+  .bm{width:min(1140px,96vw)}
+  .bm-in{background:#2a1a10 radial-gradient(ellipse at 50% 0%,rgba(255,180,90,.16),transparent 60%);border:3px solid #5a3a20;border-radius:5px;padding:12px 14px 12px;color:#f4e6c8}
+  .beam{position:relative;display:grid;grid-template-columns:110px repeat(5,1fr) 110px;gap:8px;align-items:stretch;padding:24px 6px 8px;background:linear-gradient(#5a3a20 0 16px,transparent 16px)}
+  .beam:before{content:'';position:absolute;left:30px;right:30px;top:30px;height:2px;background:#c8a878}
+  .end{font-family:'Architects Daughter',cursive;font-size:14px;line-height:1.25;color:#f4e6c8;padding-top:20px;text-align:center}
+  .hook{position:relative;min-height:154px;border:2px dashed rgba(244,230,200,.35);border-radius:4px;padding:4px;margin-top:10px}
+  .hook:before{content:attr(data-n);position:absolute;top:-22px;left:50%;margin-left:-9px;width:18px;height:18px;border-radius:50%;background:#c9a24a;color:#2a1a10;font:700 11px/18px 'Outfit',sans-serif;text-align:center}
+  .slp{display:block;padding:6px 7px 5px;background:#f2e8cc;color:#2a2018;border-radius:2px;font-family:'Courier Prime',monospace;font-size:12px;line-height:1.28;box-shadow:0 3px 0 #8a7a5a;border-top:5px solid #6a4a1a;position:relative}
+  .slp b{display:block;font-size:12.5px;color:#7a2a1a}
+  .slp em{display:block;margin-top:3px;font-family:'Caveat',cursive;font-style:normal;font-size:16px;line-height:1.1;color:#2a3a7a}
+  .slp.x{text-decoration:line-through;text-decoration-color:rgba(160,30,30,.6)}
+  .slp.cut{background:#d8c8a8;opacity:.85}
+  .slp.cut:after{content:'\2702  SNAPS';position:absolute;right:4px;bottom:3px;font:700 11px 'Outfit',sans-serif;color:#b0242c;letter-spacing:.1em}
+  .tray{display:grid;grid-template-columns:repeat(7,1fr);gap:7px;min-height:120px;margin-top:10px;padding:8px;background:#140c08;border:2px solid #4a3020;border-radius:4px}
+  .tray h5{grid-column:1/-1;margin:0;font:800 12px 'Outfit',sans-serif;letter-spacing:.16em;color:#e8a040;text-transform:uppercase}
+  .stage2{display:none;margin-top:10px;padding:8px 10px;background:rgba(255,255,255,.06);border-radius:4px;font-family:'Lora',serif;font-size:15px}
+  .stage2.on{display:block}
+  .who{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+  .who button{padding:5px 11px;border:2px solid #8a6a3a;border-radius:3px;background:#3a2414;color:#f4e6c8;font-family:'Lora',serif;font-size:14px}
+  .who button.on{background:#e8a040;color:#2a1a10;border-color:#e8a040}
+  .bm.p2 .slp{cursor:pointer}
+  .bm .pmsg{color:#fbf3dc}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="wash" width="120" height="90" patternUnits="userSpaceOnUse"><rect width="120" height="90" fill="#d8ccb0"/><path d="M10 20q30 -6 50 4M70 60q20 -4 40 6" stroke="#c4b694" stroke-width="3" fill="none"/></pattern>
+  <pattern id="flags" width="90" height="60" patternUnits="userSpaceOnUse"><rect width="90" height="60" fill="#5a4a3a"/><path d="M0 0H90M0 30H90M45 0V30M0 30V60M70 30V60" stroke="#3a2e22" stroke-width="3"/></pattern>
+  <radialGradient id="fireL" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffb860" stop-opacity=".55"/><stop offset="1" stop-color="#ffb860" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="45%" cy="55%" r="75%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".6" stop-color="#140800" stop-opacity=".2"/><stop offset="1" stop-color="#0a0400" stop-opacity=".75"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1100" fill="url(#wash)"/>
+<!-- low beams -->
+<rect x="-1000" y="-400" width="3600" height="440" fill="#2a1a10"/>
+<g fill="#4a2e18"><rect x="-1000" y="30" width="3600" height="34"/><rect x="-1000" y="120" width="3600" height="22"/></g>
+<g fill="#3a2414"><rect x="-60" y="-400" width="40" height="470"/><rect x="560" y="-400" width="40" height="470"/><rect x="1180" y="-400" width="40" height="470"/><rect x="1700" y="-400" width="40" height="470"/></g>
+
+<!-- the leaded window -->
+<g id="window" class="hot"><rect x="690" y="150" width="140" height="110" fill="#3a2414"/><rect x="700" y="160" width="120" height="90" fill="#b8c8d4"/><g stroke="#4a4a4a" stroke-width="2"><path d="M700 160l120 90M820 160l-120 90M760 160v90M700 205h120"/></g><rect x="700" y="232" width="120" height="18" fill="#e8eef2" opacity=".8"/></g>
+
+<!-- the inglenook, fire and print -->
+<g id="hearth" class="hot"><rect x="40" y="300" width="360" height="400" fill="#6a5040"/><rect x="30" y="286" width="380" height="30" fill="#3a2414"/><path d="M90 700V420q0 -60 130 -60t130 60v280z" fill="#140c08"/>
+  <ellipse id="glowF" cx="220" cy="640" rx="200" ry="120" fill="url(#fireL)"/>
+  <g id="flames"><path d="M170 690q-10 -60 20 -90q0 40 20 50q-10 -40 20 -70q10 60 30 70q10 -30 0 -50q40 40 20 90z" fill="#e86a20"/><path d="M190 690q0 -40 20 -60q0 30 16 30q4 -20 14 -30q10 40 0 60z" fill="#ffc040"/><path d="M200 690q6 -20 14 -26q6 14 12 26z" fill="#fff0a0"/></g>
+  <path d="M140 696h160l-10 -14h-140z" fill="#3a2414"/></g>
+<g id="print" class="hot"><rect x="130" y="150" width="180" height="124" fill="#3a2a1a"/><rect x="140" y="160" width="160" height="104" fill="#e8dcc0"/>
+  <g fill="#2a241a"><rect x="160" y="226" width="120" height="8"/><circle cx="178" cy="206" r="9"/><circle cx="222" cy="200" r="9"/><circle cx="262" cy="206" r="9"/><path d="M168 226q10 -20 20 0zM212 226q10 -26 20 0zM252 226q10 -20 20 0z"/><path d="M222 186l-4 -16h8z"/></g>
+  <path d="M220 214q4 -14 10 -2" stroke="#b0242c" stroke-width="3" fill="none"/><text x="220" y="256" class="cE" font-size="11" text-anchor="middle" fill="#2a241a">De Windhandel</text></g>
+
+<!-- eel traps hanging from the beam -->
+<g id="traps" class="hot"><path d="M440 64v40M500 64v30" stroke="#2a1a10" stroke-width="3"/><path d="M420 104q20 -10 40 0l-6 120q-14 10 -28 0z" fill="#a88a50" stroke="#7a5a2a" stroke-width="2"/><path d="M482 94q18 -8 36 0l-4 100q-14 8 -28 0z" fill="#b89a5a" stroke="#7a5a2a" stroke-width="2"/>
+  <g stroke="#7a5a2a" stroke-width="1.5"><path d="M424 130h32M426 160h28M428 190h24M486 120h28M488 150h24M490 175h20"/></g></g>
+
+<!-- the beam of promises -->
+<g id="beam" class="hot"><rect x="600" y="300" width="560" height="18" fill="#4a2e18"/><path d="M610 330q275 30 540 0" stroke="#c8a878" stroke-width="2" fill="none"/>
+  <g id="slips"></g></g>
+
+<!-- the slate -->
+<g id="slate" class="hot"><rect x="1240" y="170" width="190" height="150" fill="#5a3a20"/><rect x="1250" y="180" width="170" height="130" fill="#2a2e30"/>
+  <text x="1335" y="208" class="cH" font-size="16" text-anchor="middle" fill="#ece8dc">TIGER</text><text x="1335" y="236" class="cH" font-size="13" text-anchor="middle" fill="#ece8dc">last trade, Fri:</text><text x="1335" y="268" class="cH" font-size="26" text-anchor="middle" fill="#ece8dc">£352</text><text x="1335" y="296" class="cH" font-size="12" text-anchor="middle" fill="#ece8dc">darts Tues CANCELLED</text></g>
+
+<!-- the door and its rules card -->
+<g><rect x="1440" y="200" width="150" height="500" fill="#4a2e18"/><rect x="1456" y="216" width="118" height="470" fill="#5a3a20" stroke="#3a2414" stroke-width="3"/><circle cx="1470" cy="470" r="7" fill="#c9a24a"/></g>
+<g id="rules" class="hot"><rect x="1478" y="300" width="76" height="98" fill="#f2e8cc" transform="rotate(3 1516 349)"/><g transform="rotate(3 1516 349)"><rect x="1478" y="300" width="76" height="12" fill="#6a4a1a"/><path d="M1486 324h60M1486 334h52M1486 344h60M1486 354h44M1486 364h56M1486 374h48M1486 384h40" stroke="#5a5040" stroke-width="2"/></g></g>
+
+<rect x="-1000" y="700" width="3600" height="800" fill="url(#flags)"/><rect x="-1000" y="696" width="3600" height="8" fill="#2a1a10"/>
+
+<!-- the hatch, and Sadie -->
+<g id="sadie" class="hot" transform="translate(1330 720) scale(.9)"></g>
+<g><rect x="1220" y="560" width="210" height="150" fill="#4a2e18"/><rect x="1210" y="548" width="230" height="18" fill="#6a4226"/><g fill="#c8e0c0" opacity=".8"><rect x="1240" y="520" width="16" height="30" rx="3"/><rect x="1262" y="514" width="16" height="36" rx="3"/></g></g>
+
+<!-- the long table and the Tiger Book -->
+<g><rect x="520" y="600" width="640" height="20" fill="#5a3418"/><path d="M560 620v120M1120 620v120" stroke="#3a2010" stroke-width="14"/></g>
+<g id="book" class="hot"><path d="M780 600l8 -20h100l-6 20z" fill="#3a5a2a"/><path d="M834 600l2 -20" stroke="#e8e0c8" stroke-width="2"/><text x="834" y="595" class="cP" font-size="8" text-anchor="middle" fill="#e8e0c8">TIGER BOOK</text></g>
+<g id="glasses"><rect x="640" y="578" width="18" height="24" rx="3" fill="#e8c860" opacity=".8"/><rect x="980" y="574" width="20" height="28" rx="3" fill="#3a1a10" opacity=".85"/><rect x="1060" y="580" width="16" height="22" rx="3" fill="#f0e8c8" opacity=".7"/></g>
+<g id="chair" class="hot"><rect x="900" y="510" width="90" height="220" fill="#000" fill-opacity="0"/><rect x="900" y="630" width="90" height="12" fill="#3a2414"/><path d="M904 642v90M986 642v90M900 630v-120h12v120M978 630v-120h12v120" stroke="#3a2414" stroke-width="8"/><path d="M906 540h80M906 570h80" stroke="#3a2414" stroke-width="6"/></g>
+
+<g id="pearl" class="hot" transform="translate(440 830) scale(.92)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Across the square to the museum</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="tulip.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, lock = null;
+
+  (function () {
+    var s = '', i;
+    for (i = 0; i < 7; i++) {
+      var x = 630 + i * 76, y = 336 + Math.round(Math.sin(i / 6 * Math.PI) * 14);
+      s += '<g transform="translate(' + x + ' ' + y + ') rotate(' + ((i % 3) - 1) * 4 + ')"><rect x="-26" y="0" width="52" height="66" fill="#f2e8cc"/><rect x="-26" y="0" width="52" height="8" fill="#6a4a1a"/><path d="M-18 20h36M-18 30h30M-18 40h36M-18 50h24" stroke="#6a5a48" stroke-width="2"/><circle cx="0" cy="-2" r="3" fill="#c9a24a"/></g>';
+    }
+    $('#slips').innerHTML = s;
+    $('#sadie').innerHTML = TULIP.who('sadie', { smile: 1, extra: '<rect x="30" y="-150" width="22" height="16" rx="2" fill="#e8e8e0"/>' });
+    $('#pearl').innerHTML = TULIP.who('pearl', { smile: 1 });
+  })();
+
+  ER.init({
+    theme: 'econ', story: 'tulip', storyTitle: 'Trading in Wind', id: 'backroom', no: 'II', title: 'The Back Room',
+    go: 'Go through to the back', sound: ['ledger', { root: 45, bpm: 72, drop: ['mel'], beds: [['fire', 0.5]] }],
+    intro: [
+      'The lot ticket: four buyers who meant to use a Fen Tiger (a gardener, a museum, a florist and a nursery), who would pay from £4 to £14. Three who meant to sell it on, at £20, £660 and £700. The seller&rsquo;s reserve was not a bid at all. So a Fen Tiger is worth up to £14 to somebody who will plant it, and £306 of last week&rsquo;s £320 was hope.',
+      'Mr Tebbutt laughed and went off whistling. Mrs Gotobed sent you after promise number thirteen.',
+      'The Leaping Eel is three doors down from the Corn Exchange. It has just opened, and the back room smells of last night&rsquo;s fire.'
+    ],
+    exit: {"next":"museum","w":{"43ed6450":"e2573ca9"}}, tags: {"h1":["f2e4ccb0"],"h2":["cba049a9"],"h3":["ff2661ac"],"h4":["11ba4e49"],"h5":["a3c59bba"],"snap":["769fe545"],"who":["2c43c134"],"one":["874bd1f7"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('b-file') || null; told = ER.flag('b-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('b-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    ER.pips((told.sadie ? 1 : 0) + (told.rules ? 1 : 0) + (told.book ? 1 : 0) + (ER.flag('b-p1') ? 1 : 0) + (nextFile ? 1 : 0), 5);
+    $('#beam').classList.toggle('ready', !!(told.sadie && told.rules && !nextFile));
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Sadie has sent you to the museum: the button at the bottom of the screen.']];
+    if (lock && lock.isOpen() && ER.flag('b-p1')) return ['july', [
+      'It is the first of July and nobody will buy number thirteen from Yvonne. Start at the right-hand end. Can Yvonne pay Nev £345? Read the back of her slip. The house rules say: in full, or not at all.',
+      'If Yvonne does not pay Nev, Nev still owes Rhoda £250. What did Nev say he could pay with? Part of it was money he expected from selling on. Then Rhoda: she owes Mo £120. Can she pay it from her own money?',
+      'Two payments snap. Rhoda pays Mo, so the bulb comes down the chain to Rhoda and stops there: nobody has paid her for it.'
+    ]];
+    if (lock && lock.isOpen()) return ['hang', [
+      'Only the slips for number thirteen go on the beam. Each slip is one sale: the buyer on one slip is the seller on the next.',
+      'Start at the left with Mrs Purkiss, who sold number thirteen at the saleroom on 3 January. Then find the slip where Roland Tebbutt is the seller. Read every slip for number thirteen to the end: one of them was cancelled.',
+      'Purkiss to Tebbutt, Tebbutt to Rasheed, Rasheed to Venn, Venn to Sowerby, Sowerby to Gedge. The dates go in order too.'
+    ]];
+    if (!told.sadie) return ['sadie', ['The landlady is behind the hatch, on the right. Talk to her.', 'Click Sadie Thurlow, the woman with red hair in a bun, behind the bar.']];
+    if (!told.rules) return ['rules', ['Sadie has house rules for promises. They are on the card on the door.', 'The cream card pinned to the brown door on the far right.']];
+    return ['beam', ['The slips are pinned on the beam above the table. Click the beam.', 'The Tiger Book on the table says something about the whole town, if you have not read it.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('The beam of promises, and one purse at the end of it.'); return; }
+    if (told.in) { busy = false; ER.say('The back room of the Leaping Eel. Sadie is polishing glasses that do not need it.'); return; }
+    tell('in');
+    ER.narrate([
+      'A low room with black beams, white walls gone the colour of tea, and a fireplace you could stand up in. Two willow eel traps hang from the beam over it, and over the mantelpiece there is a print of men round a table, looking very serious about a flower.',
+      'Along the beam above the long table, paper slips are pinned in a row like washing. A slate on the wall says TIGER, and under that, LAST TRADE, FRI: £352.',
+      'Behind the hatch, a small woman with red hair is cleaning glasses. &ldquo;Don&rsquo;t sit there,&rdquo; she says, without turning round. &ldquo;That&rsquo;s Nev&rsquo;s chair, and Nev is in a mood.&rdquo;'
+    ], function () { busy = false; });
+  }
+
+  $('#sadie').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;The museum,&rdquo; says Sadie. &ldquo;Ulric will tell you about a sailor and an onion. Don&rsquo;t let him.&rdquo;'); return; }
+    ER.talk({
+      who: 'Mrs Sadie Thurlow', role: 'Landlady · the Leaping Eel', face: TULIP.face('sadie'),
+      lines: [
+        { note: 'She puts down a glass and looks at Pearl, then at you.', a: '&ldquo;Nerys&rsquo;s porter. And Pearl, who should know better and doesn&rsquo;t, because she&rsquo;s sixteen.&rdquo;' },
+        { q: 'What happens in here?', a: '&ldquo;Every night since Christmas they come in and sell each other promises. Not bulbs: you can&rsquo;t sell what&rsquo;s still in the ground. Promises. I write every one in the Tiger Book and take fifty pence for the trouble. This room used to be darts on a Tuesday.&rdquo;' },
+        { q: 'Where is number thirteen?', a: '&ldquo;It&rsquo;s been round five times. Every slip for number thirteen is up on the beam with the others. I pin them up so nobody can say they never promised. And read the backs: before I write a promise in the book, I ask what they&rsquo;ve got to pay it with.&rdquo;' },
+        { q: 'Is anybody worried?', a: '&ldquo;Yvonne Gedge is. She bought number thirteen on Wednesday for three hundred and forty-five pounds, to sell on. Nobody&rsquo;s bought anything from her since. She&rsquo;s been in every night with a lemonade, watching the door.&rdquo;' },
+        { q: 'What do you want us to do?', a: '&ldquo;Pin number thirteen up in order, from Mrs Purkiss to Yvonne. Then tell me what happens on the first of July if nobody will take it off Yvonne&rsquo;s hands for more than a gardener would pay. My house rules are on the door. Read them first.&rdquo;' }
+      ],
+      clue: { id: 'sadie', title: 'Sadie: number thirteen', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('sadie')) { paint(); ER.say('Sadie&rsquo;s house rules are on the door. Then the beam.'); } }
+    });
+  });
+
+  var DIA = '<svg viewBox="0 0 290 190"><g font-family="Architects Daughter,cursive" font-size="12.5" fill="#22201c">' +
+    [['Purkiss', 20], ['A', 95], ['B', 170], ['C', 245]].map(function (p) { return '<circle cx="' + p[1] + '" cy="70" r="20" fill="#f4ead0" stroke="#6a4a1a" stroke-width="2"/><text x="' + p[1] + '" y="75" text-anchor="middle" font-size="' + (p[0].length > 2 ? 10 : 14) + '">' + p[0] + '</text>'; }).join('') +
+    '<path d="M42 56h30M117 56h30M192 56h30" stroke="#2f6a3a" stroke-width="2.5" marker-end="url(#ah)"/><text x="132" y="30" text-anchor="middle" fill="#2f6a3a">the bulb goes this way, in July</text>' +
+    '<path d="M72 86h-30M147 86h-30M222 86h-30" stroke="#b0242c" stroke-width="2.5"/><path d="M48 80l-6 6 6 6M123 80l-6 6 6 6M198 80l-6 6 6 6" stroke="#b0242c" stroke-width="2.5" fill="none"/>' +
+    '<text x="132" y="118" text-anchor="middle" fill="#b0242c">each buyer pays their own seller</text><text x="145" y="150" text-anchor="middle">one bulb, a chain of promises</text>' +
+    '<path d="M64 56l8 0" stroke="#2f6a3a"/><path d="M68 52l6 4 -6 4M143 52l6 4 -6 4M218 52l6 4 -6 4" stroke="#2f6a3a" stroke-width="2.5" fill="none"/></g></svg>';
+  var RULES = '<h4>The Leaping Eel &middot; back room</h4><h3>House rules for promises</h3><div class="two"><div>' +
+    '<p>1. A <b>FUTURES CONTRACT</b> is a promise made today to buy or sell something on a later day, at a price agreed today. Here: one Fen Tiger bulb, on lifting day, the first of July.</p>' +
+    '<p>2. No money changes hands until then. On the first of July the buyer pays the seller, and the seller hands over the bulb.</p>' +
+    '<p>3. A promise can be sold on. Then the new buyer owes the seller, who owes the one before, all the way back to Mrs Purkiss. One bulb, a chain of promises.</p>' +
+    '<p>4. If your buyer does not pay you, you still owe your seller. A buyer who cannot pay has <b>DEFAULTED</b>.</p>' +
+    '<p>5. This house does not do halves: a promise is paid in full, or not at all.</p>' +
+    '<p class="rule">6. Before I write a promise in the book, I ask the buyer what they have to pay it with, and I write it on the back of the slip. S.T.</p></div><div class="dia">' + DIA + '</div></div>';
+  $('#rules').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: RULES, cls: 'teach wind', clue: { id: 'rules', title: 'The Eel&rsquo;s house rules for promises', kind: 'On the door' }, done: function () {
+      TULIP.terms(['futures contract', 'default', 'chain of promises']);
+      if (tell('rules')) { paint(); ER.say('A promise to pay in July. If your buyer does not pay you, you still owe your seller.'); }
+    } });
+  });
+  var BOOK = '<h4>THE TIGER BOOK &middot; totals, Sat 7 Feb</h4><table>' +
+    '<tr><td>Promises written in this room since 20 December</td><td class="r">212</td></tr>' +
+    '<tr><td>Money paid so far, by anybody, to anybody</td><td class="r">£0.00</td></tr>' +
+    '<tr><td>New names in the book, week by week</td><td class="r"></td></tr>' +
+    '<tr><td>&nbsp; 20 Dec to 3 Jan (two weeks)</td><td class="r">15</td></tr><tr><td>&nbsp; 4 to 10 Jan</td><td class="r">14</td></tr><tr><td>&nbsp; 11 to 17 Jan</td><td class="r">17</td></tr>' +
+    '<tr><td>&nbsp; 18 to 24 Jan</td><td class="r">11</td></tr><tr><td>&nbsp; 25 to 31 Jan</td><td class="r">4</td></tr><tr><td>&nbsp; 1 to 6 Feb</td><td class="r">0</td></tr>' +
+    '<tr><td>Names in the book altogether</td><td class="r">61</td></tr></table>' +
+    '<p class="hand">Same sixty-one faces every night, selling to each other. S.T.</p>';
+  $('#book').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: BOOK, cls: 'slip', clue: { id: 'tigerbook', title: 'The Tiger Book: totals', kind: 'On the table' }, done: function () {
+      if (tell('book')) { paint(); ER.say('Two hundred and twelve promises, and not one penny paid. And this week, not one new name.'); }
+    } });
+  });
+  var PRINT = '<h4>De Windhandel &middot; the wind trade</h4><div class="two"><div><svg viewBox="0 0 260 180"><rect width="260" height="180" fill="#e8dcc0"/>' +
+    '<rect x="20" y="118" width="220" height="12" fill="#3a2a1a"/><path d="M40 130v40M220 130v40" stroke="#3a2a1a" stroke-width="6"/>' +
+    [[60, 1], [110, -1], [160, 1], [205, -1]].map(function (p) { return '<g transform="translate(' + p[0] + ' 118)"><path d="M-16 0q0 -46 16 -50t16 50z" fill="#2a241a"/><circle cy="-62" r="13" fill="#d8b890"/><path d="M-14 -66q2 -16 14 -16t14 16" fill="#2a241a"/><path d="M-12 -52h24" stroke="#f4ead0" stroke-width="5"/></g>'; }).join('') +
+    '<g transform="translate(134 116) scale(.32)">' + TULIP.tulip({ pat: 'feather', seed: 7 }) + '</g><rect x="150" y="104" width="22" height="14" fill="#f4ead0" stroke="#2a241a"/></svg></div><div>' +
+    '<p>In the winter of 1636&ndash;37, in the Dutch Republic, tulips were bought and sold in the back rooms of taverns. Traders met there in groups, which they called &ldquo;colleges&rdquo;.</p>' +
+    '<p>The bulbs were in the ground until summer, so what changed hands were promises on paper. People called it the <i>windhandel</i>, &ldquo;the wind trade&rdquo;: nothing changed hands but paper and air.</p>' +
+    '<p>In the first days of February 1637, the buyers stopped coming.</p>' +
+    '<small>Drawn for the Leaping Eel by a Dykesend artist in 1987, after Dutch pictures of the time.</small></div></div>';
+  $('#print').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: PRINT, cls: 'frame', clue: { id: 'windhandel', title: 'The print: the wind trade, 1636&ndash;37', kind: 'Over the fire' }, done: function () {
+      if (tell('print')) ER.say('Promises of bulbs still in the ground, sold in taverns, in the winter of 1636 to 1637. Dykesend is not the first town to try it.');
+    } });
+  });
+  TULIP.thing('#traps', 'eel trap', 'Two willow eel traps, woven the old Fen way. Sadie&rsquo;s grandfather caught eels in the Ings Drain with them. Eels go in, and cannot work out how to get out.', isBusy);
+  TULIP.thing('#hearth', 'inglenook', 'The inglenook. Last night&rsquo;s fire is still alive. On the hearth lies a beer mat with a sum in pencil: 320, 640, 1,280, 2,560, 5,120. After that the pencil seems to have given up.', isBusy);
+  TULIP.thing('#window', null, 'Through the little window: the market square, white with frost. A woman in a blue coat is standing outside the Eel, looking at the door and not coming in.', isBusy);
+  TULIP.thing('#slate', null, '&ldquo;Last trade, Friday, three hundred and fifty-two,&rdquo; says Sadie. &ldquo;Roland bought it. Roland buys something every Friday night. He says it keeps the price healthy.&rdquo;', isBusy);
+  TULIP.thing('#chair', null, 'Nev Sowerby&rsquo;s chair. On the seat, a copy of Farmers&rsquo; Weekly, open at TRACTORS FOR SALE, with three of them circled.', isBusy);
+  $('#pearl').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(nextFile ? '&ldquo;Every profit on that beam comes out of Yvonne,&rdquo; says Pearl quietly. &ldquo;And mine would come out of somebody like Yvonne.&rdquo;' :
+      '&ldquo;Number seventeen&rsquo;s mine,&rdquo; says Pearl. &ldquo;It&rsquo;s up there too: Sadie pins everything. Don&rsquo;t put it with thirteen. And don&rsquo;t read the back. It&rsquo;s rude.&rdquo;');
+  });
+  $('#beam').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Number thirteen, in order, with two payments snapped. It stops at Rhoda.'); return; }
+    if (!told.sadie) { ER.say('Paper slips pinned along a beam. Ask the landlady what they are.'); return; }
+    if (!told.rules) { ER.say('Before you touch Sadie&rsquo;s slips, read her house rules: the card on the door.'); return; }
+    if (!lock) lock = makeLock();
+    lock.open();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the beam of promises ---------- */
+  function makeLock() {
+    var SL = [
+      ['s3', 'No. 13 &middot; Thu 22 Jan', 'Mo Rasheed sells to Rhoda Venn, £120, payable 1 July', 'Means: £500, the salon&rsquo;s takings.'],
+      ['d1', 'No. 17 &middot; Sat 10 Jan &middot; at Gotobed&rsquo;s', 'Zillah Purkiss sells to Pearl Gotobed, £40, payable 1 July', 'Means: £40 saved. She&rsquo;s sixteen. I wrote it anyway.'],
+      ['s5', 'No. 13 &middot; Wed 4 Feb', 'Nev Sowerby sells to Yvonne Gedge, £345, payable 1 July', 'Means: £200 in her post office book.'],
+      ['s1', 'No. 13 &middot; Sat 3 Jan &middot; at Gotobed&rsquo;s', 'Zillah Purkiss sells to Roland Tebbutt, £20, payable 1 July', 'Means: plenty, he says.'],
+      ['d2', 'No. 13 &middot; Thu 22 Jan', 'Mo Rasheed sells to Vic Rix, £120, payable 1 July. CANCELLED: Vic changed his mind before I wrote it in the book.', 'Means: nothing written.'],
+      ['s4', 'No. 13 &middot; Fri 30 Jan', 'Rhoda Venn sells to Nev Sowerby, £250, payable 1 July', 'Means: £90, and the money from selling it on.'],
+      ['s2', 'No. 13 &middot; Tue 13 Jan', 'Roland Tebbutt sells to Mo Rasheed, £50, payable 1 July', 'Means: £300 in the bank.']
+    ];
+    var PEOPLE = [['purkiss', 'Mrs Purkiss'], ['tebbutt', 'Mr Tebbutt'], ['rasheed', 'Mr Rasheed'], ['rhoda', 'Rhoda Venn'], ['nev', 'Nev Sowerby'], ['yvonne', 'Yvonne Gedge']];
+    var saved = ER.flag('b-lock') || {}, wait = false, p1 = !!ER.flag('b-p1'), cut = saved.cut || [], whoP = saved.who || '';
+    var box = ER.el('div', 'pz bm' + (p1 ? ' p2' : ''));
+    box.innerHTML = '<div class="bm-in"><div class="beam"><div class="end">Mrs Purkiss&rsquo;s field<br>(the bulb, in July)</div>' +
+      [1, 2, 3, 4, 5].map(function (i) { return '<span class="hook" data-h="h' + i + '" data-n="' + i + '"></span>'; }).join('') + '<div class="end">holds it now</div></div>' +
+      '<div class="tray" id="tr"><h5>Slips from the beam</h5>' + SL.map(function (s) { return '<span class="dnd-item slp' + (s[0] === 'd2' ? ' x' : '') + '" data-id="' + s[0] + '"><b>' + s[1] + '</b>' + s[2] + '<em>' + s[3] + '</em></span>'; }).join('') + '</div>' +
+      '<div class="stage2" id="st2"><b>The first of July.</b> Nobody will buy number thirteen from Yvonne for more than a gardener would pay. Click each slip whose payment will NOT be made, so that it snaps. Then: who is left holding the bulb?<div class="who">' +
+      PEOPLE.map(function (p) { return '<button type="button" data-w="' + p[0] + '">' + p[1] + '</button>'; }).join('') + '</div></div></div>' +
+      '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="m-go">Ask Sadie</button></div>';
+    var msgEl = box.querySelector('.pmsg'), tr = box.querySelector('#tr');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function at(h) { var it = box.querySelector('.hook[data-h="' + h + '"] .slp'); return it ? it.getAttribute('data-id') : ''; }
+    function keep() { var o = { at: {}, cut: cut, who: whoP }; [1, 2, 3, 4, 5].forEach(function (i) { o.at['h' + i] = at('h' + i); }); ER.flag('b-lock', o); }
+    function lk() { return wait || !!nextFile || p1; }
+    Object.keys(saved.at || {}).forEach(function (h) {
+      var id = saved.at[h], it = id && box.querySelector('.slp[data-id="' + id + '"]'), hk = box.querySelector('.hook[data-h="' + h + '"]');
+      if (it && hk) hk.appendChild(it);
+    });
+    function paintCut() {
+      ER.$$('.hook .slp', box).forEach(function (n) { n.classList.toggle('cut', cut.indexOf(n.getAttribute('data-id')) >= 0); });
+      ER.$$('.who button', box).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-w') === whoP); });
+    }
+    function part2() { p1 = true; box.classList.add('p2'); box.querySelector('#st2').classList.add('on'); tr.style.display = 'none'; paintCut(); }
+    if (p1) part2();
+    ER.dnd(box, { item: '.slp', slot: '.hook', home: tr, change: keep, lock: lk });
+    box.addEventListener('click', function (e) {
+      if (!p1 || wait || nextFile) return;
+      var s = e.target.closest ? e.target.closest('.hook .slp') : null, w = e.target.closest ? e.target.closest('.who button') : null;
+      if (s) { var id = s.getAttribute('data-id'), i = cut.indexOf(id); if (i >= 0) cut.splice(i, 1); else { cut.push(id); TULIP.sfx.snip(); } paintCut(); keep(); }
+      if (w) { whoP = w.getAttribute('data-w'); ER.sfx.click(); paintCut(); keep(); }
+    });
+    function flash(n) { n.classList.add('bad'); setTimeout(function () { n.classList.remove('bad'); }, 1300); }
+    box.querySelector('#m-go').addEventListener('click', function () {
+      if (wait || nextFile) return;
+      var i, h, id;
+      if (!p1) {
+        for (i = 1; i <= 5; i++) { h = 'h' + i; if (!at(h)) { ER.sfx.no(); flash(box.querySelector('.hook[data-h="' + h + '"]')); msg('&ldquo;Hook ' + i + ' is empty,&rdquo; says Sadie. &ldquo;Number thirteen was sold five times. Five slips.&rdquo;'); return; } }
+        for (i = 1; i <= 5; i++) {
+          h = 'h' + i; id = at(h);
+          if (!ER.check(h, id)) {
+            ER.sfx.no(); flash(box.querySelector('.hook[data-h="' + h + '"]'));
+            if (id === 'd1') msg('&ldquo;That&rsquo;s Pearl&rsquo;s,&rdquo; says Sadie. &ldquo;Number seventeen. Read the number at the top of every slip.&rdquo;');
+            else if (id === 'd2') msg('&ldquo;Read that one to the end,&rdquo; says Sadie. &ldquo;Cancelled. Vic changed his mind. Mo sold it to somebody else that night.&rdquo;');
+            else msg('&ldquo;Hook ' + i + ' is wrong,&rdquo; says Sadie. &ldquo;The buyer on one slip has to be the seller on the next. Follow the names, and the dates.&rdquo;');
+            return;
+          }
+        }
+        ER.flag('b-p1', 1); TULIP.sfx.pin(); part2(); paint(); keep();
+        msg('&ldquo;That&rsquo;s number thirteen,&rdquo; says Sadie. &ldquo;Twenty pounds to three hundred and forty-five in a month. Now: the first of July, and nobody will take it off Yvonne. Which payments won&rsquo;t be made?&rdquo;');
+        return;
+      }
+      var sn = cut.slice().sort().join('');
+      if (!ER.check('snap', sn)) {
+        ER.sfx.no();
+        if (!sn) msg('&ldquo;You think everybody pays?&rdquo; says Sadie. &ldquo;Look at the back of Yvonne&rsquo;s slip. Can she find three hundred and forty-five pounds?&rdquo;');
+        else if (ER.check('one', sn)) msg('&ldquo;Yvonne can&rsquo;t pay Nev, right,&rdquo; says Sadie. &ldquo;So Nev gets nothing. But Nev still owes Rhoda two hundred and fifty. What&rsquo;s on the back of his slip?&rdquo;');
+        else msg('&ldquo;Not quite,&rdquo; says Sadie. &ldquo;Go along from Yvonne&rsquo;s end, one slip at a time. If your buyer doesn&rsquo;t pay you, you still owe your seller. Can each one pay from their own money?&rdquo;');
+        return;
+      }
+      if (!ER.check('who', whoP)) {
+        ER.sfx.no();
+        msg(!whoP ? '&ldquo;And who&rsquo;s left holding the bulb?&rdquo; says Sadie. &ldquo;Click the name.&rdquo;' :
+          whoP === 'yvonne' ? '&ldquo;Yvonne never paid,&rdquo; says Sadie, &ldquo;so she never gets it. The bulb comes down the chain until it reaches somebody who paid for it and wasn&rsquo;t paid in turn.&rdquo;' :
+          '&ldquo;Follow the bulb,&rdquo; says Sadie. &ldquo;It goes down the chain as each person pays. Where does it stop?&rdquo;');
+        return;
+      }
+      var file = ER.exit(['s1-s2-s3-s4-s5|' + sn + '|' + whoP], { wait: true });
+      if (!file) { msg('The door will not open. Something is wrong with this page: tell your teacher.'); return; }
+      wait = true; nextFile = file; ER.flag('b-file', file);
+      TULIP.terms(['zero-sum']);
+      TULIP.mine('chain13', 'Number thirteen in July', '<p>Purkiss to Tebbutt £20, Tebbutt to Rasheed £50, Rasheed to Venn £120, Venn to Sowerby £250, Sowerby to Gedge £345.</p><p>If nobody buys from Yvonne: she has only £200, so she cannot pay Nev £345. Nev has only £90, so he cannot pay Rhoda £250. Rhoda has £500, so she pays Mo £120.</p><p>Rhoda is left with the bulb, worth about £14 to a gardener, that cost her £120.</p><p>Every profit on the chain (£30 + £70 + £130 + £95 = £325) was to be paid by the last buyer. Nobody has paid anything yet.</p>', true);
+      msg('Sadie writes on the slate: <b>Yvonne defaults, Nev defaults, Rhoda pays, and Rhoda is left holding the bulb.</b>');
+      setTimeout(function () {
+        ER.closeAll(); paint(); busy = true;
+        ER.narrate([
+          '&ldquo;Rhoda,&rdquo; says Sadie. &ldquo;A hundred and twenty pounds out of her salon money, for a bulb a gardener would give her fourteen for. And Nev owes her two hundred and fifty he hasn&rsquo;t got.&rdquo;',
+          'She taps the slips one by one. &ldquo;Roland makes thirty. Mo makes seventy. Rhoda would have made a hundred and thirty, and Nev ninety-five. Three hundred and twenty-five pounds of profit on that beam, and every penny of it was going to come out of one purse: the last buyer&rsquo;s. Whatever one person gains on that beam, another person loses. Zero-sum, Pearl&rsquo;s teacher would call it. I call it pass-the-parcel.&rdquo;',
+          'Pearl has gone rather quiet. &ldquo;Roland says it&rsquo;s exactly like Holland in 1637,&rdquo; she says. &ldquo;And that historians now say it was all exaggerated, and nobody was ruined. So there&rsquo;s nothing to worry about.&rdquo;',
+          '&ldquo;Then go and ask the history,&rdquo; says Sadie. &ldquo;Ulric Bevis is redoing the tulip case at the museum this morning. Find out what really happened in 1637, and why nobody was ruined, if nobody was.&rdquo;'
+        ], function () { busy = false; $('#go').classList.add('on'); });
+      }, 2800);
+    });
+    msg(p1 ? 'Number thirteen is on the beam. Now the first of July: click the slips whose payments will not be made, then the person left holding the bulb.' :
+      'Hang the slips for number thirteen on the hooks in order, from Mrs Purkiss to whoever holds it now (drag a slip, or click it and then a hook). Then ask Sadie.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+})();
+</script>
+</body>
+</html>

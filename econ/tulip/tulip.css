@@ -1,0 +1,176 @@
+/* Trading in Wind - what every room shares: the papers of Dykesend (porters' notes, promise slips, a framed print, a
+   museum label, a revision card, a hut notice, a grower's ledger, a letter), the number drum, the frame round a piece
+   of work, the card at the end, and a grower's notebook skin for the notebook, hints and word tags.
+   Each room sets its own palette on <body>. */
+
+.tc-theme{font-family:'Courier Prime',monospace;font-weight:700;font-size:14px;letter-spacing:.24em}
+.tc-room{font-family:'Cabin Sketch','Lora',serif;font-weight:700;letter-spacing:.01em;line-height:1}
+.tc-text{font-family:'Lora',Georgia,serif;font-size:clamp(17.5px,1.42vw,21px);line-height:1.56}
+.tc-text p{margin:0 0 12px}
+.cap{font-family:'Lora',Georgia,serif;font-size:clamp(17.5px,1.38vw,21px);line-height:1.5}
+.chip,.hbtn{font-family:'Outfit',sans-serif;font-weight:600;font-size:13px;letter-spacing:.14em}
+.btn{font-family:'Outfit',sans-serif;font-weight:700;font-size:13.5px;letter-spacing:.14em}
+.ov-x{font-family:'Outfit',sans-serif;font-weight:600;font-size:12.5px}
+.gobtn{position:fixed;left:50%;bottom:5vh;transform:translateX(-50%);z-index:35;display:none;padding:13px 30px 11px;border:2px solid #1f2a1c;
+  color:#fbf3dc;background:#b0242c;font-family:'Lora',Georgia,serif;font-weight:700;font-size:17px;letter-spacing:.04em;border-radius:3px;box-shadow:0 5px 0 #1f2a1c,0 14px 30px rgba(0,0,0,.45)}
+.gobtn.on{display:block}
+.gobtn:hover{background:#c8343a}
+.tk-name{font-family:'Lora',Georgia,serif;font-weight:700;font-size:25px;letter-spacing:.01em}
+.tk-role{font-family:'Courier Prime',monospace;font-weight:700;font-size:13px;letter-spacing:.08em;color:var(--role,#b0242c)}
+.tk .btn{--accent:var(--role-btn,#1f2a1c)}
+.tk .btn:hover:not([disabled]){color:#fffdf2}
+.tk-text{font-family:'Lora',Georgia,serif;font-size:clamp(17px,1.32vw,20px);line-height:1.52}
+.tk-face svg{height:100%;min-height:300px}
+.hot{cursor:pointer}
+.hot:hover{filter:brightness(1.12)}
+.ready{animation:glow 1.6s steps(1,end) infinite}
+@keyframes glow{50%{filter:brightness(1.35)}}
+
+/* lettering inside drawings */
+.cB{font-family:'Bungee',sans-serif}
+.cS{font-family:'Cabin Sketch',cursive}
+.cH{font-family:'Architects Daughter',cursive}
+.cL{font-family:'Lora',serif}
+.cP{font-family:'Courier Prime',monospace}
+.cO{font-family:'Oswald',sans-serif}
+.cC{font-family:'Caveat',cursive}
+.cZ{font-family:'Cinzel',serif}
+.cE{font-family:'EB Garamond',serif}
+.cA{font-family:'Homemade Apple',cursive}
+
+/* ---- the number drum ---- */
+.dr{display:inline-flex;align-items:center;gap:2px;user-select:none;-webkit-user-select:none;vertical-align:middle}
+.dr-w{display:inline-flex;flex-direction:column;align-items:center;background:#1c1a18;border-radius:3px;box-shadow:inset 0 6px 6px rgba(0,0,0,.6),inset 0 -6px 6px rgba(0,0,0,.6)}
+.dr-w b{display:block;width:1.05em;text-align:center;font-family:'Courier Prime',monospace;font-weight:700;font-size:24px;line-height:1.1;color:#f4ecd4}
+.dr-w button{display:block;width:100%;height:15px;font-size:9px;line-height:15px;color:#c8b88a;opacity:.8}
+.dr-w button:hover{opacity:1;color:#fff}
+.dr-fix{font-family:'Courier Prime',monospace;font-weight:700;font-size:22px;color:inherit;padding:0 1px}
+.dr-pt{padding:0}
+
+/* ---- a piece of work: the frame, the line that answers, the button ---- */
+.pz{width:min(1080px,95vw);-webkit-user-select:none;user-select:none}
+.pz-foot{display:flex;align-items:flex-start;gap:16px;margin-top:10px}
+.pmsg{flex:1;min-height:50px;margin:0;font-family:'Lora',Georgia,serif;font-size:17px;line-height:1.42;color:#fbf3dc}
+.pmsg b{color:#f2c02a;font-weight:700}
+.pz-foot .btn{flex:0 0 auto;white-space:nowrap;background:rgba(0,0,0,.45)}
+.pz svg{display:block}
+.dnd-item{cursor:grab;touch-action:none}
+.dnd-item.held{outline:3px solid #f2c02a;outline-offset:2px}
+.dnd-item.fly{position:fixed;z-index:90;pointer-events:none;box-shadow:0 14px 30px rgba(0,0,0,.5)}
+.bad{outline:3px solid #e2453a!important;outline-offset:2px}
+
+/* ---- paper ---- */
+.doc h4{font-weight:normal}
+.doc svg{display:block;max-width:100%;height:auto}
+/* teaching pages: a card with a diagram */
+.doc.teach{width:min(900px,95vw);background:#fbf7ea;color:#22201c;font-family:'Lora',Georgia,serif;font-size:16.5px;line-height:1.46;padding:20px 30px 16px;border-top:10px solid var(--tcol,#b0242c)}
+.doc.teach h4{margin:0 0 2px;font-family:'Courier Prime',monospace;font-weight:700;font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--tcol,#b0242c)}
+.doc.teach h3{margin:0 0 9px;font-family:'Cabin Sketch','Lora',serif;font-weight:700;font-size:28px;line-height:1.1;color:#22201c;border-bottom:2px solid #e2c27a;padding-bottom:6px}
+.doc.teach p{margin:0 0 7px}
+.doc.teach p b{font-family:'Outfit',sans-serif;font-weight:800;font-size:.9em;letter-spacing:.05em;color:var(--tcol,#b0242c)}
+.doc.teach .two{display:grid;grid-template-columns:1fr 290px;gap:22px;align-items:start}
+.doc.teach .rule{margin:8px 0 0;padding:7px 13px 6px;background:#f4ead0;border-left:5px solid var(--tcol,#b0242c);font-weight:600}
+.doc.teach .dia{background:#fff;border:1px solid #d8cfbc;padding:6px}
+.doc.teach .fn{font-size:13.5px;color:#5a5448;margin-top:8px}
+.doc.teach.porter{--tcol:#7a2a3a;font-family:'EB Garamond',Georgia,serif;font-size:18px}
+.doc.teach.wind{--tcol:#6a4a1a;background:#f4ead2}
+.doc.teach.card{--tcol:#2a6a8a;background:#fff repeating-linear-gradient(transparent 0 25px,#dbe6ee 25px 26px);font-family:'Architects Daughter',cursive;font-size:16.5px}
+.doc.teach.card h3{font-family:'Bungee',sans-serif;font-size:22px;color:#2a6a8a}
+.doc.teach.hut{--tcol:#3a5a2a;background:#efe9d2}
+.doc.teach.label{--tcol:#1f3a5a;background:#f6f4ee;font-family:'EB Garamond',Georgia,serif;font-size:18px}
+/* a framed print or picture, with a caption */
+.doc.frame{width:min(780px,94vw);background:#f6f0e0;color:#2a241a;font-family:'EB Garamond',Georgia,serif;font-size:19px;line-height:1.42;padding:24px 32px 20px;
+  border:16px solid #3a2a1a;outline:3px solid #c9a24a;outline-offset:-22px}
+.doc.frame h4{margin:0 0 10px;font-family:'Cinzel',serif;font-weight:700;font-size:22px;letter-spacing:.06em;color:#5a3a22}
+.doc.frame p{margin:0 0 8px}
+.doc.frame .two{display:grid;grid-template-columns:260px 1fr;gap:22px;align-items:start}
+.doc.frame small{display:block;font-size:14.5px;color:#6a5a44;margin-top:6px}
+/* a promise slip, a ledger, a sale book: typed or written */
+.doc.slip{width:min(560px,92vw);background:#f2e8cc;color:#2a2018;font-family:'Courier Prime',monospace;font-size:15.5px;line-height:1.4;padding:20px 26px 16px;border-top:10px solid #6a4a1a}
+.doc.slip h4{margin:0 0 8px;font-family:'Courier Prime',monospace;font-weight:700;font-size:16px;letter-spacing:.08em}
+.doc.slip table{width:100%;border-collapse:collapse}
+.doc.slip td{padding:3px 4px;border-bottom:1px dotted #b9a880;vertical-align:top}
+.doc.slip td.r{text-align:right;white-space:nowrap}
+.doc.slip .hand{font-family:'Caveat',cursive;font-size:21px;color:#2a3a7a;line-height:1.2}
+/* a letter, a certificate */
+.doc.letter{width:min(620px,92vw);background:#fffdf6;color:#1e2430;font-family:'Lora',Georgia,serif;font-size:16.5px;line-height:1.5;padding:24px 32px 20px;border-top:6px solid #e07a1a}
+.doc.letter h4{margin:0 0 10px;font-family:'Oswald',sans-serif;font-weight:600;font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:#a85a10}
+.doc.letter .hand{font-family:'Caveat',cursive;font-size:22px;color:#2a3a7a}
+/* a newspaper cutting */
+.doc.news{width:min(540px,90vw);background:#ece6d6;color:#1c1a16;font-family:'EB Garamond',Georgia,serif;font-size:18px;line-height:1.36;padding:20px 26px;transform:rotate(-1deg)}
+.doc.news h4{margin:0 0 6px;font-family:'Oswald',sans-serif;font-weight:600;font-size:28px;line-height:1.04;text-transform:uppercase}
+.doc.news small{display:block;font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:.2em;text-transform:uppercase;border-bottom:1px solid #1c1a16;margin-bottom:8px;padding-bottom:4px}
+/* a flyer, a poster */
+.doc.flyer{width:min(560px,92vw);background:#fff8e6;color:#1a2040;font-family:'Outfit',sans-serif;font-size:17px;line-height:1.4;padding:22px 28px;border:5px solid #c8202a}
+.doc.flyer h4{margin:0 0 8px;font-family:'Bungee',sans-serif;font-size:26px;line-height:1.05;color:#c8202a}
+/* what you worked out for yourself */
+.doc.mine{width:min(600px,92vw);background:#fffdf2 repeating-linear-gradient(transparent 0 29px,#d6dbe4 29px 30px);color:#1f3a6a;font-family:'Architects Daughter',cursive;font-size:18.5px;line-height:30px;padding:36px 30px 20px 34px;border-top:20px solid #2f5a3a}
+.doc.mine h4{margin:0;font-family:'Outfit',sans-serif;font-weight:800;font-size:14px;line-height:30px;letter-spacing:.08em;color:#2f5a3a}
+.doc.mine p{margin:0}
+.doc.statement{background:#f7f4e6;font-family:'Lora',Georgia,serif;font-size:17px;line-height:1.5;border-left:6px solid #b0242c}
+.doc.statement h4{font-family:'Outfit',sans-serif;font-weight:800;font-size:14px;letter-spacing:.06em;color:#b0242c}
+.doc .w:hover{color:#b0242c}
+
+/* ---- the notebook: a grower's notebook, green cloth and a red ribbon ---- */
+.nb{background:#1f3a24 linear-gradient(140deg,#2a4a2e,#13261a);border:1px solid #5a7a4a;color:#f2ecd6;box-shadow:0 30px 90px rgba(0,0,0,.75),inset 0 0 0 5px #0e1c12}
+.nb-tabs{border-bottom-color:#5a7a4a}
+.nb-tabs button{font-family:'Outfit',sans-serif;font-weight:700;font-size:13.5px;letter-spacing:.16em;color:#d8e0b8}
+.nb-tabs button.on{background:#fbf7ea;color:#13261a;border-color:#5a7a4a}
+.nb-list{border-right-color:#5a7a4a}
+.nb-list button{font-family:'Lora',serif;font-size:16px;color:#f2ecd6}
+.nb-list button small{font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.1em}
+.nb-list button.on{background:#c8202a;color:#fff6e6}
+.nb-view{background:#0e1c12}
+.nb-empty{font-family:'Lora',serif}
+.nb-words{background:#fbf7ea;color:#13261a}
+.nb-words b{font-family:'Lora',serif;font-weight:700;font-size:16px}
+.nb-words span{font-family:'Lora',serif;font-size:16px;line-height:1.35;color:#4a5a40}
+.nb-ko{border-color:#8aa070;color:#4a5a40}
+.nb-ko.on{background:#1f3a24;color:#f2c02a;border-color:#1f3a24}
+.wtip,.wtag{background:#fbf7ea;color:#13261a;border-radius:3px;box-shadow:0 10px 26px rgba(0,0,0,.5),inset 0 5px 0 #c8202a}
+.wtag{transform:rotate(-1deg);padding:13px 16px 10px}
+.wtag:before{display:none}
+.wtip{padding-top:13px}
+.wtip b,.wtag b{font-family:'Lora',serif;font-weight:700;font-size:16px}
+.wtip span,.wtag span{font-family:'Lora',serif;font-size:16px;line-height:1.35;color:#4a5a40}
+.hintbox{background:#fbf7ea;color:#13261a;border-top:6px solid #c8202a;border-radius:3px}
+.hintbox h6{font-family:'Outfit',sans-serif;font-weight:800;font-size:13px;letter-spacing:.14em;color:#b0242c}
+.hintbox p{font-family:'Lora',serif;font-size:17px;line-height:1.4}
+.hintbox p i{background:#1f3a24;color:#f2c02a;font-family:'Outfit',sans-serif;font-weight:700;font-size:12px}
+.hintbox p.hint-none{font-style:italic;color:#5a6a50;font-size:16px}
+.hintbox .btn{font-size:12.5px}
+.toast{font-family:'Outfit',sans-serif;font-weight:600;font-size:13px;background:rgba(19,38,26,.94)}
+
+/* ---- the card at the end ---- */
+.done{position:fixed;right:2.2vw;top:60px;z-index:34;width:min(560px,94vw);max-height:calc(100vh - 76px);overflow:auto;padding:16px 26px 13px;display:none;background:#fbf7ea;color:#13261a;
+  border-top:12px solid #c8202a;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.done.on{display:block}
+.okstamp{display:inline-block;padding:4px 14px 2px;border:4px double #2f6a3a;color:#2f6a3a;font-family:'Courier Prime',monospace;font-weight:700;font-size:21px;letter-spacing:.12em;transform:rotate(-3deg);margin-bottom:7px}
+.done h6{margin:9px 0 5px;font-family:'Outfit',sans-serif;font-weight:800;font-size:13px;letter-spacing:.1em;color:#b0242c}
+.done p{margin:0 0 2px;font-family:'Courier Prime',monospace;font-size:13.5px;line-height:1.4}
+.done ol{margin:0;padding-left:20px;font-family:'Lora',serif;font-size:14px;line-height:1.34}
+.done li{margin:0 0 4px}
+.done .row{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
+.done .btn{--accent:#1f3a24;font-size:12.5px;padding:7px 13px}
+.done .btn:hover:not([disabled]){color:#f2c02a}
+.done small{display:block;margin-top:8px;font-family:'Courier Prime',monospace;font-size:11.5px;opacity:.75;line-height:1.5}
+.done small button{text-decoration:underline;font:inherit}
+.rp{width:min(780px,94vw);max-height:84vh;overflow:auto;background:#fbf7ea;color:#13261a;padding:22px 34px 18px;box-shadow:0 26px 70px rgba(0,0,0,.5);-webkit-user-select:text;user-select:text;border-top:22px solid #c8202a}
+.rp h4{margin:0 0 3px;font-family:'Courier Prime',monospace;font-weight:700;font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:#b0242c}
+.rp h3{margin:0 0 8px;font-family:'Lora',serif;font-weight:700;font-size:27px;line-height:1.05}
+.rp p,.rp label{display:block;font-family:'Lora',serif;font-size:16.5px;line-height:1.45;margin:0 0 6px}
+.rp textarea,.rp input[type=text]{width:100%;font-family:'Architects Daughter',cursive;font-size:19px;line-height:30px;color:#1f3a6a;background:#fff repeating-linear-gradient(transparent 0 29px,#d6dbe4 29px 30px);
+  border:1px solid #a89a8a;padding:0 12px;border-radius:0;resize:vertical;-webkit-user-select:text;user-select:text}
+.rp textarea{min-height:184px}
+.rp input[type=text]{height:32px}
+.rp .count{font-family:'Courier Prime',monospace;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;opacity:.7;text-align:right;margin-top:3px}
+.rp .foot{display:flex;gap:10px;align-items:center;margin-top:10px}
+.rp .foot span{flex:1;font-family:'Courier Prime',monospace;font-size:12px;opacity:.75}
+.rp .btn{--accent:#1f3a24}.rp .btn:hover:not([disabled]){color:#f2c02a}
+@media print{
+  body{overflow:visible;background:#fff}
+  body>*:not(.ov){display:none!important}
+  .ov{position:static!important;display:block!important;background:#fff!important;padding:0!important;overflow:visible!important}
+  .ov-bar,.rp .foot{display:none!important}
+  .rp{box-shadow:none;max-height:none;width:auto;overflow:visible}
+}

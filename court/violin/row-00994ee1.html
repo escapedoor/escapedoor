@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Cutler’s Row · So That You Are Sure</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-court.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="violin.css">
+<style>
+  body{--bg:#3d4248;--accent:#e8c46a;--font-display:'Cormorant SC',serif;--font-ui:'Oswald',sans-serif;--font-body:'EB Garamond',Georgia,serif;
+    --tc-bg:rgba(34,38,43,.97);--tc-ink:#f2efe6;--cap-bg:rgba(34,38,43,.93);--panel:#2a2e33;--face-bg:#4a4f56;--q-ink:#e8d6a8;--fade:#14171a;--hud-bg:rgba(34,38,43,.82)}
+  .pig{animation:peck 2.6s steps(1,end) infinite}
+  .pig.p2{animation-duration:3.4s;animation-delay:-1.3s}
+  @keyframes peck{0%{transform:translate(0,0)}40%{transform:translate(0,4px)}48%{transform:translate(0,0)}70%{transform:translate(6px,0)}}
+  .cloud{animation:cloud 70s linear infinite}
+  @keyframes cloud{0%{transform:translateX(-300px)}100%{transform:translateX(900px)}}
+
+  /* the plan of the street, and Miss Blackwood's card */
+  .pl{width:min(1260px,97vw);display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px;align-items:start}
+  .pl-map{background:#f4f1e6;padding:10px 12px 6px;box-shadow:0 22px 60px rgba(0,0,0,.6);border-top:14px solid #3a3f46;position:relative}
+  .pl-map h4{margin:0 0 4px;font-family:'Caveat',cursive;font-weight:700;font-size:23px;color:#1f4a3a}
+  .pl-map svg{display:block;width:100%;height:auto;touch-action:none;-webkit-user-select:none;user-select:none}
+  .pl-map small{display:block;font-family:'Tinos',serif;font-size:13.500px;color:#55585f;line-height:1.3}
+  .pl-card{background:#fbf6e8;color:#1d2440;padding:12px 16px 10px;box-shadow:0 22px 60px rgba(0,0,0,.6);border-left:6px double #a3262c;font-family:'EB Garamond',serif;font-size:16px;line-height:1.3}
+  .pl-card h5{margin:0 0 6px;font-family:'Cormorant SC',serif;font-weight:700;font-size:19px;letter-spacing:.04em;color:#a3262c}
+  .pl-row{margin:0 0 7px}
+  .pl-row>b{display:block;font-family:'Oswald',sans-serif;font-weight:500;font-size:11.500px;letter-spacing:.14em;text-transform:uppercase;color:#55585f}
+  .pl-row>span{font-family:'Caveat',cursive;font-weight:700;font-size:21px;color:#22408a}
+  .pl-ch{display:flex;flex-wrap:wrap;gap:5px;margin-top:2px}
+  .pl-ch button{padding:3px 9px 2px;border:1.500px solid #8d9097;border-radius:14px;background:#fff;font-family:'EB Garamond',serif;font-size:15.500px;color:#1d2440}
+  .pl-ch button.on{background:#22408a;border-color:#22408a;color:#fff}
+  .pl-card i.walk{display:block;font-size:14.500px;color:#55585f;margin-top:2px}
+  .pl-side .btn{width:100%;margin:8px 0}
+  .pl .pmsg{min-height:116px;font-size:17px}
+  .tick{cursor:pointer}
+  .scaf{cursor:grab}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#aeb6bd"/><stop offset="1" stop-color="#d9dcd8"/></linearGradient>
+  <linearGradient id="paveG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8f9291"/><stop offset="1" stop-color="#6c6f6f"/></linearGradient>
+  <linearGradient id="brassG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8a6a26"/><stop offset=".3" stop-color="#e6c873"/><stop offset=".55" stop-color="#b08a35"/><stop offset=".8" stop-color="#f0d98f"/><stop offset="1" stop-color="#8a6a26"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="46%" r="84%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#14171a" stop-opacity=".12"/><stop offset="1" stop-color="#0c0e10" stop-opacity=".6"/></radialGradient>
+</defs>
+
+<rect x="-1000" y="-400" width="3600" height="1000" fill="url(#skyG)"/>
+<g class="cloud"><ellipse cx="400" cy="120" rx="160" ry="34" fill="#e6e8e6" opacity=".7"/><ellipse cx="480" cy="104" rx="90" ry="26" fill="#eef0ee" opacity=".7"/></g>
+<g id="street"></g>
+<g id="south" class="hot"></g>
+<g id="no12" class="hot"></g>
+<g id="shop" class="hot"></g>
+<g id="steps" class="hot"></g>
+<g id="north"></g>
+
+<!-- Mrs Askew's window, over the café -->
+<g id="window" class="hot"><rect x="120" y="140" width="300" height="200" fill="#e9e1cf"/><rect x="140" y="160" width="260" height="164" fill="#5a6a78"/><path d="M270 160v164M140 242h260" stroke="#e9e1cf" stroke-width="8"/>
+  <path d="M146 166q60 30 0 152M394 166q-60 30 0 152" fill="#f4f0e4" opacity=".85"/><rect x="250" y="210" width="40" height="44" fill="#2b2f36" opacity=".6"/><path d="M262 254v40M278 254v40" stroke="#2b2f36" stroke-width="3" opacity=".6"/>
+  <rect x="112" y="326" width="316" height="18" fill="#d9cfb8"/><g fill="#b3262c"><circle cx="170" cy="318" r="9"/><circle cx="190" cy="314" r="8"/><circle cx="356" cy="318" r="9"/></g><path d="M156 326h220" stroke="#5a7a3a" stroke-width="7"/></g>
+<g id="cafe" class="hot"><rect x="60" y="380" width="520" height="320" fill="#2f4a6a"/><rect x="80" y="420" width="290" height="230" fill="#a9b8c4"/><rect x="390" y="420" width="150" height="280" fill="#24394f"/><circle cx="526" cy="560" r="7" fill="url(#brassG)"/>
+  <rect x="60" y="370" width="520" height="44" fill="#1f3a52"/><text x="320" y="401" class="cT" font-size="30" fill="#e8c46a" letter-spacing="4">ANDREOU’S</text>
+  <path d="M60 414h520l-30 34h-460z" fill="#e8e1d0"/><g stroke="#b3262c" stroke-width="10"><path d="M90 414l-8 34M150 414l-4 34M210 414v34M270 414v34M330 414v34M390 414l4 34M450 414l6 34M510 414l8 34"/></g>
+  <g fill="#f4efe2" opacity=".7"><rect x="110" y="560" width="60" height="70"/><rect x="200" y="600" width="70" height="40"/></g><text x="226" y="520" class="hT" font-size="26" fill="#f4efe2">open</text></g>
+<g id="pitch" class="hot"><ellipse cx="320" cy="790" rx="110" ry="22" fill="#000" opacity="0"/><path d="M300 800q-14-30 6-44q14 8 4 26q-10 22 6 40q8 8-2 14q-10-2-4-12" stroke="#f4f2ec" stroke-width="4" fill="none" opacity=".75"/><text x="380" y="806" class="hT" font-size="26" fill="#f4f2ec" opacity=".7">EZRA</text></g>
+
+<!-- three lamp columns -->
+<g id="cr05" class="hot"><rect x="636" y="300" width="12" height="430" fill="#2b2f36"/><path d="M620 300h44l-8-36h-28z" fill="#2b2f36"/><rect x="628" y="268" width="28" height="30" fill="#f6efd0" opacity=".5"/><rect x="632" y="560" width="20" height="18" fill="#e9e5d6"/><text x="642" y="573" class="sT" font-size="8" fill="#1c1d22">CR-05</text></g>
+<g id="cr07" class="hot"><rect x="1196" y="350" width="9" height="300" fill="#2b2f36"/><path d="M1184 350h33l-6-28h-21z" fill="#2b2f36"/><rect x="1190" y="324" width="21" height="24" fill="#f6efd0" opacity=".5"/><rect x="1191" y="540" width="20" height="16" fill="#e9e5d6"/><text x="1201" y="552" class="sT" font-size="7.500" fill="#1c1d22">CR-07</text></g>
+<g id="cr09" class="hot"><rect x="1046" y="420" width="5" height="140" fill="#2b2f36"/><path d="M1040 420h17l-3-14h-11z" fill="#2b2f36"/></g>
+
+<!-- pigeons, Miss Blackwood, your clipboard and the measuring wheel -->
+<g class="pig"><ellipse cx="760" cy="770" rx="20" ry="11" fill="#8d9097"/><circle cx="778" cy="760" r="7" fill="#6b6e75"/><path d="M784 760l7 2-7 2z" fill="#e9b08a"/></g>
+<g class="pig p2"><ellipse cx="860" cy="790" rx="18" ry="10" fill="#9aa0a6"/><circle cx="844" cy="782" r="6.500" fill="#6b6e75"/><path d="M838 782l-6 2 6 2z" fill="#e9b08a"/></g>
+<g id="ib" class="hot"><rect x="1300" y="620" width="200" height="280" fill="#000" opacity="0"/><use href="#ch-blackwood" x="1290" y="606" width="230" height="300"/></g>
+<g id="wheel" class="hot"><circle cx="540" cy="842" r="40" fill="none" stroke="#e8c46a" stroke-width="8"/><circle cx="540" cy="842" r="6" fill="#2b2f36"/><path d="M540 842l120-180" stroke="#2b2f36" stroke-width="8"/><rect x="644" y="640" width="40" height="30" rx="5" fill="#b3262c"/><text x="664" y="660" class="sT" font-size="12" fill="#fff">36</text></g>
+<g id="plan" class="hot"><g transform="rotate(-6 1010 800)"><rect x="880" y="720" width="250" height="170" rx="6" fill="#6b4a2a"/><rect x="894" y="740" width="222" height="146" fill="#f4f1e6"/><rect x="960" y="712" width="90" height="22" rx="4" fill="#c9ccd0"/>
+  <path d="M906 790h198M906 836h198" stroke="#3a3f46" stroke-width="3"/><path d="M920 800v-10h40v10zM980 836v10h44v-10z" fill="#c9bfa8"/><circle cx="920" cy="786" r="4" fill="#22408a"/><path d="M920 786l90 44" stroke="#2f7a4a" stroke-width="2" stroke-dasharray="5 4"/></g></g>
+
+<rect x="-1000" y="-400" width="3600" height="1760" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Cross the road to Andreou’s</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="violin.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = false, nextFile = null, plBox = null;
+
+  /* the lane, looking east towards the river: every line runs to one point at the far end */
+  (function () {
+    var VX = 930, VY = 430, s = '';
+    function RW(y, x) { return VY + (y - VY) * (x - VX) / (1700 - VX); }
+    function LW(y, x) { return VY + (y - VY) * (VX - x) / (VX + 100); }
+    function quad(p, fill, ex) { return '<path d="M' + p.map(function (q) { return q[0].toFixed(1) + ' ' + q[1].toFixed(1); }).join('L') + 'z" fill="' + fill + '"' + (ex || '') + '/>'; }
+    function face(a, b, top, base, fill, ex) { return quad([[a, RW(top, a)], [b, RW(top, b)], [b, RW(base, b)], [a, RW(base, a)]], fill, ex); }
+    /* the far end: a warehouse by the river */
+    s += '<rect x="860" y="300" width="170" height="190" fill="#8a7a66"/><path d="M860 300h170" stroke="#6b5e4e" stroke-width="5"/><g fill="#5a5048"><rect x="880" y="330" width="22" height="30"/><rect x="920" y="330" width="22" height="30"/><rect x="960" y="330" width="22" height="30"/><rect x="1000" y="330" width="18" height="30"/></g>';
+    s += quad([[-200, 900], [1900, 900], [1900, 1300], [-200, 1300]], '#6c6f6f');
+    s += quad([[870, 490], [1030, 490], [1900, 900], [-200, 900]], 'url(#paveG)');
+    s += '<g stroke="#5e6161" stroke-width="2" opacity=".55"><path d="M-200 900L880 490M180 900L905 490M560 900L930 490M940 900L955 490M1320 900L985 490M1700 900L1015 490"/><path d="M120 700h1500M330 600h1080M500 540h740"/></g>';
+    $('#street').innerHTML = s; s = '';
+    /* the south side: Nos. 10, 12, 14 and 16, and the gap where Wherry Steps go down */
+    s += face(1700, 1430, 30, 880, '#b9a48a') + face(1700, 1430, 30, 880, 'none', ' stroke="#8a7a66" stroke-width="3"');
+    s += face(1660, 1470, 300, 620, '#4a5560') + face(1640, 1490, 640, 880, '#6b4a32');
+    s += '<text x="1560" y="' + RW(270, 1560).toFixed(0) + '" class="sT" font-size="22" fill="#5a4a38">10</text>';
+    $('#south').innerHTML = s; s = '';
+    s += face(1430, 1235, 50, 880, '#e6dcc8') + face(1410, 1250, 330, 600, '#5a6a78') + face(1300, 1260, 640, 880, '#2f6a5a');
+    s += '<g fill="#5a5048" opacity=".55">';
+    [1400, 1360, 1320, 1280].forEach(function (x) { s += '<rect x="' + x + '" y="' + (RW(880, x) - 3).toFixed(1) + '" width="7" height="4"/>'; });
+    s += '</g><text x="1330" y="' + RW(300, 1330).toFixed(0) + '" class="sT" font-size="20" fill="#5a4a38">12</text>';
+    $('#no12').innerHTML = s; s = '';
+    s += face(1235, 1112, 70, 880, '#3a2a22') + face(1230, 1118, 150, 230, '#1c1d22');
+    s += '<text x="1172" y="' + (RW(205, 1172) + 2).toFixed(0) + '" class="cT" font-size="15" fill="#d9b25a">GILCHRIST &amp; CO.</text>';
+    s += face(1226, 1166, 300, 640, '#a9b8c8') + face(1160, 1124, 300, 880, '#2a3f63') + face(1220, 1172, 420, 520, '#f4f2ec');
+    s += '<text x="1196" y="' + RW(476, 1196).toFixed(0) + '" class="sT" font-size="9" fill="#1c1d22">BY APPOINTMENT</text>';
+    $('#shop').innerHTML = s; s = '';
+    s += face(1112, 1046, 90, 880, '#cfc6b4') + face(1106, 1056, 330, 620, '#e8e6df');
+    s += '<text x="1080" y="' + RW(480, 1080).toFixed(0) + '" class="sT" font-size="10" fill="#55585f">TO LET</text>';
+    s += face(1046, 1030, 300, 880, '#5a5048', ' opacity=".4"') + '<path d="M1046 ' + RW(880, 1046).toFixed(1) + 'l-12 26h24z" fill="#4a4a46"/>';
+    s += '<text x="1012" y="' + (RW(330, 1012)).toFixed(0) + '" class="sT" font-size="9" fill="#2b2f36">WHERRY STEPS</text>';
+    $('#steps').innerHTML = s; s = '';
+    /* the north side, beyond the café */
+    s += quad([[580, LW(10, 580)], [860, LW(10, 860)], [860, LW(880, 860)], [580, LW(880, 580)]], '#c9b89a');
+    s += quad([[600, LW(330, 600)], [700, LW(330, 700)], [700, LW(560, 700)], [600, LW(560, 600)]], '#5a6a78');
+    s += quad([[730, LW(330, 730)], [820, LW(330, 820)], [820, LW(560, 820)], [730, LW(560, 730)]], '#5a6a78');
+    s += quad([[-200, -400], [580, -400], [580, 900], [-200, 900]], '#d6c7a8');
+    $('#north').innerHTML = s;
+  })();
+
+  ER.init({
+    theme: 'court', story: 'violin', storyTitle: 'So That You Are Sure', id: 'row', no: 'II', title: 'Cutler’s Row',
+    go: 'Walk to Cutler’s Row',
+    intro: [
+      'In the cells you put five things on a strip of paper. Three of them were strong: Mr Andreou, who is no friend of Ezra&rsquo;s; the bank&rsquo;s computer; and a barman who had never met him. All three were too early. At 10.39, the only thing on the strip was Ezra&rsquo;s own word: weak, but not false.',
+      'Miss Blackwood decided not to lean on the alibi at all. Ezra does not have to prove where he was. The Crown has to prove where he was.',
+      'So the question is no longer where Ezra stood that night. It is where Mrs Askew stood, and what she could see from there.'
+    ],
+    exit: {"next":"cafe","w":{"7cc24bfe":"ad6cbb11"}}, tags: {"sc":["70a7a898"],"mk":["fe973718"],"vw":["d06e12f8"],"lt":["be67f6e4"],"tm":["54d90d69"]},
+    hints: hints, onBegin: begin
+  });
+  nextFile = ER.flag('r-file') || null;
+
+  var DIRS = '<h4>Draft directions to the jury &middot; R v Mallon</h4><h5>Her Honour Judge Lennox &middot; sent to counsel on Monday evening &middot; part 4 of 7</h5>' +
+    '<p><b>4. Identification</b></p>' +
+    '<p><span class="n">4.1</span>The case against Mr Mallon depends on Mrs Askew&rsquo;s <b class="t">IDENTIFICATION</b> of him, and the defence say that she is mistaken. You must take special care before you rely on it. An honest witness can be mistaken, and a mistaken witness can be a convincing one. She may be quite sure, and still be wrong.</p>' +
+    '<p><span class="n">4.2</span>Look closely at what she could see. How far away was she? What was the light like? How long did she watch? Was anything in the way? Did she see his face? Had she seen him before, and how?</p>' +
+    '<p><span class="n">4.3</span>What did she say at the time? Compare it with what she says now.</p>' +
+    '<p><span class="n">4.4</span>Before she named Mr Mallon, she was shown one photograph of him. A witness should be shown a line-up of people who look alike, never a single photograph. A single photograph can take the place of what she really saw.</p>';
+  var LAMPS = '<h4>Street lighting &middot; Cutler&rsquo;s Row</h4><h5>Wyncaster City Council &middot; report a fault &middot; history of each lamp column</h5><table>' +
+    '<tr><th>Column</th><th>Where</th><th>Fault reported</th><th>Repaired</th></tr>' +
+    '<tr><td>CR-05</td><td>outside No. 9 (Andreou&rsquo;s)</td><td>none this year</td><td>&nbsp;</td></tr>' +
+    '<tr class="hl"><td>CR-07</td><td>outside No. 14</td><td>Saturday 9 May 2026: &ldquo;lamp out&rdquo;</td><td>Thursday 21 May 2026: lantern replaced</td></tr>' +
+    '<tr><td>CR-09</td><td>at the top of Wherry Steps</td><td>none this year</td><td>&nbsp;</td></tr></table>' +
+    '<p>Every lamp column has its number on a small plate, so that a fault can be reported.</p>';
+
+  function hints() {
+    if (nextFile) return ['go', ['Lunch. Andreou&rsquo;s caf&eacute; is under Mrs Askew&rsquo;s window. The button is at the bottom of the screen.']];
+    if (plBox) return ['plan', [
+      'The street has changed since May. Photograph 2 in your notebook shows what stood in front of one of the houses. Drag the scaffolding on the plan to that house first.',
+      'Now click the small marks along his way, starting at the door of No. 14. The string from her window turns red where something is in the way. Stop at the first place where it stays green. Then read the 999 call again for his face or his back, and the council&rsquo;s page for the lamp.',
+      'The marks are a metre and a half apart, and a man walking briskly covers about a metre and a half in a second. Count the marks from the first green one to the corner of Wherry Steps, and you have the seconds.'
+    ]];
+    if (!ER.flag('r-dirs')) return ['ib', ['Miss Blackwood is on the pavement on the right, with two coffees. Talk to her.']];
+    if (!ER.flag('r-lamps')) return ['lamp', ['Her Honour&rsquo;s list asks what the light was like. There is a lamp column outside No. 14, with a small plate on it. Click the lamp.', 'The plate has a number, and the council keeps the history of every number.']];
+    return ['open', ['Your clipboard is at the bottom of the screen, with the plan of the street on it. Click it.']];
+  }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#go').classList.toggle('on', !!nextFile);
+    $('#plan').classList.toggle('ready', !nextFile && !!ER.flag('r-dirs') && !!ER.flag('r-lamps'));
+    ER.pips(nextFile ? 1 : 0, 1);
+  }
+  function begin() {
+    paint();
+    if (nextFile) { ER.say('Cutler&rsquo;s Row. Miss Blackwood has gone into Andreou&rsquo;s to find a table.'); return; }
+    if (ER.flag('r-in')) { ER.say('Cutler&rsquo;s Row, in grey October daylight. Miss Blackwood is waiting on the pavement.'); return; }
+    busy = true; ER.flag('r-in', 1);
+    ER.narrate([
+      'Cutler&rsquo;s Row is a narrow lane of old shops between the market and the river. Nobody drives down it. At eleven in the morning it smells of coffee and wet stone.',
+      'Under the first-floor window of Flat 1, number 9, there is a treble clef in chalk on the paving, nearly washed away, and the word EZRA. Nobody has played here since May.',
+      'You have walked the lane with the measuring wheel, twice, and drawn a plan on your clipboard: the café and Mrs Askew&rsquo;s window, the shops across the way, the lamps, and the corner where Wherry Steps go down to the river. You have not gone up to the flat. Nobody on your side goes near Mrs Askew while she is in the middle of her evidence.',
+      'Miss Blackwood comes down the lane at eleven exactly, with two coffees and an envelope.'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- the room ---------- */
+  $('#ib').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Five seconds,&rdquo; says Miss Blackwood, mostly to herself. &ldquo;From behind. In the rain.&rdquo;'); return; }
+    if (ER.flag('r-dirs')) { ER.say('&ldquo;Four point two,&rdquo; says Miss Blackwood. &ldquo;Every question on that list has an answer in this street. Find them.&rdquo;'); return; }
+    ER.talk({
+      who: 'Miss Blackwood', role: 'Counsel for the defence', face: window.FACE('blackwood'),
+      lines: [
+        { note: 'She gives you a coffee, and looks up at the window above the café for a long time.', a: 'So that is where she stood. It looks very close from down here. Everything does.' },
+        { a: 'Her Honour sent both of us her draft directions last night: what she will tell the jury about the law before they go out. Part 4 is about identification. Read it. Every question in 4.2 is a question about this street.' },
+        { q: 'What do you want me to find?', a: 'Not what I want. What is true. If she could see his face from up there, I would rather know it now than at half past two.' }
+      ],
+      clue: { id: 'ib2', title: 'Miss Blackwood, under the window', kind: 'What she said' }, last: 'Read it',
+      done: function (seen) {
+        if (!seen) return;
+        ER.read({ html: DIRS, cls: 'dirs', clue: { id: 'turnbull', title: 'Draft directions, part 4: identification', kind: 'From Her Honour' },
+          done: function () { ER.flag('r-dirs', 1); paint(); VN.learn(['identification', 'line-up']); } });
+      }
+    });
+  });
+  $('#cr07').addEventListener('click', function (e) {
+    if (busy) return;
+    ER.wordAt(e.clientX, e.clientY, 'street light');
+    ER.read({ html: LAMPS, cls: 'screen', clue: { id: 'lamps', title: 'The council’s record of the street lamps', kind: 'On your phone' }, done: function () { ER.flag('r-lamps', 1); paint(); } });
+    $('.doc.screen').setAttribute('data-bar', 'WYNCASTER CITY COUNCIL');
+  });
+  $('#plan').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Your plan, with a scaffold drawn in front of No. 12 and a green string to the front of No. 16. It is in your notebook too.'); return; }
+    if (!ER.flag('r-dirs')) { ER.say('Your plan of the street. Miss Blackwood is waiting for you on the pavement, with coffee.'); return; }
+    if (!ER.flag('r-lamps')) { ER.say('&ldquo;What was the light like?&rdquo; says Miss Blackwood. &ldquo;That is on the list. Look at the lamp outside No. 14 before you draw anything.&rdquo;'); return; }
+    openPlan();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  VN.thing('#window', null, 'Flat 1, above the café. Lace curtains, three red geraniums, and the top of a music stand behind the glass. From down here it looks very close.', isBusy);
+  VN.thing('#cafe', null, 'Andreou&rsquo;s. The door is propped open, and somebody inside is arguing with a coffee machine.', isBusy);
+  VN.thing('#pitch', null, 'A treble clef and EZRA, in chalk, nearly washed away. This is where he played every day for two years, right under Mrs Askew&rsquo;s window.', isBusy);
+  VN.thing('#cr05', null, 'Lamp CR-05, outside the café, right under her window. At night it shines straight up at the glass.', isBusy);
+  VN.thing('#cr09', null, 'Lamp CR-09, at the top of Wherry Steps. Anybody walking towards it at night is a dark shape against the light.', isBusy);
+  VN.thing('#no12', null, 'No. 12 has a new front door and fresh paint. On the paving in front of it there are small square marks, in a row, where something heavy once stood.', isBusy);
+  VN.thing('#shop', null, 'Gilchrist &amp; Co., violin dealers. The cabinet in the window is empty, and a card says BY APPOINTMENT.', isBusy);
+  VN.thing('#steps', null, 'At the end of the lane, Wherry Steps turn the corner and drop down to the river. From the corner, nobody on Cutler&rsquo;s Row can see you.', isBusy);
+  VN.thing('#wheel', 'measuring wheel', 'Push it along the ground and it counts the metres. It still says 36 from your last walk.', isBusy);
+  VN.thing('#south', null, 'No. 10, a dentist. The dentist has been watching you measure the street, with some interest.', isBusy);
+
+  /* ---------- the plan ---------- */
+  /* metres on the ground -> points on the plan. Her window is at (-12, 0), on the north side, 4.5 m up. The south side is at y = 8. */
+  function PX(m) { return 40 + (m + 16) * 17; }
+  function PY(m) { return 40 + (m + 4) * 17; }
+  var WIN = [-12, 0], UP = 4.5, ROUTE_Y = 7.2, NET = [6.0, 8.0];
+  var HOUSES = [['10', -2, 10], ['12', 10, 17], ['14', 17, 22], ['16', 22, 28.5]];
+  var TICKS = [20, 21.5, 23, 24.5, 26, 27.5, 29, 30.5];
+  var CH = { vw: [['face', 'his face'], ['back', 'his back']], lt: [['lit', 'lit'], ['out', 'out']], tm: [['5', 'about 5 seconds'], ['20', 'about 20 seconds'], ['60', 'about a minute']] };
+  function blocked(px, net) {
+    if (!net) return false;
+    var h = HOUSES.filter(function (x) { return x[0] === net; })[0], xa = WIN[0] + (px - WIN[0]) * (NET[0] / ROUTE_Y);
+    return Math.max(xa, h[1]) <= Math.min(px, h[2]);
+  }
+  function dist(px) { return Math.sqrt(Math.pow(px - WIN[0], 2) + ROUTE_Y * ROUTE_Y + UP * UP); }
+  function planSvg(net, tick, live) {
+    var s = '<svg viewBox="0 0 930 330" class="pl-svg">', i;
+    s += '<rect x="0" y="0" width="930" height="330" fill="#f4f1e6"/>';
+    s += '<rect x="0" y="' + PY(-4) + '" width="930" height="' + (PY(0) - PY(-4)) + '" fill="#d9cfb8"/><rect x="0" y="' + PY(8) + '" width="930" height="' + (PY(12) - PY(8)) + '" fill="#d9cfb8"/>';
+    s += '<rect x="' + PX(28.5) + '" y="' + PY(8) + '" width="' + (PX(33) - PX(28.5)) + '" height="' + (PY(12) - PY(8)) + '" fill="#f4f1e6"/>';
+    s += '<g stroke="#8a7a66" stroke-width="2" fill="none"><path d="M0 ' + PY(0) + 'H930M0 ' + PY(8) + 'H' + PX(28.5) + 'M' + PX(33) + ' ' + PY(8) + 'H930"/>';
+    [-6, 2, 10, 18, 26].forEach(function (x) { s += '<path d="M' + PX(x) + ' ' + PY(-4) + 'V' + PY(0) + '"/>'; });
+    HOUSES.forEach(function (h) { s += '<path d="M' + PX(h[1]) + ' ' + PY(8) + 'V' + PY(12) + '"/>'; });
+    s += '<path d="M' + PX(28.5) + ' ' + PY(8) + 'V' + PY(12) + 'M' + PX(33) + ' ' + PY(8) + 'V' + PY(12) + '"/></g>';
+    s += '<g font-family="Oswald" font-size="12" fill="#5a4a38" text-anchor="middle">';
+    s += '<text x="' + PX(-11) + '" y="' + PY(-2.6) + '">No. 9 &middot; ANDREOU&rsquo;S</text><text x="' + PX(-11) + '" y="' + (PY(-2.6) + 14) + '" font-size="10.500">Mrs Askew&rsquo;s flat above</text>';
+    HOUSES.forEach(function (h) { s += '<text x="' + ((PX(h[1]) + PX(h[2])) / 2) + '" y="' + PY(10.4) + '">No. ' + h[0] + (h[0] === '14' ? ' &middot; GILCHRIST' : '') + '</text>'; });
+    s += '<text x="' + ((PX(28.5) + PX(33)) / 2) + '" y="' + PY(10) + '" font-size="10">WHERRY</text><text x="' + ((PX(28.5) + PX(33)) / 2) + '" y="' + (PY(10) + 12) + '" font-size="10">STEPS</text>';
+    s += '<text x="' + PX(9) + '" y="' + PY(4.3) + '" font-size="15" fill="#8a7a66" letter-spacing="8">CUTLER&rsquo;S ROW</text>';
+    s += '<text x="' + PX(-14.5) + '" y="' + PY(4.3) + '" font-size="10" fill="#8a7a66">&larr; market</text><text x="' + PX(33.3) + '" y="' + PY(4.3) + '" font-size="10" fill="#8a7a66">river &rarr;</text></g>';
+    [[-14.5, 0.6, 'CR-05'], [19, 7.6, 'CR-07'], [31.6, 7.6, 'CR-09']].forEach(function (l) { s += '<circle cx="' + PX(l[0]) + '" cy="' + PY(l[1]) + '" r="5" fill="#fff" stroke="#2b2f36" stroke-width="2"/><text x="' + PX(l[0]) + '" y="' + (PY(l[1]) + (l[1] < 4 ? 17 : -9)) + '" font-family="Oswald" font-size="10" fill="#2b2f36" text-anchor="middle">' + l[2] + '</text>'; });
+    s += '<rect x="' + (PX(20) - 9) + '" y="' + (PY(8) - 2) + '" width="18" height="5" fill="#b3262c"/><text x="' + PX(20) + '" y="' + (PY(8) + 14) + '" font-family="Oswald" font-size="9.500" fill="#b3262c" text-anchor="middle">door</text>';
+    /* the route he took, a mark every metre and a half */
+    s += '<path d="M' + PX(20) + ' ' + PY(ROUTE_Y) + 'H' + PX(30.5) + 'V' + PY(11.6) + '" stroke="#8d9097" stroke-width="2" stroke-dasharray="6 5" fill="none"/>';
+    if (net) { var h = HOUSES.filter(function (x) { return x[0] === net; })[0]; s += '<g class="scaf"><rect x="' + PX(h[1]) + '" y="' + PY(NET[0]) + '" width="' + (PX(h[2]) - PX(h[1])) + '" height="' + (PY(NET[1]) - PY(NET[0])) + '" fill="#5f8a5a" opacity=".85"/><path d="M' + PX(h[1]) + ' ' + PY(NET[0]) + 'l' + (PX(h[2]) - PX(h[1])) + ' ' + (PY(NET[1]) - PY(NET[0])) + '" stroke="#3a5a36" stroke-width="2"/><text x="' + ((PX(h[1]) + PX(h[2])) / 2) + '" y="' + (PY(NET[0]) + 22) + '" font-family="Oswald" font-size="11" fill="#fff" text-anchor="middle">NETTING</text></g>'; }
+    if (live) {
+      s += '<g id="pl-houses">';
+      HOUSES.forEach(function (h) { s += '<rect class="house" data-h="' + h[0] + '" x="' + PX(h[1]) + '" y="' + (PY(NET[0]) - 4) + '" width="' + (PX(h[2]) - PX(h[1])) + '" height="' + (PY(12) - PY(NET[0]) + 4) + '" fill="#000" opacity="0"/>'; });
+      s += '</g>';
+    }
+    if (tick != null) {
+      var px = TICKS[tick], bl = blocked(px, net);
+      s += '<path d="M' + PX(WIN[0]) + ' ' + PY(WIN[1]) + 'L' + PX(px) + ' ' + PY(ROUTE_Y) + '" stroke="' + (bl ? '#b3262c' : '#2f7a4a') + '" stroke-width="3"' + (bl ? ' stroke-dasharray="8 5"' : '') + '/>';
+    }
+    TICKS.forEach(function (x, j) { s += '<g class="tick" data-t="' + j + '"><circle cx="' + PX(x) + '" cy="' + PY(ROUTE_Y) + '" r="' + (j === tick ? 8 : 5.5) + '" fill="' + (j === tick ? '#22408a' : '#fff') + '" stroke="#22408a" stroke-width="2"/><circle cx="' + PX(x) + '" cy="' + PY(ROUTE_Y) + '" r="13" fill="#000" opacity="0"/></g>'; });
+    s += '<circle cx="' + PX(WIN[0]) + '" cy="' + PY(WIN[1]) + '" r="8" fill="#22408a"/><text x="' + (PX(WIN[0]) + 12) + '" y="' + (PY(WIN[1]) + 18) + '" font-family="Caveat" font-weight="700" font-size="17" fill="#22408a">her window (4.5 m up)</text>';
+    if (live) {
+      if (!net) s +='<g class="scaf" id="pl-scaf"><rect x="770" y="252" width="110" height="34" fill="#5f8a5a" opacity=".9"/><path d="M770 252l110 34" stroke="#3a5a36" stroke-width="2"/><text x="825" y="274" font-family="Oswald" font-size="11" fill="#fff" text-anchor="middle">SCAFFOLD</text></g>';
+    }
+    return s + '</svg>';
+  }
+  function openPlan() {
+    var box = ER.el('div', 'pl'), sv = ER.flag('r-plan') || {}, done = false;
+    var st = { net: sv.net || null, tick: sv.tick == null ? null : sv.tick, vw: sv.vw || '', lt: sv.lt || '', tm: sv.tm || '' };
+    box.innerHTML = '<div class="pl-map"><h4>Cutler&rsquo;s Row, measured with the wheel</h4><div class="pl-draw"></div><small>The green block is the scaffolding: drag it to a house, or click it and then the house (to move it, click another house). Then click the marks along his way: a string runs from her window to the mark, red where something is in the way. Marks are 1.5 m apart.</small></div>' +
+      '<div class="pl-side"><div class="pl-card"><h5>What could she see? &nbsp;(4.2)</h5>' +
+      '<div class="pl-row"><b>Was anything in the way?</b><span id="pl-net"></span></div>' +
+      '<div class="pl-row"><b>The first place she could see him</b><span id="pl-at"></span></div>' +
+      '<div class="pl-row" data-r="vw"><b>His face, or his back?</b><div class="pl-ch"></div></div>' +
+      '<div class="pl-row" data-r="lt"><b>The lamp outside No. 14 (CR-07)</b><div class="pl-ch"></div></div>' +
+      '<div class="pl-row" data-r="tm"><b>How long could she see him?</b><div class="pl-ch"></div><i class="walk">A man walking briskly covers about 1.5 metres in a second.</i></div></div>' +
+      '<button type="button" class="btn" id="pl-go">Show Miss Blackwood</button><p class="pmsg"></p></div>';
+    var draw = box.querySelector('.pl-draw'), msgEl = box.querySelector('.pmsg'), holding = false;
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function keep() { ER.flag('r-plan', st); box.setAttribute('data-net', st.net || ''); box.setAttribute('data-tick', st.tick == null ? '' : st.tick); }
+    function card() {
+      box.querySelector('#pl-net').textContent = st.net ? 'scaffolding and netting in front of No. ' + st.net : 'nothing drawn yet';
+      box.querySelector('#pl-at').textContent = st.tick == null ? 'no mark chosen' : 'mark ' + (st.tick + 1) + ': ' + Math.round(dist(TICKS[st.tick])) + ' m from her window' + (blocked(TICKS[st.tick], st.net) ? ' (but the string is red)' : '');
+      ['vw', 'lt', 'tm'].forEach(function (r) { ER.$$('[data-r="' + r + '"] button', box).forEach(function (b) { b.classList.toggle('on', st[r] === b.getAttribute('data-v')); }); });
+    }
+    function paintMap() {
+      draw.innerHTML = planSvg(st.net, st.tick, !done);
+      ER.$$('.tick', draw).forEach(function (t) { t.addEventListener('click', function () { if (done) return; st.tick = +t.getAttribute('data-t'); VN.sfx.string(); keep(); card(); paintMap(); }); });
+      var sc = draw.querySelector('#pl-scaf'), svg = draw.querySelector('svg');
+      ER.$$('.house', draw).forEach(function (h) { h.addEventListener('click', function () { if (done || (!holding && !st.net)) return; place(h.getAttribute('data-h')); }); });
+      if (sc) {
+        sc.addEventListener('click', function (e) { e.stopPropagation(); holding = !holding; sc.setAttribute('opacity', holding ? '.6' : '1'); });
+        ER.drag(sc, {
+          start: function () { return !done; },
+          move: function (e, moved) { if (!moved) return; var p = ER.pt(svg, e); sc.setAttribute('transform', 'translate(' + (p.x - 825) + ' ' + (p.y - 269) + ')'); },
+          end: function (e, moved) {
+            if (!moved) return;
+            var p = ER.pt(svg, e), m = (p.x - 40) / 17 - 16, hit = HOUSES.filter(function (h) { return m >= h[1] && m <= h[2]; })[0];
+            if (hit && p.y > PY(4) && p.y < PY(12.5)) place(hit[0]); else sc.removeAttribute('transform');
+          }
+        });
+      }
+    }
+    function place(h) { st.net = h; holding = false; VN.sfx.card(); keep(); card(); paintMap(); }
+    ['vw', 'lt', 'tm'].forEach(function (r) {
+      var row = box.querySelector('[data-r="' + r + '"] .pl-ch');
+      CH[r].forEach(function (c) {
+        var b = ER.el('button', '', c[1]); b.type = 'button'; b.setAttribute('data-v', c[0]);
+        b.addEventListener('click', function () { if (done) return; st[r] = c[0]; VN.sfx.tab(); keep(); card(); });
+        row.appendChild(b);
+      });
+    });
+    box.querySelector('#pl-go').addEventListener('click', function () {
+      var file;
+      if (done) return;
+      if (!st.net) { msg('&ldquo;This is the street as it is today,&rdquo; says Miss Blackwood. &ldquo;It is not the street as it was in May. Look at the police photographs again: something stood in front of one of these houses, from the pavement to the roof.&rdquo;'); return; }
+      if (!ER.check('sc', st.net)) { VN.bump('r-tries'); VN.sfx.hm(); msg('&ldquo;Look at photograph 2 again. The netting has a banner on it, and the banner says which house the builders were working on.&rdquo;'); return; }
+      if (st.tick == null) { msg('&ldquo;Now walk him from the door towards the steps, one mark at a time. Where could she first see him?&rdquo;'); return; }
+      if (!ER.check('mk', String(st.tick + 1))) {
+        VN.bump('r-tries'); VN.sfx.hm();
+        msg(blocked(TICKS[st.tick], st.net) ? '&ldquo;Look at your string. It goes through the netting: from her window she could not see that place at all.&rdquo;'
+          : '&ldquo;She could see him there, yes. But could she see him any sooner? Walk him back towards the door, one mark at a time, and watch the string.&rdquo;');
+        return;
+      }
+      if (!st.vw || !st.lt || !st.tm) { msg('&ldquo;Good. Thirty-six metres. Now the rest of the card: his face or his back, the lamp, and how long.&rdquo;'); return; }
+      if (!ER.check('vw', st.vw)) { VN.bump('r-tries'); VN.sfx.hm(); msg('&ldquo;Which way was he walking, and where was she? Her window is behind him. She told the 999 operator so herself, in her own words.&rdquo;'); return; }
+      if (!ER.check('lt', st.lt)) { VN.bump('r-tries'); VN.sfx.hm(); msg('&ldquo;That lamp has a number on its plate. The council keeps a record of every number: when it went out, and when it was mended. When was the burglary?&rdquo;'); return; }
+      if (!ER.check('tm', st.tm)) { VN.bump('r-tries'); VN.sfx.hm(); msg('&ldquo;From the first place she could see him to the corner of Wherry Steps: how many marks is that? Each one is a metre and a half, and a man walking briskly covers a metre and a half in a second.&rdquo;'); return; }
+      file = ER.exitOk(['s' + st.net + '+p' + (st.tick + 1) + '+' + st.vw + '+' + st.lt + '+t' + st.tm]);
+      if (!file) { msg('Something is wrong with this lock: tell your teacher.'); return; }
+      done = true; nextFile = file; ER.flag('r-file', file); VN.done('row'); VN.sfx.pen(); paintMap();
+      msg('Miss Blackwood looks at the plan, and then up at the window. <b>&ldquo;Thirty-six metres. From behind. In the rain, with the nearest lamp out, for about five seconds. And until he passed No. 16, the scaffolding hid him.&rdquo;</b>');
+      VN.mine('plan', 'Your plan of Cutler’s Row', planSvg('12', 2, false) + '<p>Scaffolding in front of No. 12 hid the door of No. 14.</p><p>She could first see him outside No. 16: 36 m away.</p><p>His back. Lamp CR-07 out (9 to 21 May).</p><p>About 5 seconds, then round the corner.</p>', true);
+      VN.learn(['sight line', 'obstruction']);
+      setTimeout(function () {
+        ER.closeAll(); VN.solved(); paint(); busy = true;
+        ER.narrate([
+          'Miss Blackwood stands where the scaffolding stood, and looks up at Flat 1. &ldquo;From up there, on a dry morning, I can see a man&rsquo;s back very well. I could tell you his coat and his hat. I could not swear to his face, and I am thirty years younger than she is.&rdquo;',
+          '&ldquo;She is not lying,&rdquo; she says. &ldquo;Remember that, this afternoon. She saw a man with a case walk away towards the steps, and she has told the same story about that every single time. It is the face that came later.&rdquo;',
+          'Above the café, somebody begins to play scales on a piano: slowly, up and down, one hand and then the other. Miss Blackwood looks at her watch. &ldquo;Lunch. Andreou&rsquo;s. You can talk to Mr Andreou: taking a statement is a solicitor&rsquo;s job, not a barrister&rsquo;s. I shall drink my soup and listen to nothing at all.&rdquo;'
+        ], function () { busy = false; paint(); });
+      }, 3400);
+    });
+    paintMap(); card(); keep();
+    msg('Your plan, and Her Honour&rsquo;s questions. <b>Put the street back as it was in May</b>, find <b>the first place on his way where she could have seen him</b>, and fill in the rest of the card.');
+    plBox = box;
+    ER.open('ov-lock', box, function () { plBox = null; });
+  }
+})();
+</script>
+</body>
+</html>

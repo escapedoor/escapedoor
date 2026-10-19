@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Cells · So That You Are Sure</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-court.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="violin.css">
+<style>
+  body{--bg:#1d2126;--accent:#9fc3d8;--font-display:'Cormorant SC',serif;--font-ui:'Oswald',sans-serif;--font-body:'EB Garamond',Georgia,serif;
+    --tc-bg:rgba(22,26,31,.97);--tc-ink:#eef0ee;--cap-bg:rgba(22,26,31,.93);--panel:#1f242a;--face-bg:#36404a;--q-ink:#bcd3e0;--fade:#0c0e11;--hud-bg:rgba(22,26,31,.82)}
+  #tube{animation:tube 6.3s steps(1,end) infinite}
+  @keyframes tube{0%{opacity:1}71%{opacity:.35}72%{opacity:1}74%{opacity:.5}75%{opacity:1}}
+  #camled{animation:led 2s steps(1,end) infinite}
+  @keyframes led{50%{opacity:.15}}
+
+  /* the strip: the back of a custody sheet, with the night drawn along it */
+  .ab{width:min(1180px,97vw)}
+  .ab-strip{position:relative;padding:12px 16px 30px;background:#f6f4ec;box-shadow:0 22px 60px rgba(0,0,0,.6);transform:rotate(-.2deg)}
+  .ab-strip:before{content:'CUSTODY RECORD \00B7  CONTINUATION SHEET';position:absolute;right:18px;top:6px;font-family:'Oswald',sans-serif;font-size:10.500px;letter-spacing:.2em;color:#c9cbc4;transform:scaleX(-1)}
+  .ab-strip h4{margin:0 0 6px;font-family:'Caveat',cursive;font-weight:700;font-size:24px;color:#22408a}
+  .ab-grid{position:relative;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));border-left:1px solid #9aa0a6}
+  .ab-col{border-right:1px solid #9aa0a6;min-height:142px;display:flex;flex-direction:column}
+  .ab-col>i{display:block;padding:2px 0 3px;font-style:normal;text-align:center;font-family:'Courier Prime',monospace;font-weight:700;font-size:13.500px;color:#3a3f46;border-bottom:1px solid #9aa0a6;background:#ecebe2}
+  .ab-slot{flex:1;margin:5px 4px;border:1.500px dashed #b9bcb4;border-radius:3px;display:flex;align-items:stretch;justify-content:center;min-height:96px}
+  .ab-alarm{position:absolute;top:0;bottom:0;width:0;border-left:3px solid #b3262c;pointer-events:none}
+  .ab-alarm b{position:absolute;bottom:-22px;left:-50px;width:100px;white-space:nowrap;text-align:center;font-family:'Oswald',sans-serif;font-weight:600;font-size:11.500px;letter-spacing:.08em;color:#b3262c}
+  .ab-tray{display:flex;flex-wrap:wrap;gap:9px;min-height:120px;margin-top:26px;padding:10px 12px;background:rgba(8,10,12,.62);border:1px dashed rgba(159,195,216,.5);align-items:flex-start}
+  .ab-card{position:relative;width:210px;padding:7px 10px 8px 12px;background:#fdfbf2;color:#1c1d22;box-shadow:0 4px 9px rgba(0,0,0,.4);font-family:'Tinos',serif;font-size:13.500px;line-height:1.22;border-top:4px solid #8d9097}
+  .ab-card b{display:block;font-family:'Oswald',sans-serif;font-weight:600;font-size:13px;letter-spacing:.08em;margin-bottom:2px}
+  .ab-card>span{display:block}
+  .ab-card u{position:absolute;right:6px;top:6px;width:22px;height:22px;border-radius:50%;border:2px dashed #8d9097;text-decoration:none;cursor:pointer;background:#fff}
+  .ab-card.g{border-top-color:#2f7a4a}.ab-card.g u{border:0;background:radial-gradient(circle at 35% 30%,#bfe8c9,#2f7a4a 60%,#1c4a2c)}
+  .ab-card.r{border-top-color:#b3262c}.ab-card.r u{border:0;background:radial-gradient(circle at 35% 30%,#f2b4b4,#b3262c 60%,#6e1015)}
+  .ab-slot .ab-card{width:auto;flex:1;padding:24px 4px 4px;text-align:center}
+  .ab-slot .ab-card>span{display:none}
+  .ab-slot .ab-card b{font-size:12px;letter-spacing:.04em}
+  .ab-slot .ab-card u{left:50%;right:auto;margin-left:-11px;top:3px}
+  .ab.holding .ab-slot .ab-card{pointer-events:none}
+  .ab-under{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:16px;margin-top:10px;align-items:start}
+  .ab-says{display:grid;gap:6px}
+  .ab-says button{text-align:left;padding:7px 12px 6px 34px;position:relative;background:rgba(8,10,12,.62);border:1px solid rgba(159,195,216,.35);color:#eef0ee;font-family:'EB Garamond',serif;font-size:17px;line-height:1.25;border-radius:3px}
+  .ab-says button:before{content:'';position:absolute;left:11px;top:10px;width:13px;height:13px;border-radius:50%;border:2px solid #9fc3d8}
+  .ab-says button.on{border-color:#9fc3d8;background:rgba(40,60,74,.85)}
+  .ab-says button.on:before{background:#9fc3d8}
+  .ab .pmsg{min-height:120px;font-size:17.500px}
+  .ab .btn{width:100%;margin-bottom:8px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="floorG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7e868e"/><stop offset="1" stop-color="#5a6168"/></linearGradient>
+  <linearGradient id="deskG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9aa3ab"/><stop offset="1" stop-color="#6f7880"/></linearGradient>
+  <linearGradient id="glassG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#cfe3ee" stop-opacity=".28"/><stop offset=".5" stop-color="#ffffff" stop-opacity=".08"/><stop offset="1" stop-color="#cfe3ee" stop-opacity=".22"/></linearGradient>
+  <linearGradient id="tableG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b8b2a2"/><stop offset="1" stop-color="#8f8a7c"/></linearGradient>
+  <radialGradient id="tubeG" cx="50%" cy="0%" r="90%"><stop offset="0" stop-color="#f2fbff" stop-opacity=".5"/><stop offset="1" stop-color="#f2fbff" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="54%" cy="44%" r="84%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".66" stop-color="#0a0d10" stop-opacity=".18"/><stop offset="1" stop-color="#05070a" stop-opacity=".78"/></radialGradient>
+  <pattern id="brick" width="60" height="28" patternUnits="userSpaceOnUse"><rect width="60" height="28" fill="#e7e5dd"/><path d="M0 0h60M0 14h60M30 0v14M0 14v14M60 14v14" stroke="#cfccc2" stroke-width="2"/></pattern>
+</defs>
+
+<!-- the corridor, every line running to one point beyond the last door -->
+<g id="shell"></g>
+<g id="doors" class="hot"></g>
+<g id="tube"><rect x="700" y="210" width="130" height="10" rx="4" fill="#f2fbff"/><path d="M640 220h250l120 360h-490z" fill="url(#tubeG)" pointer-events="none"/></g>
+<g id="cam" class="hot" transform="translate(-130 -40)"><path d="M1012 196l52-16 6 20-52 16z" fill="#c9ccd0"/><rect x="1060" y="170" width="10" height="34" fill="#8d9097"/><circle cx="1020" cy="206" r="6" fill="#2b2f36"/><circle id="camled" cx="1056" cy="192" r="3" fill="#e0412f"/></g>
+<g id="sign" class="hot"><rect x="520" y="250" width="150" height="74" fill="#fbfbf8" stroke="#1f4a6a" stroke-width="3"/><rect x="520" y="250" width="150" height="20" fill="#1f4a6a"/><text x="595" y="265" class="sT" font-size="12" fill="#fff" letter-spacing="2">NOTICE</text>
+  <path d="M532 284h126M532 296h110M532 308h120" stroke="#55585f" stroke-width="3"/></g>
+<g id="stairs" class="hot"><path d="M690 300h70v180h-70z" fill="#4c555e"/><g stroke="#2f363d" stroke-width="3"><path d="M690 470h70M694 450h62M698 430h54M702 410h46M706 390h38M710 370h30"/></g><text x="725" y="292" class="sT" font-size="11" fill="#2f363d" letter-spacing="1">TO COURT 2</text></g>
+
+<!-- the custody desk, and Mrs Hindle behind it -->
+<g id="hindle" class="hot"><rect x="120" y="300" width="210" height="230" fill="#000" opacity="0"/><use href="#ch-hindle" x="118" y="290" width="214" height="278"/></g>
+<rect x="20" y="520" width="440" height="22" fill="#5b646c"/><rect x="34" y="542" width="412" height="270" fill="url(#deskG)"/><path d="M34 600h412" stroke="#5b646c" stroke-width="3"/>
+<text x="240" y="580" class="sT" font-size="20" fill="#2b3036" letter-spacing="6">CUSTODY</text>
+<g id="deskbits"><rect x="60" y="498" width="70" height="22" fill="#fbfbf8"/><path d="M66 506h56M66 512h40" stroke="#8d9097" stroke-width="2"/><path d="M380 520v-34h30v34z" fill="#fbfbf8"/><path d="M380 492h30" stroke="#b3262c" stroke-width="5"/><circle cx="340" cy="510" r="9" fill="none" stroke="#8d9097" stroke-width="3"/><path d="M340 519v14" stroke="#8d9097" stroke-width="3"/></g>
+
+<!-- Legal Visits 2: a glass screen, Ezra behind it -->
+<g id="room"><rect x="960" y="230" width="640" height="440" fill="#d9dcd8"/><rect x="960" y="230" width="640" height="440" fill="url(#brick)" opacity=".55"/>
+  <rect x="1000" y="190" width="200" height="30" fill="#1f4a6a"/><text x="1100" y="211" class="sT" font-size="15" fill="#fff" letter-spacing="3">LEGAL VISITS 2</text></g>
+<g id="ezra" class="hot"><rect x="1140" y="320" width="230" height="300" fill="#000" opacity="0"/><use href="#ch-ezra" x="1130" y="330" width="240" height="312"/></g>
+<rect x="980" y="300" width="600" height="340" fill="url(#glassG)" stroke="#8d9097" stroke-width="10" pointer-events="none"/>
+<path d="M990 330l60 -20M1450 600l110 -40" stroke="#fff" stroke-width="3" opacity=".35" pointer-events="none"/>
+<rect x="1240" y="560" width="64" height="12" rx="2" fill="#5b646c" pointer-events="none"/>
+
+<!-- Miss Blackwood -->
+<g id="ib" class="hot"><rect x="770" y="380" width="200" height="250" fill="#000" opacity="0"/><use href="#ch-blackwood" x="760" y="370" width="220" height="286"/></g>
+
+<!-- the table, and the papers on it -->
+<path d="M560 650h1060l40 120h-1140z" fill="url(#tableG)"/><path d="M520 770h1140v150h-1140z" fill="#6f6a5e"/><path d="M560 650h1060" stroke="#d9d3c2" stroke-width="4"/>
+<g id="ind" class="hot"><g transform="rotate(-5 640 700)"><rect x="590" y="664" width="100" height="70" fill="#fbfaf4"/><path d="M600 676h80" stroke="#1c1d22" stroke-width="4"/><path d="M604 690h72M604 700h64M604 710h72M604 720h50" stroke="#8d9097" stroke-width="2"/></g></g>
+<g id="agreed" class="hot"><g transform="rotate(3 760 700)"><rect x="712" y="664" width="96" height="72" fill="#fbfaf4"/><path d="M722 676h76" stroke="#55585f" stroke-width="3"/><path d="M724 690h68M724 700h60M724 710h68M724 720h56" stroke="#8d9097" stroke-width="2"/></g></g>
+<g id="call" class="hot"><g transform="rotate(-2 880 704)"><rect x="830" y="660" width="100" height="84" fill="#eef3ec"/><path d="M830 660v84" stroke="#c9d3c4" stroke-width="8" stroke-dasharray="3 4"/><path d="M842 674h78M842 684h70M842 694h78M842 704h62M842 714h76M842 724h66" stroke="#55604f" stroke-width="2"/></g></g>
+<g id="photos" class="hot"><g transform="rotate(4 1010 704)"><rect x="958" y="668" width="110" height="74" fill="#b98a56"/><path d="M958 668l55 34 55-34" stroke="#8a6238" stroke-width="3" fill="none"/><rect x="972" y="660" width="70" height="14" fill="#f4f2ec"/><text x="1013" y="732" class="sT" font-size="12" fill="#4a3216" letter-spacing="1">JS/3</text></g></g>
+<g id="folder" class="hot"><g transform="rotate(-3 1150 706)"><rect x="1094" y="668" width="118" height="80" fill="#2f7a4a"/><rect x="1100" y="662" width="106" height="12" fill="#f4f2ec"/><text x="1153" y="716" class="sT" font-size="14" fill="#e9f2ea" letter-spacing="2">ALIBI</text></g></g>
+<g id="strip" class="hot"><g transform="rotate(1.500 1060 800)"><rect x="700" y="782" width="740" height="46" fill="#f6f4ec"/><g stroke="#9aa0a6" stroke-width="2"><path d="M760 782v46M820 782v46M880 782v46M940 782v46M1000 782v46M1060 782v46M1120 782v46M1180 782v46M1240 782v46M1300 782v46M1360 782v46"/></g>
+  <path d="M1000 778v54" stroke="#b3262c" stroke-width="4"/></g></g>
+
+<rect x="-1000" y="-400" width="3600" height="1760" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Go to Cutler’s Row</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="violin.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = false, nextFile = null, abBox = null;
+
+  /* the corridor: white brick, steel doors, a blue line on the floor */
+  (function () {
+    var VX = 760, VY = 380, s = '', i;
+    function L(y, x) { return VY + (y - VY) * (x - VX) / (640 - VX); }
+    function R(y, x) { return VY + (y - VY) * (x - VX) / (880 - VX); }
+    function quad(p, fill, ex) { return '<path d="M' + p.map(function (q) { return q[0].toFixed(1) + ' ' + q[1].toFixed(1); }).join('L') + 'z" fill="' + fill + '"' + (ex || '') + '/>'; }
+    s += '<rect x="-1000" y="-400" width="3600" height="1800" fill="#e7e5dd"/>';
+    s += quad([[-400, L(250, -400)], [2000, R(250, 2000)], [880, 250], [640, 250]], '#f1f0ea');
+    s += quad([[640, 250], [640, 500], [-400, L(500, -400)], [-400, L(250, -400)]], 'url(#brick)');
+    s += quad([[880, 250], [880, 500], [2000, R(500, 2000)], [2000, R(250, 2000)]], 'url(#brick)');
+    s += quad([[880, 250], [880, 500], [2000, R(500, 2000)], [2000, R(250, 2000)]], '#000', ' opacity=".08"');
+    s += '<rect x="640" y="250" width="240" height="250" fill="#dcdad1"/>';
+    s += quad([[640, 500], [880, 500], [2000, R(500, 2000)], [2000, 1400], [-400, 1400], [-400, L(500, -400)]], 'url(#floorG)');
+    s += quad([[748, 500], [772, 500], [900, 1400], [620, 1400]], '#2f6a9a', ' opacity=".7"');
+    s += '<g stroke="#4c555e" stroke-width="2" opacity=".5">';
+    [520, 548, 590, 650, 740, 870].forEach(function (y) { s += '<path d="M-400 ' + y + 'h2400"/>'; });
+    s += '</g>';
+    $('#shell').innerHTML = s; s = '';
+    [[-120, 120, 'C1'], [250, 430, 'C2'], [520, 600, 'C3']].forEach(function (d) {
+      var a = d[0], b = d[1];
+      s += quad([[a, L(300, a)], [b, L(300, b)], [b, L(500, b)], [a, L(500, a)]], '#7d8a96', ' stroke="#55606b" stroke-width="3"');
+      var m = (a + b) / 2;
+      s += quad([[m - (b - a) * 0.18, L(340, m)], [m + (b - a) * 0.18, L(340, m)], [m + (b - a) * 0.18, L(372, m)], [m - (b - a) * 0.18, L(372, m)]], '#3a434c');
+      s += '<text x="' + m + '" y="' + (L(330, m) - 4).toFixed(1) + '" class="sT" font-size="' + Math.max(10, (b - a) / 9).toFixed(0) + '" fill="#e6eef6">' + d[2] + '</text>';
+    });
+    [[930, 960, 'C4'], [1100, 1300, 'C5']].forEach(function (d) {
+      var a = d[0], b = d[1];
+      if (a < 960) s += quad([[a - 20, R(300, a - 20)], [b - 20, R(300, b - 20)], [b - 20, R(500, b - 20)], [a - 20, R(500, a - 20)]], '#7d8a96', ' stroke="#55606b" stroke-width="3" id="c4"');
+    });
+    $('#doors').innerHTML = s;
+  })();
+
+  ER.init({
+    theme: 'court', story: 'violin', storyTitle: 'So That You Are Sure', id: 'cells', no: 'I', title: 'The Cells',
+    go: 'Go down the stairs',
+    intro: [
+      'In a Crown Court, twelve people decide whether somebody is guilty. Nobody else does: not the judge, not the lawyers, not the newspapers. Twelve people from the town, chosen by chance, who had never met each other before Monday.',
+      'They are told one thing more often than anything else. The prosecution must prove the case, and it must prove it so that they are sure.',
+      'Yesterday afternoon, in Court 2, a witness told them that she was sure. You watched two of them nod.'
+    ],
+    exit: {"next":"row","w":{"fbbb26b8":"ddee0cc5"}}, tags: {"pa":["2323718d"],"pb":["b7cfd5b7"],"pc":["e92b1d37"],"pd":["02dc413c"],"pe":["52e31d80"],"sa":["cb77082e"],"sb":["a6720e18"],"sc":["d00ac274"],"sd":["63eb4a9f"],"se":["329e22c0"],"end":["dabadeba"]},
+    hints: hints, onBegin: begin
+  });
+  nextFile = ER.flag('c-file') || null;
+
+  var IND = '<h4>Indictment</h4><h5>IN THE CROWN COURT AT WYNCASTER &middot; T20260187</h5><p class="cn">THE KING<br><small>v</small><br>EZRA JAMES MALLON</p>' +
+    '<h6>Count 1 &middot; Statement of offence</h6><p><b class="t">BURGLARY</b>, contrary to section 9(1)(b) of the Theft Act 1968.</p>' +
+    '<h6>Particulars of offence</h6><p>Ezra James Mallon, on 14 May 2026, having entered as a trespasser a building known as 14 Cutler&rsquo;s Row, Wyncaster, stole in it a violin made by Benedetto Lusardi.</p>' +
+    '<p class="fine">Plea: not guilty &middot; Trial: Court 2, before Her Honour Judge Lennox and a jury</p>';
+  var AGREED = '<h4>Agreed facts</h4><h5>The prosecution and the defence agree these facts. The jury may take them as proved. Nobody has to call a witness to prove them.</h5><ol>' +
+    '<li>At 22.39 on Thursday 14 May 2026 the burglar alarm at 14 Cutler&rsquo;s Row (Gilchrist &amp; Co., violin dealers) was set off at the front door. The lock of the door had been forced.</li>' +
+    '<li>A violin made by Benedetto Lusardi in Cremona in 1719, worth &pound;1,400,000, was taken from a locked cabinet in the window. It has not been found.</li>' +
+    '<li>No fingerprints and no DNA of Ezra Mallon were found at No. 14.</li>' +
+    '<li>Ezra Mallon is 1.70 metres tall.</li>' +
+    '<li>The walk from the Fleece, in Corn Street, to 14 Cutler&rsquo;s Row is 900 metres. It takes about eleven minutes.</li></ol>';
+  var CALL = '<h4>WYNCASTER POLICE CONTROL ROOM &middot; 999 CALL &middot; TRANSCRIPT</h4><h5>Thursday 14 May 2026 &middot; Caller: Mrs G. Askew, Flat 1, 9 Cutler&rsquo;s Row</h5>' +
+    '<p><span class="t">22.40.42</span>OPERATOR: Police. What is happening?</p>' +
+    '<p><span class="t">22.40.45</span>CALLER: There&rsquo;s a man outside the violin shop opposite. The alarm&rsquo;s going. He walked off towards the river.</p>' +
+    '<p><span class="t">22.40.54</span>OPERATOR: Is he still there?</p>' +
+    '<p><span class="t">22.40.56</span>CALLER: No, he&rsquo;s gone. Round the corner, down Wherry Steps. He was only there a moment.</p>' +
+    '<p><span class="t">22.41.03</span>OPERATOR: Can you describe him?</p>' +
+    '<p><span class="t">22.41.06</span>CALLER: A long dark coat. A woolly hat. He had a case, a violin case, I think.</p>' +
+    '<p><span class="t">22.41.15</span>OPERATOR: Did you see his face?</p>' +
+    '<p><span class="t">22.41.17</span>CALLER: No. I couldn&rsquo;t see his face. He had his back to me, and it&rsquo;s pouring.</p>' +
+    '<p><span class="t">22.41.24</span>OPERATOR: Do you know who it was?</p>' +
+    '<p><span class="t">22.41.27</span>CALLER: I don&rsquo;t know. It might be the busker. He always has a case. I couldn&rsquo;t say.</p>' +
+    '<p><span class="t">22.41.36</span>OPERATOR: Officers are on their way. Please stay inside.</p>';
+  /* the two police photographs: the forced door, and the front of the shop with No. 12 under scaffolding beside it */
+  var PH1 = '<svg viewBox="0 0 360 240"><rect width="360" height="240" fill="#3a3a3a"/><rect x="70" y="10" width="190" height="230" fill="#2a3f63"/><rect x="84" y="24" width="162" height="216" fill="#334c75"/>' +
+    '<rect x="100" y="40" width="130" height="80" fill="#a9b8c8"/><path d="M226 140l8-6 4 10-6 8 6 10-8 4z" fill="#d9c9a8"/><circle cx="220" cy="150" r="6" fill="#c9a24a"/><path d="M214 128l20 40" stroke="#1c1d22" stroke-width="2"/>' +
+    '<rect x="276" y="0" width="84" height="240" fill="#5f8a5a" opacity=".9"/><path d="M276 0v240M304 0v240M332 0v240M276 60h84M276 140h84M276 220h84" stroke="#3a5a36" stroke-width="2"/><rect x="286" y="0" width="7" height="240" fill="#8d9097"/>' +
+    '<text x="164" y="232" font-family="Oswald" font-size="14" fill="#f4f2ec" text-anchor="middle">14</text></svg>';
+  var PH2 = '<svg viewBox="0 0 360 240"><rect width="360" height="240" fill="#9aa4ad"/><rect y="200" width="360" height="40" fill="#6d747a"/>' +
+    '<rect x="0" y="20" width="92" height="180" fill="#cfc6b4"/><rect x="10" y="80" width="72" height="80" fill="#e8e6df"/><text x="46" y="124" font-family="Oswald" font-size="11" fill="#55585f" text-anchor="middle">16 &middot; TO LET</text>' +
+    '<rect x="92" y="10" width="150" height="190" fill="#3a2a22"/><rect x="100" y="24" width="134" height="22" fill="#1c1d22"/><text x="167" y="40" font-family="Cormorant SC" font-weight="700" font-size="14" fill="#d9b25a" text-anchor="middle">GILCHRIST &amp; CO.</text>' +
+    '<rect x="104" y="60" width="80" height="100" fill="#a9b8c8"/><rect x="194" y="60" width="38" height="140" fill="#2a3f63"/><text x="213" y="196" font-family="Oswald" font-size="10" fill="#f4f2ec" text-anchor="middle">14</text>' +
+    '<rect x="242" y="0" width="118" height="200" fill="#5f8a5a"/><g stroke="#3a5a36" stroke-width="2"><path d="M242 50h118M242 100h118M242 150h118M272 0v200M302 0v200M332 0v200"/></g><rect x="246" y="0" width="6" height="200" fill="#8d9097"/>' +
+    '<rect x="254" y="110" width="100" height="36" fill="#f4f2ec"/><text x="304" y="124" font-family="Oswald" font-weight="600" font-size="10" fill="#1c1d22" text-anchor="middle">HOBDAY &amp; SONS</text><text x="304" y="139" font-family="Oswald" font-size="9" fill="#1c1d22" text-anchor="middle">WORKS AT No. 12</text></svg>';
+  var PHOTOS = '<h4>Exhibit JS/3 &middot; police photographs &middot; taken by DC J. Sutcliffe, Friday 15 May 2026, 07.30</h4><div class="ph">' +
+    '<figure>' + PH1 + '<figcaption>1. The front door of No. 14, showing the forced lock.</figcaption></figure>' +
+    '<figure>' + PH2 + '<figcaption>2. The front of Gilchrist &amp; Co., photographed from the other side of Cutler&rsquo;s Row.</figcaption></figure></div>';
+  var PAPERS = '<h4>The alibi papers</h4><h5>From the prosecution&rsquo;s bundle, and Ezra&rsquo;s bank</h5>' +
+    '<p><b class="t">KOSTAS ANDREOU</b>, owner of Andreou&rsquo;s caf&eacute;, 9 Cutler&rsquo;s Row (statement, 18 May): &ldquo;I close at ten. At about five to ten I watched the busker pack up outside my window. Ezra, the violin one. He plays too loud, and I have told him so. He walked off towards the market end.&rdquo;</p>' +
+    '<p><b class="t">BANK STATEMENT</b>, E. J. Mallon: <span style="font-family:\'Courier Prime\',monospace">14 MAY 2026 &nbsp;22:14 &nbsp;THE FLEECE, CORN ST, WYNCASTER &nbsp;CONTACTLESS &nbsp;3.10</span></p>' +
+    '<p><b class="t">RHYS PUGH</b>, barman at the Fleece (statement, 21 May): &ldquo;I had never seen him before. He had a half of cider and sat by the door with his violin case. He left at about twenty past ten, give or take. I didn&rsquo;t see which way he went.&rdquo;</p>' +
+    '<p><b class="t">MAGS DOYLE</b>, 3 Ropewalk (statement, 20 May): &ldquo;Ezra sleeps on my sofa. He&rsquo;s my friend, and he would never steal anything. I was watching <i>Night Shift</i>, which finishes at eleven. Just after it finished I heard the front door, and it was him.&rdquo;</p>';
+  var ALIBI = '<h4>Alibi</h4>' +
+    '<p>An <b class="t">ALIBI</b> is a claim that the defendant was somewhere else when the crime was done. The word is Latin for &ldquo;elsewhere&rdquo;.</p>' +
+    '<p>He does not have to prove it. The prosecution must prove that he was there, and make the jury sure of it.</p>' +
+    '<p>An alibi is <b>strong</b> when:</p><ul><li>the witness does not know him, and gains nothing either way;</li><li>there is a <b class="t">RECORD</b> made at the time: a receipt, a ticket, a camera, a card payment;</li><li>it covers the very minute that matters.</li></ul>' +
+    '<p>It is <b>weak</b> when:</p><ul><li>only the defendant says so;</li><li>the witness is a friend or relative, who may want to help;</li><li>nothing was written down;</li><li>there is a gap.</li></ul>' +
+    '<p>A weak alibi is not a false one. And even a false alibi does not prove guilt by itself: people lie for all sorts of reasons.</p><p class="ib">I.B.</p>';
+  var CUSTODY = '<h4>Custody record &middot; front sheet</h4><h5>Wyncaster Police &middot; printed for the court cells</h5><table>' +
+    '<tr><th>Name</th><td>MALLON, Ezra James</td></tr><tr><th>Arrested</th><td>Friday 15 May 2026, 08.10, at 3 Ropewalk</td></tr>' +
+    '<tr class="hl"><th>Height</th><td>1.70 m</td></tr><tr><th>Build</th><td>slight</td></tr><tr><th>Hair</th><td>dark brown, curly</td></tr>' +
+    '<tr><th>Clothing</th><td>long brown wool coat &middot; grey knitted hat &middot; green jumper</td></tr><tr><th>Property</th><td>a violin (student model, his own) in a black oblong case</td></tr>' +
+    '<tr><th>Offence</th><td>burglary (not a home), 14 Cutler&rsquo;s Row, 14/05/2026</td></tr></table>';
+
+  function hints() {
+    if (nextFile) return ['go', ['The court will not sit until two. Miss Blackwood has sent you to Cutler&rsquo;s Row. The button is at the bottom of the screen.']];
+    if (abBox) return ['strip', [
+      'Each card says when. Find the time in the alibi papers, and put the card in that ten minutes of the strip. The red line is the alarm, at 10.39.',
+      'For the colour, ask Miss Blackwood&rsquo;s questions of each card: who says so? Do they gain? Is there a record? A stranger who gains nothing, or a record made at the time, is strong. The defendant alone, or a friend who wants to help, is weak.',
+      'Three of the five are strong and two are weak: the one that only Ezra can tell, and the one from somebody who wants to help him. Then look along the red line. Is anything strong on it? And remember what the notes say about weak and false.'
+    ]];
+    if (!ER.flag('c-ezra')) return ['ezra', ['Your client is behind the glass, on the right. Talk to him first.']];
+    if (!ER.flag('c-ib')) return ['ib', ['Miss Blackwood is standing by the table. She has something to say to Ezra, and something to give you.']];
+    if (!ER.flag('c-papers')) return ['papers', ['Read Miss Blackwood&rsquo;s notes on alibi: they are in your notebook. Then open the green folder on the table: the alibi papers.',
+      'The other papers on the table matter too, later today: the indictment, the agreed facts, the 999 call, and the brown envelope of photographs.']];
+    return ['open', ['The long strip of paper at the front of the table is the night of 14 May, hour by hour. Click it.']];
+  }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#go').classList.toggle('on', !!nextFile);
+    $('#strip').classList.toggle('ready', !nextFile && !!ER.flag('c-papers') && !!ER.flag('c-ib'));
+    $('#ezra').classList.toggle('ready', !nextFile && !ER.flag('c-ezra') && !busy);
+    ER.pips(nextFile ? 1 : 0, 1);
+  }
+  function begin() {
+    paint();
+    if (nextFile) { ER.say('The court sits at two. Cutler&rsquo;s Row is ten minutes&rsquo; walk away.'); return; }
+    if (ER.flag('c-in')) { ER.say('The cells under Court 2. Ezra is still behind the glass.'); return; }
+    busy = true; ER.flag('c-in', 1);
+    ER.narrate([
+      'Wyncaster Crown Court, Tuesday 13 October, ten past nine in the morning. Under Court 2 there is a corridor of white-painted brick and steel doors. It smells of floor cleaner and toast.',
+      'You are a trainee solicitor at Dalby &amp; Kerr. You carry the files, you take the notes, and in court you say nothing at all. Miss Blackwood, the barrister, says everything.',
+      'Behind the glass in Legal Visits 2 sits your client. Ezra Mallon is twenty-six, and he plays the violin for money on Cutler&rsquo;s Row. The Crown says that on the night of 14 May he broke into Gilchrist &amp; Co., at number 14, and took a violin made in Cremona in 1719. Mr Gilchrist told the police that it was worth more than his whole building.',
+      'Yesterday Mrs Askew, who lives across the street from the shop, told the jury that she saw him come out of it. &ldquo;I am as sure of his face,&rdquo; she said, &ldquo;as I am of my own name.&rdquo; Ezra has not slept.'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- the room ---------- */
+  function doc(id, html, cls, title, kind, done) {
+    if (busy) return;
+    ER.read({ html: html, cls: cls, clue: { id: id, title: title, kind: kind }, done: done });
+  }
+  $('#ind').addEventListener('click', function () { doc('ind', IND, 'ind', 'The indictment', 'Court papers', function () { VN.learn(['indictment', 'burglary', 'defendant']); }); });
+  $('#agreed').addEventListener('click', function () { doc('agreed', AGREED, 'typed2', 'The agreed facts', 'Court papers', function () { VN.learn(['agreed facts']); }); });
+  $('#call').addEventListener('click', function () { doc('call', CALL, 'call', 'The 999 call, 22.40', 'Prosecution exhibit'); });
+  $('#photos').addEventListener('click', function () { doc('photos', PHOTOS, 'photo', 'Police photographs JS/3', 'Prosecution exhibit', function () { VN.learn(['exhibit']); }); });
+  $('#folder').addEventListener('click', function () {
+    doc('papers', PAPERS, 'typed2', 'The alibi papers', 'Prosecution bundle', function () { ER.flag('c-papers', 1); paint(); });
+  });
+  $('#ezra').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Ezra has his forehead against the glass. &ldquo;Measure it properly,&rdquo; he says. &ldquo;She was a long way up.&rdquo;'); return; }
+    ER.talk({
+      who: 'Ezra Mallon', role: 'The defendant · aged twenty-six', face: window.FACE('ezra'),
+      lines: [
+        { note: 'Ezra has pushed the sleeves of his jacket up to the elbow. The jacket belongs to Dalby &amp; Kerr: the firm keeps three, in different sizes, for clients who have nothing to wear to court.', q: 'How are you?', a: 'She was sure. Did you see her face? She looked at me like I was a wrong note.' },
+        { q: 'Tell me about that night again.', a: 'I packed up at five to ten. Kostas watched me do it; he always does, to make sure I really go. I had a half in the Fleece, I left about twenty past, and I walked home along the canal. It was pouring.' },
+        { q: 'Did anybody see you on the canal?', a: 'Nobody. Who walks the towpath in the rain at half past ten? Me. I stopped at Sawyer&rsquo;s Lock, under the bridge, when St Wilfrid&rsquo;s played the quarter. A quarter to eleven. I always stop there. The bridge has a good echo.' },
+        { q: 'And the Lusardi?', a: 'I looked at it every day for a year. Course I did, it was in the window. You don&rsquo;t walk past a thing like that. I told Gilchrist it was wasted on him, and I&rsquo;d tell him again.', note: 'Miss Blackwood shuts her eyes for a moment.' },
+        { a: 'I can&rsquo;t prove where I was. So that&rsquo;s it, isn&rsquo;t it? I&rsquo;m done.' }
+      ],
+      clue: { id: 'ezra1', title: 'Ezra, in Legal Visits 2', kind: 'What he said' }, last: 'Not yet',
+      done: function (seen) { if (seen) { ER.flag('c-ezra', 1); paint(); } }
+    });
+  });
+  $('#ib').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Measuring wheel, photographs, and your eyes,&rdquo; says Miss Blackwood. &ldquo;I shall be there at eleven.&rdquo;'); return; }
+    if (!ER.flag('c-ezra')) { ER.say('&ldquo;Talk to him first,&rdquo; says Miss Blackwood. &ldquo;He has been waiting since seven, and I want to hear what he says this morning.&rdquo;'); return; }
+    ER.talk({
+      who: 'Miss Blackwood', role: 'Counsel for the defence', face: window.FACE('blackwood'),
+      lines: [
+        { note: 'Miss Blackwood leans towards the glass.', a: 'Mr Mallon, listen to me. You do not have to prove anything. Not where you were. Not who did it. Nothing. They have to prove that it was you, and they have to make twelve people sure.' },
+        { a: 'But the jury will wonder where you were, whatever the judge tells them. So before I decide what to do with your alibi, I want to know exactly what it is worth.' },
+        { note: 'She tears a page out of her notebook and gives it to you. Then she lays a long strip of paper along the front of the table: the back of a custody sheet, with the hours of the night drawn on it.', a: 'Read that, and read the green folder. Five things put him somewhere that night. Put each one where it belongs on the strip, and mark it: green if it is strong, red if it is weak. Then tell me what it all comes to at twenty-one minutes to eleven.' }
+      ],
+      clue: { id: 'ib1', title: 'Miss Blackwood, to Ezra', kind: 'What she said' }, last: 'Yes, Miss Blackwood',
+      done: function (seen) {
+        if (!seen) return;
+        ER.flag('c-ib', 1); paint();
+        ER.read({ html: ALIBI, cls: 'cn', clue: { id: 'alibi', title: 'Miss Blackwood’s notes: alibi', kind: 'Torn from her notebook' }, done: function () { VN.learn(['alibi', 'record', 'prosecution']); } });
+      }
+    });
+  });
+  $('#hindle').addEventListener('click', function () {
+    if (busy) return;
+    if (ER.flag('c-hindle')) { ER.say('Mrs Hindle is eating a slice of somebody&rsquo;s toast. &ldquo;He goes up at two,&rdquo; she says. &ldquo;I&rsquo;ve been told.&rdquo;'); return; }
+    ER.talk({
+      who: 'Mrs Hindle', role: 'Custody officer · the court cells', face: window.FACE('hindle'),
+      lines: [
+        { note: 'Mrs Hindle has a ring of keys, a mug that says WORLD&rsquo;S OKAYEST AUNTIE, and the custody record open on the desk.', a: 'Morning. He ate his toast, if you&rsquo;re asking. On day two most of them don&rsquo;t.' },
+        { q: 'May I see his custody record?', a: 'You can see the front sheet. Height, build, what he came in wearing. The rest is between me and the computer.' },
+        { note: 'She turns the screen round, and prints the front sheet for you.', a: 'There. One seventy. I&rsquo;m one seventy-two, and he looks up at me.' }
+      ],
+      clue: { id: 'hindle1', title: 'Mrs Hindle, at the custody desk', kind: 'What she said' }, last: 'Thank you',
+      done: function (seen) {
+        if (!seen) return;
+        ER.flag('c-hindle', 1);
+        ER.read({ html: CUSTODY, cls: 'screen', clue: { id: 'custody', title: 'Custody record: Ezra Mallon', kind: 'From the cells' } });
+        $('.doc.screen').setAttribute('data-bar', 'CUSTODY · WYNCASTER');
+      }
+    });
+  });
+  $('#strip').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The strip, with five cards on it and a red line that nothing strong touches.'); return; }
+    if (!ER.flag('c-ib')) { ER.say('A long strip of paper with the hours of a night along it. Miss Blackwood has not explained it yet.'); return; }
+    if (!ER.flag('c-papers')) { ER.say('&ldquo;The green folder first,&rdquo; says Miss Blackwood. &ldquo;You cannot put a thing on the strip until you know when it happened.&rdquo;'); return; }
+    openStrip();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  VN.thing('#cam', null, 'A camera in a cage. It has watched this corridor since 1994, and it has never seen anything it liked.', isBusy);
+  VN.thing('#sign', null, 'NOTICE. No mobile telephones beyond this point. Legal visits: 30 minutes. Please mind the step.', isBusy);
+  VN.thing('#stairs', null, 'The stairs go straight up into the dock of Court 2. Thirty-one steps. Ezra has counted them.', isBusy);
+  VN.thing('#doors', null, 'Steel doors with numbers on them and a hatch in each. Behind one of them, somebody is singing, badly, to keep his spirits up.', isBusy);
+  VN.thing('#deskbits', null, 'A bell, a pen on a chain, and a box of tissues that is almost empty.', isBusy);
+
+  /* ---------- the strip ---------- */
+  var TIMES = ['21.30', '21.40', '21.50', '22.00', '22.10', '22.20', '22.30', '22.40', '22.50', '23.00', '23.10', '23.20'];
+  var CARDS = [['e', 'KOSTAS', 'Kostas Andreou', 'Watched him pack up outside the caf&eacute;, &ldquo;about five to ten&rdquo;. No friend: &ldquo;he plays too loud&rdquo;.'],
+    ['a', 'BANK', 'Bank statement', 'Contactless, &pound;3.10, the Fleece, Corn Street. The bank&rsquo;s computer gives the minute.'],
+    ['b', 'BARMAN', 'Rhys Pugh, barman', 'Had never seen him before. &ldquo;Left about twenty past ten, give or take.&rdquo;'],
+    ['c', 'EZRA', 'Ezra himself', 'At Sawyer&rsquo;s Lock when the church played the quarter: a quarter to eleven. Nobody else about.'],
+    ['d', 'MAGS', 'Mags Doyle', 'His friend: he sleeps on her sofa. Heard the door &ldquo;just after&rdquo; <i>Night Shift</i> ended, at eleven.']];
+  var SAYS = [['proves', 'The alibi proves that he was not on Cutler&rsquo;s Row at 10.39.'], ['false', 'The alibi is weak, so it must be false.'], ['weak', 'Nothing strong puts him anywhere at 10.39. The alibi is weak, and he does not have to prove it.']];
+  var WHERE = { e: 'Five to ten, says Mr Andreou, and he was watching. Which ten minutes of the strip is that in?', a: 'The bank&rsquo;s computer gives the minute, and a computer never says &lsquo;about&rsquo;. Find that minute on the strip.',
+    b: 'He says &lsquo;about twenty past ten&rsquo;. Not ten past, and not half past.', c: 'A quarter to eleven, by the church clock. Look at the strip again: which ten minutes is that in?', d: '<i>Night Shift</i> finishes at eleven, and she heard the door just after it.' };
+  var WORTH = { e: 'Mr Andreou is no friend of Ezra&rsquo;s, and he gains nothing either way. Look at my notes: what is a witness like that worth?',
+    a: 'A bank does not care who wins. A card payment is a record made at the time, by a machine. My notes have a word for that.',
+    b: 'He had never met Ezra in his life, and he gains nothing. That is the best kind of witness there is, even with a vague watch.',
+    c: 'Who says so? Only Ezra. He may be telling the exact truth, but the jury cannot check one word of it.',
+    d: 'She is his friend, he sleeps on her sofa, and she would like to help him. The programme really did end at eleven. The door is only her memory.' };
+  function openStrip() {
+    var box = ER.el('div', 'ab'), saved = ER.flag('c-strip') || {}, done = false, s, said = saved.say || '';
+    s = '<div class="ab-strip"><h4>The night of Thursday 14 May</h4><div class="ab-grid">';
+    TIMES.forEach(function (t, i) { s += '<div class="ab-col"><i>' + t + '</i><div class="ab-slot" data-i="' + i + '"></div></div>'; });
+    s += '<div class="ab-alarm" style="left:' + (100 * (6 + 0.9) / 12).toFixed(2) + '%"><b>ALARM 10.39</b></div></div></div><div class="ab-tray"></div>' +
+      '<div class="ab-under"><div class="ab-says"></div><div><button type="button" class="btn" id="ab-go">Show Miss Blackwood</button><p class="pmsg"></p></div></div>';
+    box.innerHTML = s;
+    var tray = box.querySelector('.ab-tray'), says = box.querySelector('.ab-says'), msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    CARDS.forEach(function (c) {
+      var d = ER.el('div', 'ab-card dnd-item', '<b>' + c[1] + '</b><span>' + c[3] + '</span><u title="Click: green, red, or nothing"></u>');
+      d.setAttribute('data-k', c[0]); d.querySelector('span').innerHTML = ER.gloss(c[3]);
+      var col = (saved.col || {})[c[0]]; if (col) d.classList.add(col);
+      var at = (saved.at || {})[c[0]];
+      (at != null ? box.querySelector('.ab-slot[data-i="' + at + '"]') : tray).appendChild(d);
+      d.querySelector('u').addEventListener('pointerdown', function (e) { e.stopPropagation(); });
+      d.querySelector('u').addEventListener('click', function (e) {
+        e.stopPropagation(); if (done) return;
+        if (d.classList.contains('g')) { d.classList.remove('g'); d.classList.add('r'); } else if (d.classList.contains('r')) d.classList.remove('r'); else d.classList.add('g');
+        VN.sfx.tab(); keep();
+      });
+    });
+    SAYS.forEach(function (o) {
+      var b = ER.el('button', said === o[0] ? 'on' : '', ER.gloss(o[1])); b.type = 'button'; b.setAttribute('data-k', o[0]);
+      b.addEventListener('click', function () { if (done) return; said = o[0]; ER.$$('button', says).forEach(function (x) { x.classList.toggle('on', x === b); }); VN.sfx.card(); keep(); });
+      says.appendChild(b);
+    });
+    function state() {
+      var o = { at: {}, col: {}, say: said };
+      ER.$$('.ab-card', box).forEach(function (c) {
+        var k = c.getAttribute('data-k'), sl = c.parentNode.getAttribute('data-i');
+        if (sl != null) o.at[k] = +sl;
+        o.col[k] = c.classList.contains('g') ? 'g' : c.classList.contains('r') ? 'r' : '';
+      });
+      return o;
+    }
+    function keep() { var o = state(); ER.flag('c-strip', o); box.setAttribute('data-in', Object.keys(o.at).length); }
+    ER.dnd(box, { item: '.ab-card', slot: '.ab-slot', home: tray, lock: function () { return done; }, change: function () { VN.sfx.card(); keep(); } });
+    box.addEventListener('click', function () { box.classList.toggle('holding', !!box.querySelector('.ab-card.held')); });      /* while a card is held, a card already on the strip lets the click through to its place */
+    box.querySelector('#ab-go').addEventListener('click', function () {
+      var o = state(), k, i, wrong = null, left = 0, file;
+      if (done) return;
+      if (Object.keys(o.at).length < 5) { msg('&ldquo;Five things,&rdquo; says Miss Blackwood, &ldquo;and not all of them are on the strip. Every one goes on it, even the ones that do not help him.&rdquo;'); return; }
+      for (i = 0; i < CARDS.length; i++) { k = CARDS[i][0]; if (!ER.check('p' + k, String(o.at[k]))) { if (!wrong) wrong = ['p', k]; else left++; } }
+      if (!wrong) {
+        if (CARDS.some(function (c) { return !o.col[c[0]]; })) { msg('&ldquo;Every card is in its place,&rdquo; says Miss Blackwood. &ldquo;Now the colours. Some of them have none yet: green if it is strong, red if it is weak.&rdquo;'); return; }
+        for (i = 0; i < CARDS.length; i++) { k = CARDS[i][0]; if (!ER.check('s' + k, o.col[k] === 'g' ? 'S' : 'W')) { if (!wrong) wrong = ['s', k]; else left++; } }
+      }
+      if (wrong) {
+        VN.bump('c-tries'); VN.sfx.hm();
+        msg('Miss Blackwood taps the card that says ' + CARDS.filter(function (c) { return c[0] === wrong[1]; })[0][1] + '. &ldquo;' + (wrong[0] === 'p' ? WHERE[wrong[1]] : WORTH[wrong[1]]) + '&rdquo;' +
+          (left ? ' <i>&ldquo;And that is not the only one. ' + (left === 1 ? 'One more needs' : left + ' more need') + ' another look.&rdquo;</i>' : ''));
+        return;
+      }
+      if (!said) { msg('&ldquo;Good. Now the last thing: what does it all come to? Choose one of the three sentences at the bottom.&rdquo;'); return; }
+      if (!ER.check('end', said)) {
+        VN.bump('c-tries'); VN.sfx.hm();
+        msg(said === 'proves' ? '&ldquo;Look at the red line. Is anything green on it, or near it? A strong card at a quarter past ten tells us nothing about twenty to eleven. From the Fleece to Cutler&rsquo;s Row is eleven minutes&rsquo; walk.&rdquo;'
+          : '&ldquo;Weak is not false. My notes say so, and so will the judge. Nobody has shown that he was not on the towpath. It is only that nobody can show that he was.&rdquo;');
+        return;
+      }
+      file = ER.exitOk(['a' + o.at.a + 'S+b' + o.at.b + 'S+c' + o.at.c + 'W+d' + o.at.d + 'W+e' + o.at.e + 'S+' + said]);
+      if (!file) { msg('Something is wrong with this lock: tell your teacher.'); return; }
+      done = true; nextFile = file; ER.flag('c-file', file); VN.done('cells'); VN.sfx.pen();
+      msg('Miss Blackwood reads the strip from left to right. <b>&ldquo;Yes. Three strong things, and the last of them is twenty minutes too early. The only thing on the red line is Ezra&rsquo;s own word.&rdquo;</b>');
+      VN.mine('night', 'The night of 14 May', '<p>9.55 Kostas sees him pack up (STRONG)</p><p>10.14 card payment at the Fleece (STRONG)</p><p>10.20 the barman: he left (STRONG)</p><p>10.39 THE ALARM: nothing strong</p><p>10.45 Ezra: at the lock (WEAK: only him)</p><p>11.00+ Mags: the door (WEAK: his friend)</p><p>Weak is not false. He does not have to prove it.</p>', true);
+      setTimeout(function () {
+        ER.closeAll(); VN.solved(); paint(); busy = true;
+        ER.narrate([
+          'Miss Blackwood turns to the glass. &ldquo;Mr Mallon, your alibi is weak. That does not make it false, and it does not make you guilty. We are not going to try to prove where you were. We are going to show the jury how little Mrs Askew could see.&rdquo;',
+          'Ezra looks at the strip for a long time. &ldquo;The quarter,&rdquo; he says. &ldquo;I heard it. I was standing under that bridge.&rdquo; &ldquo;I believe you,&rdquo; says Miss Blackwood. &ldquo;It is not my job to believe you. It is theirs to be sure.&rdquo;',
+          'Keys, on the other side of the door. Mrs Hindle puts her head round it. &ldquo;Message from the usher. Juror number eight&rsquo;s train is stuck outside Hensby with a broken signal. Her Honour will sit at two o&rsquo;clock.&rdquo;',
+          '&ldquo;Four hours,&rdquo; says Miss Blackwood. &ldquo;Good.&rdquo; She gives you the measuring wheel from the bottom of her bag. &ldquo;Take this and the photographs to Cutler&rsquo;s Row. Stand under Mrs Askew&rsquo;s window and find out what she could see. Do not go up: she is in the middle of her evidence, and nobody on our side goes near her. I shall meet you there at eleven.&rdquo;'
+        ], function () { busy = false; paint(); });
+      }, 3200);
+    });
+    msg('Five cards from the alibi papers. <b>Put each card in its ten minutes on the strip</b>, and <b>click its round tab</b>: once for green (strong), twice for red (weak). Then choose what it all comes to. <i>Drag a card, or click the card and then the place.</i>');
+    abBox = box; keep();
+    ER.open('ov-lock', box, function () { abBox = null; });
+  }
+})();
+</script>
+</body>
+</html>
