@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Room 2.14 · Where's It To?</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lang.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="ac.css">
+<style>
+  body{--bg:#d9cfa4;--accent:#c0392b;--font-display:'Old Standard TT',serif;--font-ui:'Outfit',sans-serif;--font-body:'Gentium Book Plus',serif;
+    --tc-bg:rgba(246,241,222,.97);--tc-ink:#22262e;--cap-bg:rgba(250,247,234,.96);--cap-ink:#22262e;--panel:#fbf8ee;--panel-ink:#22262e;--face-bg:#3f6b4f;--q-ink:#2f5d7c;
+    --fade:#efe8cc;--hud-bg:rgba(250,247,234,.88);--hud-ink:#22262e;--hud-line:rgba(34,38,46,.3);--ov-bg:rgba(30,32,24,.62)}
+  .tc-room{font-size:clamp(40px,6vw,84px);color:#2f5d7c}
+  .tc-theme{color:#c0392b}
+  .hbtn b{color:#fff}
+  #strip{animation:flick 7s steps(1,end) infinite}
+  @keyframes flick{0%,91%,95%,100%{opacity:1}92%,94%{opacity:.35}}
+  #rain path{animation:rain .9s linear infinite}
+  #rain path:nth-child(2n){animation-delay:-.45s}
+  @keyframes rain{from{transform:translate(0,-40px)}to{transform:translate(-8px,40px)}}
+  /* the slow strips and the stamps */
+  .st{width:min(1160px,97vw)}
+  .st-in{display:grid;grid-template-columns:1fr 196px;gap:14px}
+  .st-sheet{background:#fbfbf6;color:#22262e;padding:12px 18px 8px;box-shadow:0 26px 70px rgba(0,0,0,.55);border-top:14px solid #2f5d7c}
+  .st-sheet h3{margin:0 0 4px;font-family:'Oswald',sans-serif;font-weight:500;font-size:19px;letter-spacing:.04em}
+  .st-sheet h3 small{font-family:'Kalam',cursive;font-size:15px;font-weight:400;color:#c0392b;margin-left:8px;letter-spacing:0}
+  .row{display:grid;grid-template-columns:86px 1fr;gap:10px;align-items:start;padding:4px 0 3px;border-bottom:1px solid #e2e2d6}
+  .row:last-child{border-bottom:0}
+  .row .wd{font-family:'Old Standard TT',serif;font-weight:700;font-size:21px;line-height:1.1;padding-top:6px}
+  .row .wd small{display:block;font-family:'IBM Plex Mono',monospace;font-weight:400;font-size:10.5px;color:#7a7e88;letter-spacing:.06em}
+  .snds{display:flex;gap:8px;align-items:flex-start;flex-wrap:nowrap}
+  .snd{width:156px;flex:0 0 auto;text-align:center}
+  .snd.fixed{width:46px}
+  .snd .box{height:38px;display:flex;align-items:center;justify-content:center;border:2px solid #c9ccd2;border-radius:3px;background:#f2f3ee;font-size:27px;color:#7a7e88}
+  .snd.gap .box{border:2px dashed #2f5d7c;background:#fff;color:#1b2f7a;cursor:pointer}
+  .snd.gap .box:hover{background:#eef4fa}
+  .snd.gap.bad .box{border-color:#c0392b;background:#fbe3df}
+  .snd .ds{margin-top:2px;font-family:'Kalam',cursive;font-size:13.2px;line-height:1.12;color:#1d3a7a}
+  .wv{height:12px;margin:1px 0 0;background:repeating-linear-gradient(90deg,#9fb8cc 0 2px,transparent 2px 5px);opacity:.6;border-radius:2px}
+  .rack{background:#6a4a2c linear-gradient(#7a5a3a,#5a3a22);border-radius:6px;padding:10px 10px 12px;box-shadow:0 26px 60px rgba(0,0,0,.5)}
+  .rack h5{margin:0 0 8px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:#f1e6d0;text-align:center}
+  .stamps{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+  .stamp{height:54px;border-radius:4px 4px 8px 8px;background:#c9a46a linear-gradient(#d8b67e,#a8844a);border:0;box-shadow:0 4px 0 #3a2410;font-size:26px;color:#3a1a0a;cursor:pointer}
+  .stamp:hover{filter:brightness(1.08)}
+  .stamp.on{background:#f2c94c;box-shadow:0 0 0 3px #fff,0 4px 0 #3a2410;transform:translateY(-3px)}
+  .rack p{margin:10px 0 0;font-family:'Gentium Book Plus',serif;font-size:13.5px;line-height:1.3;color:#f1e6d0}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="lino" width="80" height="80" patternUnits="userSpaceOnUse"><rect width="80" height="80" fill="#3d5a78"/><rect width="40" height="40" fill="#45648a"/><rect x="40" y="40" width="40" height="40" fill="#45648a"/></pattern>
+  <linearGradient id="night" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0e1a2e"/><stop offset="1" stop-color="#26405e"/></linearGradient>
+  <radialGradient id="glow" cx="50%" cy="0%" r="70%"><stop offset="0" stop-color="#fffbe8" stop-opacity=".55"/><stop offset="1" stop-color="#fffbe8" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="45%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".75" stop-color="#2a2410" stop-opacity=".08"/><stop offset="1" stop-color="#2a2410" stop-opacity=".4"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1080" fill="#e9dfb8"/>
+<rect x="-1000" y="560" width="3600" height="16" fill="#b8ab7a"/>
+<rect x="-1000" y="680" width="3600" height="800" fill="url(#lino)"/>
+<rect x="-1000" y="672" width="3600" height="10" fill="#2a3e56"/>
+<!-- the strip light -->
+<g id="strip"><rect x="520" y="-6" width="560" height="22" rx="4" fill="#fffbe8"/><rect x="-1000" y="-400" width="3600" height="700" fill="url(#glow)" pointer-events="none"/></g>
+<!-- the chart -->
+<g id="chart" class="hot"><rect x="90" y="110" width="470" height="380" fill="#fbfbf6" stroke="#9a9070" stroke-width="4"/><rect x="90" y="110" width="470" height="44" fill="#2f5d7c"/>
+  <text x="325" y="140" class="cW" font-size="20" font-weight="500" text-anchor="middle" fill="#fbfbf6" letter-spacing="2">THE SOUNDS OF ENGLISH</text>
+  <g font-size="34" text-anchor="middle" fill="#1b2f7a" class="ipa"><text x="150" y="210">θ</text><text x="250" y="210">ð</text><text x="350" y="210">ʃ</text><text x="450" y="210">ʔ</text><text x="150" y="300">æ</text><text x="250" y="300">ɑː</text><text x="350" y="300">h</text><text x="450" y="300">r</text><text x="150" y="390">ɪ</text><text x="250" y="390">ə</text><text x="350" y="390">ŋ</text><text x="450" y="390">iː</text></g>
+  <g font-size="14" text-anchor="middle" fill="#5a5e68" class="cG"><text x="150" y="232">think</text><text x="250" y="232">this</text><text x="350" y="232">ship</text><text x="450" y="232">uh-oh</text><text x="150" y="322">cat</text><text x="250" y="322">father</text><text x="350" y="322">hat</text><text x="450" y="322">red</text><text x="150" y="412">sit</text><text x="250" y="412">sofa</text><text x="350" y="412">sing</text><text x="450" y="412">see</text></g>
+  <path d="M110 250H540M110 340H540M200 170V430M300 170V430M400 170V430" stroke="#d8d8cc" stroke-width="2"/>
+  <text x="110" y="470" class="cK" font-size="16" fill="#c0392b">ː means long!</text></g>
+<!-- the window -->
+<g id="window" class="hot"><rect x="1170" y="110" width="340" height="380" fill="url(#night)" stroke="#f4f0e2" stroke-width="14"/><path d="M1340 110V490M1170 300H1510" stroke="#f4f0e2" stroke-width="8"/>
+  <path d="M1220 490V360" stroke="#1a2232" stroke-width="5"/><circle cx="1220" cy="356" r="10" fill="#f2c97a"/><circle cx="1220" cy="356" r="30" fill="#f2c97a" opacity=".2"/>
+  <rect x="1380" y="380" width="110" height="110" fill="#14202e"/><g fill="#f2c97a" opacity=".8"><rect x="1396" y="396" width="14" height="12"/><rect x="1440" y="430" width="14" height="12"/></g>
+  <g id="rain" stroke="#9fc4e0" stroke-width="2" opacity=".6"><path d="M1200 150l-6 30M1260 200l-6 30M1300 140l-6 30M1380 170l-6 30M1440 220l-6 30M1480 150l-6 30M1230 330l-6 30M1310 400l-6 30M1460 320l-6 30"/></g></g>
+<!-- the desk, the stamps, the strips, the laptop -->
+<rect x="600" y="560" width="560" height="22" fill="#a8845a"/><rect x="620" y="582" width="20" height="120" fill="#7a5a3a"/><rect x="1120" y="582" width="20" height="120" fill="#7a5a3a"/>
+<g id="stamps" class="hot"><rect x="640" y="528" width="150" height="34" rx="4" fill="#6a4a2c"/><g fill="#c9a46a"><rect x="652" y="506" width="16" height="26" rx="3"/><rect x="676" y="506" width="16" height="26" rx="3"/><rect x="700" y="506" width="16" height="26" rx="3"/><rect x="724" y="506" width="16" height="26" rx="3"/><rect x="748" y="506" width="16" height="26" rx="3"/></g><rect x="800" y="540" width="44" height="20" rx="3" fill="#1b2f7a"/></g>
+<g id="strips" class="hot"><rect x="880" y="534" width="140" height="26" fill="#fbfbf6" transform="rotate(-4 950 547)"/><rect x="890" y="520" width="140" height="26" fill="#fbfbf6" transform="rotate(3 960 533)"/><path d="M900 530h110" stroke="#9fb8cc" stroke-width="6" stroke-dasharray="2 3" transform="rotate(3 960 533)"/></g>
+<g id="laptop"><path d="M1040 560l10 -70h90l10 70z" fill="#2a2f38"/><rect x="1056" y="498" width="78" height="54" fill="#1b2433"/><path d="M1064 526h60" stroke="#5ad08a" stroke-width="2" stroke-dasharray="3 2"/></g>
+<!-- the chairs -->
+<g id="chairs" fill="#2f6aa8"><g transform="translate(160 700)"><rect width="120" height="16" rx="5"/><rect x="10" y="-90" width="100" height="80" rx="8"/><path d="M14 16v90M106 16v90" stroke="#1a1d24" stroke-width="7"/></g>
+  <g transform="translate(1260 700)"><rect width="120" height="16" rx="5"/><rect x="10" y="-90" width="100" height="80" rx="8"/><path d="M14 16v90M106 16v90" stroke="#1a1d24" stroke-width="7"/></g>
+  <g transform="translate(1420 720) scale(1.08)"><rect width="120" height="16" rx="5"/><rect x="10" y="-90" width="100" height="80" rx="8"/><path d="M14 16v90M106 16v90" stroke="#1a1d24" stroke-width="7"/></g></g>
+<g id="petra" class="hot" transform="translate(470 884) scale(1.02)"></g>
+<g id="nia" class="hot" transform="translate(1110 890) scale(1.0)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Down to the archive in the basement</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="ac.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, nextFile = null, strips = null, ipa = AC.ipa;
+
+  $('#petra').innerHTML = AC.who('petra');
+  $('#nia').innerHTML = AC.who('nia', { smile: 3, extra: '<rect x="30" y="-150" width="30" height="20" rx="3" fill="#1a1d24"/>' });
+
+  ER.init({
+    theme: 'lang', story: 'accent', storyTitle: 'Where’s It To?', id: 'phonetics', no: 'II', title: 'Room 2.14',
+    go: 'Switch on the light',
+    intro: [
+      'On the whiteboard, Petra&rsquo;s notes came apart into four kinds: four sounds of Shona&rsquo;s accent (an r in &ldquo;car&rdquo;, no h, a long a in &ldquo;bath&rdquo;, a catch for t), three dialect words (dimpsy, wee, fall), two pieces of dialect grammar (&ldquo;Where&rsquo;s it to?&rdquo;, &ldquo;them cartoons&rdquo;), and two things that say nothing about where she is from.',
+      'Room 2.14 is where first-years learn to write down sounds. It smells of whiteboard pens and wet coats. Somebody has drawn a little face on the tongue in the corner of the wall chart.'
+    ],
+    exit: {"next":"archive","w":{"d9dd0155":"6ac314c1"}}, tags: {"s1":["3b9dd233"],"s2":["e9210515"],"s3":["0abefbf0"],"s4":["82e77023"],"s5":["a9aa5123"],"s6":["204125f7"],"s7":["f796f779"],"s8":["fc61097f"],"s9":["96f9ce0a"],"s10":["9f4a968f"],"s11":["85c01c9c"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('b-told') || {}; nextFile = ER.flag('b-file') || null;
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('b-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#petra').classList.toggle('ready', !told.petra);
+    $('#chart').classList.toggle('ready', !!(told.petra && !told.chart));
+    $('#strips').classList.toggle('ready', !!(told.chart && !nextFile));
+    ER.pips((told.petra ? 1 : 0) + (told.chart ? 1 : 0) + (nextFile ? 1 : 0), 3);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Petra is going down to the archive. The button at the bottom of the screen.']];
+    if (strips && strips.isOpen()) return ['strips', [
+      'Each gap has Petra&rsquo;s description under it. Find the sound on the chart that matches: the chart is in your notebook. Is it long or short? Does the throat buzz or not?',
+      'The long a of &ldquo;father&rdquo; is ' + ipa('ɑː') + '; the short a of &ldquo;cat&rdquo; is ' + ipa('æ') + '. Tongue between the teeth with no buzz is ' + ipa('θ') + ', with a buzz ' + ipa('ð') + '. Top teeth on the lip with no buzz is ' + ipa('f') + '. The catch in &ldquo;uh-oh&rdquo; is ' + ipa('ʔ') + '.',
+      'Shona says every r, so both r gaps get ' + ipa('r') + '. &ldquo;Half&rdquo; has only two sounds: there is no h stamp in it. Three gaps are the long ' + ipa('ɑː') + ', and only one is the short ' + ipa('æ') + '.'
+    ]];
+    if (!told.petra) return ['petra', ['Petra is by the chairs on the left. Talk to her.']];
+    if (!told.chart) return ['chart', ['The big chart on the left wall: &ldquo;The Sounds of English&rdquo;. Click it and read it.']];
+    return ['strips', ['Petra has printed the slowed-down words. They are on the desk, next to the box of rubber stamps. Click the paper strips.', 'The white strips of paper in the middle of the desk.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('Six words, written as she said them. Now the archive.'); return; }
+    if (told.in) { busy = false; ER.say('Room 2.14: the chart, the stamps, the strips of paper.'); return; }
+    tell('in');
+    ER.narrate([
+      'The strip light comes on with a ping, and then another ping, and stays on, mostly.',
+      'Petra puts her laptop on the desk and plays the call at a quarter of its speed. Shona&rsquo;s voice comes out slow and deep, like somebody talking under water. Nia looks at the floor.',
+      'Then Petra prints six strips of paper, one for each word she wants, and puts a wooden box of rubber stamps beside them.'
+    ], function () { busy = false; });
+  }
+
+  $('#petra').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;The archive,&rdquo; says Petra. &ldquo;Basement. Mind the third step: it&rsquo;s been loose since 1987.&rdquo;'); return; }
+    ER.talk({
+      who: 'Dr Petra Quilliam', role: 'Your aunt · phonetician', face: AC.face('petra'),
+      lines: [
+        { a: '&ldquo;Six words. I&rsquo;ve slowed each one down and listened to every sound in it, and under each sound I&rsquo;ve written what I hear in plain words. No symbols. The symbols are your job.&rdquo;' },
+        { q: 'Why can&rsquo;t you do it yourself?', a: '&ldquo;I can. And at twenty past one, after a day like this one, I could also be wrong. You&rsquo;ll stamp the symbols from my descriptions. If yours match what I&rsquo;d write, we can trust them.&rdquo;' },
+        { q: 'How do I know which symbol?', a: '&ldquo;The chart on the wall. Every symbol means one sound and only one. Read it first. And use your throat: you can feel the difference between a sound that buzzes and one that doesn&rsquo;t.&rdquo;' },
+        { a: '&ldquo;Pick a stamp, then click the gap. To take a wrong one off, put your stamp back in the box and click the gap. Nobody minds a smudge.&rdquo;' }
+      ],
+      clue: { id: 'petra2', title: 'Petra: the symbols are your job', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('petra')) { paint(); ER.say('The chart on the left wall first.'); } }
+    });
+  });
+  $('#nia').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Nia Prothero', role: 'Research student · teenagers&rsquo; speech', face: AC.face('nia'),
+      lines: [
+        { note: 'Nia is at the window, looking at the rain.', a: '&ldquo;Twelve hundred texts, Yolande says. Scotland, Canada, Ireland, Bristol, somebody in Ohio. Everybody can hear her, and everybody hears themselves.&rdquo;' },
+        { q: 'What do you hear?', a: '&ldquo;Her r. In &lsquo;car park&rsquo; she says both of them. I don&rsquo;t, and I&rsquo;m from Wales. Max doesn&rsquo;t. Most of England doesn&rsquo;t, these days.&rdquo;' },
+        { q: 'And the catch in &ldquo;water&rdquo;?', a: '&ldquo;Put your hand on your throat and say &lsquo;uh-oh&rsquo;. Feel it shut in the middle? That&rsquo;s a glottal stop. She puts one where the t should be. So do I, when my mum isn&rsquo;t listening.&rdquo;' },
+        { a: '&ldquo;Watch the th sounds. &lsquo;Think&rsquo; and &lsquo;this&rsquo; are spelt the same and they&rsquo;re not the same sound at all. One buzzes.&rdquo;' }
+      ],
+      clue: { id: 'nia2', title: 'Nia: uh-oh, and the th that buzzes', kind: 'What she said' },
+      done: function (seen) { if (seen) { tell('nia'); AC.terms(['glottal stop']); } }
+    });
+  });
+
+  var CHART = '<h4>Room 2.14 &middot; wall chart</h4><h3>Writing down sounds</h3><div class="two"><div>' +
+    '<p>English spelling hides sounds. The letters &ldquo;ough&rdquo; are said five different ways in <i>though, through, cough, rough</i> and <i>bough</i>, and &ldquo;car&rdquo; is spelt the same whether you say its r or not. So phoneticians use the <b>International Phonetic Alphabet</b> (IPA): one <b>symbol</b> for one sound, in any language. Symbols are written between slashes.</p>' +
+    '<table><tr><td>' + ipa('/θ/') + ' think</td><td>tongue between the teeth, no buzz</td></tr><tr><td>' + ipa('/ð/') + ' this</td><td>the same, with a buzz</td></tr><tr><td>' + ipa('/ʃ/') + ' ship</td><td>a hiss with rounded lips</td></tr><tr><td>' + ipa('/ʔ/') + ' uh-oh</td><td>the <b>glottal stop</b>: the throat shuts for a moment</td></tr>' +
+    '<tr><td>' + ipa('/æ/') + ' cat</td><td>a short a</td></tr><tr><td>' + ipa('/ɑː/') + ' father</td><td>a long a (' + ipa('ː') + ' means long)</td></tr><tr><td>' + ipa('/h/') + ' hat &middot; ' + ipa('/r/') + ' red</td><td>&middot; ' + ipa('/f/') + ' fat &middot; ' + ipa('/v/') + ' van</td></tr></table>' +
+    '<p>Put a hand on your throat and say <i>zzzz</i>, then <i>ssss</i>. A <b>voiced</b> sound buzzes; a voiceless one does not. ' + ipa('/v/') + ' and ' + ipa('/ð/') + ' are voiced; ' + ipa('/f/') + ' and ' + ipa('/θ/') + ' are not.</p></div>' +
+    '<div class="dia"><svg viewBox="0 0 280 300"><path d="M60 40q90 -40 150 20q30 40 22 90l20 30q-4 10 -22 8l2 26q-2 14 -20 12l-8 34q-30 6 -70 -6l-6 46" fill="none" stroke="#1f2430" stroke-width="4"/>' +
+    '<path d="M222 150q-8 -6 -20 -4" stroke="#1f2430" stroke-width="3" fill="none"/><path d="M234 174h-26M230 186h-24" stroke="#1f2430" stroke-width="5"/><path d="M120 200q40 -36 112 -18" stroke="#c0392b" stroke-width="10" fill="none" stroke-linecap="round"/>' +
+    '<text x="118" y="232" font-family="Kalam,cursive" font-size="17" fill="#c0392b">tongue tip between</text><text x="118" y="250" font-family="Kalam,cursive" font-size="17" fill="#c0392b">the teeth</text>' +
+    '<rect x="40" y="252" width="40" height="22" rx="6" fill="#eaf2f8" stroke="#2f5d7c" stroke-width="3"/><path d="M44 263q8 -8 16 0t16 0" stroke="#2f5d7c" stroke-width="2" fill="none"/><text x="88" y="270" font-family="Kalam,cursive" font-size="17" fill="#2f5d7c">voice box: buzz or not?</text>' +
+    '<text x="140" y="120" font-size="44" fill="#1b2f7a" class="ipa" style="font-family:Times New Roman,serif">θ ð</text></svg></div></div>' +
+    '<p class="fact"><b>A real fact.</b> The International Phonetic Association published the first version of its alphabet in 1888. It is still used, and still revised, today.</p>';
+  $('#chart').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: CHART, cls: 'card', clue: { id: 'chart', title: 'Wall chart: writing down sounds', kind: 'Wall chart' }, done: function () {
+      AC.terms(['IPA', 'symbol', 'glottal stop', 'voiced', 'long vowel', 'vowel', 'consonant']);
+      if (tell('chart')) { paint(); ER.say('Now the strips on the desk, and the stamps.'); }
+    } });
+  });
+  AC.thing('#window', null, 'Rain on the window, and a lamp post shining on a wet path. Somewhere out there, a long way off, there is a car in the water.', isBusy);
+  AC.thing('#stamps', 'rubber stamp', 'A wooden box of rubber stamps, one symbol on each, and an ink pad. First-years love them. So, it turns out, does Petra.', isBusy, function () { if (told.chart && !nextFile) openStrips(); });
+  AC.thing('#laptop', null, 'The laptop is playing the call at a quarter of its speed, over and over. &ldquo;Baaaaath.&rdquo;', isBusy);
+  AC.thing('#chairs', null, 'Blue plastic chairs. One has &ldquo;KEVIN WOZ ERE&rdquo; scratched on the back. Kevin&rsquo;s spelling has its own rules too.', isBusy);
+
+  /* ---------- the slow strips ---------- */
+  /* one row per word: fixed sounds are given, gaps carry Petra's description */
+  var WORDS = [
+    ['car', '00.43.02', [['k'], [1, 'long and open: the a of &ldquo;father&rdquo;'], [2, 'the tongue tip curls back: she says it']]],
+    ['half', '00.43.05', [[3, 'no breath first: straight on to the long a of &ldquo;car&rdquo;'], [4, 'top teeth on the bottom lip, no buzz']]],
+    ['bath', '00.50.21', [['b'], [5, 'long: the same vowel as in &ldquo;half&rdquo;'], [6, 'tongue tip between the teeth, no buzz']]],
+    ['water', '00.43.06', [['w'], ['ɔː'], [7, 'no t: the throat snaps shut, as in &ldquo;uh-oh&rdquo;'], ['ə'], [8, 'the tongue curls back again']]],
+    ['that&rsquo;s', '00.50.40', [[9, 'tongue between the teeth, and this time the throat buzzes'], [10, 'short, as in &ldquo;cat&rdquo;'], ['t'], ['s']]],
+    ['she', '00.42.11', [[11, 'a hiss with rounded lips, wider than s'], ['iː']]]];
+  var STAMPS = [['aa', 'ɑː'], ['ae', 'æ'], ['th', 'θ'], ['dh', 'ð'], ['sh', 'ʃ'], ['q', 'ʔ'], ['r', 'r'], ['h', 'h'], ['f', 'f'], ['v', 'v'], ['t', 't'], ['s', 's']];
+  var SYM = {}; STAMPS.forEach(function (s) { SYM[s[0]] = s[1]; });
+  $('#strips').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Six strips, every gap stamped in blue.'); return; }
+    if (!told.petra) { ER.say('Strips of paper with wavy lines on them. Talk to Petra first.'); return; }
+    if (!told.chart) { ER.say('&ldquo;Chart first,&rdquo; says Petra, without looking round. &ldquo;Then stamps.&rdquo;'); return; }
+    openStrips();
+  });
+  function openStrips() { if (!strips) strips = makeStrips(); strips.open(); }
+  function makeStrips() {
+    var box = ER.el('div', 'pz st'), got = ER.flag('b-st') || {}, pick = null, done = false;
+    box.innerHTML = '<div class="st-in"><div class="st-sheet"><h3>NIGHTJAR, line 3: six words at quarter speed<small>Petra: what I hear. You: the symbols.</small></h3>' +
+      WORDS.map(function (w) {
+        return '<div class="row"><div class="wd">' + w[0] + '<small>' + w[1] + '</small></div><div><div class="snds">' + w[2].map(function (s) {
+          if (typeof s[0] === 'string') return '<div class="snd fixed"><div class="box">' + ipa(s[0]) + '</div></div>';
+          return '<div class="snd gap" data-n="' + s[0] + '"><div class="box"></div><div class="ds">' + s[1] + '</div></div>';
+        }).join('') + '</div></div></div>';
+      }).join('') + '</div><div class="rack"><h5>Stamps</h5><div class="stamps">' +
+      STAMPS.map(function (s) { return '<button type="button" class="stamp" data-k="' + s[0] + '">' + ipa(s[1]) + '</button>'; }).join('') +
+      '</div><p>Pick a stamp, then click a gap. To clean a gap, click the stamp you are holding to put it down, then click the gap.</p></div></div>' +
+      '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="s-go">Show Petra</button></div>';
+    var msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function show(n) { var g = box.querySelector('.snd.gap[data-n="' + n + '"] .box'); g.innerHTML = got[n] ? ipa(SYM[got[n]]) : ''; }
+    for (var n = 1; n <= 11; n++) show(n);
+    ER.$$('.stamp', box).forEach(function (b) {
+      b.addEventListener('click', function () {
+        if (done) return;
+        pick = pick === b.getAttribute('data-k') ? null : b.getAttribute('data-k');
+        ER.$$('.stamp', box).forEach(function (o) { o.classList.toggle('on', o.getAttribute('data-k') === pick); });
+        ER.sfx.click();
+      });
+    });
+    ER.$$('.snd.gap', box).forEach(function (g) {
+      g.addEventListener('click', function () {
+        if (done) return;
+        var n = g.getAttribute('data-n');
+        g.classList.remove('bad');
+        if (pick) { got[n] = pick; AC.sfx.stamp(); }
+        else if (got[n]) { delete got[n]; AC.sfx.pencil(); }
+        else { msg('Pick a stamp from the box first, then click this gap.'); return; }
+        ER.flag('b-st', got); show(n);
+      });
+    });
+    var WHY = {
+      aa: 'Long or short? Listen to the description again, and look at the chart: which word has a short a?',
+      ae: 'Long or short? Petra&rsquo;s note says which. The short a of &ldquo;cat&rdquo; is only one of the two.',
+      th: 'Buzz or no buzz? Put your hand on your throat. Petra&rsquo;s note says which.',
+      dh: 'Buzz or no buzz? Put your hand on your throat. Petra&rsquo;s note says which.',
+      f: 'Is it the lip and the teeth? Petra&rsquo;s note says where the tongue is.',
+      v: 'Buzz or no buzz? And is it the lip at all?',
+      h: 'She doesn&rsquo;t say an h in that word. That is one of the things Petra noticed first.',
+      t: 'Is there a t? Read the note again: what happens instead?',
+      s: 'An s is narrower than this. Which symbol is the hiss with rounded lips?',
+      sh: 'Is it a hiss? Read the note under it again.',
+      r: 'Does the tongue curl back here? Read the note again.',
+      q: 'A glottal stop is the catch in &ldquo;uh-oh&rdquo;. Is that what the note describes?'
+    };
+    box.querySelector('#s-go').addEventListener('click', function () {
+      if (done) return;
+      var i, k = 0, bad = 0, out = [];
+      for (i = 1; i <= 11; i++) { if (got[i]) k++; out.push(got[i] || '_'); }
+      if (k < 11) { ER.sfx.no(); msg(k ? 'Eleven gaps, and ' + k + ' of them stamped. Every gap needs a symbol.' : 'Pick a stamp from the box on the right, then click a dashed gap.'); return; }
+      for (i = 1; i <= 11; i++) if (!ER.check('s' + i, got[i])) { bad = i; break; }
+      if (bad) {
+        ER.sfx.no();
+        var g = box.querySelector('.snd.gap[data-n="' + bad + '"]'), word = g.closest('.row').querySelector('.wd').childNodes[0].textContent;
+        g.classList.add('bad'); ER.shake(g);
+        msg('Petra puts a pencil dot by &ldquo;' + word + '&rdquo;. ' + WHY[got[bad]]);
+        return;
+      }
+      done = true;
+      nextFile = ER.exit([out.join('.')], { wait: true });
+      if (!nextFile) { msg('The way on will not open. Something is wrong with this page: tell your teacher.'); return; }
+      ER.flag('b-file', nextFile); paint();
+      AC.terms(['rhotic']);
+      AC.mine('ipa', 'Shona, in symbols', '<p>car ' + ipa('/kɑːr/') + ' &middot; half ' + ipa('/ɑːf/') + ' &middot; bath ' + ipa('/bɑːθ/') + '</p><p>water ' + ipa('/wɔːʔər/') + ' &middot; that&rsquo;s ' + ipa('/ðæts/') + ' &middot; she ' + ipa('/ʃiː/') + '</p><p>She says every r she spells (rhotic).</p><p>&ldquo;Bath&rdquo; and &ldquo;half&rdquo;: the LONG a, ' + ipa('/ɑː/') + ', not ' + ipa('/æ/') + '.</p><p>No h in half.</p><p>A glottal stop ' + ipa('/ʔ/') + ' for the t in water.</p>');
+      msg('<b>Petra reads them twice and nods.</b> &ldquo;Exactly what I&rsquo;d have written. Every r said. A long a in &lsquo;bath&rsquo; and &lsquo;half&rsquo;. No h. A glottal stop for t. Now we can put her on a map.&rdquo;');
+      setTimeout(function () {
+        ER.closeAll(); busy = true;
+        ER.narrate([
+          'Petra copies the six words on to the whiteboard in big blue letters, and steps back.',
+          '&ldquo;Every r said: people call that a <b>rhotic</b> accent. Long a in &lsquo;bath&rsquo;. No h. Each of those is true of millions of people. Each one alone is useless.&rdquo;',
+          '&ldquo;Together, they are not useless at all. The archive has the films. Come on.&rdquo;'
+        ], function () { busy = false; $('#go').classList.add('on'); });
+      }, 3000);
+    });
+    msg(Object.keys(got).length ? 'Your stamps are where you left them.' : 'Pick a stamp, then click a gap. Read Petra&rsquo;s note under each gap.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

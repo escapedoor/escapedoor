@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Archive · Where's It To?</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lang.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="ac.css">
+<style>
+  body{--bg:#2a1e18;--accent:#4ec3b0;--font-display:'Old Standard TT',serif;--font-ui:'Outfit',sans-serif;--font-body:'Gentium Book Plus',serif;
+    --tc-bg:rgba(36,26,20,.96);--tc-ink:#f3e6d2;--cap-bg:rgba(38,28,22,.95);--cap-ink:#f3e6d2;--panel:#f7f0e2;--panel-ink:#2a1e18;--face-bg:#3f6b4f;--q-ink:#2a7a6e;
+    --fade:#140e0a;--hud-bg:rgba(38,28,22,.86);--hud-ink:#f3e6d2;--hud-line:rgba(243,230,210,.3);--ov-bg:rgba(14,10,8,.7)}
+  .tc-room{font-size:clamp(40px,6vw,84px);color:#4ec3b0}
+  .tc-theme{color:#e8b87a}
+  .hbtn b{color:#2a1e18}
+  #drip{animation:drip 2.8s ease-in infinite}
+  @keyframes drip{0%,40%{transform:translate(0,0);opacity:0}45%{opacity:1}100%{transform:translate(0,520px);opacity:1}}
+  #glowt{animation:glowt 5s steps(2,end) infinite}
+  @keyframes glowt{50%{opacity:.85}}
+  /* the light table */
+  .lt{width:min(1120px,97vw)}
+  .lt-in{display:grid;grid-template-columns:1fr 330px;gap:14px;align-items:start}
+  .lt-table{background:#e9f4f6;border:14px solid #5a4636;border-radius:6px;box-shadow:0 0 40px rgba(220,250,255,.25),0 26px 70px rgba(0,0,0,.6);padding:6px;position:relative}
+  .lt-table svg{width:100%;height:auto;max-height:calc(100vh - 230px)}
+  .rg{cursor:pointer;stroke:#3a4a52;stroke-width:1.6;stroke-linejoin:round}
+  .rg:hover{stroke:#c0392b;stroke-width:3}
+  .rack{background:#3a2c22;border-radius:6px;padding:10px 12px 12px;box-shadow:0 26px 60px rgba(0,0,0,.5)}
+  .rack h5{margin:0 0 6px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:#f3e6d2}
+  .film{display:flex;align-items:center;gap:8px;width:100%;margin:0 0 5px;padding:6px 8px 5px;border:2px solid #6a5848;border-radius:3px;background:rgba(220,240,245,.08);color:#f3e6d2;font-family:'Gentium Book Plus',serif;font-size:15px;line-height:1.15;text-align:left;cursor:pointer}
+  .film i{flex:0 0 18px;height:18px;border:2px solid #9ab8c0;border-radius:2px;background:transparent}
+  .film.on{background:#dff3f6;color:#1e2a30;border-color:#4ec3b0}
+  .film.on i{background:#4ec3b0;border-color:#2a7a6e}
+  .film:hover{border-color:#4ec3b0}
+  .film .ipa{font-size:1.08em}
+  .rack p{margin:6px 0 0;font-family:'Gentium Book Plus',serif;font-size:13.5px;line-height:1.3;color:#d8c8b0}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="brick" width="80" height="40" patternUnits="userSpaceOnUse"><rect width="80" height="40" fill="#5a3a2c"/><path d="M0 0H80M0 20H80M20 0V20M60 20V40" stroke="#3a2418" stroke-width="3"/><rect x="24" y="3" width="32" height="14" fill="#64422f" opacity=".6"/></pattern>
+  <pattern id="conc" width="90" height="90" patternUnits="userSpaceOnUse"><rect width="90" height="90" fill="#3a3430"/><circle cx="20" cy="30" r="2" fill="#2a2420"/><circle cx="60" cy="70" r="3" fill="#4a423c"/></pattern>
+  <radialGradient id="lamp" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffe2a8" stop-opacity=".5"/><stop offset="1" stop-color="#ffe2a8" stop-opacity="0"/></radialGradient>
+  <radialGradient id="tglow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#e8fbff" stop-opacity=".55"/><stop offset="1" stop-color="#e8fbff" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="75%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".6" stop-color="#0a0604" stop-opacity=".25"/><stop offset="1" stop-color="#0a0604" stop-opacity=".75"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1060" fill="url(#brick)"/>
+<rect x="-1000" y="660" width="3600" height="800" fill="url(#conc)"/>
+<!-- pipes and the drip -->
+<g stroke-linecap="round"><path d="M-1000 40H2600" stroke="#6a6a62" stroke-width="22"/><path d="M-1000 80H2600" stroke="#7a5a3a" stroke-width="12"/><path d="M900 40v40" stroke="#5a5a52" stroke-width="30"/></g>
+<circle id="drip" cx="1330" cy="90" r="5" fill="#9fc4e0"/>
+<ellipse cx="1330" cy="740" rx="40" ry="8" fill="#2a3a44" opacity=".7"/><rect x="1310" y="716" width="40" height="28" rx="3" fill="#8a2a1e"/>
+<!-- shelves, left -->
+<g id="shelvesL" class="hot"><rect x="-260" y="140" width="560" height="560" fill="#5a5f66"/><g fill="#3a3f46"><rect x="-260" y="270" width="560" height="10"/><rect x="-260" y="410" width="560" height="10"/><rect x="-260" y="550" width="560" height="10"/></g>
+  <g fill="#c9b48a" stroke="#8a7650" stroke-width="2"><rect x="-200" y="186" width="90" height="84"/><rect x="-100" y="196" width="90" height="74"/><rect x="0" y="186" width="90" height="84"/><rect x="100" y="200" width="90" height="70"/><rect x="200" y="186" width="80" height="84"/>
+  <rect x="-200" y="330" width="90" height="80"/><rect x="0" y="330" width="90" height="80"/><rect x="100" y="340" width="90" height="70"/><rect x="-100" y="470" width="90" height="80"/><rect x="100" y="470" width="90" height="80"/></g>
+  <g fill="#2a2420"><circle cx="-50" cy="372" r="34"/><circle cx="220" cy="512" r="34"/><circle cx="20" cy="512" r="30"/></g><g fill="#8a8a82"><circle cx="-50" cy="372" r="8"/><circle cx="220" cy="512" r="8"/><circle cx="20" cy="512" r="7"/></g>
+  <g class="cC" font-size="18" fill="#3a2a1a"><text x="-190" y="230">SED 1953</text><text x="10" y="230">Devon</text><text x="210" y="230">Leeds</text><text x="10" y="372">Fife</text><text x="110" y="380">Cork</text></g></g>
+<!-- the atlas on its stand -->
+<g id="atlas" class="hot"><path d="M380 660l40 -150h40l40 150" stroke="#3a2a1a" stroke-width="10" fill="none"/><path d="M330 520l110 -40 110 40 -110 30z" fill="#7a2a22"/><path d="M342 514l98 -34 98 34 -98 26z" fill="#f3ecd8"/><path d="M440 480v60" stroke="#7a2a22" stroke-width="4"/>
+  <path d="M362 510l60 -20M362 518l60 -20M458 494l60 18M458 502l60 18" stroke="#9a8a6a" stroke-width="3"/></g>
+<!-- the light table -->
+<ellipse cx="800" cy="560" rx="420" ry="260" fill="url(#tglow)" pointer-events="none"/>
+<g id="table" class="hot"><path d="M600 700v150M1000 700v150M620 860h-40M1020 860h-40" stroke="#3a2a1a" stroke-width="14"/>
+  <path d="M560 640l60 -90h360l60 90z" fill="#5a4636"/><path id="glowt" d="M584 630l50 -72h332l50 72z" fill="#e8fbff"/>
+  <path d="M760 570q30 -6 40 10q-4 20 10 30q-30 16 -60 6q-10 -22 10 -46z" fill="none" stroke="#8aa8b0" stroke-width="3"/><path d="M700 600q20 -10 30 2" stroke="#8aa8b0" stroke-width="3" fill="none"/>
+  <path d="M560 640h480v22H560z" fill="#3a2a1a"/></g>
+<g id="films" class="hot"><rect x="930" y="586" width="70" height="40" rx="3" fill="#2a3a44" transform="rotate(-6 965 606)"/><rect x="938" y="580" width="60" height="10" fill="#cfe8ee" opacity=".8" transform="rotate(-6 965 606)"/></g>
+<!-- the lamp -->
+<g><path d="M1080 620l-40 -110 50 -40" stroke="#2a2a2a" stroke-width="7" fill="none"/><path d="M1068 452l60 10 -14 40 -60 -12z" fill="#2a6a5a"/><ellipse cx="1060" cy="520" rx="220" ry="160" fill="url(#lamp)" pointer-events="none"/></g>
+<!-- the card cabinet -->
+<g id="cabinet" class="hot"><rect x="1160" y="420" width="200" height="280" fill="#8a5a32"/><g fill="#a8743e" stroke="#6a4222" stroke-width="2"><rect x="1172" y="434" width="84" height="52"/><rect x="1264" y="434" width="84" height="52"/><rect x="1172" y="494" width="84" height="52"/><rect x="1264" y="494" width="84" height="52"/><rect x="1172" y="554" width="84" height="52"/><rect x="1264" y="554" width="84" height="52"/><rect x="1172" y="614" width="84" height="52"/><rect x="1264" y="614" width="84" height="52"/></g>
+  <g fill="#d8c8a0"><rect x="1200" y="452" width="28" height="12"/><rect x="1292" y="452" width="28" height="12"/><rect x="1200" y="512" width="28" height="12"/><rect x="1292" y="512" width="28" height="12"/><rect x="1200" y="572" width="28" height="12"/><rect x="1292" y="572" width="28" height="12"/><rect x="1200" y="632" width="28" height="12"/><rect x="1292" y="632" width="28" height="12"/></g></g>
+<!-- shelves, right -->
+<g><rect x="1420" y="140" width="600" height="560" fill="#5a5f66"/><g fill="#3a3f46"><rect x="1420" y="270" width="600" height="10"/><rect x="1420" y="410" width="600" height="10"/><rect x="1420" y="550" width="600" height="10"/></g>
+  <g fill="#c9b48a" stroke="#8a7650" stroke-width="2"><rect x="1440" y="186" width="90" height="84"/><rect x="1540" y="196" width="90" height="74"/><rect x="1440" y="330" width="90" height="80"/><rect x="1540" y="470" width="90" height="80"/><rect x="1640" y="330" width="90" height="80"/></g></g>
+<g id="petra" class="hot" transform="translate(260 890) scale(1.02)"></g>
+<g id="nia" class="hot" transform="translate(1250 892) scale(1.0)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Up to the common room</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="ac.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, nextFile = null, lt = null, ipa = AC.ipa;
+
+  $('#petra').innerHTML = AC.who('petra', { smile: 1 });
+  $('#nia').innerHTML = AC.who('nia', { smile: 4 });
+
+  ER.init({
+    theme: 'lang', story: 'accent', storyTitle: 'Where’s It To?', id: 'archive', no: 'III', title: 'The Archive',
+    go: 'Go down the stairs',
+    intro: [
+      'In Room 2.14 you stamped Shona&rsquo;s sounds from Petra&rsquo;s descriptions: car ' + ipa('/kɑːr/') + ', half ' + ipa('/ɑːf/') + ', bath ' + ipa('/bɑːθ/') + ', water ' + ipa('/wɔːʔər/') + '. She says every r she spells, she has the long a in &ldquo;bath&rdquo;, she drops her h, and she uses a glottal stop for t.',
+      'The archive is under the Rennie Building, under the boiler, under everything. It keeps seventy years of recorded voices in cardboard boxes, and it has the only light table in the department.'
+    ],
+    exit: {"next":"common","w":{"6ba8a878":"c66a5b3a","be96ffc3":"81dc7ea2"}}, tags: {"ok":["ebf1950c","7e9cacc5","399582bb","a5efe8d1","1377e360"],"need":["b2f065b6","88533c54","50b25624","dde134c1"],"mis":["c9ff89da","5ecfe8c1"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('c-told') || {}; nextFile = ER.flag('c-file') || null;
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('c-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#petra').classList.toggle('ready', !told.petra);
+    $('#atlas').classList.toggle('ready', !!(told.petra && !told.atlas));
+    $('#table').classList.toggle('ready', !!(told.atlas && !nextFile));
+    ER.pips((told.petra ? 1 : 0) + (told.atlas ? 1 : 0) + (nextFile ? 1 : 0), 3);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The South-West&rsquo;s control room has the case now. The button at the bottom takes you up to the common room.']];
+    if (lt && lt.isOpen()) return ['table', [
+      'Lay only the films that match what you know about Shona. For each pair (r said or not, long or short a, h dropped or kept), your notes from Room 2.14 say which one.',
+      'Two of her words could have come from somebody else. Yolande said where the &ldquo;wee&rdquo; comes from, and in the call Shona says where her &ldquo;fall&rdquo; comes from. A film that leaves no region in yellow is a film to take off.',
+      'Lay: r said, long a in bath, h dropped, and &ldquo;Where&rsquo;s it to?&rdquo; (the glottal stop film does no harm: it covers all of Britain). Then click the one region that lights up yellow, and tell the police.'
+    ]];
+    if (!told.petra) return ['petra', ['Petra is on the left, by the shelves. Talk to her.']];
+    if (!told.atlas) return ['atlas', ['The big red book on the stand is the atlas. Click it and read the page that is open.']];
+    return ['table', ['The light table is in the middle of the room, glowing. Click it to lay the films.', 'Nia, on the right, has something to say about the films for &ldquo;wee&rdquo; and &ldquo;fall&rdquo;.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('The South-West. Tamsin Rowe has the case now.'); return; }
+    if (told.in) { busy = false; ER.say('The archive: shelves of voices, the atlas, the light table.'); return; }
+    tell('in');
+    ER.narrate([
+      'The archive smells of cardboard and old tape. Something drips, somewhere, into a red bucket that has clearly been there for years.',
+      'In the middle of the room, a table with a top of white glass lights up when Petra presses a switch, and the whole basement goes the colour of snow.',
+      'Nia carries a flat box over to it and lifts the lid: maps printed on clear plastic film, each one with a few regions coloured in.'
+    ], function () { busy = false; });
+  }
+
+  $('#petra').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Common room,&rdquo; says Petra. &ldquo;Kettle. Then whatever Yolande&rsquo;s found.&rdquo;'); return; }
+    ER.talk({
+      who: 'Dr Petra Quilliam', role: 'Your aunt · phonetician', face: AC.face('petra'),
+      lines: [
+        { a: '&ldquo;My teaching films. Each one is a map of Britain and Ireland, with the places coloured where people do one thing: say their r, or drop their h, or say a certain word.&rdquo;' },
+        { q: 'How do they help?', a: '&ldquo;Lay one film on the table and half the country lights up. Lay another on top, and only the places coloured on both stay bright. Lay enough, and one region is left. That region fits every clue at once.&rdquo;' },
+        { q: 'Which films do we use?', a: '&ldquo;Only the ones we know are true of her, and only the ones that tell us where she grew up. Read the atlas first: it says what each sound means on a map. Then think about every film before it goes down.&rdquo;' },
+        { a: '&ldquo;When one region is left, ring it on the glass with the wax pencil, and I&rsquo;ll call the police.&rdquo;' }
+      ],
+      clue: { id: 'petra3', title: 'Petra: the films on the light table', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('petra')) { paint(); ER.say('The atlas on the stand first.'); } }
+    });
+  });
+  $('#nia').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Cornwall, Devon, Somerset, Dorset and more,&rdquo; says Nia. &ldquo;Moors, valleys, thousands of lanes. It&rsquo;s still enormous.&rdquo;'); return; }
+    ER.talk({
+      who: 'Nia Prothero', role: 'Research student · teenagers&rsquo; speech', face: AC.face('nia'),
+      lines: [
+        { note: 'Nia is holding two films up to the light, one in each hand.', a: '&ldquo;Here&rsquo;s the thing. If you only had &lsquo;fall&rsquo;, you&rsquo;d say she&rsquo;s American, and you&rsquo;d be following the evidence. That&rsquo;s what this film says.&rdquo; She waves it. &ldquo;North America, and nowhere else.&rdquo;' },
+        { q: 'And &ldquo;wee&rdquo;?', a: '&ldquo;Scotland and Northern Ireland. Her name&rsquo;s Shona and her surname&rsquo;s Scottish, Yolande says. A lot of the texts say Glasgow.&rdquo;' },
+        { q: 'So which is it?', a: '&ldquo;Maybe neither. The question isn&rsquo;t &lsquo;did she say it?&rsquo; She did. The question is &lsquo;where did she get it?&rsquo; A word you learnt from your dad, or from your kid&rsquo;s cartoons, tells you about your dad and the cartoons.&rdquo;' },
+        { a: '&ldquo;Her accent&rsquo;s different. You don&rsquo;t pick up a whole accent from one person. You get it from everybody round you when you&rsquo;re small.&rdquo;' }
+      ],
+      clue: { id: 'nia3', title: 'Nia: where did she get the word?', kind: 'What she said' },
+      done: function (seen) { if (seen) tell('nia'); }
+    });
+  });
+
+  /* ---------- the map: Britain and Ireland, and a corner for North America ---------- */
+  var RG = {
+    sco: ['Scotland', '128,40 165,18 205,22 238,40 228,70 250,95 246,120 222,140 236,160 228,190 196,198 172,214 150,206 138,180 118,168 126,140 108,120 118,96 106,70'],
+    ne: ['the North-East of England', '228,190 252,240 226,246 205,240 196,198'],
+    nw: ['the North-West of England (Cumbria and Lancashire)', '172,214 196,198 205,240 200,300 178,300 168,270 176,240'],
+    yor: ['Yorkshire', '205,240 226,246 252,240 272,290 258,302 240,312 200,300'],
+    mid: ['the Midlands', '178,300 200,300 240,312 258,302 262,330 272,345 268,380 240,400 200,400 180,380 176,340'],
+    wal: ['Wales', '178,300 176,340 180,380 172,410 150,420 128,410 140,380 120,360 132,320 150,300'],
+    ea: ['East Anglia', '262,330 300,330 325,355 318,392 280,398 268,380 272,345'],
+    se: ['London and the South-East', '240,400 268,380 280,398 318,392 330,430 322,455 280,468 240,470 226,440'],
+    sw: ['the South-West of England', '172,410 200,400 240,400 226,440 240,470 200,478 170,482 140,500 110,522 118,500 150,470 165,440'],
+    ni: ['Northern Ireland', '62,222 100,214 114,240 96,264 62,258'],
+    ire: ['Ireland', '62,258 96,264 110,292 100,350 60,378 24,360 20,300 36,262'],
+    am: ['North America', '16,474 44,450 80,458 88,488 70,516 34,512 14,496']
+  };
+  var FILMS = [
+    ['rY', 'r in &ldquo;car&rdquo;: SAID (rhotic)', ['sco', 'ni', 'ire', 'sw', 'nw', 'am']],
+    ['rN', 'r in &ldquo;car&rdquo;: NOT said', ['ne', 'yor', 'mid', 'wal', 'ea', 'se']],
+    ['bL', '&ldquo;bath&rdquo;: LONG a ' + ipa('/ɑː/'), ['sw', 'se', 'ea']],
+    ['bS', '&ldquo;bath&rdquo;: SHORT a ' + ipa('/æ/'), ['sco', 'ni', 'ire', 'nw', 'ne', 'yor', 'mid', 'wal', 'am']],
+    ['hD', 'h often DROPPED', ['sw', 'se', 'ea', 'mid', 'wal', 'nw', 'yor']],
+    ['hK', 'h nearly always KEPT', ['sco', 'ni', 'ire', 'ne', 'am']],
+    ['gl', 'glottal stop for t in &ldquo;water&rdquo;', ['sco', 'ni', 'nw', 'ne', 'yor', 'mid', 'wal', 'ea', 'se', 'sw']],
+    ['to', '&ldquo;Where&rsquo;s it to?&rdquo;', ['sw']],
+    ['wee', '&ldquo;wee&rdquo; for small', ['sco', 'ni']],
+    ['fall', '&ldquo;fall&rdquo; for autumn', ['am']],
+    ['yall', '&ldquo;y&rsquo;all&rdquo; for &ldquo;you&rdquo; (to several people)', ['am']]];
+  var FN = {}; FILMS.forEach(function (f) { FN[f[0]] = f; });
+
+  var ATLAS = '<h4>An Atlas of English Accents &middot; page 12</h4><h3>Three sounds, three maps</h3><div class="two"><div>' +
+    '<p><b>The r in &ldquo;car&rdquo;.</b> Speakers who say every r they spell are <b>rhotic</b>: most people in Scotland and Ireland, many in the South-West of England and in parts of Lancashire (especially older speakers), and most North Americans. Most of the rest of England, and Wales, is <b>non-rhotic</b>.</p>' +
+    '<p><b>The vowel in &ldquo;bath&rdquo;.</b> In the south of England, <i>bath, grass</i> and <i>last</i> have the long vowel of <i>father</i>, ' + ipa('/ɑː/') + '. In the north and the Midlands they have the short vowel of <i>cat</i>, ' + ipa('/æ/') + '. A line on a map between two ways of saying something is an <b>isogloss</b>; this one runs roughly from the Severn to the Wash.</p>' +
+    '<p><b>The h in &ldquo;house&rdquo;.</b> In relaxed speech, <b>h-dropping</b> is common in most of England and Wales. It is rare in Scotland, Ireland and the far North-East of England.</p>' +
+    '<p>No single sound places a speaker. Lay the maps over each other.</p></div>' +
+    '<div class="dia"><svg viewBox="90 0 200 530">' + ['sco', 'ne', 'nw', 'yor', 'mid', 'wal', 'ea', 'se', 'sw'].map(function (k) { return '<polygon points="' + RG[k][1] + '" fill="' + (/^(sw|se|ea)$/.test(k) ? '#f4d9a0' : '#cfe3ee') + '" stroke="#5a6a72" stroke-width="1.5"/>'; }).join('') +
+    '<path d="M150 418Q200 380 240 352T322 340" stroke="#c0392b" stroke-width="4" fill="none" stroke-dasharray="8 5"/><text x="214" y="296" font-family="Kalam,cursive" font-size="17" fill="#2f5d7c">short a</text><text x="250" y="440" font-family="Kalam,cursive" font-size="17" fill="#8a5a1a">long a</text><text x="96" y="470" font-family="Kalam,cursive" font-size="15" fill="#c0392b">the isogloss</text><text x="96" y="488" font-family="Kalam,cursive" font-size="15" fill="#c0392b">Severn to Wash</text></svg></div></div>' +
+    '<p class="fact"><b>A real fact.</b> Between 1950 and 1961 the Survey of English Dialects sent fieldworkers to 313 places in England, mostly to record older people in the countryside before their way of speaking disappeared. The tapes on these shelves started there.</p>';
+  $('#atlas').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: ATLAS, cls: 'card', clue: { id: 'atlas', title: 'The atlas: three sounds, three maps', kind: 'Atlas' }, done: function () {
+      AC.terms(['rhotic', 'non-rhotic', 'isogloss', 'h-dropping']);
+      if (tell('atlas')) { paint(); ER.say('Now the light table.'); }
+    } });
+  });
+  AC.thing('#shelvesL', 'archive', 'Boxes of tapes, labelled in pencil: Devon 1953, Leeds, Fife, Cork. Seventy years of people talking about the weather, their sheep and their grandmothers.', isBusy);
+  AC.thing('#cabinet', null, 'A card cabinet: one card for every recording, filed by county. The drawer marked DEVON sticks, as if it is full.', isBusy);
+  AC.thing('#films', null, 'The box of films, open. Eleven sheets of clear plastic, each with a map on it.', isBusy, function () { if (told.atlas && !nextFile) openLt(); });
+  $('#table').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('One region still glows on the glass, with a red wax ring round it.'); return; }
+    if (!told.petra) { ER.say('A table with a top of white glass, glowing. Talk to Petra first.'); return; }
+    if (!told.atlas) { ER.say('&ldquo;Atlas,&rdquo; says Petra, pointing at the red book. &ldquo;Then films.&rdquo;'); return; }
+    openLt();
+  });
+  function openLt() { if (!lt) lt = makeLt(); lt.open(); }
+
+  /* ---------- the light table ---------- */
+  function makeLt() {
+    var box = ER.el('div', 'pz lt'), on = ER.flag('c-on') || {}, ring = ER.flag('c-ring') || null, done = false;
+    var svg = '<svg viewBox="0 0 360 560" xmlns="http://www.w3.org/2000/svg"><rect x="-50" y="-50" width="460" height="660" fill="#e9f4f6"/>' +
+      '<rect x="4" y="420" width="96" height="122" fill="none" stroke="#8aa0a8" stroke-width="2" stroke-dasharray="5 4"/><text x="9" y="436" font-family="IBM Plex Mono,monospace" font-size="9" fill="#5a6a72">NOT TO SCALE</text>' +
+      Object.keys(RG).map(function (k) { return '<polygon class="rg" data-r="' + k + '" points="' + RG[k][1] + '"/>'; }).join('') +
+      '<g font-family="Caveat,cursive" font-size="15" fill="#3a4a52" pointer-events="none"><text x="150" y="110">Scotland</text><text x="40" y="320">Ireland</text><text x="136" y="368">Wales</text><text x="10" y="534" font-size="13">N. America</text><text x="160" y="470">S.W.</text><text x="270" y="434">S.E.</text></g>' +
+      '<ellipse id="ring" cx="0" cy="0" rx="34" ry="24" fill="none" stroke="#c0392b" stroke-width="5" opacity="0" pointer-events="none"/></svg>';
+    box.innerHTML = '<div class="lt-in"><div class="lt-table">' + svg + '</div><div class="rack"><h5>The films</h5>' +
+      FILMS.map(function (f) { return '<button type="button" class="film" data-f="' + f[0] + '"><i></i><span>' + f[1] + '</span></button>'; }).join('') +
+      '<p>Click a film to lay it on the glass, or to lift it off. Then click a region to ring it.</p></div></div>' +
+      '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="l-go">Petra, ring the police</button></div>';
+    var msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function laid() { return FILMS.map(function (f) { return f[0]; }).filter(function (k) { return on[k]; }); }
+    function count(r) { return laid().filter(function (k) { return FN[k][2].indexOf(r) >= 0; }).length; }
+    function paintMap() {
+      var L = laid(), n = L.length;
+      ER.$$('.film', box).forEach(function (b) { b.classList.toggle('on', !!on[b.getAttribute('data-f')]); });
+      ER.$$('.rg', box).forEach(function (p) {
+        var r = p.getAttribute('data-r'), c = count(r);
+        p.setAttribute('fill', !n ? '#f4f8f8' : c === n ? '#f2c94c' : c ? 'rgba(47,93,124,' + (0.12 + 0.5 * c / n).toFixed(2) + ')' : '#f4f8f8');
+      });
+      var R = box.querySelector('#ring');
+      if (ring) {
+        var pts = RG[ring][1].split(' ').map(function (s) { return s.split(',').map(Number); }), cx = 0, cy = 0;
+        pts.forEach(function (q) { cx += q[0]; cy += q[1]; }); cx /= pts.length; cy /= pts.length;
+        R.setAttribute('cx', cx); R.setAttribute('cy', cy); R.setAttribute('opacity', 1);
+      } else R.setAttribute('opacity', 0);
+    }
+    ER.$$('.film', box).forEach(function (b) {
+      b.addEventListener('click', function () {
+        if (done) return;
+        var k = b.getAttribute('data-f'); on[k] = !on[k]; if (!on[k]) delete on[k];
+        ER.flag('c-on', on); AC.sfx.film(); paintMap();
+        var L = laid(), any = Object.keys(RG).some(function (r) { return count(r) === L.length; });
+        if (L.length > 1 && !any) msg('Nothing is yellow now: no region fits every film on the glass. One of them does not belong.');
+        else msg(L.length ? L.length + (L.length === 1 ? ' film' : ' films') + ' on the glass. Yellow is where every film agrees.' : 'The glass is empty.');
+      });
+    });
+    ER.$$('.rg', box).forEach(function (p) {
+      p.addEventListener('click', function () {
+        if (done) return;
+        ring = p.getAttribute('data-r'); ER.flag('c-ring', ring); AC.sfx.pencil(); paintMap();
+        msg('You ring ' + RG[ring][0] + ' in red wax.');
+      });
+    });
+    box.querySelector('#l-go').addEventListener('click', function () {
+      if (done) return;
+      var L = laid(), i, k;
+      if (!L.length) { ER.sfx.no(); msg('Lay some films on the glass first: only the ones that are true of Shona.'); return; }
+      for (i = 0; i < L.length; i++) {
+        k = L[i];
+        if (k === 'yall') { ER.sfx.no(); msg('&ldquo;Y&rsquo;all?&rdquo; says Nia. &ldquo;She never said it. Her boy might, mind.&rdquo; Lift that film off.'); return; }
+        if (!ER.check('ok', k) && !ER.check('mis', k)) { ER.sfx.no(); msg('Petra lifts the film &ldquo;' + FN[k][1] + '&rdquo; and holds it to the lamp. &ldquo;Is that what you stamped in Room 2.14? Look at your notes: Shona, in symbols.&rdquo;'); return; }
+      }
+      for (i = 0; i < FILMS.length; i++) { k = FILMS[i][0]; if (ER.check('need', k) && !on[k]) { ER.sfx.no(); msg('Petra counts the films. &ldquo;We know more about her than this. Something we wrote down about her accent or her grammar isn&rsquo;t on the glass.&rdquo;'); return; } }
+      for (i = 0; i < L.length; i++) {
+        k = L[i];
+        if (ER.check('mis', k)) { ER.sfx.no(); msg('Nia taps the film &ldquo;' + FN[k][1] + '&rdquo;. &ldquo;She said it, yes. But is it hers, from where she grew up? Or did she get it from somebody? Read the call again, and what Yolande told us.&rdquo;'); return; }
+      }
+      if (!ring) { ER.sfx.no(); msg('Now ring the region that lights up: click it on the map.'); return; }
+      if (count(ring) !== L.length) { ER.sfx.no(); msg('Your red ring is round ' + RG[ring][0] + ', and not every film covers it. Look for the region in yellow.'); return; }
+      done = true;
+      nextFile = ER.exit([L.slice().sort().join('.') + '|' + ring], { wait: true });
+      if (!nextFile) { msg('The way on will not open. Something is wrong with this page: tell your teacher.'); return; }
+      ER.flag('c-file', nextFile); paint();
+      AC.mine('region', 'Where Shona grew up', '<p>r said (rhotic) + long a in bath + h dropped + &ldquo;Where&rsquo;s it to?&rdquo; = the South-West of England.</p><p>&ldquo;Wee&rdquo;: from her dad, who is from Glasgow.</p><p>&ldquo;Fall&rdquo;: from her boy&rsquo;s cartoons (&ldquo;and now I&rsquo;ve started!&rdquo;).</p><p>Words travel. Accents mostly stay where you grew up.</p>');
+      msg('<b>The South-West of England.</b> Rhotic, a long a in &ldquo;bath&rdquo;, no h, and &ldquo;Where&rsquo;s it to?&rdquo;. &ldquo;Wee&rdquo; is her dad&rsquo;s and &ldquo;fall&rdquo; is her boy&rsquo;s. Petra is already dialling.');
+      setTimeout(function () {
+        ER.closeAll(); busy = true; AC.sfx.ring();
+        ER.narrate([
+          'Petra talks to the police for four minutes, very calmly, using the word &ldquo;rhotic&rdquo; twice and then explaining it. Then she puts the phone on the table and switches it to speaker.',
+          'A new voice, brisk and warm: &ldquo;Tamsin Rowe, watch manager, fire and rescue control for the South-West. The police have passed her to us. Thank you, Dr Quilliam. Now tell me something I can use.&rdquo;',
+          '&ldquo;The South-West is a very big place, with moors and valleys and more lanes that flood than I can count. I&rsquo;ve got crews out at forty calls already tonight. I can&rsquo;t send boats to a region.&rdquo;',
+          '&ldquo;The phone network says we&rsquo;ll have her mast in the next half hour. Until then, give me anything else she said.&rdquo;',
+          'Upstairs, Nia&rsquo;s phone buzzes. &ldquo;Yolande,&rdquo; she says. &ldquo;She says Shona filled in a form on the website before she rang. And it&rsquo;s come through in a mess.&rdquo;'
+        ], function () { busy = false; $('#go').classList.add('on'); });
+      }, 3000);
+    });
+    paintMap();
+    msg(laid().length ? 'Your films are where you left them.' : 'Click a film to lay it on the glass. Yellow will show where every film on the glass agrees.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

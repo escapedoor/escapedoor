@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The School · The Verb Comes Last</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lang.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="pb.css">
+<style>
+  body{--bg:#cfe2ec;--accent:#2a6a9a;--font-display:'Old Standard TT',serif;--font-ui:'Outfit',sans-serif;--font-body:'Gentium Book Plus',serif;
+    --tc-bg:rgba(240,247,250,.97);--tc-ink:#1a2a3a;--cap-bg:rgba(248,252,253,.96);--cap-ink:#1a2a3a;--panel:#f6fafb;--panel-ink:#1a2a3a;--face-bg:#3a7a5a;--q-ink:#2a6a9a;
+    --fade:#e6f2f6;--hud-bg:rgba(248,252,253,.86);--hud-ink:#1a2a3a;--hud-line:rgba(26,42,58,.3);--ov-bg:rgba(16,30,44,.62)}
+  .tc-room{font-size:clamp(40px,6vw,84px);color:#2a6a9a}
+  .tc-theme{color:#c8302a}
+  .hbtn b{color:#fff}
+  #cards .cd{animation:sway 4s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 0}
+  #cards .cd:nth-child(2n){animation-delay:-2s}
+  @keyframes sway{50%{transform:rotate(2.5deg)}}
+  #poster.ready,#cards.ready,#board.ready,#desk.ready{animation:glow 1.6s steps(1,end) infinite}
+  @keyframes glow{50%{filter:brightness(1.18) drop-shadow(0 0 6px #fff)}}
+  #dust circle{animation:dust 9s linear infinite;opacity:.5}
+  #dust circle:nth-child(2){animation-delay:-3s}#dust circle:nth-child(3){animation-delay:-6s}
+  @keyframes dust{0%{transform:translate(0,0)}50%{transform:translate(30px,40px)}100%{transform:translate(0,90px);opacity:0}}
+  #girl{display:none}
+  #scene.ran #girl{display:inline;animation:run 9s linear forwards}
+  @keyframes run{to{transform:translate(110px,-70px)}}
+
+  /* the strips */
+  .ct{width:min(1060px,96vw);background:#e6eef2;border-top:14px solid #2a6a9a;padding:14px 20px 12px;box-shadow:0 26px 70px rgba(0,0,0,.55);color:#1a2a3a}
+  .ct-bb{background:#2b3236;border:8px solid #7a5a36;padding:6px 14px;font-family:'Kalam',cursive;font-weight:700;font-size:19px;color:#f1efe6;display:flex;flex-wrap:wrap;gap:4px 22px;justify-content:center}
+  .ct-bb .iv{color:#fff;font-family:'Kalam',cursive;font-style:normal}
+  .ct-bb i{font-style:normal;color:#f2d06a;font-family:'IBM Plex Mono',monospace;font-size:13px;margin-right:4px}
+  .ct h5{margin:10px 0 6px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#2a6a9a}
+  .strips{display:grid;grid-template-columns:1fr 1fr;gap:9px 22px}
+  .strip{display:flex;align-items:center;gap:10px}
+  .strip>i{font-family:'IBM Plex Mono',monospace;font-style:normal;font-size:12px;color:#5a6a7a;width:34px}
+  .paper{display:inline-flex;align-items:stretch;background:#fffdf6;padding:6px 10px;box-shadow:0 2px 6px rgba(0,0,0,.2);transform:rotate(-.4deg)}
+  .strip:nth-child(even) .paper{transform:rotate(.5deg)}
+  .paper.bad{outline:3px solid #c8302a}
+  .paper b{font-family:'Gentium Book Plus',serif;font-weight:700;font-size:25px;line-height:34px;color:#1a2a3a;padding:0 1px}
+  .gap{width:14px;display:flex;justify-content:center;cursor:pointer;position:relative}
+  .gap:before{content:'';width:2px;height:100%;background:transparent;border-left:2px dotted rgba(42,106,154,.25)}
+  .gap:hover:before{border-left-color:#2a6a9a}
+  .gap.cut:before{border-left:3px solid #c8302a}
+  .gap.cut:after{content:'\2702';position:absolute;top:-15px;font-size:13px;color:#c8302a}
+  .qs{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:4px}
+  .qs .q{background:#fff;padding:8px 12px 6px;border-left:5px solid #2a6a9a}
+  .qs .q p{margin:0 0 6px;font-family:'Gentium Book Plus',serif;font-size:16px}
+  .qs .q .iv{font-size:19px}
+  .qs .op{display:block;width:100%;text-align:left;margin:4px 0;padding:6px 10px 5px;border:2px solid #b9c8d2;border-radius:3px;font-family:'Gentium Book Plus',serif;font-size:16.5px;color:#1a2a3a;background:#f8fbfc}
+  .qs .op:hover{border-color:#2a6a9a}
+  .qs .op.on{border-color:#2a6a9a;background:#dcebf4;font-weight:700}
+  .ct .pmsg{color:#1a2a3a}
+  .ct .pmsg .iv{color:#7a1f3a}
+  .ct .pz-foot .btn{background:#2a6a9a;color:#fff;border-color:#2a6a9a}
+  .doc.cards .grid{grid-template-columns:repeat(5,1fr)}
+  .doc.cards{background:#e6eef2;color:#1a2a3a;border:0;border-top:14px solid #2a6a9a}
+  .doc.cards h4{color:#2a6a9a;font-family:'Old Standard TT',serif}
+  .doc.cards .grid>div{background:#fff;border:0;box-shadow:0 2px 6px rgba(0,0,0,.18);padding:6px}
+  .doc.cards .iv{color:#7a1f3a;font-family:'Gentium Book Plus',serif;font-style:italic}
+  .doc.cards .sm{color:#3a4a5a}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="boards" width="200" height="40" patternUnits="userSpaceOnUse"><rect width="200" height="40" fill="#b8925e"/><path d="M0 0H200M120 0V40" stroke="#94723e" stroke-width="3"/></pattern>
+  <linearGradient id="outG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9ccae4"/><stop offset=".6" stop-color="#e6f2f6"/><stop offset=".61" stop-color="#5a9ab6"/><stop offset="1" stop-color="#3a6a88"/></linearGradient>
+  <linearGradient id="beam" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".4"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="45%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#0a2030" stop-opacity=".05"/><stop offset="1" stop-color="#0a2030" stop-opacity=".38"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1000" fill="#cfe2ec"/>
+<rect x="-1000" y="500" width="3600" height="120" fill="#8aa8b8"/><rect x="-1000" y="496" width="3600" height="8" fill="#6a8a9a"/>
+<!-- the window, with the headland in it -->
+<g id="window" class="hot"><rect x="80" y="180" width="260" height="260" fill="#f4f2ee"/><rect x="94" y="194" width="232" height="232" fill="url(#outG)"/>
+  <path d="M94 360q60 -70 140 -96q50 -10 92 0v162H94z" fill="#7a9a6a"/><path d="M130 420q50 -60 120 -130" stroke="#e8e0c8" stroke-width="3" stroke-dasharray="5 5" fill="none"/>
+  <g transform="translate(262 238)"><rect x="0" y="0" width="14" height="40" fill="#f4f2ee"/><rect x="0" y="14" width="14" height="7" fill="#c8302a"/><rect x="-2" y="-6" width="18" height="7" fill="#2a2a2a"/></g>
+  <g transform="translate(150 410)"><g id="girl"><rect x="-4" y="-16" width="8" height="12" fill="#f2c21b"/><circle cx="0" cy="-20" r="4" fill="#e2b48c"/><path d="M-3 -4l-3 8M3 -4l3 8" stroke="#2c3a4a" stroke-width="2"/></g></g>
+  <path d="M210 194v232M94 310h232" stroke="#f4f2ee" stroke-width="10"/></g>
+<path d="M340 180L800 900H500L94 440z" fill="url(#beam)" pointer-events="none"/>
+<g id="dust" fill="#fff"><circle cx="300" cy="300" r="2"/><circle cx="380" cy="360" r="1.6"/><circle cx="440" cy="280" r="2.2"/></g>
+<!-- the picture cards on a string -->
+<path d="M-200 50Q800 90 1800 50" stroke="#6a5a4a" stroke-width="2" fill="none"/>
+<g id="cards" class="hot"></g>
+<!-- the blackboard -->
+<g id="board" class="hot"><rect x="470" y="170" width="660" height="310" fill="#7a5a36"/><rect x="484" y="184" width="632" height="282" fill="#2b3236"/>
+  <g class="cK" font-weight="700" font-size="30" fill="#f1efe6">
+    <text x="510" y="232" class="iv">LUKA|HEMI LAMO|DO|VI NURU|KA|NE.</text>
+    <text x="510" y="294" class="iv">LAMODOSU TIRALIKO ZULIKANE.</text>
+    <text x="510" y="356" class="iv">PODO DUMANE.</text>
+    <text x="510" y="418" class="iv">KALOVI MOARINE.</text></g>
+  <rect x="490" y="470" width="620" height="10" fill="#5a4026"/><rect x="560" y="462" width="30" height="8" fill="#f1efe6"/></g>
+<!-- the poster -->
+<g id="poster" class="hot" transform="rotate(1.5 1290 330)"><rect x="1180" y="190" width="220" height="280" fill="#fff" stroke="#c9d2dc" stroke-width="2"/><rect x="1180" y="190" width="220" height="26" fill="#2a6a9a"/>
+  <text x="1290" y="246" class="cO" font-size="17" font-weight="700" text-anchor="middle" fill="#2a6a9a">WORDS ARE MADE</text><text x="1290" y="266" class="cO" font-size="17" font-weight="700" text-anchor="middle" fill="#2a6a9a">OF PIECES</text>
+  <text x="1290" y="306" class="cM" font-size="15" text-anchor="middle" fill="#1f2a44">un|break|able</text><text x="1290" y="332" class="cM" font-size="15" text-anchor="middle" fill="#1f2a44">teach|er|s</text><text x="1290" y="358" class="cM" font-size="15" text-anchor="middle" fill="#1f2a44">light|house</text>
+  <text x="1290" y="398" class="cM" font-size="15" text-anchor="middle" fill="#c8302a">car|pet ?</text><path d="M1200 420h180M1200 436h150M1200 452h170" stroke="#c9d2dc" stroke-width="4"/><circle cx="1290" cy="196" r="5" fill="#c8302a"/></g>
+<!-- children's drawings -->
+<g id="draw" class="hot"><rect x="1440" y="220" width="110" height="80" fill="#fffbe8" transform="rotate(-4 1495 260)"/><path d="M1460 280q20 -30 40 0q20 -30 40 0" stroke="#2a6ac8" stroke-width="4" fill="none"/><circle cx="1520" cy="240" r="12" fill="#f2c21b"/>
+  <rect x="1440" y="320" width="110" height="80" fill="#fffbe8" transform="rotate(3 1495 360)"/><path d="M1470 390v-40h30v40M1462 352l23 -16 23 16" stroke="#c8302a" stroke-width="4" fill="none"/><path d="M1515 370h30" stroke="#3a7a4a" stroke-width="4"/></g>
+<!-- the floor, the teacher's desk, the strips -->
+<rect x="-1000" y="620" width="3600" height="800" fill="url(#boards)"/>
+<g id="naso" class="hot" transform="translate(1110 860) scale(1.02)"></g>
+<g id="desk" class="hot"><rect x="560" y="610" width="380" height="20" fill="#8a5a34"/><rect x="574" y="630" width="352" height="110" fill="#6a4226"/>
+  <g fill="#fffdf6"><rect x="600" y="596" width="120" height="14" transform="rotate(-3 660 603)"/><rect x="640" y="590" width="100" height="14" transform="rotate(4 690 597)"/><rect x="740" y="598" width="110" height="14" transform="rotate(-2 795 605)"/></g>
+  <g transform="translate(880 600) rotate(-20)"><circle cx="-10" cy="0" r="8" fill="none" stroke="#c8302a" stroke-width="4"/><circle cx="10" cy="0" r="8" fill="none" stroke="#c8302a" stroke-width="4"/><path d="M-4 -6l30 -30M4 -6l-30 -30" stroke="#9aa4ac" stroke-width="4"/></g></g>
+<!-- the little desks -->
+<g id="desks"></g>
+<g id="kaplan" class="hot" transform="translate(330 900) scale(.98)"></g>
+<g id="nakashima" class="hot" transform="translate(1500 880) scale(.94)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Up the headland path</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="pb.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, nextFile = null, ct = null, iv = PB.iv;
+
+  $('#naso').innerHTML = PB.who('naso', { extra: '<path d="M39 -112l14 -26" stroke="#f1efe6" stroke-width="7" stroke-linecap="round"/>' });
+  $('#kaplan').innerHTML = PB.who('kaplan', { smile: 0 });
+  $('#nakashima').innerHTML = PB.who('nakashima', { back: true });
+  $('#desks').innerHTML = (function () {
+    var s = '', i;
+    for (i = 0; i < 5; i++) s += '<g transform="translate(' + (60 + i * 330) + ' 760)"><rect x="0" y="0" width="200" height="16" fill="#a8744a"/><rect x="8" y="16" width="184" height="50" fill="#8a5a34"/><path d="M20 66v70M180 66v70" stroke="#5a3a20" stroke-width="10"/><rect x="40" y="-8" width="60" height="8" fill="#fffbe8"/></g>';
+    return s;
+  })();
+
+  /* the picture cards: ten words that the children are learning to read */
+  var CARD_IV = /*isuvo*/['tira', 'podo', 'zuli', 'duma', 'ari', 'luka', 'lamo', 'kalo', 'sanu', 'isu'];
+  function pic(k) {
+    var s = '', st = 'fill="none" stroke="#1a2a3a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"';
+    function man(x, y, a) { return '<g transform="translate(' + x + ' ' + y + ') rotate(' + (a || 0) + ')"><circle cx="0" cy="-34" r="6" ' + st + '/><path d="M0 -28v18M0 -24l-9 8M0 -24l9 8M0 -10l-7 12M0 -10l7 12" ' + st + '/></g>'; }
+    if (k === 'tira') s = '<path d="M14 58h20v-12h20v-12h20v-12h20v-12h14" ' + st + '/>';
+    if (k === 'podo') s = '<path d="M40 14q-6 30 0 40q4 8 30 8q10 0 10 -8q0 -6 -14 -10q-10 -4 -10 -30z" ' + st + '/><g fill="#1a2a3a"><circle cx="72" cy="50" r="2.4"/><circle cx="76" cy="55" r="2"/></g>';
+    if (k === 'zuli') s = '<path d="M20 58h40v-10h20v10h20" ' + st + '/>' + man(58, 42, 70) + '<path d="M80 18q8 6 4 14M90 22q6 4 2 10" ' + st + '/>';
+    if (k === 'duma') s = man(60, 60) + '<path d="M78 30q6 -10 12 0q6 10 -6 14z" fill="#c8302a"/><path d="M52 22l-3 6M48 24v4" stroke="#2a6a9a" stroke-width="2.4"/><path d="M66 50l10 4" stroke="#c8302a" stroke-width="3"/>';
+    if (k === 'ari') s = man(28, 60) + '<path d="M36 34l10 -6" ' + st + '/>' + man(88, 60) + '<path d="M78 46h-26l6 -5M52 46l6 5" ' + st + '/>';
+    if (k === 'luka') s = '<path d="M60 18q-16 -6 -36 0v40q20 -6 36 0q16 -6 36 0v-40q-20 -6 -36 0zM60 18v40" ' + st + '/>';
+    if (k === 'lamo') s = '<path d="M48 58h24l-4 -30h-16zM52 28q8 -10 16 0" ' + st + '/><path d="M60 22q-6 -10 0 -16q6 6 0 16z" fill="#e2a41b"/>';
+    if (k === 'kalo') s = '<path d="M20 44h80l-12 14h-56zM60 44v-34l24 26h-24" ' + st + '/>';
+    if (k === 'sanu') s = man(44, 60) + '<path d="M70 24v-12l14 -4v12M70 24a4 3 0 1 1 -1 0M84 20a4 3 0 1 1 -1 0" ' + st + '/>';
+    if (k === 'isu') s = '<path d="M10 52q50 -8 100 0" ' + st + '/><path d="M30 50q10 -30 30 -32q20 2 30 32" ' + st + '/><path d="M50 30h4v-10h4" ' + st + '/>';
+    return '<svg viewBox="0 0 120 64">' + s + '</svg>';
+  }
+  $('#cards').innerHTML = CARD_IV.map(function (w, i) {
+    var x = 60 + i * 150, y = 52 + Math.sin((i + .5) / 10 * Math.PI) * 18;
+    return '<g class="cd"><path d="M' + (x + 50) + ' ' + y + 'v8" stroke="#6a5a4a" stroke-width="2"/><rect x="' + x + '" y="' + (y + 8) + '" width="100" height="74" fill="#fff" stroke="#c9d2dc"/>' +
+      '<g transform="translate(' + (x + 5) + ' ' + (y + 12) + ') scale(.75)">' + pic(w).replace('<svg viewBox="0 0 120 64">', '').replace('</svg>', '') + '</g>' +
+      '<text x="' + (x + 50) + '' + '" y="' + (y + 76) + '" class="iv" style="font-family:\'Gentium Book Plus\',serif;font-style:italic;font-weight:700" font-size="15" text-anchor="middle" fill="#7a1f3a">' + w + '</text></g>';
+  }).join('');
+
+  ER.init({
+    theme: 'lang', story: 'phrasebook', storyTitle: 'The Verb Comes Last', id: 'school', no: 'IV', title: 'The School',
+    go: 'Go in quietly',
+    intro: [
+      'Hova would only answer a question asked properly: ' + iv('Lukahemi novi nurukane?') + ' <span class="iv">No-vi</span>, to what: where to. <span class="iv">Nuru-ka-ne</span>: went, politely, with the polite piece last of all. Her answer was exact: ' + iv('Lukahemi lukadovi nurukane') + '. And Philippa had given the torn pages to a girl called Sanu.',
+      'The ' + iv('lukado') + ' is the white building with drawings in its windows. It is a quarter to four.'
+    ],
+    exit: {"next":"lighthouse","w":{"d80eadc6":"0d9a6543"}}, tags: {"c1":["c798411d"],"c2":["a174ff46"],"c3":["12f308d5"],"c4":["85580d56"],"c5":["34a54a44"],"c6":["a149a48b"],"c7":["a8ffaa8d"],"trap":["4c94cd3e"],"q2":["99ed125d"],"q4":["a4214679"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('d-told') || {}; nextFile = ER.flag('d-file') || null;
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('d-told', told); return true; }
+  function isBusy() { return busy; }
+  function ready() { return told.naso && told.poster && told.cards && told.board; }
+  function paint() {
+    $('#poster').classList.toggle('ready', !!(told.naso && !told.poster));
+    $('#cards').classList.toggle('ready', !!(told.naso && !told.cards));
+    $('#board').classList.toggle('ready', !!(told.naso && !told.board));
+    $('#desk').classList.toggle('ready', !!(ready() && !nextFile));
+    $('#scene').classList.toggle('ran', !!nextFile);
+    ER.pips((told.naso ? 1 : 0) + (told.poster ? 1 : 0) + (told.cards ? 1 : 0) + (told.board ? 1 : 0) + (nextFile ? 1 : 0), 5);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['She is at the lighthouse. The button at the bottom of the screen takes you up the headland path.']];
+    if (ct && ct.isOpen()) return ['cut', [
+      'Look at how the teacher cut the first line: LUKA|HEMI, LAMO|DO|VI, NURU|KA|NE. Every piece is a word you know or an ending you know.',
+      'Work from the right-hand end of each word: take off the endings you know (<em>-su, -ko, -li, -ka, -ne, -vi</em>), and take <em>mo-</em> off the front. What is left should be on the picture cards, or in your word list.',
+      'Not every word has pieces. If a word is on the picture cards just as it is, do not cut it at all. For the English: <em>-su</em> is &rsquo;s, <em>-vi</em> is &ldquo;to&rdquo;, <em>mo-</em> is &ldquo;not&rdquo;, and nobody new comes into lines 2 to 4.'
+    ]];
+    if (!told.naso) return ['naso', ['Talk to the teacher by the blackboard.']];
+    if (!told.poster) return ['poster', ['There is a poster in English on the right-hand wall. Philippa made it. Read it.']];
+    if (!told.cards) return ['cards', ['The picture cards hanging on the string across the room are a dictionary. Click them.']];
+    if (!told.board) return ['board', ['Read what the teacher wrote on the blackboard.']];
+    return ['desk', ['Now the strips of paper and the scissors on the teacher&rsquo;s desk.', 'The desk in front of the blackboard.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; PB.wordlist(4, true); $('#go').classList.add('on'); ER.say('The lighthouse. Her foot. And the tide turns at six.'); return; }
+    if (told.in) { busy = false; ER.say('The school of Isu: one room, five desks, and a blackboard.'); return; }
+    tell('in');
+    ER.narrate([
+      'One room, five little desks, a smell of chalk and wet coats. The children have gone home. Their drawings are everywhere: boats, fish, the sun, and a great many cats.',
+      'A string of picture cards hangs across the room, like washing.',
+      'The teacher is cleaning the blackboard. She turns round, sees three strangers in her doorway, and puts down the cloth.',
+      'Mr Kaplan sits down on a chair made for somebody of seven. Mrs Nakashima goes to look at the drawings.'
+    ], function () { busy = false; });
+  }
+
+  $('#naso').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Naso points out of the window, up the headland. &ldquo;' + iv('Lamodovi') + '!&rdquo; Then she makes shooing movements. Go. Now.'); return; }
+    if (told.naso) { ER.say('Naso taps the blackboard, then the scissors on her desk. She is a teacher. She can wait all day for an answer.'); return; }
+    ER.talk({
+      who: 'The teacher', role: 'The school of Isu', face: PB.face('naso'),
+      lines: [
+        { note: 'She is tall, with short black hair and chalk on her sleeve. She looks at you, and at the phrasebook in your hand, and her eyebrows go up.', a: '&ldquo;' + iv('Kesali!') + '&rdquo;' },
+        { note: 'She taps her chest.', a: '&ldquo;' + iv('Naso') + '.&rdquo;' },
+        { note: 'You say the only word that matters: &ldquo;Lukahemi?&rdquo; Her face changes. She nods, quickly, many times.' },
+        { note: 'She takes the chalk, turns to the blackboard, and writes, slowly, in her biggest and clearest handwriting: the way teachers write when nobody understands. Four lines.' },
+        { note: 'Then she cuts the first line into pieces with little strokes of the chalk, and taps her desk, where there are strips of paper and a pair of scissors. She holds out the scissors to you, handles first.' }
+      ],
+      clue: { id: 'naso', title: 'Naso, at the blackboard', kind: 'At the school' },
+      done: function (seen) { if (seen && tell('naso')) { paint(); ER.say('A teacher who has set you work. The poster, the picture cards and the board first.'); } }
+    });
+  });
+  $('#kaplan').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Mr Kaplan is already on his feet. &ldquo;I will run down and tell the captain,&rdquo; he says. &ldquo;She can bring the ship&rsquo;s boat round to the lighthouse. Run? Walk. Fast.&rdquo;'); return; }
+    ER.talk({
+      who: 'Mr Kaplan', role: 'Passenger · on a very small chair', face: PB.face('kaplan', 'cross'),
+      lines: [
+        { a: '&ldquo;It is ten to four. The tide turns at six. And we are in a school, doing homework.&rdquo;' },
+        { q: 'You could help.', a: 'He looks at the scissors as if they might bite. &ldquo;I sell tractors. I do not cut up words.&rdquo; Then, more quietly: &ldquo;What does the first line say, then?&rdquo;' }
+      ],
+      clue: { id: 'kaplan3', title: 'Mr Kaplan: ten to four', kind: 'What he said' },
+      done: function (seen) { if (seen) tell('kap'); }
+    });
+  });
+  $('#nakashima').addEventListener('click', function () {
+    if (busy) return;
+    ER.say('&ldquo;Look,&rdquo; says Mrs Nakashima. &ldquo;Every child has drawn a cat. Every cat is the same cat.&rdquo; It is Pesahiba.');
+  });
+  PB.thing('#window', null, function () { return nextFile ? 'A girl in a yellow jumper is running up the headland path towards the lighthouse, with a jug in her hands.' : 'Through the back window: a path going up the headland, and at the top, the white lighthouse with the red band.'; }, isBusy);
+  PB.thing('#draw', null, 'Children&rsquo;s drawings: the sea, the sun, a house with a red roof. In the corner of one, in careful letters: SANU.', isBusy);
+  PB.thing('#desks', 'desk', 'Little desks with names scratched into the lids, and the same cat drawn on all of them.', isBusy);
+
+  var POSTER = '<h4>Words are made of pieces</h4>' +
+    '<p>A <b>morpheme</b> is the smallest piece of a word that means something. <i>Cats</i> has two: <i>cat + -s</i>. <i>Unbreakable</i> has three: <i>un-</i> (not) + <i>break</i> + <i>-able</i> (can be done). <i>Teachers</i>: <i>teach + -er</i> (a person who does it) + <i>-s</i>.</p>' +
+    '<p>The main piece is the <b>root</b>. A piece added at the front is a <b>prefix</b>; a piece added at the end is a <b>suffix</b>. Two roots together make a <b>compound</b>: <i>light + house</i>, <i>book + shop</i>.</p>' +
+    '<p>Some languages build very long words this way. In Turkish, one word made of four pieces means &ldquo;in my houses&rdquo;: house + more than one + my + in.</p>' +
+    '<p>But be careful. Not every bit that looks like a piece is one: a <i>carpet</i> is not a car and a pet.</p>' +
+    '<p class="big">un<i>|</i>break<i>|</i>able &nbsp; teach<i>|</i>er<i>|</i>s &nbsp; light<i>|</i>house</p><p><i>For the children of Isu, from P.W., last summer.</i></p>';
+  $('#poster').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: POSTER, cls: 'poster', clue: { id: 'poster', title: 'The poster: words are made of pieces', kind: 'At the school' }, done: function () {
+      PB.terms(['morpheme', 'root', 'prefix', 'suffix', 'compound']);
+      if (tell('poster')) { paint(); ER.say('Roots, prefixes, suffixes. And a carpet is not a car and a pet.'); }
+    } });
+  });
+  var CARDS = '<h4>The picture cards on the string</h4><div class="grid">' + CARD_IV.map(function (w) { return '<div>' + pic(w) + iv(w) + '</div>'; }).join('') + '</div>' +
+    '<p class="sm">The children of Isu learn to read with these. The pictures are the meanings.</p>';
+  $('#cards').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: CARDS, cls: 'chalk cards', clue: { id: 'cards', title: 'The picture cards on the string', kind: 'At the school' }, done: function () {
+      if (tell('cards')) { paint(); ER.say('Stairs, a foot, falling, hurting, coming. And a book, a lamp, a boat, a song, an island.'); }
+    } });
+  });
+  var BOARD = '<h4>On the blackboard, in Naso&rsquo;s best handwriting</h4><p><i class="sm">1</i> ' + iv('LUKA|HEMI LAMO|DO|VI NURU|KA|NE.') + '</p><p><i class="sm">2</i> ' + iv('LAMODOSU TIRALIKO ZULIKANE.') + '</p><p><i class="sm">3</i> ' + iv('PODO DUMANE.') + '</p><p><i class="sm">4</i> ' + iv('KALOVI MOARINE.') + '</p>' +
+    '<p class="sm">She has cut the first line into pieces herself, to show you how. The other three are yours.</p>';
+  $('#board').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: BOARD, cls: 'chalk', clue: { id: 'bboard', title: 'Naso’s blackboard', kind: 'At the school' }, done: function () {
+      if (tell('board')) { paint(); ER.say(ready() ? 'Line 1, cut: the book woman went to the light-house. Now the scissors.' : 'Four lines, and the first one cut into pieces.'); }
+    } });
+  });
+
+  /* ---------- the strips ---------- */
+  var STRIP = /*isuvo*/['LAMODOSU', 'TIRALIKO', 'ZULIKANE', 'PODO', 'DUMANE', 'KALOVI', 'MOARINE'];
+  var LINE = ['2', '2', '2', '3', '3', '4', '4'];
+  var Q = [
+    { id: 'q2', t: 'Line 2 in English:', iv: 'LAMODOSU TIRALIKO ZULIKANE.', o: [['a', 'She fell on the stairs of the lighthouse.'], ['b', 'The lighthouse fell down the stairs.'], ['c', 'She went up the stairs to the lighthouse.']] },
+    { id: 'q4', t: 'Line 4 in English:', iv: 'KALOVI MOARINE.', o: [['a', 'The boat is not coming.'], ['b', 'She is not coming to the boat.'], ['c', 'She is coming to the boat.']] }
+  ];
+  function makeCut() {
+    var box = ER.el('div', 'pz ct'), saved = ER.flag('d-cuts') || {}, ans = ER.flag('d-ans') || {}, done = false;
+    box.innerHTML = '<div class="ct-bb"><span><i>1</i>' + iv('LUKA|HEMI LAMO|DO|VI NURU|KA|NE.') + '</span><span><i>2</i>' + iv('LAMODOSU TIRALIKO ZULIKANE.') + '</span><span><i>3</i>' + iv('PODO DUMANE.') + '</span><span><i>4</i>' + iv('KALOVI MOARINE.') + '</span></div>' +
+      '<h5>Cut each strip between its pieces (click between two letters; click again to mend it)</h5><div class="strips">' +
+      STRIP.map(function (w, i) {
+        var h = '<div class="strip"><i>line ' + LINE[i] + '</i><span class="paper" data-i="' + i + '">', j;
+        for (j = 0; j < w.length; j++) { h += '<b>' + w.charAt(j) + '</b>'; if (j < w.length - 1) h += '<span class="gap" data-j="' + (j + 1) + '"></span>'; }
+        return h + '</span></div>';
+      }).join('') + '</div>' +
+      '<div class="qs">' + Q.map(function (q) { return '<div class="q" data-q="' + q.id + '"><p>' + q.t + ' ' + iv(q.iv) + '</p>' + q.o.map(function (o) { return '<button type="button" class="op" data-o="' + o[0] + '">' + o[1] + '</button>'; }).join('') + '</div>'; }).join('') + '</div>' +
+      '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="c-go">Show Naso</button></div>';
+    var msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function cutOf(i) { var w = STRIP[i].toLowerCase(), s = '', cuts = saved[i] || [], j; for (j = 0; j < w.length; j++) { if (j && cuts.indexOf(j) >= 0) s += '|'; s += w.charAt(j); } return s; }
+    ER.$$('.paper', box).forEach(function (p) {
+      var i = +p.getAttribute('data-i');
+      ER.$$('.gap', p).forEach(function (g) {
+        var j = +g.getAttribute('data-j');
+        if ((saved[i] || []).indexOf(j) >= 0) g.classList.add('cut');
+        g.addEventListener('click', function () {
+          if (done) return;
+          var c = saved[i] = saved[i] || [], k = c.indexOf(j);
+          if (k >= 0) c.splice(k, 1); else c.push(j);
+          g.classList.toggle('cut', k < 0); p.classList.remove('bad'); PB.sfx.snip(); ER.flag('d-cuts', saved);
+        });
+      });
+    });
+    ER.$$('.q', box).forEach(function (qn) {
+      var id = qn.getAttribute('data-q');
+      ER.$$('.op', qn).forEach(function (b) {
+        if (ans[id] === b.getAttribute('data-o')) b.classList.add('on');
+        b.addEventListener('click', function () {
+          if (done) return;
+          ans[id] = b.getAttribute('data-o'); ER.flag('d-ans', ans); PB.sfx.tile();
+          ER.$$('.op', qn).forEach(function (o) { o.classList.toggle('on', o === b); });
+        });
+      });
+    });
+    box.querySelector('#c-go').addEventListener('click', function () {
+      if (done) return;
+      var i, c;
+      for (i = 0; i < STRIP.length; i++) {
+        c = cutOf(i);
+        if (!ER.check('c' + (i + 1), c)) {
+          ER.sfx.no(); var p = box.querySelector('.paper[data-i="' + i + '"]'); p.classList.add('bad'); ER.shake(p);
+          if (ER.check('trap', c)) msg('Naso laughs, and points at the picture card of a foot. ' + iv('Podo') + ' is not &ldquo;po&rdquo; and a house, any more than a carpet is a car and a pet.');
+          else if (c.indexOf('|') < 0) msg('Naso taps the strip for line ' + LINE[i] + ', <span class="iv">' + STRIP[i] + '</span>, and makes a cutting movement with two fingers. It has pieces in it that you know.');
+          else msg('Naso taps the strip for line ' + LINE[i] + ', <span class="iv">' + STRIP[i] + '</span>, and shakes her head. Take off the endings you know from the right-hand end (and <span class="iv">mo-</span> from the front). What is left must be a whole word you have seen.');
+          return;
+        }
+      }
+      if (!ans.q2 || !ans.q4) { ER.sfx.no(); msg('Every strip is cut right. Now choose the English for line 2 and for line 4.'); return; }
+      if (!ER.check('q2', ans.q2)) {
+        ER.sfx.no(); ER.shake(box.querySelector('.q[data-q="q2"]'));
+        msg(ans.q2 === 'b' ? 'Naso shakes her head. <span class="iv">-su</span> is &rsquo;s: the lighthouse&rsquo;s stairs. And the one who fell is not in this line at all: it is still the one from line 1.' : '<span class="iv">zuli</span> is not <span class="iv">nuru</span>. Look at the picture cards again.');
+        return;
+      }
+      if (!ER.check('q4', ans.q4)) {
+        ER.sfx.no(); ER.shake(box.querySelector('.q[data-q="q4"]'));
+        msg(ans.q4 === 'a' ? 'Which word has <span class="iv">-vi</span> on it? The boat is where she is not coming TO. Who is doing the coming?' : 'Look at the very front of the verb: <span class="iv">mo-</span>.');
+        return;
+      }
+      var f = ER.exit([STRIP.map(function (w, k) { return cutOf(k); }).join(' ') + ' ' + ans.q2 + ans.q4], { wait: true });
+      if (!f) { msg('The way on will not open. Something is wrong with this page: tell your teacher.'); return; }
+      done = true; nextFile = f; ER.flag('d-file', f); paint();
+      msg('Naso looks at every strip, and at your answers, and smiles for the first time. She takes the chalk and draws, under each piece: a lamp, a house, steps, a figure falling, a foot, a boat, and an arrow with a line through it.');
+      PB.terms(['segment']);
+      PB.mine('cut', 'Naso’s blackboard, worked out', '<p>1 luka|hemi lamo|do|vi nuru|ka|ne: The book woman went to the light-house (politely said).</p><p>2 lamo|do|su tira|li|ko zuli|ka|ne: (She) fell on the lighthouse&rsquo;s stairs.</p><p>3 podo duma|ne: (Her) foot hurts. PODO is one piece!</p><p>4 kalo|vi mo|ari|ne: (She) is not coming to the boat.</p><p>Isuvo leaves out the person when everybody knows who it is.</p>');
+      setTimeout(function () {
+        ER.closeAll(); busy = true;
+        ER.narrate([
+          '&ldquo;' + iv('Lamo-do') + '. Light-house.&rdquo; You say it aloud, and Naso nods. Lukahemi went to the lighthouse. She fell on the lighthouse stairs. Her foot hurts. She is not coming to the boat.',
+          'Mr Kaplan stands up so fast that the little chair comes with him. &ldquo;Foot,&rdquo; he says. &ldquo;The fisherman said foot. At two o&rsquo;clock. He pointed up the hill and then at his foot, and I said, she went on foot.&rdquo; He sits down again, chair and all. &ldquo;He was telling us. He was telling us all along.&rdquo;',
+          'Through the back window you can see a path climbing the headland to the lighthouse. A girl in a yellow jumper is running up it, with a jug in her hands.',
+          '&ldquo;I will go down and tell the captain,&rdquo; says Mr Kaplan, already at the door. &ldquo;She can bring the ship&rsquo;s boat round to the lighthouse, by sea. You go up. You are the one who can talk to them.&rdquo;',
+          'It is five to four. Mrs Nakashima picks up her knitting. &ldquo;I will come with you,&rdquo; she says, &ldquo;slowly.&rdquo;'
+        ], function () { busy = false; $('#go').classList.add('on'); PB.wordlist(4); });
+      }, 3200);
+    });
+    msg('Cut the six words that have pieces in them. One strip should not be cut at all. Then choose the English for lines 2 and 4.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+  $('#desk').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The strips, cut into pieces, lie on the desk like a puzzle somebody has finished.'); return; }
+    if (!told.naso) { ER.say('Strips of paper and a pair of scissors, on the teacher&rsquo;s desk. Better ask the teacher first.'); return; }
+    if (!ready()) { ER.say('Naso shakes her head and points at the poster, the picture cards and the blackboard. First things first.'); return; }
+    if (!ct) ct = makeCut();
+    ct.open();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

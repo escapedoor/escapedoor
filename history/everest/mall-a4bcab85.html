@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Mall · Snow Conditions Bad</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-history.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="everest.css">
+<style>
+  body{--bg:#5a6476;--accent:#ffd27a;--font-display:'Abril Fatface',serif;--font-ui:'Oswald',sans-serif;--font-body:'Libre Caslon Text',serif;
+    --tc-bg:rgba(30,36,48,.95);--tc-ink:#f2f0ea;--cap-bg:rgba(30,36,48,.93);--panel:#242c3a;--face-bg:#36405a;--q-ink:#ffd88e;--fade:#10141c;--hud-bg:rgba(30,36,48,.82)}
+  .lb{font-family:'Oswald',sans-serif;font-weight:500;text-anchor:middle;letter-spacing:.14em}
+  #rain path{animation:rn .6s linear infinite}
+  @keyframes rn{from{transform:translate(8px,-40px)}to{transform:translate(-8px,40px)}}
+  #flagsM path{animation:fl 2.2s steps(3,end) infinite}
+  #flagsM path:nth-child(2n){animation-delay:-1.1s}
+  @keyframes fl{50%{transform:translateY(3px)}}
+  #cheer{opacity:0;transition:opacity 2s steps(8,end)}
+  body.cheer #cheer{opacity:1}
+  #hats{transition:transform .6s}
+  body.cheer #hats{animation:hop 1.1s steps(2,end) infinite}
+  @keyframes hop{50%{transform:translateY(-10px)}}
+  /* the slip at the end */
+  .done{position:fixed;right:2.4vw;top:60px;z-index:34;width:min(620px,94vw);max-height:calc(100vh - 76px);overflow:auto;padding:18px 26px 16px;display:none;background:#f6f3e8 linear-gradient(176deg,rgba(255,255,255,.5),rgba(120,110,70,.12));
+    color:#22231e;border-top:9px solid #7a1d14;box-shadow:0 20px 60px rgba(0,0,0,.65)}
+  .done.on{display:block}
+  .okstamp{float:right;margin:2px 0 6px 14px;padding:4px 14px 1px;border:4px solid #7a1d14;color:#7a1d14;font-family:'Stardos Stencil',serif;font-weight:700;font-size:21px;letter-spacing:.12em;transform:rotate(5deg)}
+  .done h6{margin:0 0 8px;font-family:'Oswald',sans-serif;font-weight:500;font-size:12.5px;letter-spacing:.24em;text-transform:uppercase;color:#6b6552}
+  .done p{margin:0 0 4px;font-family:'Courier Prime',monospace;font-size:15px;line-height:1.34}
+  .done h5{clear:both;margin:11px 0 5px;font-family:'Libre Caslon Text',serif;font-weight:700;font-size:18px;border-top:1px solid #a39c84;padding-top:9px}
+  .done ol{margin:0;padding:0 0 0 20px;font-family:'Libre Caslon Text',serif;font-size:14.4px;line-height:1.36}
+  .done li{margin:0 0 3px}
+  .done .row{display:flex;flex-wrap:wrap;gap:8px;margin-top:11px}
+  .done .btn{--accent:#22231e;font-size:13px;padding:8px 14px}
+  .done .btn:hover:not([disabled]){color:#f6f3e8}
+  .done small{display:block;margin-top:10px;font-family:'Libre Caslon Text',serif;font-size:12.6px;opacity:.85;line-height:1.45}
+  .done small button{text-decoration:underline;font:inherit}
+  @media print{
+    body{overflow:visible;background:#fff}
+    body>*:not(.ov){display:none!important}
+    .ov{position:static!important;display:block!important;background:#fff!important;padding:0!important;overflow:visible!important}
+    .ov-bar,.rp .foot{display:none!important}
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6a7488"/><stop offset=".7" stop-color="#a8adb6"/><stop offset="1" stop-color="#d6d2c6"/></linearGradient>
+  <linearGradient id="roadG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7a6a5a"/><stop offset="1" stop-color="#4a3e34"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="45%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#0a0c10" stop-opacity=".2"/><stop offset="1" stop-color="#0a0c10" stop-opacity=".7"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#skyG)"/>
+<!-- far end: a palace in the mist, and plane trees -->
+<path d="M620 470V400h360v70z" fill="#9a9ca4"/><path d="M640 400h320" stroke="#8a8c94" stroke-width="8"/><g fill="#8a8c94"><rect x="660" y="416" width="18" height="30"/><rect x="700" y="416" width="18" height="30"/><rect x="740" y="416" width="18" height="30"/><rect x="842" y="416" width="18" height="30"/><rect x="882" y="416" width="18" height="30"/><rect x="922" y="416" width="18" height="30"/></g>
+<g fill="#5e6a5a"><ellipse cx="120" cy="300" rx="190" ry="160"/><ellipse cx="420" cy="340" rx="150" ry="120"/><ellipse cx="1180" cy="340" rx="150" ry="120"/><ellipse cx="1480" cy="300" rx="190" ry="160"/></g>
+<g fill="#4a5646"><ellipse cx="60" cy="360" rx="140" ry="110"/><ellipse cx="1540" cy="360" rx="140" ry="110"/></g>
+<path d="M-1000 470H2600V1320H-1000z" fill="url(#roadG)"/>
+<path d="M800 470L380 1320M800 470L1220 1320" stroke="#c9c3ae" stroke-width="4" opacity=".4"/>
+
+<!-- the Coronation arch -->
+<g id="arch" class="hot">
+  <path d="M560 470V200M1040 470V200" stroke="#c9c9cf" stroke-width="16"/><path d="M560 210Q800 60 1040 210" stroke="#c9c9cf" stroke-width="14" fill="none"/>
+  <g transform="translate(800 120)"><path d="M-34 10l8-30 13 18 13-26 13 26 13-18 8 30z" fill="#e2c25a"/><rect x="-34" y="10" width="68" height="12" fill="#c9a23a"/><circle cx="0" cy="-30" r="5" fill="#e2c25a"/></g>
+  <g fill="#7a1d14"><rect x="548" y="300" width="24" height="60"/><rect x="1028" y="300" width="24" height="60"/></g>
+</g>
+<g id="flagsM"><path d="M300 180l40 6-6 26z" fill="#c8322a"/><path d="M380 196l40 6-6 26z" fill="#f2f2f2"/><path d="M460 210l40 6-6 26z" fill="#1d3a8a"/><path d="M1100 210l40-6 6 26z" fill="#c8322a"/><path d="M1180 196l40-6 6 26z" fill="#f2f2f2"/><path d="M1260 180l40-6 6 26z" fill="#1d3a8a"/>
+  <path d="M260 176Q420 230 560 214M1040 214Q1180 230 1340 176" stroke="#3a3a3a" stroke-width="2" fill="none"/></g>
+
+<!-- the crowd along the railings -->
+<g id="crowd" class="hot">
+  <path d="M-1000 640H2600" stroke="#2a2a2a" stroke-width="5"/><g stroke="#2a2a2a" stroke-width="3"><path d="M-200 640v40M0 640v40M200 640v40M400 640v40M600 640v40M1000 640v40M1200 640v40M1400 640v40M1600 640v40"/></g>
+  <g id="hats" fill="#2e3440"><circle cx="-60" cy="600" r="22"/><circle cx="40" cy="596" r="22"/><circle cx="140" cy="602" r="22"/><circle cx="240" cy="594" r="22"/><circle cx="330" cy="600" r="22"/><circle cx="430" cy="596" r="22"/><circle cx="1170" cy="596" r="22"/><circle cx="1270" cy="602" r="22"/><circle cx="1370" cy="594" r="22"/><circle cx="1460" cy="600" r="22"/><circle cx="1560" cy="596" r="22"/></g>
+  <g fill="#1f2530"><path d="M-110 700q0-80 50-80t50 80z"/><path d="M-10 700q0-80 50-80t50 80z"/><path d="M90 700q0-80 50-80t50 80z"/><path d="M190 700q0-80 50-80t50 80z"/><path d="M280 700q0-80 50-80t50 80z"/><path d="M380 700q0-80 50-80t50 80z"/><path d="M1120 700q0-80 50-80t50 80z"/><path d="M1220 700q0-80 50-80t50 80z"/><path d="M1320 700q0-80 50-80t50 80z"/><path d="M1410 700q0-80 50-80t50 80z"/><path d="M1510 700q0-80 50-80t50 80z"/></g>
+  <g fill="#14161c"><path d="M-20 560q60-50 120 0z"/><path d="M200 556q60-50 120 0z"/><path d="M1240 556q60-50 120 0z"/><path d="M1440 560q60-50 120 0z"/></g>
+  <g fill="#7a2a2a"><path d="M380 566q50-44 100 0z"/></g><g fill="#2a4a6a"><path d="M1130 566q50-44 100 0z"/></g>
+</g>
+<!-- the woman with the flask, and your bundle -->
+<g id="woman" class="hot">
+  <path d="M560 790q-6-150 34-170q36-10 60 10q30 40 24 160z" fill="#5a4a6a"/>
+  <ellipse cx="616" cy="590" rx="28" ry="32" fill="#e8c0a0"/><path d="M586 580q2-40 34-40q30 4 30 34q-20-16-64 6z" fill="#3a2a2a"/><path d="M582 572q34-30 70 0" fill="#6a2a3a"/>
+  <rect x="640" y="650" width="70" height="50" fill="#f2efe2" transform="rotate(-10 675 675)"/><g stroke="#6b6552" stroke-width="1.5" transform="rotate(-10 675 675)"><path d="M646 662h56M646 672h50M646 682h56M646 692h40"/></g>
+  <rect x="540" y="720" width="22" height="50" rx="5" fill="#8a8a8a"/>
+</g>
+<g id="paper" class="hot"><rect x="900" y="740" width="150" height="70" fill="#efece0"/><rect x="900" y="740" width="150" height="70" fill="none" stroke="#9a9488" stroke-width="2"/><path d="M900 770h150M900 786h150" stroke="#c9c3b6" stroke-width="2"/><path d="M970 730v90" stroke="#6a4a2a" stroke-width="5"/>
+  <text x="975" y="762" class="lb" font-size="12" fill="#22201b">THE TIMES</text></g>
+<g id="cheer" fill="#ffd27a" font-family="'Caveat',cursive" font-size="34"><text x="220" y="520">Everest!</text><text x="1240" y="510">Hooray!</text><text x="700" y="560">They&#8217;ve done it!</text></g>
+<g id="rain" stroke="#e6ecf4" stroke-width="2" opacity=".5"><path d="M100 0l-12 60M300 60l-12 60M500 -20l-12 60M700 40l-12 60M900 0l-12 60M1100 60l-12 60M1300 -10l-12 60M1500 30l-12 60M200 300l-12 60M400 260l-12 60M600 320l-12 60M800 280l-12 60M1000 310l-12 60M1200 270l-12 60M1400 330l-12 60M150 560l-12 60M450 600l-12 60M750 540l-12 60M1050 590l-12 60M1350 560l-12 60"/></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<div class="done" id="done">
+  <div class="okstamp">IN TIME</div>
+  <h6>Nepal &rarr; London &middot; 30 May to 2 June 1953</h6>
+  <p id="d-time"></p><p id="d-slips"></p><p id="d-words"></p><p id="d-hints"></p>
+  <h5>What you now know</h5>
+  <ol>
+    <li>A cipher changes letters, and gibberish tells everybody that there is a secret. A code changes meanings: a whole phrase stands for a whole message, and it means what the code book says, whatever it sounds like.</li>
+    <li>The Times&rsquo;s code made the best news sound like bad news, so that anybody who overheard it would yawn and pass it on. One word changed, and a phrase means nothing.</li>
+    <li>Air gets thinner as you climb. At Base Camp a breath holds about half the oxygen it holds at sea level, on the summit about a third. The body gets used to it slowly, so climbers went up and down; the cure for mountain sickness is to go down.</li>
+    <li>Time is distance divided by speed, and climbing costs extra time. A short path that climbs can be slower than a long one that does not. An honest estimate says &ldquo;about&rdquo;.</li>
+    <li>In 1953 India and Nepal were 5 hours 30 minutes ahead of Greenwich. London in summer is 1 hour ahead of Greenwich, so Nepal was 4 hours 30 minutes ahead of London: a day ends in Kathmandu while London still has the evening.</li>
+    <li>A report is no newer than its news. Find the day the news set out before you believe it.</li>
+    <li>To meet a deadline, work back from it: take away the time each step needs, and you know the latest moment for the step before.</li>
+  </ol>
+  <div class="row"><button type="button" class="btn" id="b-tell">Tell it to a friend</button><button type="button" class="btn" id="b-book">Open the notebook</button><button type="button" class="btn" id="b-lobby">Back to the Archive</button></div>
+  <small>The real message, as James Morris sent it, read &ldquo;Snow conditions bad stop advanced base abandoned yesterday stop awaiting improvement&rdquo;, and The Times printed the news on the morning of the Coronation. The runners, Mr Vohra, Mr Dunmore, Mr Baptiste, Mr Thwaite and Mr Okoro are invented, and so are the times of the relay after Base Camp. Edmund Hillary and Tenzing Norgay stood on the summit at 11.30 a.m. on Friday 29 May 1953. James Morris later became the writer Jan Morris. &middot; <button type="button" id="b-reset">untie the bundles again from the start</button></small>
+</div>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="everest.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true;
+
+  ER.init({
+    theme: 'history', story: 'everest', storyTitle: 'Snow Conditions Bad', id: 'mall', no: 'VI', title: 'The Mall',
+    go: 'Go out', back: '../index.html', backLabel: 'Archive',
+    intro: [
+      'The Kathmandu stamp, 23.10, was Kathmandu time. Take away five and a half hours for Greenwich, 17.40, and add one hour for London&rsquo;s summer time: 18.40 in London. Yesterday&rsquo;s telegram took two hours on the wire (10.15 in Kathmandu is 5.45 in London, and it arrived at 7.45), so ours would come at 20.40. The night desk needs two hours before the last news at eleven, so the latest was 21.00. Then two papers came at once. Worldwire&rsquo;s WEATHER IMPROVING was plain English and meant only what it said. Mr Morris&rsquo;s message was the one in the code: summit reached, by Hillary and Tenzing, YESTERDAY counted from 30 May, so on Friday 29 May.',
+      'It is half past five on the morning of Tuesday 2 June 1953, Coronation Day, and it is raining.'
+    ],
+    exit: {"last":true,"rooms":6,"stars":4}, tags: {},
+    hints: hints, onBegin: begin
+  });
+  function hints() { return ER.flag('m-done') ? null : ['look', ['Click through the captions. There is nothing to unlock here.']]; }
+  function isBusy() { return busy; }
+
+  function begin() {
+    if (ER.flag('m-done')) { document.body.classList.add('cheer'); busy = false; finish(true); return; }
+    ER.narrate([
+      'Mr Thwaite has sent you out with an armful of the first copies, &ldquo;to see what London does with it&rdquo;. The Mall is lined with people from end to end. Many of them have been here all night on the wet pavement, under umbrellas and blankets, to keep their places for the Queen&rsquo;s procession.',
+      'You give a copy to a woman with a flask of tea. She opens it, because there is nothing else to do in the rain, and turns past the advertisements to the news. Then she stands up. &ldquo;Everest!&rdquo; she says. &ldquo;They&rsquo;ve climbed Everest!&rdquo;'
+    ], function () {
+      document.body.classList.add('cheer');
+      ER.narrate([
+        'The word goes along the pavement faster than you can walk. People who were asleep sit up. Somebody starts to cheer, and then everybody is cheering, in the rain, at half past five in the morning, for two men on top of a mountain nearly five thousand miles away.',
+        'Later this morning the Queen will be crowned in Westminster Abbey. London has two pieces of news today, and the second one came from a tent on a glacier, by way of a runner, a wireless set, an embassy, a telegraph line and a night desk. Every hand that held it was careful not to change one word.',
+        'The Archive keeps one box for each day that mattered. In this one there are an envelope with a few words on it in pencil, a green form with three corrections, a board with three pins, and a newspaper. The message that went through all of them said that the snow was bad. It was the best news of the year.'
+      ], function () { ER.flag('m-done', 1); busy = false; finish(false); });
+    });
+  }
+  EV.thing('#crowd', null, 'People who slept on the pavement to see the Queen go by. Now half of them are reading over each other&rsquo;s shoulders.', isBusy);
+  EV.thing('#arch', null, 'One of the great arches over the Mall, with a crown on top, put up for the Coronation.', isBusy);
+  EV.thing('#woman', null, '&ldquo;Everest!&rdquo; She has told everybody within twenty yards, twice.', isBusy);
+  EV.thing('#paper', null, 'The rest of your bundle. It is getting smaller very quickly.', isBusy);
+
+  function finish(quiet) {
+    var st = ER.state(), secs = (st.fin && st.fin.secs) || st.secs || 0, mins = Math.max(1, Math.round(secs / 60)), hn = ER.hintsUsed(), sl = EV.slips();
+    $('#d-time').textContent = 'The five days took you ' + mins + (mins === 1 ? ' minute.' : ' minutes.');
+    $('#d-slips').textContent = sl ? 'Somebody had to put you right ' + sl + (sl === 1 ? ' time.' : ' times.') : 'Nobody had to put you right, not once.';
+    $('#d-words').textContent = 'In your notebook: ' + st.clues.length + ' papers and ' + Object.keys(st.words).length + ' words.';
+    $('#d-hints').textContent = hn ? 'You asked for ' + hn + (hn === 1 ? ' hint.' : ' hints.') : 'You did not ask for a single hint.';
+    $('#done').classList.add('on');
+    if (!quiet) EV.solved();
+  }
+  $('#b-book').addEventListener('click', ER.notebook);
+  $('#b-lobby').addEventListener('click', function () { ER.leave('../index.html'); });
+  $('#b-reset').addEventListener('click', function () {
+    var b = $('#b-reset');
+    if (b.getAttribute('data-sure')) { ER.resetStory(); location.href = '../index.html'; return; }
+    b.setAttribute('data-sure', '1'); b.textContent = 'this empties the notebook. click again to do it';
+  });
+  $('#b-tell').addEventListener('click', function () {
+    var saved = ER.flag('tell') || {}, box = ER.el('div', 'rp');
+    box.innerHTML = '<h4>Nepal to London &middot; June 1953</h4><h3>Tell it to a friend</h3>' +
+      '<label for="r1">A friend says: &ldquo;The best news of 1953 said that the snow was bad. Why? And how did it get from a tent on a glacier to London in time for the Coronation?&rdquo; Explain it. Say it aloud first. Then write it, in 60 to 90 words. Use all three of these: <b>code</b>, <b>runner</b>, <b>time zone</b>.</label><textarea id="r1"></textarea>' +
+      '<div class="count"></div><label for="r2">Written by</label><input type="text" id="r2" maxlength="60">' +
+      '<div class="foot"><span>Saved in this browser as you write.</span><button type="button" class="btn" id="r-print">Print</button><button type="button" class="btn" id="r-done">Done</button></div>';
+    ER.glossIn(box, '.rp > label');
+    box.querySelector('#r1').value = saved.r1 || ''; box.querySelector('#r2').value = saved.r2 || '';
+    function keep() {
+      var o = { r1: box.querySelector('#r1').value, r2: box.querySelector('#r2').value }, n = (o.r1.match(/[A-Za-z’'-]+/g) || []).length;
+      box.querySelector('.count').textContent = n + (n === 1 ? ' word' : ' words');
+      ER.flag('tell', o);
+    }
+    box.addEventListener('input', keep);
+    box.addEventListener('keydown', function (e) { e.stopPropagation(); });
+    box.querySelector('#r-print').addEventListener('click', function () { keep(); window.print(); });
+    box.querySelector('#r-done').addEventListener('click', ER.close);
+    ER.open('ov-report', box); keep();
+  });
+})();
+</script>
+</body>
+</html>

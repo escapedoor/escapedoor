@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Map Library · Where's It To?</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lang.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="ac.css">
+<style>
+  body{--bg:#2c3a34;--accent:#e8574a;--font-display:'Old Standard TT',serif;--font-ui:'Outfit',sans-serif;--font-body:'Gentium Book Plus',serif;
+    --tc-bg:rgba(32,44,38,.96);--tc-ink:#eef0e2;--cap-bg:rgba(30,42,36,.95);--cap-ink:#eef0e2;--panel:#f6f4e8;--panel-ink:#1e2a24;--face-bg:#a3241e;--q-ink:#a3241e;
+    --fade:#101814;--hud-bg:rgba(30,42,36,.86);--hud-ink:#eef0e2;--hud-line:rgba(238,240,226,.3);--ov-bg:rgba(10,16,12,.7)}
+  .tc-room{font-size:clamp(40px,6vw,84px);color:#e8574a}
+  .tc-theme{color:#b8d8a8}
+  .hbtn b{color:#1e2a24}
+  #lampg{animation:lampg 6s steps(2,end) infinite}
+  @keyframes lampg{50%{opacity:.85}}
+  #rain3 path{animation:rain3 .8s linear infinite}
+  @keyframes rain3{from{transform:translate(0,-36px)}to{transform:translate(-6px,36px)}}
+  #phled{animation:phled 1.2s steps(1,end) infinite}
+  @keyframes phled{50%{opacity:.2}}
+  /* the map table */
+  .mt{width:min(1180px,97vw)}
+  .mt-in{display:grid;grid-template-columns:1fr 280px;gap:12px;align-items:start}
+  .mt-map{background:#f3eedb;border:12px solid #4a3a2a;box-shadow:0 26px 70px rgba(0,0,0,.6);cursor:crosshair}
+  .mt-map svg{display:block;width:100%;height:auto;max-height:calc(100vh - 220px)}
+  .mt-map.picking{cursor:copy}
+  .cards{display:flex;flex-direction:column;gap:7px}
+  .cards h5{margin:0;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:#eef0e2}
+  .ccard{display:block;width:100%;text-align:left;padding:7px 10px 6px;background:#fffdf4;color:#1e2a24;border:0;border-left:6px solid #a3241e;font-family:'Gentium Book Plus',serif;font-size:14.5px;line-height:1.25;cursor:pointer;box-shadow:0 3px 8px rgba(0,0,0,.35)}
+  .ccard small{display:block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em;color:#7a6a5a;margin-bottom:2px}
+  .ccard.on{outline:3px solid #f2c94c}
+  .ccard.put{border-left-color:#2f7a4a;background:#eef6e8}
+  .ccard.put small:after{content:'  \2713 on the map';color:#2f7a4a}
+  .key{margin-top:4px;padding:7px 10px;background:rgba(255,255,255,.08);color:#d8dccb;font-family:'Gentium Book Plus',serif;font-size:13px;line-height:1.3}
+  .xing{cursor:pointer}
+  .xing:hover circle{stroke:#e8574a}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="panel" width="160" height="160" patternUnits="userSpaceOnUse"><rect width="160" height="160" fill="#3a4a40"/><rect x="10" y="10" width="140" height="140" fill="none" stroke="#2c3a32" stroke-width="5"/></pattern>
+  <pattern id="boards" width="200" height="40" patternUnits="userSpaceOnUse"><rect width="200" height="40" fill="#5a4030"/><path d="M0 0H200M120 0V40" stroke="#46301f" stroke-width="3"/></pattern>
+  <radialGradient id="lampl" cx="50%" cy="20%" r="70%"><stop offset="0" stop-color="#fff2c0" stop-opacity=".6"/><stop offset="1" stop-color="#fff2c0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="75%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".65" stop-color="#050a08" stop-opacity=".2"/><stop offset="1" stop-color="#050a08" stop-opacity=".7"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1080" fill="url(#panel)"/>
+<rect x="-1000" y="680" width="3600" height="800" fill="url(#boards)"/>
+<!-- the plan chests -->
+<g id="chest" class="hot"><rect x="40" y="380" width="420" height="300" fill="#6a4a2c"/><g fill="#7a5834" stroke="#4a301a" stroke-width="3"><rect x="56" y="396" width="388" height="50"/><rect x="56" y="452" width="388" height="50"/><rect x="56" y="508" width="388" height="50"/><rect x="56" y="564" width="388" height="50"/><rect x="56" y="620" width="388" height="50"/></g>
+  <g fill="#e8d8a8"><rect x="236" y="414" width="30" height="12"/><rect x="236" y="470" width="30" height="12"/><rect x="236" y="526" width="30" height="12"/><rect x="236" y="582" width="30" height="12"/><rect x="236" y="638" width="30" height="12"/></g>
+  <rect x="56" y="508" width="388" height="50" fill="#8a6a40" transform="translate(0 -6)"/><rect x="140" y="490" width="140" height="22" fill="#fffdf4" transform="rotate(-4 210 501)"/><text x="150" y="506" class="cK" font-size="14" fill="#a3241e" transform="rotate(-4 210 501)">place names!</text></g>
+<!-- rolled maps, the globe -->
+<g><rect x="490" y="560" width="70" height="120" fill="#4a3a2a"/><g fill="#e8dcc0" stroke="#a89878" stroke-width="2"><rect x="498" y="470" width="16" height="110" rx="8"/><rect x="518" y="490" width="16" height="90" rx="8"/><rect x="538" y="460" width="16" height="120" rx="8"/></g></g>
+<g id="globe" class="hot"><path d="M1460 680v-60M1420 690h80" stroke="#3a2a1a" stroke-width="8"/><circle cx="1460" cy="560" r="62" fill="#5a8aa8"/><path d="M1420 520q30 20 20 50q30 10 40 -20q20 -20 0 -40zM1470 590q20 10 30 -10" fill="#8aa86a"/><path d="M1398 560a62 62 0 0 0 124 0" stroke="#c8a24a" stroke-width="5" fill="none"/></g>
+<!-- the tall window -->
+<g id="window" class="hot"><rect x="1190" y="80" width="230" height="400" fill="#101c24" stroke="#d8d4c0" stroke-width="12"/><path d="M1305 80V480M1190 280H1420" stroke="#d8d4c0" stroke-width="7"/>
+  <g id="rain3" stroke="#9fc4e0" stroke-width="2" opacity=".5"><path d="M1220 120l-5 24M1280 190l-5 24M1350 140l-5 24M1390 230l-5 24M1240 330l-5 24M1330 380l-5 24M1400 420l-5 24"/></g></g>
+<!-- the map table and its lamp -->
+<g id="lampg"><path d="M800 -20V150" stroke="#2a2a2a" stroke-width="4"/><path d="M740 190q60 -60 120 0z" fill="#2f6a4a"/><ellipse cx="800" cy="520" rx="420" ry="260" fill="url(#lampl)" pointer-events="none"/></g>
+<g id="table" class="hot"><path d="M600 640v220M1000 640v220" stroke="#3a2a1a" stroke-width="16"/><path d="M540 640l50 -90h420l50 90z" fill="#5a4030"/>
+  <path d="M600 630l40 -66h320l40 66z" fill="#f3eedb"/><path d="M660 610q60 -30 120 -10t140 -20" stroke="#5a8aa8" stroke-width="3" fill="none"/><path d="M640 590q100 20 300 0" stroke="#c0392b" stroke-width="3" fill="none"/><ellipse cx="760" cy="586" rx="34" ry="10" fill="#8ab0c8"/><circle cx="830" cy="596" r="40" fill="none" stroke="#a3241e" stroke-width="2" stroke-dasharray="4 4"/>
+  <path d="M540 640h520v20H540z" fill="#3a2a1a"/></g>
+<g id="phone" class="hot"><rect x="1010" y="590" width="70" height="36" rx="6" fill="#1a1d24" transform="rotate(-6 1045 608)"/><circle id="phled" cx="1066" cy="600" r="4" fill="#5ad08a"/></g>
+<g id="petra" class="hot" transform="translate(690 892) scale(1.02)"></g>
+<g id="nia" class="hot" transform="translate(300 892) scale(1.0)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Out on to the steps</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="ac.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, nextFile = null, mt = null;
+
+  $('#petra').innerHTML = AC.who('petra', { smile: 0 });
+  $('#nia').innerHTML = AC.who('nia', { smile: 2 });
+
+  ER.init({
+    theme: 'lang', story: 'accent', storyTitle: 'Where’s It To?', id: 'maps', no: 'V', title: 'The Map Library',
+    go: 'Unroll the map',
+    intro: [
+      'In the common room you put Shona&rsquo;s form back together: proper job, brilliant, awesome; the lake, the brook, the creek; the dustbin, the bin, the trash can; the pictures, the cinema, the movies; Mother, Mum, Mom. Older and dialect words for Nan, today&rsquo;s British words for Shona, American words from the screen for Robbie.',
+      'Then the phone network found her mast: number 14, on Cuckoo Down. It covers a circle of moor about seven kilometres across. Somewhere inside it, at twenty to three in the morning, is a car in the water.'
+    ],
+    exit: {"next":"dawn","w":{"cc8bc080":"ccdb81ab"}}, tags: {"vil":["40945dc5"],"wat":["ef505301"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('e-told') || {}; nextFile = ER.flag('e-file') || null;
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('e-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#phone').classList.toggle('ready', !told.tamsin);
+    $('#chest').classList.toggle('ready', !!(told.tamsin && !told.card));
+    $('#table').classList.toggle('ready', !!(told.card && !nextFile));
+    ER.pips((told.tamsin ? 1 : 0) + (told.card ? 1 : 0) + (nextFile ? 1 : 0), 3);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The crew is on its way. The button at the bottom takes you out on to the steps.']];
+    if (mt && mt.isOpen()) return ['map', [
+      'Pick a card, then click the place on the map that it means. The mast card goes on the mast, the grid card anywhere on the open moor (inside the dotted moor wall). The hard ones are &ldquo;Hensey&rdquo; and &ldquo;the lake&rdquo;.',
+      'Nothing on the map is spelt &ldquo;Hensey&rdquo;. The card from the plan chest says how long old names get worn down in speech: which name could &ldquo;Hensey&rdquo; be worn down from? And whose word is &ldquo;the lake&rdquo;? Look at Shona&rsquo;s family words in your notebook.',
+      'Put &ldquo;Hensey&rdquo; on Hennardisworthy (Hen-nardis-worthy, like Wool-fardis-worthy and &ldquo;Woolsery&rdquo;), and &ldquo;the lake&rdquo; on a stream, not on the reservoir: in Nan&rsquo;s words, and Shona&rsquo;s, a lake is a stream. Then click the one crossing where every red patch overlaps.'
+    ]];
+    if (!told.tamsin) return ['tamsin', ['Tamsin Rowe is waiting on the speakerphone, on the corner of the map table. Click the phone.']];
+    if (!told.card) return ['card', ['The plan chest on the left has a drawer pulled out, with a card on top labelled &ldquo;place names!&rdquo;. Read it.']];
+    return ['map', ['Now the big map on the table. Click it, and put Shona&rsquo;s words on it.', 'Nia, on the left, has noticed something about whose words Shona uses.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('The crew is on its way to Hayne Ford. There is nothing to do now but wait.'); return; }
+    if (told.in) { busy = false; ER.say('The map library: plan chests, a lamp, a map of the moor, and Control on the phone.'); return; }
+    tell('in'); ER.mood('tense');
+    ER.narrate([
+      'The map library has a key that Petra should not have and a smell of old paper that Nia says is the best smell in the world.',
+      'The big sheet for Cuckoo Down is already on the table, under a green lamp. Petra has drawn mast 14&rsquo;s circle on it in pencil, using a saucer.',
+      'The speakerphone on the corner of the table has a green light, and Tamsin Rowe on the other end of it.'
+    ], function () { busy = false; });
+  }
+
+  $('#phone').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Tamsin is talking to the crew on another line. Every now and then she says &ldquo;Good&rdquo;, quietly.'); return; }
+    ER.talk({
+      who: 'Watch Manager Tamsin Rowe', role: 'Fire and rescue control · the South-West', face: AC.face('tamsin'),
+      lines: [
+        { note: 'Behind her you can hear other phones, and a radio, and somebody saying a road name over and over.', a: '&ldquo;Here&rsquo;s where I am. The crew on the moor is the one with the boat. I can send it to one place. If it&rsquo;s the wrong place, that&rsquo;s forty minutes, there and back, in the dark.&rdquo;' },
+        { q: 'Where will you send it?', a: '&ldquo;She said &lsquo;going down to the lake&rsquo;. There&rsquo;s one lake in that circle: Wellacombe Water, the reservoir, and the moor road runs along it. Half your listeners texted the same thing. Unless you tell me better, that&rsquo;s where they go.&rdquo;' },
+        { q: 'Why is a flooded road so dangerous?', a: '&ldquo;Thirty centimetres of moving water can float a car. That&rsquo;s a ruler&rsquo;s length. People see a shallow ford they&rsquo;ve driven through a hundred times and don&rsquo;t believe it&rsquo;s different tonight.&rdquo;' },
+        { q: 'What&rsquo;s a cattle grid?', a: '&ldquo;Metal bars over a pit, across the road. Sheep and ponies won&rsquo;t walk on it, so you find one wherever a road goes through the moor wall on to the open moor. Rattles like anything when you drive over.&rdquo;' },
+        { a: '&ldquo;Put her words on the map. Show me one crossing that fits all of them, and tell me why. You&rsquo;ve got five minutes before they reach the reservoir road.&rdquo;' }
+      ],
+      clue: { id: 'tamsin', title: 'Tamsin: one crew, one place', kind: 'On the phone' },
+      done: function (seen) { if (seen && tell('tamsin')) { paint(); AC.terms(['cattle grid', 'ford']); ER.say('The plan chest on the left has a card on it: &ldquo;place names!&rdquo;'); } }
+    });
+  });
+  $('#nia').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Nia has her eyes shut and her fingers crossed on both hands.'); return; }
+    ER.talk({
+      who: 'Nia Prothero', role: 'Research student · teenagers&rsquo; speech', face: AC.face('nia', 'worried'),
+      lines: [
+        { note: 'Nia is reading Shona&rsquo;s form again, on her phone.', a: '&ldquo;She&rsquo;s caught her nan&rsquo;s words. She says so: &lsquo;Where&rsquo;s it to&rsquo; is Nan&rsquo;s, and Shona says it, and Robbie does Nan&rsquo;s voice.&rdquo;' },
+        { q: 'So?', a: '&ldquo;So when Shona uses a word on the phone that sounds odd, ask whose word it is. Words don&rsquo;t mean what the dictionary says. They mean what your family means by them.&rdquo;' },
+        { a: '&ldquo;My taid, my grandad, called every stream on the farm &lsquo;the river&rsquo;. They were a foot wide. If he&rsquo;d said &lsquo;I&rsquo;m at the river&rsquo;, a stranger would have gone to the wrong place.&rdquo;' }
+      ],
+      clue: { id: 'nia5', title: 'Nia: whose word is it?', kind: 'What she said' },
+      done: function (seen) { if (seen) tell('nia'); }
+    });
+  });
+  $('#petra').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Petra is standing very straight, holding the pencil she drew the circle with.'); return; }
+    ER.talk({
+      who: 'Dr Petra Quilliam', role: 'Your aunt · phonetician', face: AC.face('petra'),
+      lines: [
+        { a: '&ldquo;Four things she said on the phone that are about the place, not about her: the grid, the top, Hensey, the lake. And one thing that isn&rsquo;t a word at all: the mast.&rdquo;' },
+        { q: 'Where&rsquo;s Hensey?', a: '&ldquo;Not on this map. I&rsquo;ve looked twice. There&rsquo;s a Hensley Cross, which is close in spelling, and that&rsquo;s exactly why I don&rsquo;t trust it. Locals don&rsquo;t say names the way strangers spell them. Read the card on the plan chest.&rdquo;' },
+        { a: '&ldquo;Each of her clues alone gives you half the moor. All of them together should give you one place where a road goes down into water.&rdquo;' }
+      ]
+    });
+  });
+
+  var CARD = '<h4>Map library &middot; card on drawer 7</h4><h3>What&rsquo;s in a name?</h3><div class="two"><div>' +
+    '<p>Place names are some of the oldest words we have. Speech wears them down over the centuries, while the spelling on the map stays still. <i>Leicester</i> is said &ldquo;Lester&rdquo;, and <i>Worcester</i> &ldquo;Wooster&rdquo;. In Devon, the village spelt <b>Woolfardisworthy</b> is called <b>&ldquo;Woolsery&rdquo;</b> by the people who live there. Strangers read the spelling; locals say the name.</p>' +
+    '<p>Names also keep words that everyday English has lost. Many West Country <b>place names</b> end in <i>-worthy</i>, from an Old English word for a farm with a fence round it, or in <i>-combe</i>, a small steep valley, from a Celtic word related to the Welsh <i>cwm</i>.</p>' +
+    '<p>So when a local says a name, don&rsquo;t look for that sound on the map. Look for a long old spelling that the sound could have been worn down from: the same start, the middle gone.</p></div>' +
+    '<div class="dia"><svg viewBox="0 0 280 230"><text x="14" y="40" font-family="Old Standard TT,serif" font-weight="700" font-size="20" fill="#1f2430">Wool<tspan fill="#c0392b" text-decoration="line-through">fardi</tspan>s<tspan fill="#c0392b" text-decoration="line-through">worth</tspan>y</text>' +
+    '<path d="M60 52v40M200 52v40" stroke="#c0392b" stroke-width="2" stroke-dasharray="4 4"/><path d="M130 60v50" stroke="#2f5d7c" stroke-width="4"/><path d="M118 98l12 16 12 -16" fill="#2f5d7c"/>' +
+    '<text x="70" y="148" font-family="Kalam,cursive" font-size="30" fill="#2f5d7c">&ldquo;Woolsery&rdquo;</text><text x="14" y="190" font-family="Gentium Book Plus,serif" font-size="15" fill="#5a5e68">the spelling stays;</text><text x="14" y="210" font-family="Gentium Book Plus,serif" font-size="15" fill="#5a5e68">the speech wears it down</text></svg></div></div>' +
+    '<p class="fact"><b>A real fact.</b> Woolfardisworthy, near Bideford in north Devon, is so well known as &ldquo;Woolsery&rdquo; that the name is used on local signs and by the village itself.</p>';
+  $('#chest').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: CARD, cls: 'card', clue: { id: 'names', title: 'Card: what&rsquo;s in a name?', kind: 'Map library' }, done: function () {
+      AC.terms(['place name']);
+      if (tell('card')) { paint(); ER.say('Now the map on the table.'); }
+    } });
+  });
+  AC.thing('#window', null, 'Rain on a tall window. The forecast says it will stop at four. On the moor, the streams will go on rising for an hour after that.', isBusy);
+  AC.thing('#globe', 'globe', 'An old globe, with countries on it that no longer exist. Somebody has stuck a tiny paper flag on Carmarthenshire.', isBusy);
+
+  /* ---------- the map of Cuckoo Down (1 km is about 86 units) ---------- */
+  var MOOR = [[120, 60], [760, 40], [850, 200], [790, 420], [650, 455], [520, 470], [300, 440], [140, 360], [90, 200]];
+  var MAST = [470, 280], R_MAST = 300, R_NEAR = 170;
+  var VIL = { hen: ['Hennardisworthy', 700, 482], hcx: ['Hensley Cross', 230, 522], wel: ['Wellacombe', 326, 146, 1] };
+  var RES = { cx: 424, cy: 166, rx: 72, ry: 32 };
+  var STREAMS = [
+    [[560, 180], [575, 260], [590, 340], [610, 420], [660, 500], [720, 530], [800, 540], [900, 562]],
+    [[300, 230], [320, 280], [330, 310], [300, 390], [270, 470], [230, 560], [210, 620]],
+    [[690, 20], [720, 90], [760, 160], [800, 230]]];
+  var ROADS = [
+    [[-20, 600], [150, 560], [230, 522], [270, 470], [300, 442], [400, 380], [470, 330], [540, 370], [610, 420], [660, 454], [700, 482], [800, 540], [920, 575]],
+    [[470, 330], [420, 260], [360, 198], [326, 146], [300, 40], [296, -20]],
+    [[420, 260], [330, 310], [200, 300], [122, 300], [-20, 300]],
+    [[326, 146], [500, 112], [720, 90], [920, 80]]];
+  var GRIDS = [[300, 442], [660, 454], [122, 300]];
+  var XS = {
+    hayne: ['Hayne Ford', 610, 420, 'stream'], causeway: ['the reservoir road', 360, 198, 'res'], langmead: ['Langmead Bridge', 330, 310, 'stream'],
+    hensley: ['Hensley Ford', 270, 470, 'stream', 1], pitt: ['Pitt Ford', 800, 540, 'stream'], splatt: ['Splatt Ford', 720, 90, 'stream']
+  };
+  function pip(x, y, poly) { var c = false, i, j; for (i = 0, j = poly.length - 1; i < poly.length; j = i++) { var a = poly[i], b = poly[j]; if ((a[1] > y) !== (b[1] > y) && x < (b[0] - a[0]) * (y - a[1]) / (b[1] - a[1]) + a[0]) c = !c; } return c; }
+  function d2(x, y, a, b) { return Math.sqrt((x - a) * (x - a) + (y - b) * (y - b)); }
+  function dseg(x, y, p, q) { var vx = q[0] - p[0], vy = q[1] - p[1], t = ((x - p[0]) * vx + (y - p[1]) * vy) / (vx * vx + vy * vy); t = Math.max(0, Math.min(1, t)); return d2(x, y, p[0] + t * vx, p[1] + t * vy); }
+  function nearStream(x, y) { return STREAMS.some(function (s) { for (var i = 1; i < s.length; i++) if (dseg(x, y, s[i - 1], s[i]) < 16) return true; return false; }); }
+  function atRes(x, y) { var u = (x - RES.cx) / (RES.rx + 22), v = (y - RES.cy) / (RES.ry + 22); return u * u + v * v <= 1; }
+  function pts(a) { return a.map(function (p) { return p.join(','); }).join(' '); }
+
+  var CARDS = [
+    ['mast', 'From Control', 'Her phone last used mast 14, on Cuckoo Down.'],
+    ['grid', 'Shona, 00.49', '&ldquo;Oh, here&rsquo;s the grid. Right, I&rsquo;m up on the top now.&rdquo;'],
+    ['hensey', 'Shona, 00.50', '&ldquo;No, I&rsquo;m nearly to Hensey.&rdquo;'],
+    ['lake', 'Shona, 00.51', '&ldquo;I&rsquo;m going down to the lake now. There&rsquo;s water over the road.&rdquo;']];
+  $('#table').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('A red ring round Hayne Ford, in Petra&rsquo;s pencil, pressed so hard it went through the paper.'); return; }
+    if (!told.tamsin) { ER.say('The map of Cuckoo Down, with a pencil circle on it. Pick up the phone first: Tamsin is waiting.'); return; }
+    if (!told.card) { ER.say('&ldquo;Read the card on the plan chest first,&rdquo; says Petra. &ldquo;It&rsquo;s there for a reason.&rdquo;'); return; }
+    if (!mt) mt = makeMap();
+    mt.open();
+  });
+  function makeMap() {
+    var box = ER.el('div', 'pz mt'), st = ER.flag('e-st') || {}, pick = null, done = false;
+    var s = '<svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg"><rect x="-40" y="-40" width="980" height="680" fill="#f3eedb"/>' +
+      '<polygon points="' + pts(MOOR) + '" fill="#e2dcb8" stroke="#7a6a4a" stroke-width="3" stroke-dasharray="2 6" stroke-linecap="round"/>' +
+      '<g fill="none" stroke="#c8a878" stroke-width="1.5" opacity=".8"><ellipse cx="470" cy="280" rx="60" ry="40"/><ellipse cx="470" cy="280" rx="110" ry="74"/><ellipse cx="470" cy="285" rx="170" ry="118"/></g>' +
+      '<g id="zones"></g>' +
+      '<ellipse cx="' + RES.cx + '" cy="' + RES.cy + '" rx="' + RES.rx + '" ry="' + RES.ry + '" fill="#9cc4dc" stroke="#4a7a9a" stroke-width="2"/>' +
+      STREAMS.map(function (a) { return '<polyline points="' + pts(a) + '" fill="none" stroke="#4a7a9a" stroke-width="3"/>'; }).join('') +
+      ROADS.map(function (a) { return '<polyline points="' + pts(a) + '" fill="none" stroke="#c0392b" stroke-width="5" stroke-linejoin="round"/><polyline points="' + pts(a) + '" fill="none" stroke="#f6d06a" stroke-width="2"/>'; }).join('') +
+      GRIDS.map(function (g) { return '<g transform="translate(' + g[0] + ' ' + g[1] + ')"><rect x="-9" y="-9" width="18" height="18" fill="#fff" stroke="#1e2a24" stroke-width="2"/><path d="M-5 -9v18M0 -9v18M5 -9v18" stroke="#1e2a24" stroke-width="2"/></g>'; }).join('') +
+      '<g transform="translate(470 280)"><path d="M0 -26l-10 26h20z" fill="none" stroke="#1e2a24" stroke-width="2.5"/><path d="M-6 -30q6 -8 12 0M-11 -35q11 -14 22 0" stroke="#1e2a24" stroke-width="2" fill="none"/></g>' +
+      Object.keys(VIL).map(function (k) { var v = VIL[k]; return '<g><rect x="' + (v[1] - 9) + '" y="' + (v[2] - 9) + '" width="18" height="18" fill="#1e2a24"/><text' + (v[3] ? ' text-anchor="end"' : '') + ' x="' + (v[3] ? v[1] - 14 : v[1] + 14) + '" y="' + (v[3] ? v[2] - 8 : v[2] + 22) + '" font-family="Old Standard TT,serif" font-weight="700" font-size="17" fill="#1e2a24">' + v[0] + '</text></g>'; }).join('') +
+      '<g font-family="Gentium Book Plus,serif" font-style="italic" font-size="14" fill="#2a5a7a"><text x="380" y="174">Wellacombe Water</text><text x="536" y="320" transform="rotate(76 536 320)">Hayne Brook</text><text x="236" y="390" transform="rotate(-72 236 390)">Langmead Water</text><text x="770" y="150" transform="rotate(60 770 150)">Splatt Water</text></g>' +
+      '<g font-family="Old Standard TT,serif" font-size="15" fill="#5a4a2a" letter-spacing="3"><text x="190" y="110">C U C K O O</text><text x="250" y="132">D O W N</text></g><text x="488" y="262" font-family="IBM Plex Mono,monospace" font-size="12" fill="#1e2a24">mast 14</text>' +
+      '<circle cx="470" cy="280" r="' + R_MAST + '" fill="none" stroke="#5a5a5a" stroke-width="1.5" stroke-dasharray="3 5"/>' +
+      Object.keys(XS).map(function (k) { var x = XS[k]; return '<g class="xing" data-x="' + k + '"><circle cx="' + x[1] + '" cy="' + x[2] + '" r="10" fill="#fff" stroke="#1e2a24" stroke-width="2.5"/><circle cx="' + x[1] + '" cy="' + x[2] + '" r="3.5" fill="#1e2a24"/><text' + (x[4] ? ' text-anchor="end"' : '') + ' x="' + (x[4] ? x[1] - 12 : x[1] + 12) + '" y="' + (x[2] - 12) + '" font-family="IBM Plex Mono,monospace" font-size="12.5" fill="#1e2a24" stroke="#f3eedb" stroke-width="3" paint-order="stroke">' + x[0] + '</text></g>'; }).join('') +
+      '<circle id="xring" cx="0" cy="0" r="20" fill="none" stroke="#c0392b" stroke-width="4" opacity="0" pointer-events="none"/>' +
+      '<g transform="translate(20 560)"><path d="M0 0h86" stroke="#1e2a24" stroke-width="3"/><path d="M0 -5v10M86 -5v10" stroke="#1e2a24" stroke-width="2"/><text x="96" y="5" font-family="IBM Plex Mono,monospace" font-size="12" fill="#1e2a24">1 km</text></g></svg>';
+    box.innerHTML = '<div class="mt-in"><div class="mt-map">' + s + '</div><div class="cards"><h5>Her words, and Control&rsquo;s</h5>' +
+      CARDS.map(function (c) { return '<button type="button" class="ccard" data-c="' + c[0] + '"><small>' + c[1] + '</small>' + c[2] + '</button>'; }).join('') +
+      '<div class="key">Pick a card, then click the place it means. Each card on the map colours the ground it allows: where all of them overlap is where she can be. Then click a crossing (white circle) and send the crew.<br>Key: dotted line = moor wall &middot; striped square = cattle grid &middot; black square = village.</div></div></div>' +
+      '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="m-go">Send the crew</button></div>';
+    var svg = box.querySelector('svg'), mapEl = box.querySelector('.mt-map'), msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function save() { ER.flag('e-st', st); }
+    function zones() {
+      var z = '', f = 'rgba(192,57,43,.2)';
+      if (st.mast) z += '<circle cx="470" cy="280" r="' + R_MAST + '" fill="' + f + '"/>';
+      if (st.grid) z += '<polygon points="' + pts(MOOR) + '" fill="' + f + '"/>';
+      if (st.vil) { var v = VIL[st.vil]; z += '<circle cx="' + v[1] + '" cy="' + v[2] + '" r="' + R_NEAR + '" fill="' + f + '"/>'; }
+      if (st.wat === 'res') z += '<ellipse cx="' + RES.cx + '" cy="' + RES.cy + '" rx="' + (RES.rx + 22) + '" ry="' + (RES.ry + 22) + '" fill="' + f + '"/>';
+      if (st.wat === 'stream') z += STREAMS.map(function (a) { return '<polyline points="' + pts(a) + '" fill="none" stroke="' + f + '" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"/>'; }).join('');
+      svg.querySelector('#zones').innerHTML = z;
+      ER.$$('.ccard', box).forEach(function (b) { var c = b.getAttribute('data-c'); b.classList.toggle('put', !!(c === 'hensey' ? st.vil : c === 'lake' ? st.wat : st[c])); b.classList.toggle('on', c === pick); });
+      var R = svg.querySelector('#xring');
+      if (st.x) { R.setAttribute('cx', XS[st.x][1]); R.setAttribute('cy', XS[st.x][2]); R.setAttribute('opacity', 1); } else R.setAttribute('opacity', 0);
+      mapEl.classList.toggle('picking', !!pick);
+    }
+    ER.$$('.ccard', box).forEach(function (b) {
+      b.addEventListener('click', function () { if (done) return; var c = b.getAttribute('data-c'); pick = pick === c ? null : c; ER.sfx.click(); zones(); if (pick) msg('Now click the place on the map that this card means.'); });
+    });
+    svg.addEventListener('click', function (e) {
+      if (done) return;
+      var p = ER.pt(svg, e), x = p.x, y = p.y, xg = e.target.closest ? e.target.closest('.xing') : null;
+      if (!pick) {
+        if (xg) { st.x = xg.getAttribute('data-x'); save(); AC.sfx.pencil(); zones(); msg('You ring ' + XS[st.x][0] + '.'); }
+        else msg('Pick one of the cards on the right first, then click the map.');
+        return;
+      }
+      var ok = false;
+      if (pick === 'mast') { if (d2(x, y, MAST[0], MAST[1]) < 40) { st.mast = 1; ok = true; } else msg('That card goes on the mast itself: the little tower in the middle of Cuckoo Down.'); }
+      else if (pick === 'grid') { if (pip(x, y, MOOR)) { st.grid = 1; ok = true; } else msg('She had come over the grid and was &ldquo;up on the top&rdquo;. Put this card somewhere on the open moor, inside the dotted moor wall.'); }
+      else if (pick === 'hensey') {
+        var best = null; Object.keys(VIL).forEach(function (k) { if (d2(x, y, VIL[k][1], VIL[k][2]) < 60) best = k; });
+        if (best) { st.vil = best; ok = true; } else msg('&ldquo;Hensey&rdquo; is a place she was nearly at. Put this card on a village (a black square).');
+      }
+      else if (pick === 'lake') {
+        if (atRes(x, y)) { st.wat = 'res'; ok = true; }
+        else if (nearStream(x, y)) { st.wat = 'stream'; ok = true; }
+        else msg('Put this card on water: the reservoir, or a stream (the thin blue lines).');
+      }
+      if (ok) { AC.sfx.pin(); pick = null; save(); zones(); msg('Card placed. Where all the red overlaps is where she can be.'); }
+    });
+    box.querySelector('#m-go').addEventListener('click', function () {
+      if (done) return;
+      if (!(st.mast && st.grid && st.vil && st.wat)) { ER.sfx.no(); msg('Tamsin: &ldquo;Show me why, first. Put every card on the map.&rdquo;'); return; }
+      if (!st.x) { ER.sfx.no(); msg('Now ring a crossing: click one of the white circles where a road meets water.'); return; }
+      var X = XS[st.x], v = VIL[st.vil], x = X[1], y = X[2], XN = X[0].charAt(0).toUpperCase() + X[0].slice(1);
+      if (d2(x, y, MAST[0], MAST[1]) > R_MAST) { ER.sfx.no(); msg('Tamsin: &ldquo;' + XN + ' is outside mast 14&rsquo;s circle. Her phone couldn&rsquo;t have used that mast from there.&rdquo;'); return; }
+      if (!pip(x, y, MOOR)) { ER.sfx.no(); msg('Tamsin: &ldquo;' + XN + ' is on farmland, below the moor wall. She&rsquo;d come over the grid and she was up on the top.&rdquo;'); return; }
+      if (d2(x, y, v[1], v[2]) > R_NEAR) { ER.sfx.no(); msg('Tamsin: &ldquo;' + XN + ' is nowhere near ' + v[0] + ', and she said she was nearly there.&rdquo;'); return; }
+      if (X[3] !== st.wat) { ER.sfx.no(); msg('Tamsin: &ldquo;' + XN + ' isn&rsquo;t where a road meets the water you put her card on.&rdquo;'); return; }
+      if (!ER.check('vil', st.vil)) { ER.sfx.no(); msg('Petra shakes her head. &ldquo;' + v[0] + '? Is that what she said? She said &lsquo;Hensey&rsquo;. Read the card from the plan chest again: which name on this map could be worn down to that?&rdquo;'); return; }
+      if (!ER.check('wat', st.wat)) { ER.sfx.no(); msg('&ldquo;The reservoir,&rdquo; says Tamsin. &ldquo;That&rsquo;s what I thought.&rdquo; Nia is shaking her head. &ldquo;Whose word is &lsquo;lake&rsquo;? Look at the family form.&rdquo;'); return; }
+      done = true;
+      nextFile = ER.exit([st.vil + '|' + st.wat + '|' + st.x], { wait: true });
+      if (!nextFile) { msg('The way on will not open. Something is wrong with this page: tell your teacher.'); return; }
+      ER.flag('e-file', nextFile); paint();
+      AC.mine('ford', 'Where Shona is', '<p>Mast 14&rsquo;s circle + the open moor (she&rsquo;d come over the grid) + near Hennardisworthy (&ldquo;Hensey&rdquo;, worn down like Woolsery) + a stream (Nan&rsquo;s &ldquo;lake&rdquo;) = <b>Hayne Ford</b>, where the moor road goes down to Hayne Brook.</p><p>Not the reservoir. Not Hensley Cross.</p>');
+      msg('<b>Hayne Ford.</b> The only crossing inside the circle, on the open moor, near Hennardisworthy, where the road goes down into a stream. Petra says it into the phone, spelling it, and then says why.');
+      setTimeout(function () {
+        ER.closeAll(); busy = true;
+        ER.narrate([
+          'Tamsin listens without a word. Then: &ldquo;Hayne Ford. The bottom of the lane into Hennardisworthy, and nobody but the people who live there calls it anything but Hensey. My gran says it that way. I should have heard it.&rdquo;',
+          'You hear her change channels and say it again, quickly and clearly, to someone in a fire engine on a moor road in the rain: &ldquo;Turn round. Hayne Ford. The stream, not the reservoir.&rdquo;',
+          '&ldquo;Twelve minutes,&rdquo; she says. &ldquo;I&rsquo;ll ring you.&rdquo; The green light goes out.',
+          'Nobody in the map library says anything at all. Petra goes to the window. Then she says, &ldquo;Let&rsquo;s wait outside. I can&rsquo;t breathe in here.&rdquo;'
+        ], function () { busy = false; $('#go').classList.add('on'); });
+      }, 3200);
+    });
+    zones();
+    msg((st.mast || st.grid || st.vil || st.wat) ? 'Your cards are where you left them.' : 'Pick a card on the right, then click the place on the map that it means.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Printing House Square · Snow Conditions Bad</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-history.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="everest.css">
+<style>
+  body{--bg:#1a1610;--accent:#ffd27a;--font-display:'Abril Fatface',serif;--font-ui:'Oswald',sans-serif;--font-body:'Libre Caslon Text',serif;
+    --tc-bg:rgba(20,16,10,.96);--tc-ink:#f3ecdc;--cap-bg:rgba(22,18,12,.94);--panel:#241d14;--face-bg:#3a2e20;--q-ink:#ffd88e;--fade:#070604;--hud-bg:rgba(22,18,12,.82)}
+  .lb{font-family:'Oswald',sans-serif;font-weight:500;text-anchor:middle;letter-spacing:.14em}
+  #paper{animation:pp .25s steps(2,end) infinite}
+  body.quiet #paper{animation:none}
+  @keyframes pp{50%{transform:translateY(-3px)}}
+  .lampc{animation:lc 5s steps(1,end) infinite}
+  @keyframes lc{60%{opacity:.85}62%{opacity:1}}
+  #board.ready,#tape.ready{animation:nudge 1.6s ease-in-out infinite}
+  @keyframes nudge{50%{transform:translateY(-6px)}}
+
+  /* the relay board */
+  .rb{display:grid;grid-template-columns:minmax(0,720px) 220px;gap:18px;width:min(970px,97vw);align-items:start}
+  .rb-main{padding:14px 18px 12px;background:#efe6cc;color:#22201b;border:10px solid #5a4a36;box-shadow:0 20px 50px rgba(0,0,0,.6)}
+  .rb-main h6{margin:0 0 10px;font-family:'Abril Fatface',serif;font-weight:normal;font-size:21px;color:#7a1d14;text-align:center;letter-spacing:.04em}
+  .rb-map{display:block;width:100%;height:auto;margin-bottom:8px}
+  .rb-row{display:grid;grid-template-columns:minmax(0,1fr) 150px;align-items:center;gap:10px;padding:6px 0;border-top:1px dotted #8a7a5a;font-family:'Libre Caslon Text',serif;font-size:16px;line-height:1.3}
+  .rb-row small{display:block;font-family:'Courier Prime',monospace;font-size:13px;color:#6b6552}
+  .rb-foot{display:flex;justify-content:flex-end;margin-top:8px}
+  .rb-foot .btn{--accent:#22201b}.rb-foot .btn:hover:not([disabled]){color:#efe6cc}
+  /* the decode slip */
+  .dc{display:grid;grid-template-columns:minmax(0,740px) 210px;gap:18px;width:min(990px,97vw);align-items:start}
+  .dc-papers{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:10px}
+  .dc-p{padding:10px 12px;text-align:left;cursor:pointer;border:3px solid transparent;font-size:13.5px;line-height:1.35;box-shadow:0 8px 18px rgba(0,0,0,.45)}
+  .dc-p:hover{border-color:#ffd27a}
+  .dc-p.on{border-color:#7a1d14}
+  .dc-p.no{opacity:.45}
+  .dc-p h5{margin:0 0 4px;font-family:'Oswald',sans-serif;font-weight:600;font-size:12px;letter-spacing:.18em;text-transform:uppercase}
+  .dc-p.m{background:#f3e3b8;color:#2a2212;font-family:'Courier Prime',monospace;font-weight:700}
+  .dc-p.w{background:#f2efe2;color:#1a1a1a;font-family:'IBM Plex Mono',monospace;text-transform:uppercase}
+  .dc-slip{padding:12px 16px;background:#fbf8ee;color:#22201b;border-top:6px solid #7a1d14;box-shadow:0 12px 26px rgba(0,0,0,.5)}
+  .dc-slip.off{opacity:.35;pointer-events:none}
+  .dc-slip h6{margin:0 0 6px;font-family:'Oswald',sans-serif;font-weight:500;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#6b6552}
+  .dc-f{display:grid;grid-template-columns:130px minmax(0,1fr);gap:8px;align-items:start;padding:5px 0;border-top:1px dotted #b9ad8c}
+  .dc-f > span{font-family:'Oswald',sans-serif;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:#7a1d14;padding-top:5px}
+  .dc-ch{display:flex;flex-wrap:wrap;gap:5px}
+  .dc-ch button{padding:4px 9px;border:1px solid #8a7a5a;background:#f3ecd8;font-family:'Libre Caslon Text',serif;font-size:14px;color:#22201b;cursor:pointer;border-radius:2px}
+  .dc-ch button.on{background:#22201b;color:#fbf8ee}
+  .dc-ch button.ok{background:#2d6a34;color:#fff;border-color:#2d6a34}
+  .dc-ch button.no{background:#9a2a1c;color:#fff;border-color:#9a2a1c}
+  .dc-foot{display:flex;justify-content:flex-end;margin-top:8px}
+  .dc-foot .btn{--accent:#22201b}.dc-foot .btn:hover:not([disabled]){color:#fbf8ee}
+  @media (max-width:900px){.rb,.dc,.dc-papers{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6a5a40"/><stop offset=".55" stop-color="#4a3e2a"/><stop offset="1" stop-color="#2e2618"/></linearGradient>
+  <radialGradient id="lampG" cx="50%" cy="0%" r="100%"><stop offset="0" stop-color="#fff0c0" stop-opacity=".5"/><stop offset="1" stop-color="#fff0c0" stop-opacity="0"/></radialGradient>
+  <linearGradient id="nightG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0a0e18"/><stop offset="1" stop-color="#2a2a3a"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="45%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".62" stop-color="#050402" stop-opacity=".25"/><stop offset="1" stop-color="#050402" stop-opacity=".85"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#wallG)"/>
+<rect x="-1000" y="440" width="3600" height="30" fill="#3a2e1e"/><rect x="-1000" y="470" width="3600" height="200" fill="#5a4a32"/>
+<g stroke="#3a2e1e" stroke-width="3"><path d="M-1000 520H2600M-1000 580H2600"/></g>
+<rect x="-1000" y="670" width="3600" height="650" fill="#2a2016"/><g fill="#3a2e20" opacity=".7"><path d="M-1000 700h3600v6h-3600zM-1000 760h3600v6h-3600zM-1000 840h3600v6h-3600z"/></g>
+
+<!-- the window: St Paul's, and the Coronation lights -->
+<g id="window" class="hot">
+  <rect x="1270" y="90" width="300" height="300" fill="#2a2016"/><rect x="1284" y="104" width="272" height="272" fill="url(#nightG)"/>
+  <path d="M1350 376v-90h20v-30q50-60 100 0v30h20v90z" fill="#2e3446"/><path d="M1420 196v-30" stroke="#3a4258" stroke-width="6"/><circle cx="1420" cy="162" r="6" fill="#3a4258"/>
+  <path d="M1370 256q50-72 100 0z" fill="#4a5470"/><path d="M1384 238q36-40 72 0" stroke="#6a7490" stroke-width="2" fill="none"/>
+  <g fill="#ffd27a" opacity=".8"><rect x="1380" y="300" width="6" height="12"/><rect x="1410" y="300" width="6" height="12"/><rect x="1440" y="300" width="6" height="12"/></g>
+  <g fill="#ffd27a"><circle cx="1300" cy="330" r="2.4"/><circle cx="1320" cy="326" r="2.4"/><circle cx="1340" cy="330" r="2.4"/><circle cx="1500" cy="320" r="2.4"/><circle cx="1520" cy="326" r="2.4"/><circle cx="1540" cy="320" r="2.4"/></g>
+  <path d="M1290 330q20-8 60 0M1494 322q24-8 56 0" stroke="#c9a25a" stroke-width="1.5" fill="none"/>
+  <path d="M1420 104v272M1284 240h272" stroke="#2a2016" stroke-width="8"/>
+</g>
+
+<!-- the night desk's board, the relay board, the clock -->
+<g id="slate" class="hot"><rect x="100" y="150" width="260" height="250" fill="#5a4a36"/><rect x="112" y="162" width="236" height="226" fill="#1f2426"/>
+  <text x="230" y="194" class="lb" font-size="15" fill="#ffe2a0">CORONATION NUMBER</text>
+  <g stroke="#efeadb" stroke-width="2" opacity=".75"><path d="M130 220h150M130 240h120M130 260h170M130 290h160M130 310h110M130 330h150M130 360h140"/></g></g>
+<g id="board" class="hot"><rect x="430" y="150" width="380" height="250" fill="#5a4a36"/><rect x="442" y="162" width="356" height="226" fill="#efe6cc"/>
+  <text x="620" y="190" class="lb" font-size="14" fill="#7a1d14">KATHMANDU &#8594; LONDON</text>
+  <path d="M470 330q90-120 300-110" stroke="#7a1d14" stroke-width="3" fill="none" stroke-dasharray="8 6"/>
+  <circle cx="470" cy="330" r="7" fill="#7a1d14"/><circle cx="770" cy="220" r="7" fill="#7a1d14"/>
+  <g fill="#f4f0e2" stroke="#22201b" stroke-width="2"><circle cx="520" cy="360" r="18"/><circle cx="620" cy="360" r="18"/><circle cx="720" cy="360" r="18"/></g></g>
+<g id="wallclock"><circle cx="1010" cy="200" r="76" fill="#3a2e1e"/><circle cx="1010" cy="200" r="64" fill="#f4f0e2"/>
+  <g stroke="#22201b" stroke-width="4"><path d="M1010 144v10M1010 246v10M954 200h10M1056 200h10"/></g>
+  <path id="hh" d="M1010 200V166" stroke="#22201b" stroke-width="7" stroke-linecap="round"/><path id="mh" d="M1010 200V150" stroke="#22201b" stroke-width="4" stroke-linecap="round"/><circle cx="1010" cy="200" r="5" fill="#7a1d14"/>
+  <text x="1010" y="300" class="lb" font-size="14" fill="#efe6cc">LONDON</text></g>
+
+<!-- lamps -->
+<g class="lampc"><path d="M400 -400V40M1000 -400V40" stroke="#111" stroke-width="3"/><path d="M370 40h60l-10 26h-40zM970 40h60l-10 26h-40z" fill="#1e5a3a"/>
+<polygon points="380,66 420,66 560,560 240,560" fill="url(#lampG)" pointer-events="none"/><polygon points="980,66 1020,66 1160,560 840,560" fill="url(#lampG)" pointer-events="none"/></g>
+
+<!-- the long desk -->
+<rect x="200" y="560" width="1200" height="26" fill="#7a5a36"/><rect x="220" y="586" width="1160" height="150" fill="#4a3622"/>
+<g fill="#1e1c1a"><rect x="300" y="520" width="110" height="40" rx="6"/><rect x="660" y="520" width="110" height="40" rx="6"/></g>
+<g fill="#efe6cc"><rect x="320" y="494" width="70" height="30"/><rect x="680" y="494" width="70" height="30"/></g>
+<g id="spike" class="hot"><rect x="856" y="490" width="6" height="70" fill="#8a8a8a"/><rect x="830" y="552" width="58" height="10" rx="3" fill="#2a2016"/>
+  <g fill="#f3e3b8" stroke="#8a6a3a" stroke-width="1.5"><path d="M820 516h80v24h-80z" transform="rotate(-5 860 528)"/></g></g>
+
+<!-- the teleprinter -->
+<g id="tape" class="hot">
+  <rect x="1100" y="470" width="170" height="100" rx="8" fill="#5a5e62"/><rect x="1112" y="482" width="146" height="40" rx="4" fill="#2a2e32"/>
+  <g id="paper"><rect x="1140" y="400" width="90" height="86" fill="#f2efe2"/><g stroke="#6b6552" stroke-width="1.5"><path d="M1148 414h70M1148 426h60M1148 438h74M1148 450h50M1148 462h66"/></g></g>
+  <text x="1185" y="552" class="lb" font-size="11" fill="#d9d6cc">AGENCIES</text>
+</g>
+
+<!-- Mr Thwaite, standing at the desk -->
+<g id="thwaite" class="hot">
+  <path d="M440 800V600q0-50 50-56q50 6 50 56v200z" fill="#f2efe6"/>
+  <path d="M456 600q34 30 68 0l8 200h-84z" fill="#3d3b44"/><path d="M486 560h8l4 40-8 10-8-10z" fill="#7a1d14"/>
+  <rect x="478" y="512" width="24" height="28" fill="#eab89a"/><ellipse cx="490" cy="484" rx="30" ry="36" fill="#eab89a"/>
+  <path d="M460 490q-2-20 6-30M520 490q2-20-6-30" stroke="#7d7468" stroke-width="6" fill="none"/>
+  <path d="M456 470q34-16 68 0l-4 8q-30-10-60 0z" fill="#2d7a3a" opacity=".85"/>
+  <g fill="none" stroke="#2a2a2a" stroke-width="2"><circle cx="478" cy="488" r="8"/><circle cx="502" cy="488" r="8"/><path d="M486 488h8"/></g>
+  <path d="M540 620q40 0 60-40" stroke="#f2efe6" stroke-width="18" stroke-linecap="round" fill="none"/>
+</g>
+<!-- Mr Okoro, at the telephones -->
+<g id="okoro" class="hot">
+  <rect x="1300" y="640" width="170" height="16" fill="#3a2a1c"/>
+  <path d="M1330 800V640q0-50 50-56q50 6 50 56v160z" fill="#f2efe6"/><path d="M1376 600h8l4 40-8 10-8-10z" fill="#22314a"/>
+  <rect x="1368" y="552" width="24" height="28" fill="#5a3624"/><ellipse cx="1380" cy="524" rx="30" ry="36" fill="#5a3624"/><path d="M1350 516q0-38 30-38t30 38q-8-22-30-22t-30 22z" fill="#141110"/>
+  <g fill="none" stroke="#2a2a2a" stroke-width="2"><circle cx="1368" cy="526" r="8"/><circle cx="1392" cy="526" r="8"/><path d="M1376 526h8"/></g>
+  <path d="M1346 520q34-56 68 0" stroke="#1a1a1a" stroke-width="5" fill="none"/><rect x="1338" y="516" width="12" height="22" rx="4" fill="#1a1a1a"/><rect x="1410" y="516" width="12" height="22" rx="4" fill="#1a1a1a"/>
+  <path d="M1350 540q-20 20-10 40h20" stroke="#1a1a1a" stroke-width="3" fill="none"/>
+  <rect x="1460" y="600" width="60" height="40" rx="6" fill="#111"/>
+</g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Go out into the morning</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="everest.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, stage = 0, nextFile = null, rbBox = null, dcBox = null, inRb = false, inDc = false;
+
+  ER.init({
+    theme: 'history', story: 'everest', storyTitle: 'Snow Conditions Bad', id: 'times', no: 'V', title: 'Printing House Square',
+    go: 'Untie the third bundle', back: '../index.html', backLabel: 'Archive',
+    intro: [
+      'On Mr Dunmore&rsquo;s board each paper was pinned at the day its news set out from the mountain. The packet was written on a Sunday and came on foot, and a runner takes eight days, so it left Base Camp on Sunday 24 May. Mr Baptiste&rsquo;s &ldquo;runner from Base Camp&rdquo; came in the same morning from the same place, so his news set out on the same day. Both left before the first attempt on the summit, on 26 May: neither could know how the climb ended. Mr Morris&rsquo;s message was written at Base Camp on 30 May, after he came down. It could.',
+      'You untie the third bundle. It smells of printer&rsquo;s ink. Inside is a newspaper, folded open at an inside page, because in 1953 the front page of The Times is all advertisements.',
+      'Then it is Monday 1 June 1953, twenty past seven in the evening in London, and you are fifteen, and you are a copy boy at The Times, in Printing House Square. When anybody shouts &ldquo;Copy!&rdquo;, that means you.'
+    ],
+    exit: {"next":"mall","w":{"75317daa":"09b5c301"}}, tags: {"k1":["686b7ee3"],"k2":["593d0f2a"],"k3":["342bf66a"],"src":["4ea282c2"],"d1":["fe85e6e0"],"d2":["dbf0eff6"],"d3":["e5aec7a9"],"d4":["3a94af06"]},
+    hints: hints, onBegin: begin
+  });
+  stage = ER.flag('x-st') || 0; nextFile = ER.flag('x-file') || null;
+
+  function isBusy() { return busy; }
+  function setStage(n) { stage = n; ER.flag('x-st', n); paint(); }
+  function clock(m) {
+    $('#hh').setAttribute('transform', 'rotate(' + (((m / 60) % 12) * 30) + ' 1010 200)');
+    $('#mh').setAttribute('transform', 'rotate(' + ((m % 60) * 6) + ' 1010 200)');
+  }
+  function paint() {
+    document.body.classList.toggle('quiet', stage !== 1);
+    $('#board').classList.toggle('ready', stage === 0 && !nextFile);
+    $('#tape').classList.toggle('ready', stage === 1);
+    clock(nextFile ? 1320 : stage >= 1 ? 1240 : 1160);
+    ER.pips(nextFile ? 2 : stage, 2);
+    if (nextFile) $('#go').classList.add('on');
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The paper is going to press. Use the button at the bottom of the screen.']];
+    if (inDc || stage === 1) return ['decode', [
+      'Two papers came in together. Only one is from Mr Morris, in the code. The other is an agency report in plain English. A phrase is only code in a message from your own man.',
+      'Then decode Mr Morris&rsquo;s message with the code card in your notebook: the news, the first climber, the day, the second climber.',
+      'The day: YESTERDAY is counted from the day the message was written, not the day it arrived. The top of the message says where and when it was written.'
+    ]];
+    if (inRb || stage === 0) return ['board', [
+      'Kathmandu clocks are 5 hours 30 minutes ahead of Greenwich. Take that away from 23.10. Is London on Greenwich time in June? (The wireless notice from Namche, in your notebook.)',
+      'How long does a telegram take from Kathmandu? Yesterday&rsquo;s is on the spike. Change its Kathmandu stamp into London time the same way, and compare it with its London stamp.',
+      'The latest it can arrive: the board on the left says when the last news goes in, and how long the night desk needs from the moment a message arrives.'
+    ]];
+    return null;
+  }
+
+  function begin() {
+    paint();
+    EV.need('code', 'The code card', EV.CODE, 'code', 'From the tin');
+    EV.need('wireless', 'The wireless post notice', EV.WIRELESS, 'notice2', 'On the wall');
+    if (ER.flag('x-in')) { busy = false; ER.say(nextFile ? 'The newsroom. The presses are running under your feet.' : stage === 1 ? 'The newsroom. Two papers have just come in.' : 'The newsroom. Mr Thwaite is staring at the board.'); return; }
+    EV.learn('deadline', 'copy boy');
+    ER.narrate([
+      'The newsroom of The Times: a long brown room full of green lamps, typewriters and pipe smoke. Tomorrow the Queen is crowned, and the whole paper is about it: the route, the Abbey, the robes, the weather (wet).',
+      'Only one man in the room is not thinking about the Coronation. Mr Thwaite, the night editor, has been waiting for a message from the Himalaya for three days. He has the London copy of the code card in his waistcoat pocket, and he has read it so often that the corners have gone soft.',
+      'At twenty past seven Mr Okoro, who takes telephone messages at night and studies law in the daytime, puts his hand over the mouthpiece. &ldquo;The cable company, Mr Thwaite. A message for us from Kathmandu is on its way. Handed in at Kathmandu at twenty-three ten.&rdquo;',
+      'Mr Thwaite goes white. &ldquo;Ten past eleven! The last news goes in at eleven! It has missed the paper by ten minutes!&rdquo;',
+      'Mr Okoro does not go white. &ldquo;Sir,&rdquo; he says politely, &ldquo;which eleven?&rdquo; Mr Thwaite stares at him. Then he points at you. &ldquo;Copy! The board. Work it out. In London time, if you please.&rdquo;'
+    ], function () { busy = false; ER.flag('x-in', 1); paint(); });
+  }
+
+  var YEST = '<h4>Yesterday&rsquo;s telegram from Kathmandu</h4><div class="hd">STAMPS: HANDED IN KATHMANDU 31 MAY 1015 &middot; RECEIVED LONDON 31 MAY 0745</div><p class="body">EMBASSY KATHMANDU TO TIMES LONDON YOUR LETTERS RECEIVED STOP NOTHING FURTHER</p><p class="hw">On the spike. Kathmandu stamps are Kathmandu time; London stamps are London time.</p>';
+  $('#slate').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: EV.TIMETABLE, cls: 'slate', clue: { id: 'timetable', title: 'The Coronation number', kind: 'The night desk’s board' }, done: function () { EV.learn('plates', 'proof'); } });
+  });
+  $('#spike').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: YEST, cls: 'tgram', clue: { id: 'yest', title: 'Yesterday’s telegram', kind: 'On the spike' }, done: function () { ER.flag('x-y', 1); } });
+  });
+  $('#board').addEventListener('click', function () {
+    if (busy) return;
+    if (stage > 0 || nextFile) { ER.say('The board. Three clocks, all set, and twenty minutes to spare.'); return; }
+    openRb();
+  });
+  $('#tape').addEventListener('click', function () {
+    if (busy) return;
+    if (stage !== 1) { ER.say(stage === 0 ? 'The agency teleprinter. It types news from all over the world, all night, whether anybody reads it or not.' : 'The agency teleprinter, chattering about the weather on the Coronation route.'); return; }
+    openDc();
+  });
+  EV.thing('#window', null, 'The dome of St Paul&rsquo;s against the night, and the Coronation lights along the river. It has been raining on and off all day.', isBusy);
+  EV.thing('#thwaite', null, function () { return nextFile ? 'Mr Thwaite is reading his own story for the third time. He is smiling, which nobody has seen before.' : stage === 1 ? '&ldquo;Failed,&rdquo; says Mr Thwaite, to nobody. &ldquo;The card says failed.&rdquo;' : '&ldquo;London time!&rdquo; says Mr Thwaite. &ldquo;The board!&rdquo;'; }, isBusy);
+  EV.thing('#okoro', 'copytaker', function () { return stage === 1 ? '&ldquo;Read both,&rdquo; says Mr Okoro quietly. &ldquo;Then ask who wrote each one. That is what my law books say about evidence.&rdquo;' : 'Mr Okoro, at the telephones. &ldquo;Kathmandu stamps are Kathmandu time,&rdquo; he says. &ldquo;Everybody forgets.&rdquo;'; }, isBusy);
+
+  /* ---------- the relay board ---------- */
+  var MAP = '<svg class="rb-map" viewBox="0 0 680 120"><rect width="680" height="120" fill="#e6dcbc"/><path d="M40 90Q300 -20 640 40" stroke="#7a1d14" stroke-width="3" fill="none" stroke-dasharray="9 6"/>' +
+    '<g fill="#7a1d14"><circle cx="40" cy="90" r="7"/><circle cx="250" cy="44" r="5"/><circle cx="640" cy="40" r="7"/></g><g font-family="\'Oswald\',sans-serif" font-size="14" fill="#22201b" letter-spacing="1"><text x="50" y="110">KATHMANDU (G.M.T. + 5 h 30)</text><text x="222" y="34">DELHI</text><text x="520" y="70">LONDON (summer time)</text></g></svg>';
+  function buildRb() {
+    var b = ER.el('div', 'rb'), msgEl, lock = false;
+    b.innerHTML = '<div class="rb-main"><h6>Kathmandu to London</h6>' + MAP +
+      '<div class="rb-row" id="r1"><div>Our message was handed in at Kathmandu at 23.10, Kathmandu time. In London that was:<small>KATHMANDU STAMP 1 JUN 2310</small></div></div>' +
+      '<div class="rb-row" id="r2"><div>So it should reach us, if it travels like yesterday&rsquo;s, at:<small>YESTERDAY&rsquo;S IS ON THE SPIKE</small></div></div>' +
+      '<div class="rb-row" id="r3"><div>The latest it can reach us and still be in the paper:<small>THE NIGHT DESK&rsquo;S BOARD</small></div></div>' +
+      '<div class="rb-foot"><button type="button" class="btn" id="rb-go">Tell Mr Thwaite</button></div></div>' +
+      '<div class="lk-side"><div class="lk-face">' + EV.FACE('thwaite') + '</div><h6 class="lk-h">Mr Thwaite</h6><p class="pmsg"></p></div>';
+    msgEl = b.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    var s1 = EV.setter({ val: 1160, min: 0, max: 1425, step: 10 }), s2 = EV.setter({ val: 1160, min: 0, max: 1425, step: 10 }), s3 = EV.setter({ val: 1160, min: 0, max: 1425, step: 10 });
+    b.querySelector('#r1').appendChild(s1.el); b.querySelector('#r2').appendChild(s2.el); b.querySelector('#r3').appendChild(s3.el);
+    b.querySelector('#rb-go').addEventListener('click', function () {
+      if (lock) return;
+      var a = s1.get(), c = s2.get(), d = s3.get(), o1 = ER.check('k1', String(a)), o2 = ER.check('k2', String(c)), o3 = ER.check('k3', String(d));
+      s1.mark(o1 ? 'ok' : 'no'); s2.mark(o2 ? 'ok' : 'no'); s3.mark(o3 ? 'ok' : 'no');
+      if (!o1) { EV.slip(); ER.sfx.no(); msg(a === 1390 ? '&ldquo;That is Kathmandu&rsquo;s own clock. I asked for London.&rdquo;' : a === 1060 ? 'Mr Okoro coughs. &ldquo;That is Greenwich time, I think. Is London on Greenwich time in June?&rdquo;' : '&ldquo;Kathmandu is five and a half hours ahead of Greenwich. Greenwich first, then London.&rdquo;'); return; }
+      if (!o2) { EV.slip(); ER.sfx.no(); msg('&ldquo;How long did yesterday&rsquo;s take? Change its Kathmandu stamp into London time, the same way you did ours. Then see how long it was on the wire.&rdquo;'); return; }
+      if (!o3) { EV.slip(); ER.sfx.no(); msg(d >= 1380 ? '&ldquo;If it comes at eleven, it is too late. The board on the left: from the moment it arrives, how long does the desk need?&rdquo;' : '&ldquo;Last news at eleven. Decode, write, set and read the proofs: add them up, and take them away from eleven.&rdquo;'); return; }
+      lock = true; ER.flag('x-rb', [a, c, d].join('-')); ER.sfx.ok();
+      msg('Mr Thwaite sits down very suddenly. &ldquo;Twenty minutes,&rdquo; he says. &ldquo;Twenty minutes to spare.&rdquo; He takes off his eyeshade and wipes his face with it. &ldquo;Thank you, Okoro. And you, Copy.&rdquo;');
+      setTimeout(function () { ER.closeAll(); arrive(); }, 2600);
+    });
+    b.first = function () { msg('&ldquo;Three clocks, all in London time. When did it leave Kathmandu, when will it get here, and when is too late? Quickly, if you please.&rdquo;'); };
+    return b;
+  }
+  function openRb() { var f = !rbBox; if (!rbBox) rbBox = buildRb(); inRb = true; ER.open('ov-lock', rbBox, function () { inRb = false; }); if (f) rbBox.first(); }
+
+  function arrive() {
+    busy = true; inRb = false;
+    var r = String(ER.flag('x-rb') || '').split('-');
+    EV.mine('relay', 'Kathmandu to London', '<p>Handed in at Kathmandu 23.10 = <b>' + EV.clock(+r[0]) + '</b> in London (Kathmandu is 5 h 30 ahead of Greenwich, and London in summer is 1 h ahead of Greenwich).</p><p>Expected here: <b>' + EV.clock(+r[1]) + '</b>. Latest: <b>' + EV.clock(+r[2]) + '</b>.</p>', true);
+    ER.narrate([
+      'For an hour nobody does any work at all, except Mr Okoro, who does the work of three people because nobody else is.',
+      'At twenty to nine his telephone rings. He listens, and types, very carefully, every word. At the same moment, at the other end of the room, the agency teleprinter begins to chatter: a flash from Kathmandu.',
+      'Mr Thwaite reads the teleprinter first, because it is nearer. Then he takes the code card out of his waistcoat pocket, and reads it, and sits down again. &ldquo;WEATHER IMPROVING,&rdquo; he says. &ldquo;The card says that means an attempt has failed.&rdquo;',
+      '&ldquo;Copy,&rdquo; he says, in a small voice. &ldquo;Both papers. Tell me what we have got.&rdquo;'
+    ], function () { setStage(1); busy = false; });
+  }
+
+  /* ---------- the decode slip ---------- */
+  var F = [['d1', 'The news', [['sum', 'Summit reached'], ['fail', 'An attempt has failed'], ['end', 'No more attempts'], ['none', 'Nothing yet']]],
+    ['d2', 'First climber', [['bou', 'Bourdillon'], ['eva', 'Evans'], ['hil', 'Hillary'], ['hun', 'Hunt'], ['low', 'Lowe'], ['ten', 'Tenzing']]],
+    ['d3', 'Day of the climb', [['28', 'Thu 28 May'], ['29', 'Fri 29 May'], ['30', 'Sat 30 May'], ['31', 'Sun 31 May'], ['32', 'Mon 1 June']]],
+    ['d4', 'Second climber', [['bou', 'Bourdillon'], ['eva', 'Evans'], ['hil', 'Hillary'], ['hun', 'Hunt'], ['low', 'Lowe'], ['ten', 'Tenzing']]]];
+  function buildDc() {
+    var b = ER.el('div', 'dc'), src = '', pick = {}, msgEl, lock = false;
+    b.innerHTML = '<div><div class="dc-papers">' +
+      '<button type="button" class="dc-p m" data-s="m"><h5>Telephoned to Mr Okoro, 20.40</h5>FROM KATHMANDU 1 JUN 2310 &middot; FROM MORRIS BASE CAMP 30 MAY &middot; SNOW CONDITIONS BAD STOP ADVANCED BASE ABANDONED YESTERDAY STOP AWAITING IMPROVEMENT</button>' +
+      '<button type="button" class="dc-p w" data-s="w"><h5>Agency teleprinter, 20.40</h5>WORLDWIRE &middot; KATHMANDU JUNE 1: EVEREST EXPEDITION. WEATHER IMPROVING AT BASE CAMP, SAY RUNNERS. NEW ATTEMPT ON SUMMIT EXPECTED SHORTLY. EARLIER REPORTS OF SUCCESS NOT CONFIRMED.</button></div>' +
+      '<div class="dc-slip off"><h6>Decoded for the night editor</h6>' +
+      F.map(function (f) { return '<div class="dc-f" data-f="' + f[0] + '"><span>' + f[1] + '</span><div class="dc-ch">' + f[2].map(function (o) { return '<button type="button" data-v="' + o[0] + '">' + o[1] + '</button>'; }).join('') + '</div></div>'; }).join('') +
+      '<div class="dc-foot"><button type="button" class="btn" id="dc-go">Give it to Mr Thwaite</button></div></div></div>' +
+      '<div class="lk-side"><div class="lk-face">' + EV.FACE('okoro') + '</div><h6 class="lk-h">Mr Okoro</h6><p class="pmsg"></p></div>';
+    msgEl = b.querySelector('.pmsg');
+    var slip = b.querySelector('.dc-slip');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    ER.$$('.dc-p', b).forEach(function (p) {
+      p.addEventListener('click', function () {
+        if (lock || src) return;
+        var s = p.getAttribute('data-s');
+        if (!ER.check('src', s)) {
+          EV.slip(); ER.sfx.no(); p.classList.add('no');
+          msg('&ldquo;That is Worldwire, in plain English,&rdquo; says Mr Okoro. &ldquo;In a Worldwire report, words mean what they say. The card only works on a message from our own man. Who wrote each one?&rdquo;');
+          return;
+        }
+        src = s; ER.flag('x-src', s); p.classList.add('on'); slip.classList.remove('off'); EV.sfx.pencil(); ER.sfx.ok();
+        msg('&ldquo;Our own man, in our own code,&rdquo; says Mr Okoro. &ldquo;The weather in the other one is just weather. Now: what does ours say?&rdquo;');
+      });
+    });
+    ER.$$('.dc-f', b).forEach(function (f) {
+      var k = f.getAttribute('data-f');
+      ER.$$('button', f).forEach(function (bt) {
+        bt.addEventListener('click', function () {
+          if (lock) return;
+          pick[k] = bt.getAttribute('data-v');
+          ER.$$('button', f).forEach(function (o) { o.classList.remove('on', 'ok', 'no'); }); bt.classList.add('on'); EV.sfx.tick();
+        });
+      });
+    });
+    b.querySelector('#dc-go').addEventListener('click', function () {
+      if (lock || !src) return;
+      if (F.some(function (f) { return !pick[f[0]]; })) { msg('&ldquo;Every line, please. Mr Thwaite will not print a perhaps.&rdquo;'); return; }
+      var bad = '';
+      F.forEach(function (f) {
+        var k = f[0], ok = ER.check(k, pick[k]), bt = b.querySelector('.dc-f[data-f="' + k + '"] button[data-v="' + pick[k] + '"]');
+        bt.classList.remove('on'); bt.classList.add(ok ? 'ok' : 'no');
+        if (!ok && !bad) {
+          if (k === 'd3') bad = pick[k] === '32' ? '&ldquo;Today? YESTERDAY is counted from the day he wrote it, not the day we got it.&rdquo;' : pick[k] === '31' ? '&ldquo;That is yesterday from today&rsquo;s point of view, or from Namche&rsquo;s. Count from the day he wrote it. The top of the message says when.&rdquo;' : pick[k] === '30' ? '&ldquo;That is the day he wrote it. And the code word is YESTERDAY.&rdquo;' : '&ldquo;The 28th is Worldwire&rsquo;s day, and Worldwire did not see it. Count from the day our man wrote his message.&rdquo;';
+          else if (k === 'd1') bad = '&ldquo;Read the first phrase of ours against the card again. Only ours.&rdquo;';
+          else bad = (k === 'd2' && pick.d2 === 'ten' && pick.d4 === 'hil') ? '&ldquo;The right two names, I think, but the card puts the climbers in the order of the alphabet. Which phrase comes first in his message?&rdquo;' : '&ldquo;Find each phrase of his on the card, under THE CLIMBERS. Which man is it?&rdquo;';
+        }
+      });
+      if (bad) { EV.slip(); ER.sfx.no(); msg(bad); return; }
+      lock = true; ER.flag('x-dc', [pick.d1, pick.d2, pick.d3, pick.d4].join('-')); ER.sfx.ok();
+      msg('Mr Okoro reads the slip, and reads it again, and very slowly begins to smile.');
+      setTimeout(function () { ER.closeAll(); press(); }, 2400);
+    });
+    b.first = function () { msg('&ldquo;Two papers, the same minute, the same city,&rdquo; says Mr Okoro. &ldquo;Which one is in our code? Click it. Then decode it with the card.&rdquo;'); };
+    return b;
+  }
+  function openDc() { var f = !dcBox; if (!dcBox) dcBox = buildDc(); inDc = true; ER.open('ov-lock', dcBox, function () { inDc = false; }); if (f) dcBox.first(); }
+
+  function press() {
+    busy = true; inDc = false; EV.mood('calm');
+    var NAMES = {}, d = String(ER.flag('x-dc') || '').split('-');
+    F[1][2].forEach(function (o) { NAMES[o[0]] = o[1]; });
+    var DAYN = {}; F[2][2].forEach(function (o) { DAYN[o[0]] = o[1].replace('Thu', 'Thursday').replace('Fri', 'Friday').replace('Sat', 'Saturday').replace('Sun', 'Sunday').replace('Mon', 'Monday'); });
+    ER.narrate([
+      'You give Mr Thwaite the slip. He reads it once, and puts it down, and puts both his hands flat on the desk, as if the desk might float away.',
+      '&ldquo;' + (NAMES[d[1]] || '') + ' and ' + (NAMES[d[3]] || '') + ',&rdquo; he says. &ldquo;On ' + (DAYN[d[2]] || 'the day') + '. On the top.&rdquo; Then, in a voice that the whole room hears: &ldquo;EVEREST!&rdquo;',
+      'Nobody in the newsroom of The Times has ever cheered before. They do now. Somebody throws a pencil in the air, and it lands in somebody else&rsquo;s tea.',
+      'Mr Thwaite writes the story himself, in forty minutes, without crossing out a word. &ldquo;Copy!&rdquo; You run it down the stairs to the composing room, where the men are waiting at their machines. It is set in type, read, and read again. At eleven o&rsquo;clock, London time, it is in the paper.',
+      'At midnight the presses start, two floors down, and the whole building shakes very gently, like a ship.'
+    ], function () {
+      var file = ER.exitOk([ER.flag('x-rb') + '|' + ER.flag('x-src') + '|' + ER.flag('x-dc')]);
+      if (!file) { busy = false; ER.say('Something is wrong: tell your teacher.'); return; }
+      nextFile = file; ER.flag('x-file', file); setStage(2);
+      var st = ER.state(); st.done = st.done || {}; st.done.times = 1; ER.persist(true);
+      busy = false; paint();
+    });
+  }
+  $('#go').addEventListener('click', function () {
+    if (!nextFile || busy) return;
+    busy = true; EV.solved(true);
+    setTimeout(function () { ER.leave(nextFile); }, 1000);
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Quay · The Verb Comes Last</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lang.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="pb.css">
+<style>
+  body{--bg:#9cc4d8;--accent:#c8302a;--font-display:'Old Standard TT',serif;--font-ui:'Outfit',sans-serif;--font-body:'Gentium Book Plus',serif;
+    --tc-bg:rgba(240,246,248,.97);--tc-ink:#1d2a36;--cap-bg:rgba(248,251,252,.96);--cap-ink:#1d2a36;--panel:#f6f9fa;--panel-ink:#1d2a36;--face-bg:#2c4a78;--q-ink:#2a6a9a;
+    --fade:#e6f0f4;--hud-bg:rgba(248,251,252,.86);--hud-ink:#1d2a36;--hud-line:rgba(29,42,54,.3);--ov-bg:rgba(18,32,44,.62)}
+  .tc-room{font-size:clamp(40px,6vw,84px);color:#2a4a7a}
+  .tc-theme{color:#c8302a}
+  .hbtn b{color:#fff}
+  .gull{animation:gull 19s linear infinite}
+  .gull.g2{animation-duration:27s;animation-delay:-9s}
+  @keyframes gull{0%{transform:translate(-300px,0)}100%{transform:translate(2000px,-60px)}}
+  .wing{animation:flap 1.1s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
+  @keyframes flap{50%{transform:scaleY(.4)}}
+  #glint path{animation:glint 3.4s steps(2,end) infinite}
+  #glint path:nth-child(2n){animation-delay:-1.7s}
+  @keyframes glint{50%{opacity:.15}}
+  #flag{animation:wave 2.6s ease-in-out infinite;transform-origin:452px 222px}
+  @keyframes wave{50%{transform:skewY(4deg)}}
+  #book{display:none}
+  #book.on{display:inline}
+  #book.ready,#slate.ready{animation:glow 1.6s steps(1,end) infinite}
+  @keyframes glow{50%{filter:brightness(1.25) drop-shadow(0 0 6px #fff)}}
+
+  /* the slips */
+  .us{width:min(1080px,96vw)}
+  .us-in{display:grid;grid-template-columns:1fr 330px;gap:16px}
+  .us-page{background:#fbf6e8 linear-gradient(90deg,rgba(120,90,40,.10),transparent 5%);color:#22201c;border-left:12px solid #2a4a7a;padding:16px 22px 12px 28px;box-shadow:0 26px 70px rgba(0,0,0,.55)}
+  .us-page h4{margin:0;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#2a4a7a}
+  .us-page h3{margin:0 0 8px;font-family:'Old Standard TT',serif;font-weight:700;font-size:25px}
+  .us-row{display:grid;grid-template-columns:26px 1fr 290px;gap:10px;align-items:center;padding:5px 0;border-bottom:1px dotted #c9bfa8}
+  .us-row>i{font-family:'IBM Plex Mono',monospace;font-style:normal;font-size:13px;color:#7a7468}
+  .us-row .iv{font-size:21px}
+  .slot{min-height:44px;border:2px dashed #b9ae94;border-radius:3px;display:flex;align-items:stretch;background:rgba(255,255,255,.5)}
+  .slot.bad{border-color:#c8302a;background:#fbe0dc}
+  .tray{background:rgba(255,255,255,.12);border:2px dashed rgba(255,255,255,.35);border-radius:4px;padding:10px;display:flex;flex-direction:column;gap:7px;min-height:200px}
+  .tray h5{margin:0 0 2px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#e6f0f4}
+  .slipcard{position:relative;display:block;width:100%;padding:8px 12px 6px;background:#fffdf4;color:#22304a;font-family:'Kalam',cursive;font-size:17.5px;line-height:1.25;cursor:grab;
+    box-shadow:0 3px 8px rgba(0,0,0,.28);border-left:4px solid #c8302a;touch-action:none}
+  .tray .slipcard:nth-child(odd){transform:rotate(-.6deg)}.tray .slipcard:nth-child(even){transform:rotate(.5deg)}
+  .slipcard.held{outline:3px solid #f2c21b}
+  .slipcard.fly{position:fixed;z-index:80;pointer-events:none;transform:rotate(-2deg)}
+  .slot .slipcard{box-shadow:none;transform:none}
+  /* the slate */
+  .sl{width:min(940px,95vw)}
+  .sl-board{background:#2b3236 radial-gradient(ellipse at 30% 20%,rgba(255,255,255,.08),transparent 60%);border:16px solid #7a5a36;border-radius:4px;padding:22px 28px 18px;color:#f1efe6;box-shadow:0 26px 70px rgba(0,0,0,.55)}
+  .sl-board .msg{font-family:'Kalam',cursive;font-weight:700;font-size:40px;letter-spacing:.06em;text-align:center;color:#fff;margin:0 0 8px}
+  .sl-board .msg .iv{color:#fff;font-family:'Kalam',cursive;font-style:normal}
+  .sl-board p{margin:0 0 10px;font-family:'Gentium Book Plus',serif;font-size:16.5px;color:#d8dcd8;text-align:center}
+  .sl-line{display:flex;gap:10px;justify-content:center;margin:14px 0 12px}
+  .sl-line .tslot{width:178px;min-height:50px;border-bottom:3px solid rgba(241,239,230,.6);display:flex;align-items:stretch}
+  .sl-line .tslot.bad{border-color:#ff8a7a}
+  .tiles{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;min-height:58px;padding:10px;border:2px dashed rgba(241,239,230,.25);border-radius:6px}
+  .tile{display:block;padding:9px 16px 7px;background:#f1efe6;color:#1d2a36;font-family:'Gentium Book Plus',serif;font-weight:700;font-size:19px;border-radius:3px;cursor:grab;box-shadow:0 3px 0 #9a9a90;touch-action:none;white-space:nowrap}
+  .tile.held{outline:3px solid #f2c21b}
+  .tile.fly{position:fixed;z-index:80;pointer-events:none}
+  .tslot .tile{width:100%;text-align:center;box-shadow:none}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6fa6c8"/><stop offset=".7" stop-color="#bcd8e4"/><stop offset="1" stop-color="#e6eef0"/></linearGradient>
+  <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a8aa6"/><stop offset="1" stop-color="#2a5a78"/></linearGradient>
+  <pattern id="stone" width="120" height="60" patternUnits="userSpaceOnUse"><rect width="120" height="60" fill="#a8a294"/><path d="M0 0H120M0 30H120M40 0V30M100 0V30M10 30V60M70 30V60" stroke="#878172" stroke-width="3"/><path d="M8 8h20M60 40h24" stroke="#bcb6a8" stroke-width="3" opacity=".6"/></pattern>
+  <pattern id="cobble" width="70" height="40" patternUnits="userSpaceOnUse"><rect width="70" height="40" fill="#b9b2a2"/><ellipse cx="18" cy="12" rx="15" ry="9" fill="#c9c2b2"/><ellipse cx="52" cy="14" rx="14" ry="9" fill="#aaa392"/><ellipse cx="35" cy="32" rx="16" ry="8" fill="#c2bba9"/></pattern>
+  <radialGradient id="vig" cx="50%" cy="45%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#0a2030" stop-opacity=".06"/><stop offset="1" stop-color="#0a2030" stop-opacity=".4"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="900" fill="url(#sky)"/>
+<g fill="#fff" opacity=".85"><ellipse cx="260" cy="90" rx="120" ry="26"/><ellipse cx="330" cy="72" rx="80" ry="30"/><ellipse cx="980" cy="120" rx="150" ry="24"/><ellipse cx="1060" cy="100" rx="90" ry="30"/><ellipse cx="1500" cy="60" rx="110" ry="22"/></g>
+<!-- the headland, and the lighthouse on it -->
+<path d="M1140 420q120 -150 300 -170q160 -10 1200 40v300H1140z" fill="#7a9a6a"/><path d="M1180 420q110 -110 260 -140q60 0 120 20q-160 30 -250 120z" fill="#6a8a5a"/>
+<g id="light" class="hot"><rect x="1478" y="196" width="26" height="70" fill="#f4f2ee"/><rect x="1478" y="222" width="26" height="12" fill="#c8302a"/><rect x="1474" y="186" width="34" height="12" fill="#2a2a2a"/><path d="M1478 186l13 -14 13 14z" fill="#2a2a2a"/><rect x="1468" y="262" width="46" height="8" fill="#e6e2da"/></g>
+<path d="M1300 330q60 -40 180 -64" stroke="#e8e0c8" stroke-width="3" fill="none" stroke-dasharray="6 6" opacity=".8"/>
+<!-- the sea -->
+<rect x="-1000" y="380" width="3600" height="400" fill="url(#sea)"/>
+<g id="glint" stroke="#e6f4fa" stroke-width="3" stroke-linecap="round"><path d="M120 420h40"/><path d="M700 440h30"/><path d="M880 410h50"/><path d="M1040 470h30"/><path d="M300 470h26"/><path d="M1380 450h44"/><path d="M1700 420h40"/><path d="M-200 450h40"/></g>
+<!-- gulls -->
+<g class="gull"><g transform="translate(0 150)"><path class="wing" d="M0 0q14 -14 26 0q12 -14 26 0" stroke="#3a3a3a" stroke-width="3" fill="none"/></g></g>
+<g class="gull g2"><g transform="translate(0 210) scale(.8)"><path class="wing" d="M0 0q14 -14 26 0q12 -14 26 0" stroke="#3a3a3a" stroke-width="3" fill="none"/></g></g>
+
+<!-- the Shearwater -->
+<g id="ferry" class="hot">
+  <path d="M-260 470H660l-40 150H-220z" fill="#f4f2ee" stroke="#5a6a7a" stroke-width="3"/><path d="M-250 560H640" stroke="#1f2a44" stroke-width="16"/>
+  <rect x="-120" y="370" width="520" height="100" fill="#f4f2ee" stroke="#5a6a7a" stroke-width="3"/><g fill="#2a4a6a"><rect x="-96" y="392" width="44" height="30" rx="4"/><rect x="-36" y="392" width="44" height="30" rx="4"/><rect x="24" y="392" width="44" height="30" rx="4"/><rect x="84" y="392" width="44" height="30" rx="4"/><rect x="144" y="392" width="44" height="30" rx="4"/><rect x="204" y="392" width="44" height="30" rx="4"/><rect x="264" y="392" width="44" height="30" rx="4"/></g>
+  <rect x="300" y="290" width="70" height="80" fill="#c8302a" stroke="#5a6a7a" stroke-width="3"/><rect x="300" y="290" width="70" height="14" fill="#1f2a44"/>
+  <path d="M452 360V222" stroke="#5a6a7a" stroke-width="4"/><path id="flag" d="M452 222h44l-8 12 8 12h-44z" fill="#2a4a7a"/>
+  <text x="96" y="520" class="cO" font-size="28" font-weight="700" text-anchor="middle" fill="#1f2a44" letter-spacing="6">SHEARWATER</text>
+  <path d="M-260 470H660" stroke="#c8302a" stroke-width="6"/>
+</g>
+<!-- the quay -->
+<rect x="-1000" y="600" width="3600" height="60" fill="url(#stone)"/><rect x="-1000" y="596" width="3600" height="8" fill="#ccc6b6"/>
+<rect x="-1000" y="660" width="3600" height="800" fill="url(#cobble)"/>
+<path d="M200 600L250 452h130l-40 148z" fill="#8a8a86" stroke="#5a5a56" stroke-width="3"/><path d="M228 560h120M240 520h116M252 484h112" stroke="#5a5a56" stroke-width="3"/>
+<g id="bollard" class="hot"><path d="M680 680v-40q0 -14 22 -14t22 14v40z" fill="#2a2a2a"/><ellipse cx="702" cy="626" rx="28" ry="9" fill="#3a3a3a"/><path d="M702 630q-70 -6 -140 -58" stroke="#c9b48a" stroke-width="6" fill="none"/></g>
+<!-- the hut and its slate -->
+<g id="hut"><path d="M1040 640V420h300v220z" fill="#f2efe6" stroke="#b9b2a2" stroke-width="3"/><path d="M1020 424l170 -88 170 88z" fill="#4a5058"/><rect x="1240" y="500" width="70" height="140" fill="#2a4a6a"/><circle cx="1298" cy="574" r="4" fill="#d9b44a"/>
+  <rect x="1090" y="380" width="200" height="34" fill="#2a4a6a"/><text x="1190" y="405" class="cU" font-size="22" text-anchor="middle" fill="#f2efe6" letter-spacing="3"><tspan class="iv">KALODO</tspan></text></g>
+<g id="slate" class="hot"><rect x="1062" y="452" width="160" height="112" rx="3" fill="#7a5a36"/><rect x="1070" y="460" width="144" height="96" fill="#2b3236"/>
+  <g class="cK" font-size="14.5" font-weight="700" fill="#f1efe6"><text x="1080" y="486" class="iv">LUKAHEMITA</text><text x="1080" y="510" class="iv">TARI</text><text x="1080" y="534" class="iv">MORAVI</text><text x="1144" y="534" class="iv">TAVIKA.</text></g></g>
+<!-- Tari's boat -->
+<g id="boat" class="hot"><path d="M1330 586h290l-30 34h-236z" fill="#2a5a9a" stroke="#1a3a6a" stroke-width="3"/><path d="M1340 586h270" stroke="#f2efe6" stroke-width="5"/><path d="M1460 586v-120" stroke="#6a5a4a" stroke-width="5"/>
+  <text x="1556" y="610" class="cU" font-size="16" fill="#f2efe6"><tspan class="iv">TARI</tspan></text></g>
+<g id="nets"><path d="M1340 700q40 -30 90 -6q40 18 80 -4q30 -16 60 4v40h-230z" fill="#7a6a4a" opacity=".85"/><path d="M1350 700l20 30M1380 690l16 40M1410 694l10 36M1440 704l6 30M1470 704l-4 30M1500 696l-10 34M1530 690l-14 40" stroke="#5a4a2a" stroke-width="2"/>
+  <rect x="1060" y="690" width="90" height="50" fill="#5a7a9a" stroke="#3a5a7a" stroke-width="3"/><rect x="1070" y="676" width="90" height="50" fill="#6a8aaa" stroke="#3a5a7a" stroke-width="3"/></g>
+<!-- the bench and the book -->
+<g id="bench"><rect x="430" y="720" width="230" height="14" rx="3" fill="#7a5a3a"/><rect x="430" y="690" width="230" height="10" rx="3" fill="#7a5a3a"/><path d="M446 734v40M644 734v40" stroke="#4a3a2a" stroke-width="8"/></g>
+<g id="book" class="hot"><rect x="566" y="702" width="62" height="20" rx="2" fill="#2a4a7a" transform="rotate(-6 597 712)"/><rect x="570" y="700" width="56" height="6" fill="#f4ead2" transform="rotate(-6 597 712)"/></g>
+
+<!-- everybody -->
+<g id="brennan" class="hot" transform="translate(330 880)"></g>
+<g id="nakashima" class="hot" transform="translate(500 884) scale(.96)"></g>
+<g id="kaplan" class="hot" transform="translate(860 886) scale(1.04)"></g>
+<g id="tari" class="hot" transform="translate(1240 880) scale(1.02)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Up the white path to the market</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="pb.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, nextFile = null, slips = null, slate = null, iv = PB.iv;
+
+  $('#brennan').innerHTML = PB.who('brennan', { smile: 2, extra: '<path d="M39 -112l18 -30" stroke="#8a8a8a" stroke-width="6" stroke-linecap="round"/>' });
+  $('#nakashima').innerHTML = PB.who('nakashima', { extra: '<path d="M-30 -120l60 -6M-28 -110l58 4" stroke="#c9b48a" stroke-width="3"/><path d="M-20 -118q20 30 44 2" fill="#3a6ac8"/>' });
+  $('#kaplan').innerHTML = PB.who('kaplan');
+  $('#tari').innerHTML = PB.who('tari', { smile: 5, extra: '<path d="M-40 -110q-30 40 -6 90q40 10 86 -8q20 -50 0 -82" fill="#7a6a4a" opacity=".8"/>' });
+
+  ER.init({
+    theme: 'lang', story: 'phrasebook', storyTitle: 'The Verb Comes Last', id: 'quay', no: 'I', title: 'The Quay',
+    go: 'Go up on deck',
+    intro: [
+      'The Shearwater runs once a week to the western islands. She does not call at Isu. Nobody calls at Isu.',
+      'This afternoon she has. And one of her passengers, a retired teacher called Philippa Whitaker, went ashore at eleven with a smile and a bag of presents, and said she would be back by two.'
+    ],
+    exit: {"next":"market","w":{"2e951d22":"978daf00"}}, tags: {"m1":["5197ddd5"],"m2":["3c0d65d0"],"m3":["855a5146"],"m4":["4ae74cdc"],"m5":["9082ad78"],"m6":["61665acc"],"rv":["3185a593","5d592a3d"],"tn":["31662461","ffd0a485"],"sl":["7cd17a5f"],"rev":["ee200ef4"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('a-told') || {}; nextFile = ER.flag('a-file') || null;
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('a-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#book').classList.toggle('on', !!told.brennan);
+    $('#book').classList.toggle('ready', !!(told.brennan && !told.p1) || !!(told.p1 && !told.slips));
+    $('#slate').classList.toggle('ready', !!(told.slips && !nextFile));
+    ER.pips((told.brennan ? 1 : 0) + (told.p1 ? 1 : 0) + (told.slips ? 1 : 0) + (nextFile ? 1 : 0), 4);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Philippa went to the market. The button at the bottom of the screen takes you there.']];
+    if (slips && slips.isOpen()) return ['slips', [
+      'Start with two lines that are the same except for one piece: line 4 and line 6 both end in <em>kalota vidi&hellip;</em>. What else changes, and what changes in the English?',
+      'Some words end in <em>-ta</em>. Is that the one who does the action, or the one it is done to? Mrs Nakashima has a little word like that in Japanese. And look: line 1 puts its <em>-ta</em> word first.',
+      'A verb ending in <em>-ka</em> happened in the past (saw, ate, went, took). Only one verb has no <em>-ka</em>. Two slips are never used: in each of them, the roles are the wrong way round.'
+    ]];
+    if (slate && slate.isOpen()) return ['slate', [
+      'Which name has <em>-ta</em> on the end? That is the one the action was done to, even if it comes first.',
+      '<em>tavika</em> and <em>moravi</em> are both in line 5 of the useful sentences. TARI is the name painted on the blue boat.',
+      'In English the one who does it comes first. Who did the taking? Not the one with <em>-ta</em>.'
+    ]];
+    if (!told.brennan) return ['brennan', ['Captain Brennan is at the foot of the gangway, by the ferry on the left. Talk to her.']];
+    if (!told.p1) return ['p1', ['The captain gave you Philippa&rsquo;s phrasebook. It is on the bench beside Mrs Nakashima. Click it and read the first page.', 'The small blue book on the bench, to the left of the bollard.']];
+    if (!told.slips) return ['book', ['Page 1 says the English is on slips in the pocket at the back. Click the phrasebook again.', 'If you are stuck on the sentences, talk to Mrs Nakashima first: she has an idea about little words on the end.']];
+    return ['slate', ['Now you can try the slate by the door of the hut. Click it.', 'The dark slate on the white hut, on the right, with chalk on it.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; PB.wordlist(1, true); $('#go').classList.add('on'); ER.say('Tari took Lukahemi to the market. And Lukahemi is Philippa.'); return; }
+    if (told.in) { busy = false; ER.say('The quay at Isu. Gulls, nets, and a slate by the hut door.'); return; }
+    tell('in');
+    ER.narrate([
+      'The Shearwater was never meant to stop here. At twenty to eleven her cooling pump gave up, and Captain Brennan put in at the nearest harbour with people in it: a stone quay, a hut, a blue fishing boat, and a white path climbing away up the hill.',
+      'The island is called Isu. You were below deck being seasick while everybody else went up to look at it.',
+      'Now it is ten past two. The sun is out, the gulls are loud, and one passenger has not come back.',
+      'Captain Brennan is at the foot of the gangway. Mr Kaplan is walking up and down the quay. Mrs Nakashima is knitting on a bench.',
+      'And a fisherman by a blue boat is mending a net, as if nothing in the world were wrong.'
+    ], function () { busy = false; });
+  }
+
+  /* ---------- people ---------- */
+  $('#brennan').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Captain Brennan', role: 'Master of the Shearwater', face: PB.face('brennan'),
+      lines: [
+        { note: 'She has a spanner in one hand and a face like the weather.', a: '&ldquo;Two things. The pump: I have fixed it with a hose clip and bad language, and it will get us home. The tide: it turns at six. After six there is not enough water over the bar until well after midnight, and I am not crossing the bar in the dark.&rdquo;' },
+        { q: 'Where is Miss Whitaker?', a: '&ldquo;Philippa went ashore at eleven, as soon as the gangway was down. She said she knew everybody on this island and she would be back by two.&rdquo; She looks at her watch. &ldquo;It is ten past.&rdquo;' },
+        { q: 'Isn&rsquo;t there a phone?', a: '&ldquo;On Isu? No phone, no signal and no English. There is a fisherman who has told me something four times, very slowly and very kindly. I understood none of it.&rdquo;' },
+        { note: 'She takes a small blue book out of her jacket.', a: '&ldquo;She left you this. &lsquo;For the young one who reads,&rsquo; she said. It is her phrasebook of the island language. She wrote it herself, three summers running.&rdquo;' },
+        { q: 'Some pages are missing.', a: '&ldquo;The last eight. The word list. She tore them out on the quay and gave them to a girl who came running down to meet her. Then she handed me the rest and went off up the hill.&rdquo; She shrugs. &ldquo;She said everything you need is in the sentences.&rdquo;' },
+        { a: '&ldquo;Find her by six, if you can. Mr Kaplan wants to leave without her. I would rather not.&rdquo;' }
+      ],
+      clue: { id: 'brennan', title: 'Captain Brennan: back by two', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('brennan')) { paint(); ER.say('The phrasebook is on the bench now, by Mrs Nakashima. Everything you need is in the sentences, apparently.'); } }
+    });
+  });
+  $('#kaplan').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;The market,&rdquo; says Mr Kaplan. &ldquo;Good. I have not eaten since Tuesday.&rdquo; It is Wednesday.'); return; }
+    ER.talk({
+      who: 'Mr Kaplan', role: 'Passenger · farm machinery', face: PB.face('kaplan', 'cross'),
+      lines: [
+        { note: 'Mr Kaplan sells farm machinery, and has been telling everybody so since nine o&rsquo;clock.', a: '&ldquo;Six o&rsquo;clock. If she is not back, we go. I have a meeting on Thursday with a man who does not wait.&rdquo;' },
+        { q: 'Did you ask the fisherman?', a: '&ldquo;I asked him in English. Then I asked him in LOUD English. He pointed up the hill, and then he pointed at his foot.&rdquo; He throws up his hands. &ldquo;His foot! She went on foot. Thank you. Very helpful.&rdquo;' },
+        { q: 'Up the hill?', a: '&ldquo;The whole island is up the hill.&rdquo;' }
+      ],
+      clue: { id: 'kaplan', title: 'Mr Kaplan: she went on foot', kind: 'What he said' },
+      done: function (seen) { if (seen) tell('kaplan'); }
+    });
+  });
+  $('#nakashima').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.p1) { ER.say('Mrs Nakashima is counting stitches under her breath. &ldquo;Read the little book first,&rdquo; she says, without looking up. &ldquo;Then come and talk to me.&rdquo;'); return; }
+    ER.talk({
+      who: 'Mrs Nakashima', role: 'Passenger · from Osaka, visiting her son', face: PB.face('nakashima', 'smile'),
+      lines: [
+        { note: 'She is knitting something long and blue, and has been listening to everything.', a: '&ldquo;So the verb goes at the end? Like at home. In Japanese the verb comes last too.&rdquo;' },
+        { q: 'Then how do you know who did what?', a: '&ldquo;We put a little word after each person or thing. One little word after &lsquo;the cat&rsquo; means &lsquo;this one did it&rsquo;. Another after &lsquo;the fish&rsquo; means &lsquo;this one had it done to it&rsquo;. Linguists call them <b>particles</b>. Korean has them too.&rdquo;' },
+        { a: '&ldquo;So you can say &lsquo;the fish, the cat ate&rsquo;, and it still means the cat ate the fish. English needs its word order. We do not, so much.&rdquo;' },
+        { q: 'How would I find one in Isuvo?', a: '&ldquo;Look for a piece that comes again and again on the end of words. Then look at which words have it.&rdquo; She goes back to her stitches. &ldquo;Twenty-six, twenty-seven &hellip;&rdquo;' }
+      ],
+      clue: { id: 'nakashima', title: 'Mrs Nakashima: a little word after the fish', kind: 'What she said' },
+      done: function (seen) { if (seen) { tell('naka'); PB.terms(['particle']); } }
+    });
+  });
+  $('#tari').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The fisherman hears you say &ldquo;Lukahemi&rdquo;, and beams, and points up the white path towards the market. Then he points at his foot again, and shakes his head.'); return; }
+    ER.talk({
+      who: 'The fisherman', role: 'Mending a net by a blue boat', face: PB.face('tari', 'smile'),
+      lines: [
+        { note: 'He puts down his net needle. He looks at you, then at the ferry, and speaks slowly and kindly, as if to a very small child.', a: '&ldquo;' + iv('Lukahemi lamodoko dabine.') + '&rdquo;' },
+        { note: 'He points up the hill, somewhere. Then he points at his own foot, and shakes his head sadly.', a: '&ldquo;' + iv('Podo dumane.') + '&rdquo;' },
+        { note: 'He waits, hopefully. Then he sighs, very politely, and picks up his net again.' }
+      ],
+      clue: { id: 'tari1', title: 'What the fisherman said (you could not read it)', kind: 'Heard on the quay' },
+      done: function (seen) { if (seen && tell('tari')) ER.say('Five words, and not one of them English. He said them as if they were the most important words in the world.'); }
+    });
+  });
+
+  /* ---------- things ---------- */
+  PB.thing('#ferry', null, 'The Shearwater: white, rusty in the corners, and very much stuck here until the tide says otherwise.', isBusy);
+  PB.thing('#light', 'lighthouse', 'Far off on the headland: a white lighthouse with a red band. It looks very small and very far away.', isBusy);
+  PB.thing('#bollard', 'bollard', 'The Shearwater&rsquo;s rope, wound round an iron bollard. It is not going anywhere.', isBusy);
+  PB.thing('#boat', null, function () { told.boat = 1; ER.flag('a-told', told); return 'Painted on the bow of the blue boat, in white letters: ' + iv('TARI') + '. The fisherman looks up when you read it aloud, and taps his chest.'; }, isBusy);
+  PB.thing('#hut', null, 'Painted over the door of the hut: ' + iv('KALODO') + '. Inside, through the window: ropes, floats and a kettle.', isBusy);
+  PB.thing('#nets', 'net', 'Nets, floats and two blue fish boxes. Everything smells of fish, because everything is fish.', isBusy);
+
+  /* ---------- the phrasebook ---------- */
+  var P1 = '<h4>A Pocket Phrasebook of Isuvo &middot; page 1</h4><h3>How to read this book</h3>' +
+    '<p>On Isu nobody speaks English, and nobody needs to. Their language is ' + iv('Isuvo') + '. I learnt it the way a detective works: from examples.</p>' +
+    '<p>Take two sentences that are the same except for one thing. Whatever changes in the Isuvo is what changed in the meaning. Find that piece, and test it on a third sentence before you trust it.</p>' +
+    '<p>Expect a different <b>word order</b>. English puts the <b>subject</b> first, then the <b>verb</b>, then the <b>object</b>: <i>The cat ate the fish</i> (SVO). Many languages put the verb last (SOV). In one large survey of 1,376 languages, 564 were mostly SOV and 488 mostly SVO. Very few put the object first.</p>' +
+    '<p>And in some languages a small <b>ending</b> on a word says who did what, so the order matters less.</p>' +
+    '<p class="rule">My English is on slips in the pocket at the back. Match them to the sentences yourself. <span class="hand">P.W.</span></p><p class="pg">1</p>';
+  $('#book').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.p1 || told.slips) {
+      ER.read({ html: P1, cls: 'pb', clue: { id: 'p1', title: 'Phrasebook, page 1: how to read this book', kind: 'Phrasebook' }, done: function () {
+        PB.terms(['word order', 'subject', 'verb', 'object', 'ending']);
+        if (tell('p1')) { paint(); ER.say('Slips in the pocket at the back. Click the book again to find them.'); }
+      } });
+      return;
+    }
+    if (!slips) slips = makeSlips();
+    slips.open();
+  });
+
+  /* ---------- the useful sentences and the slips ---------- */
+  var SENT = /*isuvo*/['Nekata tomo vidika.', 'Kumo pesata semika.', 'Neka kalovi nuruka.', 'Tomo kalota vidi.', 'Kumota neka moravi tavika.', 'Neka kalota vidika.'];
+  var CARD = { a: 'The man sees the boat.', b: 'The child saw the boat.', c: 'The cat ate the fish.', d: 'The man saw the child.', e: 'The child went to the boat.',
+    f: 'The child took the cat to the market.', x: 'The child saw the man.', y: 'The cat took the child to the market.' };
+  var ORDER = ['y', 'c', 'x', 'e', 'a', 'f', 'd', 'b'];
+  function makeSlips() {
+    var box = ER.el('div', 'pz us'), placed = ER.flag('a-pl') || {}, done = !!told.slips;
+    box.innerHTML = '<div class="us-in"><div class="us-page"><h4>A Pocket Phrasebook of Isuvo &middot; page 2</h4><h3>Useful sentences</h3>' +
+      SENT.map(function (s, i) { return '<div class="us-row"><i>' + (i + 1) + '</i>' + iv(s) + '<div class="slot" data-n="' + (i + 1) + '"></div></div>'; }).join('') +
+      '</div><div class="tray"><h5>The slips from the pocket</h5></div></div><div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="s-go">Check the slips</button></div>';
+    var tray = box.querySelector('.tray'), msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    ORDER.forEach(function (k) { var c = ER.el('div', 'dnd-item slipcard', CARD[k]); c.setAttribute('data-k', k); tray.appendChild(c); });
+    Object.keys(placed).forEach(function (n) { var c = box.querySelector('.slipcard[data-k="' + placed[n] + '"]'), s = box.querySelector('.slot[data-n="' + n + '"]'); if (c && s) s.appendChild(c); });
+    function read() { var o = {}; ER.$$('.slot', box).forEach(function (s) { var c = s.querySelector('.slipcard'); if (c) o[s.getAttribute('data-n')] = c.getAttribute('data-k'); }); return o; }
+    ER.dnd(box, { item: '.slipcard', slot: '.slot', home: tray, lock: function () { return done; }, change: function () { placed = read(); ER.flag('a-pl', placed); ER.$$('.slot', box).forEach(function (s) { s.classList.remove('bad'); }); } });
+    box.querySelector('#s-go').addEventListener('click', function () {
+      if (done) return;
+      var o = read(), n, k, filled = Object.keys(o).length;
+      if (filled < 6) { ER.sfx.no(); msg(filled ? 'Six sentences, and only ' + filled + ' of them have a slip. Two slips will be left over: Philippa wrote more English than she needed.' : 'Drag a slip on to the space beside each sentence (or click a slip, then click a space).'); return; }
+      for (n = 1; n <= 6; n++) {
+        k = o[n];
+        if (!ER.check('m' + n, k)) {
+          ER.sfx.no(); var s = box.querySelector('.slot[data-n="' + n + '"]'); s.classList.add('bad'); ER.shake(s);
+          if (ER.check('rv', n + k)) msg('Mrs Nakashima taps line ' + n + ' with a knitting needle. &ldquo;Right words, wrong way round. Who did it, and who had it done to them? Look for the little piece on the end.&rdquo;');
+          else if (ER.check('tn', n + k)) msg('Mrs Nakashima taps line ' + n + '. &ldquo;Nearly. Look at the very end of the verb. Then look at the end of the English verb.&rdquo;');
+          else msg('Line ' + n + ' does not fit its slip. Find a word it shares with another line, and see what the two slips have in common.');
+          return;
+        }
+      }
+      done = true; told.slips = 1; ER.flag('a-told', told); ER.flag('a-m', [1, 2, 3, 4, 5, 6].map(function (i) { return o[i]; }).join(''));
+      PB.solved(true); paint(); PB.terms(['past tense']);
+      PB.mine('slips', 'Useful sentences, worked out', '<p>' + SENT.map(function (s, i) { return iv(s) + ' = ' + CARD[o[i + 1]]; }).join('</p><p>') + '</p><p>The verb comes LAST.</p><p>-ta goes on the one the action is done to (the object). It can come first!</p><p>-ka on a verb: it happened in the past.</p><p>-vi: to (moravi = to the market).</p>');
+      msg('Every slip fits. The verb comes last; <span class="iv">-ta</span> marks the one the action is done to, wherever it stands; <span class="iv">-ka</span> puts the verb in the past; <span class="iv">-vi</span> means &ldquo;to&rdquo;. Now the slate by the hut might make sense.');
+      setTimeout(function () { ER.close(); }, 3200);
+    });
+    msg(done ? 'Every slip fits.' : 'Drag each slip to the sentence it translates (or click a slip, then a space). Two slips are spare.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+
+  /* ---------- the slate ---------- */
+  var TILE = { T: 'Tari', L: 'Lukahemi', K: 'took', S: 'saw', M: 'to the market', B: 'to the boat', C: 'the child' };
+  $('#slate').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The slate: ' + iv('LUKAHEMITA TARI MORAVI TAVIKA') + '. Tari took Lukahemi to the market.'); return; }
+    if (!told.slips) { ER.say('Chalk on a slate by the hut door: ' + iv('LUKAHEMITA TARI MORAVI TAVIKA') + '. You cannot read a word of it. Yet.'); return; }
+    if (!slate) slate = makeSlate();
+    slate.open();
+  });
+  function makeSlate() {
+    var box = ER.el('div', 'pz sl'), done = false;
+    box.innerHTML = '<div class="sl-board"><div class="msg">' + iv('LUKAHEMITA TARI MORAVI TAVIKA.') + '</div><p>The island&rsquo;s message slate, by the door of the hut. The chalk is from this morning.</p>' +
+      '<div class="sl-line">' + [1, 2, 3, 4].map(function (i) { return '<div class="tslot" data-n="' + i + '"></div>'; }).join('') + '</div>' +
+      '<div class="tiles">' + ['L', 'S', 'M', 'T', 'C', 'K', 'B'].map(function (k) { return '<div class="dnd-item tile" data-k="' + k + '">' + TILE[k] + '</div>'; }).join('') + '</div></div>' +
+      '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="t-go">That is what it says</button></div>';
+    var home = box.querySelector('.tiles'), msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    ER.dnd(box, { item: '.tile', slot: '.tslot', home: home, lock: function () { return done; }, change: function () { ER.$$('.tslot', box).forEach(function (s) { s.classList.remove('bad'); }); } });
+    box.querySelector('#t-go').addEventListener('click', function () {
+      if (done) return;
+      var s = '', n = 0;
+      ER.$$('.tslot', box).forEach(function (t) { var c = t.querySelector('.tile'); if (c) { s += c.getAttribute('data-k'); n++; } else s += '_'; });
+      if (n < 4) { ER.sfx.no(); msg('Four pieces of English for four words of Isuvo. Put a tile in every space.'); return; }
+      if (!ER.check('sl', s)) {
+        ER.sfx.no(); ER.shake(box.querySelector('.sl-line'));
+        if (ER.check('rev', s)) msg('That is how English would say it: whoever comes first does it. But one of the names has <span class="iv">-ta</span> on the end. What did <span class="iv">-ta</span> mean in the useful sentences?');
+        else if (s.indexOf('S') >= 0) msg('Is the verb <span class="iv">vidika</span>? Look again at the last word on the slate, and find it in the useful sentences.');
+        else if (s.indexOf('B') >= 0) msg('<span class="iv">-vi</span> is &ldquo;to&rdquo;. But to where? The word before it is not <span class="iv">kalo</span>.');
+        else if (s.indexOf('C') >= 0) msg('There is no child on the slate. There are two names, a place and a verb.');
+        else msg('Those are the right pieces, in an order English would not use. Who did it, what did they do, to whom, and where to?');
+        return;
+      }
+      done = true;
+      nextFile = ER.exit([ER.flag('a-m') + '-' + s], { wait: true });
+      if (!nextFile) { msg('The way on will not open. Something is wrong with this page: tell your teacher.'); return; }
+      ER.flag('a-file', nextFile); paint();
+      msg('<b>Tari took Lukahemi to the market.</b> The name that comes first is not the one who did it: the <span class="iv">-ta</span> says so.');
+      PB.mine('slate', 'The slate by the hut', '<p>' + iv('LUKAHEMITA TARI MORAVI TAVIKA.') + '</p><p>Lukahemi-ta: the one who was taken.</p><p>Tari: the one who took (the fisherman!).</p><p>= Tari took Lukahemi to the market.</p><p>English order would get it the wrong way round.</p>');
+      setTimeout(function () {
+        ER.closeAll(); busy = true;
+        ER.narrate([
+          'You read it aloud to the fisherman: &ldquo;' + iv('Lukahemita Tari moravi tavika') + '.&rdquo; He jumps up so fast that he drops his net. &ldquo;Tari!&rdquo; he says, and taps his chest. So the fisherman is Tari.',
+          'Then he takes the phrasebook gently out of your hands, holds it up, and pretends to write in the air with his finger. &ldquo;' + iv('Lukahemi') + ',&rdquo; he says. &ldquo;' + iv('Lukahemi') + '!&rdquo;',
+          'The woman who writes in the little book. Lukahemi is what they call Philippa.',
+          'Tari points up the white path, past the hut. Over the top of the hill you can see striped awnings, and smoke, and a cat on a wall.',
+          '&ldquo;A market,&rdquo; says Mr Kaplan, with feeling. &ldquo;Food.&rdquo; He is already walking.'
+        ], function () { busy = false; $('#go').classList.add('on'); PB.wordlist(1); });
+      }, 2600);
+    });
+    msg('Drag the English into the spaces, in the order an English speaker would say it.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

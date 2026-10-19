@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Market · The Verb Comes Last</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lang.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="pb.css">
+<style>
+  body{--bg:#f2d49a;--accent:#b8461e;--font-display:'Old Standard TT',serif;--font-ui:'Outfit',sans-serif;--font-body:'Gentium Book Plus',serif;
+    --tc-bg:rgba(253,244,226,.97);--tc-ink:#3a2210;--cap-bg:rgba(255,250,238,.96);--cap-ink:#3a2210;--panel:#fffaf0;--panel-ink:#3a2210;--face-bg:#c26a2a;--q-ink:#2a6a7a;
+    --fade:#fff0d0;--hud-bg:rgba(255,250,238,.88);--hud-ink:#3a2210;--hud-line:rgba(58,34,16,.3);--ov-bg:rgba(58,30,10,.58)}
+  .tc-room{font-size:clamp(40px,6vw,84px);color:#b8461e}
+  .tc-theme{color:#2a6a7a}
+  .hbtn b{color:#fff}
+  .pbook{position:fixed;left:16px;bottom:16px;z-index:33;display:flex;align-items:center;gap:10px;padding:9px 16px 8px 12px;background:#2a4a7a;color:#f4ead2;border-radius:3px 8px 8px 3px;
+    box-shadow:inset 6px 0 0 #1a3a6a,0 6px 18px rgba(0,0,0,.35);font-family:'Old Standard TT',serif;font-weight:700;font-size:17px}
+  .pbook:hover{background:#3a5a8a}
+  .pbook.ready{animation:glowb 1.6s steps(1,end) infinite}
+  @keyframes glowb{50%{background:#5a7aaa}}
+  #board.ready,#order.ready,#sign.ready,#basketg.ready{animation:glow 1.6s steps(1,end) infinite}
+  @keyframes glow{50%{filter:brightness(1.25) drop-shadow(0 0 6px #fff)}}
+  #awn1 path:nth-child(odd){animation:flutter 3s ease-in-out infinite}
+  @keyframes flutter{50%{transform:translateY(2px)}}
+  #tail{animation:tail 2.4s ease-in-out infinite;transform-origin:20px -4px}
+  @keyframes tail{50%{transform:rotate(-18deg)}}
+  #smoke path{animation:smoke 5s ease-in-out infinite;opacity:0}
+  #smoke path:nth-child(2){animation-delay:-2.5s}
+  @keyframes smoke{0%{opacity:0;transform:translateY(0)}30%{opacity:.5}100%{opacity:0;transform:translateY(-70px)}}
+
+  /* the basket */
+  .bk{width:min(1000px,96vw)}
+  .bk-in{background:#7a5232;border:12px solid #5a3a20;border-radius:6px;box-shadow:0 26px 70px rgba(0,0,0,.55);position:relative}
+  .bk-in svg{width:100%;height:auto}
+  .bk .ord{position:absolute;right:18px;top:14px;width:210px;background:#2b3236;border:8px solid #7a5a36;padding:8px 12px;color:#fff;font-family:'Kalam',cursive;font-size:19px;line-height:1.3;transform:rotate(1.5deg)}
+  .bk .ord .iv{color:#fff;font-family:'Kalam',cursive;font-style:normal}
+  .bk .grp{cursor:pointer}
+  .bk .grp:hover{filter:brightness(1.15)}
+  .bk .lbl{font-family:'IBM Plex Mono',monospace;font-size:12.5px;fill:#fbe9c8}
+  /* the signpost */
+  .sp{width:min(560px,92vw);background:#fbf3e0;padding:20px 26px 16px;border-top:14px solid #6a4a2a;box-shadow:0 26px 70px rgba(0,0,0,.55);color:#3a2210}
+  .sp h4{margin:0 0 6px;font-family:'Old Standard TT',serif;font-weight:700;font-size:24px}
+  .sp p{margin:0 0 10px;font-family:'Gentium Book Plus',serif;font-size:16.5px}
+  .sp .arms{display:flex;flex-direction:column;gap:10px;margin:8px 0}
+  .sp .arm{display:block;text-align:left;padding:10px 20px 8px;background:#e8d2a8;border:2px solid #6a4a2a;clip-path:polygon(0 0,88% 0,100% 50%,88% 100%,0 100%);font-family:'Uncial Antiqua',serif;font-size:24px;letter-spacing:.08em;color:#3a2210}
+  .sp .arm:hover{background:#fff4d8}
+  .sp .pmsg{color:#3a2210;min-height:40px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7ab4dc"/><stop offset="1" stop-color="#d8ecf4"/></linearGradient>
+  <pattern id="cob" width="60" height="36" patternUnits="userSpaceOnUse"><rect width="60" height="36" fill="#c9b08a"/><ellipse cx="15" cy="10" rx="13" ry="8" fill="#d8c09a"/><ellipse cx="45" cy="12" rx="12" ry="8" fill="#bca07a"/><ellipse cx="30" cy="29" rx="14" ry="7" fill="#d2b994"/></pattern>
+  <pattern id="wall" width="80" height="40" patternUnits="userSpaceOnUse"><rect width="80" height="40" fill="#f4efe4"/><path d="M0 39H80" stroke="#e6dfd0" stroke-width="2"/></pattern>
+  <radialGradient id="vig" cx="50%" cy="45%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#4a2a10" stop-opacity=".06"/><stop offset="1" stop-color="#3a1a00" stop-opacity=".4"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="900" fill="url(#sky)"/>
+<!-- houses round the square -->
+<rect x="-1000" y="170" width="3600" height="420" fill="url(#wall)"/>
+<g fill="#3a5a8a"><rect x="-200" y="330" width="70" height="140"/><rect x="60" y="350" width="64" height="120"/><rect x="1180" y="340" width="70" height="130"/><rect x="1700" y="330" width="70" height="140"/></g>
+<g fill="#5a7aa8"><rect x="-60" y="230" width="56" height="56"/><rect x="200" y="226" width="56" height="56"/><rect x="1040" y="230" width="56" height="56"/><rect x="1320" y="222" width="56" height="56"/></g>
+<path d="M-1000 172l600 -60 500 60 500 -50 500 50 600 -60 900 60" fill="#8a5a3a"/>
+<g id="smoke" stroke="#fff" stroke-width="10" fill="none" stroke-linecap="round"><path d="M1340 110q-10 -20 0 -40"/><path d="M1352 110q-10 -20 0 -40"/></g><rect x="1330" y="100" width="34" height="40" fill="#7a5a4a"/>
+<!-- the lane up to the right, and the signpost -->
+<path d="M1260 600l220 -170h400v170z" fill="#d8c09a"/><path d="M1480 430l120 -40h600v60z" fill="#9aba7a"/>
+<g id="sign" class="hot"><path d="M1400 620V330" stroke="#6a4a2a" stroke-width="12"/>
+  <g transform="rotate(-14 1400 352)"><path d="M1404 336h150l22 18 -22 18h-150z" fill="#e8d2a8" stroke="#6a4a2a" stroke-width="3"/><text x="1418" y="362" class="cU" font-size="21" fill="#3a2210"><tspan class="iv">LAMODO</tspan></text></g>
+  <path d="M1404 400h150l22 18 -22 18h-150z" fill="#e8d2a8" stroke="#6a4a2a" stroke-width="3"/><text x="1418" y="426" class="cU" font-size="21" fill="#3a2210"><tspan class="iv">KESADO</tspan></text>
+  <path d="M1396 460h-150l-22 18 22 18h150z" fill="#e8d2a8" stroke="#6a4a2a" stroke-width="3"/><text x="1262" y="486" class="cU" font-size="21" fill="#3a2210"><tspan class="iv">LUKADO</tspan></text></g>
+<!-- the square -->
+<rect x="-1000" y="590" width="3600" height="900" fill="url(#cob)"/>
+<g id="well" class="hot"><ellipse cx="1170" cy="640" rx="80" ry="22" fill="#8a8478"/><rect x="1090" y="600" width="160" height="44" fill="#a8a294"/><ellipse cx="1170" cy="600" rx="80" ry="20" fill="#5a5a56"/><path d="M1104 600V500M1236 600V500M1090 500h160" stroke="#6a4a2a" stroke-width="8"/><path d="M1170 500v56" stroke="#5a4a3a" stroke-width="3"/><rect x="1158" y="556" width="24" height="22" fill="#6a5a4a"/></g>
+<!-- the vegetable stall on the left -->
+<g id="veg" class="hot"><path d="M-120 330h400l20 50H-140z" fill="#3a7a4a"/><g id="awn1" fill="#e8e2c8"><path d="M-110 380l30 26 30 -26z"/><path d="M-50 380l30 26 30 -26z"/><path d="M10 380l30 26 30 -26z"/><path d="M70 380l30 26 30 -26z"/><path d="M130 380l30 26 30 -26z"/><path d="M190 380l30 26 30 -26z"/></g>
+  <path d="M-110 380V640M270 380V640" stroke="#6a4a2a" stroke-width="8"/><rect x="-130" y="560" width="420" height="80" fill="#8a6040"/>
+  <g><ellipse cx="-60" cy="556" rx="30" ry="14" fill="#5a9a3a"/><ellipse cx="10" cy="552" rx="34" ry="16" fill="#e2802a"/><ellipse cx="90" cy="556" rx="30" ry="14" fill="#7aaa4a"/><ellipse cx="170" cy="552" rx="34" ry="16" fill="#c83a2a"/><ellipse cx="240" cy="556" rx="26" ry="12" fill="#5a9a3a"/></g></g>
+<!-- Mela's stall -->
+<path d="M500 300h620l30 60H470z" fill="#b8461e"/><g fill="#f2d06a"><path d="M560 300h60l10 60h-60z"/><path d="M680 300h60l10 60h-60z"/><path d="M800 300h60l10 60h-60z"/><path d="M920 300h60l10 60h-60z"/><path d="M1040 300h60l10 60h-60z"/></g>
+<path d="M480 360l35 30 35 -30 35 30 35 -30 35 30 35 -30 35 30 35 -30 35 30 35 -30 35 30 35 -30 35 30 35 -30 35 30 35 -30 35 30 35 -30z" fill="#b8461e"/>
+<path d="M500 360V650M1120 360V650" stroke="#6a4a2a" stroke-width="10"/>
+<rect x="560" y="260" width="200" height="40" fill="#f4ead2" stroke="#6a4a2a" stroke-width="3"/><text x="660" y="290" class="cU" font-size="26" text-anchor="middle" fill="#b8461e" letter-spacing="4"><tspan class="iv">MELA</tspan></text>
+<g transform="translate(790 282)"><ellipse rx="10" ry="7" fill="#f2c21b"/><path d="M-4 -6v12M2 -6v12" stroke="#3a2a10" stroke-width="2"/><ellipse cx="-4" cy="-9" rx="6" ry="4" fill="#fff" opacity=".8"/><ellipse cx="4" cy="-9" rx="6" ry="4" fill="#fff" opacity=".8"/></g>
+<g id="mela" class="hot" transform="translate(810 640) scale(1.02)"></g>
+<rect x="520" y="560" width="580" height="90" fill="#8a5a36"/><rect x="510" y="550" width="600" height="14" fill="#a8744a"/>
+<g id="goods"></g>
+<!-- the order slate on the post -->
+<g id="order" class="hot"><path d="M528 380v14" stroke="#3a2a1a" stroke-width="3"/><rect x="510" y="394" width="120" height="96" rx="3" fill="#7a5a36"/><rect x="517" y="401" width="106" height="82" fill="#2b3236"/>
+  <g class="cK" font-size="12" font-weight="700" fill="#f1efe6"><text x="524" y="418" class="iv">LUKAHEMISU</text><path d="M526 428h70M526 440h60M526 452h72M526 464h66" stroke="#f1efe6" stroke-width="2.4" opacity=".7"/></g></g>
+<!-- Mela's picture board -->
+<g id="board" class="hot"><path d="M330 690l40 -330M470 690l-40 -330M400 360v330" stroke="#6a4a2a" stroke-width="8"/><rect x="300" y="380" width="200" height="170" rx="4" fill="#7a5a36"/><rect x="310" y="390" width="180" height="150" fill="#2b3236"/>
+  <g fill="none" stroke="#f1efe6" stroke-width="2.4"><ellipse cx="340" cy="414" rx="16" ry="8"/><ellipse cx="380" cy="414" rx="16" ry="8"/><ellipse cx="420" cy="414" rx="16" ry="8"/><ellipse cx="350" cy="456" rx="6" ry="8"/><ellipse cx="366" cy="456" rx="6" ry="8"/><path d="M400 456q20 -12 40 0q-20 12 -40 0l-8 -6v12z"/><path d="M330 500q14 -8 28 0q-14 8 -28 0zM370 500q14 -8 28 0q-14 8 -28 0zM410 500q14 -8 28 0q-14 8 -28 0z"/></g>
+  <text x="400" y="534" class="cK" font-size="12" text-anchor="middle" fill="#f2d06a">and lots more</text></g>
+<!-- the basket on its side, and the cat -->
+<g id="basketg" class="hot"><ellipse cx="880" cy="790" rx="120" ry="16" fill="#000" opacity=".15"/><path d="M800 700q-30 40 0 80h120q20 -40 0 -80z" fill="#b8884a" stroke="#7a5a2a" stroke-width="3"/><ellipse cx="920" cy="740" rx="18" ry="40" fill="#5a3a1a"/>
+  <path d="M808 716h108M800 740h118M808 764h108" stroke="#7a5a2a" stroke-width="3"/>
+  <g><ellipse cx="980" cy="770" rx="30" ry="14" fill="#c8884a"/><ellipse cx="1040" cy="784" rx="9" ry="12" fill="#fbf4e4"/><ellipse cx="1066" cy="778" rx="9" ry="12" fill="#fbf4e4"/><path d="M1000 800q30 -12 50 4q-26 10 -50 -4z" fill="#a8b4bc"/><path d="M740 790q30 -10 50 2" stroke="#5a9a3a" stroke-width="8" stroke-linecap="round"/></g></g>
+<g id="cat" class="hot" transform="translate(960 762)"></g>
+<!-- people in the square -->
+<g id="crowd"></g>
+<g id="kaplan" class="hot" transform="translate(200 884) scale(1.04)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="pbook" id="pbook">&#9776;&nbsp; Phrasebook</button>
+<button type="button" class="gobtn" id="go">Carry the basket up the lane</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="pb.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, nextFile = null, bk = null, sp = null, iv = PB.iv;
+
+  $('#mela').innerHTML = PB.who('mela', { extra: '<path d="M39 -112l20 -16" stroke="#e2b48c" stroke-width="12" stroke-linecap="round"/>' });
+  $('#kaplan').innerHTML = PB.who('kaplan', { smile: 3, extra: '<path d="M-39 -112l-6 -30q14 -8 18 4z" fill="#5a9a3a"/>' });
+  $('#cat').innerHTML = PB.cat();
+  $('#crowd').innerHTML = '<g transform="translate(1250 860) scale(.9)">' + PB.person({ back: true, hair: '#3a2a1a', top: '#5a7a9a', bottom: '#3a3a3a' }) + '</g>' +
+    '<g transform="translate(1340 870) scale(.86)">' + PB.person({ back: true, hair: '#c9c4bc', top: '#a3242a', bottom: '#4a3a2a', legs: 'skirt' }) + '</g>' +
+    '<g transform="translate(1530 880) scale(.94)">' + PB.person({ back: true, hair: '#2a1a12', top: '#3a6a4a', bottom: '#2c2c33' }) + '</g>';
+  $('#goods').innerHTML = (function () {
+    var s = '', i;
+    for (i = 0; i < 3; i++) s += '<ellipse cx="' + (580 + i * 46) + '" cy="548" rx="22" ry="11" fill="#c8884a"/><path d="M' + (568 + i * 46) + ' 544l8 -4M' + (580 + i * 46) + ' 545l8 -4" stroke="#8a5a2a" stroke-width="2"/>';
+    for (i = 0; i < 6; i++) s += '<ellipse cx="' + (730 + i * 16) + '" cy="548" rx="6.5" ry="8.5" fill="#fbf4e4" stroke="#c9b48a"/>';
+    s += '<path d="M860 552q34 -14 64 0q-30 14 -64 0l-10 -8v16z" fill="#a8b4bc"/>';
+    s += '<rect x="960" y="522" width="30" height="34" rx="5" fill="#e2a41b" stroke="#a87a1b"/><rect x="1000" y="522" width="30" height="34" rx="5" fill="#e2a41b" stroke="#a87a1b"/><rect x="1040" y="522" width="30" height="34" rx="5" fill="#e2a41b" stroke="#a87a1b"/>';
+    return s;
+  })();
+
+  ER.init({
+    theme: 'lang', story: 'phrasebook', storyTitle: 'The Verb Comes Last', id: 'market', no: 'II', title: 'The Market',
+    go: 'Walk into the square',
+    intro: [
+      'The slate said ' + iv('LUKAHEMITA TARI MORAVI TAVIKA') + ', and it did not mean what an English reader would think. The <span class="iv">-ta</span> on Lukahemi marked the one who was taken, so it was Tari, the fisherman, who took her to the market. And Lukahemi, the woman who writes in the little book, is Philippa.',
+      'The market of Isu is a square of whitewashed walls at the top of the white path. It is twenty to three.'
+    ],
+    exit: {"next":"kitchen","w":{"6d5deaf8":"43ff3f58"}}, tags: {"bb":["ed581f54"],"sb":["2a96ec3f"],"eg":["38898217"],"pp":["55bcedc9"],"f1":["82c4be5f"],"fs":["46edf839"],"fb":["dce4adba"],"hm":["1906e7dd"],"hp":["0ed10392"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('b-told') || {}; nextFile = ER.flag('b-file') || null;
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('b-told', told); return true; }
+  function isBusy() { return busy; }
+  function ready() { return told.mela && told.p3 && told.board && told.order; }
+  function paint() {
+    $('#pbook').classList.toggle('ready', !!(told.mela && !told.p3));
+    $('#board').classList.toggle('ready', !!(told.mela && !told.board));
+    $('#order').classList.toggle('ready', !!(told.mela && !told.order));
+    $('#basketg').classList.toggle('ready', !!(ready() && !told.packed));
+    $('#sign').classList.toggle('ready', !!(told.packed && !nextFile));
+    ER.pips((told.mela ? 1 : 0) + (told.p3 ? 1 : 0) + (told.board ? 1 : 0) + (told.order ? 1 : 0) + (told.packed ? 1 : 0) + (nextFile ? 1 : 0), 6);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The basket goes to the guest house. The button at the bottom of the screen takes you there.']];
+    if (bk && bk.isOpen()) return ['basket', [
+      'Read the order a line at a time, and find each word on Mela&rsquo;s picture board. The pictures are the translations.',
+      'Count what is in the board&rsquo;s pictures. After a number, does the word for the thing change? And what does <em>-li</em> mean when there is no number in front?',
+      'Look at the two egg pictures on the board. A word that looks like English is not always English. And <em>-su</em> is like &rsquo;s: whose honey?'
+    ]];
+    if (sp && sp.isOpen()) return ['sign', ['The last line of the order: <em>kesadovi</em>. You know what <em>-vi</em> means from the quay.', 'Take the <em>-vi</em> off, and find what is left on one of the arms.']];
+    if (!told.mela) return ['mela', ['Talk to the woman behind the big stall in the middle.', 'The woman in the red headscarf, under the striped awning.']];
+    if (!told.p3) return ['p3', ['Philippa has a page about shopping. Open the phrasebook: the blue button at the bottom left.']];
+    if (!told.board) return ['board', ['Mela&rsquo;s picture board stands on an easel to the left of her stall. Read it.']];
+    if (!told.order) return ['order', ['The little slate hanging on the post of Mela&rsquo;s stall is an order. Read it.']];
+    if (!told.packed) return ['basket', ['Now pick up the basket on the cobbles and pack it as the order says.', 'The basket on its side, in front of the stall, by the cat.']];
+    return ['sign', ['The basket is packed. Where does it go? The signpost at the top of the lane, on the right.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; PB.wordlist(2, true); $('#go').classList.add('on'); ER.say('A basket for the guest house, packed exactly as the order said.'); return; }
+    if (told.in) { busy = false; ER.say('The market square of Isu.'); return; }
+    tell('in');
+    ER.narrate([
+      'Six stalls under striped awnings, a well, and a great many people, who stop talking all at once to look at you.',
+      'Then they start again, louder, and somebody laughs.',
+      'The biggest stall sells bread, eggs, fish and honey. Behind it stands a round woman in a red headscarf. In front of it, on its side, lies a basket, and what was in it is all over the cobbles.',
+      'A black cat sits in the middle of the mess, washing one paw.',
+      '&ldquo;Lunch,&rdquo; says Mr Kaplan, and goes to look at the vegetables.'
+    ], function () { busy = false; });
+  }
+
+  /* ---------- people ---------- */
+  $('#mela').addEventListener('click', function () {
+    if (busy) return;
+    if (told.packed) { ER.say(nextFile ? 'Mela waves you off up the lane with a loaf, as if it were a flag.' : 'Mela points at the last line of the order, then up the lane at the signpost.'); return; }
+    ER.talk({
+      who: 'The woman at the big stall', role: 'Bread, eggs, fish, honey', face: PB.face('mela', 'smile'),
+      lines: [
+        { note: 'She is round and quick, and she laughs at everything, including you. Then she sees the basket on the cobbles, and the cat sitting in the middle of it.', a: '&ldquo;' + iv('Pesahiba!') + '&rdquo;' },
+        { note: 'She flaps her apron at the cat. It does not move. She taps her own chest.', a: '&ldquo;' + iv('Mela') + '.&rdquo;' },
+        { note: 'She points at you, at the phrasebook under your arm, and then at the little slate hanging on her post.', a: '&ldquo;' + iv('Lukahemisu') + '.&rdquo;' },
+        { note: 'She points at the basket, at the mess, and at you. She mimes picking things up, one by one. Then she points up the lane, mimes carrying something heavy, and puffs out her cheeks.' },
+        { note: 'She laughs, and goes back to selling honey.' }
+      ],
+      clue: { id: 'mela', title: 'Mela, at her stall', kind: 'At the market' },
+      done: function (seen) { if (seen && tell('mela')) { paint(); ER.say('The basket was Lukahemi&rsquo;s. Pack it as the order says, and carry it wherever it was going.'); } }
+    });
+  });
+  $('#kaplan').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Mr Kaplan', role: 'Passenger · eating a pea pod', face: PB.face('kaplan'),
+      lines: [
+        { note: 'He has bought a bag of pea pods and is eating them, pods and all.', a: '&ldquo;I read her order on the post. Second line: <span class="iv">pena pea</span>. Peas! Even I can read that.&rdquo;' },
+        { q: 'Are you sure?', a: '&ldquo;Pea is pea. Some words are the same everywhere. It is the only sensible thing I have seen all day.&rdquo;' },
+        { note: 'He offers you one. It is surprisingly good.' }
+      ],
+      clue: { id: 'kaplan2', title: 'Mr Kaplan: pea is pea', kind: 'What he said' },
+      done: function (seen) { if (seen) tell('kap'); }
+    });
+  });
+  $('#cat').addEventListener('click', function () {
+    if (busy) return;
+    PB.sfx.mew(); ER.say('The cat looks at you as if you were something it might eat later. Mela called it ' + iv('Pesahiba') + '. It does not answer to that, or to anything.');
+  });
+  PB.thing('#veg', null, 'Cabbages, carrots, onions, beans and a great many pea pods, all piled up under a green awning.', isBusy);
+  PB.thing('#well', 'well', 'The well in the middle of the square. Two women are filling buckets and talking about you. You can tell.', isBusy);
+  PB.thing('#crowd', null, 'People with baskets. When they catch you looking, they smile and say something you cannot follow, kindly.', isBusy);
+
+  /* ---------- reading ---------- */
+  var P3 = '<h4>A Pocket Phrasebook of Isuvo &middot; page 3</h4><h3>How many?</h3>' +
+    '<p>English shows &ldquo;more than one&rdquo; with an ending: <i>one cat, two cats</i>. A form like <i>cats</i> is called a <b>plural</b>. (English cheats now and then: <i>one sheep, two sheep</i>.)</p>' +
+    '<p>Languages do this very differently. <b>Nouns</b> in Mandarin Chinese usually do not change at all: a Chinese speaker says, word for word, <i>one book, three book</i>. Turkish has a plural ending, but drops it after a number, because the number has already said &ldquo;more than one&rdquo;: <i>apples</i>, but <i>two apple</i>. Hungarian does the same.</p>' +
+    '<p>So in Isuvo, find out three things: how to say &ldquo;more than one&rdquo;, what happens after a number, and where a word like &ldquo;big&rdquo; goes (an <b>adjective</b>: before its noun, or after?).</p>' +
+    '<p class="rule">Mela&rsquo;s picture board is the best dictionary on Isu. Count everything on it. <span class="hand">P.W.</span></p><p class="pg">3</p>';
+  $('#pbook').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: P3, cls: 'pb', clue: { id: 'p3', title: 'Phrasebook, page 3: how many?', kind: 'Phrasebook' }, done: function () {
+      PB.terms(['plural', 'noun', 'adjective']);
+      if (tell('p3')) { paint(); ER.say('More than one; after a number; and where &ldquo;big&rdquo; goes. Mela&rsquo;s board will say.'); }
+    } });
+  });
+
+  /* the picture board: ten pictures, ten labels */
+  function pic(k) {
+    var L = '<ellipse cx="X" cy="Y" rx="17" ry="9" fill="none" stroke="#f1efe6" stroke-width="2.4"/>', s = '', i;
+    function loaf(x, y) { return L.replace('X', x).replace('Y', y); }
+    function egg(x, y) { return '<ellipse cx="' + x + '" cy="' + y + '" rx="6.5" ry="8.5" fill="none" stroke="#f1efe6" stroke-width="2.2"/>'; }
+    function fish(x, y, r) { r = r || 1; return '<path d="M' + (x - 14 * r) + ' ' + y + 'q' + (14 * r) + ' ' + (-9 * r) + ' ' + (28 * r) + ' 0q' + (-14 * r) + ' ' + (9 * r) + ' ' + (-28 * r) + ' 0l' + (-7 * r) + ' ' + (-6 * r) + 'v' + (12 * r) + 'z" fill="none" stroke="#f1efe6" stroke-width="2.2"/>'; }
+    function cat(x, y) { return '<path d="M' + (x - 12) + ' ' + y + 'q-3 -22 6 -30q-3 -9 1 -14l5 6h6l5 -6q4 5 1 14q9 8 6 30z" fill="#f1efe6"/>'; }
+    if (k === 1) s = loaf(60, 40);
+    if (k === 2) s = loaf(36, 44) + loaf(84, 44) + loaf(60, 26);
+    if (k === 3) { for (i = 0; i < 4; i++) s += loaf(24 + i * 24, 50); for (i = 0; i < 3; i++) s += loaf(36 + i * 24, 36); s += loaf(48, 22) + loaf(72, 22); }
+    if (k === 4) s = egg(48, 40) + egg(72, 40);
+    if (k === 5) { for (i = 0; i < 5; i++) s += egg(22 + i * 19, 40); }
+    if (k === 6) s = fish(60, 40, 1.7);
+    if (k === 7) { s = fish(30, 28, .7) + fish(66, 24, .7) + fish(96, 34, .7) + fish(40, 50, .7) + fish(80, 52, .7) + fish(58, 38, .7); }
+    if (k === 8) s = '<path d="M40 54h20l-4 -26h-12z M80 54h20l-4 -26h-12z" fill="none" stroke="#f1efe6" stroke-width="2.2"/><path d="M50 26q-6 -10 0 -16q6 6 0 16zM90 26q-6 -10 0 -16q6 6 0 16z" fill="#f2d06a"/>';
+    if (k === 9) s = cat(36, 56) + '<path d="M62 50h46q-4 10 -23 10t-23 -10z" fill="none" stroke="#f1efe6" stroke-width="2.2"/>' + fish(86, 44, .7);
+    if (k === 10) { for (i = 0; i < 4; i++) s += loaf(24 + i * 24, 54); s += loaf(48, 40) + loaf(72, 40) + cat(62, 34); }
+    return '<svg viewBox="0 0 120 64">' + s + '</svg>';
+  }
+  var BOARD_IV = /*isuvo*/['une bura', 'sami bura', 'burali', 'tivo pea', 'pena pea', 'vasi pesa', 'piko pesali', 'tivo lamo', 'kumosu pesa', 'Kumo buraliko dabi.'];
+  var BOARD = '<h4>Mela&rsquo;s picture board</h4><div class="grid">' + BOARD_IV.map(function (b, i) { return '<div>' + pic(i + 1) + iv(b) + '</div>'; }).join('') + '</div>' +
+    '<p class="sm">Chalk pictures, and under each one what you would say for it. No English anywhere.</p>';
+  $('#board').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: BOARD, cls: 'chalk', clue: { id: 'board', title: 'Mela’s picture board', kind: 'At the market' }, done: function () {
+      if (tell('board')) { paint(); ER.say('Ten pictures. Count everything in them, as Philippa says.'); }
+    } });
+  });
+  var ORDER_HTML = '<h4>On the post of Mela&rsquo;s stall</h4><p>' + iv('LUKAHEMISU') + '</p><p>' + iv('tivo vasi bura') + '</p><p>' + iv('pena pea') + '</p><p>' + iv('piko pesali') + '</p><p>' + iv('Melasu mela') + '</p><p>&rarr; ' + iv('kesadovi') + '</p>' +
+    '<p class="sm">An order, in chalk, waiting to be carried.</p>';
+  $('#order').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: ORDER_HTML, cls: 'chalk', clue: { id: 'order', title: 'The order on Mela’s post', kind: 'At the market' }, done: function () {
+      if (tell('order')) { paint(); ER.say(ready() ? 'An order for Lukahemi. Now pack the basket.' : 'An order. Somebody&rsquo;s, for something, going somewhere.'); }
+    } });
+  });
+
+  /* ---------- the basket ---------- */
+  var ITEMS = [
+    { k: 'bb', n: 'big loaf', max: 3, x: 85, y: 110 }, { k: 'sb', n: 'small loaf', max: 2, x: 255, y: 110 },
+    { k: 'eg', n: 'egg', max: 6, x: 425, y: 110 }, { k: 'pp', n: 'pea pod', max: 4, x: 85, y: 250 },
+    { k: 'f1', n: 'small fish', max: 1, x: 255, y: 250 }, { k: 'fs', n: 'fish on a string', max: 1, x: 425, y: 250 },
+    { k: 'fb', n: 'big fish', max: 1, x: 85, y: 360 }, { k: 'hm', n: 'honey, a face', max: 1, x: 255, y: 360 }, { k: 'hp', n: 'honey, a bee', max: 1, x: 425, y: 360 }
+  ];
+  function draw(k, x, y, i) {
+    var s = '';
+    if (k === 'bb') s = '<ellipse cx="' + x + '" cy="' + y + '" rx="34" ry="16" fill="#c8884a" stroke="#8a5a2a" stroke-width="2"/><path d="M' + (x - 16) + ' ' + (y - 6) + 'l10 -6M' + x + ' ' + (y - 4) + 'l10 -6M' + (x + 16) + ' ' + (y - 2) + 'l8 -6" stroke="#8a5a2a" stroke-width="2"/>';
+    if (k === 'sb') s = '<ellipse cx="' + x + '" cy="' + y + '" rx="18" ry="10" fill="#d89a5a" stroke="#8a5a2a" stroke-width="2"/>';
+    if (k === 'eg') s = '<ellipse cx="' + x + '" cy="' + y + '" rx="9" ry="12" fill="#fbf4e4" stroke="#c9b48a" stroke-width="2"/>';
+    if (k === 'pp') s = '<path d="M' + (x - 26) + ' ' + y + 'q26 -18 52 0q-26 12 -52 0z" fill="#6aaa3a" stroke="#3a7a2a" stroke-width="2"/><circle cx="' + (x - 10) + '" cy="' + (y - 3) + '" r="4" fill="#8aca5a"/><circle cx="' + x + '" cy="' + (y - 4) + '" r="4" fill="#8aca5a"/><circle cx="' + (x + 10) + '" cy="' + (y - 3) + '" r="4" fill="#8aca5a"/>';
+    if (k === 'f1') s = '<path d="M' + (x - 20) + ' ' + y + 'q20 -12 40 0q-20 12 -40 0l-10 -8v16z" fill="#a8b4bc" stroke="#5a6a74" stroke-width="2"/><circle cx="' + (x + 12) + '" cy="' + (y - 2) + '" r="2" fill="#1a1a1a"/>';
+    if (k === 'fs') { s = '<path d="M' + (x - 30) + ' ' + (y - 30) + 'q30 -14 60 0" stroke="#c9b48a" stroke-width="2" fill="none"/>'; for (var j = 0; j < 4; j++) s += '<path d="M' + (x - 24 + j * 16) + ' ' + (y - 30) + 'v4q-6 14 0 28q6 -14 0 -28" fill="#a8b4bc" stroke="#5a6a74" stroke-width="1.6"/>'; }
+    if (k === 'fb') s = '<path d="M' + (x - 44) + ' ' + y + 'q44 -24 88 0q-44 24 -88 0l-18 -14v28z" fill="#8a9aa4" stroke="#4a5a64" stroke-width="2"/><circle cx="' + (x + 28) + '" cy="' + (y - 4) + '" r="3" fill="#1a1a1a"/>';
+    if (k === 'hm' || k === 'hp') {
+      s = '<rect x="' + (x - 20) + '" y="' + (y - 26) + '" width="40" height="48" rx="7" fill="#e2a41b" stroke="#a87a1b" stroke-width="2"/><rect x="' + (x - 22) + '" y="' + (y - 32) + '" width="44" height="10" rx="3" fill="#c8884a"/><rect x="' + (x - 15) + '" y="' + (y - 14) + '" width="30" height="26" fill="#fbf4e4"/>';
+      if (k === 'hm') s += '<circle cx="' + x + '" cy="' + (y - 2) + '" r="8" fill="#e2b48c"/><path d="M' + (x - 9) + ' ' + (y - 4) + 'q9 -12 18 0" fill="#a3242a"/><path d="M' + (x - 3) + ' ' + (y + 2) + 'q3 2 6 0" stroke="#8c3a32" stroke-width="1.4" fill="none"/>';
+      else s += '<ellipse cx="' + x + '" cy="' + (y - 1) + '" rx="6" ry="4" fill="#f2c21b"/><path d="M' + (x - 2) + ' ' + (y - 5) + 'v8M' + (x + 2) + ' ' + (y - 5) + 'v8" stroke="#3a2a10" stroke-width="1.4"/>';
+    }
+    return s;
+  }
+  function spread(k, n, x, y) {
+    var s = '', i, dx = { bb: 26, sb: 22, eg: 20, pp: 20, f1: 0, fs: 0, fb: 0, hm: 0, hp: 0 }[k], dy = { pp: 10, eg: 0, bb: 14, sb: 0 }[k] || 0;
+    for (i = 0; i < n; i++) s += draw(k, x - (n - 1) * dx / 2 + i * dx, y + (i % 2) * dy - dy / 2, i);
+    return s;
+  }
+  function makeBasket() {
+    var box = ER.el('div', 'pz bk'), n = ER.flag('b-n') || {}, done = !!told.packed;
+    ITEMS.forEach(function (it) { if (n[it.k] == null) n[it.k] = 0; });
+    box.innerHTML = '<div class="bk-in"><svg viewBox="0 0 960 440"></svg><div class="ord"><span class="iv">LUKAHEMISU</span><br><span class="iv">tivo vasi bura</span><br><span class="iv">pena pea</span><br><span class="iv">piko pesali</span><br><span class="iv">Melasu mela</span><br>&rarr; <span class="iv">kesadovi</span></div></div>' +
+      '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="b-go">Show Mela the basket</button></div>';
+    var svg = box.querySelector('svg'), msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function render() {
+      var s = '<rect x="0" y="0" width="960" height="440" fill="#9a6a42"/><g stroke="#8a5a36" stroke-width="2" opacity=".6"><path d="M0 70H960M0 150H960M0 230H960M0 310H960M0 390H960"/></g>';
+      s += '<text x="20" y="34" class="lbl" font-size="14">ON MELA&rsquo;S TABLE (click a thing to put it in the basket)</text>';
+      ITEMS.forEach(function (it) {
+        var left = it.max - n[it.k];
+        s += '<g class="grp" data-k="' + it.k + '" data-w="t"><rect x="' + (it.x - 80) + '" y="' + (it.y - 50) + '" width="160" height="90" fill="transparent"/>' + spread(it.k, left, it.x, it.y) +
+          '<text x="' + it.x + '" y="' + (it.y + 34) + '" class="lbl" text-anchor="middle">' + it.n + ' &middot; ' + left + '</text></g>';
+      });
+      /* the basket */
+      s += '<g><path d="M500 210q-10 200 50 200h200q60 0 50 -200z" fill="#b8884a" stroke="#7a5a2a" stroke-width="4"/><path d="M506 260h288M512 310h276M522 360h256" stroke="#7a5a2a" stroke-width="3"/><path d="M500 210q150 -170 300 0" fill="none" stroke="#7a5a2a" stroke-width="8"/></g>';
+      s += '<text x="650" y="432" class="lbl" text-anchor="middle">IN THE BASKET (click a thing to take it out)</text>';
+      var inb = [];
+      ITEMS.forEach(function (it) { if (n[it.k]) inb.push(it); });
+      inb.forEach(function (it, i) {
+        var cx = 568 + (i % 3) * 82, cy = 250 + Math.floor(i / 3) * 70;
+        s += '<g class="grp" data-k="' + it.k + '" data-w="b"><rect x="' + (cx - 40) + '" y="' + (cy - 32) + '" width="80" height="64" fill="transparent"/>' + spread(it.k, n[it.k], cx, cy) + '</g>';
+      });
+      if (!inb.length) s += '<text x="650" y="320" class="lbl" text-anchor="middle" font-size="15">empty</text>';
+      svg.innerHTML = s;
+      ER.$$('.grp', svg).forEach(function (g) {
+        g.addEventListener('click', function () {
+          if (done) return;
+          var k = g.getAttribute('data-k'), w = g.getAttribute('data-w'), it = ITEMS.filter(function (q) { return q.k === k; })[0];
+          if (w === 't' && n[k] < it.max) { n[k]++; if (k === 'eg') PB.sfx.egg(); else PB.sfx.put(); }
+          else if (w === 'b' && n[k] > 0) { n[k]--; PB.sfx.put(); }
+          ER.flag('b-n', n); render();
+        });
+      });
+    }
+    render();
+    box.querySelector('#b-go').addEventListener('click', function () {
+      if (done) return;
+      var tot = 0; ITEMS.forEach(function (it) { tot += n[it.k]; });
+      if (!tot) { ER.sfx.no(); msg('Mela looks into the empty basket, and then at you, and laughs.'); return; }
+      function bad(t) { ER.sfx.no(); ER.shake(box.querySelector('.bk-in')); msg(t); }
+      if (!ER.check('pp', n.pp)) return bad('Mela takes a pea pod out of the basket. She laughs until she has to hold on to the stall. Then she picks up an egg, and holds it under your nose. &ldquo;' + iv('Pea') + ',&rdquo; she says, very kindly. &ldquo;' + iv('Pea') + '.&rdquo;');
+      if (!ER.check('eg', n.eg)) return bad('Mela counts the eggs in the basket aloud, frowns, and taps the second line of the order. Which picture on her board has that number in it?');
+      if (!ER.check('bb', n.bb) || !ER.check('sb', n.sb)) return bad('Mela taps <span class="iv">tivo vasi bura</span>. One word says how many, one says what kind, and one says what. Her board has all three, in other pictures.');
+      if (!ER.check('fs', n.fs) || !ER.check('f1', n.f1) || !ER.check('fb', n.fb)) return bad('Mela taps <span class="iv">piko pesali</span>. There is no number in front of it. Find <span class="iv">piko pesali</span> on her board: how many fish are in that picture?');
+      if (!ER.check('hm', n.hm) || !ER.check('hp', n.hp)) return bad('Mela taps <span class="iv">Melasu mela</span>, and then taps her own chest, twice.');
+      done = true; told.packed = 1; ER.flag('b-told', told); ER.flag('b-code', ITEMS.map(function (it) { return n[it.k]; }).join('.'));
+      PB.solved(true); paint(); PB.terms(['false friend']);
+      PB.mine('basket', 'Lukahemi’s basket, worked out', '<p>' + iv('tivo vasi bura') + ' = two big loaves (number, then size, then thing).</p><p>' + iv('pena pea') + ' = five EGGS. pea is a false friend!</p><p>After a number: no -li. (Like Turkish.)</p><p>' + iv('piko pesali') + ' = small fish, several: -li with no number.</p><p>' + iv('Melasu mela') + ' = Mela&rsquo;s honey (-su = &rsquo;s). Her name means honey!</p>');
+      msg('Mela checks every line, nods at each one, and ties a cloth over the basket. Then she taps the last line of the order, and points up the lane at the signpost.');
+      setTimeout(function () { ER.close(); ER.say('&rarr; ' + iv('kesadovi') + '. The signpost is at the top of the lane, on the right.'); }, 3600);
+    });
+    msg(done ? 'The basket is packed.' : 'Click the things on the table to put them in the basket, as the order on the slate says. Click them in the basket to take them out.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+  $('#basketg').addEventListener('click', function () {
+    if (busy) return;
+    if (told.packed) { ER.say('Packed, with a cloth over it. Heavier than it looks.'); return; }
+    if (!told.mela) { ER.say('A basket on its side, and a cat in the middle of it all. Whose is it? Ask at the stall.'); return; }
+    if (!told.order) { ER.say('To pack it you need to know what went in it. The order is on the slate on Mela&rsquo;s post.'); return; }
+    if (!told.board) { ER.say('The order is in Isuvo. Mela&rsquo;s picture board, by the stall, will help you read it.'); return; }
+    if (!told.p3) { ER.say('Philippa has a page about this. Open the phrasebook first: the button at the bottom left.'); return; }
+    if (!bk) bk = makeBasket();
+    bk.open();
+  });
+
+  /* ---------- the signpost ---------- */
+  $('#sign').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.packed) { ER.say('A signpost with three arms: ' + iv('LAMODO') + ', ' + iv('KESADO') + ' and ' + iv('LUKADO') + '. Three places you cannot read the names of.'); return; }
+    if (nextFile) { ER.say('Up the lane to the ' + iv('KESADO') + '.'); return; }
+    if (!sp) sp = makeSign();
+    sp.open();
+  });
+  function makeSign() {
+    var box = ER.el('div', 'sp'), wait = false;
+    box.innerHTML = '<h4>The signpost at the top of the lane</h4><p>The order ends &rarr; ' + iv('kesadovi') + '. Which way does the basket go?</p><div class="arms">' +
+      /*isuvo*/['lamodo', 'kesado', 'lukado'].map(function (a) { return '<button type="button" class="arm" data-a="' + a + '"><span class="iv" style="font-family:inherit;font-style:normal;color:inherit">' + a.toUpperCase() + '</span></button>'; }).join('') + '</div><p class="pmsg"></p>';
+    var msgEl = box.querySelector('.pmsg');
+    ER.$$('.arm', box).forEach(function (b) {
+      b.addEventListener('click', function () {
+        if (wait) return;
+        var a = b.getAttribute('data-a'), f = ER.exit([ER.flag('b-code') + '-' + a], { wait: true });
+        if (!f) { ER.sfx.no(); ER.shake(b); msgEl.innerHTML = ER.gloss('Mela, watching from her stall, shakes her head and taps the last line of the order. Take the ending off <span class="iv">kesadovi</span>: what is left?'); return; }
+        wait = true; nextFile = f; ER.flag('b-file', f); paint();
+        msgEl.innerHTML = ER.gloss('<span class="iv">kesa-do-vi</span>: to the ' + iv('kesado') + '. Up the lane, then.');
+        setTimeout(function () {
+          ER.closeAll(); busy = true;
+          ER.narrate([
+            'You pick up the basket. Mela gives you a loaf for yourself, and a push in the right direction.',
+            'Her name is painted over her stall and on every honey jar, because ' + iv('mela') + ' means honey. Mela sells ' + iv('mela') + '. Nobody on Isu thinks that is funny but you.',
+            'Mr Kaplan is still eating his peas. &ldquo;Eggs,&rdquo; he says, when you tell him. &ldquo;Pea means egg. What kind of language does that?&rdquo; &mdash; &ldquo;This one,&rdquo; says Mrs Nakashima, who has caught you up. &ldquo;I would like some tea, please. Is there tea where we are going?&rdquo;',
+            'The arm of the signpost says ' + iv('KESADO') + '. It points up the lane, to a long low house with a blue door and smoke coming out of its chimney.'
+          ], function () { busy = false; $('#go').classList.add('on'); PB.wordlist(2); });
+        }, 1800);
+      });
+    });
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

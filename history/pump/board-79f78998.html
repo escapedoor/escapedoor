@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Board Room · By the Nearest Road</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-history.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="pump.css">
+<style>
+  body{--bg:#1e1610;--accent:#ffcf6a;--font-display:'Abril Fatface',serif;--font-ui:'Oswald',sans-serif;--font-body:'Libre Caslon Text',serif;
+    --tc-bg:rgba(24,16,10,.96);--tc-ink:#f4ead2;--cap-bg:rgba(26,18,12,.93);--panel:#241a12;--face-bg:#4a3624;--q-ink:#ffd88a;--fade:#0a0604;--hud-bg:rgba(24,16,10,.84)}
+  .lb{font-family:'Oswald',sans-serif;font-weight:500;text-anchor:middle;letter-spacing:.12em}
+  .gasf{animation:gf 1.3s steps(3,end) infinite;transform-box:fill-box;transform-origin:50% 100%}
+  .gasf:nth-of-type(2n){animation-delay:-.6s}
+  @keyframes gf{50%{transform:scaleY(1.15)}}
+  #rain path{animation:rn .7s linear infinite}
+  @keyframes rn{from{transform:translate(4px,-30px)}to{transform:translate(-4px,30px)}}
+  #satchel.ready,#orders.ready,#snow.ready,#chair.ready{animation:nudge 1.6s ease-in-out infinite}
+  @keyframes nudge{50%{transform:translateY(-5px)}}
+
+  /* Dr Snow's papers, in the order he will speak */
+  .ar{width:min(1100px,97vw);display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:16px;align-items:start}
+  .ar-table{padding:14px 16px;background:#2e4a32 linear-gradient(160deg,rgba(255,255,255,.05),rgba(0,0,0,.25));border:10px solid #4a2e1a;box-shadow:0 20px 50px rgba(0,0,0,.6)}
+  .ar-row{display:grid;grid-template-columns:200px minmax(0,1fr);gap:10px;align-items:center;margin-bottom:6px}
+  .ar-row b{font-family:'Cinzel',serif;font-weight:700;font-size:13px;letter-spacing:.06em;color:#f2e6c4;line-height:1.25}
+  .ar-row b small{display:block;font-family:'Libre Caslon Text',serif;font-weight:400;font-style:italic;font-size:12.5px;letter-spacing:0;color:#cfc6a8}
+  .ar .slot{min-height:44px;border:2px dashed rgba(242,230,196,.4);border-radius:3px;display:flex;align-items:stretch}
+  .ar .slot.no{border-color:#ff8a6a;background:rgba(200,60,30,.25)}
+  .ar .slot.ok{border-color:#9ad88a;background:rgba(120,200,100,.12)}
+  .paper{flex:1;padding:6px 10px;background:#f7f1e1;color:#1f2438;font-family:'EB Garamond',serif;font-size:15.5px;line-height:1.25;border-left:3px solid #7a1d14;box-shadow:0 3px 6px rgba(0,0,0,.45)}
+  .ar-tray{display:flex;flex-wrap:wrap;gap:6px;min-height:50px;margin-top:10px;padding:8px;border-top:2px solid rgba(242,230,196,.3)}
+  .ar-tray .paper{flex:0 1 calc(50% - 6px)}
+  .ob-row{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:10px;align-items:center;margin-bottom:7px}
+  .ob-q{padding:7px 10px;background:rgba(0,0,0,.25);border-left:3px solid #c9a23a;color:#f2e6c4;font-family:'Libre Caslon Text',serif;font-size:14.5px;line-height:1.35}
+  .ob-q i{display:block;font-style:normal;font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#c9b48a;margin-bottom:2px}
+  .ar-side .btn{width:100%;margin-top:8px}
+  @media (max-width:980px){.ar{grid-template-columns:1fr}.ar-row,.ob-row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a2416"/><stop offset="1" stop-color="#24160c"/></linearGradient>
+  <linearGradient id="baizeG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2e5a34"/><stop offset="1" stop-color="#1e3a22"/></linearGradient>
+  <radialGradient id="gasG" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffe0a0" stop-opacity=".5"/><stop offset="1" stop-color="#ffe0a0" stop-opacity="0"/></radialGradient>
+  <linearGradient id="winG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#141c2a"/><stop offset="1" stop-color="#2a344a"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="45%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".65" stop-color="#050302" stop-opacity=".28"/><stop offset="1" stop-color="#050302" stop-opacity=".85"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#wallG)"/>
+<g stroke="#1a0e06" stroke-width="3" fill="none" opacity=".6"><path d="M-200 120h220v300h-220zM60 120h220v300H60zM1320 120h220v300h-220zM1580 120h220v300h-220z"/></g>
+<path d="M-1000 440H2600" stroke="#5a3a20" stroke-width="12"/>
+<rect x="-1000" y="446" width="3600" height="874" fill="#1a0e08"/>
+<!-- tall windows, rain on them -->
+<g id="windows" class="hot">
+  <rect x="1360" y="100" width="150" height="300" fill="url(#winG)"/><rect x="1560" y="100" width="150" height="300" fill="url(#winG)"/>
+  <g id="rain" stroke="#8aa0c0" stroke-width="2" opacity=".55"><path d="M1380 120l-6 30M1420 180l-6 30M1460 140l-6 30M1490 260l-6 30M1400 300l-6 30M1450 340l-6 30M1590 150l-6 30M1640 220l-6 30M1680 300l-6 30"/></g>
+  <g fill="none" stroke="#4a2e1a" stroke-width="10"><rect x="1360" y="100" width="150" height="300"/><rect x="1560" y="100" width="150" height="300"/></g><path d="M1435 100v300M1635 100v300M1360 250h150M1560 250h150" stroke="#4a2e1a" stroke-width="5"/>
+</g>
+<!-- the portrait of a former chairman -->
+<g id="portrait" class="hot"><rect x="700" y="110" width="200" height="250" fill="#c9a23a"/><rect x="716" y="126" width="168" height="218" fill="#2a2018"/>
+  <ellipse cx="800" cy="210" rx="40" ry="48" fill="#c8a080"/><path d="M760 214q-6 40 12 60q2-30 4-50zM840 214q6 40-12 60q-2-30-4-50z" fill="#e8e4dc"/><path d="M740 344q10-70 60-78q50 8 60 78z" fill="#141414"/><path d="M786 268l14 18 14-18" fill="#f2efe6"/>
+  <rect x="740" y="330" width="120" height="10" fill="#c9a23a" opacity=".6"/></g>
+<!-- the gasolier -->
+<g id="gas" class="hot">
+  <ellipse cx="800" cy="70" rx="300" ry="120" fill="url(#gasG)"/>
+  <path d="M800 -40V40M660 60h280" stroke="#a08030" stroke-width="6"/><path d="M660 60v20M740 60v24M860 60v24M940 60v20" stroke="#a08030" stroke-width="5"/>
+  <g fill="#ffe2a0"><path class="gasf" d="M654 82q6-18 12 0z"/><path class="gasf" d="M734 86q6-18 12 0z"/><path class="gasf" d="M854 86q6-18 12 0z"/><path class="gasf" d="M934 82q6-18 12 0z"/></g>
+</g>
+<!-- the Guardians along the far side of the table -->
+<g id="guardians" class="hot">
+  <g fill="#18120c"><path d="M520 470q-4-60 30-70q34 10 30 70z"/><path d="M620 470q-4-64 32-74q36 10 32 74z"/><path d="M730 470q-4-60 30-70q34 10 30 70z"/><path d="M840 470q-4-64 32-74q36 10 32 74z"/><path d="M950 470q-4-60 30-70q34 10 30 70z"/></g>
+  <g fill="#d8b090"><circle cx="550" cy="382" r="18"/><circle cx="652" cy="376" r="19"/><circle cx="760" cy="382" r="18"/><circle cx="872" cy="376" r="19"/><circle cx="980" cy="382" r="18"/></g>
+  <g fill="#9a948a"><path d="M534 380q-4 22 8 30q2-16 2-28zM566 380q4 22-8 30q-2-16-2-28z"/><path d="M856 374q-2 26 16 36q18-10 16-36q-6 10-16 12q-10-2-16-12z"/></g>
+  <g fill="none" stroke="#2a2a2a" stroke-width="2"><circle cx="645" cy="376" r="6"/><circle cx="659" cy="376" r="6"/></g>
+  <path d="M842 440q30 14 60 0" stroke="#d9b24a" stroke-width="3" fill="none"/>
+</g>
+<!-- the long table, green baize -->
+<path d="M260 470h1080l140 260H120z" fill="url(#baizeG)"/><path d="M120 730h1360v24H120z" fill="#4a2e1a"/>
+<g fill="#efe6cc" opacity=".9"><path d="M560 500l40-4 4 14-42 4z"/><path d="M700 492l40-3 3 14-41 3z"/><path d="M900 496l40-2 2 14-40 2z"/></g>
+<!-- the Chairman, at the head, with his bell -->
+<g id="chair" class="hot">
+  <path d="M1220 560q-6-110 26-130q30-16 58 0q30 20 22 130z" fill="#22222a"/><path d="M1248 440q26 26 52 0l4 120h-60z" fill="#4a1a1a"/><path d="M1252 500q22 12 44 0" stroke="#d9b24a" stroke-width="3" fill="none"/>
+  <rect x="1264" y="398" width="22" height="32" fill="#e9b896"/><ellipse cx="1275" cy="380" rx="29" ry="33" fill="#e9b896"/>
+  <path d="M1248 384q-4 26 8 38q4-20 4-36zM1302 384q4 26-8 38q-4-20-4-36z" fill="#d6d0c4"/>
+  <circle cx="1265" cy="380" r="2.6" fill="#1b1512"/><circle cx="1285" cy="380" r="2.6" fill="#1b1512"/><path d="M1266 398q9 3 18 0" stroke="#5a2a20" stroke-width="2" fill="none"/>
+  <g fill="#c9a23a"><path d="M1340 540q0-24 14-24t14 24z"/><rect x="1351" y="502" width="6" height="16"/></g>
+</g>
+<!-- the clerk to the Board, with the minute book -->
+<g id="clerk" class="hot">
+  <path d="M1080 560q-4-90 22-104q22-12 44 0q22 16 16 104z" fill="#2a2a30"/>
+  <rect x="1112" y="430" width="18" height="26" fill="#efc8aa"/><ellipse cx="1121" cy="416" rx="23" ry="26" fill="#efc8aa"/><path d="M1099 410q0-28 22-28t22 28q-6-14-22-16q-16 2-22 16z" fill="#5a3a22"/>
+  <rect x="1060" y="520" width="80" height="40" fill="#5a1e14"/><path d="M1100 520v40" stroke="#c9a23a" stroke-width="2"/>
+</g>
+<!-- Mr Stannard, at the side, as the parish's officer -->
+<g id="stannard" class="hot">
+  <path d="M1420 700q-8-170 16-206q20-14 42 0q22 36 14 206z" fill="#3a3a2c"/><path d="M1438 506q18 22 36 0l4 130h-44z" fill="#8a7a4a"/>
+  <rect x="1446" y="442" width="22" height="34" fill="#e2b08e"/><ellipse cx="1457" cy="428" rx="27" ry="32" fill="#e2b08e"/>
+  <path d="M1430 436q2 40 27 44q25-4 27-44q-8 16-27 18q-19-2-27-18z" fill="#4a3424"/><path d="M1431 418q0-34 26-34t26 34q-6-18-26-20q-20 2-26 20z" fill="#4a3424"/>
+  <circle cx="1447" cy="426" r="2.6" fill="#1b1512"/><circle cx="1467" cy="426" r="2.6" fill="#1b1512"/>
+</g>
+<!-- Florrie, at the door -->
+<g id="florrie" class="hot">
+  <rect x="-20" y="150" width="150" height="300" fill="#140a04"/><rect x="-20" y="150" width="150" height="300" fill="none" stroke="#5a3a20" stroke-width="10"/>
+  <path d="M70 450q-4-120 18-140q16-8 30 0q16 20 12 140z" fill="#6a4a6a"/><rect x="88" y="290" width="16" height="20" fill="#f2cdb0"/><ellipse cx="96" cy="280" rx="18" ry="20" fill="#f2cdb0"/>
+  <path d="M78 278q-4-26 18-28q22 2 18 28q-6-14-18-14q-12 0-18 14z" fill="#f6f3ea"/><circle cx="90" cy="282" r="2" fill="#1b1512"/><circle cx="102" cy="282" r="2" fill="#1b1512"/>
+</g>
+<!-- Dr Snow, standing at the near end -->
+<g id="snow" class="hot">
+  <path d="M260 740q-8-200 18-240q24-16 50-2q28 40 18 242z" fill="#1d1d24"/>
+  <path d="M276 508l28 32 28-32" fill="#f2efe6"/><path d="M290 512h28l-5 11h-18z" fill="#141414"/>
+  <rect x="293" y="462" width="22" height="36" fill="#ecc6a6"/><ellipse cx="304" cy="444" rx="29" ry="34" fill="#ecc6a6"/>
+  <path d="M275 442q-2-30 14-38q-4 12-6 34zM333 442q2-30-14-38q4 12 6 34z" fill="#3a2a1c"/><path d="M286 412q18-10 36 0q-18-4-36 0z" fill="#3a2a1c"/>
+  <circle cx="294" cy="446" r="2.6" fill="#1b1512"/><circle cx="314" cy="446" r="2.6" fill="#1b1512"/><path d="M297 464q7 3 14 0" stroke="#5a2a20" stroke-width="2" fill="none"/>
+</g>
+<!-- his satchel of papers, and the Standing Orders -->
+<g id="satchel" class="hot"><path d="M340 690h130l10 70H330z" fill="#5a3a1e"/><path d="M340 690q65-50 130 0" fill="#6a4628"/><rect x="396" y="700" width="18" height="14" fill="#c9a23a"/><g fill="#f7f1e1"><path d="M352 690l10-24h90l6 24z"/></g></g>
+<g id="orders" class="hot"><path d="M520 690l120-8 6 40-122 8z" fill="#fbf8ef"/><path d="M528 694l104-7" stroke="#2a3a2a" stroke-width="3"/><g stroke="#4a4a40" stroke-width="1.5"><path d="M530 704l100-6M530 712l96-6M532 720l80-5"/></g></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Go home, and come back at dawn</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="pump.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, boxA = null, boxB = null, inA = false, inB = false;
+
+  ER.init({
+    theme: 'history', story: 'pump', storyTitle: 'By the Nearest Road', id: 'board', no: 'VI', title: 'The Board Room',
+    go: 'Take your seat', back: '../index.html', backLabel: 'Archive',
+    intro: [
+      'Mrs Eley&rsquo;s days went into your book in order: her last visit to Broad Street months before; the bottle filled at the pump on Thursday morning; a drink on Thursday evening and another on Friday; taken ill on Friday evening (two o&rsquo;clock on Saturday, less two hours and sixteen hours, is eight on Friday evening); dead on Saturday afternoon. Mr Stannard had guessed that she caught it on a visit to Soho. Mrs Applin, who was in the house every day, knew that she had not been near it for months.',
+      'Thursday 7 September, seven in the evening. The board room of the Guardians of the Poor of St James&rsquo;s parish. Rain on the windows, gas burning, and a long table of gentlemen who would very much like to go home to their dinners.'
+    ],
+    exit: {"next":"handle","w":{"020ac2d7":"44bf763a"}}, tags: {"ar":["316ff13e","64d0836b","2b9f99f1","433b0f5f","2ba25619"],"ob":["0ea5a8d2","e53599b3","b2b65045","130134b7"]},
+    hints: hints, onBegin: begin
+  });
+
+  function file() { return ER.flag('v-file'); }
+  function isBusy() { return busy; }
+  function prepped() { return ER.flag('v-orders') && ER.flag('v-snow'); }
+  function paint() {
+    $('#orders').classList.toggle('ready', !file() && !ER.flag('v-orders'));
+    $('#snow').classList.toggle('ready', !file() && !!ER.flag('v-orders') && !ER.flag('v-snow'));
+    $('#satchel').classList.toggle('ready', !file() && !!prepped() && !ER.flag('v-order'));
+    $('#chair').classList.toggle('ready', !file() && !!ER.flag('v-order'));
+    ER.pips(file() ? 2 : ER.flag('v-order') ? 1 : 0, 2);
+    if (file()) PU.door($('#go'), file(), 'v-file');
+  }
+  function hints() {
+    if (file()) return ['go', ['The Board has decided. Use the button at the bottom of the screen.']];
+    if (inB) return ['objections', [
+      'Each objection is answered by something you found in an earlier room. Everything is in your notebook.',
+      'Crowding and foul air: find crowded people in foul air who did not die. Peter Street: think about the road to the Rupert Street pump. The lady at Hampstead: who was in the house? Fewer every day: why are there fewer people left to fall ill?'
+    ]];
+    if (inA) return ['order', [
+      'Standing Order No. 7 gives the order: what you ask the Board to do; the plainest fact; the facts that need explaining; what will be said against you, with your answer; the cost.',
+      'Ask for something small that the Board can do tonight. The plainest fact is the one any member could see for himself. Four papers do not belong at all: a remedy for the other theory, a request far too big, a weakness, and a book.'
+    ]];
+    if (ER.flag('v-order')) return ['chair', ['Dr Snow has spoken. The Guardians have objections. Click the Chairman, at the head of the table.']];
+    if (!prepped()) return ['prep', ['Read the Standing Orders on the table in front of you, and talk to Dr Snow.', 'Then his satchel of papers opens.']];
+    return ['satchel', ['Dr Snow&rsquo;s satchel is on the table in front of him. Click it.']];
+  }
+
+  function begin() {
+    paint();
+    PU.need('empty', 'Dr Snow: the empty streets', '<h4>Dr Snow: the empty streets</h4><p>&ldquo;In less than a week, more than three people in every four have left these streets: all those who could.&rdquo;</p>', 'statement', 'Statement');
+    PU.need('whnote', 'From the Master’s Office', PU.WHNOTE, 'office', 'Note');
+    PU.need('smell', 'Mr Stannard’s map of nuisances', PU.SMELL, 'smell', 'From Mr Stannard');
+    PU.need('calls', 'House calls, Wednesday', PU.CALLS, 'notes', 'Dr Snow’s notebook');
+    if (ER.flag('v-in')) { busy = false; ER.say(file() ? 'The board room is emptying. The clerk is blotting the minutes.' : 'The board room. Gas, rain, and the Guardians.'); return; }
+    ER.narrate([
+      'The Guardians sit along a table covered in green baize, under a portrait of a former chairman who looks as if he too would like his dinner. The clerk to the Board has the minute book open. Mr Stannard sits at the side, as the parish&rsquo;s officer, with his map on his knee.',
+      'Florrie is not allowed in. She stands in the doorway, where nobody has told her she may not stand.',
+      'Dr Snow sits very straight, with his satchel in front of him. &ldquo;I am no speaker,&rdquo; he says to you, quietly. &ldquo;Put my papers in the order I should say them. The Board&rsquo;s rules are on the table. They are particular about their rules.&rdquo;'
+    ], function () { busy = false; ER.flag('v-in', 1); paint(); PU.learn('Board of Guardians'); });
+  }
+
+  $('#orders').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: PU.ORDERS, cls: 'orders', clue: { id: 'orders', title: 'Standing Orders', kind: 'On the table' }, done: function () { ER.flag('v-orders', 1); PU.learn('committee', 'objection'); paint(); } });
+  });
+  $('#snow').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({ who: 'Dr John Snow', role: 'Waiting to speak', face: PU.FACE('snow'), lines: [
+      '&ldquo;They will give me ten minutes. They are good men, and tired, and they believe in the bad air because everybody they respect believes in it. I should probably believe in it myself, if I had not spent a week in Broad Street.&rdquo;',
+      { q: 'What will you ask them for?', a: '&ldquo;Something small. Something they can do tonight without being certain I am right. A committee will do a small thing on a doubt. It will not do a large thing on a doubt.&rdquo;' },
+      '&ldquo;The order, Tapping. You have read their rules. My papers are in the satchel.&rdquo;'
+    ], clue: { id: 'snow6', title: 'Dr Snow, before the Board', kind: 'Statement' }, done: function (seen) { if (seen) { ER.flag('v-snow', 1); paint(); } } });
+  });
+  $('#stannard').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(ER.flag('v-order') ? 'Mr Stannard is studying the ceiling with great attention.' : 'Mr Stannard nods to you, quite kindly. &ldquo;Your doctor is an honest man,&rdquo; he says. &ldquo;Honest men are often wrong.&rdquo;');
+  });
+  $('#clerk').addEventListener('click', function () { if (!busy) ER.say('The clerk to the Board writes everything down, in a hand even Mr Peebles would admire.'); });
+  PU.thing('#florrie', null, 'Florrie, in the doorway, mouths something at you. It might be &ldquo;good luck&rdquo;. It might be &ldquo;hurry up&rdquo;.', isBusy);
+  PU.thing('#guardians', 'guardian', 'The Guardians of the Poor: tradesmen and gentlemen of the parish, elected to run the workhouse and look after the poor. Tonight, the pump.', isBusy);
+  PU.thing('#portrait', null, 'A former chairman, in oils. He has the expression of a man who has heard a great many speeches.', isBusy);
+  PU.thing('#windows', null, 'Rain on the tall windows, and the lamps of Piccadilly beyond.', isBusy);
+  PU.thing('#gas', null, 'The gas hisses in its brass arms. It makes the room warm, and the Guardians sleepy.', isBusy);
+  $('#satchel').addEventListener('click', function () {
+    if (busy || file()) return;
+    if (ER.flag('v-order')) { ER.say('The papers are in order, and Dr Snow has spoken. The Chairman is waiting.'); return; }
+    if (!prepped()) { ER.say('Dr Snow&rsquo;s satchel. Read the Standing Orders first, and talk to Dr Snow.'); return; }
+    openA();
+  });
+  $('#chair').addEventListener('click', function () {
+    if (busy || file()) return;
+    if (!ER.flag('v-order')) { ER.say('The Chairman rings his little bell and looks at Dr Snow. Dr Snow looks at you. The papers are not in order yet.'); return; }
+    openB();
+  });
+
+  /* ---------- lock 1: the papers in order ---------- */
+  var SLOT = [['s1', 'First', 'what he asks the Board to do'], ['s2', 'Second', 'the plainest fact'], ['s3', 'Third', 'the facts that need explaining'], ['s4', 'Fourth', 'what will be said against him, and his answer'], ['s5', 'Last', 'what it will cost']];
+  var PAP = [['map', 'The map: the deaths crowd round the pump in Broad Street.'], ['lime', 'Wash the sewer gratings with chloride of lime.'],
+    ['cost', 'A handle takes a minute to take off, and a minute to put back.'], ['clear', 'The water looked nearly clear on Sunday evening.'],
+    ['req', 'Take the handle off the pump in Broad Street.'], ['book', 'My book of 1849 says that cholera is swallowed, not breathed.'],
+    ['wh', '&ldquo;It is the bad air.&rdquo; But the workhouse and the brewery, in the same foul air, with water of their own, escaped.'],
+    ['all', 'Close every pump in the parish until the winter.'], ['line', 'The line by the nearest road: where another pump is nearer, the deaths stop, and the few beyond the line had reasons.']];
+  function buildA() {
+    var b = ER.el('div', 'ar'), lock = false, msgEl;
+    b.innerHTML = '<div class="ar-table">' + SLOT.map(function (s) { return '<div class="ar-row"><b>' + s[1] + '<small>' + s[2] + '</small></b><div class="slot" data-s="' + s[0] + '"></div></div>'; }).join('') +
+      '<div class="ar-tray">' + PAP.map(function (p) { return '<div class="paper dnd-item" data-p="' + p[0] + '">' + p[1] + '</div>'; }).join('') + '</div></div>' +
+      '<div class="ar-side"><h3 class="lk-title">The satchel</h3><div class="lk-face">' + PU.FACE('snow') + '</div><h6 class="lk-h">Dr Snow</h6><p class="pmsg"></p><button type="button" class="btn" id="ar-go">Hand him the papers</button></div>';
+    msgEl = b.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    var tray = b.querySelector('.ar-tray');
+    ER.dnd(b, { item: '.paper', slot: '.slot', home: tray, lock: function () { return lock; }, change: function () { ER.$$('.slot', b).forEach(function (s) { s.classList.remove('no', 'ok'); }); } });
+    b.querySelector('#ar-go').addEventListener('click', function () {
+      if (lock) return;
+      var got = SLOT.map(function (s) { var p = b.querySelector('.slot[data-s="' + s[0] + '"] .paper'); return p ? p.getAttribute('data-p') : ''; });
+      if (got.indexOf('') >= 0) { msg('&ldquo;Five places, five papers. Four papers stay in the satchel.&rdquo;'); return; }
+      var bad = null;
+      SLOT.forEach(function (s, i) { var ok = ER.check('ar', s[0] + ':' + got[i]); b.querySelector('.slot[data-s="' + s[0] + '"]').classList.add(ok ? 'ok' : 'no'); if (!ok && !bad) bad = [s, got[i]]; });
+      if (bad) {
+        PU.slip(); ER.sfx.no();
+        var p = bad[1], s = bad[0];
+        msg('&ldquo;' + s[1] + ' place: ' + (
+          p === 'all' ? 'close every pump? They will ask what it costs, and who will carry water to the whole parish. Ask for something small.' :
+          p === 'lime' ? 'wash the gratings? That is Mr Stannard&rsquo;s remedy, for Mr Stannard&rsquo;s theory.' :
+          p === 'clear' ? 'nearly clear water is a weakness, not a fact on my side. Mr Stannard will say it for me, I expect.' :
+          p === 'book' ? 'Order seven: I shall not read from a book. And they have not read it.' :
+          s[0] === 's1' ? 'the first thing is what I ask them to <i>do</i>.' :
+          s[0] === 's2' ? 'the plainest fact: something any one of them could see for himself.' :
+          s[0] === 's3' ? 'the facts that need more explaining, after the plain one.' :
+          s[0] === 's4' ? 'what they will say against me, and my answer, before they say it.' :
+          'what will it cost the parish? That is the last thing they hear, and the first thing they ask.') + '&rdquo;');
+        return;
+      }
+      lock = true; b.querySelector('#ar-go').disabled = true; ER.flag('v-order', 1); ER.flag('v-ord', got.join('-')); ER.sfx.paper();
+      msg('&ldquo;Thank you.&rdquo; He takes the papers, squares their edges, and stands up.');
+      setTimeout(function () { ER.closeAll(); speech(); }, 2000);
+    });
+    b.first = function () { msg('&ldquo;Their Standing Order No. 7. Five places on the table, and nine papers. Put five of them in the order I should say them.&rdquo;'); };
+    return b;
+  }
+  function openA() { var f = !boxA; if (!boxA) boxA = buildA(); inA = true; ER.open('ov-lock', boxA, function () { inA = false; }); if (f) boxA.first(); }
+
+  function speech() {
+    busy = true; inA = false; paint(); PU.solved(true);
+    ER.narrate([
+      'Dr Snow speaks for nine minutes by the clock. He is not a good speaker: his voice is quiet, and two of the Guardians have to lean forward to hear. But he says it in the order of their own rules, and they cannot complain about the order.',
+      'He asks for one thing: the handle. He shows them the map. He shows them the line drawn by counting steps. He tells them what they will say, the bad air, and answers it with the workhouse and the brewery, before anybody can open his mouth. And he tells them that a handle costs nothing.',
+      'Then he sits down, and the Guardians begin to object.'
+    ], function () { busy = false; paint(); openB(); });
+  }
+
+  /* ---------- lock 2: an answer for every objection ---------- */
+  var OBJ = [['o1', 'A Guardian with a gold watch-chain', 'The deaths are round the pump because the poorest, most crowded houses are round the pump. Crowding and foul air, Dr Snow. Nothing more.'],
+    ['o2', 'A Guardian in spectacles', 'There were deaths in Peter Street, close by the Rupert Street pump. Your pump cannot reach so far.'],
+    ['o3', 'Mr Stannard', 'Your lady at Hampstead caught it on a visit to Broad Street. The Weekly Lantern says so.'],
+    ['o4', 'The Chairman', 'The deaths are fewer every day. In a week it will be over by itself. Why should the parish touch anything?']];
+  var EXH = [['e1', 'Mr Peebles&rsquo;s totals: 89 deaths in the week, 79 of them on Friday and Saturday.'], ['e5', 'The workhouse: 535 inmates under one roof, in the foul air, with a well of its own. 5 deaths.'],
+    ['e7', 'The bottle on Dr Snow&rsquo;s desk: the water looked nearly clear.'], ['e2', 'Dr Snow at the doors: more than three people in every four have left those streets.'],
+    ['e6', 'Mrs Applin: no visit to Broad Street for months; the bottle came up the hill every day.'], ['e3', 'Mr Stannard&rsquo;s map of nuisances.'],
+    ['e4', 'The line by the nearest road: the blind court in Peter Street, and the long way round to Rupert Street.']];
+  function buildB() {
+    var b = ER.el('div', 'ar'), lock = false, msgEl;
+    b.innerHTML = '<div class="ar-table">' + OBJ.map(function (o) { return '<div class="ob-row"><div class="ob-q"><i>' + o[1] + '</i>&ldquo;' + o[2] + '&rdquo;</div><div class="slot" data-o="' + o[0] + '"></div></div>'; }).join('') +
+      '<div class="ar-tray">' + EXH.map(function (e) { return '<div class="paper dnd-item" data-e="' + e[0] + '">' + e[1] + '</div>'; }).join('') + '</div></div>' +
+      '<div class="ar-side"><h3 class="lk-title">The objections</h3><div class="lk-face">' + PU.FACE('chair') + '</div><h6 class="lk-h">The Chairman</h6><p class="pmsg"></p><button type="button" class="btn" id="ob-go">Pass the answers to Dr Snow</button></div>';
+    msgEl = b.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    var tray = b.querySelector('.ar-tray');
+    ER.dnd(b, { item: '.paper', slot: '.slot', home: tray, lock: function () { return lock; }, change: function () { ER.$$('.slot', b).forEach(function (s) { s.classList.remove('no', 'ok'); }); } });
+    b.querySelector('#ob-go').addEventListener('click', function () {
+      if (lock) return;
+      var got = OBJ.map(function (o) { var p = b.querySelector('.slot[data-o="' + o[0] + '"] .paper'); return p ? p.getAttribute('data-e') : ''; });
+      if (got.indexOf('') >= 0) { msg('&ldquo;Every objection wants its answer, young person. The Board is waiting.&rdquo;'); return; }
+      var bad = null;
+      OBJ.forEach(function (o, i) { var ok = ER.check('ob', o[0] + ':' + got[i]); b.querySelector('.slot[data-o="' + o[0] + '"]').classList.add(ok ? 'ok' : 'no'); if (!ok && !bad) bad = [o, got[i]]; });
+      if (bad) {
+        PU.slip(); ER.sfx.no();
+        var o = bad[0], e = bad[1];
+        msg(e === 'e3' ? 'Mr Stannard looks pleased. &ldquo;My map, sir? Thank you. It supports me.&rdquo;' :
+          e === 'e7' ? '&ldquo;Nearly clear?&rdquo; says the Chairman. &ldquo;Then I suppose it is nearly harmless.&rdquo; Two Guardians laugh.' :
+          e === 'e1' ? '&ldquo;Those are last week&rsquo;s figures,&rdquo; says the Chairman. &ldquo;They do not answer the question.&rdquo;' :
+          { o1: '&ldquo;That does not answer me, sir,&rdquo; says the Guardian with the watch-chain. &ldquo;Show me crowded people in foul air who did not die.&rdquo;',
+            o2: '&ldquo;I asked about Peter Street, doctor,&rdquo; says the Guardian in spectacles. &ldquo;How far is it to Rupert Street, for a man with a pail?&rdquo;',
+            o3: '&ldquo;The Lantern is a respectable paper,&rdquo; says Mr Stannard. &ldquo;Who says otherwise, and how would they know?&rdquo;',
+            o4: '&ldquo;Fewer every day, doctor,&rdquo; says the Chairman. &ldquo;Why fewer, if your pump is still pumping?&rdquo;' }[o[0]]);
+        return;
+      }
+      var nxt = ER.exit([(ER.flag('v-ord') || 'req-map-line-wh-cost') + '|' + got.join('-')], { wait: true });
+      if (!nxt) { msg('&ldquo;Something is not right here. Tell your teacher.&rdquo;'); return; }
+      lock = true; b.querySelector('#ob-go').disabled = true; PU.sfx.gavel();
+      msg('The Chairman rings his bell. &ldquo;Thank you, Dr Snow. The Board will consider the matter. Would you be so kind as to wait outside?&rdquo;');
+      setTimeout(function () { ER.closeAll(); finish(nxt); }, 3200);
+    });
+    b.first = function () { msg('&ldquo;Four objections, Dr Snow. You may answer each of them once.&rdquo; Dr Snow slides the notebook towards you: he wants the right paper for each.'); };
+    return b;
+  }
+  function openB() { var f = !boxB; if (!boxB) boxB = buildB(); inB = true; ER.open('ov-lock', boxB, function () { inB = false; }); if (f) boxB.first(); }
+
+  function finish(nxt) {
+    busy = true; inB = false;
+    ER.narrate([
+      'You wait in the passage with Dr Snow and Florrie for twenty-five minutes. Dr Snow does not walk up and down. He sits on a bench and reads a medical journal, and turns a page now and then.',
+      'Then the clerk calls you back in. The Chairman does not smile. &ldquo;Dr Snow, the Board is not persuaded that you are right. But the Board is persuaded that a handle is cheap. The handle of the Broad Street pump will be taken off tomorrow morning.&rdquo;',
+      'Outside, on the wet steps, Dr Snow stops. &ldquo;Tapping. Remember this. If the deaths fall now, people will say the handle did it. But they were falling already, and three people in four have gone. A fall that comes after the handle will not prove the handle, by itself.&rdquo;',
+      '&ldquo;So we&rsquo;ll never know?&rdquo; says Florrie. &ldquo;We shall know more,&rdquo; says Dr Snow. &ldquo;But not from that.&rdquo;'
+    ], function () {
+      PU.mine('board', 'The Board, Thursday evening', '<p>In the order of Standing Order No. 7: the request (take off the handle); the plainest fact (the map); the facts that need explaining (the line by the nearest road); what will be said against us (bad air) and the answer (the workhouse and the brewery); the cost (a minute).</p><p>The objections: crowding, answered by the workhouse; Peter Street, by the long way round to Rupert Street; Hampstead, by Mrs Applin; &ldquo;fewer every day&rdquo;, by the empty streets.</p><p>The handle comes off tomorrow. Dr Snow: a fall after the handle will not prove the handle, by itself.</p>');
+      PU.learn('cause', 'correlation');
+      PU.door($('#go'), nxt, 'v-file'); busy = false; paint();
+    });
+  }
+})();
+</script>
+</body>
+</html>

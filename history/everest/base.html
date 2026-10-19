@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Base Camp · Snow Conditions Bad</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-history.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="everest.css">
+<style>
+  body{--bg:#120c07;--accent:#f0b25a;--font-display:'Abril Fatface',serif;--font-ui:'Oswald',sans-serif;--font-body:'Libre Caslon Text',serif;
+    --tc-bg:rgba(14,9,5,.96);--tc-ink:#f3e8d2;--cap-bg:rgba(18,11,6,.94);--panel:#24180e;--face-bg:#2a1c10;--q-ink:#f0c47a;--fade:#070402;--hud-bg:rgba(18,11,6,.82)}
+  #glow{animation:lamp 6s steps(1,end) infinite}
+  @keyframes lamp{0%{opacity:1}57%{opacity:.88}59%{opacity:1}83%{opacity:.93}85%{opacity:1}}
+  .tw{animation:tw 3.6s steps(1,end) infinite}.tw.t2{animation-duration:5.1s;animation-delay:-2s}
+  @keyframes tw{50%{opacity:.3}}
+  #steam path{animation:st 2.8s steps(7,end) infinite}
+  #steam path+path{animation-delay:-1.4s}
+  @keyframes st{0%{opacity:0;transform:translateY(0)}30%{opacity:.6}100%{opacity:0;transform:translateY(-40px)}}
+  #flapL{animation:flap 7s steps(1,end) infinite;transform-origin:1210px 170px}
+  @keyframes flap{0%{transform:skewX(0)}45%{transform:skewX(-1.5deg)}50%{transform:skewX(0)}}
+  #tw.ready #twpaper{animation:nudge 1.6s ease-in-out infinite}
+  @keyframes nudge{50%{transform:translateY(-6px)}}
+  .lb{font-family:'Oswald',sans-serif;font-weight:500;text-anchor:middle;letter-spacing:.14em}
+
+  /* the message, set out in slips */
+  .bm{display:grid;grid-template-columns:minmax(0,760px) 220px;gap:20px;width:min(1010px,97vw);align-items:start}
+  .bm-form{padding:14px 18px 12px;background:#f7efd2 linear-gradient(176deg,rgba(255,255,255,.4),rgba(120,95,40,.12));color:#22201b;border-top:8px solid #7a1d14;box-shadow:0 18px 40px rgba(0,0,0,.55)}
+  .bm-form h6{margin:0;font-family:'Oswald',sans-serif;font-weight:600;font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:#7a1d14}
+  .bm-form .hd{font-family:'Courier Prime',monospace;font-size:13px;color:#6b6552;border-bottom:1px dashed #a39c84;padding:2px 0 6px;margin-bottom:8px}
+  .bm-line{display:flex;flex-wrap:wrap;align-items:center;gap:8px 8px}
+  .bm-slot{position:relative;min-width:150px;min-height:40px;border:2px dashed #a39c84;border-radius:3px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.35)}
+  .bm-slot.day{min-width:104px}
+  .bm-slot:empty:before{content:attr(data-l);font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#9a917a}
+  .bm-slot.ok{border-color:#3d6b34;background:#dcecd2}
+  .bm-slot.no{border-color:#b3261c;background:#f6d6cf}
+  .bm-stop{font-family:'Courier Prime',monospace;font-weight:700;font-size:15px;color:#6b6552}
+  .bm-tray{margin-top:12px;padding:10px 12px;min-height:120px;display:flex;flex-wrap:wrap;gap:7px;align-content:flex-start;background:#3a2716;border:1px solid #5a3e24;box-shadow:inset 0 3px 10px rgba(0,0,0,.6)}
+  .bm-tray h6{flex:0 0 100%;margin:0 0 2px;font-family:'Oswald',sans-serif;font-weight:500;font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:#c9b48a}
+  .slp{position:relative;padding:7px 10px 6px;background:#fbf7e6;color:#1f1d18;font-family:'Courier Prime',monospace;font-weight:700;font-size:14px;letter-spacing:.03em;
+    box-shadow:0 2px 0 #c9bf9f,0 4px 8px rgba(0,0,0,.35);cursor:grab;white-space:nowrap;-webkit-user-select:none;user-select:none;touch-action:none}
+  .slp.held{outline:3px solid #f0b25a}
+  .slp.fly{position:fixed;z-index:200;pointer-events:none;opacity:.92}
+  .bm-slot .slp{box-shadow:none}
+  .bm-btns{display:flex;gap:10px;margin-top:12px}
+  .bm-btns .btn{flex:1}
+  @media (max-width:900px){.bm{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <radialGradient id="canvasG" cx="48%" cy="22%" r="80%"><stop offset="0" stop-color="#e2a85e"/><stop offset=".45" stop-color="#a8692f"/><stop offset="1" stop-color="#3a2210"/></radialGradient>
+  <linearGradient id="nightG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#050912"/><stop offset=".7" stop-color="#14203a"/><stop offset="1" stop-color="#2a3a58"/></linearGradient>
+  <linearGradient id="iceG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c9d8ee"/><stop offset="1" stop-color="#5d7090"/></linearGradient>
+  <radialGradient id="lampG" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fff2c4" stop-opacity=".8"/><stop offset=".35" stop-color="#ffd27a" stop-opacity=".28"/><stop offset="1" stop-color="#ffd27a" stop-opacity="0"/></radialGradient>
+  <linearGradient id="crateG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9a7444"/><stop offset="1" stop-color="#5e4224"/></linearGradient>
+  <radialGradient id="vig" cx="46%" cy="44%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".62" stop-color="#0a0502" stop-opacity=".25"/><stop offset="1" stop-color="#050201" stop-opacity=".85"/></radialGradient>
+</defs>
+
+<!-- the tent: canvas, lit from the lamp -->
+<rect x="-1000" y="-400" width="3600" height="1720" fill="#1a1009"/>
+<polygon points="-1000,-400 2600,-400 2600,1320 -1000,1320" fill="url(#canvasG)"/>
+<g stroke="#6b3f1c" stroke-width="3" opacity=".55" fill="none"><path d="M790 -60L-400 1100M790 -60L300 1100M790 -60L1200 1100M790 -60L2200 1100M790 -60L-1000 420M790 -60L2600 420"/></g>
+<path d="M-1000 40Q790 -150 2600 40" stroke="#4a2a12" stroke-width="16" fill="none"/>
+<rect x="150" y="-400" width="16" height="1130" fill="#5a3a1c"/><rect x="150" y="-400" width="5" height="1130" fill="#8a5e30"/>
+
+<!-- the door, tied back, and the night outside -->
+<g id="door" class="hot">
+  <polygon points="1210,170 1380,170 1470,712 1130,712" fill="url(#nightG)"/>
+  <g fill="#e9eef8"><circle cx="1262" cy="200" r="1.8" class="tw"/><circle cx="1318" cy="226" r="1.3"/><circle cx="1350" cy="196" r="1.6" class="tw t2"/><circle cx="1240" cy="252" r="1.2"/><circle cx="1300" cy="270" r="1.5" class="tw"/><circle cx="1366" cy="262" r="1.1"/><circle cx="1228" cy="300" r="1.4"/><circle cx="1290" cy="318" r="1.2" class="tw t2"/></g>
+  <circle cx="1336" cy="238" r="15" fill="#f4f0dc"/><circle cx="1341" cy="234" r="15" fill="#14203a" opacity=".85"/>
+  <path d="M1180 470L1218 380 1252 412 1296 330 1330 372 1360 344 1418 470z" fill="#2c3b57"/>
+  <path d="M1218 380l20 30 14-0M1296 330l14 34 20 8" stroke="#8fa2c4" stroke-width="3" fill="none"/>
+  <path d="M1162 600l24-70 22 30 26-60 20 44 30-56 22 40 28-30 24 50 32-20 10 72z" fill="url(#iceG)"/>
+  <path d="M1186 530l10 40M1234 500l6 50M1284 488l-4 60M1336 498l8 48M1386 520l2 40" stroke="#4a5d80" stroke-width="3"/>
+  <path d="M1140 712l20-110h292l18 110z" fill="#d9e2ef"/><path d="M1160 640q140 20 300 0" stroke="#aebbd2" stroke-width="3" fill="none"/>
+  <text x="1300" y="160" class="lb" font-size="0">night</text>
+</g>
+<path id="flapL" d="M1210 170L1130 712H1080L1150 300z" fill="#8a5427"/>
+<path d="M1380 170L1470 712H1530L1440 290z" fill="#7a4a22"/>
+<path d="M1150 300q20 40 6 70M1440 290q-20 40-6 70" stroke="#3a2210" stroke-width="5" fill="none"/>
+
+<!-- the lamp -->
+<path d="M790 -400V142" stroke="#2a1a0e" stroke-width="4"/>
+<circle id="glow" cx="790" cy="190" r="330" fill="url(#lampG)" pointer-events="none"/>
+<g><path d="M770 150h40l-6 14h-28z" fill="#3a2a1c"/><rect x="772" y="164" width="36" height="46" rx="14" fill="#fff4d0" opacity=".9"/><ellipse cx="790" cy="186" rx="9" ry="13" fill="#fff"/><path d="M766 212h48l-8 22h-32z" fill="#7a5a2a"/><rect x="782" y="234" width="16" height="18" fill="#4a3a20"/></g>
+
+<!-- the assault plan, on the tent pole -->
+<g id="plan" class="hot">
+  <rect x="100" y="222" width="236" height="252" fill="#6b4a2a"/><rect x="110" y="232" width="216" height="232" fill="#2b3a33"/>
+  <text x="218" y="262" class="lb" font-size="16" fill="#f1efe6">THE ASSAULT</text>
+  <g stroke="#e9e6dc" stroke-width="2.5" opacity=".75"><path d="M126 290h90M126 306h170M126 322h140"/><path d="M126 362h90M126 378h176M126 394h150M126 410h120"/><path d="M126 440h160"/></g>
+  <path d="M130 334q40-6 110 0" stroke="#f7b9a6" stroke-width="2.5" fill="none"/>
+  <circle cx="158" cy="226" r="5" fill="#b3261c"/><circle cx="278" cy="226" r="5" fill="#b3261c"/>
+</g>
+
+<!-- the oxygen, in the corner by the door -->
+<g id="oxy" class="hot" transform="translate(-870 0)">
+  <rect x="990" y="640" width="150" height="110" fill="url(#crateG)"/><path d="M990 640h150" stroke="#c9a26a" stroke-width="3"/>
+  <text x="1065" y="704" class="lb" font-size="15" fill="#2a1a0c">OXYGEN</text><text x="1065" y="724" class="lb" font-size="11" fill="#2a1a0c">EVEREST 1953</text>
+  <g><rect x="996" y="586" width="128" height="26" rx="12" fill="#d97a2b"/><rect x="1012" y="604" width="128" height="26" rx="12" fill="#c96a20"/><rect x="1120" y="590" width="12" height="16" fill="#8a8a8a"/><rect x="1136" y="608" width="12" height="16" fill="#8a8a8a"/></g>
+  <path d="M1140 560q20 10 16 40" stroke="#2a2a2a" stroke-width="4" fill="none"/><path d="M1130 548q14-10 28 0v22q-14 10-28 0z" fill="#3a3a3a"/>
+  <rect x="1010" y="650" width="44" height="30" fill="#f1ecdc" transform="rotate(-4 1032 665)"/><g stroke="#6b6552" stroke-width="1.5" transform="rotate(-4 1032 665)"><path d="M1016 660h32M1016 667h28M1016 674h30"/></g>
+</g>
+
+<!-- the table: packing cases, and what is on them -->
+<g id="table">
+  <rect x="510" y="600" width="530" height="26" fill="#8a6438"/><path d="M510 600h530" stroke="#c9a26a" stroke-width="3"/>
+  <rect x="520" y="626" width="250" height="140" fill="url(#crateG)"/><rect x="780" y="626" width="250" height="140" fill="url(#crateG)"/>
+  <g stroke="#4a3018" stroke-width="3"><path d="M520 672h250M520 718h250M780 672h250M780 718h250"/></g>
+  <text x="645" y="702" class="lb" font-size="15" fill="#2a1a0c">BRITISH EVEREST</text><text x="905" y="702" class="lb" font-size="15" fill="#2a1a0c">RATIONS 14 MAN</text>
+</g>
+<g id="mugs"><rect x="652" y="566" width="24" height="32" rx="3" fill="#d9d2bd"/><path d="M676 574q12 0 12 10t-12 10" stroke="#d9d2bd" stroke-width="4" fill="none"/>
+  <rect x="980" y="570" width="22" height="30" rx="3" fill="#3d5a7a"/></g>
+<g id="diary" class="hot"><path d="M560 586l46-10 50 10-4 14-46-8-46 8z" fill="#f4efdc"/><path d="M606 576v18" stroke="#b9ad8c" stroke-width="2"/><path d="M566 590l36-6M612 584l36 6" stroke="#b3261c" stroke-width="1.5"/><rect x="540" y="560" width="130" height="50" fill="transparent"/></g>
+<g id="tw" class="hot">
+  <rect x="690" y="540" width="190" height="62" rx="10" fill="#1e1c1a"/><rect x="704" y="530" width="162" height="18" rx="6" fill="#2c2a27"/>
+  <g fill="#d9d2bd"><circle cx="716" cy="566" r="5"/><circle cx="734" cy="566" r="5"/><circle cx="752" cy="566" r="5"/><circle cx="770" cy="566" r="5"/><circle cx="788" cy="566" r="5"/><circle cx="806" cy="566" r="5"/><circle cx="824" cy="566" r="5"/><circle cx="842" cy="566" r="5"/><circle cx="860" cy="566" r="5"/>
+  <circle cx="726" cy="582" r="5"/><circle cx="744" cy="582" r="5"/><circle cx="762" cy="582" r="5"/><circle cx="780" cy="582" r="5"/><circle cx="798" cy="582" r="5"/><circle cx="816" cy="582" r="5"/><circle cx="834" cy="582" r="5"/><circle cx="852" cy="582" r="5"/></g>
+  <rect x="740" y="592" width="90" height="8" rx="3" fill="#d9d2bd"/>
+  <g id="twpaper"><rect x="728" y="476" width="114" height="64" fill="#f7f2e2"/><path d="M740 492h80M740 504h60" stroke="#b9ad8c" stroke-width="2"/></g>
+</g>
+<g id="tin" class="hot"><rect x="896" y="552" width="104" height="48" rx="4" fill="#5d6b5a"/><rect x="892" y="546" width="112" height="12" rx="3" fill="#6f7d6a"/>
+  <text x="948" y="584" class="lb" font-size="11" fill="#eae6d8">J. MORRIS</text><rect x="940" y="550" width="16" height="6" fill="#c9a25a"/></g>
+
+<!-- Mr Morris, at the end of the table -->
+<g id="morris" class="hot">
+  <rect x="380" y="640" width="120" height="110" fill="url(#crateG)"/>
+  <path d="M396 640q-6-110 30-150q30-24 60-6q26 30 20 156z" fill="#4a6a7a"/>
+  <path d="M430 500q30-20 60 0" stroke="#2c3e48" stroke-width="10" fill="none"/>
+  <path d="M486 520q40 40 80 60" stroke="#4a6a7a" stroke-width="26" stroke-linecap="round" fill="none"/>
+  <path d="M440 528q50 40 120 52" stroke="#3d5a68" stroke-width="24" stroke-linecap="round" fill="none"/>
+  <ellipse cx="520" cy="560" rx="34" ry="28" fill="#e2a483"/><path d="M490 548q24-34 60-10q-4-20-30-24q-26 2-30 34z" fill="#3a2a1c"/>
+  <ellipse cx="528" cy="574" rx="9" ry="5" fill="#d0705a" opacity=".5"/>
+  <path d="M410 750v40M480 750v40" stroke="#2c3e48" stroke-width="16"/>
+</g>
+
+<!-- Phurba, at the stove -->
+<g id="phurba" class="hot">
+  <ellipse cx="1220" cy="770" rx="90" ry="12" fill="#000" opacity=".35"/>
+  <path d="M1160 760q-10-110 30-150q30-20 60 0q36 40 26 150z" fill="#5a2f22"/>
+  <path d="M1184 640q30 18 64 0" stroke="#c9a25a" stroke-width="5" fill="none"/>
+  <ellipse cx="1220" cy="584" rx="30" ry="34" fill="#a0673f"/>
+  <path d="M1190 572q0-40 30-40t30 40z" fill="#b5402e"/><path d="M1190 572h60" stroke="#f1e2c0" stroke-width="6"/><circle cx="1220" cy="532" r="6" fill="#f1e2c0"/>
+  <circle cx="1209" cy="588" r="2.6" fill="#1b1512"/><circle cx="1231" cy="588" r="2.6" fill="#1b1512"/>
+  <path d="M1160 680q-40 30-60 60" stroke="#5a2f22" stroke-width="24" stroke-linecap="round" fill="none"/>
+  <g><path d="M1070 760l10-26h40l10 26z" fill="#8a8a8a"/><path d="M1086 734q14-14 28 0" fill="#5aa0ff" opacity=".8"/><path d="M1076 718h48l-6-30h-36z" fill="#3a3a3a"/><path d="M1124 700q16 0 18 -14" stroke="#3a3a3a" stroke-width="4" fill="none"/></g>
+  <g id="steam" fill="none" stroke="#f1ecdf" stroke-width="3" opacity=".5"><path d="M1142 680q-8-14 0-26t0-26"/><path d="M1150 684q8-14 0-26t0-26"/></g>
+</g>
+
+<rect x="-1000" y="790" width="3600" height="530" fill="#2a2a1c" opacity=".55"/>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Sleep until first light</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="everest.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, box = null, inLock = false;
+
+  ER.init({
+    theme: 'history', story: 'everest', storyTitle: 'Snow Conditions Bad', id: 'base', no: 'I', title: 'Base Camp',
+    go: 'Untie the first bundle', back: '../index.html', backLabel: 'Archive',
+    intro: [
+      'The Archive keeps one box for each day that mattered. This one is long and flat, and it holds five days. Inside are three bundles tied with string. One smells of woodsmoke. One has an embassy seal on it. One smells of printer&rsquo;s ink. A single message went through all three.',
+      'You untie the first bundle. On top lies an old envelope with a few words on the back, written in pencil, very badly, by a man whose hands were cold.',
+      'Then it is the evening of Saturday 30 May 1953, and you are fifteen, and you are sitting in a tent on a glacier in Nepal, five thousand four hundred metres up, with a mug of tea going cold in your hands.'
+    ],
+    exit: {"next":"trail","w":{"df9a093b":"20f6af8c"}}, tags: {"res":["46ac2f62"],"c1":["e8e539e3"],"day":["5aecee29"],"c2":["73adf48a"],"pair":["26237cf8"]},
+    hints: hints, onBegin: begin
+  });
+  nextFile = ER.flag('b-file') || null;
+
+  function isBusy() { return busy; }
+  function paint() {
+    $('#tw').classList.toggle('ready', !!ER.flag('b-code') && !nextFile);
+    ER.pips(nextFile ? 1 : 0, 1);
+    if (nextFile) $('#go').classList.add('on');
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Mr Morris has typed it. Use the button at the bottom of the screen.']];
+    if (inLock) return ['slips', [
+      'Four slots: the news, the first climber, the day, the second climber. The RULES on the card give the order. Each slot takes one slip.',
+      'Who were the climbers? The envelope says 2nd pair, and the board on the tent pole names them. The card wants them in the order of the alphabet, which is not the order on the board.',
+      'The day word is counted from the day the message is written. The calendar on the table says what today is; the envelope says what day they were on top. A slip that sounds like good news may not be.'
+    ]];
+    if (!ER.flag('b-code')) return ['tin', [
+      'Mr Morris pointed at two things: the tin box at the end of the table, and his typewriter. Open the tin.',
+      'The tin is the small grey-green box on the right of the table, with his name painted on it.'
+    ]];
+    return ['read', [
+      'Before you set out the slips, read what is in the tent: the board on the tent pole, the calendar on the table, the notes on the oxygen crate in the corner, under the board.',
+      'Then click the typewriter. The slips are beside it.'
+    ]];
+  }
+
+  function begin() {
+    paint();
+    EV.need('env', 'The back of an envelope', ENV, 'diary', 'In pencil');
+    if (ER.flag('b-in')) { busy = false; ER.say(nextFile ? 'The mess tent. Mr Morris is asleep at last.' : 'The mess tent at Base Camp. Mr Morris is waiting, with his head on his arms.'); return; }
+    EV.learn('glacier', 'porter');
+    ER.narrate([
+      'The mess tent at Base Camp, on the Khumbu Glacier. Outside, the ice creaks in the cold like an old house. Above the camp the Icefall stands in the moonlight: a broken staircase of ice, each step as big as a church.',
+      'You were born in Darjeeling, and you went to school there for six years. So you are the only porter on this expedition who reads English, and that is why the man from The Times chose you to look after his post.',
+      'This evening two men came down out of the Icefall, roped together: Mr Westmacott, and Mr Morris of The Times. Mr Morris is twenty-six, and he could hardly stand. He is sitting at the table now with a mug of tea that he has not touched.',
+      'Phurba is squatting by the stove. He has carried loads in these mountains since before you were born, and he is the best runner the expedition has. &ldquo;Whatever it is,&rdquo; he says quietly, &ldquo;it is going down the valley tomorrow, and you and I are carrying it.&rdquo;',
+      'Mr Morris looks up. He takes an envelope out of his pocket, writes on the back of it, and pushes it across the table to you. &ldquo;Set it out on the slips,&rdquo; he says. &ldquo;I&rsquo;ll type it when my hands work.&rdquo; He points at the tin box at the end of the table. Then he puts his head down on his arms.'
+    ], function () {
+      ER.read({ html: ENV, cls: 'diary', clue: { id: 'env', title: 'The back of an envelope', kind: 'In pencil' }, done: function () {
+        busy = false; ER.flag('b-in', 1); EV.learn('correspondent', 'summit'); paint();
+      } });
+    });
+  }
+  var ENV = '<h4>The back of an envelope</h4><p class="dt">In Mr Morris&rsquo;s writing, very shaky:</p><p>2nd pair. Top. 11.30, Fri.</p>';
+  var CAL = '<h4>May 1953</h4><h5>The cook&rsquo;s calendar, propped against the mugs. He crosses off each day at supper.</h5>' +
+    '<svg viewBox="0 0 560 210"><g font-family="\'Courier Prime\',monospace" font-size="17" fill="#22201b" text-anchor="middle">' +
+    '<g font-family="\'Oswald\',sans-serif" font-size="13" fill="#7a1d14"><text x="40" y="22">MON</text><text x="120" y="22">TUE</text><text x="200" y="22">WED</text><text x="280" y="22">THU</text><text x="360" y="22">FRI</text><text x="440" y="22">SAT</text><text x="520" y="22">SUN</text></g>' +
+    '<text x="360" y="54">1</text><text x="440" y="54">2</text><text x="520" y="54">3</text>' +
+    '<text x="40" y="88">4</text><text x="120" y="88">5</text><text x="200" y="88">6</text><text x="280" y="88">7</text><text x="360" y="88">8</text><text x="440" y="88">9</text><text x="520" y="88">10</text>' +
+    '<text x="40" y="122">11</text><text x="120" y="122">12</text><text x="200" y="122">13</text><text x="280" y="122">14</text><text x="360" y="122">15</text><text x="440" y="122">16</text><text x="520" y="122">17</text>' +
+    '<text x="40" y="156">18</text><text x="120" y="156">19</text><text x="200" y="156">20</text><text x="280" y="156">21</text><text x="360" y="156">22</text><text x="440" y="156">23</text><text x="520" y="156">24</text>' +
+    '<text x="40" y="190">25</text><text x="120" y="190">26</text><text x="200" y="190">27</text><text x="280" y="190">28</text><text x="360" y="190">29</text><text x="440" y="190">30</text><text x="520" y="190">31</text></g>' +
+    '<g stroke="#2f3a55" stroke-width="2"><path d="M346 40l28 20M426 40l28 20M506 40l28 20M26 74l28 20M106 74l28 20M186 74l28 20M266 74l28 20M346 74l28 20M426 74l28 20M506 74l28 20M26 108l28 20M106 108l28 20M186 108l28 20M266 108l28 20M346 108l28 20M426 108l28 20M506 108l28 20M26 142l28 20M106 142l28 20M186 142l28 20M266 142l28 20M346 142l28 20M426 142l28 20M506 142l28 20M26 176l28 20M106 176l28 20M186 176l28 20M266 176l28 20M346 176l28 20"/></g>' +
+    '<ellipse cx="440" cy="184" rx="26" ry="18" fill="none" stroke="#b3261c" stroke-width="2.5"/><text x="482" y="206" font-family="\'Caveat\',cursive" font-size="19" fill="#b3261c">today</text></svg>';
+
+  /* ---------- things in the tent ---------- */
+  $('#tin').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: EV.DESK, cls: 'sheet', clue: { id: 'desk', title: 'Codes and ciphers', kind: 'From the Foreign Desk' }, done: function () {
+      EV.learn('cipher', 'code');
+      ER.read({ html: EV.CODE, cls: 'code', clue: { id: 'code', title: 'The code card', kind: 'From the tin' }, done: function () { EV.learn('code book', 'phrase'); ER.flag('b-code', 1); paint(); } });
+    } });
+  });
+  $('#plan').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: EV.PLAN, cls: 'board', clue: { id: 'plan', title: 'The assault plan', kind: 'Board on the tent pole' }, done: function () { EV.learn('assault', 'South Col', 'South Summit'); ER.flag('b-plan', 1); } });
+  });
+  $('#oxy').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: EV.OXY, cls: 'sheet', clue: { id: 'oxy', title: 'Oxygen notes', kind: 'Pinned to a crate' }, done: function () { EV.learn('acclimatisation', 'open-circuit', 'closed-circuit', 'mountain sickness', 'red blood cells'); ER.flag('b-oxy', 1); } });
+  });
+  $('#diary').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: CAL, cls: 'sheet', clue: { id: 'cal', title: 'The cook’s calendar', kind: 'On the table' }, done: function () { ER.flag('b-cal', 1); } });
+  });
+  $('#tw').addEventListener('click', function (e) {
+    if (busy) return;
+    ER.wordAt(e.clientX, e.clientY, 'typewriter');
+    if (nextFile) { ER.say('The typewriter. The message is typed, and folded, and in your pocket.'); return; }
+    if (!ER.flag('b-code')) { ER.say('A portable typewriter, and beside it a little pile of paper slips. You will need the code card first: it is in the tin.'); return; }
+    openLock();
+  });
+  EV.thing('#morris', null, function () { return nextFile ? 'Mr Morris is asleep where he sits. Phurba has put a blanket over him.' : 'Mr Morris, with his head on his arms. His face is burnt by the sun and the wind, and he is not asleep: he is waiting for you.'; }, isBusy);
+  EV.thing('#phurba', null, function () { return nextFile ? '&ldquo;Half past four,&rdquo; says Phurba. &ldquo;Sleep in your boots.&rdquo;' : '&ldquo;Read me nothing,&rdquo; says Phurba. &ldquo;If I do not know what it says, nobody can make me tell. Just tell me when we leave.&rdquo;'; }, isBusy);
+  EV.thing('#door', 'icefall', 'The Icefall, in the moonlight. Mr Morris came down through it today. Most of the climbers are still above it, coming down slowly.', isBusy);
+  EV.thing('#mugs', null, 'Tea, with a great deal of sugar in it. At this height water boils before it is really hot.', isBusy);
+
+  /* ---------- the slips ---------- */
+  var SLIPS = [
+    ['s2', 'WEATHER IMPROVING'], ['n4', 'AWAITING PORTERS'], ['d1', 'TODAY'], ['n1', 'ADVANCED BASE ABANDONED'], ['s4', 'FWFSFTU DMJNCFE'],
+    ['n3', 'AWAITING IMPROVEMENT'], ['s5', 'WIND STRONG'], ['n6', 'CAMP FIVE ABANDONED'], ['d3', 'RECENTLY'], ['s1', 'SNOW CONDITIONS BAD'],
+    ['n2', 'ADVANCED BASE OCCUPIED'], ['d2', 'YESTERDAY'], ['n5', 'AWAITING MAIL'], ['s3', 'ROUTE TO COL OPEN']
+  ];
+  var WHO = { n1: 'Hillary', n2: 'Lowe', n3: 'Tenzing', n4: 'Bourdillon', n5: 'Evans', n6: 'Hunt' };
+  function build() {
+    var b = ER.el('div', 'bm'), s = '';
+    s = '<div class="bm-main"><div class="bm-form"><h6>The Times &middot; press message</h6><div class="hd">FROM MORRIS BASE CAMP 30 MAY &middot; FOR THE WIRELESS POST NAMCHE BAZAR &middot; TO BE SENT ON TO LONDON</div>' +
+      '<div class="bm-line"><div class="bm-slot" data-s="res" data-l="the news"></div><span class="bm-stop">STOP</span>' +
+      '<div class="bm-slot" data-s="c1" data-l="first climber"></div><div class="bm-slot day" data-s="day" data-l="day"></div><span class="bm-stop">STOP</span>' +
+      '<div class="bm-slot" data-s="c2" data-l="second climber"></div></div></div>' +
+      '<div class="bm-tray"><h6>Mr Morris&rsquo;s slips. Drag them, or click one and then a slot.</h6>' +
+      SLIPS.map(function (x) { return '<span class="slp dnd-item" data-id="' + x[0] + '">' + x[1] + '</span>'; }).join('') + '</div>' +
+      '<div class="bm-btns"><button type="button" class="btn" id="bm-clear">Put them all back</button><button type="button" class="btn" id="bm-go" disabled>Wake Mr Morris</button></div></div>' +
+      '<div class="lk-side"><div class="lk-face">' + EV.FACE('morris') + '</div><h6 class="lk-h">Mr Morris</h6><p class="pmsg"></p></div>';
+    b.innerHTML = s;
+    var tray = b.querySelector('.bm-tray'), go = b.querySelector('#bm-go'), msgEl = b.querySelector('.pmsg'), lock = false;
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function val(k) { var x = b.querySelector('.bm-slot[data-s="' + k + '"] .slp'); return x ? x.getAttribute('data-id') : ''; }
+    function full() { return ['res', 'c1', 'day', 'c2'].every(function (k) { return !!val(k); }); }
+    ER.dnd(b, { item: '.slp', slot: '.bm-slot', home: tray, lock: function () { return lock; },
+      change: function () { ER.$$('.bm-slot', b).forEach(function (x) { x.classList.remove('ok', 'no'); }); go.disabled = !full(); EV.sfx.pencil(); } });
+    b.querySelector('#bm-clear').addEventListener('click', function () {
+      if (lock) return;
+      ER.$$('.bm-slot .slp', b).forEach(function (x) { tray.appendChild(x); });
+      ER.$$('.bm-slot', b).forEach(function (x) { x.classList.remove('ok', 'no'); }); go.disabled = true;
+    });
+    function why(k, v) {
+      var kind = v.charAt(0), w = WHO[v];
+      if (k === 'res') {
+        if (kind !== 's') return 'He taps the first slot. &ldquo;The news comes first. That is ' + (kind === 'd' ? 'a day.' : 'a man.') + '&rdquo;';
+        if (v === 's2') return 'He shakes his head. WEATHER IMPROVING sounds like good news, but on the card it means that an attempt has <b>failed</b>. A phrase means what the card says.';
+        if (v === 's3') return 'ROUTE TO COL OPEN sounds cheerful. On the card it means that there will be no more attempts this year.';
+        if (v === 's5') return 'WIND STRONG: nothing to report yet. The envelope says something rather different.';
+        if (v === 's4') return '&ldquo;That one is a joke from London.&rdquo; He nearly smiles. &ldquo;It is a cipher: letters moved along by one. Any operator who saw it would know there was a secret. Read the note in the tin.&rdquo;';
+        return 'That is not the news on the envelope.';
+      }
+      if (k === 'day') return kind !== 'd' ? 'That slot wants one word for the day of the climb.' :
+        v === 'd1' ? '&ldquo;Today?&rdquo; He holds up the envelope. They were on top on Friday. What is today?' :
+        'RECENTLY means two days ago or more. Count from the day you write the message, and that day is today.';
+      if (kind !== 'n') return 'That slot wants a climber.';
+      if (v === 'n4' || v === 'n5') return w + ' was in the first pair, who turned back at the South Summit. The envelope says <b>2nd</b> pair.';
+      if (v === 'n6') return 'Colonel Hunt leads the expedition. He is not in the second pair.';
+      if (v === 'n2') return 'ADVANCED BASE OCCUPIED is Lowe. One word different from another phrase, and it is a different man.';
+      return 'Not that one in that place.';
+    }
+    go.addEventListener('click', function () {
+      if (lock || !full()) return;
+      var v = { res: val('res'), c1: val('c1'), day: val('day'), c2: val('c2') }, bad = [], first = '';
+      var pair = [v.c1, v.c2].sort().join('+'), swapped = !ER.check('c1', v.c1) && ER.check('pair', pair);
+      ['res', 'c1', 'day', 'c2'].forEach(function (k) {
+        var ok = ER.check(k, v[k]), sl = b.querySelector('.bm-slot[data-s="' + k + '"]');
+        sl.classList.toggle('ok', ok); sl.classList.toggle('no', !ok);
+        if (!ok) { bad.push(k); if (!first) first = swapped && (k === 'c1' || k === 'c2') ? 'The right two men, but in the wrong order. The card wants the climbers in the order of the alphabet, not the order on the board.' : why(k, v[k]); }
+      });
+      b.setAttribute('data-bad', bad.join(' '));
+      if (bad.length) {
+        EV.slip(); ER.sfx.no();
+        msg(first + (bad.length > 1 ? ' He puts a finger on ' + (bad.length === 2 ? 'one other slot too.' : 'two other slots too.') : ''));
+        return;
+      }
+      var file = ER.exitOk([v.res + '-' + v.c1 + '-' + v.day + '-' + v.c2]);
+      if (!file) { msg('Something is wrong with the slips: tell your teacher.'); return; }
+      lock = true; nextFile = file; ER.flag('b-file', file); ER.flag('b-v', v);
+      var st = ER.state(); st.done = st.done || {}; st.done.base = 1; ER.persist(true);
+      ER.sfx.ok(); go.disabled = true;
+      msg('He reads the four slips twice. Then he reads the card again, and the board, and the envelope. &ldquo;Yes,&rdquo; he says.');
+      setTimeout(function () { ER.closeAll(); after(); }, 2400);
+    });
+    b.first = function () { msg('&ldquo;Four slots,&rdquo; says Mr Morris, without lifting his head. &ldquo;The card says what goes where. If anybody but London can read it, I have wasted a month.&rdquo;'); };
+    return b;
+  }
+  function openLock() {
+    var fresh = !box; if (!box) box = build();
+    inLock = true; ER.open('ov-lock', box, function () { inLock = false; });
+    if (fresh) box.first();
+  }
+  function after() {
+    busy = true; inLock = false; paint();
+    var v = ER.flag('b-v') || {}, T = {}, i;
+    for (i = 0; i < SLIPS.length; i++) T[SLIPS[i][0]] = SLIPS[i][1];
+    var MEAN = { s1: 'the summit has been reached', s2: 'an attempt has failed', s3: 'no more attempts this year', s5: 'nothing to report yet' };
+    EV.mine('sent', 'What Mr Morris typed', '<p>' + EV.said([T[v.res], 'STOP', T[v.c1], T[v.day], 'STOP', T[v.c2]].join(' ')) + '</p><p>It means: <b>' + (MEAN[v.res] || '') + '</b>, by <b>' + WHO[v.c1] + '</b> and <b>' + WHO[v.c2] + '</b>, ' + String(T[v.day] || '').toLowerCase() + ', counted from the day it was written: Saturday 30 May, at Base Camp.</p><p>To anybody else it is a weather report.</p>', true);
+    EV.sfx.type(8);
+    ER.narrate([
+      'Mr Morris pulls the typewriter towards him. He types slowly, with two fingers, looking at your slips after every word. The little bell rings at the end of the line.',
+      'He reads it through. Then he folds it into an envelope, writes on the front TO THE WIRELESS POST, NAMCHE BAZAR, and gives it to you, not to Phurba. &ldquo;You can read it,&rdquo; he says. &ldquo;So you will know if anybody changes it.&rdquo;',
+      'Phurba looks at the envelope as if it might bite. &ldquo;A weather report,&rdquo; you tell him. That is the truth, as far as anybody at Namche will ever know.',
+      '&ldquo;Forty kilometres,&rdquo; says Phurba, &ldquo;and two thousand metres down. We leave at half past four. Sleep in your boots.&rdquo; By the time he has finished saying it, Mr Morris is asleep where he sits.'
+    ], function () { busy = false; paint(); });
+  }
+  $('#go').addEventListener('click', function () {
+    if (!nextFile || busy) return;
+    busy = true; EV.solved(true);
+    setTimeout(function () { ER.leave(nextFile); }, 1000);
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The King's Letters · Nobody Here Can Read This</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lang.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="sc.css">
+<style>
+  body{--bg:#3a2418;--accent:#e2763a;--font-display:'Cinzel',serif;--font-ui:'Outfit',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(250,240,220,.97);--tc-ink:#2a1a10;--cap-bg:rgba(252,244,228,.96);--cap-ink:#2a1a10;--panel:#fbf6ea;--panel-ink:#2a1a10;--face-bg:#7a3a1a;--q-ink:#2a6a5a;
+    --fade:#f6ead2;--hud-bg:rgba(252,244,228,.88);--hud-ink:#2a1a10;--hud-line:rgba(42,26,16,.3);--ov-bg:rgba(40,20,10,.6);--lab:#7a2a14;--hg:#7a2a14}
+  .tc-room{font-size:clamp(40px,6vw,84px);color:#b8461e}
+  .tc-theme{color:#2a6a5a}
+  .hbtn b{color:#fff}
+  #screens rect.p{animation:paper 8s ease-in-out infinite}
+  #screens rect.p:nth-child(3n){animation-delay:-3s}
+  @keyframes paper{50%{opacity:.86}}
+  #mist path{animation:mist 16s ease-in-out infinite}
+  @keyframes mist{50%{transform:translateX(26px)}}
+  .doc.label .hg{font-size:1.15em}
+  .doc.label .vrow{display:flex;gap:18px;align-items:flex-end;margin:6px 0 10px;flex-wrap:wrap}
+  .doc.label .vrow span{display:inline-block;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#4a4a52}
+  .doc.label .vrow span .hg{display:block;font-size:34px;line-height:1.1}
+  /* the mouth panel */
+  .mp{width:min(1180px,97vw)}
+  .mp-in{display:grid;grid-template-columns:300px 1fr;gap:12px;background:#f3e6cc;border:12px solid #5a3a22;padding:12px;box-shadow:0 26px 70px rgba(0,0,0,.55)}
+  .mp-in .face svg{width:100%;height:auto;background:#fbf4e4;border:1px solid #c9b48a}
+  .mp-in .face p{margin:6px 0 0;font-family:'EB Garamond',serif;font-size:14.5px;line-height:1.3;color:#3a2a1a}
+  .bins{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+  .bin{position:relative;min-height:122px;background:#fffaf0;border:2px solid #b8a27a;padding:24px 6px 6px;cursor:pointer}
+  .bin .lbl{position:absolute;top:3px;left:8px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:11.5px;letter-spacing:.08em;color:#7a2a14;text-transform:uppercase}
+  .bin .lbl i{font-style:normal;display:inline-block;width:17px;height:17px;line-height:17px;text-align:center;border-radius:50%;background:#7a2a14;color:#fff;margin-right:5px;font-size:11px}
+  .bin .bin-in{display:flex;flex-wrap:wrap;gap:6px;min-height:88px;align-content:flex-start}
+  .bin.vw{grid-column:span 3;min-height:96px}
+  .bin.vw .bin-in{min-height:62px}
+  .bin.bad{border-color:#d0402a;background:#fff0e8}
+  .mp .tray{display:flex;flex-wrap:wrap;gap:7px;min-height:76px;margin-top:10px;padding:8px;border:2px dashed #8a6a4a;background:rgba(255,250,240,.12)}
+  .mp .tray:before{content:'From the letter';display:block;width:100%;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#f3e6cc;margin-bottom:-2px}
+  .tile{width:58px;height:58px;background:#fff;border:2px solid #23305a;border-radius:4px;color:#23305a;cursor:grab;touch-action:none;box-shadow:0 2px 0 #23305a}
+  .tile svg{width:100%;height:100%;display:block}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="hanji" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fbeed2"/><stop offset="1" stop-color="#f0d6a8"/></linearGradient>
+  <linearGradient id="wood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6a3e22"/><stop offset="1" stop-color="#3a2014"/></linearGradient>
+  <pattern id="boards" width="200" height="40" patternUnits="userSpaceOnUse"><rect width="200" height="40" fill="#7a4a2a"/><path d="M0 39H200M120 0V40" stroke="#5a3218" stroke-width="2"/></pattern>
+  <radialGradient id="vig" cx="50%" cy="46%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#2a1006" stop-opacity=".1"/><stop offset="1" stop-color="#2a1006" stop-opacity=".5"/></radialGradient>
+</defs>
+<rect x="-1000" y="-500" width="3600" height="1100" fill="url(#wood)"/>
+<!-- paper screens lit from behind -->
+<g id="screens"></g>
+<!-- a long ink painting of mountains in mist -->
+<g id="paint" class="hot"><rect x="560" y="110" width="480" height="200" fill="#f6ecd6" stroke="#3a2014" stroke-width="10"/>
+  <path d="M570 290l70 -110 40 50 60 -100 70 120 50 -60 80 100 90 -80v80z" fill="#6a6a62" opacity=".5"/><path d="M570 300l110 -70 60 30 90 -60 80 50 120 -40v90z" fill="#3a3a36" opacity=".55"/>
+  <g id="mist"><path d="M590 250q60 -14 120 0t120 0" stroke="#fff" stroke-width="12" fill="none" opacity=".55"/></g>
+  <rect x="980" y="270" width="18" height="18" fill="#b8301a"/></g>
+<!-- the floor -->
+<rect x="-1000" y="600" width="3600" height="900" fill="url(#boards)"/>
+<path d="M-1000 600H2600" stroke="#2a160c" stroke-width="8"/>
+<!-- the case with the book -->
+<g id="book" class="hot"><rect x="520" y="520" width="560" height="190" fill="#4a2a18"/><rect x="530" y="430" width="540" height="96" fill="#d8ecf0" opacity=".25" stroke="#b9a07a" stroke-width="4"/>
+  <path d="M600 520q100 -30 196 0v-14q-96 -30 -196 0z" fill="#e8d8b4"/><path d="M804 520q100 -30 196 0v-14q-100 -30 -196 0z" fill="#e8d8b4"/>
+  <rect x="604" y="452" width="190" height="60" fill="#efe2c2"/><rect x="806" y="452" width="190" height="60" fill="#efe2c2"/>
+  <g stroke="#3a2a1a" stroke-width="2.4" opacity=".75"><path d="M622 460v44M640 460v44M658 460v44M676 460v44M694 460v44M712 460v44M730 460v44M748 460v44M766 460v44"/><path d="M826 460v44M844 460v44M862 460v44M880 460v44M898 460v44M916 460v44M934 460v44M952 460v44M970 460v44"/></g>
+  <text x="790" y="590" text-anchor="middle" font-family="Cinzel,serif" font-weight="700" font-size="20" fill="#f3d8a0" letter-spacing="2">THE KING&#8217;S BOOK, 1446</text>
+  <text x="790" y="616" text-anchor="middle" font-family="EB Garamond,serif" font-style="italic" font-size="16" fill="#e8c890">a facsimile, open at the letters</text></g>
+<!-- big letters on the wall -->
+<g id="bigletters" class="hot"><rect x="140" y="140" width="300" height="300" fill="#2a1a10"/><rect x="152" y="152" width="276" height="276" fill="#f7ecd4"/>
+  <text x="290" y="340" text-anchor="middle" class="hg" font-size="180" fill="#7a2a14">한</text>
+  <text x="290" y="410" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="18" fill="#3a2a1a">h + a + n</text></g>
+<!-- the label stand -->
+<g id="stand" class="hot"><path d="M232 830l14 -200h40l14 200z" fill="#3a2014"/><rect x="186" y="560" width="160" height="96" fill="#fbf6ea" stroke="#3a2014" stroke-width="5" transform="rotate(-6 266 608)"/>
+  <g stroke="#7a2a14" stroke-width="3" transform="rotate(-6 266 608)"><path d="M204 588h110M204 604h90M204 620h120M204 636h70"/></g></g>
+<!-- the mouth panel -->
+<g id="mouth" class="hot"><rect x="1160" y="160" width="330" height="420" fill="#5a3a22"/><rect x="1176" y="176" width="298" height="388" fill="#f3e6cc"/>
+  <text x="1325" y="214" text-anchor="middle" font-family="Cinzel,serif" font-weight="700" font-size="20" fill="#7a2a14">WHERE IS IT SAID?</text>
+  <g transform="translate(1210 236) scale(1)" fill="none" stroke="#3a2a1a" stroke-width="5" stroke-linecap="round"><path d="M200 0Q120 -4 96 40L66 84Q58 96 74 98L78 108Q64 112 70 122Q66 132 84 136Q82 166 116 178L130 230"/><path d="M84 112Q130 92 178 108L196 150V230"/><path d="M92 128Q130 114 166 126Q186 136 184 180"/></g>
+  <g font-family="IBM Plex Mono,monospace" font-weight="700" font-size="16" fill="#fff"><circle cx="1278" cy="356" r="13" fill="#7a2a14"/><text x="1278" y="362" text-anchor="middle">1</text><circle cx="1300" cy="334" r="13" fill="#7a2a14"/><text x="1300" y="340" text-anchor="middle">2</text>
+    <circle cx="1330" cy="356" r="13" fill="#7a2a14"/><text x="1330" y="362" text-anchor="middle">3</text><circle cx="1374" cy="346" r="13" fill="#7a2a14"/><text x="1374" y="352" text-anchor="middle">4</text><circle cx="1402" cy="430" r="13" fill="#7a2a14"/><text x="1402" y="436" text-anchor="middle">5</text></g>
+  <g fill="#3a2a1a" font-family="EB Garamond,serif" font-size="17"><text x="1196" y="500">1 lips · 2 teeth · 3 tongue tip</text><text x="1196" y="524">4 back of the tongue · 5 throat</text></g>
+  <text x="1325" y="552" text-anchor="middle" font-family="EB Garamond,serif" font-style="italic" font-size="15" fill="#7a2a14">a magnet board for visitors</text></g>
+<!-- a bench -->
+<g><rect x="1180" y="720" width="300" height="24" fill="#5a3218"/><rect x="1196" y="744" width="16" height="60" fill="#3a2014"/><rect x="1448" y="744" width="16" height="60" fill="#3a2014"/></g>
+<!-- people -->
+<g id="delgado" class="hot" transform="translate(1000 880) scale(1)"></g>
+<g id="szabo" class="hot" transform="translate(420 870) scale(.98)"></g>
+<rect x="-1000" y="-500" width="3600" height="1900" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Go down to the workshop</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="sc.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, tl, nextFile, mp = null, hg = SC.hg;
+
+  (function () {
+    var s = '', i, j;
+    for (i = 0; i < 9; i++) {
+      var x = -360 + i * 240;
+      if (x > 500 && x < 1100) continue;
+      s += '<g><rect x="' + x + '" y="60" width="220" height="520" fill="#3a2014"/>';
+      for (j = 0; j < 8; j++) s += '<rect class="p" x="' + (x + 10 + (j % 2) * 104) + '" y="' + (70 + Math.floor(j / 2) * 126) + '" width="96" height="118" fill="url(#hanji)"/>';
+      s += '</g>';
+    }
+    $('#screens').innerHTML = s;
+  })();
+  $('#delgado').innerHTML = SC.who('delgado', { smile: 2 });
+  $('#szabo').innerHTML = SC.who('szabo', { smile: -2, extra: '<rect x="18" y="-170" width="44" height="58" fill="#e9eef2" stroke="#9aa8b6" stroke-width="2" transform="rotate(-10 40 -140)"/>' });
+
+  ER.init({
+    theme: 'lang', story: 'script', storyTitle: 'Nobody Here Can Read This', id: 'korean', no: 'II', title: 'The King’s Letters',
+    go: 'Go in',
+    intro: [
+      'In the Hall of Signs you hung eight panels by counting and looking: Greek writes every sound; Arabic and Hebrew leave the vowels out; Devanagari changes one shape with small marks; Japanese and Cherokee have a sign for every syllable (even though Cherokee looks like our letters); Chinese has a sign for every word; and in Hangul the shape shows how the sound is made.',
+      'Then you counted the letter: seventeen signs, fifteen of them different. Dr Szabo says that means hundreds of signs, and a syllabary. Mr Delgado says count the bits, not the squares.',
+      'The Korean Room is warm and quiet, all paper screens and dark wood. It is ten to five.'
+    ],
+    exit: {"next":"workshop","w":{"1e0ff91c":"ab35cc5d"}}, tags: {"p-ring":["bf1d5a3b"],"p-arch":["105e0f32"],"p-arch1":["73da0fc1"],"p-hook":["784f0131"],"p-hook2":["dd544982"],"p-hookloop":["1256f719"],"p-hookwave":["94b1fca1"],"p-lens":["c200bfe4"],"p-lens2":["d01406c2"],"p-teeth":["6105f6a2"],"p-stand":["25675870"],"p-standR":["16f20e1c"],"p-standL":["06b5e10d"],"p-flat":["14e1bc45"],"p-flatUp":["e944339a"],"p-flatDown":["de3bb66c"],"p-clock":["ab6d0daa"],"p-tilde":["d2e8c427"]},
+    hints: hints, onBegin: begin
+  });
+  tl = SC.tell('k-told'); nextFile = ER.flag('k-file') || null;
+
+  function isBusy() { return busy; }
+  function paint() {
+    $('#delgado').classList.toggle('ready', !tl.has('delgado'));
+    $('#stand').classList.toggle('ready', !!(tl.has('delgado') && !tl.has('labA')));
+    $('#book').classList.toggle('ready', !!(tl.has('delgado') && !tl.has('labB')));
+    $('#mouth').classList.toggle('ready', !!(tl.has('labA') && tl.has('labB') && !tl.has('sorted')));
+    ER.pips((tl.has('delgado') ? 1 : 0) + (tl.has('labA') ? 1 : 0) + (tl.has('labB') ? 1 : 0) + (tl.has('sorted') ? 1 : 0), 4);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Dr Szabo found the letter on the conservator&rsquo;s bench. The button at the bottom of the screen takes you down to her workshop.']];
+    if (mp && mp.isOpen()) return ['mouth', [
+      'Look for families: a basic shape, and the same shape again with one or two little extra strokes. A family belongs in one place in the mouth, as ' + hg('ㄴ ㄷ ㅌ') + ' do in Hangul.',
+      'Make the shapes with your own mouth. The almond is two lips pressed together. The zigzag is teeth. The arch is the back of the tongue humped up, as for g. The line along the bottom that turns up at the front is the tip of the tongue rising behind the top teeth: n, d, t, and the two with a loop and a wave belong with it.',
+      'The ring stands at the start of blocks, like ' + hg('ㅇ') + ': it is the throat, and it is a letter even though it is silent there. The dots, the curves and the little standing figures go with the vowels: heaven, earth and a person, drawn the girls&rsquo; own way. Two things on the page are not letters at all: leave them in the tray.'
+    ]];
+    if (!tl.has('delgado')) return ['delgado', ['Talk to Mr Delgado, in the middle of the room.']];
+    if (!tl.has('labA')) return ['labA', ['Read the label on the stand on the left: it explains the shapes of the consonants.']];
+    if (!tl.has('labB')) return ['labB', ['Read about the vowels and the blocks: click the long case with the open book.']];
+    return ['panel', ['Now try the girls&rsquo; shapes on the magnet board on the right: WHERE IS IT SAID?']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('The Korean Room. Five places in the mouth, three marks for the vowels, and blocks.'); return; }
+    if (tl.has('in')) { busy = false; ER.say('The Korean Room.'); return; }
+    tl.set('in');
+    ER.narrate([
+      'Mr Moreau unlocks the Korean Room and goes off down the stairs, jingling. The room smells of old paper and floor polish.',
+      'Light comes through the paper screens soft and yellow. On the far wall hangs one enormous letter block, and in a long case lies an old book, open.',
+      'On the right is a magnet board for children, with a face drawn on it in profile, and five numbered dots inside the mouth.',
+      'Dr Szabo stops in the doorway and holds his sleeve a little closer. &ldquo;I hope,&rdquo; he says, &ldquo;nobody is going to tell me it is Korean. It is not Korean. I checked every letter.&rdquo;'
+    ], function () { busy = false; });
+  }
+
+  $('#delgado').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Mr Gil Delgado', role: 'PE teacher · thinking out loud', face: SC.face('delgado'),
+      lines: [
+        { note: 'He is standing in front of the huge letter block on the wall, with his head on one side.', a: '&ldquo;That one square is three letters, the guide said this morning. An h, an a and an n, all packed into one box. Your Korean friends can read it in a second.&rdquo;' },
+        { q: 'So the letter might be the same?', a: '&ldquo;Kezia says Miss Lindahl and her friend made up a script in this room, using the king&rsquo;s idea. So what was the king&rsquo;s idea? If it was squares made of letters, then the doctor is counting squares, and he should be counting letters.&rdquo;' },
+        { note: 'He lowers his voice.', a: '&ldquo;She stood here this morning for ten minutes without saying a word. I thought she was tired. She wasn&rsquo;t tired. She was remembering something.&rdquo;' },
+        { a: '&ldquo;Read the labels. I&rsquo;ll keep him talking.&rdquo;' }
+      ],
+      clue: { id: 'delgado2', title: 'Mr Delgado: squares made of letters', kind: 'What he said' },
+      done: function (seen) { if (seen && tl.set('delgado')) { paint(); ER.say('What was the king&rsquo;s idea? Read the label on the stand, and the one in the case.'); } }
+    });
+  });
+  $('#szabo').addEventListener('click', function () {
+    if (busy) return;
+    if (tl.has('sorted')) { ER.say('Dr Szabo is looking at his letter as if it had told him a joke he did not like.'); return; }
+    ER.talk({
+      who: 'Dr Ferenc Szabo', role: 'Curator · not convinced', face: SC.face('szabo'),
+      lines: [
+        { a: '&ldquo;Hangul, yes, a beautiful script. But look at my letter. Not one of those shapes is a Korean letter. Not one.&rdquo;' },
+        { q: 'Could somebody have used the same idea, with new shapes?', a: '&ldquo;An idea is not a script.&rdquo; He hesitates. &ldquo;Though, to be fair to King Sejong, it was an idea first. Somebody had to think of drawing the mouth.&rdquo;' },
+        { note: 'He holds the sleeve to the light from the screens.', a: '&ldquo;If you can show me that these squares come apart into a few families, like his, I shall eat my bow tie. In front of the photographer.&rdquo;' }
+      ],
+      clue: { id: 'szabo2', title: 'Dr Szabo: an idea is not a script', kind: 'What he said' }
+    });
+  });
+  SC.thing('#paint', null, 'Mountains in mist, in ink, on paper. The red square in the corner is the painter&rsquo;s seal.', isBusy);
+  SC.thing('#bigletters', 'syllable block', 'One block: ' + hg('한') + ', three letters packed into a square: ' + hg('ㅎ') + ' h, ' + hg('ㅏ') + ' a, ' + hg('ㄴ') + ' n. It is the first half of ' + hg('한글') + ', Hangul.', isBusy);
+
+  /* ---------- the labels ---------- */
+  var FACE = '<svg viewBox="0 0 260 220" width="240"><g fill="none" stroke="#3a2a1a" stroke-width="4" stroke-linecap="round"><path d="M220 6Q140 2 116 46L86 90Q78 102 94 104L98 114Q84 118 90 128Q86 138 104 142Q102 172 136 184L150 216"/><path d="M104 118Q150 98 198 114L216 156V216"/><path d="M112 134Q150 120 186 132Q206 142 204 186"/></g>' +
+    '<g class="hg" font-size="22" fill="#7a2a14"><text x="60" y="128">ㅁ</text><text x="100" y="98">ㅅ</text><text x="128" y="148">ㄴ</text><text x="176" y="112">ㄱ</text><text x="222" y="190">ㅇ</text></g>' +
+    '<g fill="#7a2a14"><circle cx="92" cy="122" r="4"/><circle cx="110" cy="114" r="4"/><circle cx="130" cy="126" r="4"/><circle cx="178" cy="124" r="4"/><circle cx="208" cy="176" r="4"/></g>' +
+    '<g font-family="IBM Plex Mono,monospace" font-size="11" fill="#3a2a1a"><text x="6" y="146">lips</text><text x="80" y="80">teeth</text><text x="112" y="172">tongue tip</text><text x="160" y="92">back of tongue</text><text x="196" y="210">throat</text></g></svg>';
+  var LAB_A = '<h4>Korean Room &middot; label 1</h4><h3>Letters that picture the mouth</h3><div class="two"><div>' +
+    '<p>In 1443 King Sejong of Joseon finished a new alphabet for Korean, so that ordinary people could learn to read and write. In 1446 he made it public in a book, the <i>Hunminjeongeum</i>, &lsquo;the correct sounds for teaching the people&rsquo;, which explains every shape.</p>' +
+    '<p>The five basic consonants are pictures of the mouth making the sound: ' + hg('ㄱ') + ' (g or k) is the back of the tongue lifted to close the throat; ' + hg('ㄴ') + ' (n) is the tip of the tongue touching the ridge behind the top teeth; ' + hg('ㅁ') + ' (m) is the closed lips; ' + hg('ㅅ') + ' (s) is a tooth; ' + hg('ㅇ') + ' is the round throat.</p></div><div class="dia">' + FACE + '</div></div>' +
+    '<p>A stronger sound made in the same place gets an extra stroke: ' + hg('ㄱ') + ' &rarr; ' + hg('ㅋ') + ' (k with a puff of air); ' + hg('ㄴ') + ' &rarr; ' + hg('ㄷ') + ' &rarr; ' + hg('ㅌ') + ' (n, d, t); ' + hg('ㅁ') + ' &rarr; ' + hg('ㅂ') + ' &rarr; ' + hg('ㅍ') + ' (m, b, p); ' + hg('ㅅ') + ' &rarr; ' + hg('ㅈ') + ' &rarr; ' + hg('ㅊ') + '. So the letters come in families, and one look at a letter tells you where in the mouth its sound is made.</p>';
+  var LAB_B = '<h4>Korean Room &middot; label 2, in the case with the book</h4><h3>Heaven, earth, person, and blocks</h3>' +
+    '<p>The vowels are built from three marks: a dot for heaven, which is round; a flat line for the earth, which is flat; and a standing line for a person, who stands between the two.</p>' +
+    '<div class="vrow"><span>' + hg('ㆍ') + 'heaven</span><span>' + hg('ㅡ') + 'earth</span><span>' + hg('ㅣ') + 'person</span><span>' + hg('ㅏ') + 'a</span><span>' + hg('ㅓ') + 'eo</span><span>' + hg('ㅗ') + 'o</span><span>' + hg('ㅜ') + 'u</span></div>' +
+    '<p>Put the dot beside a line or on it: ' + hg('ㅏ') + ' (a) is the standing line with the dot on its right, ' + hg('ㅓ') + ' has it on the left; ' + hg('ㅗ') + ' (o) is the flat line with the dot above, ' + hg('ㅜ') + ' (u) with the dot below. In 1446 the dot was a real dot. It has since become a short stroke.</p>' +
+    '<p>The letters are not written in a row. They are packed into a <b>syllable block</b>: the first consonant top left, a standing vowel to its right (' + hg('가') + ') or a flat vowel underneath (' + hg('고') + '), and a last consonant at the bottom (' + hg('각') + '). A syllable that begins with a vowel begins with ' + hg('ㅇ') + ', silent there, just holding the place (' + hg('아') + ').</p>' +
+    '<p>Count the blocks and you will find thousands: 11,172 are possible. Count the letters inside them: 24.</p>';
+  $('#stand').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: LAB_A, cls: 'label', clue: { id: 'labA', title: 'Label: letters that picture the mouth', kind: 'Museum label' }, done: function () {
+      SC.terms(['place of articulation', 'stroke']);
+      if (tl.set('labA')) { paint(); ER.say('Five pictures of the mouth, and an extra stroke for a stronger sound. Now the case with the book.'); }
+    } });
+  });
+  $('#book').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: LAB_B, cls: 'label', clue: { id: 'labB', title: 'Label: heaven, earth, person, and blocks', kind: 'Museum label' }, done: function () {
+      SC.terms(['syllable block']);
+      if (tl.set('labB')) { paint(); ER.say(tl.has('labA') ? 'Families of consonants, vowels from three marks, letters packed in blocks. Try the girls&rsquo; shapes on the magnet board.' : 'Vowels from three marks, and letters packed into blocks. Read the other label too.'); }
+    } });
+  });
+
+  /* ---------- the magnet board ---------- */
+  var BINS = [['L', '1', 'Lips'], ['T', '2', 'Teeth'], ['N', '3', 'Tongue tip'], ['B', '4', 'Back of the tongue'], ['H', '5', 'Throat'], ['V', '', 'Vowel marks: heaven, earth, person']];
+  var ITEMS = ['ring', 'arch', 'arch1', 'hook', 'hook2', 'hookloop', 'hookwave', 'lens', 'lens2', 'teeth', 'stand', 'standR', 'standL', 'flat', 'flatUp', 'flatDown', 'clock', 'tilde'];
+  var MIX = ['hook2', 'standR', 'clock', 'lens', 'flatUp', 'arch', 'teeth', 'ring', 'standL', 'hookwave', 'flat', 'arch1', 'tilde', 'hook', 'lens2', 'stand', 'hookloop', 'flatDown'];
+  var WHY = {
+    ring: 'Mr Delgado holds up the ring. &ldquo;This one starts nearly every square, like the round one in the Korean label. What did that one picture?&rdquo;',
+    arch: '&ldquo;The arch,&rdquo; says Mr Delgado, and says &lsquo;g&rsquo;, slowly. &ldquo;Where does your tongue go up for that?&rdquo;',
+    arch1: '&ldquo;The arch with a little stroke,&rdquo; says Mr Delgado. &ldquo;Same shape as the plain arch, one stroke more. Families stay together.&rdquo;',
+    hook: '&ldquo;The line along the bottom that turns up at the front,&rdquo; says Mr Delgado. &ldquo;Say &lsquo;n&rsquo;. What touches the ridge behind your top teeth?&rdquo;',
+    hook2: '&ldquo;The turned-up line with two strokes,&rdquo; says Mr Delgado. &ldquo;Who is its plain cousin?&rdquo;',
+    hookloop: '&ldquo;The turned-up line with a loop on its end,&rdquo; says Mr Delgado. &ldquo;Different end, same tongue.&rdquo;',
+    hookwave: '&ldquo;The turned-up line with a wave in it,&rdquo; says Mr Delgado. &ldquo;Different start, same tongue.&rdquo;',
+    lens: '&ldquo;The almond,&rdquo; says Mr Delgado, and presses his lips together. &ldquo;Mmm.&rdquo;',
+    lens2: '&ldquo;The almond with two strokes,&rdquo; says Mr Delgado. &ldquo;Who is its plain cousin?&rdquo;',
+    teeth: 'Mr Delgado grins, showing his teeth, and taps the zigzag.',
+    stand: '&ldquo;The little standing figure with a round head,&rdquo; says Mr Delgado. &ldquo;A person, standing up. Which label had a person in it?&rdquo;',
+    standR: '&ldquo;The standing figure with a dot beside it,&rdquo; says Mr Delgado. &ldquo;Heaven and a person. That is not a mouth.&rdquo;',
+    standL: '&ldquo;The standing figure with a dot on the other side,&rdquo; says Mr Delgado. &ldquo;Heaven and a person, again.&rdquo;',
+    flat: '&ldquo;The plain curve, like a bowl,&rdquo; says Mr Delgado. &ldquo;The earth is round, if you go far enough away. Where do earth and heaven go?&rdquo;',
+    flatUp: '&ldquo;The curve with a dot over it,&rdquo; says Mr Delgado. &ldquo;Earth and heaven.&rdquo;',
+    flatDown: '&ldquo;The curve with a dot under it,&rdquo; says Mr Delgado. &ldquo;Earth and heaven, the other way up.&rdquo;',
+    clock: 'Szabo frowns at the round thing with two hands. &ldquo;It comes once, on a line by itself, and it has no vowel mark in it. Is it a letter at all?&rdquo;',
+    tilde: 'Szabo taps the little wave. &ldquo;It comes at the end of a line, after the squares. Is it a letter at all?&rdquo;'
+  };
+  function tileSVG(p) { return '<svg viewBox="0 0 100 100">' + SC.part(p, 0, 0, 100, 100, 0.14) + '</svg>'; }
+  function makePanel() {
+    var box = ER.el('div', 'pz mp'), place = ER.flag('k-pl') || {}, done = !!tl.has('sorted');
+    box.innerHTML = '<div class="mp-in"><div class="face"><svg viewBox="0 0 260 230"><g fill="none" stroke="#3a2a1a" stroke-width="4" stroke-linecap="round"><path d="M220 6Q140 2 116 46L86 90Q78 102 94 104L98 114Q84 118 90 128Q86 138 104 142Q102 172 136 184L150 226"/><path d="M104 118Q150 98 198 114L216 156V226"/><path d="M112 134Q150 120 186 132Q206 142 204 186"/></g>' +
+      '<g font-family="IBM Plex Mono,monospace" font-weight="700" font-size="12" fill="#fff"><circle cx="92" cy="122" r="10" fill="#7a2a14"/><text x="92" y="126" text-anchor="middle">1</text><circle cx="112" cy="108" r="10" fill="#7a2a14"/><text x="112" y="112" text-anchor="middle">2</text><circle cx="134" cy="126" r="10" fill="#7a2a14"/><text x="134" y="130" text-anchor="middle">3</text><circle cx="180" cy="118" r="10" fill="#7a2a14"/><text x="180" y="122" text-anchor="middle">4</text><circle cx="208" cy="180" r="10" fill="#7a2a14"/><text x="208" y="184" text-anchor="middle">5</text></g></svg>' +
+      '<p>WHERE IS IT SAID? Every shape the girls used in the letter is in the tray below. Put each consonant where its sound is made, the vowel marks in the long box, and leave in the tray anything that is not a letter.</p></div>' +
+      '<div><div class="bins">' + BINS.map(function (b) { return '<div class="bin' + (b[0] === 'V' ? ' vw' : '') + '" data-b="' + b[0] + '"><span class="lbl">' + (b[1] ? '<i>' + b[1] + '</i>' : '') + b[2] + '</span><div class="bin-in"></div></div>'; }).join('') + '</div></div></div>' +
+      '<div class="tray"></div><div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="mp-go">Show Dr Szabo</button></div>';
+    var tray = box.querySelector('.tray'), msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    MIX.forEach(function (p) {
+      var n = ER.el('div', 'tile dnd-item', tileSVG(p)); n.setAttribute('data-p', p);
+      var into = place[p] && place[p] !== 'X' ? box.querySelector('.bin[data-b="' + place[p] + '"] .bin-in') : null;
+      (into || tray).appendChild(n);
+    });
+    function save() {
+      place = {};
+      ER.$$('.tile', box).forEach(function (n) { var b = n.closest('.bin'); place[n.getAttribute('data-p')] = b ? b.getAttribute('data-b') : 'X'; });
+      ER.flag('k-pl', place);
+      ER.$$('.bin', box).forEach(function (b) { b.classList.remove('bad'); });
+    }
+    save();
+    SC.bins(box, { item: '.tile', bin: '.bin', home: tray, change: save, lock: function () { return done; } });
+    box.querySelector('#mp-go').addEventListener('click', function () {
+      if (done) return;
+      save();
+      var placed = ITEMS.filter(function (p) { return place[p] !== 'X'; });
+      if (!placed.length) { ER.sfx.no(); msg('&ldquo;An empty board,&rdquo; says Szabo, &ldquo;proves my point admirably.&rdquo;'); return; }
+      if (placed.length < 12) { ER.sfx.no(); msg('&ldquo;Is that all?&rdquo; says Szabo. There are still a great many shapes in the tray. Every letter has a place.'); return; }
+      var wrong = ITEMS.filter(function (p) { return !ER.check('p-' + p, place[p]); });
+      if (wrong.length) {
+        ER.sfx.no();
+        var p = wrong[0], b = place[p] !== 'X' ? box.querySelector('.bin[data-b="' + place[p] + '"]') : tray;
+        if (b !== tray) b.classList.add('bad'); ER.shake(b);
+        msg((wrong.length === 1 ? 'One shape is in the wrong place. ' : wrong.length + ' shapes are in the wrong places. ') + WHY[p]);
+        return;
+      }
+      done = true; tl.set('sorted'); SC.solved(); paint();
+      nextFile = ER.exit(['HBBNNNNLLTVVVVVVXX'], { wait: true, quiet: true }); ER.flag('k-file', nextFile);
+      SC.terms(['featural']);
+      SC.mine('families', 'The girls&rsquo; script comes apart', '<p>Throat: the ring (silent at the start of a block, like ' + hg('ㅇ') + ').</p><p>Back of the tongue: the arch, and the arch + 1 stroke.</p><p>Tongue tip: the turned-up line, the same + 2 strokes, one with a loop, one with a wave.</p><p>Lips: the almond, and the almond + 2 strokes.</p><p>Teeth: the zigzag.</p><p>Vowels: Sejong&rsquo;s heaven, earth and person, drawn their own way: a dot, a curve for the round earth, a little standing person. The dot goes beside the person or above or below the curve.</p><p>Not letters: the clock thing, and the little waves.</p><p>16 letters, not hundreds of syllables. It is FEATURAL, like Hangul, with new shapes.</p>');
+      msg('Five places, a family in each, six vowel marks built from heaven, earth and a person, and two things that are not letters at all. Sixteen letters. Not hundreds.');
+      setTimeout(ending, 2600);
+    });
+    msg(done ? 'Every shape is in its place.' : 'Drag each shape to its place, or click it and then the place. A family of shapes stays together.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+  $('#mouth').addEventListener('click', function () {
+    if (busy) return;
+    if (tl.has('sorted')) { ER.say('The magnet board, with the girls&rsquo; shapes still stuck on it in their families.'); return; }
+    if (!tl.has('labA') || !tl.has('labB')) { ER.say('A face in profile, five numbered places in the mouth, and a tray of magnets. Read both labels first: the stand on the left, and the case with the book.'); return; }
+    if (!mp) mp = makePanel();
+    mp.open();
+  });
+  function ending() {
+    ER.closeAll(); busy = true;
+    ER.narrate([
+      'Dr Szabo looks at the board for a long time. Then he looks at his letter. Then he takes off his bow tie and puts it in his pocket, very carefully, as if it might be needed later.',
+      '&ldquo;Featural,&rdquo; he says. &ldquo;Sixteen letters, made the way Sejong made his: pictures of the mouth, strokes added, vowels from heaven, earth and a person, packed into blocks. Not Korean. Not ancient. Somebody read our label in this room and built a script of their own.&rdquo;',
+      '&ldquo;Two girls of eleven,&rdquo; says Mr Delgado. &ldquo;One of them was Elin Lindahl.&rdquo;',
+      'Szabo is quiet for a moment. &ldquo;The letter was on Agata Marchetti&rsquo;s bench,&rdquo; he says. &ldquo;Our conservator. She went home early today.&rdquo; He frowns. &ldquo;She went home early because of your school, now I think of it.&rdquo;',
+      'Mr Moreau&rsquo;s voice crackles on the radio: he will let you into the workshop on his way back up from the cellar.'
+    ], function () { busy = false; $('#go').classList.add('on'); });
+  }
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

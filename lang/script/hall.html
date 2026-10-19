@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Hall of Signs · Nobody Here Can Read This</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lang.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="sc.css">
+<style>
+  body{--bg:#1a2134;--accent:#d9b44a;--font-display:'Cinzel',serif;--font-ui:'Outfit',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(20,26,42,.96);--tc-ink:#efe8d6;--cap-bg:rgba(22,28,44,.95);--cap-ink:#efe8d6;--panel:#fbfaf6;--panel-ink:#1d2230;--face-bg:#2a3452;--q-ink:#8ab0d8;
+    --fade:#0c1018;--hud-bg:rgba(20,26,42,.84);--hud-ink:#efe8d6;--hud-line:rgba(239,232,214,.3);--ov-bg:rgba(8,10,18,.66);--lab:#1d2a4a}
+  .tc-room{font-size:clamp(40px,6vw,84px);color:#d9b44a}
+  .tc-theme{color:#8ab0d8}
+  .hbtn b{color:#1d2230}
+  #win1 .glow,#win2 .glow{animation:dim 9s steps(6,end) infinite}
+  @keyframes dim{50%{opacity:.75}}
+  #lamp .beam{animation:flick 7s steps(1,end) infinite}
+  @keyframes flick{0%,93%,100%{opacity:1}94%{opacity:.55}96%{opacity:.9}}
+  /* the sorter: six cases and eight cards */
+  .so{width:min(1180px,97vw)}
+  .so-in{background:#121828 radial-gradient(ellipse at 50% 0%,rgba(140,170,220,.18),transparent 70%);border:1px solid #3a4666;padding:14px 16px 12px;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+  .so h5{color:#8ab0d8}
+  .cases{display:grid;grid-template-columns:repeat(6,1fr);gap:9px}
+  .case{position:relative;min-height:236px;background:linear-gradient(180deg,rgba(200,220,255,.10),rgba(200,220,255,.03));border:2px solid #6a7a9a;border-bottom-width:12px;border-bottom-color:#3a2a1a;padding:30px 5px 6px;cursor:pointer}
+  .case:before{content:'';position:absolute;top:0;left:8%;width:2px;height:100%;background:rgba(255,255,255,.12)}
+  .case .plate{position:absolute;top:4px;left:50%;transform:translateX(-50%);padding:2px 9px 1px;background:linear-gradient(135deg,#8a6a26,#e6c873 40%,#b08a35);color:#2a1e06;font-family:'Cinzel',serif;font-weight:700;font-size:12.5px;letter-spacing:.08em;white-space:nowrap;border-radius:2px}
+  .case .bin-in{display:flex;flex-direction:column;gap:6px;min-height:190px}
+  .case.bad{border-color:#e05a3a}
+  .tray{display:grid;grid-template-columns:repeat(8,1fr);gap:8px;min-height:120px;margin-top:12px;padding:8px;border:2px dashed #3a4666;background:rgba(0,0,0,.2)}
+  .card{background:#fbfaf6;color:#1d2230;padding:6px 6px 5px;border-radius:2px;box-shadow:0 3px 0 #a8a294;cursor:grab;text-align:center;touch-action:none}
+  .card .big{display:block;font-size:24px;line-height:1.25;white-space:nowrap;color:#1d2a4a;overflow:hidden}
+  .card .snd{display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;line-height:1.3;color:#5a3a2a;margin-top:2px}
+  .card .mn{display:block;font-family:'EB Garamond',serif;font-size:13px;line-height:1.2;color:#4a4a52;font-style:italic}
+  .card .big .hg{color:#1d2a4a}
+  .case .card .big{font-size:20px}
+  /* counting the letter */
+  .ct{width:min(860px,96vw)}
+  .ct-in{background:#e9eef2;padding:12px;border-radius:4px;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+  .ct-in svg{width:100%;height:auto}
+  .ct .gb{cursor:pointer}
+  .ct .gb.on{color:#a3242a}
+  .ct .gb.on rect{fill:rgba(163,36,42,.08)}
+  .ct .gb:hover rect{fill:rgba(35,48,90,.08)}
+  .tally{display:flex;gap:20px;align-items:center;margin-top:10px;font-family:'IBM Plex Mono',monospace;font-size:15px;color:#fbf6e4}
+  .tally b{font-size:24px;color:#d9b44a}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#151b2c"/><stop offset=".6" stop-color="#2a3450"/><stop offset="1" stop-color="#36405a"/></linearGradient>
+  <linearGradient id="dusk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a3a7a"/><stop offset=".55" stop-color="#b8607a"/><stop offset="1" stop-color="#f2a65a"/></linearGradient>
+  <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a5068"/><stop offset="1" stop-color="#20263a"/></linearGradient>
+  <linearGradient id="glass" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#bcd0f0" stop-opacity=".16"/><stop offset=".5" stop-color="#bcd0f0" stop-opacity=".05"/><stop offset="1" stop-color="#bcd0f0" stop-opacity=".14"/></linearGradient>
+  <radialGradient id="pool" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffe6a8" stop-opacity=".45"/><stop offset="1" stop-color="#ffe6a8" stop-opacity="0"/></radialGradient>
+  <linearGradient id="beamg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe6a8" stop-opacity=".22"/><stop offset="1" stop-color="#ffe6a8" stop-opacity=".02"/></linearGradient>
+  <pattern id="flags" width="160" height="60" patternUnits="userSpaceOnUse"><rect width="160" height="60" fill="url(#floor)"/><path d="M0 0H160M0 0V60M80 0V60" stroke="#1a2032" stroke-width="2" opacity=".6"/></pattern>
+  <radialGradient id="vig" cx="50%" cy="48%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#05070e" stop-opacity=".18"/><stop offset="1" stop-color="#05070e" stop-opacity=".7"/></radialGradient>
+</defs>
+<rect x="-1000" y="-500" width="3600" height="1200" fill="url(#wall)"/>
+<!-- vaulting -->
+<g fill="none" stroke="#0e1320" stroke-width="18" opacity=".7"><path d="M-400 120Q0 -160 400 120M400 120Q800 -160 1200 120M1200 120Q1600 -160 2000 120"/></g>
+<g fill="#10151f"><rect x="384" y="110" width="32" height="600"/><rect x="1184" y="110" width="32" height="600"/><rect x="-416" y="110" width="32" height="600"/><rect x="1984" y="110" width="32" height="600"/></g>
+<!-- two tall windows, dusk outside -->
+<g id="win1"><path d="M110 470V170q90 -110 180 0v300z" fill="url(#dusk)"/><path class="glow" d="M110 470V170q90 -110 180 0v300z" fill="#fff" opacity=".08"/><path d="M200 470V90M110 300H290M110 390H290" stroke="#10151f" stroke-width="7"/><path d="M110 470V170q90 -110 180 0v300z" fill="none" stroke="#10151f" stroke-width="10"/></g>
+<g id="win2"><path d="M1310 470V170q90 -110 180 0v300z" fill="url(#dusk)"/><path class="glow" d="M1310 470V170q90 -110 180 0v300z" fill="#fff" opacity=".08"/><path d="M1400 470V90M1310 300H1490M1310 390H1490" stroke="#10151f" stroke-width="7"/><path d="M1310 470V170q90 -110 180 0v300z" fill="none" stroke="#10151f" stroke-width="10"/></g>
+<!-- the banner -->
+<g id="banner"><rect x="660" y="40" width="280" height="150" fill="#8a2a1a"/><path d="M660 190l20 18 20 -18 20 18 20 -18 20 18 20 -18 20 18 20 -18 20 18 20 -18 20 18 20 -18 20 18 20 -18" fill="#8a2a1a"/>
+  <text x="800" y="96" text-anchor="middle" font-family="Cinzel,serif" font-weight="700" font-size="34" fill="#f2e2b8" letter-spacing="4">WRITING</text>
+  <text x="800" y="136" text-anchor="middle" font-family="Cinzel,serif" font-size="20" fill="#f2e2b8" letter-spacing="6">5,000 YEARS</text>
+  <text x="800" y="170" text-anchor="middle" font-family="EB Garamond,serif" font-style="italic" font-size="16" fill="#e8b8a0">the Hall of Signs</text></g>
+<!-- the six cases along the back wall, empty -->
+<g id="cases" class="hot"></g>
+<!-- the floor -->
+<rect x="-1000" y="560" width="3600" height="900" fill="url(#flags)"/>
+<path d="M-1000 560H2600" stroke="#0e1320" stroke-width="6"/>
+<!-- the label on its lectern -->
+<g id="lectern" class="hot"><path d="M392 820l16 -170h44l16 170z" fill="#3a2a1e"/><path d="M360 660l120 -36 20 40 -120 36z" fill="#fbfaf6" stroke="#2a1e14" stroke-width="4"/>
+  <g stroke="#1d2a4a" stroke-width="3"><path d="M384 666l78 -23M388 676l70 -21M392 686l76 -23M396 696l60 -18"/></g><rect x="370" y="815" width="120" height="14" fill="#2a1e14"/></g>
+<!-- the stone on its trolley under a lamp -->
+<g id="lamp"><path d="M660 0V250" stroke="#0e1320" stroke-width="4"/><path d="M630 250h60l14 26h-88z" fill="#2a2a30"/><path class="beam" d="M616 276h88l90 420H526z" fill="url(#beamg)"/></g>
+<ellipse cx="660" cy="760" rx="190" ry="40" fill="url(#pool)"/>
+<g id="stone" class="hot"><path d="M560 700h200v12h-200z" fill="#5a5a62"/><path d="M572 712v60M748 712v60" stroke="#3a3a42" stroke-width="7"/><circle cx="572" cy="778" r="9" fill="#1a1a20"/><circle cx="748" cy="778" r="9" fill="#1a1a20"/>
+  <path d="M584 700q-6 -70 20 -96q36 -20 90 -10q44 12 46 54q2 30 -6 52z" fill="#8a8478"/><path d="M600 680q40 6 100 -8" stroke="#6a665c" stroke-width="3" fill="none"/>
+  <g id="stonemarks" color="#3a362e" opacity=".85"></g></g>
+<!-- the panels leaning against a plinth -->
+<g id="panels" class="hot"><rect x="1330" y="620" width="150" height="190" fill="#e8e2d2"/><rect x="1330" y="610" width="150" height="14" fill="#cfc8b4"/>
+  <g transform="rotate(-8 1300 780)"><rect x="1240" y="640" width="96" height="140" fill="#fbfaf6" stroke="#a8a294" stroke-width="3"/><path d="M1256 670h62M1256 700h50M1256 740h64" stroke="#1d2a4a" stroke-width="5"/></g>
+  <g transform="rotate(5 1400 790)"><rect x="1360" y="660" width="96" height="140" fill="#fbfaf6" stroke="#a8a294" stroke-width="3"/><path d="M1376 690h60M1376 720h44M1376 760h62" stroke="#5a3a2a" stroke-width="5"/></g>
+  <g transform="rotate(-2 1460 800)"><rect x="1420" y="676" width="96" height="140" fill="#fbfaf6" stroke="#a8a294" stroke-width="3"/><path d="M1436 706h58M1436 736h40M1436 776h60" stroke="#1d2a4a" stroke-width="5"/></g></g>
+<!-- people -->
+<g id="moreau" class="hot" transform="translate(220 860) scale(1.02)"></g>
+<g id="szabo" class="hot" transform="translate(980 850) scale(1)"></g>
+<g id="delgado" class="hot" transform="translate(1160 870) scale(1)"></g>
+<rect x="-1000" y="-500" width="3600" height="1900" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Go to the Korean Room</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="sc.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, tl, nextFile, pending, so = null, ct = null, hg = SC.hg, fx = SC.fx;
+  var KINDS = [['a', 'Alphabet'], ['b', 'Abjad'], ['c', 'Abugida'], ['d', 'Syllabary'], ['e', 'Logograms'], ['f', 'Featural']];
+
+  /* the cases on the wall, and the marks on the stone */
+  (function () {
+    var s = '', i, X = [470, 580, 690, 910, 1020, 1130];
+    for (i = 0; i < 6; i++) {
+      s += '<g><rect x="' + X[i] + '" y="250" width="96" height="290" fill="url(#glass)" stroke="#8a9aba" stroke-width="3"/><rect x="' + (X[i] - 6) + '" y="540" width="108" height="26" fill="#2a1e14"/>' +
+        '<rect x="' + (X[i] + 30) + '" y="480" width="36" height="60" fill="#3a3040"/><path d="M' + (X[i] + 12) + ' 262V528" stroke="#fff" stroke-width="2" opacity=".14"/>' +
+        '<rect x="' + (X[i] + 8) + '" y="547" width="80" height="13" fill="#c9a24a"/><text x="' + (X[i] + 48) + '" y="557.5" text-anchor="middle" font-family="Cinzel,serif" font-weight="700" font-size="9" fill="#2a1e06">' + KINDS[i][1].toUpperCase() + '</text></g>';
+    }
+    $('#cases').innerHTML = s;
+    var art = SC.stoneArt({ S: 64, x: 0, y: 0 }), b = art.box, sc = 128 / b[2];
+    $('#stonemarks').innerHTML = '<g transform="translate(' + (596 - b[0] * sc).toFixed(1) + ' ' + (608 - b[1] * sc).toFixed(1) + ') scale(' + sc.toFixed(3) + ')">' + art.svg + '</g>';
+  })();
+  $('#moreau').innerHTML = SC.who('moreau', { extra: '<g transform="translate(36 -150)"><rect x="-6" y="0" width="14" height="30" rx="3" fill="#1a1a1a"/><path d="M-2 0v-12" stroke="#1a1a1a" stroke-width="3"/></g><circle cx="-34" cy="-96" r="9" fill="none" stroke="#c9c9c9" stroke-width="3"/>' });
+  $('#szabo').innerHTML = SC.who('szabo', { smile: 6, extra: '<rect x="18" y="-170" width="44" height="58" fill="#e9eef2" stroke="#9aa8b6" stroke-width="2" transform="rotate(-10 40 -140)"/>' });
+  $('#delgado').innerHTML = SC.who('delgado', { smile: 1 });
+
+  ER.init({
+    theme: 'lang', story: 'script', storyTitle: 'Nobody Here Can Read This', id: 'hall', no: 'I', title: 'The Hall of Signs',
+    go: 'Go in',
+    intro: [
+      'Friday, twenty to five. The Elmsworth Museum of Writing closed ten minutes ago, and its doors locked themselves at half past four, as they do every day.',
+      'Outside, in the rain, a coach is waiting with twenty-eight pupils on it, and one empty seat at the front. Miss Lindahl, who organised the trip, who counted everybody on and off it all day, did not come back from the gift shop.',
+      'Mr Delgado, who teaches PE and came along to help, has asked the guard to let him back in. He has brought you, because you read every label in the building this morning and he did not read one.'
+    ],
+    exit: {"next":"korean","w":{"bb3f9fab":"f73fd762"}}, tags: {"c-gr":["2bc3ee61"],"c-ar":["03a79cec"],"c-he":["1f250eb6"],"c-de":["588c973d"],"c-hi":["7f0a723e"],"c-ch":["b987cbc8"],"c-zh":["4485b62c"],"c-ko":["f41107ac"]},
+    hints: hints, onBegin: begin
+  });
+  tl = SC.tell('h-told'); nextFile = ER.flag('h-file') || null; pending = ER.flag('h-next') || null;
+
+  function isBusy() { return busy; }
+  function paint() {
+    $('#moreau').classList.toggle('ready', !tl.has('moreau'));
+    $('#lectern').classList.toggle('ready', !!(tl.has('szabo') && !tl.has('label')));
+    $('#panels').classList.toggle('ready', !!(tl.has('szabo') && tl.has('label') && !tl.has('sorted')));
+    $('#szabo').classList.toggle('ready', !!(tl.has('moreau') && !tl.has('szabo')) || !!(tl.has('sorted') && !tl.has('counted')));
+    ER.pips((tl.has('moreau') ? 1 : 0) + (tl.has('szabo') ? 1 : 0) + (tl.has('label') ? 1 : 0) + (tl.has('sorted') ? 1 : 0) + (tl.has('counted') ? 1 : 0), 5);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Kezia says Miss Lindahl spent a long time in the Korean Room. The button at the bottom of the screen takes you there.']];
+    if (so && so.isOpen()) return ['sort', [
+      'Read the sounds under each card, and count: how many signs, how many sounds? Is there a sign for every vowel? Do some signs share a shape?',
+      'The Japanese card and the Devanagari card say the same five syllables, ka ki ku ke ko. In one, the five signs share nothing. In the other, one shape keeps coming back with a small mark. Which is the syllabary, and which the abugida?',
+      'Two cards need a second look. The Cherokee signs look like English letters, but each one says a whole syllable. And the Korean card shows one shape getting extra strokes for stronger sounds: the shape tells you how the sound is made.'
+    ]];
+    if (ct && ct.isOpen()) return ['count', ['Click every sign in the letter once, from the beginning to the end. The counter keeps the score. A sign that is the same as one you have counted already still counts, but not as a new one.']];
+    if (!tl.has('moreau')) return ['moreau', ['Talk to the guard by the door on the left. He has the keys.']];
+    if (!tl.has('szabo')) return ['szabo', ['The man in the bow tie, in the middle, is the curator. Talk to him.']];
+    if (!tl.has('label')) return ['label', ['Dr Szabo wants his panels put in the right cases. First read the museum label on the lectern, on the left, in front of the cases.']];
+    if (!tl.has('sorted')) return ['panels', ['The eight panels are leaning against the white plinth on the right. Click them to put them in their cases.']];
+    return ['szabo2', ['The panels are in their cases. Now Dr Szabo will show you the letter. Click him.']];
+  }
+  function begin() {
+    paint();
+    if (!nextFile && pending && tl.has('counted')) { nextFile = pending; ER.flag('h-file', nextFile); }
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('The Hall of Signs. Fifteen different signs in seventeen, and a ring in nearly every one.'); return; }
+    if (tl.has('in')) { busy = false; ER.say('The Hall of Signs, after closing.'); return; }
+    tl.set('in');
+    ER.narrate([
+      'The Hall of Signs is long and high and nearly dark. Rain runs down two tall windows, and the last of the daylight comes through them pink.',
+      'Along the back wall stand six glass cases, every one of them empty. On a trolley under the only lamp sits a grey stone the size of a loaf, with marks cut into it.',
+      'A man in a bow tie is walking round the trolley, holding a sheet of paper in a plastic sleeve as if it might fly away.',
+      'The guard locks the door behind you. &ldquo;Six o&rsquo;clock,&rdquo; says Mr Delgado, mostly to himself. &ldquo;The driver has to go at six. If she isn&rsquo;t found by then, I ring the police.&rdquo;'
+    ], function () { busy = false; });
+  }
+
+  /* ---------- people ---------- */
+  $('#moreau').addEventListener('click', function () {
+    if (busy) return;
+    SC.sfx.radio();
+    ER.talk({
+      who: 'Mr Barry Moreau', role: 'Security · nineteen years of locking up', face: SC.face('moreau', 'smile'),
+      lines: [
+        { note: 'He is short and wide, with a grey moustache, a radio on his belt and a ring of keys the size of a dinner plate.', a: '&ldquo;Every door in this building locks itself at half past four. Galleries, offices, stairs. After that, nobody goes anywhere unless I open it with these.&rdquo;' },
+        { q: 'Did you see Miss Lindahl?', a: '&ldquo;The teacher in the green jumper? Last I saw her she was in the gift shop with the children, at about twenty to four. She never came out of the front door. I&rsquo;d have seen her. I see everybody.&rdquo;' },
+        { q: 'So she is still in the building?', a: '&ldquo;Or she left by a staff door, and she&rsquo;d need a key for that. I&rsquo;m doing the basement and the stores now. Four floors and a cellar. The alarm goes on at six whether I like it or not.&rdquo;' },
+        { note: 'His radio crackles. He listens to nothing, and turns it down.', a: '&ldquo;Ask Dr Szabo. He&rsquo;s been in here since ten past four, talking to a stone.&rdquo;' }
+      ],
+      clue: { id: 'moreau', title: 'Mr Moreau, the guard', kind: 'What he said' },
+      done: function (seen) { if (seen && tl.set('moreau')) { paint(); ER.say('Six o&rsquo;clock, the alarm. Talk to the curator in the bow tie.'); } }
+    });
+  });
+  $('#delgado').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Mr Gil Delgado', role: 'PE teacher · one teacher short', face: SC.face('delgado'),
+      lines: [
+        { note: 'He is tall, in a tracksuit under a wet raincoat, with a whistle round his neck that he keeps reaching for and not blowing.', a: '&ldquo;I teach PE. I know nothing about writing. I do know when a team is one short.&rdquo;' },
+        { q: 'When did you last see Miss Lindahl?', a: '&ldquo;Quarter to four, in the gift shop. She said, &lsquo;Take them to the coach at a quarter past, Gil, I&rsquo;ll be five minutes.&rsquo; That was an hour ago. Her phone just rings.&rdquo;' },
+        { q: 'Is that like her?', a: '&ldquo;Elin Lindahl? She counts the class at every door. She once made a coach go back for a glove. No. It&rsquo;s not like her.&rdquo;' },
+        { note: 'He looks at the six empty cases, and at the curator.', a: '&ldquo;If that man can help, he can help. Let&rsquo;s be nice to him.&rdquo;' }
+      ],
+      clue: { id: 'delgado', title: 'Mr Delgado: Elin Lindahl, five minutes', kind: 'What he said' },
+      done: function (seen) { if (seen) tl.set('delgado'); }
+    });
+  });
+  $('#szabo').addEventListener('click', function () {
+    if (busy) return;
+    if (tl.has('sorted') && !tl.has('counted')) { showLetter(); return; }
+    if (tl.has('counted')) { ER.say('Dr Szabo is holding the letter up to the lamp again, as if it might change its mind.'); return; }
+    if (!tl.has('moreau')) { ER.say('The curator does not look up. Talk to the guard first: he is the one with the keys.'); return; }
+    ER.talk({
+      who: 'Dr Ferenc Szabo', role: 'Curator · has had a very good afternoon', face: SC.face('szabo', 'smile'),
+      lines: [
+        { note: 'He is thin and grey and delighted, and he talks the way other people run downhill.', a: '&ldquo;A teacher? No, I have seen nobody. I have been here since ten past four with the find of my career. Look at it. No, don&rsquo;t touch it.&rdquo;' },
+        { note: 'He holds up the sleeve. Inside is a sheet of notepaper covered in small square signs.', a: '&ldquo;A letter in a script that nobody in this building can read. I found it in the conservator&rsquo;s workshop, lying against that stone, which came in on Monday from a garden on Quarry Lane. The same signs on both! I have a newspaper photographer coming tomorrow at ten.&rdquo;' },
+        { q: 'We are looking for our teacher.', a: '&ldquo;Yes, yes. And I am looking for somebody to hang eight panels in those six cases before the photographer sees them empty. Do that for me, and you shall have my full attention, the letter, and anything else you like.&rdquo;' },
+        { note: 'Mr Delgado breathes out slowly through his nose.', a: '&ldquo;The label on the lectern explains the cases. My assistant wrote it. It is very nearly correct.&rdquo;' }
+      ],
+      clue: { id: 'szabo', title: 'Dr Szabo and the find of his career', kind: 'What he said' },
+      done: function (seen) {
+        if (!seen) return;
+        ER.addWord('curator', 'the person in charge of a museum’s collection');
+        if (tl.set('szabo')) { paint(); ER.say('A deal: eight panels in six cases, and then the letter. Start with the label on the lectern.'); }
+      }
+    });
+  });
+  SC.thing('#cases', 'display case', 'Six tall glass cases, lit from inside, with a brass plate on each and nothing in them yet.', isBusy);
+  SC.thing('#banner', null, 'WRITING: 5,000 YEARS. The oldest writing yet found was made in Mesopotamia, in what is now Iraq, a little over 5,000 years ago.', isBusy);
+  SC.thing('#win1,#win2', null, 'Rain, and behind it the car park, and the coach with its lights on.', isBusy);
+  $('#stone').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: '<h4>On the trolley</h4><h3>The stone from Quarry Lane</h3><p>A grey garden stone, rough underneath and smooth on top. Somebody cut signs into it with something sharp, a long time ago. Moss has been cleaned out of the cuts quite recently.</p>' +
+      SC.stoneSVG(480) +
+      '<p class="small">Two groups of square signs with a small cross between them, a big heart round everything, and two strokes underneath. The squares look like the ones on Dr Szabo&rsquo;s letter.</p>', cls: 'label',
+      clue: { id: 'stone', title: 'The stone from Quarry Lane', kind: 'In the Hall' }, done: function () { ER.addWord('inscription', 'words cut into stone, metal or wood'); tl.set('stone'); } });
+  });
+
+  /* ---------- the label ---------- */
+  var LABEL = '<h4>Hall of Signs &middot; label 1</h4><h3>How many signs?</h3>' +
+    '<p>Every <b>writing system</b> in the world is one of a few kinds, and you can often tell which by counting its signs.</p>' +
+    '<p>An <b>alphabet</b> has a letter for each consonant and each vowel: 26 for English, 24 for Greek. An <b>abjad</b> writes only the consonants, and the reader adds the vowels: Arabic has 28 letters, Hebrew 22. An <b>abugida</b> writes a consonant with a vowel built in, and changes the vowel with a small mark: in Devanagari, used for Hindi, ' + fx('क', 'de') + ' is ka and ' + fx('कि', 'de') + ' is ki.</p>' +
+    '<p>A <b>syllabary</b> has a separate sign for each syllable, with nothing shared between them: Japanese hiragana has 46, Cherokee 85. <b>Logographic</b> writing has a sign for each word or part of a word: Chinese has thousands. In <b>featural</b> writing, the shape of a letter shows how its sound is made: Hangul, the Korean alphabet, is the famous one, with 24 letters.</p>' +
+    '<p>So count the different signs in a long text. Twenty to forty: an alphabet or an abjad. Forty to a hundred: a syllabary, or an abugida with its marks. Thousands: logograms.</p>' +
+    '<p class="small">A sign is one shape that is written again and again. Count each shape once, however often it comes.</p>';
+  $('#lectern').addEventListener('click', function () {
+    if (busy) return;
+    if (!tl.has('szabo')) ER.say('A museum label on a lectern: <i>How many signs?</i> You will want it soon. Talk to the people first.');
+    ER.read({ html: LABEL, cls: 'label', clue: { id: 'label1', title: 'Label: how many signs?', kind: 'Museum label' }, done: function () {
+      SC.terms(['script', 'writing system', 'alphabet', 'abjad', 'abugida', 'syllabary', 'logogram', 'featural', 'consonant', 'vowel', 'syllable']);
+      if (tl.set('label')) { paint(); ER.say(tl.has('szabo') ? 'Six kinds of writing, and a way to tell them apart. Now the panels by the white plinth.' : 'Six kinds of writing. Talk to the curator.'); }
+    } });
+  });
+
+  /* ---------- the sorter ---------- */
+  var CARDS = [
+    { k: 'gr', big: fx('ΑΛΦΑ', 'gr'), snd: 'a · l · ph · a', mn: 'alpha, the name of a letter' },
+    { k: 'zh', big: fx('妈 = 女 + 马', 'zh'), snd: 'mā = nǚ + mǎ', mn: 'mother = woman + horse (said mǎ)' },
+    { k: 'hi', big: fx('か き く け こ', 'ja'), snd: 'ka ki ku ke ko', mn: 'five syllables' },
+    { k: 'ar', big: fx('كتب', 'ar'), snd: '(right to left) k · t · b', mn: 'kataba, &lsquo;he wrote&rsquo;' },
+    { k: 'ko', big: hg('ㅁ ㅂ ㅍ'), snd: 'm · b · p', mn: 'lips shut, then opened harder' },
+    { k: 'ch', big: fx('Ꮃ Ꮄ Ꮅ Ꮆ Ꮇ', 'ch'), snd: 'la le li lo lu', mn: 'five syllables' },
+    { k: 'de', big: fx('क कि कु के को', 'de'), snd: 'ka ki ku ke ko', mn: 'five syllables' },
+    { k: 'he', big: fx('ספר', 'he'), snd: '(right to left) s · f · r', mn: 'sefer, &lsquo;a book&rsquo;' }
+  ];
+  var ORDER = ['gr', 'ar', 'he', 'de', 'hi', 'ch', 'zh', 'ko'];
+  var WHY = {
+    gr: 'Szabo points at the Greek card. &ldquo;Four signs, four sounds, and the vowels have signs of their own, the same as in English. What is that called?&rdquo;',
+    ar: 'Szabo taps the card that says <i>kataba</i>. &ldquo;Three signs: k, t, b. The word has three vowels. Where are they written?&rdquo;',
+    he: 'Szabo taps the card that says <i>sefer</i>. &ldquo;S, f, r. A book is <i>sefer</i>. Who puts the e&rsquo;s in?&rdquo;',
+    de: '&ldquo;Look at the Devanagari card,&rdquo; says Szabo. &ldquo;The same shape five times, with a different little mark each time. The mark changes only the vowel.&rdquo;',
+    hi: '&ldquo;The Japanese card,&rdquo; says Szabo. &ldquo;Five syllables, five signs, and not one stroke shared between them. A sign for each syllable is called what?&rdquo;',
+    ch: 'Szabo winces. &ldquo;The Cherokee card. Yes, they look like our letters: a W, a P, a G, an M. Now read what is under them. How much sound does each sign carry?&rdquo;',
+    zh: '&ldquo;The Chinese card,&rdquo; says Szabo. &ldquo;One sign, one whole word: mother. A part for the meaning, woman, and a part for the sound, horse. Not a letter in sight.&rdquo;',
+    ko: '&ldquo;The Korean card,&rdquo; says Szabo. &ldquo;Hangul is an alphabet, yes, but a very particular one. The same shape, more strokes, for a stronger sound. The shape shows how the sound is made.&rdquo;'
+  };
+  function makeSorter() {
+    var box = ER.el('div', 'pz so'), place = ER.flag('h-pl') || {}, done = !!tl.has('sorted');
+    box.innerHTML = '<div class="so-in"><h5>Six cases, eight panels. Drag a panel into a case, or click it and then the case.</h5><div class="cases">' +
+      KINDS.map(function (k) { return '<div class="case" data-c="' + k[0] + '"><span class="plate">' + k[1].toUpperCase() + '</span><div class="bin-in"></div></div>'; }).join('') +
+      '</div><div class="tray"></div></div><div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="so-go">Ask Dr Szabo to look</button></div>';
+    var tray = box.querySelector('.tray'), msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    CARDS.forEach(function (c) {
+      var n = ER.el('div', 'card dnd-item', '<span class="big">' + c.big + '</span><span class="snd">' + c.snd + '</span><span class="mn">' + c.mn + '</span>');
+      n.setAttribute('data-k', c.k);
+      var into = place[c.k] ? box.querySelector('.case[data-c="' + place[c.k] + '"] .bin-in') : null;
+      (into || tray).appendChild(n);
+    });
+    function save() {
+      place = {};
+      ER.$$('.card', box).forEach(function (n) { var c = n.closest('.case'); if (c) place[n.getAttribute('data-k')] = c.getAttribute('data-c'); });
+      ER.flag('h-pl', place);
+      ER.$$('.case', box).forEach(function (c) { c.classList.remove('bad'); });
+    }
+    SC.bins(box, { item: '.card', bin: '.case', home: tray, change: save, lock: function () { return done; } });
+    box.querySelector('#so-go').addEventListener('click', function () {
+      if (done) return;
+      save();
+      var left = ORDER.filter(function (k) { return !place[k]; });
+      if (left.length === ORDER.length) { ER.sfx.no(); msg('Dr Szabo looks at the empty cases, then at you. &ldquo;Panels go <i>in</i> the cases.&rdquo;'); return; }
+      if (left.length) { ER.sfx.no(); msg('&ldquo;All eight, please,&rdquo; says Szabo. ' + left.length + (left.length === 1 ? ' panel is' : ' panels are') + ' still on the floor.'); return; }
+      var wrong = ORDER.filter(function (k) { return !ER.check('c-' + k, place[k]); });
+      if (wrong.length) {
+        ER.sfx.no();
+        var c = box.querySelector('.case[data-c="' + place[wrong[0]] + '"]'); c.classList.add('bad'); ER.shake(c);
+        msg((wrong.length === 1 ? 'One panel is in the wrong case. ' : wrong.length + ' panels are in the wrong cases. ') + WHY[wrong[0]]);
+        return;
+      }
+      done = true; tl.set('sorted'); SC.solved(true); paint();
+      pending = ER.exit(['abbcddef'], { wait: true, quiet: true }); ER.flag('h-next', pending);
+      SC.mine('kinds', 'Eight scripts, six kinds', '<p>Alphabet: a sign for every consonant AND vowel (Greek, English).</p><p>Abjad: consonants only, you add the vowels (Arabic k-t-b, Hebrew s-f-r).</p><p>Abugida: one consonant shape + small vowel marks (Devanagari ka ki ku).</p><p>Syllabary: one sign per syllable, nothing shared (hiragana, Cherokee, even though Cherokee LOOKS like our letters).</p><p>Logograms: a sign per word, with a meaning part + a sound part (Chinese).</p><p>Featural: the shape shows how the sound is made (Hangul: more strokes, stronger sound).</p>');
+      msg('Szabo goes along the cases, nodding at each one. &ldquo;Exactly so. Even the Cherokee. Everybody puts the Cherokee with the alphabets.&rdquo;');
+      setTimeout(function () { ER.close(); showLetter(); }, 2600);
+    });
+    msg(done ? 'Every panel is in its case.' : 'Read each card: the signs, the sounds under them, and what they mean. Then put each one in the case for its kind of writing.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+  $('#panels').addEventListener('click', function () {
+    if (busy) return;
+    if (tl.has('sorted')) { ER.say('The panels are in their cases now, lit from inside. Dr Szabo keeps going back to look at them.'); return; }
+    if (!tl.has('szabo')) { ER.say('Eight framed panels leaning against a plinth. They belong to somebody. Ask the curator.'); return; }
+    if (!tl.has('label')) { ER.say('Eight panels, six cases. Read the label on the lectern first, or you will be guessing.'); return; }
+    if (!so) so = makeSorter();
+    so.open();
+  });
+
+  /* ---------- the letter, and counting its signs ---------- */
+  function showLetter() {
+    if (tl.has('counted')) return;
+    busy = true;
+    ER.narrate([
+      'Dr Szabo comes back from the cases glowing. &ldquo;A bargain is a bargain,&rdquo; he says, and holds the sleeve under the lamp for you.',
+      'The letter is written in pencil on a sheet of notepaper with the museum&rsquo;s name printed at the top. Five short lines of small square signs.',
+      '&ldquo;Now,&rdquo; says Szabo, &ldquo;what kind of writing is it? You know how to tell. Count the signs. My assistant&rsquo;s label says so.&rdquo;'
+    ], function () { busy = false; ER.read({ html: '<h4>In Dr Szabo&rsquo;s plastic sleeve</h4>' + SC.letterDoc(600) + '<p>Found at ten past four on the conservator&rsquo;s bench, against the stone from Quarry Lane.</p>', cls: 'sleeve',
+      clue: { id: 'letter', title: 'The letter nobody can read', kind: 'In the Hall' }, done: function () { if (!ct) ct = makeCount(); ct.open(); } }); });
+  }
+  function makeCount() {
+    var box = ER.el('div', 'pz ct'), L = SC.layout(SC.LETTER, { S: 58, lh: 84, x: 24, y: 20 }), seen = {}, kinds = {}, n = 0, total = 0, done = false;
+    L.items.forEach(function (it) { if (it.t === 'b') total++; });
+    box.innerHTML = '<h5 style="color:#8ab0d8">Count the signs: click every square sign once, and the round one with hands too. Not the little waves.</h5><div class="ct-in"><svg viewBox="0 0 ' + Math.ceil(L.w + 30) + ' ' + Math.ceil(L.h + 10) + '"><g color="#23305a">' + SC.draw(L) + '</g></svg></div>' +
+      '<div class="tally"><span>Signs counted: <b id="ct-n">0</b></span><span>Different signs: <b id="ct-k">0</b></span></div><div class="pz-foot"><p class="pmsg"></p></div>';
+    var msgEl = box.querySelector('.pmsg');
+    ER.$$('.gb', box).forEach(function (g) {
+      if (g.getAttribute('data-spec') === 'tilde') { g.style.cursor = 'default'; return; }
+      g.addEventListener('click', function () {
+        if (done) return;
+        var i = g.getAttribute('data-n'); if (seen[i]) { msgEl.innerHTML = ER.gloss('That one is counted already.'); return; }
+        seen[i] = 1; n++; kinds[g.getAttribute('data-spec')] = 1; g.classList.add('on'); SC.sfx.key();
+        var k = Object.keys(kinds).length;
+        box.querySelector('#ct-n').textContent = n; box.querySelector('#ct-k').textContent = k;
+        msgEl.innerHTML = ER.gloss(n < total ? (k === n ? 'Every sign so far is a new one.' : 'That makes ' + n + ' signs, ' + k + ' of them different.') : '');
+        if (n === total) {
+          done = true; tl.set('counted'); paint();
+          SC.mine('count', 'Counting the letter', '<p>' + total + ' signs, ' + k + ' of them different. Almost every sign is new!</p><p>Dr Szabo: so a long letter would need hundreds of signs: a syllabary, or logograms.</p><p>Mr Delgado: or each square is made of smaller bits. The ring is in nearly all of them.</p>');
+          setTimeout(function () {
+            ER.closeAll(); busy = true;
+            ER.narrate([
+              '&ldquo;Seventeen signs,&rdquo; says Szabo, &ldquo;and fifteen of them different. Almost every sign is new! In a long letter there would be hundreds. A syllabary at the very least. Perhaps logograms. Perhaps something nobody has ever seen.&rdquo;',
+              'Mr Delgado has been looking over his shoulder. &ldquo;Or every square is made of smaller bits,&rdquo; he says. &ldquo;That little ring is in nearly all of them. Count the bits, not the squares.&rdquo; Szabo does not seem to hear.',
+              'Mr Delgado&rsquo;s phone buzzes. A message from the coach.',
+              '<b>Kezia:</b> &ldquo;sir is miss L ok?? she was weird in the Korean room this morning. she stood there for ages and said her and her best friend made up a secret script in that room when they were 11. using the kings idea she said&rdquo;',
+              'Mr Delgado reads it twice. &ldquo;The Korean Room,&rdquo; he says. Mr Moreau, on the radio, says he will open it for you on his way down to the cellar. Dr Szabo, holding his letter, comes too.'
+            ], function () {
+              busy = false; nextFile = pending; ER.flag('h-file', nextFile); $('#go').classList.add('on');
+              ER.addClue('kezia1', 'Kezia, from the coach', '<h4>Mr Delgado&rsquo;s phone</h4><p>sir is miss L ok?? she was weird in the Korean room this morning. she stood there for ages and said her and her best friend made up a secret script in that room when they were 11. using the kings idea she said</p>', 'phone', 'Messages');
+            });
+          }, 1400);
+        }
+      });
+    });
+    msgEl.innerHTML = ER.gloss('Click each sign once. The counter does the sums.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

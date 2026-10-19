@@ -1,0 +1,158 @@
+/* Nobody Here Can Read This - what every room shares: museum labels, notes and papers, the puzzle frames, the
+   notebook, hints and word tags in a museum's colours, the card at the end. Each room sets its own palette on <body>. */
+
+.tc-theme{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:13px;letter-spacing:.22em;text-transform:uppercase}
+.tc-room{font-family:'Cinzel',Georgia,serif;font-weight:700;letter-spacing:.02em;line-height:1.02}
+.tc-text{font-family:'EB Garamond',Georgia,serif;font-size:clamp(18px,1.45vw,21.5px);line-height:1.5}
+.tc-text p{margin:0 0 12px}
+.cap{font-family:'EB Garamond',Georgia,serif;font-size:clamp(18px,1.42vw,21.5px);line-height:1.45}
+.chip,.hbtn{font-family:'Outfit',sans-serif;font-weight:600;font-size:13px;letter-spacing:.14em}
+.btn{font-family:'Outfit',sans-serif;font-weight:700;font-size:13.5px;letter-spacing:.14em}
+.ov-x{font-family:'Outfit',sans-serif;font-weight:600;font-size:12.5px}
+.tk-name{font-family:'Cinzel',serif;font-weight:700;font-size:25px;letter-spacing:.02em}
+.tk-role{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12.5px;letter-spacing:.1em;color:var(--role,#8a3a2a)}
+.tk .btn{--accent:var(--role-btn,#1d2230)}
+.tk .btn:hover:not([disabled]){color:#fffdf2}
+.tk-text{font-family:'EB Garamond',Georgia,serif;font-size:clamp(17.5px,1.36vw,20.5px);line-height:1.48}
+.tk-face svg{height:100%;min-height:300px}
+.hot{cursor:pointer}
+.hot:hover{filter:brightness(1.12)}
+.gobtn{position:fixed;left:50%;bottom:5vh;transform:translateX(-50%);z-index:35;display:none;padding:13px 30px 11px;border:2px solid #1d2230;
+  color:#1d2230;background:#f4efe2;font-family:'Cinzel',serif;font-weight:700;font-size:18px;letter-spacing:.04em;border-radius:3px;box-shadow:0 6px 0 #1d2230,0 14px 30px rgba(0,0,0,.4)}
+.gobtn.on{display:block}
+.gobtn:hover{background:#fff}
+.ready{animation:glow 1.6s steps(1,end) infinite}
+@keyframes glow{50%{filter:brightness(1.3) drop-shadow(0 0 6px #fff)}}
+
+/* other scripts and Hangul: shown as things to study, in fonts that have them */
+.fx{font-style:normal;font-weight:400;letter-spacing:.04em}
+.fx.gr{font-family:'Gentium Book Plus','Times New Roman',serif}
+.fx.ar{font-family:'Segoe UI','Geeza Pro','Arial',sans-serif;direction:rtl;unicode-bidi:isolate}
+.fx.he{font-family:'Segoe UI','Arial Hebrew','Arial',sans-serif;direction:rtl;unicode-bidi:isolate}
+.fx.de{font-family:'Nirmala UI','Kohinoor Devanagari','Devanagari Sangam MN','Mangal',sans-serif}
+.fx.ja{font-family:'Yu Gothic','Hiragino Sans','Hiragino Kaku Gothic ProN','Meiryo','MS Gothic',sans-serif}
+.fx.ch{font-family:'Gadugi','Plantagenet Cherokee','Noto Sans Cherokee',sans-serif}
+.fx.zh{font-family:'Microsoft YaHei','PingFang SC','SimSun','Hiragino Sans GB',sans-serif}
+.hg{font-family:'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Nanum Gothic',sans-serif;font-style:normal;font-weight:700;color:var(--hg,#8a2a1a)}
+
+/* ---- museum papers ---- */
+.doc h4{font-weight:normal}
+.doc svg{display:block;max-width:100%;height:auto}
+/* a museum label: card on a wall */
+.doc.label{width:min(760px,95vw);background:#fbfaf6;color:#1f1f22;font-family:'EB Garamond',Georgia,serif;font-size:18px;line-height:1.46;padding:24px 34px 20px;border-left:10px solid var(--lab,#1d2a4a);box-shadow:0 26px 70px rgba(0,0,0,.55)}
+.doc.label h4{margin:0 0 2px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--lab,#1d2a4a)}
+.doc.label h3{margin:0 0 10px;font-family:'Cinzel',serif;font-weight:700;font-size:26px;line-height:1.1;color:#1f1f22}
+.doc.label p{margin:0 0 8px}
+.doc.label b{color:var(--lab,#1d2a4a)}
+.doc.label .two{display:grid;grid-template-columns:1fr 240px;gap:20px;align-items:start}
+.doc.label .dia{background:#fff;border:1px solid #dcd6c8;padding:6px}
+.doc.label .big{font-size:30px;line-height:1.2}
+.doc.label .small{font-size:15px;color:#4a4a52}
+.doc.label table{border-collapse:collapse;width:100%;margin:4px 0 8px;font-size:16.5px}
+.doc.label td{padding:3px 8px 3px 0;border-bottom:1px dotted #c9c2b0;vertical-align:top}
+/* a handwritten note: yellow paper */
+.doc.note{width:min(520px,92vw);background:#fff6b8;color:#24304a;font-family:'Kalam',cursive;font-size:20px;line-height:1.45;padding:28px 30px 22px;transform:rotate(-1deg);box-shadow:0 20px 50px rgba(0,0,0,.5)}
+.doc.note h4{margin:0 0 8px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#8a3a2a}
+.doc.note p{margin:0 0 6px}
+/* messages on a phone */
+.doc.phone{width:min(420px,92vw);background:#151a22;color:#e8edf4;font-family:'Outfit',sans-serif;font-size:16.5px;line-height:1.4;padding:20px 18px 18px;border-radius:26px;border:8px solid #2a3240}
+.doc.phone h4{margin:0 0 10px;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#8fa2bc;text-align:center}
+.doc.phone p{margin:0 0 9px;padding:8px 12px;background:#2a3446;border-radius:14px 14px 14px 4px;max-width:88%}
+.doc.phone p.me{margin-left:auto;background:#2f6a4a;border-radius:14px 14px 4px 14px}
+.doc.phone small{display:block;font-size:11.5px;color:#8fa2bc;margin:-4px 0 8px}
+/* a book of signatures, a receipt */
+.doc.ledger{width:min(680px,95vw);background:#f4eedc;color:#2a241c;font-family:'Caveat',cursive;font-size:23px;line-height:1.3;padding:22px 30px 18px;border-top:16px solid #5a3a2a}
+.doc.ledger h4{margin:0 0 6px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:#5a3a2a}
+.doc.ledger table{border-collapse:collapse;width:100%}
+.doc.ledger th{font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-align:left;border-bottom:2px solid #5a3a2a;padding:2px 6px}
+.doc.ledger td{border-bottom:1px solid #c9bfa3;padding:2px 6px;vertical-align:top}
+.doc.receipt{width:min(340px,90vw);background:#fbfbf7;color:#222;font-family:'IBM Plex Mono',monospace;font-size:14.5px;line-height:1.45;padding:22px 22px 26px;
+  -webkit-mask:linear-gradient(#000,#000);box-shadow:0 18px 40px rgba(0,0,0,.5)}
+.doc.receipt h4{margin:0 0 8px;text-align:center;font-size:14px;font-weight:600;letter-spacing:.14em}
+.doc.receipt p{margin:0 0 4px}
+.doc.receipt .r{display:flex;justify-content:space-between}
+/* the letter itself, in its plastic sleeve */
+.doc.sleeve{width:min(660px,95vw);background:#e9eef2;padding:18px;border-radius:4px;box-shadow:0 26px 70px rgba(0,0,0,.55),inset 0 0 0 2px rgba(255,255,255,.7)}
+.doc.sleeve h4{margin:0 0 8px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#4a5a6a}
+.doc.sleeve p{font-family:'EB Garamond',serif;font-size:17px;margin:8px 0 0;color:#2a3440}
+/* what you worked out */
+.doc.mine{width:min(620px,92vw);background:#fffdf2 repeating-linear-gradient(transparent 0 29px,#cfdae6 29px 30px);color:#1f3a6a;font-family:'Kalam',cursive;font-size:18px;line-height:30px;padding:34px 30px 20px 34px;border-top:18px solid #23305a}
+.doc.mine h4{margin:0;font-family:'IBM Plex Mono',monospace;font-size:13px;line-height:30px;letter-spacing:.08em;color:#8a3a2a;text-transform:uppercase}
+.doc.mine p{margin:0}
+.doc.mine svg{display:inline-block;vertical-align:middle}
+.doc.statement{background:#f5f1e6;font-family:'EB Garamond',Georgia,serif;font-size:18px;line-height:1.48;border-left:6px solid #23305a}
+.doc.statement h4{font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.06em;color:#23305a}
+.doc .w:hover{color:#8a3a2a}
+.glyph{display:inline-block;vertical-align:middle;color:#23305a}
+
+/* ---- a puzzle: the frame, the line that answers, the button ---- */
+.pz{width:min(1100px,96vw);-webkit-user-select:none;user-select:none}
+.pz-foot{display:flex;align-items:flex-start;gap:16px;margin-top:10px}
+.pmsg{flex:1;min-height:50px;margin:0;font-family:'EB Garamond',Georgia,serif;font-size:18px;line-height:1.4;color:#fbf6e4}
+.pmsg b{color:var(--accent,#f2c21b)}
+.pz-foot .btn{flex:0 0 auto;white-space:nowrap;background:rgba(0,0,0,.45)}
+.pz svg{display:block}
+.pz h5{margin:0 0 6px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;letter-spacing:.16em;text-transform:uppercase}
+
+/* ---- the notebook: a museum guide's folder ---- */
+.nb{background:#1d2436 linear-gradient(140deg,#262f46,#141a28);border:1px solid #4a5670;color:#eeeae0;box-shadow:0 30px 90px rgba(0,0,0,.75),inset 0 0 0 5px #10141e}
+.nb-tabs{border-bottom-color:#4a5670}
+.nb-tabs button{font-family:'Outfit',sans-serif;font-weight:700;font-size:13.5px;letter-spacing:.16em;color:#b9c3d6}
+.nb-tabs button.on{background:#fbfaf6;color:#1d2436;border-color:#4a5670}
+.nb-list{border-right-color:#4a5670}
+.nb-list button{font-family:'EB Garamond',serif;font-size:16.5px;color:#eeeae0}
+.nb-list button small{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em}
+.nb-list button.on{background:#d9b44a;color:#1d2230}
+.nb-view{background:#10141e}
+.nb-empty{font-family:'EB Garamond',serif}
+.nb-words{background:#fbfaf6;color:#1d2230}
+.nb-words b{font-family:'Cinzel',serif;font-weight:700;font-size:16px}
+.nb-words span{font-family:'EB Garamond',serif;font-size:16.5px;line-height:1.35;color:#4a4a52}
+.nb-ko{border-color:#8a96a8;color:#4a4a52}
+.nb-ko.on{background:#1d2436;color:#d9b44a;border-color:#1d2436}
+.wtip,.wtag{background:#fbfaf6;color:#1d2230;border-radius:2px;box-shadow:0 10px 26px rgba(0,0,0,.5),inset 4px 0 0 #8a3a2a}
+.wtag{padding:12px 16px 10px 18px}
+.wtag:before{display:none}
+.wtip b,.wtag b{font-family:'Cinzel',serif;font-weight:700;font-size:16px}
+.wtip span,.wtag span{font-family:'EB Garamond',serif;font-size:16.5px;line-height:1.35;color:#4a4a52}
+.hintbox{background:#fbfaf6;color:#1d2230;border-top:6px solid #8a3a2a;border-radius:2px}
+.hintbox h6{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:13px;letter-spacing:.14em;color:#8a3a2a}
+.hintbox p{font-family:'EB Garamond',serif;font-size:17.5px;line-height:1.42}
+.hintbox p i{background:#1d2230;color:#d9b44a;font-family:'Outfit',sans-serif;font-weight:700;font-size:12px}
+.hintbox p.hint-none{font-style:italic;color:#5a5a62;font-size:16.5px}
+.hintbox .btn{font-size:12.5px}
+.toast{font-family:'Outfit',sans-serif;font-weight:600;font-size:13px;background:rgba(16,20,32,.94)}
+
+/* ---- the card at the end ---- */
+.done{position:fixed;right:2.2vw;top:60px;z-index:34;width:min(560px,94vw);max-height:calc(100vh - 76px);overflow:auto;padding:16px 26px 13px;display:none;background:#fbfaf6;color:#1d2230;
+  border-left:12px solid #8a3a2a;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.done.on{display:block}
+.okstamp{display:inline-block;padding:4px 14px 2px;border:3px solid #8a3a2a;color:#8a3a2a;font-family:'Cinzel',serif;font-weight:700;font-size:20px;letter-spacing:.06em;transform:rotate(-3deg);margin-bottom:7px}
+.done h6{margin:9px 0 5px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:#23305a}
+.done p{margin:0 0 2px;font-family:'IBM Plex Mono',monospace;font-size:13px;line-height:1.4}
+.done ol{margin:0;padding-left:20px;font-family:'EB Garamond',serif;font-size:15px;line-height:1.32}
+.done li{margin:0 0 4px}
+.done .row{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
+.done .btn{--accent:#1d2230;font-size:12.5px;padding:7px 13px}
+.done .btn:hover:not([disabled]){color:#d9b44a}
+.done small{display:block;margin-top:8px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;opacity:.75;line-height:1.5}
+.done small button{text-decoration:underline;font:inherit}
+.rp{width:min(780px,94vw);max-height:84vh;overflow:auto;background:#fbfaf6;color:#1d2230;padding:22px 34px 18px;box-shadow:0 26px 70px rgba(0,0,0,.5);-webkit-user-select:text;user-select:text;border-top:20px solid #8a3a2a}
+.rp h4{margin:0 0 3px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:#8a3a2a}
+.rp h3{margin:0 0 8px;font-family:'Cinzel',serif;font-weight:700;font-size:26px;line-height:1.05}
+.rp p,.rp label{display:block;font-family:'EB Garamond',serif;font-size:17px;line-height:1.45;margin:0 0 6px}
+.rp textarea,.rp input[type=text]{width:100%;font-family:'Kalam',cursive;font-size:18px;line-height:30px;color:#1f3a6a;background:#fff repeating-linear-gradient(transparent 0 29px,#cfdae6 29px 30px);
+  border:1px solid #9aa7b5;padding:0 12px;border-radius:0;resize:vertical;-webkit-user-select:text;user-select:text}
+.rp textarea{min-height:184px}
+.rp input[type=text]{height:32px}
+.rp .count{font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;opacity:.7;text-align:right;margin-top:3px}
+.rp .foot{display:flex;gap:10px;align-items:center;margin-top:10px}
+.rp .foot span{flex:1;font-family:'IBM Plex Mono',monospace;font-size:12px;opacity:.75}
+.rp .btn{--accent:#1d2230}.rp .btn:hover:not([disabled]){color:#d9b44a}
+@media print{
+  body{overflow:visible;background:#fff}
+  body>*:not(.ov){display:none!important}
+  .ov{position:static!important;display:block!important;background:#fff!important;padding:0!important;overflow:visible!important}
+  .ov-bar,.rp .foot{display:none!important}
+  .rp{box-shadow:none;max-height:none;width:auto;overflow:visible}
+}

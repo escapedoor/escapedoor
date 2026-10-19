@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Sackville Street · By the Nearest Road</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-history.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="pump.css">
+<style>
+  body{--bg:#1a2218;--accent:#f2c46a;--font-display:'Abril Fatface',serif;--font-ui:'Oswald',sans-serif;--font-body:'Libre Caslon Text',serif;
+    --tc-bg:rgba(18,24,16,.95);--tc-ink:#f2ead6;--cap-bg:rgba(20,26,18,.93);--panel:#1e281c;--face-bg:#34402e;--q-ink:#f6d08a;--fade:#080a06;--hud-bg:rgba(18,24,16,.82)}
+  .lb{font-family:'Oswald',sans-serif;font-weight:500;text-anchor:middle;letter-spacing:.12em}
+  #flame path{animation:fl 1.1s steps(3,end) infinite;transform-origin:1300px 640px}
+  #flame path:nth-child(2){animation-delay:-.4s}
+  @keyframes fl{50%{transform:scaleY(1.12) translateY(-3px)}}
+  #glow{animation:gl 2.6s steps(4,end) infinite}
+  @keyframes gl{50%{opacity:.75}}
+  #table.ready,#page.ready,#snow.ready{animation:nudge 1.6s ease-in-out infinite}
+  @keyframes nudge{50%{transform:translateY(-5px)}}
+
+  /* the tracing on the desk */
+  .wk{display:grid;grid-template-columns:minmax(0,720px) 330px;gap:16px;width:min(1080px,97vw);align-items:start}
+  .wk-map{background:#f2ecd8;border:1px solid #9a8a6a;box-shadow:0 18px 40px rgba(0,0,0,.6),inset 0 0 0 6px #f2ecd8,inset 0 0 0 7px #c9b48a}
+  .wk-map svg{display:block;width:100%;height:auto}
+  .wk-map .case{cursor:pointer}
+  .wk-side{display:grid;gap:8px;align-content:start}
+  .pin-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;padding:6px 8px;background:rgba(255,255,255,.06);border-left:3px solid #c9a23a}
+  .pin-row b{display:block;font-family:'Libre Caslon Text',serif;font-weight:700;font-size:15px;color:#f2ead6}
+  .pin-row small{display:block;font-family:'Libre Caslon Text',serif;font-style:italic;font-size:13px;color:#cfc6ae}
+  .case-row{padding:5px 8px 7px;background:rgba(255,255,255,.06);border-left:3px solid #7a1d14}
+  .case-row b{font-family:'Oswald',sans-serif;font-weight:500;font-size:13px;letter-spacing:.1em;color:#f2ead6}
+  .case-row .opts{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:4px}
+  .case-row button{padding:3px 5px;text-align:left;line-height:1.2;border:1px solid #8a7a58;border-radius:2px;background:#2a2a20;color:#e9dfc4;font-family:'Libre Caslon Text',serif;font-size:12.5px;cursor:pointer}
+  .case-row button:hover{border-color:#f2c46a}
+  .case-row button.on{background:#f2c46a;color:#1a1a12;border-color:#f2c46a}
+  .case-row.no{border-left-color:#e05a3a;background:rgba(160,40,20,.25)}
+  .case-row.ok{border-left-color:#7ac46a}
+  .wk-foot{display:grid;grid-template-columns:64px minmax(0,1fr);gap:10px;align-items:start;margin-top:8px}
+  .wk-foot .lk-face{width:64px}
+  .wk-side .btn{width:100%}
+  @media (max-width:980px){.wk{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1e2a1c"/><stop offset="1" stop-color="#2e3c2a"/></linearGradient>
+  <linearGradient id="floorG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a1e14"/><stop offset="1" stop-color="#1a0c08"/></linearGradient>
+  <radialGradient id="lampG" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffd890" stop-opacity=".55"/><stop offset="1" stop-color="#ffd890" stop-opacity="0"/></radialGradient>
+  <radialGradient id="fireG" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ff9a4a" stop-opacity=".45"/><stop offset="1" stop-color="#ff9a4a" stop-opacity="0"/></radialGradient>
+  <linearGradient id="nightG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0e1424"/><stop offset="1" stop-color="#26304a"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="75%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".65" stop-color="#040604" stop-opacity=".3"/><stop offset="1" stop-color="#040604" stop-opacity=".85"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#wallG)"/>
+<g stroke="#3a4a36" stroke-width="2" opacity=".5"><path d="M-1000 100H2600"/><path d="M0 100v400M200 100v400M1400 100v400M1600 100v400" stroke-dasharray="2 10"/></g>
+<rect x="-1000" y="500" width="3600" height="200" fill="#2a1c12"/><path d="M-1000 500H2600" stroke="#5a3e26" stroke-width="10"/>
+<rect x="-1000" y="700" width="3600" height="620" fill="url(#floorG)"/>
+<g fill="#5a2a1c" opacity=".35"><path d="M300 760h1000l120 160H180z"/></g>
+<g stroke="#7a3a24" stroke-width="3" fill="none" opacity=".3"><path d="M340 790h920M300 840h1000M260 890h1080"/></g>
+
+<!-- the window, the street lamp outside -->
+<g id="window" class="hot">
+  <rect x="460" y="120" width="220" height="300" fill="url(#nightG)"/>
+  <g fill="#3a3a44"><rect x="460" y="300" width="220" height="120"/></g><g fill="#5a5a66"><rect x="480" y="320" width="30" height="40"/><rect x="540" y="330" width="26" height="36"/><rect x="610" y="316" width="30" height="44"/></g>
+  <path d="M600 420V200" stroke="#1a1a1a" stroke-width="6"/><path d="M586 196h28l-4 -26h-20z" fill="#1a1a1a"/><circle id="glow" cx="600" cy="186" r="26" fill="#ffe2a0" opacity=".9"/><circle cx="600" cy="186" r="8" fill="#fff6d0"/>
+  <g fill="none" stroke="#3a2416" stroke-width="12"><rect x="460" y="120" width="220" height="300"/></g><path d="M570 120v300M460 270h220" stroke="#3a2416" stroke-width="6"/>
+  <path d="M440 110q40 160 20 330M700 110q-40 160-20 330" fill="#5a1e14" opacity=".9"/>
+</g>
+
+<!-- books, floor to ceiling -->
+<g id="books" class="hot">
+  <rect x="-80" y="80" width="360" height="620" fill="#3a2416"/>
+  <g fill="#24160c"><rect x="-80" y="200" width="360" height="10"/><rect x="-80" y="330" width="360" height="10"/><rect x="-80" y="460" width="360" height="10"/><rect x="-80" y="590" width="360" height="10"/></g>
+  <g fill="#6a2a1c"><rect x="-60" y="104" width="22" height="96"/><rect x="-10" y="110" width="26" height="90"/><rect x="60" y="106" width="20" height="94"/><rect x="130" y="112" width="28" height="88"/><rect x="200" y="104" width="22" height="96"/><rect x="-40" y="236" width="24" height="94"/><rect x="40" y="240" width="22" height="90"/><rect x="110" y="236" width="26" height="94"/><rect x="190" y="242" width="22" height="88"/><rect x="-60" y="366" width="22" height="94"/><rect x="20" y="370" width="26" height="90"/><rect x="100" y="368" width="22" height="92"/><rect x="170" y="366" width="28" height="94"/><rect x="0" y="496" width="24" height="94"/><rect x="80" y="500" width="22" height="90"/><rect x="160" y="496" width="26" height="94"/></g>
+  <g fill="#2a3a4a"><rect x="-36" y="108" width="22" height="92"/><rect x="18" y="106" width="20" height="94"/><rect x="84" y="110" width="22" height="90"/><rect x="164" y="106" width="22" height="94"/><rect x="226" y="110" width="22" height="90"/><rect x="-14" y="240" width="22" height="90"/><rect x="66" y="236" width="22" height="94"/><rect x="140" y="240" width="22" height="90"/><rect x="216" y="236" width="24" height="94"/><rect x="-34" y="370" width="24" height="90"/><rect x="50" y="366" width="22" height="94"/><rect x="126" y="370" width="22" height="90"/><rect x="204" y="368" width="22" height="92"/><rect x="28" y="500" width="22" height="90"/><rect x="106" y="496" width="22" height="94"/><rect x="190" y="500" width="22" height="90"/></g>
+  <g fill="#c9a23a" opacity=".7"><rect x="-56" y="124" width="14" height="3"/><rect x="64" y="126" width="12" height="3"/><rect x="204" y="124" width="14" height="3"/><rect x="44" y="258" width="14" height="3"/><rect x="194" y="262" width="14" height="3"/><rect x="24" y="388" width="18" height="3"/><rect x="174" y="386" width="18" height="3"/><rect x="84" y="518" width="14" height="3"/></g>
+</g>
+
+<!-- the chloroform inhaler on a small table -->
+<g id="inhaler" class="hot">
+  <path d="M170 700h150M190 700v120M300 700v120" stroke="#4a2a18" stroke-width="10"/><rect x="160" y="690" width="170" height="14" fill="#5a3420"/>
+  <ellipse cx="226" cy="672" rx="22" ry="18" fill="#c9a23a"/><rect x="214" y="650" width="24" height="12" fill="#a07a2a"/><path d="M246 672q30 0 34 -20" stroke="#6a5a4a" stroke-width="7" fill="none"/><path d="M272 640q14-8 26 0v20q-12 8-26 0z" fill="#e8e0cc" stroke="#8a7a5a" stroke-width="2"/>
+</g>
+
+<!-- the fireplace -->
+<g id="fire" class="hot">
+  <rect x="1180" y="430" width="250" height="270" fill="#d8ccb4"/><rect x="1166" y="420" width="278" height="22" fill="#e8dcc4"/>
+  <path d="M1220 700V520q0-40 40-40h90q40 0 40 40v180z" fill="#140c08"/>
+  <ellipse cx="1305" cy="650" rx="140" ry="90" fill="url(#fireG)"/>
+  <g id="flame"><path d="M1270 660q-6-40 14-60q-4 30 16 30q-4-34 20-50q-2 40 16 56q4-14 14-18q2 26-6 42z" fill="#f08a2a"/><path d="M1286 660q0-24 12-34q2 16 12 18q2-16 12-22q4 22-4 38z" fill="#ffd060"/></g>
+  <path d="M1240 668h130" stroke="#3a2a20" stroke-width="10"/>
+  <rect x="1230" y="396" width="34" height="24" fill="#c9a23a"/><rect x="1344" y="400" width="44" height="20" fill="#efe6cc"/>
+</g>
+
+<!-- the lamp's light, the desk, the papers -->
+<ellipse cx="860" cy="560" rx="380" ry="220" fill="url(#lampG)"/>
+<g fill="#4a2a18"><path d="M500 600h720l40 60H460z"/><rect x="470" y="660" width="780" height="34"/><rect x="500" y="694" width="40" height="190"/><rect x="1180" y="694" width="40" height="190"/></g>
+<g id="lamp" class="hot"><rect x="1090" y="560" width="40" height="40" fill="#c9a23a"/><path d="M1080 560q30-90 60 0z" fill="#ffe6a8" opacity=".95"/><path d="M1086 470h48l-10 30h-28z" fill="#2a5a3a"/></g>
+
+<!-- Dr Snow at the desk -->
+<g id="snow" class="hot">
+  <path d="M770 600q-6-150 26-174q30-16 58 0q30 26 22 174z" fill="#1d1d24"/>
+  <path d="M800 432l26 30 26-30" fill="#f2efe6"/><path d="M812 436h28l-5 10h-18z" fill="#141414"/>
+  <rect x="815" y="392" width="22" height="34" fill="#ecc6a6"/><ellipse cx="826" cy="374" rx="29" ry="34" fill="#ecc6a6"/>
+  <path d="M797 372q-2-30 14-38q-4 12-6 34zM855 372q2-30-14-38q4 12 6 34z" fill="#3a2a1c"/><path d="M808 342q18-10 36 0q-18-4-36 0z" fill="#3a2a1c"/>
+  <circle cx="816" cy="376" r="2.6" fill="#1b1512"/><circle cx="836" cy="376" r="2.6" fill="#1b1512"/><path d="M819 394q7 3 14 0" stroke="#5a2a20" stroke-width="2" fill="none"/>
+  <path d="M780 470q-30 60 10 120M872 470q30 60-10 120" stroke="#1d1d24" stroke-width="18" stroke-linecap="round" fill="none"/>
+</g>
+<!-- the tracing spread on the desk -->
+<g id="table" class="hot">
+  <path d="M700 612l210-6 30 46-250 8z" fill="#f2ecd8"/><g stroke="#9a8a6a" stroke-width="4" fill="none"><path d="M712 630l200-6M760 612l-8 46M840 610l6 44"/></g>
+  <path d="M760 640q60-30 110-8" stroke="#7a1d14" stroke-width="2" stroke-dasharray="5 4" fill="none"/><circle cx="800" cy="628" r="4" fill="#1a1a1a"/>
+</g>
+<g id="page" class="hot"><path d="M560 616l110-4 10 40-118 6z" fill="#f7f1e1"/><g stroke="#1f2438" stroke-width="1.5"><path d="M572 626l80-3M574 634l90-3M576 642l60-2"/></g></g>
+<g id="calls" class="hot"><path d="M960 612l90-2 6 40-96 4z" fill="#2a1e14"/><path d="M968 616l76-2 4 32-80 3z" fill="#efe6cc"/><g stroke="#1f2438" stroke-width="1.4"><path d="M976 624l56-2M978 632l60-2M978 640l40-1"/></g></g>
+<!-- the bottle of pump water, held up to the lamp -->
+<g id="bottle" class="hot"><path d="M1020 600v-60q0-14 10-20v-18h20v18q10 6 10 20v60z" fill="#b8d0d8" opacity=".75" stroke="#5a7a84" stroke-width="2"/><rect x="1028" y="490" width="24" height="12" fill="#6a4a2a"/><g fill="#fff"><circle cx="1036" cy="560" r="1.6"/><circle cx="1046" cy="574" r="1.3"/><circle cx="1032" cy="582" r="1.4"/><circle cx="1050" cy="550" r="1.2"/></g></g>
+
+<!-- Florrie by the fire -->
+<g id="florrie" class="hot">
+  <ellipse cx="1510" cy="790" rx="56" ry="10" fill="#000" opacity=".3"/>
+  <path d="M1476 784q-8-170 20-200q24-12 44 0q26 30 18 200z" fill="#6a4a6a"/><path d="M1468 640q20-50 48-52q30 2 48 52" fill="#8a5a3a"/>
+  <rect x="1500" y="540" width="20" height="26" fill="#f2cdb0"/><ellipse cx="1510" cy="526" rx="24" ry="27" fill="#f2cdb0"/>
+  <path d="M1486 522q-4-36 24-38q28 2 24 38q-8-18-24-18q-16 0-24 18z" fill="#f6f3ea"/><path d="M1490 528v14M1530 528v14" stroke="#8a3c1a" stroke-width="5"/>
+  <circle cx="1501" cy="528" r="2.4" fill="#1b1512"/><circle cx="1519" cy="528" r="2.4" fill="#1b1512"/>
+</g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Go to the brewery in the morning</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="pump.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, box = null, inLock = false, stageB = false;
+
+  ER.init({
+    theme: 'history', story: 'pump', storyTitle: 'By the Nearest Road', id: 'study', no: 'III', title: 'Sackville Street',
+    go: 'Knock', back: '../index.html', backLabel: 'Archive',
+    intro: [
+      'Every death went on the map at the house where it began: the man from Hopkins Street at Hopkins Street, not at Middlesex Hospital; the woman from Peter Street at Peter Street, not at the workhouse; the tailor at No. 22 Broad Street, where he was taken ill, not at his sister&rsquo;s. Then the bars crowded round one corner: the pump, and the grating a few feet from it. The map could say where. It could not say what.',
+      'Wednesday evening, nine o&rsquo;clock. Dr Snow&rsquo;s house in Sackville Street, off Piccadilly. Florrie Dawlish has come with you, because, she says, somebody has to carry the lantern home.'
+    ],
+    exit: {"next":"brewery","w":{"8931268b":"5eecad1c"}}, tags: {"p1":["90b907c3"],"p2":["a9f51a29"],"p3":["762981e8"],"why":["dd3e0b2e","098fb07e","4f97d1ef"],"c":["6a0ab5fa","503c7fb3","34a8611b","f318d0f9","bb8e5922"]},
+    hints: hints, onBegin: begin
+  });
+
+  function file() { return ER.flag('w-file'); }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#snow').classList.toggle('ready', !file() && !ER.flag('w-snow'));
+    $('#page').classList.toggle('ready', !file() && !!ER.flag('w-snow') && !ER.flag('w-road'));
+    $('#table').classList.toggle('ready', !file() && !!ER.flag('w-road'));
+    ER.pips(file() ? 2 : ER.flag('w-pins') ? 1 : 0, 2);
+    if (file()) PU.door($('#go'), file(), 'w-file');
+  }
+  function hints() {
+    if (file()) return ['go', ['The night is over. Use the button at the bottom of the screen.']];
+    if (inLock && stageB) return ['cases', [
+      'Five houses lie beyond the line. Read Dr Snow&rsquo;s note on each one: House calls, Wednesday, in your notebook, or the notebook on the desk.',
+      'Four kinds of answer: the family liked the Broad Street water better; a child went to school near the pump; the person worked in Broad Street; or no link at all. Look at the dates too. When did the outbreak begin?'
+    ]];
+    if (inLock) return ['pins', [
+      'For each street, count the yards along the road from Dr Snow&rsquo;s pump to the pin, and from the other pump to the pin. Move the pin until the two counts are equal.',
+      'Marshall Street: from the Broad Street pump to the bottom of Marshall Street is 150 yards. From the Marlborough Street pump to the top is 50, and the street is 200 long. With the pin x yards up the street, one count is 150 + x and the other is 50 + (200 − x).',
+      'Peter Street: the blind court has a wall across it, so the road from Rupert Street goes round by Brewer Street and Wardour Street: 80 + 140 to the far end of Peter Street. Great Pulteney Street: from Rupert Street, along Brewer Street to its bottom end, 240.'
+    ]];
+    if (!ER.flag('w-snow')) return ['snow', ['Dr Snow is at his desk. Talk to him.']];
+    if (!ER.flag('w-road')) return ['road', ['Read the page on the desk, by the lamp: By the nearest road. His notebook of house calls is on the desk too.']];
+    return ['table', ['The tracing is spread on the desk in front of Dr Snow. Click it.']];
+  }
+
+  function begin() {
+    paint();
+    PU.need('mark', 'How I mark the map', PU.MARK, 'notes', 'Dr Snow');
+    PU.need('smell', 'Mr Stannard’s map of nuisances', PU.SMELL, 'smell', 'From Mr Stannard');
+    if (ER.flag('w-in')) { busy = false; ER.say(file() ? 'The fire is low. Dr Snow is still writing.' : 'Dr Snow&rsquo;s study, by lamplight.'); return; }
+    ER.narrate([
+      'Dr Snow lets you in himself. The study is warm, and full of books, and smells of lamp oil and ink. On the desk, in the lamplight, stands a bottle of water from the Broad Street pump.',
+      'He has traced the streets round the pump onto a fresh sheet, with only the streets that matter, and written the length of each one in yards. &ldquo;I walked them all this afternoon,&rdquo; he says, &ldquo;counting my steps. The people in the street thought I had gone mad. Some of them are probably right.&rdquo;'
+    ], function () { busy = false; ER.flag('w-in', 1); paint(); });
+  }
+
+  $('#snow').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({ who: 'Dr John Snow', role: 'At his desk, Sackville Street', face: PU.FACE('snow'), lines: [
+      '&ldquo;Here is what troubles me. A few of the bars stand in houses that are nearer, by the road, to another pump. If the water is the cause, each of them needs a reason. If I cannot find one, it counts against me, and I must say so.&rdquo;',
+      { q: 'Nearer by the road? Not nearer on the map?', a: '&ldquo;People do not fly to a pump, Tapping. They walk to it, carrying a pail. I have written it out for you. It is on the desk by the lamp.&rdquo;' },
+      '&ldquo;There are two other pumps near enough to matter: the one in Marlborough Street, at the top of Carnaby Street, and the one in Rupert Street. Find me the line where each of them becomes nearer than mine. Pin each street where the two walks are equal.&rdquo;'
+    ], clue: { id: 'snow3', title: 'Dr Snow: the bars that need a reason', kind: 'Statement' }, done: function (seen) { if (seen) { ER.flag('w-snow', 1); paint(); } } });
+  });
+  $('#florrie').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({ who: 'Florrie Dawlish', role: 'By the fire', face: PU.FACE('florrie'), lines: [
+      '&ldquo;Carrying water&rsquo;s my job at home, two pails, four times a day. You don&rsquo;t walk one step further than you have to. Not unless the water&rsquo;s better somewhere else.&rdquo;',
+      '&ldquo;I asked Mr Eley about his mother. It&rsquo;s true. She died on Saturday. And the bottle went up to her on Thursday, same as always.&rdquo;',
+      '&ldquo;He says I can ride up to West End with the carter tomorrow. Mrs Applin, her servant, was with her the whole time. She&rsquo;ll tell it straight.&rdquo;',
+      { note: 'Dr Snow has been listening.' },
+      '&ldquo;If you go,&rdquo; he says, &ldquo;write down exactly what you are told, and who told you, and how they came to know it.&rdquo;'
+    ], clue: { id: 'florrie3', title: 'Florrie: the bottle went on Thursday', kind: 'Statement' } });
+  });
+  $('#page').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: PU.ROAD, cls: 'notes', clue: { id: 'road', title: 'By the nearest road', kind: 'Dr Snow' }, done: function () {
+      ER.flag('w-road', 1); PU.learn('as the crow flies', 'boundary'); paint();
+      if (!file()) ER.say('The tracing is on the desk. His notebook of house calls is beside it.');
+    } });
+  });
+  $('#calls').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: PU.CALLS, cls: 'notes', clue: { id: 'calls', title: 'House calls, Wednesday', kind: 'Dr Snow’s notebook' } });
+  });
+  $('#bottle').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: PU.WATER, cls: 'notes', clue: { id: 'water', title: 'Pump water, Broad Street', kind: 'Dr Snow' } });
+  });
+  PU.thing('#books', null, 'Medical books, and on the end of a shelf a thin one with his own name on it: On the Mode of Communication of Cholera, 1849. He thought then that cholera was caught by swallowing it, not by breathing it. Hardly anybody agreed with him.', isBusy);
+  PU.thing('#inhaler', null, 'A brass inhaler for chloroform. Dr Snow is the best-known man in London for putting people safely to sleep before an operation. Last year he did it for the Queen.', isBusy);
+  PU.thing('#window', null, 'Sackville Street at night. The lamplighter has been, and the gas lamp hisses quietly to itself.', isBusy);
+  PU.thing('#fire', null, 'A small, careful fire. Dr Snow does not seem the kind of man to have a large, careless one.', isBusy);
+  PU.thing('#lamp', null, 'An oil lamp with a green shade. Its light falls exactly on the map, which you suspect is not an accident.', isBusy);
+  $('#table').addEventListener('click', function () {
+    if (busy || file()) return;
+    if (!ER.flag('w-road')) { ER.say('The tracing. Read his page first, by the lamp: By the nearest road.'); return; }
+    openLock();
+  });
+
+  /* ---------- the tracing: three streets, three pins, and the houses beyond the line ---------- */
+  /* streets [x1,y1,x2,y2]; lengths in yards are written on the tracing (one yard to one unit) */
+  var SEG = [[100, 260, 740, 260], [150, 60, 150, 260], [100, 60, 100, 260], [100, 60, 150, 60], [420, 260, 420, 460], [420, 460, 740, 460], [500, 260, 500, 320], [500, 320, 740, 320], [740, 260, 740, 460]];
+  var LAB = [[225, 252, '150 yd'], [125, 252, '50'], [166, 200, '200 yd', 90], [124, 165, '200 yd', -90], [125, 52, '50'], [360, 252, '120 yd'], [460, 252, '80'], [620, 252, '240 yd'],
+    [428, 365, '200 yd', 90], [540, 476, '240 yd'], [700, 476, '80'], [508, 292, '60'], [620, 312, '240 yd'], [748, 395, '140 yd', 90], [748, 292, '60', 90]];
+  /* the pins: street, start x, start y, direction, length */
+  var PINS = [['p1', 'Marshall Street', 'between my pump and Marlborough Street', 150, 260, 0, -1, 200], ['p2', 'Peter Street', 'between my pump and Rupert Street', 500, 320, 1, 0, 240], ['p3', 'Great Pulteney Street', 'between my pump and Rupert Street', 420, 260, 0, 1, 200]];
+  var CASES = [['A', '9 Carnaby Street', 100, 112], ['B', '22 Peter Street', 700, 320], ['C', '30 Marshall Street', 150, 80], ['D', '3 Wardour Street', 740, 430], ['E', '6 Brewer Street', 620, 460]];
+  var OPTS = [['p', 'liked its water better'], ['s', 'at school by the pump'], ['w', 'worked in Broad Street'], ['n', 'no link: ill before Thursday']];
+  function trace() {
+    var s = '<svg viewBox="0 0 800 520" xmlns="http://www.w3.org/2000/svg"><rect width="800" height="520" fill="#f2ecd8"/>';
+    s += '<g stroke="#d6caa6" stroke-width="18" stroke-linecap="square">' + SEG.map(function (g) { return '<path d="M' + g[0] + ' ' + g[1] + 'L' + g[2] + ' ' + g[3] + '"/>'; }).join('') + '</g>';
+    /* the blind court, with its wall */
+    s += '<path d="M660 330V452" stroke="#e4dcc2" stroke-width="10"/><path d="M648 352h24" stroke="#5a1f14" stroke-width="6"/>';
+    s += '<text x="672" y="400" font-family="\'EB Garamond\',serif" font-style="italic" font-size="12.5" fill="#5a1f14">blind court:</text><text x="672" y="414" font-family="\'EB Garamond\',serif" font-style="italic" font-size="12.5" fill="#5a1f14">a wall, no way through</text>';
+    s += '<g font-family="\'IBM Plex Mono\',monospace" font-size="11.5" fill="#7a3a20">' + LAB.map(function (l) { return '<text x="' + l[0] + '" y="' + l[1] + '" text-anchor="middle"' + (l[3] ? ' transform="rotate(' + l[3] + ' ' + l[0] + ' ' + l[1] + ')"' : '') + '>' + l[2] + '</text>'; }).join('') + '</g>';
+    s += '<g font-family="\'Libre Caslon Text\',serif" font-size="11" fill="#4a3a20" letter-spacing=".06em"><text x="250" y="284">BROAD STREET</text><text x="176" y="80" transform="rotate(90 176 80)">MARSHALL ST.</text><text x="86" y="230" transform="rotate(-90 86 230)">CARNABY ST.</text>' +
+      '<text x="170" y="48">GT. MARLBOROUGH ST.</text><text x="408" y="290" transform="rotate(90 408 290)">GT. PULTENEY ST.</text><text x="520" y="500">BREWER ST.</text><text x="560" y="342">PETER ST.</text><text x="484" y="236">BERWICK ST.</text><text x="760" y="300" transform="rotate(90 760 300)">WARDOUR ST.</text></g>';
+    s += '<g id="bars" fill="#1f2438">' + [[300, 250, 4], [320, 270, 3], [280, 270, 2], [340, 250, 2], [300, 290, 3], [260, 250, 1], [380, 270, 2], [420, 300, 2], [440, 250, 2], [500, 290, 1], [230, 270, 1], [200, 250, 1], [150, 230, 1], [420, 340, 1], [540, 320, 1], [470, 270, 1]].map(function (b) {
+      var o = '', i; for (i = 0; i < b[2]; i++) o += '<rect x="' + (b[0] - 7) + '" y="' + (b[1] - i * 4.5) + '" width="14" height="3"/>'; return o; }).join('') + '</g>';
+    s += '<g id="line" style="display:none"><path d="" fill="#2a5a8a" fill-opacity=".07" stroke="#2a5a8a" stroke-width="2.5" stroke-dasharray="7 5"/></g>';
+    s += '<g id="cases" style="display:none">' + CASES.map(function (c) {
+      return '<g class="case" data-c="' + c[0] + '"><rect x="' + (c[2] - 7) + '" y="' + (c[3] - 4) + '" width="14" height="3" fill="#1f2438"/><circle cx="' + (c[2] + 14) + '" cy="' + (c[3] - 12) + '" r="10" fill="#7a1d14"/><text x="' + (c[2] + 14) + '" y="' + (c[3] - 8) + '" text-anchor="middle" font-family="Oswald,sans-serif" font-size="12" fill="#fff">' + c[0] + '</text></g>'; }).join('') + '</g>';
+    s += '<g id="pins">' + PINS.map(function (p) { return '<g data-p="' + p[0] + '"><path d="M0 0v-22" stroke="#7a1d14" stroke-width="2.5"/><circle cy="-24" r="6" fill="#b3261c" stroke="#5a1f14" stroke-width="1.5"/></g>'; }).join('') + '</g>';
+    s += '<g font-family="\'EB Garamond\',serif" font-size="13" fill="#1a1a1a"><circle cx="300" cy="260" r="8" fill="#1a1a1a"/><text x="300" y="242" text-anchor="middle" font-weight="700">MY PUMP</text>' +
+      '<circle cx="100" cy="60" r="8" fill="#1a1a1a"/><text x="6" y="34">Marlborough St. pump</text>' +
+      '<circle cx="660" cy="460" r="8" fill="#1a1a1a"/><text x="660" y="490" text-anchor="middle">Rupert St. pump</text></g>';
+    s += '<text x="20" y="510" font-family="\'EB Garamond\',serif" font-style="italic" font-size="12" fill="#6b6552">Only the streets that matter are drawn. Lengths along the road, in yards.</text>';
+    return s + '</svg>';
+  }
+  function build() {
+    var b = ER.el('div', 'wk'), lock = false, msgEl, svg, setters = {}, pick = ER.flag('w-pick') || {};
+    b.innerHTML = '<div><div class="wk-map">' + trace() + '</div><div class="wk-foot"><div class="lk-face">' + PU.FACE('snow') + '</div><div><h6 class="lk-h">Dr Snow</h6><p class="pmsg"></p></div></div></div><div class="wk-side"><h3 class="lk-title">The tracing</h3><div class="wk-rows"></div>' +
+      '<button type="button" class="btn" id="wk-go">Join the pins</button></div>';
+    svg = b.querySelector('svg'); msgEl = b.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    var rows = b.querySelector('.wk-rows');
+    function pinAt(p, v) { var g = svg.querySelector('#pins g[data-p="' + p[0] + '"]'); g.setAttribute('transform', 'translate(' + (p[3] + p[5] * v) + ' ' + (p[4] + p[6] * v) + ')'); }
+    PINS.forEach(function (p) {
+      var r = ER.el('div', 'pin-row', '<div><b>' + p[1] + '</b><small>' + p[2] + ': yards from the Broad Street end</small></div>');
+      var st = PU.num({ val: 0, min: 0, max: p[7], steps: [10], fmt: function (v) { return v + ' yd'; }, onChange: function (v) { pinAt(p, v); PU.sfx.pin(); } });
+      r.appendChild(st.el); r.setAttribute('data-p', p[0]); rows.appendChild(r); setters[p[0]] = st; pinAt(p, 0);
+    });
+    b.querySelector('#wk-go').addEventListener('click', function () {
+      if (lock) return;
+      if (stageB) { tryCases(); return; }
+      var bad = null, n = 0;
+      PINS.forEach(function (p) { var v = String(setters[p[0]].get()), ok = ER.check(p[0], v); setters[p[0]].mark(ok ? 'ok' : 'no'); if (!ok) { n++; if (!bad) bad = p; } });
+      if (bad) {
+        PU.slip(); ER.sfx.no();
+        var v = setters[bad[0]].get(), w = ER.check('why', bad[0] + '@' + v);
+        msg('&ldquo;' + (n === 1 ? 'One pin is' : n + ' pins are') + ' not where the two walks are equal. ' + bad[1] + ': ' + (
+          w && bad[0] === 'p2' ? 'you have gone through the blind court. There is a wall across it. Water does not climb walls, and nor do people with pails.' :
+          w ? 'that is the middle of the street. But the two pumps are not the same distance from its two ends.' :
+          'count again: from my pump to the pin, and from the other pump to the pin, along the road. The two counts must be equal.') + '&rdquo;');
+        return;
+      }
+      ER.flag('w-pins', 1); PU.sfx.pen(); stage2(); paint();
+    });
+    function stage2() {
+      stageB = true;
+      var v = {}; PINS.forEach(function (p) { v[p[0]] = setters[p[0]].get(); setters[p[0]].mark('ok'); });
+      var a = [150, 260 - v.p1], c = [500 + v.p2, 320], d = [420, 260 + v.p3];
+      var path = 'M100 260 L' + a[0] + ' ' + a[1] + ' Q240 130 360 150 T560 210 Q610 250 ' + c[0] + ' ' + c[1] + ' Q590 400 ' + d[0] + ' ' + d[1] + ' Q300 440 200 380 T100 260 Z';
+      svg.querySelector('#line path').setAttribute('d', path); svg.querySelector('#line').style.display = ''; svg.querySelector('#cases').style.display = '';
+      rows.innerHTML = '<p class="lk-sub">Inside the dotted line my pump is the nearest walk. Five houses beyond it lost somebody. Read my note on each, and give each its reason.</p>';
+      CASES.forEach(function (cs) {
+        var r = ER.el('div', 'case-row', '<b>' + cs[0] + ' &middot; ' + cs[1] + '</b><div class="opts">' + OPTS.map(function (o) { return '<button type="button" data-o="' + o[0] + '">' + o[1] + '</button>'; }).join('') + '</div>');
+        r.setAttribute('data-c', cs[0]); rows.appendChild(r);
+        if (pick[cs[0]]) r.querySelector('button[data-o="' + pick[cs[0]] + '"]').classList.add('on');
+        ER.$$('button', r).forEach(function (bt) { bt.addEventListener('click', function () { if (lock) return; pick[cs[0]] = bt.getAttribute('data-o'); ER.flag('w-pick', pick); ER.$$('button', r).forEach(function (x) { x.classList.toggle('on', x === bt); }); r.classList.remove('no', 'ok'); ER.sfx.click(); }); });
+      });
+      b.querySelector('#wk-go').textContent = 'Tell Dr Snow';
+      msg('&ldquo;There is the line. Inside it, my pump is the nearest walk; outside it, another pump is. And five houses outside it lost somebody this week.&rdquo; He taps them. &ldquo;Each one needs a reason.&rdquo;');
+    }
+    svg.addEventListener('click', function (e) {
+      var c = e.target.closest ? e.target.closest('.case') : null; if (!c) return;
+      ER.read({ html: PU.CALLS, cls: 'notes', clue: { id: 'calls', title: 'House calls, Wednesday', kind: 'Dr Snow’s notebook' }, done: function () { setTimeout(openLock, 30); } });
+    });
+    function tryCases() {
+      var miss = CASES.filter(function (c) { return !pick[c[0]]; }).length;
+      if (miss) { msg('&ldquo;' + miss + (miss === 1 ? ' house still has' : ' houses still have') + ' no reason. Each one gets one.&rdquo;'); return; }
+      var bad = [];
+      CASES.forEach(function (c) { var r = rows.querySelector('.case-row[data-c="' + c[0] + '"]'), ok = ER.check('c', c[0] + ':' + pick[c[0]]); r.classList.add(ok ? 'ok' : 'no'); if (!ok) bad.push(c); });
+      if (bad.length) {
+        PU.slip(); ER.sfx.no();
+        msg('&ldquo;' + (bad.length === 1 ? 'One reason does not' : bad.length + ' reasons do not') + ' fit my notes. House ' + bad[0][0] + ', ' + bad[0][1] + ': read my note again. Where did that water come from, if it came from Broad Street at all? And when did the illness come?&rdquo;');
+        return;
+      }
+      var cand = PINS.map(function (p) { return setters[p[0]].get(); }).join('-') + '|' + CASES.map(function (c) { return c[0] + ':' + pick[c[0]]; }).join('-');
+      var nxt = ER.exit([cand], { wait: true });
+      if (!nxt) { msg('&ldquo;Something is not right. Tell your teacher.&rdquo;'); return; }
+      lock = true; b.querySelector('#wk-go').disabled = true;
+      msg('&ldquo;Every one of them,&rdquo; he says. &ldquo;Two families who sent for my water because they liked it better. A child at the school. A man who worked in Broad Street. And one poor man who was ill before Thursday: the cholera that was in these streets all August, a little, before the pump began.&rdquo;');
+      setTimeout(function () { ER.closeAll(); finish(nxt); }, 4200);
+    }
+    b.first = function () {
+      if (ER.flag('w-pins')) { PINS.forEach(function (p) { var v = ER.flag('w-' + p[0]); if (v != null) { setters[p[0]].set(v); pinAt(p, v); } }); }
+      msg('&ldquo;Three streets lie between my pump and the others. On each one, move the pin to the point where the walk to my pump and the walk to the other pump are the same length. Count along the road, not across the paper.&rdquo;');
+    };
+    PINS.forEach(function (p) { var st = setters[p[0]]; var old = st.el.querySelectorAll('button'); Array.prototype.forEach.call(old, function (bt) { bt.addEventListener('click', function () { ER.flag('w-' + p[0], st.get()); }); }); });
+    return b;
+  }
+  function openLock() { var f = !box; if (!box) box = build(); inLock = true; ER.open('ov-lock', box, function () { inLock = false; }); if (f) box.first(); }
+
+  function finish(nxt) {
+    busy = true; inLock = false;
+    ER.narrate([
+      'Dr Snow sits back. &ldquo;Mr Stannard&rsquo;s air does not stop at a line drawn by counting steps. My water does. Where it becomes easier to walk to another pump, the deaths stop, unless somebody had a reason to walk further.&rdquo;',
+      '&ldquo;But the bars near the pump still fit his air as well as my water,&rdquo; he says. &ldquo;Those prove nothing between us. I need places where his air and my water say different things.&rdquo; He takes a sheet of paper. &ldquo;There is a brewery fifty yards from the pump, and not one brewer&rsquo;s man on Mr Peebles&rsquo;s list. I have patients in the morning. Will you go and ask why?&rdquo;',
+      'Florrie lights the lantern for the walk home. &ldquo;Brewery in the morning,&rdquo; she says, &ldquo;West End after. I&rsquo;ll meet you at the brewery gate.&rdquo;'
+    ], function () {
+      PU.mine('nearest', 'The line by the nearest road', '<p>Pins where the walks are equal: Marshall Street <b>50 yd</b> up (150 + 50 = 50 + 150). Peter Street <b>100 yd</b> along (260 + 100 = 220 + 140): the blind court has a wall, so Rupert Street is far by the road. Great Pulteney Street <b>160 yd</b> down (120 + 160 = 240 + 40).</p><p>Five deaths beyond the line: two families liked the Broad Street water better, a child at school by the pump, a man who worked in Broad Street, and one death before the outbreak began.</p>');
+      PU.door($('#go'), nxt, 'w-file'); busy = false; paint();
+    });
+  }
+})();
+</script>
+</body>
+</html>

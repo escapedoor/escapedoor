@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Education Room · Nobody Here Can Read This</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lang.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="sc.css">
+<style>
+  body{--bg:#f2d24a;--accent:#2a6ad0;--font-display:'Kalam',cursive;--font-ui:'Outfit',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(255,252,238,.97);--tc-ink:#1d2440;--cap-bg:rgba(255,252,240,.96);--cap-ink:#1d2440;--panel:#fffdf4;--panel-ink:#1d2440;--face-bg:#2a6ad0;--q-ink:#2a6ad0;
+    --fade:#fff8d8;--hud-bg:rgba(255,252,240,.9);--hud-ink:#1d2440;--hud-line:rgba(29,36,64,.3);--ov-bg:rgba(20,24,44,.58);--lab:#2a6ad0}
+  .tc-room{font-family:'Kalam',cursive;font-weight:700;font-size:clamp(40px,6vw,84px);color:#d8402a}
+  .tc-theme{color:#2a6ad0}
+  .hbtn b{color:#fff}
+  #rain path{animation:rain .9s linear infinite}
+  #rain path:nth-child(3n){animation-delay:-.4s}
+  @keyframes rain{from{transform:translateY(-50px)}to{transform:translateY(50px)}}
+  #coat{animation:swing 6s ease-in-out infinite;transform-origin:120px 300px}
+  @keyframes swing{50%{transform:rotate(1.4deg)}}
+  /* the 1995 board */
+  .doc.board{width:min(860px,96vw);background:#2a5a9a;color:#fff;font-family:'Kalam',cursive;font-size:18px;line-height:1.4;padding:20px 26px 18px;border:14px solid #c9a24a;box-shadow:0 26px 70px rgba(0,0,0,.55)}
+  .doc.board h4{margin:0;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#f2d24a}
+  .doc.board h3{margin:0 0 6px;font-family:'Kalam',cursive;font-weight:700;font-size:30px;color:#fff}
+  .doc.board p{margin:0 0 6px}
+  .doc.board .intro{font-family:'EB Garamond',serif;font-size:17px;line-height:1.42}
+  .doc.board .entries{display:grid;grid-template-columns:1fr 1fr 1.5fr;gap:10px;margin-top:8px}
+  .doc.board .en{background:#fffdf2;color:#1d2440;padding:8px 10px;transform:rotate(-1deg);font-size:16px;line-height:1.3}
+  .doc.board .en:nth-child(2){transform:rotate(1.2deg)}
+  .doc.board .en b{display:block;font-size:18px;color:#d8402a}
+  .doc.board .en svg{display:block;width:100%;height:auto;margin:4px 0}
+  .doc.board .en .eng{display:flex;justify-content:space-around;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:15px;letter-spacing:.12em;color:#1d2440}
+  /* the key */
+  .ky{width:min(1200px,97vw)}
+  .ky-in{display:grid;grid-template-columns:1.25fr 1fr;gap:12px;background:#fffdf4;border:1px solid #c9c2a8;padding:12px;box-shadow:0 26px 70px rgba(0,0,0,.55)}
+  .ky-in .lt{background:#fdfbf3;border:1px solid #d8d0bc}
+  .ky-in .lt svg{display:block;width:100%;height:auto}
+  .ky-in .lt text{font-family:'IBM Plex Mono',monospace;font-weight:600}
+  .cells{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;align-content:start}
+  .cell{display:flex;flex-direction:column;align-items:center;padding:4px 2px 3px;border:2px solid #c9c2a8;background:#fff;cursor:pointer;border-radius:3px}
+  .cell svg{width:44px;height:44px;color:#23305a}
+  .cell b{display:block;min-width:30px;height:26px;line-height:26px;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:19px;color:#1d2440;border-bottom:2px solid #9aa2b8}
+  .cell small{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.06em;color:#8a8a92;height:12px}
+  .cell.on{border-color:#2a6ad0;box-shadow:0 0 0 3px rgba(42,106,208,.25)}
+  .cell.given b{color:#5a6a8a}
+  .kb{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px;justify-content:center}
+  .kb button{min-width:31px;height:32px;padding:0 6px;border:1px solid #1d2440;background:#fff;color:#1d2440;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:14px;border-radius:3px}
+  .kb button:hover{background:#e8f0ff}
+  .kb button.w{min-width:64px;font-size:12px}
+  .ky .pmsg{color:#fffdf4}
+  /* the plan */
+  .pl{width:min(880px,95vw)}
+  .pl-in{background:#f4f0e2;border:1px solid #b8b09a;padding:12px;box-shadow:0 26px 70px rgba(0,0,0,.55)}
+  .pl-in svg{display:block;width:100%;height:min(560px,66vh)}
+  .pl .fl{cursor:pointer}
+  .pl .fl:hover rect{fill:#fff6c8}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wally" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fbe48a"/><stop offset="1" stop-color="#f2cf5a"/></linearGradient>
+  <linearGradient id="nightw" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a2a4a"/><stop offset="1" stop-color="#34507a"/></linearGradient>
+  <pattern id="carpet" width="60" height="60" patternUnits="userSpaceOnUse"><rect width="60" height="60" fill="#3a6a9a"/><rect width="30" height="30" fill="#34628f"/><rect x="30" y="30" width="30" height="30" fill="#34628f"/></pattern>
+  <radialGradient id="vig" cx="50%" cy="46%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".75" stop-color="#1a1408" stop-opacity=".06"/><stop offset="1" stop-color="#1a1408" stop-opacity=".34"/></radialGradient>
+</defs>
+<rect x="-1000" y="-500" width="3600" height="1100" fill="url(#wally)"/>
+<!-- the frieze of letters along the top -->
+<g font-family="Kalam,cursive" font-weight="700" font-size="34">
+  <text x="40" y="70" fill="#d8402a">A</text><text x="100" y="70" fill="#2a6ad0">b</text><text x="160" y="70" fill="#3a9a4a">C</text><text x="220" y="70" fill="#8a3ab0">d</text><text x="280" y="70" fill="#d8402a">E</text><text x="340" y="70" fill="#2a6ad0">f</text>
+  <text x="1080" y="70" fill="#3a9a4a">w</text><text x="1140" y="70" fill="#8a3ab0">X</text><text x="1200" y="70" fill="#d8402a">y</text><text x="1260" y="70" fill="#2a6ad0">Z</text></g>
+<!-- the coat pegs and the class's coats -->
+<g id="pegs"><rect x="-60" y="250" width="500" height="16" fill="#8a6a4a"/></g>
+<g id="coats" class="hot"></g>
+<g id="coat" class="hot"><circle cx="420" cy="262" r="6" fill="#5a4a3a"/><path d="M400 270q20 -10 40 0l18 300h-76z" fill="#c8302a"/><path d="M420 270v300" stroke="#9a2018" stroke-width="3"/><path d="M404 276l-22 150M436 276l22 150" stroke="#a82418" stroke-width="16" stroke-linecap="round"/>
+  <rect x="404" y="430" width="22" height="26" fill="#9a2018"/><rect x="380" y="214" width="84" height="22" fill="#fffdf4" stroke="#1d2440" stroke-width="2"/><text x="422" y="230" text-anchor="middle" font-family="Kalam,cursive" font-weight="700" font-size="15" fill="#1d2440">TEACHER</text></g>
+<!-- the board from 1995 -->
+<g id="board" class="hot"><rect x="560" y="110" width="440" height="300" fill="#c9a24a"/><rect x="574" y="124" width="412" height="272" fill="#2a5a9a"/>
+  <text x="780" y="160" text-anchor="middle" font-family="Kalam,cursive" font-weight="700" font-size="28" fill="#fff">INVENT A SCRIPT!</text>
+  <text x="780" y="184" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="13" fill="#f2d24a">YOUNG SCRIBES · SUMMER 1995</text>
+  <g transform="rotate(-2 640 280)"><rect x="590" y="206" width="110" height="150" fill="#fffdf2"/><path d="M604 230h80M604 246h70" stroke="#1d2440" stroke-width="3"/><circle cx="630" cy="290" r="4" fill="#d8402a"/><circle cx="660" cy="276" r="4" fill="#d8402a"/><circle cx="676" cy="310" r="4" fill="#d8402a"/><path d="M630 290L660 276L676 310" stroke="#d8402a" stroke-width="1.5"/></g>
+  <g transform="rotate(2 770 280)"><rect x="716" y="206" width="110" height="150" fill="#fffdf2"/><path d="M730 230h80M730 246h60" stroke="#1d2440" stroke-width="3"/><text x="771" y="306" text-anchor="middle" font-family="Kalam,cursive" font-size="28" fill="#2a6ad0">3 14 7</text></g>
+  <g transform="rotate(-1 900 280)"><rect x="842" y="200" width="130" height="164" fill="#fffdf2"/><path d="M856 222h100M856 236h80" stroke="#1d2440" stroke-width="3"/><g id="boardmini" color="#23305a"></g><rect x="842" y="344" width="130" height="20" fill="#f2d24a"/><text x="907" y="359" text-anchor="middle" font-family="Kalam,cursive" font-size="12" fill="#1d2440">highly commended</text></g></g>
+<!-- the window, rain -->
+<g id="win" class="hot"><rect x="1150" y="110" width="380" height="330" fill="url(#nightw)" stroke="#fffdf4" stroke-width="14"/><path d="M1340 110V440" stroke="#fffdf4" stroke-width="10"/>
+  <g id="rain" stroke="#a8c4e8" stroke-width="2" opacity=".6"><path d="M1170 130l-8 50M1220 170l-8 50M1270 120l-8 50M1310 220l-8 50M1370 140l-8 50M1420 190l-8 50M1470 130l-8 50M1500 250l-8 50M1190 300l-8 50M1260 340l-8 50M1400 330l-8 50M1480 360l-8 50"/></g>
+  <rect x="1380" y="380" width="110" height="40" rx="8" fill="#e8e2c8" opacity=".5"/><circle cx="1392" cy="412" r="6" fill="#f2c26a"/><circle cx="1478" cy="412" r="6" fill="#f2c26a"/></g>
+<!-- the floor -->
+<rect x="-1000" y="600" width="3600" height="900" fill="url(#carpet)"/>
+<path d="M-1000 600H2600" stroke="#24486e" stroke-width="5"/>
+<!-- low tables and chairs -->
+<g><rect x="500" y="640" width="600" height="22" rx="4" fill="#f2f2ee"/><rect x="520" y="662" width="14" height="110" fill="#9a9a9a"/><rect x="1066" y="662" width="14" height="110" fill="#9a9a9a"/>
+  <g><rect x="440" y="690" width="60" height="12" fill="#d8402a"/><rect x="444" y="702" width="8" height="70" fill="#a82418"/><rect x="488" y="702" width="8" height="70" fill="#a82418"/><rect x="440" y="630" width="10" height="60" fill="#d8402a"/></g>
+  <g><rect x="1110" y="690" width="60" height="12" fill="#3a9a4a"/><rect x="1114" y="702" width="8" height="70" fill="#2a7a3a"/><rect x="1158" y="702" width="8" height="70" fill="#2a7a3a"/><rect x="1160" y="630" width="10" height="60" fill="#3a9a4a"/></g></g>
+<g id="table" class="hot"><rect x="640" y="612" width="250" height="30" fill="#fdfbf3" stroke="#c9c2a8" stroke-width="2" transform="rotate(-3 765 627)"/><g id="tabletter" color="#23305a" transform="rotate(-3 765 627)"></g>
+  <rect x="920" y="614" width="80" height="26" fill="#fff" stroke="#c9c2a8" transform="rotate(5 960 627)"/><path d="M930 622h56M930 630h40" stroke="#5a5a62" stroke-width="2" transform="rotate(5 960 627)"/></g>
+<g id="lost" class="hot"><rect x="1250" y="700" width="160" height="100" fill="#c9a26a"/><rect x="1250" y="690" width="160" height="16" fill="#a8824a"/><text x="1330" y="760" text-anchor="middle" font-family="Kalam,cursive" font-weight="700" font-size="20" fill="#3a2a1a">LOST PROPERTY</text></g>
+<!-- people -->
+<g id="delgado" class="hot" transform="translate(1520 880) scale(1)"></g>
+<g id="szabo" class="hot" transform="translate(1080 880) scale(.98)"></g>
+<rect x="-1000" y="-500" width="3600" height="1900" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Up to the attic</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="sc.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, tl, nextFile, ky = null, pl = null;
+  var KP = SC.KEYPARTS;
+
+  (function () {
+    var cols = ['#2a6ad0', '#3a9a4a', '#8a3ab0', '#f28a2a', '#1d2440', '#d8402a', '#5ab0c8', '#7a5a3a', '#e8c84a', '#4a4a52'], s = '', i;
+    for (i = 0; i < 9; i++) {
+      var x = -40 + i * 46, c = cols[i % cols.length];
+      s += '<circle cx="' + (x + 20) + '" cy="262" r="5" fill="#5a4a3a"/><path d="M' + (x + 6) + ' 270q14 -8 28 0l' + (6 + (i % 3) * 3) + ' ' + (150 + (i % 4) * 22) + 'h-' + (40 + (i % 3) * 6) + 'z" fill="' + c + '"/>';
+    }
+    $('#coats').innerHTML = s;
+    var L = SC.layout(SC.BOARD, { S: 46, x: 0, y: 0, word: 14 });
+    $('#boardmini').innerHTML = '<g transform="translate(864 258) scale(.82)">' + SC.draw(L) + '</g>';
+    $('#tabletter').innerHTML = '<g stroke="#23305a" stroke-width="2.4">' + [0, 1, 2, 3].map(function (r) { return '<path d="M' + (656 + (r % 2) * 6) + ' ' + (619 + r * 5) + 'h' + (150 + (r * 37) % 70) + '" stroke-dasharray="7 4"/>'; }).join('') + '</g>';
+  })();
+  $('#delgado').innerHTML = SC.who('delgado', { smile: 0 });
+  $('#szabo').innerHTML = SC.who('szabo', { smile: 2, extra: '<rect x="18" y="-170" width="44" height="58" fill="#e9eef2" stroke="#9aa8b6" stroke-width="2" transform="rotate(-10 40 -140)"/>' });
+
+  ER.init({
+    theme: 'lang', story: 'script', storyTitle: 'Nobody Here Can Read This', id: 'education', no: 'V', title: 'The Education Room',
+    go: 'Go in',
+    intro: [
+      'In the print room you corrected Dr Szabo&rsquo;s proof. The heart is drawn round two names; the + is a word sign that means &lsquo;and&rsquo;; the two strokes under the names are the number 11, written the way Linear B wrote numbers (a flat stroke for ten, an upright one for one); the little wave is a full stop; and the round sign with hands is a clock at half past four.',
+      'Half past four: the time the doors lock. Elin went up the staff stairs to be somewhere at half past four, and Mr Moreau will open one floor for you, not four.',
+      'The education room is on the ground floor, by the back door. Twenty past five. The rain is heavier now.'
+    ],
+    exit: {"next":"attic","w":{"ad6d869e":"c7581d01"}}, tags: {"key":["ace66d2e"],"k-ring":["1b7dbd31"],"k-arch":["9e3d004e"],"k-arch1":["a93c6860"],"k-hook":["7b683b14"],"k-hook2":["f957dc4f"],"k-hookloop":["8e2ae72c"],"k-hookwave":["fc5ba837"],"k-lens":["748100d7"],"k-lens2":["937edfe7"],"k-teeth":["b04720d8"],"k-stand":["c94218ef"],"k-standR":["3499669f"],"k-standL":["1dd633bb"],"k-flat":["65fd55c7"],"k-flatUp":["d79b7b15"],"k-flatDown":["02c3ff6c"],"kk-arch1":["b36962c7"]},
+    hints: hints, onBegin: begin
+  });
+  tl = SC.tell('e-told'); nextFile = ER.flag('e-file') || null;
+
+  function isBusy() { return busy; }
+  function ready() { return tl.has('coat') && tl.has('board'); }
+  function paint() {
+    $('#coat').classList.toggle('ready', !tl.has('coat'));
+    $('#board').classList.toggle('ready', !!(tl.has('coat') && !tl.has('board')));
+    $('#delgado').classList.toggle('ready', !!(tl.has('coat') && !tl.has('delgado')));
+    $('#table').classList.toggle('ready', !!(ready() && !tl.has('read')));
+    ER.pips((tl.has('coat') ? 1 : 0) + (tl.has('board') ? 1 : 0) + (tl.has('read') ? 1 : 0) + (nextFile ? 1 : 0), 4);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Mr Moreau is opening the attic. The button at the bottom of the screen takes you up.']];
+    if (pl && pl.isOpen()) return ['plan', ['The letter says where she is: UP IN OUR ... . Find that place on the drawing of the building.']];
+    if (ky && ky.isOpen()) return ['key', [
+      'Start with what you know: the names on the stone gave you eight shapes already. Then read the board from 1995: BEST is one block and FRIENDS is another, and a block is packed in order, first consonants top left, then the vowel, then the last consonants at the bottom.',
+      'Families: the board gives B, the almond with one stroke. The plain almond and the almond with two strokes are its cousins, as ' + SC.hg('ㅁ ㅂ ㅍ') + ' are m, b, p. The arch is G, so the arch with one stroke is its stronger cousin. Vowels: the earth curve with the dot above is like ' + SC.hg('ㅗ') + ' (o), with the dot below like ' + SC.hg('ㅜ') + ' (u).',
+      'The girls needed one vowel more than the King had, for the Y at the end of a word: that is the standing person with the dot on the left. The second line reads I AM S_RR_. Mr Delgado&rsquo;s printer&rsquo;s rule does not work here: the commonest shape is the A of AGATA and AM.'
+    ]];
+    if (!tl.has('coat')) return ['coat', ['Miss Lindahl&rsquo;s coat is on the peg marked TEACHER, on the left. Look at it.']];
+    if (!tl.has('board')) return ['board', ['Kezia said Miss Lindahl stood in front of the old board from 1995. It is on the back wall. Read it.']];
+    return ['table', ['Dr Szabo has laid the letter on the low table in the middle. Click it, and read the whole thing.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('AGATA. I AM SORRY. I AM UP IN OUR ATTIC. HALF PAST FOUR. ELIN.'); return; }
+    if (tl.has('in')) { busy = false; ER.say('The education room.'); return; }
+    tl.set('in');
+    ER.narrate([
+      'The education room is bright yellow and smells of crisps. Low tables, small chairs, a frieze of letters round the walls, and rain hammering on a big window.',
+      'Along the left wall, a row of pegs. Most are empty: the class took their coats to the coach. On the last peg, under a card that says TEACHER, hangs a long red raincoat.',
+      'On the back wall is a big blue board in a gold frame, with children&rsquo;s drawings pinned to it. The paper has gone yellow.',
+      'Dr Szabo lays the letter on the low table in the middle, takes it out of its sleeve for the first time, and smooths it flat. &ldquo;There,&rdquo; he says. &ldquo;It is post. Post should be read.&rdquo;'
+    ], function () { busy = false; });
+  }
+
+  /* ---------- people and things ---------- */
+  $('#delgado').addEventListener('click', function () {
+    if (busy) return;
+    if (!tl.has('coat')) { ER.say('Mr Delgado is looking at the red raincoat on the last peg, and not moving.'); return; }
+    ER.talk({
+      who: 'Mr Gil Delgado', role: 'PE teacher · doing sums', face: SC.face('delgado'),
+      lines: [
+        { a: '&ldquo;Coat on the peg, in this rain. Phone in the pocket. She&rsquo;s in the building, and she meant to come back for it.&rdquo;' },
+        { q: 'And the receipt?', a: '&ldquo;Notepad and pencil from the gift shop at 3.41. The letter is on the museum&rsquo;s notepaper, in pencil. So she wrote it after twenty to four.&rdquo; He counts on his fingers. &ldquo;And Agata Marchetti signed out at ten to three. She was gone almost an hour before the letter was even written.&rdquo;' },
+        { q: 'So Agata didn&rsquo;t do anything to her.', a: '&ldquo;Agata went to the dentist.&rdquo; He looks a bit sheepish. &ldquo;I was wrong about her. She didn&rsquo;t run away from Elin to do anything to her. She just ran away. People do, after a falling out. Even after thirty years.&rdquo;' },
+        { a: '&ldquo;So the letter is Elin&rsquo;s, to Agata. Let&rsquo;s read it. All of it.&rdquo;' }
+      ],
+      clue: { id: 'delgado5', title: 'Mr Delgado: written after 3.41', kind: 'What he said' },
+      done: function (seen) { if (seen && tl.set('delgado')) { paint(); ER.addWord('sheepish', 'a little embarrassed because you have done something silly'); } }
+    });
+  });
+  $('#szabo').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Dr Ferenc Szabo', role: 'Curator · reading the board', face: SC.face('szabo', 'smile'),
+      lines: [
+        { note: 'He is standing very close to the old board, reading every entry.', a: '&ldquo;The Young Scribes. My predecessor ran it. Thirty children every Saturday, and this was their competition.&rdquo;' },
+        { q: 'Does it help us?', a: '&ldquo;Every entry had to have its English written underneath, so that the judges could check it.&rdquo; He taps the glass. &ldquo;Which makes this, I am sorry to say, a bilingual text. The best thing a decipherer can ever hope for. I have been looking for one of those all my life, and it was in the room with the crisps.&rdquo;' }
+      ],
+      clue: { id: 'szabo5', title: 'Dr Szabo: a bilingual text', kind: 'What he said' },
+      done: function (seen) { if (seen) SC.terms(['bilingual']); }
+    });
+  });
+  SC.thing('#coats', 'peg', 'Empty pegs, and a few coats that belong to nobody: the lost property of a whole term of school trips.', isBusy);
+  SC.thing('#lost', null, 'A box of lost property: gloves, a lunchbox, a single trainer, and a pencil case in the shape of a crocodile.', isBusy);
+  SC.thing('#win', null, 'Rain, and the coach in the car park with its engine running. Somebody has drawn a face in the steam on one of its windows.', isBusy);
+  $('#coat').addEventListener('click', function () {
+    if (busy) return;
+    SC.sfx.buzz();
+    ER.read({ html: '<h4>On the peg marked TEACHER</h4><h3>A long red raincoat, quite dry</h3><p>In the pockets: a phone, a bus ticket, half a packet of mints, and a receipt.</p>' +
+      '<div style="display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap"><div class="doc phone" style="width:250px;max-height:none"><h4>Friday &middot; 17.21</h4><p>9 missed calls: Gil</p><p>1 message: Mum. &ldquo;Have a lovely trip love, home for tea?&rdquo;</p></div>' +
+      '<div class="doc receipt" style="width:250px;max-height:none"><h4>ELMSWORTH MUSEUM OF WRITING &middot; SHOP</h4><p>Fri &nbsp;15:41 &nbsp;Till 1</p><p class="r"><span>Notepad, museum paper</span><span>3.00</span></p><p class="r"><span>Pencil, museum</span><span>0.80</span></p><p class="r"><b>TOTAL</b><b>3.80</b></p><p>Served by: Alana</p><p>Thank you for visiting!</p></div></div>', cls: 'label',
+      clue: { id: 'coat', title: 'Miss Lindahl&rsquo;s coat: phone and receipt', kind: 'In the education room' }, done: function () {
+        ER.addWord('receipt', 'a piece of paper that shows what you bought, when, and for how much');
+        if (tl.set('coat')) { paint(); ER.say('A notepad and a pencil, bought at 3.41. Ask Mr Delgado what he makes of it, and read the old board.'); }
+      } });
+  });
+  function boardHTML() {
+    var L = SC.layout(SC.BOARD, { S: 70, x: 6, y: 6, word: 40 });
+    return '<h4>On the back wall, in a gold frame</h4><h3>INVENT A SCRIPT!</h3>' +
+      '<p class="intro">The Young Scribes&rsquo; competition, summer 1995. Most scripts grew slowly, over hundreds of years, but a few were made by one person. Mesrop Mashtots made the Armenian alphabet in about the year 405. King Sejong made Hangul in 1443. Sequoyah, a Cherokee silversmith who could not read English, finished his syllabary in 1821, and within a few years thousands of Cherokee people could read and write in it. Now it is your turn! Make a script, explain it, and write something in it with the English underneath, so that the judges can check.</p>' +
+      '<div class="entries"><div class="en"><b>First prize: Star Letters</b>H. R., age 9. Every letter is a group of stars, joined up. Very pretty. (The judges could not read it, and nor could she.)</div>' +
+      '<div class="en"><b>Second prize: Number Talk</b>D. K., age 10. Every word is a number: its page in the dictionary. 3 14 7 means &lsquo;I like cake&rsquo;, in her dictionary.</div>' +
+      '<div class="en"><b>Highly commended: Our Script</b>Agata M. and Elin L., age 11. &ldquo;Every letter is a picture of your mouth saying it, like King Sejong&rsquo;s letters. A stronger sound gets more lines. The vowels are made from heaven, earth and a person, like his, but we drew them our own way: a dot for heaven, a curve for the round earth, and a little person standing up. And we needed one more vowel than him, for the Y at the end of words like happy. Every syllable goes in its own box. We are going to write all our notes in it so nobody else can read them.&rdquo;' +
+      '<svg viewBox="0 0 ' + Math.ceil(L.w + 6) + ' ' + Math.ceil(L.h - 18) + '" color="#23305a">' + SC.draw(L) + '</svg><div class="eng"><span>BEST</span><span>FRIENDS</span></div></div></div>';
+  }
+  $('#board').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: boardHTML(), cls: 'board', clue: { id: 'board', title: 'The 1995 board: Invent a script!', kind: 'In the education room' }, done: function () {
+      SC.terms(['bilingual']);
+      if (tl.set('board')) { paint(); ER.say('BEST FRIENDS, in their script, with the English underneath. Now read the letter on the table.'); }
+    } });
+  });
+
+  /* ---------- the key ---------- */
+  function readBlock(spec, key) {
+    if (spec === 'clock') return '4.30';
+    return SC.partsOf(spec).map(function (p) { var v = key[p]; return p === 'ring' && v === '-' ? '' : (v === '-' ? '' : (v || '?')); }).join('') || '·';
+  }
+  function words(key) {
+    var out = [];
+    SC.LETTER.forEach(function (line) {
+      var w = { t: '', parts: [] };
+      line.forEach(function (t) {
+        if (t === ' ' || t === '~') { if (w.t) out.push(w); w = { t: '', parts: [] }; return; }
+        w.t += readBlock(t, key); w.parts = w.parts.concat(SC.partsOf(t));
+      });
+      if (w.t) out.push(w);
+    });
+    return out;
+  }
+  function makeKey() {
+    var copy = function (o) { return JSON.parse(JSON.stringify(o || {})); };
+    var box = ER.el('div', 'pz ky'), key = copy(ER.flag('e-key') || ER.flag('key0')), given = copy(ER.flag('key0')), sel = 0, done = !!tl.has('read');
+    var L = SC.layout(SC.LETTER, { S: 46, lh: 74, x: 14, y: 12, word: 20 });
+    box.innerHTML = '<div class="ky-in"><div class="lt"><svg viewBox="0 0 ' + Math.ceil(L.w + 20) + ' ' + Math.ceil(L.h + 4) + '"><g color="#23305a">' + SC.draw(L) + '</g><g class="rd"></g></svg></div>' +
+      '<div><h5 style="color:#2a6ad0">The key: every shape in the letter</h5><div class="cells">' +
+      KP.map(function (p, i) { return '<div class="cell" data-i="' + i + '"><svg viewBox="0 0 100 100">' + SC.part(p, 0, 0, 100, 100, 0.1) + '</svg><b></b><small></small></div>'; }).join('') + '</div>' +
+      '<div class="kb">' + 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').map(function (c) { return '<button type="button" data-c="' + c + '">' + c + '</button>'; }).join('') +
+      '<button type="button" class="w" data-c="-">silent</button><button type="button" class="w" data-c="">clear</button></div></div></div>' +
+      '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="ky-go">Read it aloud</button></div>';
+    var msgEl = box.querySelector('.pmsg'), rd = box.querySelector('.rd');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function render() {
+      ER.$$('.cell', box).forEach(function (c, i) {
+        var p = KP[i], v = key[p];
+        c.querySelector('b').textContent = v === '-' ? '(silent)' : (v || '');
+        c.querySelector('b').style.fontSize = v === '-' ? '11px' : '';
+        c.querySelector('small').textContent = given[p] && given[p] === v ? 'from the stone' : '';
+        c.classList.toggle('given', !!(given[p] && given[p] === v));
+        c.classList.toggle('on', i === sel && !done);
+      });
+      rd.innerHTML = L.items.filter(function (it) { return it.t === 'b'; }).map(function (it) {
+        return '<text x="' + (it.x + it.S / 2).toFixed(1) + '" y="' + (it.y + it.S + 15).toFixed(1) + '" text-anchor="middle" font-size="13" fill="#c8302a">' + readBlock(it.spec, key) + '</text>';
+      }).join('');
+      ER.flag('e-key', key);
+    }
+    function setVal(c) {
+      if (done) return;
+      key[KP[sel]] = c; if (!c) delete key[KP[sel]];
+      SC.sfx.key();
+      if (c) { for (var j = 1; j <= KP.length; j++) { var n = (sel + j) % KP.length; if (!key[KP[n]]) { sel = n; break; } } }
+      render(); msg('');
+    }
+    ER.$$('.cell', box).forEach(function (c) { c.addEventListener('click', function () { if (done) return; sel = +c.getAttribute('data-i'); render(); }); });
+    ER.$$('.kb button', box).forEach(function (b) { b.addEventListener('click', function () { setVal(b.getAttribute('data-c')); }); });
+    function onKey(e) {
+      if (!box.parentNode || done) return;
+      if (/^Key[A-Z]$/.test(e.code)) { e.preventDefault(); setVal(e.code.slice(3)); }
+      else if (e.code === 'Backspace' || e.code === 'Delete') { e.preventDefault(); setVal(''); }
+      else if (e.code === 'ArrowRight') { sel = (sel + 1) % KP.length; render(); }
+      else if (e.code === 'ArrowLeft') { sel = (sel + KP.length - 1) % KP.length; render(); }
+    }
+    document.addEventListener('keydown', onKey);
+    box.querySelector('#ky-go').addEventListener('click', function () {
+      if (done) return;
+      var empty = KP.filter(function (p) { return !key[p]; });
+      if (empty.length) { ER.sfx.no(); msg(empty.length + (empty.length === 1 ? ' shape has' : ' shapes have') + ' no letter yet. Every shape in the key needs one (the ring can be &lsquo;silent&rsquo;).'); return; }
+      var wrong = KP.filter(function (p) { return !ER.check('k-' + p, key[p]); });
+      if (!wrong.length) {
+        var ks = KP.map(function (p) { return key[p]; }).join('');
+        if (!ER.check('key', ks)) { ER.sfx.no(); msg('Something is not right.'); return; }
+        done = true; tl.set('read'); ER.flag('e-ks', ks); SC.solved(); render(); paint();
+        SC.mine('reading', 'The letter, read', '<p>AGATA. I AM SORRY. I AM UP IN OUR ATTIC. (clock: half past four) ELIN.</p><p>From the board: B (almond + 1 stroke), S (zigzag), R (wavy line), T, E, I, N.</p><p>By the King&rsquo;s rules: plain almond M, almond + 2 strokes P (like m, b, p); arch + 1 stroke C (like g, k); dot above the earth curve O, dot below it U; dot on the left of the standing person Y.</p>');
+        msg('AGATA. I AM SORRY. I AM UP IN OUR ATTIC. Half past four. ELIN.');
+        setTimeout(afterRead, 3000);
+        return;
+      }
+      ER.sfx.no(); ER.shake(box.querySelector('.cells'));
+      if (key.standR === 'E') { msg('That is Mr Delgado&rsquo;s printer&rsquo;s rule: the commonest shape must be E. Read the first word with it. In a short letter that begins with a name, the rule breaks.'); return; }
+      if (wrong.length === 1 && wrong[0] === 'arch1' && key.arch1 === 'K') { msg('ATTIK. The sound is exactly right! But Elin is an English teacher. How does she spell the room at the top of a house?'); return; }
+      if (key.teeth === 'M') { msg('The zigzag looks like an M, the way the Cherokee signs look like our letters. But what does it picture? And what does the board say in BEST?'); return; }
+      if (key.lens2 === 'B') { msg('The board has the B: the almond with ONE stroke, in BEST. This almond has two.'); return; }
+      var ws = words(key), bad = null;
+      ws.forEach(function (w) { if (!bad && w.parts.some(function (p) { return wrong.indexOf(p) >= 0; })) bad = w.t; });
+      msg((wrong.length === 1 ? 'Nearly. One shape has the wrong letter. ' : wrong.length + ' shapes have the wrong letters. ') + 'Read it aloud and listen: ' + (bad ? '&lsquo;' + bad + '&rsquo; is not a word Elin would write.' : 'something does not make sense.'));
+    });
+    render();
+    msg(done ? 'AGATA. I AM SORRY. I AM UP IN OUR ATTIC. Half past four. ELIN.' : 'Click a shape in the key, then a letter (or type it on the keyboard). The letter on the left reads itself as you go.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+  $('#table').addEventListener('click', function () {
+    if (busy) return;
+    if (tl.has('read')) { if (!nextFile) openPlan(); else ER.say('The letter, read at last.'); return; }
+    if (!ready()) { ER.say(!tl.has('coat') ? 'The letter, on the table. Before you start: whose is the red coat on the last peg?' : 'You will need more letters than the stone gave you. Read the old board on the back wall first.'); return; }
+    if (!ky) ky = makeKey();
+    ky.open();
+  });
+  function afterRead() {
+    ER.closeAll(); busy = true;
+    ER.narrate([
+      'Nobody says anything for a moment.',
+      '&ldquo;I am sorry,&rdquo; says Mr Delgado quietly. &ldquo;Thirty years, and that&rsquo;s the first thing she wrote.&rdquo;',
+      '&ldquo;Up in our attic,&rdquo; says Szabo. &ldquo;At half past four. She went up to wait for Agata in the place where they used to hide. And at half past four every door in the building locked, and her phone was down here in her coat.&rdquo;',
+      'Mr Moreau, on the radio, sounds very tired. &ldquo;Right. Which floor?&rdquo;'
+    ], function () { busy = false; openPlan(); });
+  }
+
+  /* ---------- the plan: one floor ---------- */
+  var FLOORS = [['cellar', 'Cellar and stores', 620], ['ground', 'Ground floor: galleries, shop, education room', 540], ['first', 'First floor: print room, workshop, Korean Room', 460], ['bindery', '2  Bindery', 380], ['flat', '3  Old flat', 300], ['attic', '4  Attic', 220], ['roof', 'Roof', 150], ['lift', 'Lift', 0]];
+  var NOPE = {
+    cellar: '&ldquo;I&rsquo;ve done the cellar,&rdquo; says Moreau. &ldquo;Twice. There&rsquo;s nothing down there but boxes and a mouse.&rdquo;',
+    ground: '&ldquo;You&rsquo;re standing on it,&rdquo; says Mr Delgado.',
+    first: '&ldquo;We&rsquo;ve been through all of the first floor,&rdquo; says Szabo. &ldquo;Print room, workshop, the Korean Room.&rdquo;',
+    bindery: 'The radio crackles. &ldquo;Bindery&rsquo;s dark, I can see in through the glass. Nobody there.&rdquo; Is a bindery an attic?',
+    flat: '&ldquo;The old flat&rsquo;s been empty since the last caretaker left,&rdquo; says Moreau. &ldquo;Dust on the handle. Nobody&rsquo;s touched it in years.&rdquo;',
+    roof: '&ldquo;The roof door&rsquo;s bolted on the inside,&rdquo; says Moreau. &ldquo;And it&rsquo;s pouring. What does the letter say?&rdquo;',
+    lift: '&ldquo;The lift&rsquo;s on the ground floor with its doors open,&rdquo; says Moreau. &ldquo;Empty.&rdquo;'
+  };
+  function openPlan() {
+    if (nextFile) return;
+    var box = ER.el('div', 'pz pl'), wait = false, s = '';
+    FLOORS.forEach(function (f) {
+      if (f[0] === 'lift') s += '<g class="fl" data-f="lift"><rect x="610" y="150" width="70" height="530" fill="#e8e2cc" stroke="#5a5a5a" stroke-width="3"/><text x="645" y="420" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="15" fill="#3a3a3a" transform="rotate(-90 645 420)">LIFT</text></g>';
+      else s += '<g class="fl" data-f="' + f[0] + '"><rect x="60" y="' + f[2] + '" width="540" height="' + (f[0] === 'roof' ? 66 : 76) + '" fill="#fdfbf3" stroke="#5a5a5a" stroke-width="3"/><text x="80" y="' + (f[2] + 44) + '" font-family="EB Garamond,serif" font-size="22" fill="#1d2440">' + f[1] + '</text></g>';
+    });
+    box.innerHTML = '<div class="pl-in"><h5 style="color:#2a6ad0">The museum from the side. Tell Mr Moreau which floor to open.</h5><svg viewBox="0 0 740 710"><path d="M40 150L330 40L620 150" fill="#c9b48a" stroke="#5a5a5a" stroke-width="3"/>' + s +
+      '<path d="M700 220V680" stroke="#8a3a2a" stroke-width="5" stroke-dasharray="10 8"/><text x="712" y="460" font-family="IBM Plex Mono,monospace" font-size="13" fill="#8a3a2a" transform="rotate(90 712 460)">STAFF STAIRS</text></svg></div>' +
+      '<div class="pz-foot"><p class="pmsg"></p></div>';
+    var msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    ER.$$('.fl', box).forEach(function (g) {
+      g.addEventListener('click', function () {
+        if (wait) return;
+        var f = g.getAttribute('data-f');
+        SC.sfx.radio();
+        var nf = ER.exit([ER.flag('e-ks') + '|' + f], { wait: true });
+        if (!nf) { ER.sfx.no(); msg(NOPE[f]); return; }
+        wait = true; nextFile = nf; ER.flag('e-file', nf); paint();
+        msg('&ldquo;The attic,&rdquo; says Moreau. &ldquo;Nobody&rsquo;s been up there for years. Hang on.&rdquo; Keys, and running feet, on the radio.');
+        setTimeout(function () {
+          ER.closeAll(); busy = true;
+          ER.narrate([
+            'You run. Mr Delgado runs faster. Dr Szabo, who has not run since 1987, runs too.',
+            'Up the staff stairs past the print room, past the bindery, past the old flat, to a narrow door at the very top with a red light on its handle.',
+            'Mr Moreau is already there, with his ear against it. &ldquo;Somebody&rsquo;s singing,&rdquo; he says.'
+          ], function () { busy = false; $('#go').classList.add('on'); });
+        }, 2400);
+      });
+    });
+    msg('Click a floor.');
+    pl = { isOpen: function () { return !!box.parentNode; } };
+    ER.open('ov-lock', box);
+  }
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

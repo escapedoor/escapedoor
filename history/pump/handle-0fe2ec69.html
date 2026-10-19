@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Handle · By the Nearest Road</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-history.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="pump.css">
+<style>
+  body{--bg:#c8a86a;--accent:#ffe08a;--font-display:'Abril Fatface',serif;--font-ui:'Oswald',sans-serif;--font-body:'Libre Caslon Text',serif;
+    --tc-bg:rgba(40,30,18,.95);--tc-ink:#f6eed8;--cap-bg:rgba(40,30,18,.93);--panel:#2e2416;--face-bg:#5a4a30;--q-ink:#ffe09a;--fade:#140e06;--hud-bg:rgba(40,30,18,.82)}
+  .lb{font-family:'Oswald',sans-serif;font-weight:500;text-anchor:middle;letter-spacing:.12em}
+  #sun{animation:sn 8s steps(16,end) 1 forwards}
+  @keyframes sn{from{opacity:.3}to{opacity:1}}
+  #handleArm{transition:transform 1.6s steps(8,end);transform-origin:1000px 470px}
+  body.off #handleArm{transform:translate(70px,250px) rotate(70deg)}
+  #jugman{transition:transform 3s steps(12,end)}
+  body.gone #jugman{transform:translateX(560px)}
+  .done{position:fixed;right:2.4vw;top:60px;z-index:34;width:min(640px,94vw);max-height:calc(100vh - 76px);overflow:auto;padding:18px 26px 16px;display:none;background:#f6f1e2 linear-gradient(176deg,rgba(255,255,255,.5),rgba(120,100,60,.12));
+    color:#22231e;border-top:9px solid #5a2a1a;box-shadow:0 20px 60px rgba(0,0,0,.65)}
+  .done.on{display:block}
+  .okstamp{float:right;margin:2px 0 6px 14px;padding:4px 14px 1px;border:4px solid #5a2a1a;color:#5a2a1a;font-family:'Cinzel',serif;font-weight:700;font-size:17px;letter-spacing:.12em;transform:rotate(5deg)}
+  .done h6{margin:0 0 8px;font-family:'Oswald',sans-serif;font-weight:500;font-size:12.5px;letter-spacing:.24em;text-transform:uppercase;color:#6b6552}
+  .done p{margin:0 0 4px;font-family:'Libre Caslon Text',serif;font-size:15px;line-height:1.36}
+  .done h5{clear:both;margin:11px 0 5px;font-family:'Abril Fatface',serif;font-weight:normal;font-size:20px;border-top:1px solid #a39c84;padding-top:9px}
+  .done ol{margin:0;padding:0 0 0 20px;font-family:'Libre Caslon Text',serif;font-size:14.2px;line-height:1.36}
+  .done li{margin:0 0 3px}
+  .done .row{display:flex;flex-wrap:wrap;gap:8px;margin-top:11px}
+  .done .btn{--accent:#22231e;font-size:13px;padding:8px 14px}
+  .done .btn:hover:not([disabled]){color:#f6f1e2}
+  .done small{display:block;margin-top:10px;font-family:'Libre Caslon Text',serif;font-size:12.6px;opacity:.85;line-height:1.45}
+  .done small button{text-decoration:underline;font:inherit}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9ab8d0"/><stop offset=".6" stop-color="#f0d8a0"/><stop offset="1" stop-color="#f6e2b0"/></linearGradient>
+  <linearGradient id="roadG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9a8a62"/><stop offset="1" stop-color="#5a4e36"/></linearGradient>
+  <pattern id="brkL" width="40" height="16" patternUnits="userSpaceOnUse"><rect width="40" height="16" fill="#9a6448"/><path d="M0 8h40M0 16h40M20 0v8M0 8v8M40 8v8" stroke="#7a4a34" stroke-width="1.2"/></pattern>
+  <radialGradient id="sunG" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fff2c0"/><stop offset="1" stop-color="#fff2c0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="40%" cy="45%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".75" stop-color="#140c04" stop-opacity=".14"/><stop offset="1" stop-color="#140c04" stop-opacity=".55"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#skyG)"/>
+<circle id="sun" cx="300" cy="60" r="160" fill="url(#sunG)"/>
+<!-- Broad Street in the morning sun: some shutters open again -->
+<rect x="-1000" y="140" width="3600" height="440" fill="url(#brkL)"/><rect x="-1000" y="130" width="3600" height="14" fill="#5a3a24"/>
+<g fill="#3a2a22"><rect x="-60" y="190" width="60" height="90"/><rect x="60" y="190" width="60" height="90"/><rect x="420" y="190" width="60" height="90"/><rect x="540" y="190" width="60" height="90"/><rect x="1160" y="190" width="60" height="90"/><rect x="1280" y="190" width="60" height="90"/><rect x="1400" y="190" width="60" height="90"/><rect x="1520" y="190" width="60" height="90"/>
+  <rect x="-60" y="320" width="60" height="90"/><rect x="60" y="320" width="60" height="90"/><rect x="420" y="320" width="60" height="90"/><rect x="540" y="320" width="60" height="90"/><rect x="1160" y="320" width="60" height="90"/><rect x="1280" y="320" width="60" height="90"/><rect x="1400" y="320" width="60" height="90"/><rect x="1520" y="320" width="60" height="90"/></g>
+<g fill="#e8d8b0" opacity=".55"><rect x="-56" y="194" width="52" height="40"/><rect x="424" y="194" width="52" height="40"/><rect x="1284" y="194" width="52" height="40"/><rect x="1524" y="324" width="52" height="40"/></g>
+<g fill="#4a3a2a"><rect x="60" y="190" width="28" height="90"/><rect x="92" y="190" width="28" height="90"/><rect x="1400" y="320" width="28" height="90"/><rect x="1432" y="320" width="28" height="90"/></g>
+<g fill="#c8504a"><circle cx="560" cy="282" r="7"/><circle cx="574" cy="284" r="6"/><circle cx="588" cy="282" r="7"/></g><rect x="540" y="284" width="60" height="10" fill="#7a5a3a"/>
+<path d="M700 580V170h300v410" fill="#a06a4c"/><path d="M760 580V380q90-80 180 0v200z" fill="#2a1e14"/><text x="850" y="230" class="lb" font-size="22" fill="#ffe08a" font-family="'Abril Fatface',serif">LION BREWERY</text>
+<rect x="-1000" y="576" width="3600" height="40" fill="#b0a684"/><rect x="-1000" y="616" width="3600" height="704" fill="url(#roadG)"/>
+<!-- Dr Snow, a little way off -->
+<g transform="translate(-260 0)"><g id="snow" class="hot">
+  <ellipse cx="380" cy="760" rx="56" ry="10" fill="#000" opacity=".25"/>
+  <path d="M350 754q-8-180 16-214q20-14 42 0q22 34 14 214z" fill="#1d1d24"/><path d="M362 546l24 28 24-28" fill="#f2efe6"/><path d="M374 550h24l-4 9h-16z" fill="#141414"/>
+  <rect x="377" y="504" width="20" height="32" fill="#ecc6a6"/><ellipse cx="387" cy="488" rx="26" ry="31" fill="#ecc6a6"/>
+  <path d="M362 486q-2-28 12-36q-4 12-5 32zM412 486q2-28-12-36q4 12 5 32z" fill="#3a2a1c"/><rect x="360" y="440" width="54" height="46" fill="#141414"/><ellipse cx="387" cy="486" rx="38" ry="7" fill="#141414"/>
+  <circle cx="378" cy="490" r="2.5" fill="#1b1512"/><circle cx="396" cy="490" r="2.5" fill="#1b1512"/>
+  <path d="M364 754v18M408 754v18" stroke="#141414" stroke-width="13"/>
+</g>
+</g>
+<!-- the pump, and the man from the parish with his spanner (the slip at the end covers the right of the street) -->
+<g transform="translate(-380 0)">
+<g id="pump" class="hot">
+  <ellipse cx="985" cy="640" rx="80" ry="12" fill="#000" opacity=".25"/>
+  <rect x="930" y="600" width="110" height="36" fill="#7a7466"/><rect x="924" y="594" width="122" height="10" fill="#9a9486"/>
+  <path d="M960 600V420q0-24 25-24t25 24v180z" fill="#24262a"/><path d="M954 424h62M956 470h58M956 556h58" stroke="#3a3e44" stroke-width="6"/>
+  <path d="M985 396v-20" stroke="#24262a" stroke-width="12"/><circle cx="985" cy="370" r="11" fill="#24262a"/>
+  <g id="handleArm"><path d="M1004 470l90-56" stroke="#24262a" stroke-width="12" stroke-linecap="round"/><circle cx="1098" cy="412" r="9" fill="#24262a"/><circle cx="1004" cy="470" r="8" fill="#3a3e44"/></g>
+  <path d="M960 520h-26v12" stroke="#24262a" stroke-width="9" fill="none"/>
+</g>
+<g id="workman" class="hot">
+  <path d="M1110 640q-8-140 18-164q20-12 40 0q22 24 16 164z" fill="#5a4a3a"/><path d="M1116 520q-20 20-60 -30" stroke="#5a4a3a" stroke-width="16" stroke-linecap="round" fill="none"/>
+  <rect x="1136" y="440" width="20" height="28" fill="#d9a07a"/><ellipse cx="1146" cy="426" rx="24" ry="27" fill="#d9a07a"/><path d="M1122 418q2-26 26-26q22 2 24 20q-28-4-50 6z" fill="#3a3a3a"/>
+  <path d="M1040 482l20-6" stroke="#8a8a8a" stroke-width="7" stroke-linecap="round"/>
+  <path d="M1124 640v20M1164 640v20" stroke="#2a2018" stroke-width="12"/>
+</g>
+<!-- the man with the jug, who will have to walk to Rupert Street -->
+<g id="jugman" class="hot">
+  <path d="M1230 690q-8-150 18-176q20-12 40 0q22 26 16 176z" fill="#4a5a6a"/><rect x="1256" y="480" width="18" height="26" fill="#e8b898"/><ellipse cx="1265" cy="466" rx="22" ry="25" fill="#e8b898"/><path d="M1243 460q2-24 22-24q20 2 22 18q-24-4-44 6z" fill="#6a4a2a"/>
+  <path d="M1300 560q20 30 10 70" stroke="#4a5a6a" stroke-width="14" stroke-linecap="round" fill="none"/><path d="M1300 630h30l-4 40h-22z" fill="#c8b48a"/><path d="M1330 640q12 0 12 12t-12 12" stroke="#c8b48a" stroke-width="4" fill="none"/>
+  <path d="M1244 690v18M1286 690v18" stroke="#2a2a2a" stroke-width="12"/>
+</g>
+</g>
+<!-- Florrie, on the kerb -->
+<g transform="translate(-180 0)"><g id="florrie" class="hot">
+  <ellipse cx="640" cy="800" rx="56" ry="10" fill="#000" opacity=".25"/>
+  <path d="M606 794q-8-170 20-200q24-12 44 0q26 30 18 200z" fill="#6a4a6a"/><path d="M598 650q20-50 48-52q30 2 48 52" fill="#8a5a3a"/>
+  <rect x="630" y="550" width="20" height="26" fill="#f2cdb0"/><ellipse cx="640" cy="536" rx="24" ry="27" fill="#f2cdb0"/>
+  <path d="M616 532q-4-36 24-38q28 2 24 38q-8-18-24-18q-16 0-24 18z" fill="#f6f3ea"/><path d="M620 538v14M660 538v14" stroke="#8a3c1a" stroke-width="5"/>
+  <circle cx="631" cy="538" r="2.4" fill="#1b1512"/><circle cx="649" cy="538" r="2.4" fill="#1b1512"/><path d="M633 556q7 4 14 0" stroke="#5a2a20" stroke-width="2" fill="none"/>
+</g>
+</g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<div class="done" id="done">
+  <div class="okstamp">HANDLE OFF</div>
+  <h6>Golden Square, Soho &middot; 5 to 8 September 1854</h6>
+  <p id="d-time"></p><p id="d-slips"></p><p id="d-words"></p><p id="d-hints"></p>
+  <h5>What you now know</h5>
+  <ol>
+    <li>A death register records when and where a person died, the cause as certified or reported, who told the registrar, and when it was registered. Read every column: deaths registered in a week are not the same as deaths that happened in it.</li>
+    <li>To read a map of cases, mark each one where it began, then look at where the marks crowd and ask what stands in the middle, and what else stands there too.</li>
+    <li>Water is fetched on foot, so &ldquo;near&rdquo; means near along the road, not as the crow flies. Where two walks are equal you can draw the line between two pumps.</li>
+    <li>Two explanations that fit the same crowd of marks are told apart only where they disagree. The workhouse and the brewery, in the same foul air with water of their own, escaped; a widow on a healthy hill who drank the water did not. Cases that seem not to fit, once explained, make a theory strong.</li>
+    <li>Ask what each writer could know. A housekeeper who was there every day is worth more than a newspaper that guessed.</li>
+    <li>A fall that comes after an action does not by itself prove the action caused it. The attacks were falling before the handle came off, and most people had fled.</li>
+    <li>To persuade a committee: say what you want, give the plainest fact first, answer the strongest objection before it is made, and say what it will cost.</li>
+  </ol>
+  <div class="row"><button type="button" class="btn" id="b-tell">Tell it to a friend</button><button type="button" class="btn" id="b-table">What came after</button><button type="button" class="btn" id="b-book">Open the notebook</button><button type="button" class="btn" id="b-lobby">Back to the Archive</button></div>
+  <small>Dr John Snow, the Revd Henry Whitehead, Mrs Susannah Eley and her niece, Mr Huggins of the Lion Brewery and the Board of Guardians of St James&rsquo;s are real, and so are the pump, the workhouse, the brewery, the cap works, the workhouse&rsquo;s 535 and 5, the brewery&rsquo;s seventy and none, the numbers in Dr Snow&rsquo;s table and the day the handle came off. The &ldquo;one in five&rdquo; is worked out from Dr Snow&rsquo;s own sums. Tapping, Mr Peebles, Florrie Dawlish, Mr Stannard, Mr Mudge, Mr Pook and Mrs Applin are invented, and so are their words, the order of the days before the Board, and what was said in the board room. In real life Dr Snow did his own asking. &middot; <button type="button" id="b-reset">start the box again from the beginning</button></small>
+</div>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="pump.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true;
+
+  ER.init({
+    theme: 'history', story: 'pump', storyTitle: 'By the Nearest Road', id: 'handle', no: 'VII', title: 'The Handle',
+    go: 'Go out into Broad Street', back: '../index.html', backLabel: 'Archive',
+    intro: [
+      'Dr Snow spoke in the order of the Board&rsquo;s own rules: what he asked (the handle), the plainest fact (the map), the facts that needed explaining (the line by the nearest road), the answer to the bad air before anybody said it (the workhouse and the brewery), and the cost (a minute). Then every objection got its answer: crowding, from the workhouse; Peter Street, from the long way round to Rupert Street; Hampstead, from Mrs Applin; and &ldquo;fewer every day&rdquo;, from the empty streets.',
+      'Friday 8 September 1854, eight in the morning. Broad Street, in the sun.'
+    ],
+    exit: {"last":true,"rooms":7,"stars":5}, tags: {},
+    hints: hints, onBegin: begin
+  });
+  function hints() { return ER.flag('x-done') ? null : ['look', ['Click through the captions. There is nothing to unlock here.']]; }
+  function isBusy() { return busy; }
+
+  function begin() {
+    if (ER.flag('x-done')) { document.body.classList.add('off', 'gone'); busy = false; finish(true); return; }
+    ER.narrate([
+      'A man from the parish comes along Broad Street with a spanner in his pocket and a sack over his shoulder. He looks at the pump as if it had done something to him personally. Then he begins.',
+      'It takes him rather less than a minute. Dr Snow was right about that.'
+    ], function () {
+      document.body.classList.add('off'); PU.sfx.squeak(); setTimeout(function () { ER.sfx.clunk(); }, 1400);
+      ER.narrate([
+        'The handle comes off in his hands, and he drops it into the sack. The pump stands at the corner of Cambridge Street with nothing to pump it with, looking smaller than it did.',
+        'A man arrives with a jug. He looks at the pump. He looks at his jug. He looks at the pump again. Then he turns round and sets off for Rupert Street, the long way, by the road.'
+      ], function () {
+        document.body.classList.add('gone');
+        ER.narrate([
+          'In the months that followed, Dr Snow went on with his inquiry. In 1855 he published a second, much larger edition of his book, On the Mode of Communication of Cholera, with a map of Broad Street in it: a short black bar for every death, crowded round the pump.',
+          'Mr Whitehead, the curate, set out to prove him wrong. He went back to nearly every house in Broad Street, family by family, and asked who had drunk the water and who had not. By the end he was on Dr Snow&rsquo;s side, and said so.',
+          'And in the register he found what may have been the very first case: a baby at No. 40 Broad Street, taken ill at the end of August. The register called it diarrhoea, not cholera, so it never went on Dr Snow&rsquo;s list. You left it off yourself, quite rightly: nobody that week could have known. The baby&rsquo;s washing water had been emptied into a cesspool in front of the house, only a few feet from the well.',
+          'Many doctors went on believing in the bad air for years. Dr Snow died in 1858, at forty-five, before most of them changed their minds.',
+          'The Archive keeps one box for each day that mattered. In this one there are fourteen register slips, a map with piles of black bars, a tracing with three pins, a slate, a page from a clerk&rsquo;s pocket book, and a pump handle, which is heavier than you would think.'
+        ], function () { ER.flag('x-done', 1); busy = false; finish(false); });
+      });
+    });
+  }
+  PU.thing('#pump', null, function () { return document.body.classList.contains('off') ? 'The pump, with no handle. It looks like a man who has forgotten what he came in for.' : 'The pump at the corner of Cambridge Street.'; }, isBusy);
+  PU.thing('#snow', null, 'Dr Snow, watching from a little way off. He does not look pleased, or proud. He looks like a man who is already thinking about the next question.', isBusy);
+  PU.thing('#florrie', null, '&ldquo;Works opens again Monday,&rdquo; says Florrie. &ldquo;I&rsquo;ll bring my own water. From Rupert Street. The long way round.&rdquo;', isBusy);
+  PU.thing('#workman', null, 'The man from the parish. He has done what the Board told him, and he would like his breakfast.', isBusy);
+  PU.thing('#jugman', null, 'A man with an empty jug and a long walk ahead of him.', isBusy);
+
+  var DAYS = [['28', 1], ['29', 1], ['30', 8], ['31', 56], ['1', 143], ['2', 116], ['3', 54], ['4', 46], ['5', 36], ['6', 20], ['7', 28], ['8', 12], ['9', 11], ['10', 5], ['11', 5], ['12', 1], ['13', 3], ['14', 0], ['15', 1]];
+  function table() {
+    var s = '<svg viewBox="0 0 640 300"><g font-family="\'IBM Plex Mono\',monospace" font-size="10.5" fill="#1f2438">';
+    s += '<path d="M40 250H630M40 250V20" stroke="#1f2438" stroke-width="1.5"/>';
+    [0, 50, 100, 150].forEach(function (v) { var y = 250 - v * 1.5; s += '<text x="34" y="' + (y + 4) + '" text-anchor="end">' + v + '</text><path d="M40 ' + y + 'H630" stroke="#c9b48a" stroke-width=".8"/>'; });
+    DAYS.forEach(function (d, i) {
+      var x = 50 + i * 30, h = d[1] * 1.5, hl = d[0] === '8' && i > 10;
+      s += '<rect x="' + x + '" y="' + (250 - h) + '" width="20" height="' + Math.max(h, 0.5) + '" fill="' + (hl ? '#b3261c' : '#2f3a55') + '"/>';
+      s += '<text x="' + (x + 10) + '" y="' + (244 - h) + '" text-anchor="middle" font-size="9.5">' + d[1] + '</text><text x="' + (x + 10) + '" y="266" text-anchor="middle">' + d[0] + '</text>';
+    });
+    s += '<text x="110" y="284" text-anchor="middle" font-family="\'Libre Caslon Text\',serif" font-size="11">August</text><text x="400" y="284" text-anchor="middle" font-family="\'Libre Caslon Text\',serif" font-size="11">September</text>';
+    s += '<path d="M420 120V200" stroke="#b3261c" stroke-width="1.5"/><path d="M414 192l6 10 6-10" fill="#b3261c"/><text x="424" y="112" font-family="\'Libre Caslon Text\',serif" font-size="12" fill="#b3261c">8 September: the handle comes off</text>';
+    return s + '</g></svg>';
+  }
+  var AFTER = '<h4>What came after</h4><h5>Fresh attacks of cholera, day by day, from Dr Snow&rsquo;s table (1855)</h5>' + table() +
+    '<p>The worst day was Friday 1 September, the day after the outbreak began: 143 fresh attacks. After that the numbers fell, day by day. By 8 September, when the handle came off, they were down to twelve. Most people had already fled.</p>' +
+    '<p>Dr Snow wrote, honestly, that &ldquo;the attacks had so far diminished before the use of the water was stopped, that it is impossible to decide whether the well still contained the cholera poison in an active state, or whether, from some cause, the water had become free from it.&rdquo;</p>' +
+    '<p>When two things rise and fall together, that is a <b>correlation</b>. It is not the same as a <b>cause</b>: the deaths were falling already, and might have gone on falling whatever was done to the handle. So the handle did not prove the case. The map, the line by the nearest road, the workhouse, the brewery and the widow at Hampstead did.</p>';
+
+  function finish(quiet) {
+    var st = ER.state(), secs = (st.fin && st.fin.secs) || st.secs || 0, mins = Math.max(1, Math.round(secs / 60)), hn = ER.hintsUsed(), sl = PU.slips();
+    $('#d-time').textContent = 'The four days took you ' + mins + (mins === 1 ? ' minute.' : ' minutes.');
+    $('#d-slips').textContent = sl ? 'Somebody had to put you right ' + sl + (sl === 1 ? ' time.' : ' times.') : 'Nobody had to put you right, not once.';
+    $('#d-words').textContent = 'In your notebook: ' + st.clues.length + ' papers and ' + Object.keys(st.words).length + ' words.';
+    $('#d-hints').textContent = hn ? 'You asked for ' + hn + (hn === 1 ? ' hint.' : ' hints.') : 'You did not ask for a single hint.';
+    $('#done').classList.add('on');
+    if (!quiet) PU.solved();
+  }
+  $('#b-book').addEventListener('click', ER.notebook);
+  $('#b-table').addEventListener('click', function () { ER.read({ html: AFTER, cls: 'office', clue: { id: 'after', title: 'What came after', kind: 'Dr Snow’s table' } }); });
+  $('#b-lobby').addEventListener('click', function () { ER.leave('../index.html'); });
+  $('#b-reset').addEventListener('click', function () {
+    var b = $('#b-reset');
+    if (b.getAttribute('data-sure')) { ER.resetStory(); location.href = '../index.html'; return; }
+    b.setAttribute('data-sure', '1'); b.textContent = 'this empties the notebook. click again to do it';
+  });
+  $('#b-tell').addEventListener('click', function () {
+    var saved = ER.flag('tell') || {}, box = ER.el('div', 'rp');
+    box.innerHTML = '<h4>Soho &middot; September 1854</h4><h3>Tell it to a friend</h3>' +
+      '<label for="r1">A friend says: &ldquo;So taking the handle off the pump stopped the cholera. Simple.&rdquo; Is it that simple? Explain how Dr Snow showed that the water was to blame, and why the falling deaths after the handle came off did not prove it by themselves. Say it aloud first. Then write it, in 60 to 90 words. Use all three of these: <b>map</b>, <b>exception</b>, <b>cause</b>.</label><textarea id="r1"></textarea>' +
+      '<div class="count"></div><label for="r2">Written by</label><input type="text" id="r2" maxlength="60">' +
+      '<div class="foot"><span>Saved in this browser as you write.</span><button type="button" class="btn" id="r-print">Print</button><button type="button" class="btn" id="r-done">Done</button></div>';
+    ER.glossIn(box, '.rp > label');
+    box.querySelector('#r1').value = saved.r1 || ''; box.querySelector('#r2').value = saved.r2 || '';
+    function keep() {
+      var o = { r1: box.querySelector('#r1').value, r2: box.querySelector('#r2').value }, n = (o.r1.match(/[A-Za-z’'-]+/g) || []).length;
+      box.querySelector('.count').textContent = n + (n === 1 ? ' word' : ' words');
+      ER.flag('tell', o);
+    }
+    box.addEventListener('input', keep);
+    box.addEventListener('keydown', function (e) { e.stopPropagation(); });
+    box.querySelector('#r-print').addEventListener('click', function () { keep(); window.print(); });
+    box.querySelector('#r-done').addEventListener('click', ER.close);
+    ER.open('ov-report', box); keep();
+  });
+})();
+</script>
+</body>
+</html>

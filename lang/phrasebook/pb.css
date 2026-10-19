@@ -1,0 +1,175 @@
+/* The Verb Comes Last - what every room shares: the phrasebook's pages, Philippa's slips, the player's own word list,
+   the frame round a piece of work, the arrow dial, and a phrasebook skin for the notebook, the hints and the word tags.
+   Each room sets its own palette on <body>. Isuvo is set in .iv everywhere. */
+
+.tc-theme{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:13px;letter-spacing:.22em;text-transform:uppercase}
+.tc-room{font-family:'Old Standard TT',Georgia,serif;font-weight:700;letter-spacing:.01em;line-height:1}
+.tc-text{font-family:'Gentium Book Plus',Georgia,serif;font-size:clamp(17.5px,1.42vw,21px);line-height:1.56}
+.tc-text p{margin:0 0 12px}
+.cap{font-family:'Gentium Book Plus',Georgia,serif;font-size:clamp(17.5px,1.38vw,21px);line-height:1.5}
+.chip,.hbtn{font-family:'Outfit',sans-serif;font-weight:600;font-size:13px;letter-spacing:.14em}
+.btn{font-family:'Outfit',sans-serif;font-weight:700;font-size:13.5px;letter-spacing:.14em}
+.ov-x{font-family:'Outfit',sans-serif;font-weight:600;font-size:12.5px}
+.gobtn{position:fixed;left:50%;bottom:5vh;transform:translateX(-50%);z-index:35;display:none;padding:13px 30px 11px;border:2px solid #1d2230;
+  color:#1d2230;background:#f4ead2;font-family:'Old Standard TT',serif;font-weight:700;font-size:19px;letter-spacing:.04em;border-radius:3px;box-shadow:0 6px 0 #1d2230,0 14px 30px rgba(0,0,0,.4)}
+.gobtn.on{display:block}
+.gobtn:hover{background:#fff}
+.tk-name{font-family:'Old Standard TT',serif;font-weight:700;font-size:26px;letter-spacing:.01em}
+.tk-role{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12.5px;letter-spacing:.1em;color:var(--role,#a3242a)}
+.tk .btn{--accent:var(--role-btn,#1d2230)}
+.tk .btn:hover:not([disabled]){color:#fffdf2}
+.tk-text{font-family:'Gentium Book Plus',Georgia,serif;font-size:clamp(17px,1.32vw,20px);line-height:1.52}
+.tk-face svg{height:100%;min-height:300px}
+.hot{cursor:pointer}
+.hot:hover{filter:brightness(1.12)}
+
+/* Isuvo: always in this face, so that it looks like what it is */
+.iv{font-family:'Gentium Book Plus',Georgia,serif;font-style:italic;font-weight:700;letter-spacing:.02em;color:var(--iv,#7a1f3a)}
+.tk-text .iv{font-size:1.08em}
+.cap .iv{color:inherit}
+svg .iv{font-family:inherit;font-style:inherit;font-weight:inherit;letter-spacing:inherit;color:inherit}
+
+/* lettering inside drawings */
+.cU{font-family:'Uncial Antiqua',serif}
+.cG{font-family:'Gentium Book Plus',serif}
+.cO{font-family:'Old Standard TT',serif}
+.cK{font-family:'Kalam',cursive}
+.cM{font-family:'IBM Plex Mono',monospace}
+.cC{font-family:'Caveat',cursive}
+
+/* ---- the arrow dial ---- */
+.dl{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;user-select:none}
+.dl b{display:block;min-width:2em;padding:2px 6px;text-align:center}
+.dl button{display:block;width:100%;height:20px;font-size:12px;line-height:20px;opacity:.75;border-radius:3px}
+.dl button:hover{opacity:1;background:rgba(0,0,0,.08)}
+
+/* ---- a piece of work: the frame, the line that answers, the button ---- */
+.pz{width:min(1080px,95vw);-webkit-user-select:none;user-select:none}
+.pz-foot{display:flex;align-items:flex-start;gap:16px;margin-top:10px}
+.pmsg{flex:1;min-height:54px;margin:0;font-family:'Gentium Book Plus',Georgia,serif;font-size:17.5px;line-height:1.42;color:#fbf6e4}
+.pmsg b{color:var(--accent,#f2c21b)}
+.pmsg .iv{color:#ffd9a0}
+.pz-foot .btn{flex:0 0 auto;white-space:nowrap;background:rgba(0,0,0,.45)}
+.pz svg{display:block}
+
+/* ---- paper ---- */
+.doc h4{font-weight:normal}
+.doc svg{display:block;max-width:100%;height:auto}
+/* the phrasebook: a small blue cloth book, cream pages */
+.doc.pb{width:min(820px,95vw);background:#fbf6e8 linear-gradient(90deg,rgba(120,90,40,.10),transparent 6%);color:#22201c;font-family:'Gentium Book Plus',Georgia,serif;font-size:17px;line-height:1.5;
+  padding:24px 34px 18px 46px;border-left:12px solid #2a4a7a;box-shadow:0 26px 70px rgba(0,0,0,.6),inset 6px 0 10px rgba(0,0,0,.12)}
+.doc.pb h4{margin:0 0 2px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#2a4a7a}
+.doc.pb h3{margin:0 0 10px;font-family:'Old Standard TT',serif;font-weight:700;font-size:28px;line-height:1.1;color:#22201c}
+.doc.pb p{margin:0 0 8px}
+.doc.pb b{font-weight:700;color:#2a4a7a}
+.doc.pb .pg{margin:8px 0 0;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#7a7468}
+.doc.pb .hand{font-family:'Kalam',cursive;font-size:18px;line-height:1.35;color:#a3242a}
+.doc.pb .rule{margin:10px 0 4px;padding:7px 13px 6px;background:#fff4cc;border-left:5px solid #c8902a}
+.doc.pb table{border-collapse:collapse;width:100%;margin:4px 0 6px}
+.doc.pb td{padding:3px 8px 3px 0;border-bottom:1px dotted #c9bfa8;vertical-align:top}
+.doc.pb td:first-child{width:46%}
+.doc.pb td .n{font-family:'IBM Plex Mono',monospace;font-size:12px;color:#7a7468;margin-right:6px}
+.doc.pb .two{display:grid;grid-template-columns:1fr 250px;gap:20px;align-items:start}
+.doc.pb .dia{background:#fff;border:1px solid #d9cfb4;padding:6px}
+/* Philippa's slips */
+.doc.slip{width:min(460px,90vw);background:#fffdf4 repeating-linear-gradient(transparent 0 27px,#cad8e6 27px 28px);color:#22304a;font-family:'Kalam',cursive;font-size:19px;line-height:28px;padding:30px 28px 18px;transform:rotate(-1deg)}
+.doc.slip h4{margin:0;font-family:'IBM Plex Mono',monospace;font-size:12px;line-height:28px;letter-spacing:.14em;text-transform:uppercase;color:#a3242a}
+.doc.slip p{margin:0}
+/* chalk: a slate, a picture board, a blackboard */
+.doc.chalk{width:min(760px,94vw);background:#2b3236 radial-gradient(ellipse at 30% 20%,rgba(255,255,255,.08),transparent 60%);color:#f1efe6;font-family:'Kalam',cursive;
+  font-size:22px;line-height:1.4;padding:24px 32px;border:14px solid #7a5a36;border-radius:4px}
+.doc.chalk h4{margin:0 0 10px;font-family:'Kalam',cursive;font-weight:700;font-size:28px;color:#f2d06a}
+.doc.chalk p{margin:0 0 6px}
+.doc.chalk .iv{color:#fff;font-family:'Kalam',cursive;font-style:normal;font-weight:700;font-size:1.1em;letter-spacing:.04em}
+.doc.chalk .sm{font-size:17px;opacity:.8;font-family:'Gentium Book Plus',serif}
+.doc.chalk .grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px 12px}
+.doc.chalk .grid>div{text-align:center;border:2px dashed rgba(241,239,230,.25);border-radius:6px;padding:6px 4px 4px}
+.doc.chalk .grid svg{width:100%;height:auto}
+/* a poster on a wall */
+.doc.poster{width:min(800px,95vw);background:#fff;color:#1f2a44;font-family:'Gentium Book Plus',Georgia,serif;font-size:17px;line-height:1.48;padding:22px 30px 18px;border-top:18px solid #2a6a9a}
+.doc.poster h4{margin:0 0 8px;font-family:'Old Standard TT',serif;font-weight:700;font-size:28px;color:#2a6a9a}
+.doc.poster p{margin:0 0 8px}
+.doc.poster b{color:#a3242a}
+.doc.poster .big{font-family:'IBM Plex Mono',monospace;font-size:20px;letter-spacing:.06em;color:#1f2a44}
+.doc.poster .big i{font-style:normal;color:#a3242a}
+.doc.poster .two{display:grid;grid-template-columns:1fr 260px;gap:20px;align-items:start}
+/* your own word list */
+.doc.wlist{width:min(640px,93vw);background:#fffdf2 repeating-linear-gradient(transparent 0 29px,#d6dee8 29px 30px);color:#1f2a44;font-family:'Kalam',cursive;font-size:17px;line-height:30px;padding:30px 30px 20px 40px;border-left:6px double #c8302a}
+.doc.wlist h4{margin:0;font-family:'Old Standard TT',serif;font-weight:700;font-size:24px;line-height:30px;color:#c8302a}
+.doc.wlist h5{margin:6px 0 0;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#2a4a7a}
+.doc.wlist .sm{margin:0;font-size:15px;opacity:.8}
+.doc.wlist table{border-collapse:collapse;width:100%}
+.doc.wlist td{padding:0 8px 0 0;vertical-align:top;line-height:26px}
+.doc.wlist td:first-child{width:118px;white-space:nowrap}
+.doc.wlist .iv{color:#7a1f3a;font-size:17px}
+/* what you worked out for yourself */
+.doc.mine{width:min(600px,92vw);background:#fffdf2 repeating-linear-gradient(transparent 0 29px,#cfdae6 29px 30px);color:#1f3a6a;font-family:'Kalam',cursive;font-size:18px;line-height:30px;padding:34px 30px 20px 34px;border-top:18px solid #2a4a7a}
+.doc.mine h4{margin:0;font-family:'IBM Plex Mono',monospace;font-size:13px;line-height:30px;letter-spacing:.08em;color:#a3242a;text-transform:uppercase}
+.doc.mine p{margin:0}
+.doc.statement{background:#f8f1e0;font-family:'Gentium Book Plus',Georgia,serif;font-size:17px;line-height:1.5;border-left:6px solid #2a4a7a}
+.doc.statement h4{font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.06em;color:#2a4a7a}
+.doc .w:hover{color:#a3242a}
+
+/* ---- the notebook: a traveller's notebook, oilcloth cover ---- */
+.nb{background:#22324a linear-gradient(140deg,#2c4060,#18243a);border:1px solid #4a6080;color:#f1ece0;box-shadow:0 30px 90px rgba(0,0,0,.75),inset 0 0 0 5px #121c2c}
+.nb-tabs{border-bottom-color:#4a6080}
+.nb-tabs button{font-family:'Outfit',sans-serif;font-weight:700;font-size:13.5px;letter-spacing:.16em;color:#b9c8dc}
+.nb-tabs button.on{background:#fbf6e8;color:#22324a;border-color:#4a6080}
+.nb-list{border-right-color:#4a6080}
+.nb-list button{font-family:'Gentium Book Plus',serif;font-size:16px;color:#f1ece0}
+.nb-list button small{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em}
+.nb-list button.on{background:#f2d06a;color:#1d2230}
+.nb-view{background:#121c2c}
+.nb-empty{font-family:'Gentium Book Plus',serif}
+.nb-words{background:#fbf6e8;color:#1d2230}
+.nb-words b{font-family:'Old Standard TT',serif;font-weight:700;font-size:17px}
+.nb-words span{font-family:'Gentium Book Plus',serif;font-size:16px;line-height:1.35;color:#4a4a52}
+.nb-ko{border-color:#8a96a8;color:#4a4a52}
+.nb-ko.on{background:#22324a;color:#f2d06a;border-color:#22324a}
+.wtip,.wtag{background:#fbf6e8;color:#1d2230;border-radius:3px;box-shadow:0 10px 26px rgba(0,0,0,.5),inset 0 5px 0 #2a4a7a}
+.wtag{transform:rotate(-1deg);padding:13px 16px 10px}
+.wtag:before{display:none}
+.wtip{padding-top:13px}
+.wtip b,.wtag b{font-family:'Old Standard TT',serif;font-weight:700;font-size:17px}
+.wtip span,.wtag span{font-family:'Gentium Book Plus',serif;font-size:16px;line-height:1.35;color:#4a4a52}
+.hintbox{background:#fbf6e8;color:#1d2230;border-top:6px solid #2a4a7a;border-radius:3px}
+.hintbox h6{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:13px;letter-spacing:.14em;color:#a3242a}
+.hintbox p{font-family:'Gentium Book Plus',serif;font-size:17px;line-height:1.42}
+.hintbox p i{background:#1d2230;color:#f2d06a;font-family:'Outfit',sans-serif;font-weight:700;font-size:12px}
+.hintbox p.hint-none{font-style:italic;color:#5a5a62;font-size:16px}
+.hintbox .btn{font-size:12.5px}
+.toast{font-family:'Outfit',sans-serif;font-weight:600;font-size:13px;background:rgba(18,28,44,.94)}
+
+/* ---- the card at the end ---- */
+.done{position:fixed;right:2.2vw;top:60px;z-index:34;width:min(540px,94vw);max-height:calc(100vh - 76px);overflow:auto;padding:16px 26px 13px;display:none;background:#fbf6e8;color:#1d2230;
+  border-left:12px solid #2a4a7a;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.done.on{display:block}
+.okstamp{display:inline-block;padding:4px 14px 2px;border:3px solid #a3242a;color:#a3242a;font-family:'Uncial Antiqua',serif;font-size:22px;letter-spacing:.04em;transform:rotate(-3deg);margin-bottom:7px}
+.done h6{margin:9px 0 5px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:#2a4a7a}
+.done p{margin:0 0 2px;font-family:'IBM Plex Mono',monospace;font-size:13px;line-height:1.4}
+.done ol{margin:0;padding-left:20px;font-family:'Gentium Book Plus',serif;font-size:14.5px;line-height:1.34}
+.done li{margin:0 0 4px}
+.done .row{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
+.done .btn{--accent:#1d2230;font-size:12.5px;padding:7px 13px}
+.done .btn:hover:not([disabled]){color:#f2d06a}
+.done small{display:block;margin-top:8px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;opacity:.75;line-height:1.5}
+.done small button{text-decoration:underline;font:inherit}
+.rp{width:min(780px,94vw);max-height:84vh;overflow:auto;background:#fbf6e8;color:#1d2230;padding:22px 34px 18px;box-shadow:0 26px 70px rgba(0,0,0,.5);-webkit-user-select:text;user-select:text;border-top:20px solid #2a4a7a}
+.rp h4{margin:0 0 3px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:#a3242a}
+.rp h3{margin:0 0 8px;font-family:'Old Standard TT',serif;font-weight:700;font-size:28px;line-height:1.05}
+.rp p,.rp label{display:block;font-family:'Gentium Book Plus',serif;font-size:16.5px;line-height:1.45;margin:0 0 6px}
+.rp textarea,.rp input[type=text]{width:100%;font-family:'Kalam',cursive;font-size:18px;line-height:30px;color:#1f3a6a;background:#fff repeating-linear-gradient(transparent 0 29px,#cfdae6 29px 30px);
+  border:1px solid #9aa7b5;padding:0 12px;border-radius:0;resize:vertical;-webkit-user-select:text;user-select:text}
+.rp textarea{min-height:184px}
+.rp input[type=text]{height:32px}
+.rp .count{font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;opacity:.7;text-align:right;margin-top:3px}
+.rp .foot{display:flex;gap:10px;align-items:center;margin-top:10px}
+.rp .foot span{flex:1;font-family:'IBM Plex Mono',monospace;font-size:12px;opacity:.75}
+.rp .btn{--accent:#1d2230}.rp .btn:hover:not([disabled]){color:#f2d06a}
+@media print{
+  body{overflow:visible;background:#fff}
+  body>*:not(.ov){display:none!important}
+  .ov{position:static!important;display:block!important;background:#fff!important;padding:0!important;overflow:visible!important}
+  .ov-bar,.rp .foot{display:none!important}
+  .rp{box-shadow:none;max-height:none;width:auto;overflow:visible}
+}

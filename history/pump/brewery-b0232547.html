@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Brewery Yard · By the Nearest Road</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-history.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="pump.css">
+<style>
+  body{--bg:#7a6a4a;--accent:#ffd27a;--font-display:'Abril Fatface',serif;--font-ui:'Oswald',sans-serif;--font-body:'Libre Caslon Text',serif;
+    --tc-bg:rgba(40,28,14,.95);--tc-ink:#f6ecd4;--cap-bg:rgba(40,28,14,.93);--panel:#2e2214;--face-bg:#5a4426;--q-ink:#ffd690;--fade:#140e06;--hud-bg:rgba(40,28,14,.82)}
+  .lb{font-family:'Oswald',sans-serif;font-weight:500;text-anchor:middle;letter-spacing:.12em}
+  #steam ellipse{animation:st 7s steps(10,end) infinite}
+  #steam ellipse:nth-child(2){animation-delay:-2.4s}
+  #steam ellipse:nth-child(3){animation-delay:-4.8s}
+  @keyframes st{from{transform:translate(0,0) scale(.7);opacity:.8}to{transform:translate(30px,-170px) scale(1.5);opacity:0}}
+  #drip{animation:dp 2.2s steps(1,end) infinite}
+  @keyframes dp{0%{opacity:0}60%{opacity:1}100%{opacity:0}}
+  #board.ready,#florrie.ready{animation:nudge 1.6s ease-in-out infinite}
+  @keyframes nudge{50%{transform:translateY(-5px)}}
+
+  /* the slate on the counting-house wall */
+  .pb{width:min(1120px,97vw);display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:16px;align-items:start}
+  .pb-slate{padding:14px 18px 16px;background:#2a2e2c linear-gradient(160deg,rgba(255,255,255,.05),rgba(0,0,0,.25));border:12px solid #6a4a2a;color:#eceadf;font-family:'Architects Daughter',cursive;box-shadow:0 20px 50px rgba(0,0,0,.6)}
+  .pb-g{display:grid;grid-template-columns:170px repeat(3,minmax(0,1fr));gap:6px 10px;align-items:center}
+  .pb-g .hd{font-size:16px;line-height:1.2;text-align:center;color:#fff;border-bottom:2px solid rgba(255,255,255,.35);padding-bottom:4px}
+  .pb-g .hd small{display:block;font-size:13px;color:#d8d4c6}
+  .pb-g .rl{font-size:15px;line-height:1.2;color:#ffe9a8}
+  .pb-g .cell{min-height:38px;display:flex;align-items:center;justify-content:center;gap:5px;flex-wrap:wrap;padding:3px;border-radius:3px}
+  .pb-g .cell.no{background:rgba(224,90,58,.28)}
+  .pb-g .cell.ok{background:rgba(122,196,106,.18)}
+  .pb-g .fixed{font-size:15px;color:#d8d4c6;text-align:center}
+  .slot{width:100%;min-height:34px;border:2px dashed rgba(255,255,255,.35);border-radius:3px;display:flex;align-items:center;justify-content:center}
+  .tok{max-width:100%;padding:4px 9px;line-height:1.2;text-align:center;background:#efe6cc;color:#2a2416;font-family:'Libre Caslon Text',serif;font-size:13.5px;border-radius:2px;box-shadow:0 2px 4px rgba(0,0,0,.5)}
+  .pb-tray{display:flex;flex-wrap:wrap;gap:6px;min-height:40px;margin-top:10px;padding:6px;border-top:2px solid rgba(255,255,255,.25)}
+  .tg2{padding:4px 10px;border:1px solid rgba(255,255,255,.5);border-radius:2px;background:transparent;color:#eceadf;font-family:'Architects Daughter',cursive;font-size:15px;cursor:pointer}
+  .tg2.on{background:#ffe9a8;color:#2a2416;border-color:#ffe9a8}
+  .tg2 i{font-style:normal;font-size:12px;opacity:.75;margin-right:3px}
+  .fit2{display:flex;align-items:center;gap:4px;width:100%;justify-content:center}
+  .fit2 span{min-width:52px;font-size:13px;color:#ffe9a8;text-align:right}
+  .pb .ns output{min-width:50px;font-size:15px}
+  .pb .ns button{min-width:22px;height:24px;font-size:11.5px}
+  .pb-side .btn{width:100%;margin-top:8px}
+  @media (max-width:980px){.pb{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a9cb0"/><stop offset="1" stop-color="#d8d0b8"/></linearGradient>
+  <linearGradient id="yardG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a7a5c"/><stop offset="1" stop-color="#4a3e2c"/></linearGradient>
+  <pattern id="brk" width="40" height="16" patternUnits="userSpaceOnUse"><rect width="40" height="16" fill="#8a5a3c"/><path d="M0 8h40M0 16h40M20 0v8M0 8v8M40 8v8" stroke="#6a4028" stroke-width="1.2"/></pattern>
+  <pattern id="setts" width="50" height="26" patternUnits="userSpaceOnUse"><path d="M0 13h50M25 0v13M0 13v13M50 13v13" stroke="#3a3020" stroke-width="1.3" opacity=".4"/></pattern>
+  <radialGradient id="vig" cx="50%" cy="45%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#0a0804" stop-opacity=".18"/><stop offset="1" stop-color="#0a0804" stop-opacity=".65"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#skyG)"/>
+<!-- the brewhouse, with its louvred tower and the steam -->
+<rect x="300" y="60" width="900" height="540" fill="url(#brk)"/>
+<path d="M740 60V-40h140V60z" fill="#6a4a2a"/><g stroke="#3a2a18" stroke-width="5"><path d="M750 -20h120M750 0h120M750 20h120M750 40h120"/></g><path d="M720 -40l90-50 90 50z" fill="#4a3420"/>
+<g id="steam" fill="#f4f0e6"><ellipse cx="790" cy="-60" rx="50" ry="30"/><ellipse cx="830" cy="-60" rx="44" ry="26"/><ellipse cx="770" cy="-50" rx="40" ry="24"/></g>
+<rect x="300" y="50" width="900" height="16" fill="#4a3420"/>
+<rect x="420" y="96" width="660" height="56" fill="#2a1e12"/><text x="750" y="137" class="lb" font-size="36" fill="#ffd27a" font-family="'Abril Fatface',serif" letter-spacing=".1em">LION BREWERY</text>
+<g fill="#2a2018"><rect x="360" y="190" width="70" height="100"/><rect x="480" y="190" width="70" height="100"/><rect x="950" y="190" width="70" height="100"/><rect x="1070" y="190" width="70" height="100"/></g>
+<!-- the loading gallery -->
+<rect x="300" y="320" width="900" height="16" fill="#5a3e22"/><g stroke="#5a3e22" stroke-width="6"><path d="M330 336v260M480 336v260M630 336v260M870 336v260M1020 336v260M1170 336v260"/></g>
+<path d="M600 336v-140h300v140" fill="#3a2a18"/><path d="M620 336v-120h260v120" fill="#1e140a"/><path d="M750 230v80" stroke="#8a7a5a" stroke-width="3"/><circle cx="750" cy="226" r="8" fill="none" stroke="#8a7a5a" stroke-width="3"/>
+<!-- the counting house on the right, and the slate by its door -->
+<rect x="1200" y="180" width="460" height="420" fill="#b9a982"/><path d="M1180 190l250-90 250 90z" fill="#5a3e22"/>
+<rect x="1420" y="380" width="80" height="220" fill="#3a2a18"/><text x="1460" y="368" class="lb" font-size="13" fill="#3a2a18">COUNTING HOUSE</text>
+<g id="board" class="hot"><rect x="1230" y="270" width="160" height="120" fill="#2a2e2c" stroke="#6a4a2a" stroke-width="10"/><g stroke="#e8e6dc" stroke-width="2" opacity=".75"><path d="M1250 300h40M1310 300h60M1250 326h120M1250 352h80M1340 352h30"/></g><path d="M1310 270l0-20" stroke="#3a2a18" stroke-width="3"/></g>
+<!-- the yard -->
+<rect x="-1000" y="596" width="3600" height="724" fill="url(#yardG)"/><rect x="-1000" y="596" width="3600" height="724" fill="url(#setts)"/>
+<!-- the brewery's own well, with its pump -->
+<g id="well" class="hot">
+  <ellipse cx="800" cy="650" rx="90" ry="22" fill="#5a5a52"/><path d="M710 650v-50h180v50" fill="#7a7a70"/><ellipse cx="800" cy="600" rx="90" ry="20" fill="#9a9a90"/><ellipse cx="800" cy="600" rx="70" ry="13" fill="#1e1e1a"/>
+  <path d="M780 600V480h40v120" fill="#2a2a2a"/><path d="M820 500l50-30" stroke="#2a2a2a" stroke-width="8" stroke-linecap="round"/><path d="M780 520h-24v12" stroke="#2a2a2a" stroke-width="7" fill="none"/>
+  <circle id="drip" cx="756" cy="540" r="3" fill="#9ab4c4"/>
+  <text x="800" y="694" class="lb" font-size="12" fill="#2a2416">DEEP WELL</text>
+</g>
+<!-- barrels, and the brewery cat -->
+<g id="barrels" class="hot">
+  <g fill="#7a5230" stroke="#3a2412" stroke-width="3"><ellipse cx="60" cy="600" rx="56" ry="70"/><ellipse cx="180" cy="600" rx="56" ry="70"/><ellipse cx="120" cy="490" rx="56" ry="70"/><ellipse cx="-60" cy="600" rx="56" ry="70"/></g>
+  <g stroke="#2a2a2a" stroke-width="5" fill="none"><path d="M14 560q46-14 92 0M14 640q46 14 92 0M134 560q46-14 92 0M134 640q46 14 92 0M74 450q46-14 92 0M74 530q46 14 92 0"/></g>
+</g>
+<g id="cat" class="hot"><path d="M100 424q0-30 26-30q24 0 24 30z" fill="#c98a3a"/><circle cx="144" cy="396" r="12" fill="#c98a3a"/><path d="M137 388l2-11 7 9zM149 386l5-11 3 12z" fill="#c98a3a"/><path d="M102 424q-20 0-22-24" stroke="#c98a3a" stroke-width="6" fill="none"/></g>
+<!-- the men's allowance on a trestle -->
+<g id="jugs" class="hot"><rect x="560" y="690" width="200" height="12" fill="#5a3e22"/><path d="M580 702v70M740 702v70" stroke="#5a3e22" stroke-width="8"/>
+  <path d="M590 690v-46q0-10 10-12h24q10 2 10 12v46z" fill="#b08a5a"/><path d="M634 652q16 0 16 16t-16 16" stroke="#b08a5a" stroke-width="6" fill="none"/>
+  <g fill="#d8c8a0" stroke="#8a7a5a" stroke-width="2"><rect x="664" y="660" width="22" height="30"/><rect x="694" y="660" width="22" height="30"/><rect x="724" y="660" width="22" height="30"/></g></g>
+<!-- Florrie on a barrel -->
+<g id="florrie" class="hot">
+  <ellipse cx="320" cy="700" rx="60" ry="74" fill="#7a5230" stroke="#3a2412" stroke-width="3"/><path d="M274 660q46-14 92 0M274 740q46 14 92 0" stroke="#2a2a2a" stroke-width="5" fill="none"/>
+  <path d="M292 640q-6-60 18-76q24-8 40 4q18 22 12 72z" fill="#6a4a6a"/><path d="M286 612q20-40 38-42q22 2 36 40" fill="#8a5a3a"/>
+  <rect x="314" y="516" width="18" height="24" fill="#f2cdb0"/><ellipse cx="323" cy="504" rx="22" ry="25" fill="#f2cdb0"/>
+  <path d="M301 500q-4-34 22-36q26 2 22 36q-8-18-22-18q-14 0-22 18z" fill="#f6f3ea"/><path d="M306 506v14M340 506v14" stroke="#8a3c1a" stroke-width="5"/>
+  <circle cx="315" cy="506" r="2.4" fill="#1b1512"/><circle cx="331" cy="506" r="2.4" fill="#1b1512"/>
+  <rect x="340" y="580" width="30" height="20" fill="#f7f1e1" transform="rotate(-12 355 590)"/>
+</g>
+<!-- Mr Mudge, foreman -->
+<g id="mudge" class="hot">
+  <ellipse cx="520" cy="770" rx="64" ry="11" fill="#000" opacity=".28"/>
+  <path d="M478 764q-8-190 24-226q24-14 48 0q30 36 22 226z" fill="#e6dcc4"/><path d="M488 580h66l8 184h-82z" fill="#b89a62"/>
+  <path d="M480 580q-30 50-20 120M562 580q30 50 20 120" stroke="#e6dcc4" stroke-width="20" stroke-linecap="round" fill="none"/><g fill="#d9a07a"><circle cx="462" cy="702" r="11"/><circle cx="580" cy="702" r="11"/></g>
+  <rect x="510" y="506" width="22" height="34" fill="#d9a07a"/><ellipse cx="521" cy="490" rx="28" ry="33" fill="#d9a07a"/>
+  <path d="M494 498q2 44 27 48q25-4 27-48q-8 18-27 20q-19-2-27-20z" fill="#6a4a2a"/>
+  <path d="M490 470q4-34 34-34q28 2 30 26q-34-6-64 8z" fill="#4a3a2a"/>
+  <circle cx="511" cy="488" r="2.6" fill="#1b1512"/><circle cx="531" cy="488" r="2.6" fill="#1b1512"/>
+  <path d="M496 764v20M546 764v20" stroke="#2a1e12" stroke-width="13"/>
+</g>
+<!-- Mr Pook, porter of the workhouse, with a pail for the barm -->
+<g id="pook" class="hot">
+  <ellipse cx="1080" cy="780" rx="60" ry="10" fill="#000" opacity=".28"/>
+  <path d="M1046 774q-8-180 20-214q22-12 44 0q24 34 18 214z" fill="#24345a"/><g fill="#d9b24a"><circle cx="1088" cy="600" r="4"/><circle cx="1088" cy="630" r="4"/><circle cx="1088" cy="660" r="4"/></g>
+  <rect x="1076" y="528" width="22" height="32" fill="#e8b898"/><ellipse cx="1087" cy="512" rx="26" ry="31" fill="#e8b898"/>
+  <path d="M1062 506q-4 32 8 44q4-22 4-40zM1112 506q4 32-8 44q-4-22-4-40z" fill="#9a9488"/>
+  <path d="M1060 492q0-30 27-30t27 30z" fill="#1c2844"/><path d="M1058 492h58l8 7h-66z" fill="#101a30"/><rect x="1061" y="482" width="52" height="4" fill="#d9b24a"/>
+  <circle cx="1078" cy="512" r="2.4" fill="#1b1512"/><circle cx="1096" cy="512" r="2.4" fill="#1b1512"/>
+  <path d="M1120 590q20 40 14 80" stroke="#24345a" stroke-width="16" stroke-linecap="round" fill="none"/>
+  <path d="M1116 680h44l-6 50h-32z" fill="#8a8a8a"/><path d="M1118 680q20-26 40 0" stroke="#5a5a5a" stroke-width="3" fill="none"/>
+  <path d="M1060 774v18M1106 774v18" stroke="#141a2a" stroke-width="13"/>
+</g>
+<!-- Mr Stannard, with his handkerchief -->
+<g id="stannard" class="hot">
+  <ellipse cx="1340" cy="800" rx="60" ry="10" fill="#000" opacity=".28"/>
+  <path d="M1308 794q-8-170 16-206q20-14 42 0q22 36 14 206z" fill="#3a3a2c"/><path d="M1326 600q18 22 36 0l4 130h-44z" fill="#8a7a4a"/>
+  <rect x="1334" y="536" width="22" height="34" fill="#e2b08e"/><ellipse cx="1345" cy="522" rx="27" ry="32" fill="#e2b08e"/>
+  <path d="M1318 530q2 40 27 44q25-4 27-44q-8 16-27 18q-19-2-27-18z" fill="#4a3424"/>
+  <rect x="1320" y="454" width="50" height="46" fill="#141414"/><ellipse cx="1345" cy="500" rx="38" ry="7" fill="#141414"/>
+  <circle cx="1335" cy="520" r="2.6" fill="#1b1512"/><circle cx="1355" cy="520" r="2.6" fill="#1b1512"/>
+  <path d="M1376 620q16-30 0-60" stroke="#3a3a2c" stroke-width="15" stroke-linecap="round" fill="none"/><path d="M1352 548l28-8 4 16-26 6z" fill="#f2efe6"/>
+  <path d="M1320 794v18M1366 794v18" stroke="#141414" stroke-width="13"/>
+</g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Ride up to West End with Florrie</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="pump.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, box = null, inLock = false;
+
+  ER.init({
+    theme: 'history', story: 'pump', storyTitle: 'By the Nearest Road', id: 'brewery', no: 'IV', title: 'The Brewery Yard',
+    go: 'Go in at the gate', back: '../index.html', backLabel: 'Archive',
+    intro: [
+      'The pins went where the two walks were equal: 50 yards up Marshall Street, 100 yards along Peter Street (the blind court has a wall across it, so Rupert Street is a long way round), and 160 yards down Great Pulteney Street. Beyond that line, every death had a reason: two families liked the Broad Street water better, a child went to school by the pump, a man worked in Broad Street, and one death came before the outbreak began.',
+      'Thursday 7 September, ten in the morning. The yard of the Lion Brewery, Broad Street, a few doors from the pump. It smells of hot malt, wet wood, and, under it all, the drains.'
+    ],
+    exit: {"next":"hampstead","w":{"7615eb52":"c2ad68c9"}}, tags: {"src":["37a16abe","6995a6d2","ad89c612"],"air":["4e4343f8","01b1c143","390e2d5c"],"exp":["916e168d","5338dbf1"],"rec":["34ecbc50","52bfb707"],"fit":["1c0ac7c9","c0381da0","dc2418d7"]},
+    hints: hints, onBegin: begin
+  });
+
+  function file() { return ER.flag('b-file'); }
+  function isBusy() { return busy; }
+  function ready() { return ER.flag('b-mudge') && ER.flag('b-pook') && ER.flag('b-two'); }
+  function paint() {
+    $('#florrie').classList.toggle('ready', !file() && !ER.flag('b-two'));
+    $('#board').classList.toggle('ready', !file() && !!ready());
+    ER.pips(file() ? 1 : 0, 1);
+    if (file()) PU.door($('#go'), file(), 'b-file');
+  }
+  function hints() {
+    if (file()) return ['go', ['The carter is waiting. Use the button at the bottom of the screen.']];
+    if (inLock) return ['board', [
+      'Fill the board one line at a time. The first line comes from what Mr Mudge and Mr Pook told you. The second comes from Mr Stannard&rsquo;s own map of smells, not from what he says about it.',
+      'Expected deaths: the streets round about lost about one person in five. One in five of 535 is 535 ÷ 5. One in five of seventy is 70 ÷ 5. Recorded deaths are in the Master&rsquo;s note and in what Mr Mudge said.',
+      'Last line: a theory fits a place if it expected what happened there. Bad air expected many deaths wherever the air was foul. Water expected deaths only where people drank from the pump. The streets fit both, so they prove nothing between the two.'
+    ]];
+    if (!ready()) return ['talk', [
+      'Florrie, on the barrel, has a note from Dr Snow. Talk to Mr Mudge, the foreman in the apron, and to Mr Pook, the porter with the pail.',
+      'The slate by the counting-house door opens when you have heard from all three.'
+    ]];
+    return ['slate', ['The slate is on the wall of the counting house, on the right. Mr Stannard may have something to say as well.']];
+  }
+
+  function begin() {
+    paint();
+    PU.need('smell', 'Mr Stannard’s map of nuisances', PU.SMELL, 'smell', 'From Mr Stannard');
+    if (ER.flag('b-in')) { busy = false; ER.say(file() ? 'The slate is full. Florrie is waiting by the gate.' : 'The brewery yard. Steam, barrels, and the smell of malt.'); return; }
+    ER.narrate([
+      'Inside the gate the noise of the street stops. Men in leather aprons roll barrels across the setts, steam pours out of the louvres on the roof, and a ginger cat watches it all from the top of a stack of casks.',
+      'Florrie is sitting on a barrel by the gate with a folded paper in her hand. Mr Stannard is here too, holding a handkerchief to his nose and looking pleased about something.'
+    ], function () { busy = false; ER.flag('b-in', 1); paint(); PU.learn('brewery'); });
+  }
+
+  $('#florrie').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({ who: 'Florrie Dawlish', role: 'On a barrel by the gate', face: PU.FACE('florrie'), lines: [
+      '&ldquo;Morning. Dr Snow&rsquo;s boy brought this round for you. I&rsquo;ve not read it.&rdquo; She has plainly read it twice.',
+      '&ldquo;Mrs Applin&rsquo;s expecting us at West End after dinner. The carter goes at twelve.&rdquo;'
+    ], clue: { id: 'florrie4', title: 'Florrie at the brewery gate', kind: 'Statement' }, done: function (seen) {
+      if (!seen) return;
+      ER.read({ html: PU.TWO, cls: 'notes', clue: { id: 'two', title: 'Where two explanations disagree', kind: 'Dr Snow' }, done: function () { ER.flag('b-two', 1); PU.learn('theory', 'exception', 'evidence'); paint(); } });
+    } });
+  });
+  $('#mudge').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({ who: 'Mr Caleb Mudge', role: 'Foreman, the Lion Brewery', face: PU.FACE('mudge'), lines: [
+      '&ldquo;Caleb Mudge, foreman. Mr Huggins is out, but he said to tell the doctor&rsquo;s clerk whatever&rsquo;s asked. So ask.&rdquo;',
+      '&ldquo;Above seventy men work in this yard. Not one of them dead. Two were poorly for a day or so, and that was all.&rdquo;',
+      { q: 'Do the men drink from the pump in the street?', a: '&ldquo;Them? Water?&rdquo; He laughs. &ldquo;Every man has his allowance of beer, and Mr Huggins says he doesn&rsquo;t believe they drink water at all. And if they did, they&rsquo;d not go out for it. We&rsquo;ve a deep well of our own in the yard, besides the New River water in the pipes.&rdquo;' },
+      '&ldquo;Mr Huggins is quite certain of it: none of the men ever fetched water from the street pump.&rdquo;'
+    ], clue: { id: 'mudge', title: 'Mr Mudge: the brewery', kind: 'Statement' }, done: function (seen) { if (seen) { ER.flag('b-mudge', 1); PU.learn('well'); paint(); } } });
+  });
+  $('#pook').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({ who: 'Mr Ivor Pook', role: 'Porter, St James&rsquo;s Workhouse', face: PU.FACE('pook'), lines: [
+      '&ldquo;Ivor Pook, porter at St James&rsquo;s Workhouse, round the corner in Poland Street. I come for the barm for our bread, every Thursday, cholera or no cholera.&rdquo;',
+      { q: 'Does anybody at the workhouse fetch from the Broad Street pump?', a: '&ldquo;Not one. We&rsquo;ve our own pump-well in the yard, and the company water besides. The Master won&rsquo;t have inmates wandering the streets with jugs.&rdquo;' },
+      '&ldquo;Five hundred and thirty-five souls under one roof, and the streets round us half empty with grief. And five of ours gone. Five. I can&rsquo;t account for it, and nor can the Master.&rdquo;',
+      '&ldquo;The doctor was asking about us. The Master wrote it out for him. You may as well have it.&rdquo;'
+    ], clue: { id: 'pook', title: 'Mr Pook: the workhouse', kind: 'Statement' }, done: function (seen) {
+      if (!seen) return;
+      ER.read({ html: PU.WHNOTE, cls: 'office', clue: { id: 'whnote', title: 'From the Master’s Office', kind: 'Note' }, done: function () { ER.flag('b-pook', 1); PU.learn('workhouse', 'inmate'); paint(); } });
+    } });
+  });
+  $('#stannard').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({ who: 'Mr Horace Stannard', role: 'Inspector of Nuisances', face: PU.FACE('stannard'), lines: [
+      '&ldquo;Ah, the doctor&rsquo;s clerk. You&rsquo;ll find nothing here to trouble my map. The brewers escaped because of the malt. The steam from the coppers drives off the foul air. Everybody knows brewers are a healthy lot.&rdquo;',
+      { q: 'And the workhouse? It has no coppers.', a: '&ldquo;The workhouse is a large, clean building with high walls. The foul air of the street cannot get in. It stands to reason.&rdquo;' },
+      '&ldquo;Every exception has its explanation, if a man knows where to look. That is the beauty of the thing.&rdquo;'
+    ], clue: { id: 'stannard2', title: 'Mr Stannard: malt and high walls', kind: 'Statement' } });
+  });
+  PU.thing('#well', 'well', 'The brewery&rsquo;s own well, deep in the gravel, with its own pump. The water in it never sees Broad Street.', isBusy);
+  PU.thing('#jugs', 'allowance', 'The men&rsquo;s allowance: a jug of beer and a row of mugs. Nobody has touched the water bucket in years. There is a spider in it.', isBusy);
+  PU.thing('#barrels', 'cask', 'Casks waiting to go out to the public houses of the West End.', isBusy);
+  PU.thing('#cat', null, 'The brewery cat. Her job is mice, and she does it from a great height.', isBusy);
+  $('#board').addEventListener('click', function () {
+    if (busy || file()) return;
+    if (!ready()) { ER.say('The slate. First hear Mr Mudge and Mr Pook, and read Dr Snow&rsquo;s note: Florrie has it.'); return; }
+    openLock();
+  });
+
+  /* ---------- the slate ---------- */
+  var COLS = [['s', 'The streets round the workhouse', 'people who stayed'], ['w', 'The workhouse', '535 inmates'], ['b', 'The brewery', 'above 70 men']];
+  var TOK = [['pump', 'the Broad Street pump'], ['own', 'a well of its own'], ['beer', 'beer, and a deep well of its own'], ['butt', 'rain-water butts']];
+  function build() {
+    var b = ER.el('div', 'pb'), lock = false, msgEl, val = { air: {}, fit: {} }, nums = {};
+    var g = '<div class="pb-g"><div></div>' + COLS.map(function (c) { return '<div class="hd">' + c[1] + '<small>' + c[2] + '</small></div>'; }).join('');
+    g += '<div class="rl">1. They drink water from</div>' + COLS.map(function (c) { return '<div class="cell" data-r="src" data-c="' + c[0] + '"><div class="slot" data-c="' + c[0] + '"></div></div>'; }).join('');
+    g += '<div class="rl">2. The air there, by Mr Stannard&rsquo;s own map</div>' + COLS.map(function (c) { return '<div class="cell" data-r="air" data-c="' + c[0] + '"><button type="button" class="tg2" data-v="foul">foul</button><button type="button" class="tg2" data-v="fair">fair</button></div>'; }).join('');
+    g += '<div class="rl">3. Deaths expected, if it suffered like the streets round it</div><div class="fixed">about 1 in 5</div><div class="cell" data-r="exp" data-c="w"></div><div class="cell" data-r="exp" data-c="b"></div>';
+    g += '<div class="rl">4. Deaths recorded</div><div class="fixed">very many</div><div class="cell" data-r="rec" data-c="w"></div><div class="cell" data-r="rec" data-c="b"></div>';
+    g += '<div class="rl">5. Does it fit the theory?</div>' + COLS.map(function (c) { return '<div class="cell" data-r="fit" data-c="' + c[0] + '"><div class="fit2"><span>bad air</span><button type="button" class="tg2" data-k="air" data-v="y">yes</button><button type="button" class="tg2" data-k="air" data-v="n">no</button></div><div class="fit2"><span>water</span><button type="button" class="tg2" data-k="water" data-v="y">yes</button><button type="button" class="tg2" data-k="water" data-v="n">no</button></div></div>'; }).join('');
+    g += '</div><div class="pb-tray">' + TOK.map(function (t) { return '<span class="tok dnd-item" data-t="' + t[0] + '">' + t[1] + '</span>'; }).join('') + '</div>';
+    b.innerHTML = '<div class="pb-slate">' + g + '</div><div class="pb-side"><h3 class="lk-title">The slate</h3><div class="lk-face">' + PU.FACE('florrie') + '</div><h6 class="lk-h">Florrie</h6><p class="pmsg"></p><button type="button" class="btn" id="pb-go">Chalk it up</button></div>';
+    msgEl = b.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    var tray = b.querySelector('.pb-tray');
+    ER.dnd(b, { item: '.tok', slot: '.slot', home: tray, lock: function () { return lock; }, change: function () { PU.sfx.chalk(); clear(); } });
+    ER.$$('.cell[data-r="exp"],.cell[data-r="rec"]', b).forEach(function (c) {
+      var k = c.getAttribute('data-r') + c.getAttribute('data-c');
+      var st = PU.num({ val: 0, min: 0, max: 600, steps: [10, 1], onChange: clear });
+      c.appendChild(st.el); nums[k] = st;
+    });
+    ER.$$('.cell[data-r="air"] .tg2', b).forEach(function (t) {
+      t.addEventListener('click', function () { if (lock) return; var c = t.parentNode; val.air[c.getAttribute('data-c')] = t.getAttribute('data-v'); ER.$$('.tg2', c).forEach(function (x) { x.classList.toggle('on', x === t); }); PU.sfx.chalk(); clear(); });
+    });
+    ER.$$('.cell[data-r="fit"] .tg2', b).forEach(function (t) {
+      t.addEventListener('click', function () {
+        if (lock) return;
+        var c = t.closest('.cell'), col = c.getAttribute('data-c'), k = t.getAttribute('data-k');
+        val.fit[col] = val.fit[col] || {}; val.fit[col][k] = t.getAttribute('data-v');
+        ER.$$('.tg2[data-k="' + k + '"]', c).forEach(function (x) { x.classList.toggle('on', x === t); }); PU.sfx.chalk(); clear();
+      });
+    });
+    function clear() { ER.$$('.cell', b).forEach(function (c) { c.classList.remove('no', 'ok'); }); }
+    function tok(col) { var s = b.querySelector('.slot[data-c="' + col + '"] .tok'); return s ? s.getAttribute('data-t') : ''; }
+    function mark(r, col, ok) { var c = b.querySelector('.cell[data-r="' + r + '"][data-c="' + col + '"]'); if (c) c.classList.add(ok ? 'ok' : 'no'); return ok; }
+    b.querySelector('#pb-go').addEventListener('click', function () {
+      if (lock) return;
+      clear();
+      var src = COLS.map(function (c) { return tok(c[0]); }), air = COLS.map(function (c) { return val.air[c[0]] || ''; });
+      var fit = COLS.map(function (c) { var f = val.fit[c[0]] || {}; return (f.air || '') + (f.water || ''); });
+      if (src.indexOf('') >= 0 || air.indexOf('') >= 0 || fit.some(function (f) { return f.length < 2; })) { msg('&ldquo;Fill every square first. Lines 1, 2 and 5 for all three places.&rdquo;'); return; }
+      var bad = null;
+      COLS.forEach(function (c, i) { if (!mark('src', c[0], ER.check('src', c[0] + ':' + src[i])) && !bad) bad = 'src'; });
+      COLS.forEach(function (c, i) { if (!mark('air', c[0], ER.check('air', c[0] + ':' + air[i])) && !bad) bad = 'air'; });
+      ['w', 'b'].forEach(function (c) { if (!mark('exp', c, ER.check('exp', c + ':' + nums['exp' + c].get())) && !bad) bad = 'exp'; });
+      ['w', 'b'].forEach(function (c) { if (!mark('rec', c, ER.check('rec', c + ':' + nums['rec' + c].get())) && !bad) bad = 'rec'; });
+      COLS.forEach(function (c, i) { if (!mark('fit', c[0], ER.check('fit', c[0] + ':' + fit[i])) && !bad) bad = 'fit'; });
+      if (bad) {
+        PU.slip(); ER.sfx.no();
+        msg({ src: '&ldquo;Line 1. Where do the people in each place get the water they drink? Mr Mudge and Mr Pook both told you.&rdquo;',
+          air: '&ldquo;Line 2. Look at Mr Stannard&rsquo;s own map, not at what he says about it. Where are his worst gratings? Where is his shading?&rdquo;',
+          exp: '&ldquo;Line 3. If one person in five had died, as in the streets round about, how many is that out of 535? And out of seventy?&rdquo;',
+          rec: '&ldquo;Line 4. How many died, really? It&rsquo;s in the Master&rsquo;s note, and Mr Mudge told you about the brewers.&rdquo;',
+          fit: '&ldquo;Line 5. A theory fits a place if it expected what happened there. What did each theory expect in each place, and what happened?&rdquo;' }[bad]);
+        return;
+      }
+      var cand = src.join('-') + '|' + air.join('-') + '|' + nums.expw.get() + '-' + nums.expb.get() + '|' + nums.recw.get() + '-' + nums.recb.get() + '|' + fit.join('-');
+      var nxt = ER.exit([cand], { wait: true });
+      if (!nxt) { msg('&ldquo;Something&rsquo;s not right. Tell your teacher.&rdquo;'); return; }
+      lock = true; b.querySelector('#pb-go').disabled = true; PU.sfx.chalk();
+      msg('&ldquo;So the streets fit both of them, and prove nothing. But the workhouse should have lost a hundred and seven, and lost five. The brewery should have lost fourteen, and lost none. Same foul air. Different water.&rdquo; She looks at the slate. &ldquo;That&rsquo;s the air done for, then.&rdquo;');
+      setTimeout(function () { ER.closeAll(); finish(nxt); }, 4400);
+    });
+    b.first = function () { msg('&ldquo;Three places, all in Mr Stannard&rsquo;s foul air, or so he says. Put down what each one drinks, what the air&rsquo;s like, what should have happened and what did. Then see which theory each one fits.&rdquo;'); };
+    return b;
+  }
+  function openLock() { var f = !box; if (!box) box = build(); inLock = true; ER.open('ov-lock', box, function () { inLock = false; }); if (f) box.first(); }
+
+  function finish(nxt) {
+    busy = true; inLock = false;
+    ER.narrate([
+      'Mr Stannard has come to read the slate over your shoulder. He reads it twice.',
+      '&ldquo;Then what&rsquo;s the workhouse&rsquo;s malt, Mr Stannard?&rdquo; says Florrie, politely.',
+      'Mr Stannard looks at his own map for some time. &ldquo;The walls,&rdquo; he says at last, &ldquo;are very high.&rdquo; But he says it more quietly than before, and he folds the map away.',
+      'At twelve the carter whistles at the gate. Florrie jumps down from her barrel. &ldquo;West End,&rdquo; she says. &ldquo;And then we&rsquo;ll see what Mr Stannard&rsquo;s fresh air has to say for itself.&rdquo;'
+    ], function () {
+      PU.mine('escaped', 'Where the air and the water disagree', '<p>The streets: Broad Street water, foul air, very many deaths. Fits both theories, so it proves nothing.</p><p>The workhouse: its own well, foul air. Expected <b>107</b> (535 ÷ 5), recorded <b>5</b>.</p><p>The brewery: beer and its own deep well, foul air. Expected <b>14</b> (70 ÷ 5), recorded <b>0</b>.</p><p>Same foul air, different water: bad air does not fit, water does.</p>');
+      PU.door($('#go'), nxt, 'b-file'); busy = false; paint();
+    });
+  }
+})();
+</script>
+</body>
+</html>

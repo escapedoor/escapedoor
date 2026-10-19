@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Kitchen · The Verb Comes Last</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lang.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="pb.css">
+<style>
+  body{--bg:#2a1a12;--accent:#e2a24a;--font-display:'Old Standard TT',serif;--font-ui:'Outfit',sans-serif;--font-body:'Gentium Book Plus',serif;
+    --tc-bg:rgba(40,24,16,.95);--tc-ink:#f6e6cc;--cap-bg:rgba(36,22,14,.94);--cap-ink:#f6e6cc;--panel:#fbf1e0;--panel-ink:#2a1a12;--face-bg:#5a2a3a;--q-ink:#7a3a1a;
+    --fade:#1a0e08;--hud-bg:rgba(36,22,14,.82);--hud-ink:#f6e6cc;--hud-line:rgba(246,230,204,.3);--ov-bg:rgba(20,10,4,.7)}
+  .tc-room{font-size:clamp(40px,6vw,84px);color:#e2a24a}
+  .tc-theme{color:#ffd08a}
+  .tc-text .iv,.cap .iv{color:#ffd08a}
+  .tk-text .iv{color:#7a1f3a}
+  .hbtn b{color:#2a1a12}
+  .pbook{position:fixed;left:16px;bottom:16px;z-index:33;display:flex;align-items:center;gap:10px;padding:9px 16px 8px 12px;background:#2a4a7a;color:#f4ead2;border-radius:3px 8px 8px 3px;
+    box-shadow:inset 6px 0 0 #1a3a6a,0 6px 18px rgba(0,0,0,.45);font-family:'Old Standard TT',serif;font-weight:700;font-size:17px}
+  .pbook:hover{background:#3a5a8a}
+  .pbook.ready{animation:glowb 1.6s steps(1,end) infinite}
+  @keyframes glowb{50%{background:#5a7aaa}}
+  #hova.ready{animation:glow 1.6s steps(1,end) infinite}
+  @keyframes glow{50%{filter:brightness(1.3)}}
+  #fire{animation:fire 1.2s steps(3,end) infinite}
+  @keyframes fire{33%{opacity:.75}66%{opacity:.95}}
+  #steam path{animation:steam 3.2s ease-in-out infinite;opacity:0}
+  #steam path:nth-child(2){animation-delay:-1.6s}
+  @keyframes steam{0%{opacity:0;transform:translateY(8px)}40%{opacity:.5}100%{opacity:0;transform:translateY(-60px)}}
+  #tail{animation:tail 2.8s ease-in-out infinite;transform-origin:20px -4px}
+  @keyframes tail{50%{transform:rotate(-20deg)}}
+  #basket{display:none}
+  #scene.given #basket{display:inline}
+
+  /* asking Hova */
+  .ak{width:min(1040px,96vw);background:#fbf1e0;color:#2a1a12;border-top:14px solid #5a2a3a;box-shadow:0 26px 70px rgba(0,0,0,.6);padding:16px 22px 14px}
+  .ak-top{display:grid;grid-template-columns:120px 1fr;gap:16px;align-items:center}
+  .ak-face{width:120px;height:150px;overflow:hidden;border-radius:4px}
+  .ak-face svg{width:100%;height:100%}
+  .ak-say{min-height:96px;background:#fff;border:2px solid #d9c4a0;border-radius:14px;padding:12px 18px;font-family:'Gentium Book Plus',serif;font-size:17px;line-height:1.45;position:relative}
+  .ak-say:before{content:'';position:absolute;left:-14px;top:40px;border:7px solid transparent;border-right-color:#d9c4a0;border-width:7px 14px 7px 0}
+  .ak-say .iv{font-size:22px}
+  .ak-say i.st{display:block;color:#7a6a5a}
+  .ak-line{margin:14px 0 8px;min-height:62px;background:#f2e2c4;border-radius:6px;padding:10px 14px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  .ak-line .w{border:0}
+  .ak-word{display:inline-flex;align-items:center;padding:6px 12px 5px;background:#fff;border:2px solid #5a2a3a;border-radius:4px;font-family:'Gentium Book Plus',serif;font-style:italic;font-weight:700;font-size:23px;color:#7a1f3a}
+  .ak-word.cur{border-style:dashed;background:#fffbe8}
+  .ak-word u{text-decoration:none;color:#b8461e}
+  .ak-q{font-family:'Gentium Book Plus',serif;font-weight:700;font-size:26px;color:#7a1f3a}
+  .ak-ph{font-family:'Gentium Book Plus',serif;font-style:italic;color:#9a8a7a;font-size:16px}
+  .ak-keys{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .ak-keys h5{margin:0 0 6px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#5a2a3a}
+  .ak-keys .k{display:flex;flex-wrap:wrap;gap:7px}
+  .ak-keys button{padding:7px 12px 6px;background:#fff;border:2px solid #b9a07a;border-radius:4px;font-family:'Gentium Book Plus',serif;font-style:italic;font-weight:700;font-size:19px;color:#2a1a12}
+  .ak-keys button:hover{border-color:#5a2a3a;background:#fffbe8}
+  .ak-keys button.end{color:#b8461e}
+  .ak-keys .ctl button{font-family:'Outfit',sans-serif;font-style:normal;font-size:14px;letter-spacing:.06em;color:#5a2a3a}
+  .ak .pmsg{color:#2a1a12}
+  .ak .pmsg .iv{color:#7a1f3a}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a3a24"/><stop offset="1" stop-color="#8a5a34"/></linearGradient>
+  <radialGradient id="glowG" cx="22%" cy="62%" r="55%"><stop offset="0" stop-color="#ffb04a" stop-opacity=".55"/><stop offset="1" stop-color="#ffb04a" stop-opacity="0"/></radialGradient>
+  <linearGradient id="outG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8ac0e0"/><stop offset=".55" stop-color="#d8ecf4"/><stop offset=".56" stop-color="#4a8aa6"/><stop offset="1" stop-color="#2a5a78"/></linearGradient>
+  <pattern id="flag" width="120" height="70" patternUnits="userSpaceOnUse"><rect width="120" height="70" fill="#5a4a3a"/><path d="M0 0H120M0 35H120M50 0V35M100 35V70M20 35V70" stroke="#3a2a1e" stroke-width="3"/></pattern>
+  <radialGradient id="vig" cx="50%" cy="45%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#000" stop-opacity=".15"/><stop offset="1" stop-color="#000" stop-opacity=".6"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1120" fill="url(#wallG)"/>
+<g fill="#3a2414"><rect x="-1000" y="40" width="3600" height="30"/><rect x="-1000" y="-60" width="3600" height="26"/></g>
+<!-- the window -->
+<g id="window" class="hot"><rect x="960" y="140" width="360" height="290" fill="#3a2414"/><rect x="976" y="156" width="328" height="258" fill="url(#outG)"/>
+  <path d="M976 340q90 -40 180 -30q80 10 148 -20v124H976z" fill="#7a9a6a"/>
+  <g transform="translate(1040 300)"><rect x="0" y="0" width="70" height="44" fill="#f4efe4"/><path d="M-6 2l41 -24 41 24z" fill="#8a5a3a"/><rect x="10" y="12" width="12" height="12" fill="#f2c21b"/><rect x="48" y="12" width="12" height="12" fill="#c8302a"/><rect x="28" y="22" width="14" height="22" fill="#3a5a8a"/><rect x="14" y="-4" width="42" height="9" fill="#2a4a7a"/><text x="35" y="3" class="cU" font-size="7" text-anchor="middle" fill="#fff"><tspan class="iv">LUKADO</tspan></text></g>
+  <path d="M1170 330q60 -50 134 -60v40z" fill="#6a8a5a"/><rect x="1262" y="248" width="9" height="26" fill="#f4f2ee"/><rect x="1262" y="256" width="9" height="5" fill="#c8302a"/><rect x="1260" y="244" width="13" height="5" fill="#2a2a2a"/>
+  <path d="M1140 156v258M976 285h328" stroke="#3a2414" stroke-width="10"/><rect x="950" y="426" width="380" height="18" fill="#6a4a30"/>
+  <g transform="translate(990 426)"><path d="M0 0v-28q0 -6 6 -6h12q6 0 6 6v28z" fill="#a3242a"/><path d="M12 -34q-10 -20 0 -34q12 14 0 34z" fill="#3a7a4a"/></g></g>
+<!-- pans and herbs -->
+<g id="pans" class="hot"><path d="M140 130H560" stroke="#3a2414" stroke-width="6"/>
+  <g fill="#c87a3a" stroke="#8a4a1a" stroke-width="3"><circle cx="200" cy="200" r="40"/><circle cx="310" cy="190" r="32"/><circle cx="410" cy="206" r="44"/><circle cx="510" cy="188" r="28"/></g>
+  <path d="M200 160v-30M310 158v-28M410 162v-32M510 160v-30" stroke="#8a4a1a" stroke-width="5"/></g>
+<g id="herbs"><path d="M640 66v60M690 66v50M740 66v66" stroke="#6a5a3a" stroke-width="2"/><g fill="#5a7a3a"><ellipse cx="640" cy="136" rx="14" ry="22"/><ellipse cx="690" cy="124" rx="12" ry="18"/><ellipse cx="740" cy="142" rx="14" ry="24"/></g></g>
+<!-- the stove -->
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#glowG)" pointer-events="none"/>
+<g id="stove" class="hot"><rect x="230" y="240" width="60" height="180" fill="#2a2a2a"/><rect x="100" y="420" width="440" height="290" rx="8" fill="#2a2626" stroke="#141212" stroke-width="4"/><rect x="90" y="410" width="460" height="24" rx="4" fill="#3a3636"/>
+  <rect x="140" y="480" width="150" height="110" rx="6" fill="#141212"/><rect id="fire" x="152" y="492" width="126" height="86" rx="4" fill="#ff8a2a"/><path d="M160 578q20 -50 30 -10q14 -50 30 0q14 -40 30 4q10 -30 20 6z" fill="#ffd04a"/>
+  <rect x="330" y="480" width="170" height="160" rx="6" fill="#1e1c1c"/><circle cx="480" cy="560" r="8" fill="#c9a24a"/>
+  <g id="pot"><path d="M300 410v-60q0 -10 10 -10h120q10 0 10 10v60z" fill="#3a3a3a"/><path d="M290 350h160" stroke="#5a5a5a" stroke-width="8"/></g>
+  <g id="kettle"><path d="M150 410q-6 -60 50 -62q56 2 50 62z" fill="#8a8a8a"/><path d="M246 380l34 -20" stroke="#8a8a8a" stroke-width="9" stroke-linecap="round"/><path d="M170 352q30 -30 60 0" stroke="#5a5a5a" stroke-width="5" fill="none"/></g>
+  <g id="steam" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"><path d="M280 350q-10 -16 0 -32t0 -32"/><path d="M370 330q-10 -16 0 -32t0 -32"/></g></g>
+<!-- the dresser -->
+<g id="dresser" class="hot"><rect x="1380" y="180" width="260" height="520" fill="#6a3a24" stroke="#3a2010" stroke-width="4"/><path d="M1380 300h260M1380 410h260" stroke="#3a2010" stroke-width="6"/>
+  <g fill="#e8ecf2" stroke="#4a6a9a" stroke-width="3"><circle cx="1420" cy="260" r="30"/><circle cx="1490" cy="260" r="30"/><circle cx="1560" cy="260" r="30"/><circle cx="1420" cy="370" r="30"/><circle cx="1490" cy="370" r="30"/></g>
+  <rect x="1400" y="440" width="220" height="240" fill="#5a3020"/></g>
+<!-- the floor -->
+<rect x="-1000" y="700" width="3600" height="800" fill="url(#flag)"/><rect x="-1000" y="696" width="3600" height="8" fill="#2a1a10"/>
+<!-- Hova -->
+<g id="hova" class="hot" transform="translate(620 880) scale(.94)"></g>
+<!-- the table -->
+<g id="nakashima" class="hot" transform="translate(1080 812) scale(.9)"></g>
+<g id="table"><path d="M810 662v170M1310 662v170" stroke="#5a3a20" stroke-width="18"/><path d="M776 650h568v110q-284 22 -568 0z" fill="#e8dcc4"/><path d="M776 700h568M776 730h568" stroke="#c8302a" stroke-width="4" opacity=".5"/><rect x="780" y="640" width="560" height="16" rx="4" fill="#8a5a34"/>
+  <g id="teapot"><path d="M900 640q-10 -50 40 -52q50 2 40 52z" fill="#3a6a9a"/><path d="M976 612l26 -12" stroke="#3a6a9a" stroke-width="8" stroke-linecap="round"/><circle cx="940" cy="584" r="6" fill="#3a6a9a"/></g>
+  <g fill="#f2efe8"><path d="M1030 640v-22h30v22z"/><path d="M1120 640v-22h30v22z"/></g>
+  <g id="basket"><path d="M1170 640q-6 -60 30 -60h80q36 0 30 60z" fill="#b8884a" stroke="#7a5a2a" stroke-width="3"/><path d="M1180 580q60 -60 120 0" stroke="#7a5a2a" stroke-width="6" fill="none"/><path d="M1176 600h128" stroke="#7a5a2a" stroke-width="3"/></g></g>
+<g id="cat" class="hot" transform="translate(960 830)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="pbook" id="pbook">&#9776;&nbsp; Phrasebook</button>
+<button type="button" class="gobtn" id="go">Down the hill to the lukado</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="pb.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, nextFile = null, ak = null, iv = PB.iv;
+
+  $('#hova').innerHTML = PB.who('hova', { extra: '<path d="M39 -112l40 -40" stroke="#6a4a2a" stroke-width="6" stroke-linecap="round"/>' });
+  $('#nakashima').innerHTML = PB.who('nakashima', { smile: 6 });
+  $('#cat').innerHTML = PB.cat();
+
+  ER.init({
+    theme: 'lang', story: 'phrasebook', storyTitle: 'The Verb Comes Last', id: 'kitchen', no: 'III', title: 'The Kitchen',
+    go: 'Knock on the blue door',
+    intro: [
+      'Mela&rsquo;s board said everything, if you counted. After a number Isuvo drops the plural: ' + iv('tivo vasi bura') + ', two big loaves. With no number, <span class="iv">-li</span> means &ldquo;some&rdquo;: ' + iv('piko pesali') + ', a string of small fish. <span class="iv">-su</span> is &rsquo;s: ' + iv('Melasu mela') + ', Mela&rsquo;s honey. And ' + iv('pea') + ', which looks so English, means egg.',
+      'The basket was going to the ' + iv('kesado') + ', a long low house with a blue door at the top of the lane. Philippa was going there for lunch.'
+    ],
+    exit: {"next":"school","w":{"d72cc1c6":"2b212614","85e5ebbf":"2e99a36a"}}, tags: {"was":["3107a342","4feab2c6"],"plain":["52be4565","a6c4c43c"],"now":["0b2f4bb8","ca2f2c06"],"ko":["a00755c1","00295787"],"ta":["f34c8b66","7317c528"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('c-told') || {}; nextFile = ER.flag('c-file') || null;
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('c-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#scene').classList.toggle('given', !!told.hova);
+    $('#pbook').classList.toggle('ready', !!(told.hova && (!told.p5 || !told.p6)));
+    $('#hova').classList.toggle('ready', !!(!told.hova || (told.p5 && told.p6 && !nextFile)));
+    ER.pips((told.hova ? 1 : 0) + (told.p5 ? 1 : 0) + (told.p6 ? 1 : 0) + (nextFile ? 1 : 0), 4);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Hova said Lukahemi went to the lukado. The button at the bottom of the screen takes you there.']];
+    if (ak && ak.isOpen()) return ['ask', [
+      'You want to know where Lukahemi went. Find the sentence on page 6 that is most like that, and change what needs changing.',
+      'There is no word for &ldquo;where to&rdquo; on page 6. But <em>noko</em> is <em>no</em> + <em>-ko</em>: &ldquo;at what&rdquo;, so &ldquo;where&rdquo;. What would &ldquo;to what&rdquo; be? You learnt <em>-vi</em> on the quay.',
+      'She went, and you must be polite: look at how page 6 says &ldquo;drank&rdquo; and &ldquo;went&rdquo; politely. The polite ending comes last of all. Lukahemi is the one who went, so she has no <em>-ta</em>.'
+    ]];
+    if (!told.hova) return ['hova', ['Give the basket to the old woman at the stove: click her.']];
+    if (!told.p5) return ['p5', ['Philippa has a page about being polite. Open the phrasebook: the blue button at the bottom left.']];
+    if (!told.p6) return ['p6', ['Open the phrasebook again: page 6 is all questions.']];
+    return ['ask', ['Now ask Hova where Lukahemi went. Click Hova.', 'If you want help with the polite form first, talk to Mrs Nakashima at the table.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; PB.wordlist(3, true); $('#go').classList.add('on'); ER.say('Lukahemi went to the lukado, and gave the papers to Sanu.'); return; }
+    if (told.in) { busy = false; ER.say('Hova&rsquo;s kitchen. Warm, dark, and spotless.'); return; }
+    tell('in');
+    ER.narrate([
+      'The blue door opens before you knock. Behind it is a kitchen: very warm, very dark, very clean, with an iron stove the size of a small car.',
+      'Copper pans hang along the wall. A kettle hums. Through the window you can see the whole village going down to the sea, and, far off on the headland, the lighthouse.',
+      'At the stove stands the smallest, oldest woman you have ever seen.',
+      'The black cat from the market is already under the table. Nobody saw it come in.'
+    ], function () { busy = false; });
+  }
+
+  /* ---------- Hova ---------- */
+  $('#hova').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Hova stirs her pot. She has told you what you asked. She does not look as if she will tell you any more.'); return; }
+    if (!told.hova) {
+      ER.talk({
+        who: 'The old woman at the stove', role: 'The guest house, with the blue door', face: PB.face('hova'),
+        lines: [
+          { note: 'She is very small and very old, with white hair in a bun and a black shawl, and she is stirring a pot that smells of fish and onions. She looks at you over her glasses.', a: '&ldquo;' + iv('Kesa') + '.&rdquo;' },
+          { note: 'She sees the basket. She lifts the cloth, and her whole face changes.', a: '&ldquo;' + iv('Lukahemisu!') + '&rdquo;' },
+          { note: 'She takes out the honey and holds it against her heart. She taps her chest: &ldquo;' + iv('Hova') + '.&rdquo; Then she points at the table, at a chair, at the teapot.', a: '&ldquo;' + iv('Lapita volane?') + '&rdquo;' },
+          { note: 'She pours you a cup without waiting for an answer, and goes back to her pot. Mrs Nakashima has already sat down, and is very happy.' },
+          { note: 'Hova has the look of somebody who would answer a question, if it were asked properly.' }
+        ],
+        clue: { id: 'hova', title: 'Hova, in her kitchen', kind: 'In the guest house' },
+        done: function (seen) { if (seen && tell('hova')) { paint(); ER.say('Ask her properly. Philippa&rsquo;s phrasebook has a page on that.'); } }
+      });
+      return;
+    }
+    if (!told.p5 || !told.p6) { ER.say('Hova looks at you over her glasses, and waits. Philippa said to read her pages on being polite first.'); return; }
+    if (!ak) ak = makeAsk();
+    ak.open();
+  });
+  $('#nakashima').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.p5) { ER.say('&ldquo;This tea,&rdquo; says Mrs Nakashima, &ldquo;is the best thing that has happened to me this week.&rdquo;'); return; }
+    ER.talk({
+      who: 'Mrs Nakashima', role: 'Passenger · drinking tea', face: PB.face('nakashima', 'smile'),
+      lines: [
+        { a: '&ldquo;In Japanese I speak one way to my son and another way to my son&rsquo;s teacher. The verb is the same. The ending is different.&rdquo;' },
+        { q: 'Is it rude to use the plain one?', a: '&ldquo;To a friend, it is warm. To an old lady you have just met, in her own kitchen &hellip;&rdquo; She makes a face. &ldquo;And she gave you tea.&rdquo;' },
+        { q: 'Where does the polite ending go?', a: '&ldquo;Look at the little book. When something happened in the past AND you are being polite, which piece comes last?&rdquo;' }
+      ],
+      clue: { id: 'naka2', title: 'Mrs Nakashima: the same verb, a different ending', kind: 'What she said' },
+      done: function (seen) { if (seen) tell('naka'); }
+    });
+  });
+  $('#cat').addEventListener('click', function () { if (busy) return; PB.sfx.mew(); ER.say('Pesahiba is under the table, waiting for somebody to drop a fish. It has been waiting all its life.'); });
+  PB.thing('#window', null, 'The village, the sea, and down the hill a white building with children&rsquo;s drawings in its windows and a sign over the door. Far away on the headland, the lighthouse.', isBusy);
+  PB.thing('#stove', 'stove', 'The stove ticks and roars. Something in the pot is going to be very good in about an hour.', isBusy);
+  PB.thing('#pans', null, 'Copper pans, polished until they glow like the fire.', isBusy);
+  PB.thing('#dresser', 'dresser', 'A dresser full of blue and white plates. One of them has a crack mended with glue, very neatly.', isBusy);
+
+  /* ---------- the phrasebook ---------- */
+  var P5 = '<h4>A Pocket Phrasebook of Isuvo &middot; page 5</h4><h3>Please</h3>' +
+    '<p>English is polite with extra words: <i>please</i>, <i>could you</i>, <i>I wonder if</i>. The verb itself does not change.</p>' +
+    '<p>Many languages build politeness into the verb. Japanese has a plain form and a <b>polite form</b> of almost every verb, and so does Korean: the same verb, with a different ending, depending on who you are talking to. Other languages change the word for <i>you</i> instead: French has a friendly <i>you</i> and a polite one.</p>' +
+    '<p>Isuvo puts politeness in an ending on the verb. Children use the plain form with each other. To anybody older, to a stranger, and above all to Hova, use the polite one.</p>' +
+    '<p class="rule">Hova is eighty-one. She has never in her life answered a plain question from a guest, and she will not start with you. <span class="hand">P.W.</span></p><p class="pg">5</p>';
+  var P6I = /*isuvo*/['Hemi tamuta vola.', 'Hemi tamuta volane.', 'Tamuta tolene.', 'Kesa lapita volakane.', 'Nota semikane?', 'Noko dabine?', 'Neka moravi nurukane.', 'Nasone.', 'Monasone.'];
+  var P6E = ['The woman drinks water. <i>(plain)</i>', 'The woman drinks water. <i>(polite)</i>', 'Please give me water.', 'The guest drank the tea.', 'What did you eat?', 'Where are you staying?',
+    'The child went to the market.', 'I know.', 'I don&rsquo;t know.'];
+  var P6 = '<h4>A Pocket Phrasebook of Isuvo &middot; page 6</h4><h3>Asking</h3><table>' + P6I.map(function (r, i) { return '<tr><td><span class="n">' + (i + 1) + '</span>' + iv(r) + '</td><td>' + P6E[i] + '</td></tr>'; }).join('') + '</table>' +
+    '<p>A question is said like a statement, with a question in your voice. Everything on this page is polite except the first line.</p><p class="pg">6</p>';
+  $('#pbook').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.hova) { ER.say('First, the basket. The old woman at the stove is looking at it.'); return; }
+    if (!told.p5) {
+      ER.read({ html: P5, cls: 'pb', clue: { id: 'p5', title: 'Phrasebook, page 5: please', kind: 'Phrasebook' }, done: function () {
+        PB.terms(['polite form']);
+        if (tell('p5')) { paint(); ER.say('The polite ending. Page 6 is next: click the phrasebook again.'); }
+      } });
+      return;
+    }
+    ER.read({ html: P6, cls: 'pb', clue: { id: 'p6', title: 'Phrasebook, page 6: asking', kind: 'Phrasebook' }, done: function () {
+      if (tell('p6')) { paint(); ER.say('No &ldquo;where to&rdquo; on the page. But there are pieces to make one from.'); }
+    } });
+  });
+
+  /* ---------- asking Hova: words built from pieces ---------- */
+  var ROOTS = ['Lukahemi', 'Hova', 'kesa', 'tamu', 'lapi', 'no', 'nuru', 'dabi', 'vola', 'semi', 'tole', 'naso'];
+  var ENDS = ['-ta', '-ko', '-vi', '-li', '-ka', '-ne'];
+  var VERBS = { nuru: 1, dabi: 1, vola: 1, semi: 1, tole: 1, naso: 1 };
+  function makeAsk() {
+    var box = ER.el('div', 'pz ak'), words = [[]], waiting = false;
+    box.innerHTML = '<div class="ak-top"><div class="ak-face">' + PB.face('hova') + '</div><div class="ak-say"></div></div>' +
+      '<div class="ak-line"></div>' +
+      '<div class="ak-keys"><div><h5>Words</h5><div class="k kr">' + ROOTS.map(function (r) { return '<button type="button" data-r="' + r + '">' + r + '</button>'; }).join('') + '</div></div>' +
+      '<div><h5>Pieces to add to a word</h5><div class="k ke">' + ['mo-'].concat(ENDS).map(function (e) { return '<button type="button" class="end" data-e="' + e + '">' + e + '</button>'; }).join('') + '</div>' +
+      '<h5 style="margin-top:10px">&nbsp;</h5><div class="k ctl"><button type="button" id="k-sp">next word &rarr;</button><button type="button" id="k-bk">&larr; take back</button><button type="button" id="k-cl">start again</button></div></div></div>' +
+      '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="k-ask">Ask Hova</button></div>';
+    var line = box.querySelector('.ak-line'), say = box.querySelector('.ak-say'), msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function hova(isv, stage) { say.innerHTML = (isv ? '<!--nogloss--><span class="iv">' + isv + '</span><!--/nogloss-->' : '') + (stage ? '<i class="st">' + ER.gloss(stage) + '</i>' : ''); }
+    function str(w) { return w.map(function (p) { return p.replace(/-/g, ''); }).join(''); }
+    function render() {
+      var h = '', any = false;
+      words.forEach(function (w, i) {
+        if (!w.length && i < words.length - 1) return;
+        if (w.length) any = true;
+        h += '<span class="ak-word' + (i === words.length - 1 ? ' cur' : '') + '">' + (w.length ? w.map(function (p) { return /^-|-$/.test(p) ? '<u>' + p.replace(/-/g, '') + '</u>' : p; }).join('') : '&nbsp;') + '</span>';
+      });
+      line.innerHTML = '<!--nogloss-->' + (any ? h + '<span class="ak-q">?</span>' : '<span class="ak-ph">Build your question here, a piece at a time.</span>') + '<!--/nogloss-->';
+    }
+    function cur() { return words[words.length - 1]; }
+    ER.$$('.kr button', box).forEach(function (b) {
+      b.addEventListener('click', function () {
+        if (waiting) return;
+        var w = cur(), r = b.getAttribute('data-r');
+        if (w.length && !(w.length === 1 && w[0] === 'mo-')) { if (words.length >= 5) { msg('That is a long question. Five words is plenty.'); return; } words.push([]); w = cur(); }
+        w.push(r); PB.sfx.tile(); render();
+      });
+    });
+    ER.$$('.ke button', box).forEach(function (b) {
+      b.addEventListener('click', function () {
+        if (waiting) return;
+        var w = cur(), e = b.getAttribute('data-e');
+        if (e === 'mo-') {
+          if (w.length) { if (words.length >= 5) return; words.push([]); w = cur(); }
+          w.push(e); PB.sfx.tile(); render(); return;
+        }
+        if (!w.length || (w.length === 1 && w[0] === 'mo-')) { ER.sfx.no(); msg('An ending has to go on the end of a word. Choose a word first.'); return; }
+        if (w.length >= 4) { ER.sfx.no(); msg('That word has enough pieces on it.'); return; }
+        w.push(e); PB.sfx.tile(); render();
+      });
+    });
+    box.querySelector('#k-sp').addEventListener('click', function () { if (waiting) return; if (cur().length && words.length < 5) { words.push([]); render(); } });
+    box.querySelector('#k-bk').addEventListener('click', function () {
+      if (waiting) return;
+      var w = cur();
+      if (w.length) w.pop(); else if (words.length > 1) { words.pop(); words[words.length - 1].pop(); }
+      if (!cur().length && words.length > 1) words.pop();
+      render();
+    });
+    box.querySelector('#k-cl').addEventListener('click', function () { if (waiting) return; words = [[]]; render(); });
+    box.querySelector('#k-ask').addEventListener('click', function () {
+      if (waiting) return;
+      var ws = words.filter(function (w) { return w.length; });
+      if (!ws.length) { ER.sfx.no(); msg('Build a question first, from the words and pieces below.'); return; }
+      var q = ws.map(function (w) { return str(w).toLowerCase(); }).join(' '), last = ws[ws.length - 1], lastRoot = last.filter(function (p) { return !/-/.test(p); })[0] || '';
+      var f = ER.exit([q], { wait: true });
+      if (f) {
+        waiting = true; nextFile = f; ER.flag('c-file', f); paint();
+        hova('Lukahemi lukadovi nurukane.', 'Hova puts down her spoon, looks at you properly for the first time, and nods.');
+        msg('A proper question, and an answer: <span class="iv">lukado-vi nuru-ka-ne</span>. She went to the ' + iv('lukado') + '.');
+        PB.mine('ask', 'Asking Hova, worked out', '<p>' + iv('Lukahemi novi nurukane?') + '</p><p>no = what; no-ko = at what = where; so no-vi = to what = where to.</p><p>nuru-ka-ne: go + past + polite. The polite piece comes LAST.</p><p>Lukahemi did the going: no -ta.</p><p>Hova: ' + iv('Lukahemi lukadovi nurukane.') + ' She went to the lukado.</p>');
+        setTimeout(function () {
+          ER.closeAll(); busy = true;
+          ER.narrate([
+            '&ldquo;' + iv('Lukahemi lukadovi nurukane') + ',&rdquo; says Hova. She points out of the window, down the hill, at the white building with children&rsquo;s drawings in every window. A school, surely.',
+            'Then she does something else. She mimes tearing pages out of a book, and giving them to somebody about this high.',
+            '&ldquo;' + iv('Lukalita Sanuvi tolekane') + '.&rdquo; You can nearly read it. <span class="iv">-li</span>: more than one. <span class="iv">-ta</span>: the thing that was given. <span class="iv">-ka-ne</span>: in the past, politely. She gave the papers to somebody called Sanu: the girl on the quay.',
+            'Then Hova goes back to her pot. She has answered exactly the question you asked, and not one word more.',
+            '&ldquo;A very correct lady,&rdquo; says Mrs Nakashima, finishing her tea. &ldquo;Ask a better question, get a better answer. Shall we go to the school?&rdquo;'
+          ], function () { busy = false; $('#go').classList.add('on'); PB.wordlist(3); });
+        }, 2600);
+        return;
+      }
+      ER.sfx.no();
+      if (ER.check('was', q)) { hova('Kesadoko dabikane.', 'Hova points firmly at her own kitchen floor. She was HERE. Then she goes back to her pot. You asked where Lukahemi was, not where she went next.'); msg('A true answer to the question you asked. Was it the question you meant?'); }
+      else if (ER.check('plain', q)) { hova('', 'Hova turns back to her stove as if nobody had spoken. Mrs Nakashima winces. &ldquo;I think,&rdquo; she whispers, &ldquo;that was the way you talk to your little brother.&rdquo;'); msg('A plain question to Hova. Page 5 warned you.'); }
+      else if (ER.check('now', q)) { hova('Monasone.', 'Hova spreads her hands. She cannot know what Lukahemi is doing at this moment. She could tell you what she DID.'); msg('Is your question about now, or about this morning?'); }
+      else if (ER.check('ko', q)) { hova('Noko?', 'Hova points at the floor: at where? Then she mimes walking off, out of the door, and points into the distance. Going is not AT a place. It is TO one.'); msg('<span class="iv">-ko</span> is &ldquo;at&rdquo;. Is that the right piece for going?'); }
+      else if (ER.check('ta', q)) { hova('', 'Hova looks round the kitchen, as if for somebody who has carried Lukahemi off. Mrs Nakashima laughs into her tea. &ldquo;You made her the one it was done to.&rdquo;'); msg('<span class="iv">-ta</span> marks the one the action is done to. Did somebody go Lukahemi?'); }
+      else if (!VERBS[lastRoot]) { hova('', 'Hova waits, with her spoon in the air, for the verb. In Isuvo the verb comes last. She is still waiting.'); msg('Where does the verb go in Isuvo?'); }
+      else if (!/ne$/.test(str(last))) { hova('', 'Hova does not even turn round. A plain question, from a guest.'); msg('Hova answers polite questions only.'); }
+      else { hova('', 'Hova listens politely, and shakes her head slowly. She does not understand the question.'); msg('Polite, but not a question Hova can follow. Build it like the sentences on page 6.'); }
+    });
+    render();
+    hova('', 'Hova waits, with her spoon in her hand.');
+    msg('Click words and pieces to build a question for Hova. &ldquo;Next word&rdquo; starts a new word.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

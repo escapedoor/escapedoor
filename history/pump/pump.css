@@ -1,0 +1,161 @@
+/* By the Nearest Road - what every room shares: the papers of 1854 (a register line, a doctor's notes, a clerk's
+   pocket card, an inspector's map, a newspaper, a board's printed orders), a number setter, a tray-and-bins kit, and a
+   skin for the notebook and the hints (a clerk's leather portfolio outside, ruled ledger paper inside).
+   Each room sets its own palette on <body>. */
+
+.tc-theme{font-family:'Oswald',sans-serif}
+.tc-room{font-family:'Abril Fatface',serif;font-weight:normal;letter-spacing:.02em}
+.tc-text{font-family:'Libre Caslon Text',Georgia,serif;font-size:clamp(17px,1.4vw,21px);line-height:1.56}
+.cap{font-family:'Libre Caslon Text',Georgia,serif;font-size:clamp(17px,1.38vw,21px);line-height:1.5}
+.tk-name{font-family:'Libre Caslon Text',serif;font-weight:700;letter-spacing:.01em}
+.tk-text{font-family:'Libre Caslon Text',Georgia,serif;font-size:clamp(17px,1.32vw,20px)}
+.gobtn{position:fixed;left:50%;bottom:5vh;transform:translateX(-50%);z-index:35;display:none;padding:13px 30px;border:1px solid var(--accent,#e2b04a);
+  color:var(--accent,#e2b04a);background:var(--hud-bg,rgba(10,12,10,.92));font-family:'Oswald',sans-serif;font-size:16px;letter-spacing:.18em;
+  text-transform:uppercase;border-radius:3px;white-space:nowrap}
+.gobtn.on{display:block}
+.gobtn:hover{background:var(--accent,#e2b04a);color:#111}
+.pmsg{min-height:54px;margin:0;font-family:'Libre Caslon Text',Georgia,serif;font-size:16px;line-height:1.42;color:#f1ecdf}
+.pmsg b{color:var(--accent,#e2b04a);font-weight:normal}
+.lk-h{margin:0 0 8px;font-family:'Oswald',sans-serif;font-weight:500;font-size:12.5px;letter-spacing:.24em;text-transform:uppercase;color:#c9c3ae}
+.lk-face{width:104px;border:1px solid rgba(255,255,255,.2);margin-bottom:8px;background:var(--face-bg,#1b2230)}
+.lk-face svg{display:block;width:100%;height:auto}
+.lk-side{min-width:0}
+.lk-title{margin:0 0 10px;font-family:'Abril Fatface',serif;font-weight:normal;font-size:24px;letter-spacing:.02em;color:#f4ecd8}
+.lk-sub{margin:-6px 0 12px;font-family:'Libre Caslon Text',serif;font-style:italic;font-size:15px;color:#d8cfb8}
+
+/* ---- a number setter: brass buttons either side of a window. PU.num ---- */
+.ns{display:inline-flex;align-items:center;gap:3px;vertical-align:middle}
+.ns button{min-width:26px;height:26px;padding:0 4px;border-radius:13px;border:1px solid #6b5a33;background:radial-gradient(circle at 35% 30%,#f3dc92,#b08a35 60%,#6f531a);color:#2a1d06;
+  font-family:'Oswald',sans-serif;font-weight:600;font-size:12.5px;line-height:22px;cursor:pointer}
+.ns button:hover{filter:brightness(1.12)}
+.ns output{display:inline-block;min-width:58px;padding:3px 7px 2px;background:#1b1712;color:#ffe9a8;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:16px;
+  text-align:center;border-radius:2px;box-shadow:inset 0 2px 4px #000}
+.ns.ok output{background:#1d3a20;color:#cdeec6}
+.ns.no output{background:#4a1712;color:#ffd2c8}
+.ns.done button{visibility:hidden}
+
+/* ---- a tray of cards and the bins they go into. PU.bins ---- */
+.pc{touch-action:none;cursor:grab}
+.pc.held{outline:2px solid var(--accent,#e0b354);outline-offset:2px}
+.pc.fly{position:fixed;z-index:80;pointer-events:none;cursor:grabbing;margin:0!important;opacity:.92}
+.pc.no{box-shadow:0 0 0 3px #b3261c!important}
+.pc.ok{box-shadow:0 0 0 3px #3d7a3a!important}
+
+/* ---- the papers ---- */
+.doc svg{display:block;width:100%;height:auto;margin:6px 0 8px}
+.doc .fig{font-family:'IBM Plex Mono',monospace;font-weight:600;white-space:nowrap}
+/* a printed sheet of the Office: laid paper, a ruled head, Caslon type */
+.doc.office{width:min(700px,94vw);padding:24px 32px 20px;background:#f2ead6 linear-gradient(176deg,rgba(255,255,255,.4),rgba(120,95,50,.14));color:#25201a;
+  font-family:'Libre Caslon Text',Georgia,serif;font-size:16px;line-height:1.5;border-top:3px double #5a3f22;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+.doc.office h4{margin:0 0 2px;font-family:'Abril Fatface',serif;font-size:24px;letter-spacing:.02em;color:#3b2612}
+.doc.office h5{margin:0 0 12px;font-family:'Oswald',sans-serif;font-weight:500;font-size:11.5px;letter-spacing:.24em;text-transform:uppercase;color:#7a6a4e;border-bottom:1px solid #b4a27c;padding-bottom:7px}
+.doc.office p{margin:0 0 9px}
+.doc.office b{font-variant:small-caps;letter-spacing:.06em}
+.doc.office .two{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:18px;align-items:start}
+/* a doctor's notes in ink on cream paper */
+.doc.notes{width:min(680px,94vw);padding:26px 34px 22px;background:#f7f1e1 linear-gradient(180deg,rgba(255,255,255,.4),rgba(140,110,60,.1));color:#1f2438;
+  font-family:'EB Garamond',Georgia,serif;font-size:18px;line-height:1.48;border-left:2px solid #c9b48a;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+.doc.notes h4{margin:0 0 4px;font-family:'EB Garamond',serif;font-style:italic;font-weight:600;font-size:25px;color:#1f2438}
+.doc.notes h5{margin:0 0 12px;font-family:'Libre Caslon Text',serif;font-weight:400;font-style:italic;font-size:14px;color:#6b6552}
+.doc.notes p{margin:0 0 9px}
+.doc.notes b{font-weight:700;color:#5a1f14}
+.doc.notes .two{display:grid;grid-template-columns:minmax(0,1fr) 240px;gap:18px;align-items:start}
+.doc.notes .ent{margin:0 0 10px;padding:0 0 8px;border-bottom:1px dotted #b8a888}
+.doc.notes .ent i{font-family:'Oswald',sans-serif;font-style:normal;font-size:12.5px;letter-spacing:.14em;color:#7a1d14;margin-right:6px}
+/* the clerk's own pocket book, in pencil */
+.doc.mine{width:min(600px,92vw);padding:24px 30px 20px;background:#f4f0df repeating-linear-gradient(transparent 0 30px,rgba(90,120,170,.25) 30px 31px);color:#2f3a55;
+  font-family:'Caveat',cursive;font-size:24px;line-height:31px;border-left:10px solid #3a2a1a}
+.doc.mine h4{margin:0;font-family:'Caveat',cursive;font-weight:700;font-size:27px;line-height:31px;text-decoration:underline}
+.doc.mine p{margin:0}
+.doc.mine b{color:#8c2f24;font-weight:700}
+/* a stiff card with a black rule: Mr Peebles's notes for a young clerk */
+.doc.card{width:min(560px,92vw);padding:24px 30px 20px;background:#fbf7ec;color:#1d1a16;font-family:'Libre Caslon Text',serif;font-size:16px;line-height:1.5;
+  border:1px solid #bdb398;box-shadow:0 26px 70px rgba(0,0,0,.6),inset 0 0 0 5px #fbf7ec,inset 0 0 0 6px #1d1a16}
+.doc.card h4{margin:0 0 2px;font-family:'Cinzel',serif;font-weight:700;font-size:18px;letter-spacing:.1em;text-align:center}
+.doc.card h5{margin:0 0 12px;font-family:'Libre Caslon Text',serif;font-weight:400;font-style:italic;font-size:14px;text-align:center;color:#6b6552}
+.doc.card ol{margin:0;padding-left:22px}
+.doc.card li{margin:0 0 6px}
+.doc.card p{margin:0 0 8px}
+/* a line of the death register, and the register page */
+.doc.reg{width:min(820px,95vw);padding:20px 26px 18px;background:#eef0e6 linear-gradient(176deg,rgba(255,255,255,.45),rgba(90,100,80,.12));color:#1d2230;
+  font-family:'Libre Caslon Text',serif;font-size:15.5px;line-height:1.45;border-top:6px solid #7a1d14;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+.doc.reg h4{margin:0 0 2px;font-family:'Abril Fatface',serif;font-size:23px;color:#7a1d14}
+.doc.reg h5{margin:0 0 10px;font-family:'Oswald',sans-serif;font-weight:500;font-size:11.5px;letter-spacing:.24em;text-transform:uppercase;color:#6b6552}
+.doc.reg p{margin:0 0 8px}
+.doc.reg b{color:#7a1d14;font-weight:700}
+.doc.reg .hand{font-family:'Homemade Apple',cursive;font-size:14px;color:#26304a;line-height:1.9}
+.doc.reg table{width:100%;border-collapse:collapse;margin:4px 0 8px;font-size:13.5px}
+.doc.reg td,.doc.reg th{border:1px solid #9aa08c;padding:3px 6px;vertical-align:top;text-align:left}
+.doc.reg th{font-family:'Oswald',sans-serif;font-weight:500;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#4a4f40;background:rgba(122,29,20,.06)}
+/* a newspaper column */
+.doc.news{width:min(520px,92vw);padding:20px 26px 18px;background:#eae3d0 linear-gradient(176deg,rgba(255,255,255,.3),rgba(110,90,50,.16));color:#1c1a16;
+  font-family:'Libre Caslon Text',serif;font-size:15.5px;line-height:1.5;text-align:justify;hyphens:auto}
+.doc.news h4{margin:0 0 2px;font-family:'Abril Fatface',serif;font-size:30px;text-align:center;letter-spacing:.02em}
+.doc.news h5{margin:0 0 10px;padding:4px 0;border-top:1px solid #1c1a16;border-bottom:3px double #1c1a16;font-family:'Libre Caslon Text',serif;font-weight:400;font-size:12px;letter-spacing:.12em;text-align:center;text-transform:uppercase}
+.doc.news h6{margin:10px 0 4px;font-family:'Libre Caslon Text',serif;font-weight:700;font-size:15px;letter-spacing:.14em;text-align:center}
+.doc.news p{margin:0 0 8px;text-indent:1.2em}
+/* the printed orders of a board */
+.doc.orders{width:min(640px,93vw);padding:24px 32px 20px;background:#fbf8ef;color:#1d2433;font-family:'Libre Caslon Text',serif;font-size:16px;line-height:1.5;
+  border:1px solid #c8c0a8;box-shadow:0 26px 70px rgba(0,0,0,.6),inset 0 0 0 4px #fbf8ef,inset 0 0 0 5px #2a3a2a}
+.doc.orders h4{margin:0 0 4px;font-family:'Cinzel',serif;font-weight:700;font-size:18px;letter-spacing:.12em;text-align:center;color:#2a3a2a}
+.doc.orders h5{margin:0 0 12px;font-family:'Oswald',sans-serif;font-weight:500;font-size:11.5px;letter-spacing:.24em;text-transform:uppercase;text-align:center;color:#6b6552}
+.doc.orders p{margin:0 0 9px}
+.doc.orders ol{margin:0 0 9px;padding-left:24px}
+.doc.orders li{margin:0 0 5px}
+/* an inspector's map, in his own careful hand */
+.doc.smell{width:min(760px,95vw);padding:18px 24px 16px;background:#efe8d2;color:#2a2416;font-family:'Architects Daughter',cursive;font-size:16px;line-height:1.45;border:1px solid #a89870}
+.doc.smell h4{margin:0 0 4px;font-family:'Architects Daughter',cursive;font-size:22px;text-decoration:underline}
+.doc.smell p{margin:0 0 6px}
+.doc.statement{background:#f3eedd;font-family:'Libre Caslon Text',Georgia,serif;font-size:18px;border-left:6px solid #5a3f22}
+
+/* in the notebook every paper lies flat and takes the width there is */
+.nb .nb-view .doc{width:100%;max-height:none;transform:none}
+.nb .nb-view .doc.office .two,.nb .nb-view .doc.notes .two{grid-template-columns:1fr}
+
+/* ---- the notebook: a clerk's leather portfolio outside, ledger paper inside ---- */
+.nb{background:#5a2a1a;background-image:linear-gradient(150deg,#6e3420,#3e1c10);border:1px solid #2a120a;border-radius:6px;color:#f3e6cc;
+  box-shadow:0 30px 90px rgba(0,0,0,.75),inset 0 0 0 5px #4a2214,inset 0 0 0 7px #b08a4a}
+.nb-tabs{border-bottom-color:#2a120a}
+.nb-tabs button{font-family:'Oswald',sans-serif;color:#efdcb8}
+.nb-tabs button.on{background:#f3ead2;color:#22231e;border-color:#b08a4a}
+.nb-list{border-right-color:#2a120a}
+.nb-list button{font-family:'Libre Caslon Text',serif;font-size:16px;color:#f3e6cc}
+.nb-list button.on{background:#f3ead2;color:#22231e}
+.nb-view{background:#3a1c10}
+.nb-empty{font-family:'Libre Caslon Text',serif}
+.nb-words{background:#f3ead2;color:#22231e}
+.nb-words b{font-family:'Libre Caslon Text',serif;font-weight:700}
+.nb-words span{font-family:'Libre Caslon Text',serif;font-size:16px;line-height:1.32;color:#4a473e}
+.nb-ko{border-color:#b08a4a;color:#6b6552}
+.nb-ko.on{background:#22231e;color:#f3ead2;border-color:#22231e}
+.wtip,.wtag{background:#f6efdc;color:#22231e;border-radius:2px;box-shadow:0 10px 26px rgba(0,0,0,.6),inset 5px 0 0 #5a2a1a}
+.wtag{padding-left:20px}
+.wtag:before{display:none}
+.wtip{padding-left:19px}
+.wtip b,.wtag b{font-family:'Libre Caslon Text',serif;font-weight:700;font-size:18px}
+.wtip span,.wtag span{font-family:'Libre Caslon Text',serif;font-size:16px;line-height:1.32;color:#4a473e}
+.hintbox{background:#fbf8ee;color:#22231e;border-top:5px solid #5a2a1a;border-radius:2px}
+.hintbox h6{font-family:'Oswald',sans-serif;color:#5a2a1a}
+.hintbox p{font-family:'Libre Caslon Text',Georgia,serif;font-size:16.5px;line-height:1.4}
+.hintbox p.hint-none{font-size:15px}
+.toast{font-family:'Oswald',sans-serif;background:rgba(20,14,10,.94)}
+
+/* ---- the last page's report ---- */
+.rp{width:min(760px,94vw);max-height:84vh;overflow:auto;background:#fbf8ee;color:#22231e;padding:24px 36px 20px;border-top:4px solid #5a2a1a;box-shadow:0 26px 70px rgba(0,0,0,.6);-webkit-user-select:text;user-select:text}
+.rp h4{margin:0 0 4px;font-family:'Oswald',sans-serif;font-weight:500;font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:#6b6552}
+.rp h3{margin:0 0 10px;font-family:'Abril Fatface',serif;font-weight:normal;font-size:26px;border-bottom:1px solid #b4a27c;padding-bottom:8px}
+.rp label{display:block;font-family:'Libre Caslon Text',serif;font-size:17px;line-height:1.45;margin:8px 0 8px}
+.rp textarea,.rp input[type=text]{width:100%;font-family:'Caveat',cursive;font-size:25px;line-height:34px;color:#1d2a52;background:#fbf9f0 repeating-linear-gradient(transparent 0 33px,#b9c7d6 33px 34px);border:1px solid #b9b09a;
+  padding:0 12px;border-radius:0;resize:vertical;-webkit-user-select:text;user-select:text}
+.rp textarea{min-height:204px}
+.rp input[type=text]{height:36px}
+.rp .count{font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.6;text-align:right;margin-top:4px}
+.rp .foot{display:flex;gap:10px;align-items:center;margin-top:12px}
+.rp .foot span{flex:1;font-family:'Libre Caslon Text',serif;font-size:14.5px;opacity:.7}
+.rp .btn{--accent:#22231e}.rp .btn:hover:not([disabled]){color:#fbf8ee}
+@media print{
+  body{overflow:visible;background:#fff}
+  body>*:not(.ov){display:none!important}
+  .ov{position:static!important;display:block!important;background:#fff!important;padding:0!important;overflow:visible!important}
+  .ov-bar,.rp .foot{display:none!important}
+}

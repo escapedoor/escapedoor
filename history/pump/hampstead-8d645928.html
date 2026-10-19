@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>West End · By the Nearest Road</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-history.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="pump.css">
+<style>
+  body{--bg:#7aa0c0;--accent:#ffd27a;--font-display:'Abril Fatface',serif;--font-ui:'Oswald',sans-serif;--font-body:'Libre Caslon Text',serif;
+    --tc-bg:rgba(26,40,30,.95);--tc-ink:#f2f0e4;--cap-bg:rgba(26,40,30,.93);--panel:#203024;--face-bg:#3e5a44;--q-ink:#ffe09a;--fade:#0c140e;--hud-bg:rgba(26,40,30,.82)}
+  .lb{font-family:'Oswald',sans-serif;font-weight:500;text-anchor:middle;letter-spacing:.12em}
+  #clouds ellipse{animation:cl 40s linear infinite alternate}
+  #clouds ellipse:nth-child(2n){animation-duration:55s}
+  @keyframes cl{from{transform:translateX(-40px)}to{transform:translateX(60px)}}
+  #grass path{animation:gs 3s steps(2,end) infinite}
+  @keyframes gs{50%{transform:translateX(3px)}}
+  #ear{animation:er 4s steps(2,end) infinite;transform-origin:212px 520px}
+  @keyframes er{50%{transform:rotate(-12deg)}}
+  #book.ready,#applin.ready{animation:nudge 1.6s ease-in-out infinite}
+  @keyframes nudge{50%{transform:translateY(-5px)}}
+
+  /* your pocket book, opened on the bench */
+  .tl{width:min(1120px,97vw);display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:16px;align-items:start}
+  .tl-book{padding:14px 18px 16px;background:#f4f0df repeating-linear-gradient(transparent 0 30px,rgba(90,120,170,.22) 30px 31px);color:#2f3a55;border-left:12px solid #3a2a1a;box-shadow:0 20px 50px rgba(0,0,0,.55)}
+  .tl-book h6{margin:0 0 6px;font-family:'Caveat',cursive;font-weight:700;font-size:24px;line-height:1.1;color:#2f3a55}
+  .tl-strip{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}
+  .tl-col{display:grid;grid-template-rows:auto 1fr;gap:4px}
+  .tl-col b{font-family:'Oswald',sans-serif;font-weight:500;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:#5a3a22;text-align:center;line-height:1.2;min-height:28px}
+  .tl-col .slot{min-height:74px;border:2px dashed #9ab0c8;border-radius:3px;display:flex;align-items:stretch;justify-content:stretch;background:rgba(255,255,255,.35)}
+  .tl-col .slot.no{border-color:#c0392b;background:rgba(192,57,43,.12)}
+  .tl-col .slot.ok{border-color:#3d7a3a;background:rgba(61,122,58,.1)}
+  .card2{flex:1;padding:5px 7px;background:#fffdf4;color:#1f2438;font-family:'Libre Caslon Text',serif;font-size:13px;line-height:1.25;border:1px solid #b9a877;box-shadow:0 2px 5px rgba(0,0,0,.3)}
+  .tl-tray{display:flex;flex-wrap:wrap;gap:6px;min-height:56px;margin:10px 0 6px;padding:6px;border:1px solid rgba(90,120,170,.35)}
+  .tl-tray .card2{flex:0 0 150px}
+  .tl-para{margin:8px 0 4px;font-family:'Caveat',cursive;font-size:21px;line-height:1.25;color:#2f3a55}
+  .sent{display:block;padding:2px 6px;margin:2px 0;border-radius:2px;cursor:pointer;font-family:'Libre Caslon Text',serif;font-size:14.5px;line-height:1.35;color:#2a2416;background:rgba(255,255,255,.4)}
+  .sent:hover{background:rgba(255,233,138,.5)}
+  .sent.struck{text-decoration:line-through;text-decoration-color:#b3261c;text-decoration-thickness:2px;color:#7a6a5a}
+  .sent i{font-style:normal;font-family:'Oswald',sans-serif;font-size:12px;color:#7a1d14;margin-right:6px}
+  .who{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+  .who button{padding:4px 10px;border:1px solid #5a3a22;border-radius:2px;background:#fffdf4;color:#2a2416;font-family:'Libre Caslon Text',serif;font-size:13.5px;cursor:pointer}
+  .who button.on{background:#2f3a55;color:#fffdf4;border-color:#2f3a55}
+  .tl-side .btn{width:100%;margin-top:8px}
+  @media (max-width:980px){.tl{grid-template-columns:1fr}.tl-strip{grid-template-columns:repeat(3,minmax(0,1fr))}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a8ab8"/><stop offset=".7" stop-color="#b8d0e0"/><stop offset="1" stop-color="#e8e4d0"/></linearGradient>
+  <linearGradient id="hillG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7aa05a"/><stop offset="1" stop-color="#4a7a3a"/></linearGradient>
+  <linearGradient id="smokeG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a8478" stop-opacity="0"/><stop offset=".5" stop-color="#8a8478" stop-opacity=".7"/><stop offset="1" stop-color="#6a6458" stop-opacity=".8"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="45%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".75" stop-color="#0a100a" stop-opacity=".12"/><stop offset="1" stop-color="#0a100a" stop-opacity=".55"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#skyG)"/>
+<g id="clouds" fill="#fff" opacity=".85"><ellipse cx="200" cy="90" rx="120" ry="30"/><ellipse cx="280" cy="70" rx="80" ry="28"/><ellipse cx="900" cy="60" rx="140" ry="32"/><ellipse cx="1350" cy="110" rx="110" ry="26"/></g>
+<!-- London, far below in its own smoke -->
+<g id="view" class="hot">
+  <path d="M-1000 420L-200 400 200 410 700 396 1200 408 2600 400V520H-1000z" fill="#9a9a8e"/>
+  <g fill="#7a7a70"><rect x="80" y="376" width="14" height="30"/><rect x="160" y="384" width="10" height="22"/><path d="M330 400v-28q14-22 28 0v28z"/><rect x="342" y="352" width="4" height="16"/><rect x="520" y="380" width="12" height="26"/><rect x="600" y="370" width="8" height="34"/></g>
+  <rect x="-1000" y="340" width="3600" height="130" fill="url(#smokeG)"/>
+  <text x="340" y="330" class="lb" font-size="12" fill="#3a3a34" opacity=".7">LONDON</text>
+</g>
+<!-- the hill and the heath -->
+<path d="M-1000 520Q200 420 800 470T2600 440V1320H-1000z" fill="url(#hillG)"/>
+<g fill="#3a6a2e"><ellipse cx="-80" cy="500" rx="140" ry="70"/><ellipse cx="160" cy="470" rx="100" ry="60"/><ellipse cx="1500" cy="440" rx="160" ry="80"/><ellipse cx="1700" cy="470" rx="120" ry="60"/></g>
+<g fill="#2e5a26"><ellipse cx="-40" cy="530" rx="90" ry="40"/><ellipse cx="1460" cy="480" rx="100" ry="46"/></g>
+<!-- the house: white, quiet, with crape on the knocker -->
+<path d="M820 610V300h480v310z" fill="#f2efe4"/><path d="M800 306l260-110 260 110z" fill="#5a4a4a"/><rect x="1180" y="190" width="30" height="70" fill="#7a6a5a"/>
+<g fill="#2a3a4a"><rect x="860" y="340" width="70" height="90"/><rect x="1190" y="340" width="70" height="90"/><rect x="860" y="480" width="70" height="90"/><rect x="1190" y="480" width="70" height="90"/></g>
+<g fill="#e8e4d8"><path d="M860 385h70M895 340v90M1190 385h70M1225 340v90M860 525h70M895 480v90M1190 525h70M1225 480v90" stroke="#e8e4d8" stroke-width="4"/></g>
+<g fill="#1e1e22"><rect x="860" y="340" width="70" height="40" opacity=".7"/><rect x="1190" y="340" width="70" height="40" opacity=".7"/></g>
+<rect x="1010" y="440" width="100" height="170" fill="#2a3a2a"/><path d="M1000 440h120l-10-20h-100z" fill="#d8d0bc"/>
+<!-- the garden, its wall and gate, and the path -->
+<rect x="-1000" y="600" width="3600" height="20" fill="#9a8a6a"/><path d="M620 620h-1620M1500 620h1100" stroke="#7a6a4a" stroke-width="30"/>
+<g fill="#c8b48a"><rect x="620" y="560" width="20" height="70"/><rect x="1480" y="560" width="20" height="70"/></g>
+<path d="M1060 610L980 900h160z" fill="#d8c8a0"/>
+<g id="grass" stroke="#3a6a2e" stroke-width="3"><path d="M200 700l6-20M230 704l-4-18M700 760l6-18M1300 720l-6-20M1420 780l5-18M1520 700l-4-20"/></g>
+<g fill="#c8507a"><circle cx="760" cy="640" r="7"/><circle cx="790" cy="650" r="6"/><circle cx="1330" cy="646" r="7"/><circle cx="1360" cy="640" r="6"/></g><g fill="#f2d04a"><circle cx="775" cy="660" r="5"/><circle cx="1345" cy="660" r="5"/></g>
+<!-- the bench with your pocket book, and the newspaper -->
+<path d="M640 700h240M660 700v40M860 700v40M640 680h240" stroke="#6a4a2a" stroke-width="10"/>
+<g id="book" class="hot"><path d="M690 676l50-6 6 22-52 6z" fill="#3a2a1a"/><path d="M694 678l44-5 4 18-46 5z" fill="#f4f0df"/><path d="M716 675l3 20" stroke="#3a2a1a" stroke-width="2"/></g>
+<g id="paper" class="hot"><path d="M770 674l80-4 4 20-82 6z" fill="#e8e0c8"/><text x="810" y="686" class="lb" font-size="7" fill="#1c1a16" transform="rotate(-3 810 686)">THE WEEKLY LANTERN</text><g stroke="#6b6552" stroke-width="1"><path d="M778 690l64-3"/></g></g>
+<!-- the empty stone bottle by the scullery step -->
+<g id="bottle" class="hot"><path d="M1196 610q-16-6-16-40q0-26 20-34v-14h16v14q20 8 20 34q0 34-16 40z" fill="#c8b48a" stroke="#7a6a4a" stroke-width="2"/><path d="M1184 560q24-8 48 0" stroke="#7a6a4a" stroke-width="2" fill="none"/><rect x="1200" y="506" width="16" height="10" fill="#5a4a3a"/></g>
+<!-- Mrs Applin at the door -->
+<g id="applin" class="hot">
+  <rect x="1050" y="420" width="20" height="26" fill="#1a1a1e"/><path d="M1052 420l-8 24M1068 420l8 24" stroke="#1a1a1e" stroke-width="4"/>
+  <path d="M1030 610q-6-120 16-140q14-8 28 0q20 20 16 140z" fill="#18181c"/>
+  <rect x="1052" y="452" width="16" height="22" fill="#eec4a6"/><ellipse cx="1060" cy="440" rx="19" ry="22" fill="#eec4a6"/>
+  <path d="M1040 436q-4-28 20-30q24 2 20 30q-8-14-20-14q-12 0-20 14z" fill="#f2efe6"/><path d="M1044 444v8M1076 444v8" stroke="#8a8478" stroke-width="4"/>
+  <circle cx="1053" cy="442" r="2.2" fill="#1b1512"/><circle cx="1067" cy="442" r="2.2" fill="#1b1512"/>
+</g>
+<!-- the cart from Eley's at the gate, and its horse -->
+<g id="cart" class="hot">
+  <rect x="300" y="600" width="230" height="44" fill="#5a3e24"/><circle cx="350" cy="660" r="34" fill="none" stroke="#3a2a18" stroke-width="7"/><circle cx="480" cy="660" r="34" fill="none" stroke="#3a2a18" stroke-width="7"/>
+  <text x="415" y="628" class="lb" font-size="12" fill="#e9d8b4">ELEY · BROAD ST.</text>
+  <path d="M300 620h-60" stroke="#3a2a18" stroke-width="6"/>
+  <path d="M120 640q-4-60 30-70h80q30 4 30 60v14h-140z" fill="#7a5a3a"/><path d="M230 580q20-40 4-70l-20 4q4 30-18 56z" fill="#7a5a3a"/>
+  <path id="ear" d="M212 520l-4-20 12 14z" fill="#6a4a2a"/><circle cx="228" cy="540" r="3" fill="#1a1a1a"/>
+  <path d="M136 640v60M160 640v60M230 640v60M250 640v60" stroke="#6a4a2a" stroke-width="9"/>
+</g>
+<!-- Florrie by the cart -->
+<g id="florrie" class="hot">
+  <ellipse cx="580" cy="780" rx="56" ry="10" fill="#000" opacity=".25"/>
+  <path d="M546 774q-8-170 20-200q24-12 44 0q26 30 18 200z" fill="#6a4a6a"/><path d="M538 630q20-50 48-52q30 2 48 52" fill="#8a5a3a"/>
+  <rect x="570" y="530" width="20" height="26" fill="#f2cdb0"/><ellipse cx="580" cy="516" rx="24" ry="27" fill="#f2cdb0"/>
+  <path d="M556 512q-4-36 24-38q28 2 24 38q-8-18-24-18q-16 0-24 18z" fill="#f6f3ea"/><path d="M560 518v14M600 518v14" stroke="#8a3c1a" stroke-width="5"/>
+  <circle cx="571" cy="518" r="2.4" fill="#1b1512"/><circle cx="589" cy="518" r="2.4" fill="#1b1512"/>
+</g>
+<!-- Mr Stannard, breathing deeply -->
+<g id="stannard" class="hot">
+  <ellipse cx="1380" cy="810" rx="60" ry="10" fill="#000" opacity=".25"/>
+  <path d="M1348 804q-8-170 16-206q20-14 42 0q22 36 14 206z" fill="#3a3a2c"/><path d="M1366 610q18 22 36 0l4 130h-44z" fill="#8a7a4a"/>
+  <rect x="1374" y="546" width="22" height="34" fill="#e2b08e"/><ellipse cx="1385" cy="532" rx="27" ry="32" fill="#e2b08e"/>
+  <path d="M1358 540q2 40 27 44q25-4 27-44q-8 16-27 18q-19-2-27-18z" fill="#4a3424"/>
+  <rect x="1360" y="464" width="50" height="46" fill="#141414"/><ellipse cx="1385" cy="510" rx="38" ry="7" fill="#141414"/>
+  <path d="M1375 528l6 2M1389 530l6-2" stroke="#1b1512" stroke-width="2.4"/>
+  <path d="M1350 620q-36-30-30-80M1420 620q36-30 30-80" stroke="#3a3a2c" stroke-width="15" stroke-linecap="round" fill="none"/>
+  <path d="M1360 804v18M1406 804v18" stroke="#141414" stroke-width="13"/>
+</g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Back to St James&rsquo;s for the Board</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="pump.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, box = null, inLock = false;
+
+  ER.init({
+    theme: 'history', story: 'pump', storyTitle: 'By the Nearest Road', id: 'hampstead', no: 'V', title: 'West End, Hampstead',
+    go: 'Open the gate', back: '../index.html', backLabel: 'Archive',
+    intro: [
+      'The slate settled it. The streets round the workhouse drank from the Broad Street pump, breathed foul air, and lost very many: that fits both theories, so it proves nothing. The workhouse breathed the same foul air but had its own well: one in five of 535 would have been 107 deaths, and there were five. The brewery&rsquo;s men drank beer and the brewery&rsquo;s own well water: one in five of seventy would have been fourteen, and there were none.',
+      'Thursday 7 September, half past one. West End, Hampstead: a village on the hill north of London, where the doctors send people for the fresh air. You can see the whole city from here, sitting in its own smoke.'
+    ],
+    exit: {"next":"board","w":{"fb70b281":"330903b3"}}, tags: {"tl":["f002343d","f8647235","4c3f9539","c6460bf2","5a2607b3","0c329ee3"],"st":["f633000d"],"who":["a4f8dd2c"]},
+    hints: hints, onBegin: begin
+  });
+
+  function file() { return ER.flag('h-file'); }
+  function isBusy() { return busy; }
+  function ready() { return ER.flag('h-applin') && ER.flag('h-cart') && ER.flag('h-stan'); }
+  function paint() {
+    $('#applin').classList.toggle('ready', !file() && !ER.flag('h-applin'));
+    $('#book').classList.toggle('ready', !file() && !!ready());
+    ER.pips(file() ? 1 : 0, 1);
+    if (file()) PU.door($('#go'), file(), 'h-file');
+  }
+  function hints() {
+    if (file()) return ['go', ['The carter is going back down the hill. Use the button at the bottom of the screen.']];
+    if (inLock) return ['book', [
+      'Mrs Applin and the cart book give most of the days. Put each card in its column. Two cards belong nowhere: leave them in the tray.',
+      'When was she taken ill? Mrs Applin cannot say. The Hampstead line in your notebook says diarrhoea two hours, cholera sixteen hours, and Mrs Applin says she died at about two o&rsquo;clock on Saturday afternoon. Count back eighteen hours from two o&rsquo;clock on Saturday.',
+      'Then strike out the one sentence in Mr Stannard&rsquo;s paragraph that he did not know but guessed, and choose the person who could know that it was wrong. Mr Peebles&rsquo;s card, rule 5: believe the writer who was nearest to the thing itself.'
+    ]];
+    if (!ready()) return ['talk', [
+      'Talk to Mrs Applin at the door. Florrie, by the cart, has the carter&rsquo;s book. Mr Stannard has written something for the Board.',
+      'When you have all three, your pocket book on the garden bench opens.'
+    ]];
+    return ['bench', ['Your pocket book is on the garden bench. The newspaper beside it is worth reading too.']];
+  }
+
+  function begin() {
+    paint();
+    PU.need('h41', 'The Hampstead line', '<h4>The Hampstead line</h4>' + PU.H41, 'mine', 'Your notes');
+    PU.need('card', 'Mr Peebles’s card', PU.CARD, 'card', 'On your desk');
+    if (ER.flag('h-in')) { busy = false; ER.say(file() ? 'The carter is turning the horse.' : 'West End, Hampstead. Green, quiet, and very high.'); return; }
+    ER.narrate([
+      'It is an hour and more on the cart, out past Regent&rsquo;s Park and on up the long hill, until the houses give way to gardens and the gardens to fields. The air is fresh, and Florrie says it tastes of nothing at all.',
+      'The house is white and quiet, with the blinds half down. There is black crape tied on the knocker. That means a death in the house, and everybody who passes lowers their voice.',
+      'And at the gate, to your surprise, stands Mr Stannard, breathing very deeply. He came up on the omnibus, he says, to see the case for himself, in the interests of science and fresh air.'
+    ], function () { busy = false; ER.flag('h-in', 1); paint(); });
+  }
+
+  $('#applin').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({ who: 'Mrs Grace Applin', role: 'Housekeeper to the late Mrs Eley', face: PU.FACE('applin'), lines: [
+      'A woman in black opens the door. &ldquo;Grace Applin. I keep house for Mrs Eley.&rdquo; She stops. &ldquo;I kept house for her. Come into the shade, the pair of you.&rdquo;',
+      '&ldquo;The mistress hadn&rsquo;t been down to Broad Street for months. Not since the winter. Her knees wouldn&rsquo;t have the stairs at the works, and she&rsquo;d no call to go.&rdquo;',
+      '&ldquo;But she would have the Broad Street water. Said ours up here was flat. So the cart brought a big stone bottle of it every day, fresh from the pump.&rdquo;',
+      { q: 'When did she drink from Thursday&rsquo;s bottle?', a: '&ldquo;Thursday evening, with her supper, and again on the Friday. On the Friday she wasn&rsquo;t herself, but she never complained, she wouldn&rsquo;t, so I couldn&rsquo;t tell you when it began. She went at about two o&rsquo;clock on the Saturday afternoon.&rdquo;' },
+      '&ldquo;Her niece was staying with us that week. She drank it too. She went home to Islington, to a high, healthy part of it, as healthy as here. And we heard she&rsquo;d been taken as well.&rdquo;',
+      '&ldquo;I had a glass of it myself, and I was poorly a day, no worse. And there&rsquo;s been no cholera up here this summer. Not a case. Ask anybody.&rdquo;'
+    ], clue: { id: 'applin', title: 'Mrs Applin, at the door', kind: 'Statement' }, done: function (seen) { if (seen) { ER.flag('h-applin', 1); PU.learn('housekeeper'); paint(); } } });
+  });
+  $('#florrie').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({ who: 'Florrie Dawlish', role: 'By the cart', face: PU.FACE('florrie'), lines: [
+      '&ldquo;Here&rsquo;s the carter&rsquo;s book. I copied out the bit that matters, upside down, while he was looking at the horse.&rdquo;',
+      '&ldquo;The bottle&rsquo;s filled at the pump at seven, before the works opens, and up it goes on the cart. Every day the same. Except Friday: no cart Friday.&rdquo;'
+    ], clue: { id: 'florrie5', title: 'Florrie: the cart', kind: 'Statement' }, done: function (seen) {
+      if (!seen) return;
+      ER.read({ html: PU.CART, cls: 'notes', clue: { id: 'cart', title: 'Eley’s cart book', kind: 'Copied by Florrie' }, done: function () { ER.flag('h-cart', 1); paint(); } });
+    } });
+  });
+  var STAN = ['The lady died of cholera on Saturday 2 September.', 'There has been no other cholera at West End this summer.', 'She took the disease on a visit to the family&rsquo;s works in Broad Street, where the air is foul.', 'Her niece, who was staying with her, has also died of cholera, at Islington.'];
+  $('#stannard').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({ who: 'Mr Horace Stannard', role: 'Inspector of Nuisances, at the gate', face: PU.FACE('stannard'), lines: [
+      '&ldquo;Breathe that, my young friend! Hampstead air. The doctors send their patients up here for it.&rdquo;',
+      '&ldquo;The lady caught her cholera in Soho, of course, on a visit. The Lantern says so, and it stands to reason: where else could she catch it? I have written a paragraph for the Board tonight. You may copy it, if you like.&rdquo;'
+    ], clue: { id: 'stannard3', title: 'Mr Stannard at West End', kind: 'Statement' }, done: function (seen) {
+      if (!seen) return;
+      ER.read({ html: '<h4>For the Board: the case at West End</h4><p>By H. Stannard, Inspector of Nuisances.</p>' + STAN.map(function (s, i) { return '<p>(' + 'abcd'.charAt(i) + ') ' + s + '</p>'; }).join('') + '<p><i>I shall draw the conclusion for the Board myself.</i></p>',
+        cls: 'smell', clue: { id: 'stanpara', title: 'Mr Stannard’s paragraph', kind: 'For the Board' }, done: function () { ER.flag('h-stan', 1); paint(); } });
+    } });
+  });
+  $('#paper').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: PU.LANTERN, cls: 'news', clue: { id: 'lantern', title: 'The Weekly Lantern', kind: 'Newspaper' }, done: function () { PU.learn('heath'); } });
+  });
+  PU.thing('#bottle', 'stone bottle', 'An empty stone bottle by the scullery step. Nobody has had the heart to send it back down the hill.', isBusy);
+  PU.thing('#view', null, 'London, under a brown blanket of its own smoke. Up here people think the air down there is poison.', isBusy);
+  PU.thing('#cart', null, 'Eley&rsquo;s cart, which comes up this hill every day with cases for the railway and, until last week, one stone bottle.', isBusy);
+  $('#book').addEventListener('click', function () {
+    if (busy || file()) return;
+    if (!ready()) { ER.say('Your pocket book. First hear Mrs Applin, get the cart book from Florrie, and read Mr Stannard&rsquo;s paragraph.'); return; }
+    openLock();
+  });
+
+  /* ---------- the pocket book: the days, the paragraph, and who could know ---------- */
+  var SLOTS = [['months', 'Months before'], ['thuam', 'Thu 31 Aug, morning'], ['thupm', 'Thu 31 Aug, evening'], ['fri', 'Fri 1 Sept, during the day'], ['frie', 'Fri 1 Sept, evening'], ['sat', 'Sat 2 Sept, afternoon']];
+  var CARDS = [['c4', 'She drinks from the bottle again'], ['d1', 'She visits the works in Broad Street'], ['c6', 'She dies'], ['c2', 'The bottle is filled at the pump and goes up on the cart'], ['c1', 'Her last visit to Broad Street'], ['c5', 'She is taken ill'], ['d2', 'She breathes the foul air of Soho'], ['c3', 'She drinks from the bottle for the first time']];
+  var WHO = [['applin', 'Mrs Applin'], ['lantern', 'The Weekly Lantern'], ['register', 'The register line'], ['cart', 'The cart book']];
+  function build() {
+    var b = ER.el('div', 'tl'), lock = false, msgEl, struck = '', who = '';
+    var h = '<div class="tl-book"><h6>Mrs Eley: the days</h6><div class="tl-strip">' + SLOTS.map(function (s) { return '<div class="tl-col"><b>' + s[1] + '</b><div class="slot" data-s="' + s[0] + '"></div></div>'; }).join('') + '</div>';
+    h += '<div class="tl-tray">' + CARDS.map(function (c) { return '<div class="card2 dnd-item" data-c="' + c[0] + '">' + c[1] + '</div>'; }).join('') + '</div>';
+    h += '<div class="tl-para">Mr Stannard&rsquo;s paragraph. Strike out the sentence he guessed:</div>' + STAN.map(function (s, i) { return '<span class="sent" data-s="' + 'abcd'.charAt(i) + '"><i>' + 'abcd'.charAt(i) + '</i>' + s + '</span>'; }).join('');
+    h += '<div class="tl-para">Who could know it was wrong?</div><div class="who">' + WHO.map(function (w) { return '<button type="button" data-w="' + w[0] + '">' + w[1] + '</button>'; }).join('') + '</div></div>';
+    h += '<div class="tl-side"><h3 class="lk-title">Your book</h3><div class="lk-face">' + PU.FACE('florrie') + '</div><h6 class="lk-h">Florrie</h6><p class="pmsg"></p><button type="button" class="btn" id="tl-go">Write it down</button></div>';
+    b.innerHTML = h; msgEl = b.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    var tray = b.querySelector('.tl-tray');
+    ER.dnd(b, { item: '.card2', slot: '.slot', home: tray, lock: function () { return lock; }, change: function () { PU.sfx.pen(); clear(); } });
+    function clear() { ER.$$('.slot', b).forEach(function (s) { s.classList.remove('no', 'ok'); }); }
+    ER.$$('.sent', b).forEach(function (s) { s.addEventListener('click', function () { if (lock) return; struck = s.getAttribute('data-s'); ER.$$('.sent', b).forEach(function (x) { x.classList.toggle('struck', x === s); }); PU.sfx.pen(); }); });
+    ER.$$('.who button', b).forEach(function (w) { w.addEventListener('click', function () { if (lock) return; who = w.getAttribute('data-w'); ER.$$('.who button', b).forEach(function (x) { x.classList.toggle('on', x === w); }); ER.sfx.click(); }); });
+    b.querySelector('#tl-go').addEventListener('click', function () {
+      if (lock) return;
+      clear();
+      var got = SLOTS.map(function (s) { var c = b.querySelector('.slot[data-s="' + s[0] + '"] .card2'); return c ? c.getAttribute('data-c') : ''; });
+      if (got.indexOf('') >= 0) { msg('&ldquo;Every column wants a card. Two cards are left over: they don&rsquo;t belong anywhere.&rdquo;'); return; }
+      if (!struck || !who) { msg('&ldquo;And Mr Stannard&rsquo;s paragraph: strike out one sentence, and say who could know it was wrong.&rdquo;'); return; }
+      var bad = null;
+      SLOTS.forEach(function (s, i) { var ok = ER.check('tl', s[0] + ':' + got[i]); b.querySelector('.slot[data-s="' + s[0] + '"]').classList.add(ok ? 'ok' : 'no'); if (!ok && !bad) bad = [s, got[i]]; });
+      if (bad) {
+        PU.slip(); ER.sfx.no();
+        var s = bad[0];
+        msg('&ldquo;' + s[1] + ': ' + (
+          bad[1] === 'd1' || bad[1] === 'd2' ? 'Mrs Applin says she hadn&rsquo;t been down to Broad Street for months. That card belongs nowhere.' :
+          s[0] === 'fri' || s[0] === 'frie' ? 'Mrs Applin couldn&rsquo;t say when it began. The register line says how long it lasted: two hours and sixteen hours. Count back from two o&rsquo;clock on Saturday.' :
+          'read Mrs Applin and the cart book again. Which day, and what time of day?') + '&rdquo;');
+        return;
+      }
+      if (!ER.check('st', struck)) { PU.slip(); ER.sfx.no(); msg('&ldquo;Sentence ' + struck + ' is true: ' + ({ a: 'the register line says so.', b: 'Mrs Applin says so, and she lives here.', d: 'Mrs Applin told us.' }[struck] || 'somebody who knows says so.') + ' Which sentence did he never know, but only guess?&rdquo;'); return; }
+      if (!ER.check('who', who)) {
+        PU.slip(); ER.sfx.no();
+        msg('&ldquo;' + ({ lantern: 'The Lantern wasn&rsquo;t there. It printed what it heard, and what its readers like to believe.', register: 'The register says when she died, and of what. It doesn&rsquo;t say where she caught it.', cart: 'The cart book says the bottle went up. It doesn&rsquo;t say whether she ever went down.' }[who] || 'Not that one.') + ' Who was nearest to the thing itself?&rdquo;');
+        return;
+      }
+      var nxt = ER.exit([got.join('-') + '|' + struck + '|' + who], { wait: true });
+      if (!nxt) { msg('&ldquo;Something&rsquo;s not right. Tell your teacher.&rdquo;'); return; }
+      lock = true; b.querySelector('#tl-go').disabled = true;
+      msg('&ldquo;So she never went near Broad Street. Broad Street came to her, in a bottle. Thursday&rsquo;s bottle, filled at seven.&rdquo; Florrie is quiet for a moment. &ldquo;Mr Stannard&rsquo;s fresh air never had a chance.&rdquo;');
+      setTimeout(function () { ER.closeAll(); finish(nxt); }, 4200);
+    });
+    b.first = function () { msg('&ldquo;Put her days in order, from what we were told. Then Mr Stannard&rsquo;s paragraph. Mr Peebles&rsquo;s card is in your notebook, if you want it.&rdquo;'); };
+    return b;
+  }
+  function openLock() { var f = !box; if (!box) box = build(); inLock = true; ER.open('ov-lock', box, function () { inLock = false; }); if (f) box.first(); }
+
+  function finish(nxt) {
+    busy = true; inLock = false;
+    ER.narrate([
+      'You read your page to Mr Stannard, in the garden, with the whole of London smoking quietly below you. He listens to the end without saying anything at all, which Florrie says afterwards is a first.',
+      '&ldquo;A bottle,&rdquo; he says at last. &ldquo;On a cart. Up this hill.&rdquo; He looks at the empty stone bottle by the scullery step for a long time. Then he takes out his paragraph, reads it again, and puts it back in his pocket without a word.',
+      'The Board of Guardians of St James&rsquo;s parish meets at seven this evening. Dr Snow has asked to speak to it. The carter says he can have you back in Broad Street by six, if the horse agrees.'
+    ], function () {
+      PU.mine('days', 'Mrs Eley: the days', '<p>Months before: her last visit to Broad Street. Thursday morning: the bottle filled at the pump at seven, up on the cart. Thursday evening: she drinks from it. Friday: she drinks again. Friday evening: taken ill (two o&rsquo;clock Saturday, less 2 + 16 = 18 hours, is <b>eight o&rsquo;clock on Friday evening</b>). Saturday afternoon: she dies.</p><p>Her niece drank it too, and died at Islington. No other cholera at West End.</p><p>Mr Stannard guessed that she caught it on a visit. Mrs Applin, who was in the house every day, knew she had not been near Broad Street for months.</p>');
+      PU.door($('#go'), nxt, 'h-file'); busy = false; paint();
+    });
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Moraine · Snow Conditions Bad</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-history.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="everest.css">
+<style>
+  body{--bg:#2a3550;--accent:#ffc27a;--font-display:'Abril Fatface',serif;--font-ui:'Oswald',sans-serif;--font-body:'Libre Caslon Text',serif;
+    --tc-bg:rgba(20,26,40,.95);--tc-ink:#f4efe4;--cap-bg:rgba(22,28,44,.93);--panel:#1f2638;--face-bg:#33405e;--q-ink:#ffcf94;--fade:#0c1018;--hud-bg:rgba(20,26,40,.8)}
+  .lb{font-family:'Oswald',sans-serif;font-weight:500;text-anchor:middle;letter-spacing:.14em}
+  #sunG2{animation:dawn 9s steps(18,end) 1 forwards}
+  @keyframes dawn{from{opacity:.2}to{opacity:1}}
+  #flags path{animation:fl 2.4s steps(3,end) infinite}
+  #flags path:nth-child(2n){animation-delay:-1.2s}
+  @keyframes fl{50%{transform:translateY(3px)}}
+  #sick,#huts{display:none}
+  body.s1 #sick,body.s1 #huts{display:block}
+  body.s1 #book{display:none}
+  #book.ready{animation:nudge 1.6s ease-in-out infinite}
+  #sick.ready{animation:nudge 1.6s ease-in-out infinite}
+  @keyframes nudge{50%{transform:translateY(-6px)}}
+
+  /* Phurba's question: a route card */
+  .rc{display:grid;grid-template-columns:minmax(0,700px) 230px;gap:20px;width:min(960px,97vw);align-items:start}
+  .rc-card{padding:12px 18px 10px;background:#f4f0df repeating-linear-gradient(transparent 0 29px,rgba(90,120,170,.22) 29px 30px);color:#2f3a55;border-left:10px solid #5a3a22;box-shadow:0 18px 40px rgba(0,0,0,.55)}
+  .rc-card h6{margin:0 0 4px;font-family:'Caveat',cursive;font-weight:700;font-size:25px;line-height:1.1}
+  .rc-row{display:grid;grid-template-columns:30px minmax(0,1fr) 150px;align-items:center;gap:8px;padding:4px 0;border-top:1px solid rgba(90,120,170,.25);font-family:'Caveat',cursive;font-size:21px;line-height:1.1}
+  .rc-row i{font-style:normal;font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:.1em;color:#8c2f24}
+  .rc-row small{display:block;font-size:17px;color:#6b7491}
+  .rc-row.alt{cursor:pointer;border-radius:4px}
+  .rc-row.alt:hover{background:rgba(255,233,138,.35)}
+  .rc-row.alt.off{opacity:.42}
+  .rc-row.alt.off .ts{visibility:hidden}
+  .rc-row.alt .pick{display:inline-block;width:16px;height:16px;margin-right:6px;border:2px solid #2f3a55;border-radius:50%;vertical-align:-2px}
+  .rc-row.alt.on .pick{background:#8c2f24;box-shadow:inset 0 0 0 3px #f4f0df}
+  .rc-row.fix{color:#6b7491}
+  .rc-row.fix b{font-family:'IBM Plex Mono',monospace;font-size:16px;font-weight:600;color:#2f3a55;text-align:center}
+  .rc-foot{display:flex;align-items:center;gap:12px;margin-top:8px;padding-top:8px;border-top:2px solid #2f3a55;font-family:'Caveat',cursive;font-size:23px}
+  .rc-foot .btn{margin-left:auto;--accent:#2f3a55;font-family:'Oswald',sans-serif;font-size:13px}
+  .rc-foot .btn:hover:not([disabled]){color:#f4f0df}
+  /* three ways from Lobuje */
+  .ways{display:grid;grid-template-columns:repeat(3,minmax(0,220px)) 210px;gap:14px;width:min(1000px,97vw);align-items:start}
+  .way{padding:10px 12px 12px;background:#efe9d6;color:#22231e;border:2px solid transparent;text-align:left;cursor:pointer;box-shadow:0 12px 26px rgba(0,0,0,.45)}
+  .way:hover{border-color:#ffc27a}
+  .way svg{display:block;width:100%;height:auto;margin-bottom:6px}
+  .way b{display:block;font-family:'Oswald',sans-serif;font-weight:600;font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:#7a1d14}
+  .way span{font-family:'Libre Caslon Text',serif;font-size:15px;line-height:1.35}
+  .way.no{opacity:.45}
+  @media (max-width:900px){.rc,.ways{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c2846"/><stop offset=".55" stop-color="#5a6a96"/><stop offset=".85" stop-color="#e9a07a"/><stop offset="1" stop-color="#ffd0a0"/></linearGradient>
+  <linearGradient id="sunG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd7b0"/><stop offset="1" stop-color="#e98a6a"/></linearGradient>
+  <linearGradient id="rockG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6a6670"/><stop offset="1" stop-color="#3a3640"/></linearGradient>
+  <linearGradient id="moraineG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a8278"/><stop offset="1" stop-color="#4a443e"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="45%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#05070c" stop-opacity=".2"/><stop offset="1" stop-color="#05070c" stop-opacity=".7"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#skyG)"/>
+<g fill="#fff" opacity=".7"><circle cx="200" cy="40" r="1.4"/><circle cx="420" cy="70" r="1.1"/><circle cx="1380" cy="50" r="1.3"/><circle cx="1500" cy="110" r="1"/><circle cx="90" cy="130" r="1"/></g>
+
+<!-- the far peaks: Ama Dablam down the valley, and the walls on either side -->
+<g id="peak" class="hot">
+  <path d="M980 470L1120 300 1190 230 1222 150 1250 196 1300 250 1370 330 1460 470z" fill="#c7cfe2"/>
+  <path id="sunG2" d="M1222 150L1250 196 1300 250 1370 330 1460 470H1260L1236 300z" fill="url(#sunG)" opacity=".9"/>
+  <path d="M1190 230l30 36 16-10 24 30" stroke="#8b96b4" stroke-width="3" fill="none"/>
+</g>
+<path d="M-1000 520L-300 300 0 340 240 180 420 300 560 260 740 430 980 470 1460 470 1640 330 1900 360 2600 280V600H-1000z" fill="#7d86a2"/>
+<path d="M240 180l60 70 30-10 90 60M1640 330l60 50 60-6" stroke="#eef0f6" stroke-width="5" fill="none" opacity=".8"/>
+<path d="M-1000 600L-200 470 300 520 700 500 1100 540 1500 500 2600 560V760H-1000z" fill="#5d6276"/>
+<!-- the glacier: grey ice under dust, with pinnacles -->
+<path d="M-1000 640L-300 560 200 590 600 560 1000 590 1400 560 2600 600V700H-1000z" fill="#b9c2d0"/>
+<g fill="#dfe6f0"><path d="M-80 600l24-60 22 54z"/><path d="M60 596l18-44 20 46z"/><path d="M640 590l20-52 22 50z"/><path d="M760 596l14-34 16 36z"/><path d="M1300 586l22-56 20 54z"/><path d="M1420 590l16-40 18 42z"/></g>
+<g stroke="#8a94a8" stroke-width="2" fill="none" opacity=".7"><path d="M-200 620q200-20 400 0M400 610q200-20 400 0M1000 612q200-24 400 0"/></g>
+
+<!-- yak herders' huts at Lobuje (later) -->
+<g id="huts"><g fill="#6a5e50"><rect x="1240" y="520" width="90" height="46"/><rect x="1350" y="530" width="70" height="36"/></g><g fill="#3a3028"><path d="M1232 522l53-24 53 24z"/><path d="M1344 532l41-18 41 18z"/></g><rect x="1276" y="540" width="16" height="26" fill="#2a2018"/></g>
+
+<!-- prayer flags on a cairn -->
+<g id="flags-c" class="hot">
+  <path d="M240 600l40-90 40 90z" fill="#7a746a"/><g fill="#5a544c"><circle cx="262" cy="584" r="9"/><circle cx="292" cy="572" r="8"/><circle cx="276" cy="548" r="7"/></g>
+  <path d="M280 512L120 380M280 512L470 360" stroke="#3a3028" stroke-width="2"/>
+  <g id="flags"><path d="M260 496l-12-10 -6 16z" fill="#2f6ad0"/><path d="M232 472l-12-10 -6 16z" fill="#f2f2f2"/><path d="M204 450l-12-10 -6 16z" fill="#c8322a"/><path d="M176 428l-12-10 -6 16z" fill="#3a9a4a"/><path d="M148 405l-12-10 -6 16z" fill="#f2c230"/>
+  <path d="M310 488l12-10 4 16z" fill="#2f6ad0"/><path d="M342 462l12-10 4 16z" fill="#f2f2f2"/><path d="M374 436l12-10 4 16z" fill="#c8322a"/><path d="M406 410l12-10 4 16z" fill="#3a9a4a"/><path d="M438 384l12-10 4 16z" fill="#f2c230"/></g>
+</g>
+
+<!-- the moraine you are standing on, and the path down -->
+<path d="M-1000 720L-200 640 400 660 800 620 1200 650 1700 610 2600 680V1320H-1000z" fill="url(#moraineG)"/>
+<path d="M620 1320Q700 900 900 760T1180 640" stroke="#b8ad9c" stroke-width="20" fill="none" opacity=".6"/>
+<g fill="#4a443e"><ellipse cx="120" cy="820" rx="70" ry="30"/><ellipse cx="1460" cy="800" rx="90" ry="36"/><ellipse cx="420" cy="860" rx="50" ry="22"/><ellipse cx="1180" cy="880" rx="60" ry="24"/></g>
+<g fill="#6e665c"><ellipse cx="110" cy="806" rx="60" ry="22"/><ellipse cx="1450" cy="786" rx="80" ry="28"/></g>
+<g fill="#5a544c"><ellipse cx="760" cy="720" rx="26" ry="10"/><ellipse cx="840" cy="700" rx="18" ry="7"/><ellipse cx="1300" cy="700" rx="30" ry="11"/><ellipse cx="200" cy="700" rx="22" ry="8"/><ellipse cx="460" cy="720" rx="16" ry="6"/><ellipse cx="1560" cy="720" rx="28" ry="10"/><ellipse cx="980" cy="840" rx="34" ry="12"/></g>
+<g fill="#1a2030" opacity=".8"><ellipse cx="660" cy="690" rx="50" ry="9"/><ellipse cx="1360" cy="660" rx="40" ry="7"/></g>
+<g fill="#9ab0c8" opacity=".55"><ellipse cx="660" cy="688" rx="44" ry="6"/><ellipse cx="1360" cy="658" rx="34" ry="5"/></g>
+
+<!-- your pack, and the pocket book on a rock -->
+<g id="pack" class="hot"><path d="M280 820q-10-80 30-96h80q40 16 30 96z" fill="#6a5a3a"/><rect x="300" y="742" width="100" height="16" fill="#4a3e28"/><path d="M310 724q40-30 80 0" stroke="#4a3e28" stroke-width="8" fill="none"/><rect x="326" y="770" width="48" height="30" fill="#5a4a30"/></g>
+<g id="book" class="hot"><ellipse cx="560" cy="790" rx="80" ry="26" fill="#5e574e"/><path d="M520 770l40-10 44 10-4 14-40-8-40 8z" fill="#f4f0df"/><path d="M560 760v16" stroke="#5a3a22" stroke-width="3"/><path d="M528 774l28-5M566 769l30 5" stroke="#2f3a55" stroke-width="1.5"/></g>
+
+<!-- the sick man at Lobuje (later) -->
+<g id="sick" class="hot">
+  <ellipse cx="780" cy="700" rx="80" ry="22" fill="#5e574e"/><path d="M730 690q0-70 40-86q40 10 44 86z" fill="#3d5a7a"/>
+  <ellipse cx="770" cy="590" rx="24" ry="26" fill="#8a5a3a"/><path d="M748 584q4-30 26-30t22 24z" fill="#2a2a2a"/>
+  <path d="M752 610q-20 -10 -10 -34M790 610q20-10 8-34" stroke="#3d5a7a" stroke-width="16" stroke-linecap="round" fill="none"/>
+  <rect x="820" y="660" width="54" height="40" fill="#b9a877"/><text x="847" y="684" class="lb" font-size="8" fill="#2a2a2a">WORLDWIRE</text>
+</g>
+
+<!-- Phurba, ready to go -->
+<g id="phurba" class="hot">
+  <ellipse cx="1060" cy="770" rx="70" ry="12" fill="#000" opacity=".25"/>
+  <path d="M1020 760q-6-140 20-170q20-16 40 0q26 30 22 170z" fill="#5a2f22"/>
+  <path d="M1030 640q30 14 56 0" stroke="#c9a25a" stroke-width="4" fill="none"/>
+  <ellipse cx="1060" cy="560" rx="26" ry="30" fill="#a0673f"/><path d="M1034 550q0-36 26-36t26 36z" fill="#b5402e"/><path d="M1034 550h52" stroke="#f1e2c0" stroke-width="5"/><circle cx="1060" cy="512" r="5" fill="#f1e2c0"/>
+  <circle cx="1051" cy="564" r="2.4" fill="#1b1512"/><circle cx="1069" cy="564" r="2.4" fill="#1b1512"/>
+  <path d="M1100 620l30 160" stroke="#6a4a2a" stroke-width="7" stroke-linecap="round"/><path d="M1090 620q14 0 14 30" stroke="#5a2f22" stroke-width="16" stroke-linecap="round" fill="none"/>
+  <path d="M1036 760v24M1080 760v24" stroke="#3a2a1c" stroke-width="14"/>
+</g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Go into the wireless post</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="everest.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, stage = 0, nextFile = null, rcBox = null, wBox = null, inRc = false, inW = false;
+
+  ER.init({
+    theme: 'history', story: 'everest', storyTitle: 'Snow Conditions Bad', id: 'trail', no: 'II', title: 'The Moraine',
+    go: 'Stand up', back: '../index.html', backLabel: 'Archive',
+    intro: [
+      'Mr Morris&rsquo;s message was set out from the code card. The news came first: SNOW CONDITIONS BAD, which means that the summit has been reached. Then the second pair, in the order of the alphabet: ADVANCED BASE ABANDONED for Hillary, AWAITING IMPROVEMENT for Tenzing. After the first name came YESTERDAY, because they were on top on Friday and the message was written on Saturday. WEATHER IMPROVING sounded much better. It meant failure.',
+      'Now it is half past four in the morning on Sunday 31 May. The stars are going out one by one over the peaks, and the cold is the kind that hurts your teeth. You and Phurba are on the stones below Base Camp, and the message is in the inside pocket of your coat.',
+      'Phurba does not move. &ldquo;First,&rdquo; he says, &ldquo;tell me when we arrive.&rdquo;'
+    ],
+    exit: {"next":"namche","w":{"30bc5abb":"e52981f8"}}, tags: {"t1":["72307669"],"t2":["0ccd8711"],"t3":["8a390594"],"t4":["37334dc3","072e8002"],"t5":["e568158f"],"path":["5b82559f"],"arr":["5e3066f2","76eab3fc"],"sick":["ef899eab"]},
+    hints: hints, onBegin: begin
+  });
+  stage = ER.flag('t-st') || 0; nextFile = ER.flag('t-file') || null;
+
+  function isBusy() { return busy; }
+  function setStage(n) { stage = n; ER.flag('t-st', n); paint(); }
+  function paint() {
+    document.body.classList.toggle('s1', stage >= 1);
+    $('#book').classList.toggle('ready', stage === 0 && !!ER.flag('t-rule'));
+    $('#sick').classList.toggle('ready', stage === 1);
+    ER.pips(nextFile ? 2 : stage >= 1 ? 1 : 0, 2);
+    if (nextFile) $('#go').classList.add('on');
+  }
+  function hints() {
+    if (nextFile) return ['go', ['You are at Namche. Use the button at the bottom of the screen.']];
+    if (inW || stage === 1) return ['sick', [
+      'Look in your notebook at the Oxygen notes from Base Camp. Read the part about mountain sickness.',
+      'He came up too fast. The notes say what helps a little, what helps most, and what you must never do.'
+    ]];
+    if (inRc) return ['card', [
+      'Do the stages one at a time, with Phurba&rsquo;s rule. Time is distance divided by speed, and the speed on the ice is not the speed on the path.',
+      'Then the climbing: a quarter of an hour for every 100 metres up. Downhill costs nothing extra. Stage four has two ways: work out both before you choose.',
+      'Add the five stages and the half hour of rest, and add that to half past four. The short way is two kilometres shorter. Is it quicker?'
+    ]];
+    if (!ER.flag('t-rule')) return ['rule', [
+      'Phurba wants to hear his own rule. He is standing on the right. Click him.',
+      'The rule is in your pocket book. When you have heard it, the pocket book is on the rock in front of you.'
+    ]];
+    return ['book', ['Your pocket book is on the rock in front of you. The card from The Times about the mail is in your pack, if you want it.']];
+  }
+
+  function begin() {
+    paint();
+    EV.need('oxy', 'Oxygen notes', EV.OXY, 'sheet', 'Pinned to a crate');
+    EV.need('code', 'The code card', EV.CODE, 'code', 'From the tin');
+    if (ER.flag('t-in')) { busy = false; ER.say(nextFile ? 'Namche Bazar, at last.' : stage === 1 ? 'Lobuje. The man on the rock has not moved.' : 'The moraine below Base Camp, at first light.'); return; }
+    EV.learn('moraine', 'runner');
+    ER.narrate([
+      'Phurba has two rules about running. The first is that you do not run. The second is that before you set out, you know when you will arrive, and you say it out loud, so that you can be ashamed of yourself later.',
+      '&ldquo;The wireless man at Namche talks to Kathmandu once a day, at five in the afternoon,&rdquo; he says. &ldquo;I know, because last year I carried his batteries up from the road. If we are at his door before five, your weather report goes tonight. If not, it waits a day.&rdquo;',
+      '&ldquo;My rule is in your book, the one you wrote down for me. Read it to me. Then add it up, and tell me when.&rdquo;'
+    ], function () { busy = false; ER.flag('t-in', 1); paint(); });
+  }
+
+  /* ---------- things ---------- */
+  $('#phurba').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Phurba is drinking tea at the door of the post. He looks as if he had walked to the next village.'); return; }
+    if (stage === 1) { ER.say('&ldquo;He is yours to decide,&rdquo; says Phurba. &ldquo;You read the sahibs&rsquo; notes. I only carried them.&rdquo;'); return; }
+    ER.read({ html: '<h4>Phurba&rsquo;s rule</h4>' + EV.RULE, cls: 'mine', clue: { id: 'rule', title: 'Phurba’s rule', kind: 'Your notes' }, done: function () {
+      EV.learn('estimate', 'stage', 'speed'); ER.flag('t-rule', 1); paint();
+      if (stage === 0) ER.say('&ldquo;That is my rule,&rdquo; says Phurba. &ldquo;Now add it up. Your book is on the rock.&rdquo;');
+    } });
+  });
+  $('#pack').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: EV.MAIL, cls: 'sheet', clue: { id: 'mail', title: 'The Times mail card', kind: 'In your pack' }, done: function () { EV.learn('wireless'); } });
+  });
+  $('#book').addEventListener('click', function () {
+    if (busy || stage !== 0) return;
+    if (!ER.flag('t-rule')) { ER.say('Your pocket book. Phurba wants to hear his rule first: click him.'); return; }
+    openRc();
+  });
+  $('#sick').addEventListener('click', function () { if (busy || stage !== 1) return; openW(); });
+  EV.thing('#peak', null, function () { return stage >= 1 ? 'Ama Dablam, far down the valley, in full sun now. You will walk round the foot of it today.' : 'The sun is on the top of Ama Dablam, far down the valley. Down here it will be night for another half hour.'; }, isBusy);
+  EV.thing('#flags-c', 'prayer flags', 'Prayer flags on a heap of stones. The wind carries the prayers printed on them, so the flags are always busy.', isBusy);
+  EV.thing('#huts', null, 'Stone huts at Lobuje, where the yak herders sleep in summer. Nobody is here yet.', isBusy);
+
+  /* ---------- Phurba's question ---------- */
+  var ROWS = [['1', 'Base Camp to Lobuje', '9 km, stones on ice'], ['2', 'Lobuje to Pheriche', '8 km, down'], ['3', 'Pheriche to Pangboche', '6 km, down'],
+    ['4', 'Pangboche to Thyangboche, by the main path', '6 km: down to the river, then up 200 m', 'main'], ['4', 'Pangboche to Thyangboche, by the high path', '4 km, up 600 m over the shoulder of the hill', 'high'],
+    ['5', 'Thyangboche to Namche', '10 km: down to the bridge, then up 300 m']];
+  function buildRc() {
+    var b = ER.el('div', 'rc'), card = ER.el('div', 'rc-card'), path = ER.flag('t-path') || '', sets = [], arr, msgEl, lock = false;
+    card.innerHTML = '<h6>When are we at Namche? Leave at 04.30.</h6>';
+    ROWS.forEach(function (r, i) {
+      var row = ER.el('div', 'rc-row' + (r[3] ? ' alt' : ''), '<i>' + r[0] + '</i><div>' + (r[3] ? '<span class="pick"></span>' : '') + r[1] + '<small>' + r[2] + '</small></div>');
+      var st = EV.setter({ val: 0, min: 0, max: 360, step: 15, fmt: EV.dur, onChange: function () { arr.mark(); } });
+      row.appendChild(st.el); card.appendChild(row); sets.push({ row: row, st: st, alt: r[3] || '' });
+      if (r[3]) row.addEventListener('click', function (e) { if (lock || (e.target.closest && e.target.closest('.ts'))) return; path = r[3]; ER.flag('t-path', path); paintAlt(); EV.sfx.pencil(); });
+    });
+    card.appendChild(ER.el('div', 'rc-row fix', '<i>+</i><div>Rest and tea, all together</div><b>0 h 30</b>'));
+    var foot = ER.el('div', 'rc-foot', '<span>We arrive at</span>');
+    arr = EV.setter({ val: 270, min: 270, max: 1380, step: 15 });
+    foot.appendChild(arr.el);
+    var go = ER.el('button', 'btn', 'Tell Phurba'); go.type = 'button'; foot.appendChild(go); card.appendChild(foot);
+    b.appendChild(card);
+    b.appendChild(ER.el('div', 'lk-side', '<div class="lk-face">' + EV.FACE('phurba') + '</div><h6 class="lk-h">Phurba</h6><p class="pmsg"></p>'));
+    msgEl = b.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function paintAlt() { sets.forEach(function (s) { if (s.alt) { s.row.classList.toggle('on', s.alt === path); s.row.classList.toggle('off', !!path && s.alt !== path); } }); b.setAttribute('data-path', path); }
+    paintAlt();
+    function tv(i) { return sets[i].st.get(); }
+    go.addEventListener('click', function () {
+      if (lock) return;
+      if (!path) { msg('&ldquo;Stage four. Which way do we go? Choose one: click its line.&rdquo;'); return; }
+      var four = path === 'main' ? 3 : 4, vals = [tv(0), tv(1), tv(2), tv(four), tv(5)], bad = -1, i;
+      var keys = ['t1', 't2', 't3', 't4', 't5'];
+      sets.forEach(function (s) { s.st.mark(); });
+      for (i = 0; i < 5; i++) {
+        var ok = ER.check(keys[i], i === 3 ? path + '-' + vals[i] : String(vals[i])), si = i < 3 ? i : i === 3 ? four : 5;
+        sets[si].st.mark(ok ? 'ok' : 'no');
+        if (!ok && bad < 0) bad = i;
+      }
+      if (bad >= 0) {
+        EV.slip(); ER.sfx.no(); arr.mark();
+        msg(bad === 0 ? '&ldquo;The ice first. On the ice my rule has its own speed. Nine kilometres at that speed: how long?&rdquo;' :
+          bad < 3 ? '&ldquo;Stage ' + (bad + 1) + '. Downhill on the path: the distance, divided by my speed on the path. Nothing more to add.&rdquo;' :
+          '&ldquo;Stage ' + (bad + 1) + ' climbs. The distance at my speed on the path, and then a quarter of an hour for every hundred metres up. Did you add the climb?&rdquo;');
+        return;
+      }
+      var a = arr.get();
+      if (!ER.check('arr', path + '-' + a)) { EV.slip(); ER.sfx.no(); arr.mark('no'); msg('&ldquo;The stages are right. Add them up, add the half hour for tea, and add all that to half past four. When is that?&rdquo;'); return; }
+      arr.mark('ok');
+      if (!ER.check('path', path)) {
+        EV.slip(); ER.sfx.no(); arr.mark(); sets[4].st.mark();
+        msg('&ldquo;Good sums. By your own sums we are at his door at a quarter past five, and the set talks at five.&rdquo; He taps the high path. &ldquo;Two kilometres shorter, and six hundred metres up. Shorter is not quicker. Which way now?&rdquo;');
+        return;
+      }
+      lock = true; ER.flag('t-est', a); ER.flag('t-times', vals.join('-')); ER.flag('t-move', vals.reduce(function (x, y) { return x + y; }, 0)); ER.sfx.ok(); go.disabled = true;
+      msg('&ldquo;About a quarter to five, then. A quarter of an hour before the set talks, if the ice is kind and nobody falls over.&rdquo; He picks up his stick. &ldquo;Not a minute. About.&rdquo;');
+      setTimeout(function () { ER.closeAll(); walk1(); }, 2600);
+    });
+    b.first = function () { msg('&ldquo;Five stages. Fill in each one with my rule. At stage four the path divides: choose a way. Then tell me when we arrive. The set talks at five o&rsquo;clock.&rdquo;'); };
+    return b;
+  }
+  function openRc() { var f = !rcBox; if (!rcBox) rcBox = buildRc(); inRc = true; ER.open('ov-lock', rcBox, function () { inRc = false; }); if (f) rcBox.first(); }
+
+  function walk1() {
+    busy = true; inRc = false;
+    EV.mine('est', 'Our estimate', '<p>Moving time: <b>' + EV.dur(ER.flag('t-move') || 0) + '</b>, by the ' + ER.flag('t-path') + ' path at stage four. Tea: 30 minutes.</p><p>Leave 04.30. Arrive at Namche <b>about ' + EV.clock(ER.flag('t-est') || 0) + '</b>.</p><p>The set at Namche talks to Kathmandu at 17.00.</p><p>Shorter is not always quicker: climbing costs time.</p>', true);
+    ER.narrate([
+      'You go. For three hours there is nothing but stones on ice: stones that roll, stones that are not stones but ice with dust on it, and between them pools of black water with a skin of ice on top. Phurba walks as if the stones had been laid for him.',
+      'The sun comes over the ridge at last, and the whole valley turns gold, then white. By half past seven you are at Lobuje, where the yak herders have their stone huts in summer.',
+      'There is a young man sitting on a rock beside the path, with his head in his hands. Beside him is a light pack with a label on it.'
+    ], function () { setStage(1); EV.mood('tense'); busy = false; });
+  }
+
+  /* ---------- the man on the rock ---------- */
+  function buildW() {
+    var b = ER.el('div', 'ways'), msgEl, lock = false;
+    function pic(d) { return '<svg viewBox="0 0 200 90"><rect width="200" height="90" fill="#cfd6e4"/><path d="M0 70L60 30 100 50 150 14 200 40V90H0z" fill="#7d86a2"/>' + d + '</svg>'; }
+    var W = [
+      ['up', 'Tea, then on up', 'He has a drink and a rest, and goes on up to Base Camp slowly, today.', pic('<path d="M30 86Q90 70 150 20" stroke="#7a1d14" stroke-width="4" fill="none" stroke-dasharray="6 5"/><path d="M144 14l10 4-6 9" stroke="#7a1d14" stroke-width="4" fill="none"/>')],
+      ['stay', 'Sleep here', 'He sleeps in a herder&rsquo;s hut at Lobuje tonight, and goes on up tomorrow.', pic('<rect x="86" y="54" width="34" height="22" fill="#6a5e50"/><path d="M82 56l21-12 21 12z" fill="#3a3028"/>')],
+      ['down', 'Down with us', 'He comes down with you and Phurba, now, as far as he needs to.', pic('<path d="M150 30Q100 50 40 84" stroke="#7a1d14" stroke-width="4" fill="none" stroke-dasharray="6 5"/><path d="M48 76l-10 9 12 2" stroke="#7a1d14" stroke-width="4" fill="none"/>')]
+    ];
+    b.innerHTML = W.map(function (w) { return '<button type="button" class="way" data-w="' + w[0] + '">' + w[3] + '<b>' + w[1] + '</b><span>' + w[2] + '</span></button>'; }).join('') +
+      '<div class="lk-side"><div class="lk-face">' + EV.FACE('phurba') + '</div><h6 class="lk-h">Phurba</h6><p class="pmsg"></p></div>';
+    msgEl = b.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    ER.$$('.way', b).forEach(function (w) {
+      w.addEventListener('click', function () {
+        if (lock) return;
+        var k = w.getAttribute('data-w');
+        if (ER.check('sick', k)) {
+          lock = true; ER.flag('t-sick', k); ER.sfx.ok();
+          msg('&ldquo;Down,&rdquo; says Phurba, and says it to the young man too, in his own language. The young man does not argue. He has not got the breath to argue.');
+          setTimeout(function () { ER.closeAll(); walk2(k); }, 2300);
+          return;
+        }
+        EV.slip(); ER.sfx.no(); w.classList.add('no');
+        msg(k === 'up' ? '&ldquo;Up? He is sick because he came up too fast. Your sahibs&rsquo; notes say one thing you must never do. That is it.&rdquo;' :
+          '&ldquo;Rest helps a little, the notes say. He is getting worse while we talk, and tonight it will be colder. What helps most, and quickest?&rdquo;');
+      });
+    });
+    b.first = function () { msg('Phurba squats beside him and asks him something. &ldquo;He came up from Namche in two days. A sahib in Kathmandu pays him to go to Base Camp and bring back news, any news. He has a headache like an axe, he has been sick, he cannot get his breath.&rdquo; He looks at you. &ldquo;You read the sahibs&rsquo; notes. Where does he go?&rdquo;'); };
+    return b;
+  }
+  function openW() { var f = !wBox; if (!wBox) wBox = buildW(); inW = true; ER.open('ov-lock', wBox, function () { inW = false; }); if (f) wBox.first(); }
+
+  function walk2(k) {
+    busy = true; inW = false;
+    ER.narrate([
+      'The label on his pack says WORLDWIRE NEWS AGENCY, KATHMANDU. Under it is a name, W. BAPTISTE. The young man is Mr Baptiste&rsquo;s porter, and Mr Baptiste is a reporter who would very much like to know what you have in your pocket. You do not tell him. He does not ask. He is too busy breathing.',
+      'He walks down with you, slowly at first. By Pheriche he has stopped holding his head. By Pangboche he eats two bowls of potatoes and laughs at Phurba&rsquo;s jokes, which is more than you do. He never sees Base Camp.',
+      'After the tea, down through the trees to the river, and up to the monastery at Thyangboche, where a boy monk is beating a drum. Then down, and down, to the bridge at Phunki, and up again round the hill, with your legs shaking.',
+      'At twenty-five minutes to five you come round the last corner, and there below you is Namche Bazar: a horseshoe of stone houses on a steep green hillside, and on the edge of it a hut with a tall wire mast. The ice was kind. You are ten minutes better than your estimate.'
+    ], function () {
+      var file = ER.exitOk([ER.flag('t-path') + '|' + ER.flag('t-times') + '|' + ER.flag('t-est') + '|' + k]);
+      if (!file) { busy = false; ER.say('Something is wrong: tell your teacher.'); return; }
+      nextFile = file; ER.flag('t-file', file); EV.mood('calm');
+      var st = ER.state(); st.done = st.done || {}; st.done.trail = 1; ER.persist(true);
+      setStage(2); busy = false; paint();
+    });
+  }
+  $('#go').addEventListener('click', function () {
+    if (!nextFile || busy) return;
+    busy = true; EV.solved(true);
+    setTimeout(function () { ER.leave(nextFile); }, 1000);
+  });
+})();
+</script>
+</body>
+</html>

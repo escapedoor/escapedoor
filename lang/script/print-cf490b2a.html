@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Print Room · Nobody Here Can Read This</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lang.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="sc.css">
+<style>
+  body{--bg:#4a1e16;--accent:#d8402a;--font-display:'Old Standard TT',serif;--font-ui:'Outfit',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(246,238,222,.97);--tc-ink:#2a120c;--cap-bg:rgba(250,244,230,.96);--cap-ink:#2a120c;--panel:#fbf6ea;--panel-ink:#2a120c;--face-bg:#7a1e14;--q-ink:#8a2a1a;
+    --fade:#f4ead6;--hud-bg:rgba(250,244,230,.9);--hud-ink:#2a120c;--hud-line:rgba(42,18,12,.3);--ov-bg:rgba(30,10,6,.62);--lab:#7a1e14}
+  .tc-room{font-family:'Old Standard TT',serif;font-size:clamp(40px,6vw,84px);color:#c8302a}
+  .tc-theme{color:#5a3a2a}
+  .hbtn b{color:#fff}
+  #line g{animation:sway 5s ease-in-out infinite;transform-origin:50% 0}
+  #line g:nth-child(2){animation-delay:-2s}
+  @keyframes sway{50%{transform:rotate(1.2deg)}}
+  #bulb .glow{animation:bulb 5s steps(1,end) infinite}
+  @keyframes bulb{0%,90%,100%{opacity:.9}92%{opacity:.4}}
+  .doc.label .case{font-family:'IBM Plex Mono',monospace}
+  /* the proof */
+  .pf{width:min(1120px,97vw)}
+  .pf-in{background:#f6f0e0;border:1px solid #b8a888;padding:14px 18px 12px;box-shadow:0 26px 70px rgba(0,0,0,.55);color:#2a120c}
+  .pf-in h3{margin:0;font-family:'Old Standard TT',serif;font-weight:700;font-size:30px;letter-spacing:.06em;text-align:center;color:#2a120c}
+  .pf-in .sub{text-align:center;font-family:'Old Standard TT',serif;font-style:italic;font-size:16px;color:#7a1e14;margin:0 0 8px}
+  .odds{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+  .odd{display:flex;flex-direction:column;align-items:center;gap:5px}
+  .odd .sg{width:100%;height:96px;background:#fff;border:1px solid #c9b88a;color:#23305a;display:flex;align-items:center;justify-content:center}
+  .odd .sg svg{height:84px;width:auto}
+  .odd .from{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#5a4a3a}
+  .odd .pencil{font-family:'Caveat',cursive;font-size:19px;line-height:1.05;color:#5a5a5a;text-align:center;min-height:40px}
+  .lslot{width:100%;min-height:58px;border:2px dashed #b8a888;background:#fffdf6;display:flex;align-items:center;justify-content:center;padding:3px;cursor:pointer}
+  .lslot.bad{border-color:#d0302a;background:#fff0ea}
+  .labels{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;min-height:66px;margin-top:10px;padding:8px;border:2px dashed #b8a888;background:rgba(255,250,240,.1)}
+  .lb{padding:6px 8px 5px;background:#fff;border:2px solid #2a120c;color:#2a120c;font-family:'EB Garamond',serif;font-size:15.5px;line-height:1.15;text-align:center;border-radius:2px;cursor:grab;touch-action:none;box-shadow:0 2px 0 #2a120c}
+  .lslot .lb{box-shadow:none;width:100%}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="brick" width="80" height="40" patternUnits="userSpaceOnUse"><rect width="80" height="40" fill="#8a3a28"/><path d="M0 0H80M0 20H80M40 0V20M0 20V40M80 20V40" stroke="#6a2a1c" stroke-width="3"/><rect x="4" y="4" width="30" height="12" fill="#9a4430" opacity=".5"/></pattern>
+  <pattern id="planks" width="120" height="30" patternUnits="userSpaceOnUse"><rect width="120" height="30" fill="#4a3426"/><path d="M0 29H120M70 0V30" stroke="#2e2018" stroke-width="2"/></pattern>
+  <radialGradient id="bulbg" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffe2a0" stop-opacity=".6"/><stop offset="1" stop-color="#ffe2a0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="46%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#1a0804" stop-opacity=".16"/><stop offset="1" stop-color="#1a0804" stop-opacity=".6"/></radialGradient>
+</defs>
+<rect x="-1000" y="-500" width="3600" height="1100" fill="url(#brick)"/>
+<!-- a single bulb -->
+<g id="bulb"><path d="M800 -10V90" stroke="#1a1a1a" stroke-width="3"/><circle class="glow" cx="800" cy="120" r="220" fill="url(#bulbg)"/><path d="M770 90h60l-10 24h-40z" fill="#2a2a2a"/><circle cx="800" cy="124" r="13" fill="#fff2c8"/></g>
+<!-- the window -->
+<g id="win" class="hot"><rect x="90" y="110" width="250" height="300" fill="#2a2a4a" stroke="#3a2a20" stroke-width="12"/><path d="M215 110V410M90 260H340" stroke="#3a2a20" stroke-width="8"/><path d="M100 400l60 -90 40 50 60 -110 70 150z" fill="#1a1a2e" opacity=".8"/></g>
+<!-- the drying line of posters -->
+<g id="line" class="hot"><path d="M400 70Q800 110 1200 70" stroke="#3a2a20" stroke-width="3" fill="none"/>
+  <g><rect x="440" y="80" width="110" height="150" fill="#f4ecd8"/><text x="495" y="130" text-anchor="middle" font-family="Old Standard TT,serif" font-weight="700" font-size="22" fill="#c8302a">LOST</text><text x="495" y="156" text-anchor="middle" font-family="Old Standard TT,serif" font-size="14" fill="#2a120c">ONE GLOVE</text><path d="M460 180h70M460 196h56" stroke="#2a120c" stroke-width="3"/></g>
+  <g><rect x="580" y="90" width="110" height="150" fill="#f4ecd8"/><text x="635" y="130" text-anchor="middle" font-family="Stardos Stencil,serif" font-weight="700" font-size="22" fill="#2a120c">TYPE</text><text x="635" y="156" text-anchor="middle" font-family="Stardos Stencil,serif" font-size="14" fill="#c8302a">FOR SALE</text><path d="M600 190h70M600 206h50" stroke="#2a120c" stroke-width="3"/></g>
+  <g><rect x="1010" y="84" width="120" height="160" fill="#f4ecd8"/><text x="1070" y="120" text-anchor="middle" font-family="Old Standard TT,serif" font-style="italic" font-size="16" fill="#2a120c">Young</text><text x="1070" y="146" text-anchor="middle" font-family="Old Standard TT,serif" font-weight="700" font-size="21" fill="#c8302a">SCRIBES</text><text x="1070" y="170" text-anchor="middle" font-family="Old Standard TT,serif" font-size="13" fill="#2a120c">Saturdays 1995</text><path d="M1030 200h80M1030 216h60" stroke="#2a120c" stroke-width="3"/></g></g>
+<!-- the framed print on the wall -->
+<g id="frame" class="hot"><rect x="1240" y="120" width="230" height="300" fill="#2a1a10"/><rect x="1254" y="134" width="202" height="272" fill="#f4ecd8"/>
+  <text x="1355" y="170" text-anchor="middle" font-family="Old Standard TT,serif" font-weight="700" font-size="17" fill="#7a1e14">SIGNS THAT ARE</text><text x="1355" y="192" text-anchor="middle" font-family="Old Standard TT,serif" font-weight="700" font-size="17" fill="#7a1e14">NOT SOUNDS</text>
+  <rect x="1280" y="210" width="150" height="110" rx="10" fill="#c9a87a"/><g stroke="#5a3a1a" stroke-width="3" fill="none"><path d="M1296 236l10 -12 10 12M1330 228v20M1348 240h18M1376 230v18M1384 230v18"/><path d="M1296 270q20 -14 40 0M1300 300h30M1350 296v20M1362 296v20M1374 296v20M1390 304h20"/><circle cx="1410" cy="270" r="8"/></g>
+  <text x="1355" y="350" text-anchor="middle" font-family="EB Garamond,serif" font-style="italic" font-size="14" fill="#5a3a2a">a clay tablet, Pylos</text><text x="1355" y="380" text-anchor="middle" font-family="EB Garamond,serif" font-size="13" fill="#5a3a2a">printed on this press, 1953</text></g>
+<!-- the stair door -->
+<g id="door" class="hot"><rect x="1490" y="150" width="190" height="470" fill="#3a2a20"/><rect x="1504" y="164" width="162" height="456" fill="#5a4030"/><rect x="1514" y="250" width="110" height="80" fill="#e8e2d0"/>
+  <g font-family="IBM Plex Mono,monospace" font-size="11" fill="#2a120c"><text x="1520" y="268">STAFF STAIRS</text><text x="1520" y="286">2 BINDERY</text><text x="1520" y="302">3 OLD FLAT</text><text x="1520" y="318">4 ATTIC, ROOF</text></g>
+  <rect x="1630" y="380" width="26" height="40" rx="4" fill="#c9302a"/><circle cx="1643" cy="392" r="4" fill="#ffd0a0"/></g>
+<!-- the floor -->
+<rect x="-1000" y="620" width="3600" height="900" fill="url(#planks)"/>
+<path d="M-1000 620H2600" stroke="#2e2018" stroke-width="6"/>
+<!-- the type cabinet -->
+<g id="type" class="hot"><rect x="120" y="470" width="300" height="330" fill="#6a4a30"/><g fill="#5a3c24" stroke="#3a2618" stroke-width="2"><rect x="132" y="560" width="276" height="34"/><rect x="132" y="604" width="276" height="34"/><rect x="132" y="648" width="276" height="34"/><rect x="132" y="692" width="276" height="34"/><rect x="132" y="736" width="276" height="34"/></g>
+  <path d="M110 470l20 -50h280l20 50z" fill="#8a6a4a"/><g stroke="#3a2618" stroke-width="2" fill="#b89068"><rect x="140" y="430" width="44" height="14"/><rect x="186" y="430" width="22" height="14"/><rect x="210" y="430" width="60" height="30"/><rect x="272" y="430" width="22" height="14"/><rect x="296" y="430" width="40" height="30"/><rect x="338" y="430" width="22" height="14"/><rect x="362" y="430" width="40" height="14"/></g>
+  <text x="240" y="452" text-anchor="middle" font-family="Old Standard TT,serif" font-weight="700" font-size="16" fill="#2a120c">e</text></g>
+<!-- the press -->
+<g id="press" class="hot"><rect x="640" y="250" width="40" height="460" fill="#1e1e22"/><rect x="920" y="250" width="40" height="460" fill="#1e1e22"/><path d="M630 260q170 -100 340 0z" fill="#26262a"/><circle cx="800" cy="200" r="22" fill="#b8902a"/>
+  <rect x="660" y="440" width="280" height="40" fill="#2a2a30"/><path d="M960 460h120" stroke="#1e1e22" stroke-width="14" stroke-linecap="round"/><circle cx="1080" cy="460" r="16" fill="#1e1e22"/>
+  <rect x="560" y="560" width="480" height="30" fill="#1e1e22"/><rect x="600" y="590" width="30" height="200" fill="#1e1e22"/><rect x="970" y="590" width="30" height="200" fill="#1e1e22"/>
+  <g transform="rotate(-2 800 545)"><rect x="620" y="508" width="360" height="56" fill="#f6f0e0"/><text x="800" y="530" text-anchor="middle" font-family="Old Standard TT,serif" font-weight="700" font-size="16" fill="#2a120c">THE ELMSWORTH STONE</text><text x="800" y="552" text-anchor="middle" font-family="Old Standard TT,serif" font-style="italic" font-size="13" fill="#7a1e14">an unknown script</text></g></g>
+<!-- ink slab and rollers -->
+<g id="ink" class="hot"><rect x="1100" y="580" width="200" height="20" fill="#3a3a3e"/><rect x="1110" y="560" width="180" height="20" fill="#1a1a1e"/><rect x="1130" y="534" width="70" height="16" rx="8" fill="#c8302a"/><path d="M1200 542h40" stroke="#5a3a2a" stroke-width="6"/><rect x="1300" y="600" width="12" height="190" fill="#2a2a2e"/><rect x="1100" y="600" width="12" height="190" fill="#2a2a2e"/></g>
+<!-- people -->
+<g id="delgado" class="hot" transform="translate(500 880) scale(1)"></g>
+<g id="szabo" class="hot" transform="translate(1180 880) scale(.98)"></g>
+<rect x="-1000" y="-500" width="3600" height="1900" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Down to the education room</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="sc.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, tl, nextFile, pf = null;
+  $('#delgado').innerHTML = SC.who('delgado', { smile: 1 });
+  $('#szabo').innerHTML = SC.who('szabo', { smile: -3 });
+
+  ER.init({
+    theme: 'lang', story: 'script', storyTitle: 'Nobody Here Can Read This', id: 'print', no: 'IV', title: 'The Print Room',
+    go: 'Go in',
+    intro: [
+      'In the workshop you read the names on the stone the way Champollion read Ptolemy and Cleopatra: two blocks starting with the silent ring, E-LIN; three blocks with the same vowel three times, A-GA-TA. Not ALANA, because her L would have had a different shape from Elin&rsquo;s, and in a script made by one person one letter has one shape.',
+      'So the stone is Elin and Agata&rsquo;s, and so is the script. Agata went home at ten to three. Somebody went up the staff stairs after four, and left the print-room light on.',
+      'The staff stairs smell of ink. It is ten past five.'
+    ],
+    exit: {"next":"education","w":{"054f9427":"e2e061f1"}}, tags: {"o-heart":["223d1733"],"o-plus":["2f946f48"],"o-tens":["44df99a2"],"o-tilde":["f5d520b7"],"o-clock":["771ab6f8"]},
+    hints: hints, onBegin: begin
+  });
+  tl = SC.tell('p-told'); nextFile = ER.flag('p-file') || null;
+
+  function isBusy() { return busy; }
+  function ready() { return tl.has('szabo') && tl.has('frame'); }
+  function paint() {
+    $('#szabo').classList.toggle('ready', !tl.has('szabo'));
+    $('#frame').classList.toggle('ready', !!(tl.has('szabo') && !tl.has('frame')));
+    $('#press').classList.toggle('ready', !!(ready() && !tl.has('proof')));
+    ER.pips((tl.has('szabo') ? 1 : 0) + (tl.has('frame') ? 1 : 0) + (tl.has('proof') ? 1 : 0), 3);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Kezia says Miss Lindahl stood by the old board in the education room at lunch. The button at the bottom of the screen takes you there.']];
+    if (pf && pf.isOpen()) return ['proof', [
+      'None of these five signs is a block of letters. For each one ask: is it a number, a word, a picture, or a mark between sentences? The framed print on the wall says how Linear B wrote numbers.',
+      'The two strokes under the names are not the same: one lies flat and one stands up. On the Linear B tablets a flat stroke is ten and an upright stroke is one. And what do you say between two names: Elin ... Agata?',
+      'The wave comes at the end of each line, after each sentence. The heart is drawn round both names, the way the Egyptians drew a ring round a royal name, but it is a heart. On the clock, the short hand gives the hour: it is between 4 and 5, and the long hand points down at 6.'
+    ]];
+    if (!tl.has('szabo')) return ['szabo', ['Dr Szabo has seen something on the press that he does not like. Talk to him, on the right.']];
+    if (!tl.has('frame')) return ['frame', ['Read the framed print on the wall, on the right: SIGNS THAT ARE NOT SOUNDS.']];
+    return ['press', ['Now correct Dr Szabo&rsquo;s proof. It is lying on the bed of the big iron press, in the middle.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('The print room. Eleven, and, a full stop, and half past four.'); return; }
+    if (tl.has('in')) { busy = false; ER.say('The print room, with one bulb burning.'); return; }
+    tl.set('in');
+    ER.narrate([
+      'The print room is all brick and black iron. One bare bulb is burning over an enormous old press, and there is a smell of ink and oil.',
+      'Nobody is here. At the back, a door says STAFF STAIRS, with a list of floors beside it, and a small red lock-light glowing on its handle. It locked itself at half past four, with all the rest.',
+      'On the bed of the press lies a big printed sheet. Dr Szabo sees it, and stops, and goes a little pink.'
+    ], function () { busy = false; });
+  }
+
+  $('#szabo').addEventListener('click', function () {
+    if (busy) return;
+    if (tl.has('proof')) { ER.say('Dr Szabo is folding his proof into smaller and smaller squares.'); return; }
+    ER.talk({
+      who: 'Dr Ferenc Szabo', role: 'Curator · a little pink', face: SC.face('szabo', 'cross'),
+      lines: [
+        { a: '&ldquo;Ah. Yes. That is a proof of a poster for tomorrow. I asked our printer to set it this afternoon, before he went home at four. The Elmsworth Stone, an unknown script.&rdquo;' },
+        { note: 'He picks it up by the corners. Somebody has written all over it in pencil.', a: '&ldquo;Those are my notes. I was working on the signs that are not squares: the heart, the cross, the two strokes on the stone, and the little wave and the round thing with hands in the letter. A cartouche, I thought. A royal title. The sun.&rdquo;' },
+        { q: 'And now?', a: '&ldquo;Now I know two eleven-year-olds carved it with a nail.&rdquo; He holds the proof out to you. &ldquo;Please. Correct it before anybody else sees it. Every one of those five.&rdquo;' }
+      ],
+      clue: { id: 'szabo4', title: 'Dr Szabo&rsquo;s proof', kind: 'What he said' },
+      done: function (seen) { if (seen && tl.set('szabo')) { paint(); ER.say('Five signs that are not squares. The framed print on the wall says something about signs like that.'); } }
+    });
+  });
+  $('#delgado').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Mr Gil Delgado', role: 'PE teacher · at the type cabinet', face: SC.face('delgado'),
+      lines: [
+        { note: 'He has pulled out a shallow tray of little metal letters and is looking at it the way he looks at a team sheet.', a: '&ldquo;Look at this. The boxes are all different sizes, and the biggest one is for e. Because printers use more e&rsquo;s than anything else.&rdquo;' },
+        { q: 'So?', a: '&ldquo;So whatever shape comes most often in Elin&rsquo;s letter, that&rsquo;s the e. Easy. Write that down.&rdquo;' },
+        { note: 'Dr Szabo opens his mouth, and closes it again.' }
+      ],
+      clue: { id: 'printrule', title: 'Mr Delgado&rsquo;s printer&rsquo;s rule', kind: 'What he said' },
+      done: function (seen) { if (seen) { tl.set('rule'); ER.addWord('frequency', 'how often something happens or appears'); } }
+    });
+  });
+  $('#type').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: '<h4>The type cabinet</h4><h3>Big boxes for common letters</h3>' +
+      '<p>A printer&rsquo;s <b>type case</b> holds the little metal letters that are set by hand into words. The boxes are not all the same size. The biggest is for <b>e</b>, because e is the commonest letter in English writing. The next biggest are for letters like t, a, o, i and n.</p>' +
+      '<p>Printers knew the order by heart. The keys of the old typesetting machines were laid out with the commonest letters first: e t a o i n, s h r d l u.</p>' +
+      '<p class="small">The <b>frequency</b> of a letter is how often it comes. In a long English text, about one letter in eight is an e. In a short text, anything can happen.</p>', cls: 'label',
+      clue: { id: 'type', title: 'The type cabinet: big boxes for common letters', kind: 'In the print room' }, done: function () { ER.addWord('type case', 'a printer’s tray with a small box for each letter of metal type'); SC.terms(['frequency']); } });
+  });
+  SC.thing('#line', null, 'Posters pegged up to dry. One says LOST: ONE GLOVE. One says YOUNG SCRIBES, SATURDAYS 1995, a children&rsquo;s club the museum used to run.', isBusy);
+  SC.thing('#ink', null, 'An ink slab and a roller. The ink on the slab is still soft: the printer was working until four.', isBusy);
+  SC.thing('#win', null, 'Rooftops in the rain, and the dark coming.', isBusy);
+  $('#door').addEventListener('click', function () {
+    if (busy) return;
+    SC.sfx.radio();
+    ER.say(tl.has('proof') ? 'STAFF STAIRS: 2 Bindery, 3 Old flat, 4 Attic, roof. Mr Moreau will open it, but for one floor, and he wants to know which.' : 'STAFF STAIRS, and floors 2, 3 and 4: Bindery; Old flat; Attic, roof. The red light says locked. Mr Moreau, on the radio: &ldquo;I can open it. Which floor? I am not climbing all of them twice.&rdquo;');
+  });
+
+  var FRAME = '<h4>Print room &middot; a framed print</h4><h3>Signs that are not sounds</h3><div class="two"><div>' +
+    '<p>Not every sign in a script stands for a sound.</p>' +
+    '<p><b>Linear B</b>, written on clay tablets in Crete and Greece more than 3,000 years ago, mixes three kinds of sign. Syllable signs spell words. Pictures stand for things: a horse, a jar, a <b>tripod</b> (a cooking pot on three legs). And number signs count them: a short upright stroke for each one, a flat stroke for each ten, and a circle for each hundred. So a flat stroke and an upright stroke side by side mean 11.</p></div>' +
+    '<div class="dia"><svg viewBox="0 0 220 160"><rect x="6" y="6" width="208" height="148" rx="14" fill="#d8bc90"/><g stroke="#5a3a1a" stroke-width="3.4" fill="none" stroke-linecap="round"><path d="M30 60l12 -18 12 18M70 40v26M92 54h26M140 40v26M152 40v26"/><path d="M60 100q14 -22 28 0M60 100l-6 22M74 100v22M88 100l6 22"/><path d="M120 110h26M160 100v24M172 100v24"/></g>' +
+    '<g font-family="IBM Plex Mono,monospace" font-size="10" fill="#3a2a1a"><text x="22" y="84">ti-ri-po-de</text><text x="56" y="142">tripod</text><text x="122" y="142">12</text><text x="142" y="84">2</text></g></svg><p class="small">Syllables, a picture, numbers.</p></div></div>' +
+    '<p>In 1953, a year after Michael Ventris read the script, a newly cleaned tablet from Pylos showed the word <i>ti-ri-po-de</i>, &lsquo;two tripods&rsquo;, beside a little picture of a tripod and two strokes. The word, the picture and the number agreed, and nearly everybody believed him after that.</p>' +
+    '<p>Egyptian has silent signs too: little pictures at the end of a word that are not read aloud, but show what kind of thing the word means. And English? Look at <b>4.30</b>, <b>&amp;</b> and <b>&hearts;</b>. Not one of them is a letter.</p>';
+  $('#frame').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: FRAME, cls: 'label', clue: { id: 'frame', title: 'Print: signs that are not sounds', kind: 'In the print room' }, done: function () {
+      SC.terms(['numeral', 'logogram']); ER.addWord('tablet', 'a flat piece of clay or stone with writing on it');
+      if (tl.set('frame')) { paint(); ER.say(tl.has('szabo') ? 'Numbers, pictures and word signs. Now Dr Szabo&rsquo;s proof, on the press.' : 'Numbers, pictures and word signs. Talk to Dr Szabo.'); }
+    } });
+  });
+
+  /* ---------- the proof: five signs that are not squares ---------- */
+  var ODDS = [
+    { k: 'heart', from: 'on the stone', pencil: 'an oval ring round the names: a cartouche! royal names?' },
+    { k: 'plus', from: 'on the stone', pencil: 'a cross: a holy sign?' },
+    { k: 'tens', from: 'on the stone', pencil: 'two letters, E and I: a title?' },
+    { k: 'tilde', from: 'in the letter', pencil: 'the sign for water?' },
+    { k: 'clock', from: 'in the letter', pencil: 'the sun? a god?' }
+  ];
+  var LABELS = [['cart', 'a cartouche round royal names'], ['an', 'a word sign: &lsquo;and&rsquo;'], ['620', 'a clock: twenty past six'], ['st', 'a full stop, at the end of a sentence'], ['ei', 'two letters: E and I'],
+    ['fr', 'a heart drawn round two names'], ['2', 'the number 2'], ['430', 'a clock: half past four'], ['ring', 'a letter: the throat ring'], ['11', 'the number 11']];
+  var WHY = {
+    heart: function (v) { return v === 'cart' ? '&ldquo;A cartouche is an oval ring,&rdquo; says Mr Delgado. &ldquo;Is that an oval ring? Who draws that shape round two names?&rdquo;' : '&ldquo;The big shape round both names,&rdquo; says Szabo. &ldquo;It is not a letter. What is it, and what is it doing there?&rdquo;'; },
+    plus: function () { return '&ldquo;The sign between the two names,&rdquo; says Szabo. &ldquo;What do you say between two names? Elin ... Agata. A sign can stand for a whole word: &amp; does.&rdquo;'; },
+    tens: function (v) { return v === 'ei' ? 'Szabo winces at his own pencil. &ldquo;Read the framed print again. A flat stroke and an upright stroke, side by side. The girls copied more than one thing from this museum.&rdquo;' : v === '2' ? '&ldquo;Two strokes,&rdquo; says Mr Delgado, &ldquo;but not the same two. One lies down and one stands up.&rdquo;' : '&ldquo;The two strokes under the names,&rdquo; says Szabo. &ldquo;Look at the framed print: how did Linear B count?&rdquo;'; },
+    tilde: function () { return '&ldquo;The little wave,&rdquo; says Mr Delgado. &ldquo;It comes after AGATA, at the end of the second line and at the end of the third. Where would you put a mark three times like that?&rdquo;'; },
+    clock: function (v) { return v === '620' ? '&ldquo;Which hand is the short one?&rdquo; says Mr Delgado. &ldquo;The short hand tells you the hour.&rdquo;' : '&ldquo;It has hands,&rdquo; says Mr Delgado. &ldquo;And a mark at the top, for twelve.&rdquo;'; }
+  };
+  function oddSVG(k) {
+    if (k === 'heart') return '<svg viewBox="0 0 120 100"><path d="M60 94C14 64 4 36 16 18C30 0 52 6 60 28C68 6 90 0 104 18C116 36 106 64 60 94Z" fill="none" stroke="currentColor" stroke-width="5"/><g opacity=".35"><rect x="30" y="38" width="24" height="22" fill="currentColor"/><rect x="66" y="38" width="24" height="22" fill="currentColor"/></g></svg>';
+    return '<svg viewBox="0 0 100 100">' + SC.part(k, 0, 0, 100, 100, 0.12) + '</svg>';
+  }
+  function makeProof() {
+    var box = ER.el('div', 'pz pf'), put = ER.flag('p-put') || {}, done = !!tl.has('proof');
+    box.innerHTML = '<div class="pf-in"><h3>THE ELMSWORTH STONE</h3><p class="sub">an unknown script &middot; press preview, Saturday, 10 a.m. &middot; proof, with Dr Szabo&rsquo;s pencil notes</p><div class="odds">' +
+      ODDS.map(function (o) { return '<div class="odd"><div class="sg">' + oddSVG(o.k) + '</div><span class="from">' + o.from + '</span><span class="pencil">' + o.pencil + '</span><div class="lslot" data-o="' + o.k + '"></div></div>'; }).join('') +
+      '</div></div><div class="labels"></div><div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="pf-go">Give Dr Szabo the corrections</button></div>';
+    var home = box.querySelector('.labels'), msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    LABELS.forEach(function (l) {
+      var n = ER.el('div', 'lb dnd-item', l[1]); n.setAttribute('data-l', l[0]);
+      var at = null; Object.keys(put).forEach(function (o) { if (put[o] === l[0]) at = o; });
+      (at ? box.querySelector('.lslot[data-o="' + at + '"]') : home).appendChild(n);
+    });
+    function current() { var c = {}; ODDS.forEach(function (o) { var n = box.querySelector('.lslot[data-o="' + o.k + '"] .lb'); c[o.k] = n ? n.getAttribute('data-l') : null; }); return c; }
+    ER.dnd(box, { item: '.lb', slot: '.lslot', home: home, lock: function () { return done; }, change: function () { ER.flag('p-put', current()); ER.$$('.lslot', box).forEach(function (s) { s.classList.remove('bad'); }); } });
+    box.querySelector('#pf-go').addEventListener('click', function () {
+      if (done) return;
+      var c = current(), empty = ODDS.filter(function (o) { return !c[o.k]; });
+      if (empty.length === ODDS.length) { ER.sfx.no(); msg('&ldquo;Corrections,&rdquo; says Szabo faintly. &ldquo;Under each sign. Please.&rdquo;'); return; }
+      if (empty.length) { ER.sfx.no(); msg('&ldquo;Every one of the five,&rdquo; says Szabo. ' + empty.length + ' still ' + (empty.length === 1 ? 'has' : 'have') + ' only his pencil under ' + (empty.length === 1 ? 'it' : 'them') + '.'); return; }
+      var wrong = ODDS.filter(function (o) { return !ER.check('o-' + o.k, c[o.k]); });
+      if (wrong.length) {
+        ER.sfx.no();
+        var s = box.querySelector('.lslot[data-o="' + wrong[0].k + '"]'); s.classList.add('bad'); ER.shake(s);
+        msg((wrong.length === 1 ? 'One correction is wrong. ' : wrong.length + ' corrections are wrong. ') + WHY[wrong[0].k](c[wrong[0].k]));
+        return;
+      }
+      var f = ER.exit([ODDS.map(function (o) { return c[o.k]; }).join('.')], { wait: true, quiet: true });
+      if (!f) { ER.sfx.no(); msg('Szabo reads them twice, and frowns.'); return; }
+      done = true; tl.set('proof'); nextFile = f; ER.flag('p-file', f); SC.solved(); paint();
+      SC.mine('odds', 'Signs that are not letters', '<p>The heart: drawn round the two names (like a cartouche, but it is a heart).</p><p>The +: a word sign. It means AND: ELIN + AGATA.</p><p>The two strokes: a flat one is ten, an upright one is one: 11. Their age! (They copied Linear B numbers.)</p><p>The wave: a full stop, at the end of each sentence.</p><p>The round thing with hands: a clock. Short hand between 4 and 5, long hand at 6: HALF PAST FOUR.</p>');
+      msg('Szabo rubs out every pencil note, one by one. &ldquo;A heart, and, eleven, full stop, half past four,&rdquo; he says. &ldquo;Not a god among them.&rdquo;');
+      setTimeout(ending, 2600);
+    });
+    msg(done ? 'Every sign is corrected.' : 'Put the right label under each of the five signs, by dragging it, or by clicking it and then the space.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+  $('#press').addEventListener('click', function () {
+    if (busy) return;
+    if (tl.has('proof')) { ER.say('The proof, with Dr Szabo&rsquo;s pencil rubbed out and your corrections in its place.'); return; }
+    if (!tl.has('szabo')) { ER.say('A big sheet on the bed of the press: THE ELMSWORTH STONE, an unknown script. It is covered in pencil. Ask Dr Szabo about it.'); return; }
+    if (!tl.has('frame')) { ER.say('Five signs with Dr Szabo&rsquo;s guesses under them. The framed print on the wall, on the right, will help you correct them.'); return; }
+    if (!pf) pf = makeProof();
+    pf.open();
+  });
+  function ending() {
+    ER.closeAll(); busy = true;
+    ER.narrate([
+      '&ldquo;Half past four,&rdquo; says Mr Delgado. &ldquo;That&rsquo;s when the doors lock.&rdquo; He looks at the red light on the stair door. &ldquo;She went up those stairs before half past four, to be somewhere at half past four. And at half past four the doors locked.&rdquo;',
+      '&ldquo;Then she is upstairs,&rdquo; says Szabo. &ldquo;Bindery, the old flat, the attic, the roof. Moreau can open the door, but each floor has its own locks.&rdquo; The radio agrees, crossly: one floor, and quickly. The alarm goes on at six.',
+      'Mr Delgado&rsquo;s phone buzzes again.',
+      '<b>Kezia:</b> &ldquo;also at lunch miss L stood in front of an old board in the education room for ages. the one with kids scripts from the 90s. she touched it. and sir her coat is still on the peg there, we all saw it&rdquo;',
+      '&ldquo;Her coat,&rdquo; says Mr Delgado. &ldquo;In this weather.&rdquo; He is already at the door. &ldquo;Education room. We need the rest of that letter.&rdquo;'
+    ], function () {
+      busy = false; $('#go').classList.add('on');
+      ER.addClue('kezia2', 'Kezia again', '<h4>Mr Delgado&rsquo;s phone</h4><p>also at lunch miss L stood in front of an old board in the education room for ages. the one with kids scripts from the 90s. she touched it. and sir her coat is still on the peg there, we all saw it</p>', 'phone', 'Messages');
+    });
+  }
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

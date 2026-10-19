@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Booth · Where's It To?</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lang.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="ac.css">
+<style>
+  body{--bg:#141a24;--accent:#f2a93b;--font-display:'Old Standard TT',serif;--font-ui:'Outfit',sans-serif;--font-body:'Gentium Book Plus',serif;
+    --tc-bg:rgba(20,26,36,.96);--tc-ink:#f1ece0;--cap-bg:rgba(22,28,38,.95);--cap-ink:#f1ece0;--panel:#f6f4ee;--panel-ink:#1b1f2a;--face-bg:#3f6b4f;--q-ink:#2f5d7c;
+    --fade:#0a0e14;--hud-bg:rgba(22,28,38,.86);--hud-ink:#f1ece0;--hud-line:rgba(241,236,224,.3);--ov-bg:rgba(8,12,18,.7)}
+  .tc-room{font-size:clamp(40px,6vw,84px);color:#f2a93b}
+  .tc-theme{color:#9fc4e0}
+  .hbtn b{color:#141a24}
+  #onair{animation:onair 2.4s steps(1,end) infinite}
+  @keyframes onair{50%{opacity:.35}}
+  #wave path.live{animation:wave 1.2s steps(3,end) infinite}
+  @keyframes wave{50%{transform:scaleY(.6)}}
+  #lineled{animation:led 1s steps(1,end) infinite}
+  @keyframes led{50%{fill:#3a1a14}}
+  /* the whiteboard */
+  .wb{width:min(1120px,96vw)}
+  .wb-in{display:grid;grid-template-columns:1fr 250px;gap:14px}
+  .wb-board{background:#f4f6f6 radial-gradient(ellipse at 30% 20%,#fff,transparent 70%);border:12px solid #b9bfc6;border-radius:4px;padding:12px 14px 10px;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+  .wb-board h3{margin:0 0 8px;font-family:'Kalam',cursive;font-weight:700;font-size:24px;color:#1d3a7a;text-align:center}
+  .cols{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+  .col{min-height:330px;border-top:4px solid var(--c);padding:6px 6px 8px;display:flex;flex-direction:column;gap:6px;background:rgba(255,255,255,.4)}
+  .col h5{margin:0 0 2px;font-family:'Kalam',cursive;font-weight:700;font-size:17px;line-height:1.1;color:var(--c)}
+  .col h5 small{display:block;font-size:13px;font-weight:400;color:#5a5e68}
+  .col.bad{background:#fbe0dc}
+  .tray{background:rgba(255,255,255,.08);border:2px dashed rgba(255,255,255,.3);border-radius:4px;padding:10px;display:flex;flex-direction:column;gap:6px;min-height:200px}
+  .tray h5{margin:0 0 2px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#d8dde6}
+  .stick{display:block;padding:6px 10px 5px;background:#fff27a;color:#1d3a7a;font-family:'Kalam',cursive;font-size:16px;line-height:1.2;cursor:grab;box-shadow:0 3px 6px rgba(0,0,0,.28);touch-action:none}
+  .tray .stick:nth-child(odd){transform:rotate(-.8deg)}.tray .stick:nth-child(even){transform:rotate(.7deg)}
+  .stick.held{outline:3px solid #2f8ad8}
+  .stick.fly{position:fixed;z-index:80;pointer-events:none;transform:rotate(-2deg)}
+  .stick.bad{background:#ffb4a8}
+  .col .stick{box-shadow:0 1px 3px rgba(0,0,0,.2)}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="foam" width="40" height="40" patternUnits="userSpaceOnUse"><rect width="40" height="40" fill="#2a2f3a"/><path d="M0 40L20 0L40 40z" fill="#353b48"/><path d="M20 0L40 40H30z" fill="#20242e"/></pattern>
+  <pattern id="tiles" width="120" height="60" patternUnits="userSpaceOnUse"><rect width="120" height="60" fill="#232b38"/><path d="M0 0H120M0 0V60" stroke="#1a212c" stroke-width="3"/></pattern>
+  <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9fc4e0" stop-opacity=".18"/><stop offset=".5" stop-color="#9fc4e0" stop-opacity=".04"/><stop offset="1" stop-color="#9fc4e0" stop-opacity=".14"/></linearGradient>
+  <radialGradient id="lamp" cx="50%" cy="0%" r="90%"><stop offset="0" stop-color="#f2c97a" stop-opacity=".35"/><stop offset="1" stop-color="#f2c97a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="45%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#05080c" stop-opacity=".15"/><stop offset="1" stop-color="#05080c" stop-opacity=".6"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1100" fill="url(#tiles)"/>
+<rect x="-1000" y="-400" width="3600" height="70" fill="#10151d"/>
+<!-- the booth, through its window -->
+<g id="booth" class="hot">
+  <rect x="60" y="120" width="520" height="440" fill="#0e1218"/>
+  <rect x="76" y="136" width="488" height="408" fill="url(#foam)"/>
+  <path d="M320 540V330" stroke="#8a8f98" stroke-width="5"/><path d="M290 540h60" stroke="#8a8f98" stroke-width="6"/><rect x="304" y="290" width="32" height="56" rx="16" fill="#3a3f48" stroke="#9aa0aa" stroke-width="3"/><circle cx="320" cy="305" r="30" fill="none" stroke="#5a606a" stroke-width="3" stroke-dasharray="4 4"/>
+  <rect x="60" y="120" width="520" height="440" fill="url(#glass)" stroke="#5a6270" stroke-width="10"/>
+  <path d="M120 160l140 140M150 150l120 120" stroke="#fff" stroke-width="5" opacity=".08"/>
+  <rect id="onair" x="250" y="76" width="140" height="34" rx="4" fill="#b02a1e"/><text x="320" y="100" class="cW" font-size="20" font-weight="500" text-anchor="middle" fill="#ffe8d8" letter-spacing="4">ON AIR</text>
+</g>
+<!-- the handout, pinned on a strip of cork -->
+<rect x="610" y="150" width="200" height="190" fill="#7a5a3a"/><rect x="616" y="156" width="188" height="178" fill="#a07a50"/>
+<g id="handout" class="hot"><rect x="632" y="168" width="150" height="150" fill="#fdfcf7" transform="rotate(-3 707 243)"/><rect x="632" y="168" width="150" height="16" fill="#2f5d7c" transform="rotate(-3 707 243)"/>
+  <g transform="rotate(-3 707 243)" fill="#3a3f48"><text x="644" y="206" class="cO" font-size="15" font-weight="700">Accent or</text><text x="644" y="224" class="cO" font-size="15" font-weight="700">dialect?</text><rect x="644" y="236" width="56" height="40" fill="none" stroke="#b2361f" stroke-width="2"/><rect x="652" y="246" width="30" height="20" fill="none" stroke="#2f5d7c" stroke-width="2"/><path d="M712 244h56M712 256h50M712 268h56M644 290h120M644 302h100" stroke="#9aa0aa" stroke-width="3"/></g>
+  <circle cx="704" cy="172" r="6" fill="#d0392b"/></g>
+<!-- the clock -->
+<g id="clock" class="hot"><circle cx="1010" cy="120" r="44" fill="#f1ece0" stroke="#3a3f48" stroke-width="6"/><path d="M1010 120V88" stroke="#1b1f2a" stroke-width="4" stroke-linecap="round"/><path d="M1010 120l7 -26" stroke="#1b1f2a" stroke-width="5" stroke-linecap="round" transform="rotate(30 1010 120)"/><circle cx="1010" cy="120" r="4" fill="#b2361f"/></g>
+<!-- the desk, the console, the screens -->
+<rect x="560" y="610" width="760" height="22" fill="#4a3a2c"/><rect x="560" y="632" width="760" height="300" fill="#2c2420"/>
+<g id="console"><path d="M620 610l30 -60h420l30 60z" fill="#3a3f48"/><g stroke="#9aa0aa" stroke-width="3">
+  <path d="M670 600v-36M700 600v-36M730 600v-36M760 600v-36M790 600v-36M820 600v-36M850 600v-36M880 600v-36M910 600v-36M940 600v-36M970 600v-36M1000 600v-36M1030 600v-36"/></g>
+  <g fill="#e8e2d2"><rect x="664" y="584" width="12" height="7"/><rect x="694" y="572" width="12" height="7"/><rect x="724" y="590" width="12" height="7"/><rect x="754" y="578" width="12" height="7"/><rect x="784" y="586" width="12" height="7"/><rect x="814" y="570" width="12" height="7"/><rect x="844" y="582" width="12" height="7"/><rect x="874" y="590" width="12" height="7"/><rect x="904" y="574" width="12" height="7"/><rect x="934" y="586" width="12" height="7"/><rect x="964" y="580" width="12" height="7"/><rect x="994" y="572" width="12" height="7"/><rect x="1024" y="588" width="12" height="7"/></g></g>
+<g id="screen" class="hot">
+  <rect x="700" y="330" width="420" height="220" rx="6" fill="#0c1016" stroke="#4a505a" stroke-width="8"/><rect x="890" y="550" width="40" height="40" fill="#3a3f48"/>
+  <g id="wave" transform="translate(0 0)"><path d="M716 440h18" stroke="#5ad08a" stroke-width="2"/>
+    <path class="live" style="transform-origin:0 440px" d="M734 440l4 -30 4 52 4 -40 4 30 4 -22 4 38 4 -50 4 26 4 -12 4 40 4 -34 4 20 4 -46 4 30 4 -8 4 26 4 -40 4 34 4 -20 4 44 4 -28 4 10 4 -36 4 30 4 -16 4 40 4 -52 4 22 4 -8 4 30 4 -24 4 36 4 -40 4 18 4 -30 4 44 4 -20 4 14 4 -36 4 28 4 -44 4 30 4 -10 4 26 4 -38 4 20 4 -12 4 32 4 -42 4 24 4 -16 4 36 4 -30 4 12 4 -40 4 34 4 -18 4 40 4 -24 4 16 4 -34 4 30 4 -20 4 38 4 -46 4 22 4 -10 4 28 4 -36 4 18 4 -26 4 34 4 -14 4 22 4 -30 4 16" stroke="#5ad08a" stroke-width="2" fill="none"/>
+    <path d="M1066 440h40" stroke="#d0392b" stroke-width="2"/><path d="M1064 350v170" stroke="#d0392b" stroke-width="2" stroke-dasharray="4 4"/></g>
+  <text x="716" y="362" class="cM" font-size="13" fill="#9fc4e0">NIGHTJAR · LINE 3 · 00.41.05</text><text x="1104" y="536" class="cM" font-size="13" text-anchor="end" fill="#d0392b">00.52.40</text>
+</g>
+<!-- the pad and a mug on the desk -->
+<g id="pad"><rect x="1150" y="592" width="88" height="26" fill="#fff27a" transform="rotate(-8 1194 605)"/><path d="M1160 600h60M1162 608h50" stroke="#1d3a7a" stroke-width="2" transform="rotate(-8 1194 605)"/></g>
+<g><rect x="600" y="574" width="30" height="36" rx="3" fill="#b2361f"/><path d="M630 582q12 0 12 10t-12 10" stroke="#b2361f" stroke-width="4" fill="none"/></g>
+<!-- the phone -->
+<g id="phone" class="hot"><path d="M1250 610l10 -40h90l10 40z" fill="#2a2f38"/><rect x="1262" y="556" width="86" height="20" rx="8" fill="#1a1d24"/><circle id="lineled" cx="1340" cy="596" r="5" fill="#e04a2a"/><g fill="#8a909a"><rect x="1272" y="588" width="10" height="6"/><rect x="1288" y="588" width="10" height="6"/><rect x="1304" y="588" width="10" height="6"/><rect x="1272" y="598" width="10" height="6"/><rect x="1288" y="598" width="10" height="6"/><rect x="1304" y="598" width="10" height="6"/></g></g>
+<!-- the whiteboard -->
+<g id="board" class="hot"><rect x="1360" y="130" width="300" height="400" fill="#f4f6f6" stroke="#b9bfc6" stroke-width="12"/>
+  <path d="M1435 170V500M1510 170V500M1585 170V500" stroke="#c4cad0" stroke-width="2"/>
+  <text x="1380" y="166" class="cK" font-size="20" font-weight="700" fill="#1d3a7a">SHONA</text><text x="1460" y="166" class="cK" font-size="17" fill="#b2361f">sort it!</text>
+  <rect x="1372" y="182" width="56" height="30" fill="#fff27a" transform="rotate(4 1400 197)"/><rect x="1446" y="230" width="56" height="30" fill="#fff27a" transform="rotate(-5 1474 245)"/><rect x="1376" y="290" width="56" height="30" fill="#fff27a" transform="rotate(-3 1404 305)"/>
+  <path d="M1360 536h300" stroke="#9aa0aa" stroke-width="10"/><rect x="1380" y="526" width="34" height="9" fill="#2f5d7c"/><rect x="1424" y="526" width="34" height="9" fill="#b2361f"/></g>
+<rect x="-1000" y="-400" width="3600" height="900" fill="url(#lamp)" pointer-events="none"/>
+<!-- people -->
+<g id="petra" class="hot" transform="translate(500 884) scale(1.02)"></g>
+<g id="chair"><rect x="1120" y="760" width="110" height="20" rx="6" fill="#1a1d24"/><path d="M1175 780v70M1130 860h90" stroke="#1a1d24" stroke-width="10" stroke-linecap="round"/><rect x="1196" y="640" width="26" height="130" rx="8" fill="#1a1d24"/></g>
+<g id="nia" class="hot" transform="translate(1170 884) scale(.98)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Down the corridor to Room 2.14</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="ac.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, nextFile = null, board = null;
+
+  $('#petra').innerHTML = AC.who('petra', { extra: '<rect x="-48" y="-150" width="22" height="30" rx="2" fill="#fff27a"/>' });
+  $('#nia').innerHTML = AC.who('nia', { smile: 1, mug: '#f2c94c' });
+
+  ER.init({
+    theme: 'lang', story: 'accent', storyTitle: 'Where’s It To?', id: 'booth', no: 'I', title: 'The Booth',
+    go: 'Go into the sound lab',
+    intro: [
+      'It is half-term, it has rained for three days, and you are staying with your aunt, Dr Petra Quilliam, who studies the sounds of human speech for a living.',
+      'Tonight she was on the radio. Nightjar, the national late-night phone-in, rang her in her sound lab at the university, and for an hour she guessed where callers came from by listening to them talk. You were meant to be asleep on her office sofa by eleven. You were not.'
+    ],
+    exit: {"next":"phonetics","w":{"07b67a06":"c18e9258"}}, tags: {"c1":["713c628e"],"c2":["e5eafed5"],"c3":["79d21966"],"c4":["8f62220d"],"c5":["e15ba524"],"c6":["c68a924e"],"c7":["8a4021a0"],"c8":["8077dd48"],"c9":["d27b97c3"],"c10":["845bbbc4"],"c11":["5aabfe61"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('a-told') || {}; nextFile = ER.flag('a-file') || null;
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('a-told', told); return true; }
+  function isBusy() { return busy; }
+  function ready() { return told.call && told.card; }
+  function paint() {
+    $('#petra').classList.toggle('ready', !told.petra);
+    $('#screen').classList.toggle('ready', !!(told.petra && !told.call));
+    $('#handout').classList.toggle('ready', !!(told.petra && !told.card));
+    $('#board').classList.toggle('ready', !!(ready() && !nextFile));
+    ER.pips((told.petra ? 1 : 0) + (told.call ? 1 : 0) + (told.card ? 1 : 0) + (nextFile ? 1 : 0), 4);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Petra wants to write down Shona&rsquo;s sounds properly. The button at the bottom of the screen takes you to Room 2.14.']];
+    if (board && board.isOpen()) return ['board', [
+      'Ask one question of each note: is this the way she <em>said</em> an ordinary word, a <em>word</em> she chose, the way she <em>put words together</em>, or nothing to do with language at all?',
+      'Everybody says &ldquo;car&rdquo;, &ldquo;bath&rdquo; and &ldquo;water&rdquo;; it is the sound that differs. &ldquo;Dimpsy&rdquo;, &ldquo;wee&rdquo; and &ldquo;fall&rdquo; are words that other people do not use for the same thing. &ldquo;Where&rsquo;s it to?&rdquo; and &ldquo;them cartoons&rdquo; use ordinary words, put together in a way Standard English does not.',
+      'Four notes are about sounds, three are words, two are grammar, and two are not about language at all: her job, and how she talks when she is nervous.'
+    ]];
+    if (!told.petra) return ['petra', ['Your aunt is standing by the booth window on the left. Talk to her.']];
+    if (!told.call) return ['call', ['Petra wants you to read the call. It is on the screen in the middle of the desk.', 'Click the screen with the green line on it.']];
+    if (!told.card) return ['card', ['There is a handout pinned on the cork strip between the booth and the screen: &ldquo;Accent or dialect?&rdquo;. Read it.']];
+    return ['board', ['Petra&rsquo;s notes are stuck on the whiteboard on the right. Click the whiteboard and sort them.', 'You can also ring the producer on the desk phone, and talk to Nia in the chair: both have something to add.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('The notes are sorted. Spelling hid her sounds: Room 2.14 is down the corridor.'); return; }
+    if (told.in) { busy = false; ER.say('The sound lab: the booth, the desk, the whiteboard, and the rain.'); return; }
+    tell('in');
+    ER.narrate([
+      'At eight minutes to one, a woman called Shona was talking on line three about her nan&rsquo;s funny words. She was driving home in the dark. She said there was water over the road. Then she said the water was coming in.',
+      'Then nothing. The line went dead in the middle of a word, with three million people listening.',
+      'Now it is five past one. The rain is loud on the roof of the Rennie Building. The ON AIR light over the booth is still flashing, because nobody has remembered to switch it off.',
+      'Nia, your aunt&rsquo;s research student, is sitting very still with a cold cup of tea. And Petra has stopped pacing and is looking at you.'
+    ], function () { busy = false; });
+  }
+
+  /* ---------- people ---------- */
+  $('#petra').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Room 2.14,&rdquo; says Petra, already in the doorway. &ldquo;Bring the pad.&rdquo;'); return; }
+    if (told.petra) {
+      ER.talk({ who: 'Dr Petra Quilliam', role: 'Your aunt · phonetician', face: AC.face('petra'), lines: [
+        { a: '&ldquo;Read the call. Read the handout. Then sort my notes on the whiteboard. Accent, dialect words, dialect grammar, or nothing to do with where she&rsquo;s from.&rdquo;' },
+        { q: 'Why does it matter which is which?', a: '&ldquo;Because they travel differently. You can pick up a word from a parent or a cartoon in a week. An accent you mostly get from the people you grew up among. We&rsquo;ll need to know which clue is which before we put any of them on a map.&rdquo;' }
+      ] });
+      return;
+    }
+    ER.talk({
+      who: 'Dr Petra Quilliam', role: 'Your aunt · phonetician', face: AC.face('petra', 'worried'),
+      lines: [
+        { note: 'Petra has a yellow pad in one hand and her reading glasses pushed up into her hair.', a: '&ldquo;The police rang. Shona didn&rsquo;t ring 999: she rang us, to talk about her nan. So they have her number and nothing else. Her phone has been switched off, or dead, since eight minutes to one. No surname. No address. No idea which road.&rdquo;' },
+        { q: 'Can&rsquo;t they find the phone?', a: '&ldquo;The network can say which mast her phone last used. At one in the morning, on the night of a flood, that takes hours. And she rang a national programme. She could be anywhere from Cornwall to Caithness.&rdquo;' },
+        { q: 'So what can we do?', a: '&ldquo;We have eleven minutes of her voice. I was listening to it live: I was supposed to say where she came from, on air, when she finished. I made notes.&rdquo; She holds up the pad. &ldquo;I never got to say anything.&rdquo;' },
+        { q: 'Where is she from, then?', a: '&ldquo;I have a guess. A guess is what I do on the radio for fun. You don&rsquo;t send fire engines on a guess.&rdquo; She taps the pad. &ldquo;We do it properly. One clue at a time, and never one clue alone.&rdquo;' },
+        { a: '&ldquo;The call is on the screen. My handout for first-years is on the cork. Read both. Then help me sort these notes on the whiteboard, because at this time of night I don&rsquo;t trust myself.&rdquo;' }
+      ],
+      clue: { id: 'petra', title: 'Petra: never one clue alone', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('petra')) { paint(); ER.say('The call is on the screen. The handout is on the cork strip.'); } }
+    });
+  });
+  $('#nia').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Two point fourteen,&rdquo; says Nia, picking up her cold tea. &ldquo;The room with the stamps. You&rsquo;ll like it.&rdquo;'); return; }
+    ER.talk({
+      who: 'Nia Prothero', role: 'Research student · teenagers&rsquo; speech', face: AC.face('nia'),
+      lines: [
+        { note: 'Nia is from a farm in Carmarthenshire. She is writing a thesis about how teenagers talk, and she has been awake since six.', a: '&ldquo;Everybody&rsquo;s going to tell us she&rsquo;s from where they&rsquo;re from. Half the listeners already think she&rsquo;s Scottish. She said &lsquo;wee&rsquo;.&rdquo;' },
+        { q: 'Isn&rsquo;t she?', a: '&ldquo;Maybe. She also said &lsquo;fall&rsquo;, so by the same rule she&rsquo;s American.&rdquo; She shrugs. &ldquo;One word is one word. Words are easy to borrow. I say &lsquo;cool&rsquo; and I&rsquo;ve never been to California.&rdquo;' },
+        { q: 'Do you have an accent?', a: '&ldquo;Course I do. So do you. So does Max, who thinks he hasn&rsquo;t got one because he&rsquo;s from the south-east and on the radio. Everybody has an accent. You only notice the ones that aren&rsquo;t yours.&rdquo;' },
+        { a: '&ldquo;And don&rsquo;t get excited about the catch in her &lsquo;water&rsquo;. People will say London. Kids from Glasgow to Plymouth do that now.&rdquo;' }
+      ],
+      clue: { id: 'nia', title: 'Nia: one word is one word', kind: 'What she said' },
+      done: function (seen) { if (seen) tell('nia'); }
+    });
+  });
+  $('#phone').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.petra) { ER.say('The desk phone. A red light is blinking on line one. Talk to Petra first.'); return; }
+    AC.sfx.ring();
+    ER.talk({
+      who: 'Yolande Crabtree', role: 'Producer, Nightjar · on the phone', face: AC.face('yolande', 'worried'),
+      lines: [
+        { note: 'The producer answers on the first ring. Behind her you can hear the programme going on, much too cheerfully.', a: '&ldquo;Petra? Any news? I&rsquo;ve given the police everything. It isn&rsquo;t much.&rdquo;' },
+        { q: 'What did Shona say before she went on air?', a: '&ldquo;I took the call myself, at twenty-five to one. Her first name. Mobile. &lsquo;Driving home from work.&rsquo; I always ask where callers are calling from, so Max can say it. She said, &lsquo;On the road!&rsquo; and laughed, and I let it go. I&rsquo;ll never let it go again.&rdquo;' },
+        { q: 'Anything else?', a: '&ldquo;She was chatty. She said her dad&rsquo;s from Glasgow, and that&rsquo;s why she&rsquo;s called Shona, and her surname&rsquo;s Scottish too, though she wouldn&rsquo;t tell me what it was. She said, &lsquo;I get my wee from him and everything else from Nan.&rsquo;&rdquo;' },
+        { a: '&ldquo;Max has asked the listeners to text in if they know her words. They&rsquo;re texting. Hundreds of them. Most of them think she&rsquo;s from where they live.&rdquo;' }
+      ],
+      clue: { id: 'yolande', title: 'Yolande: her dad is from Glasgow', kind: 'On the phone' },
+      done: function (seen) { if (seen) tell('yol'); }
+    });
+  });
+
+  /* ---------- things ---------- */
+  $('#screen').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.petra) { ER.say('A green line wanders across the screen and stops dead at 00.52.40. Talk to Petra first.'); return; }
+    AC.call(function () { AC.terms(['accent']); if (tell('call')) { paint(); ER.say('Eleven minutes, and one dead line. The red pencil is Petra&rsquo;s.'); } });
+  });
+  var CARD = '<h4>First-year handout &middot; week 1</h4><h3>Accent or dialect?</h3><div class="two"><div>' +
+    '<p>Your <b>accent</b> is the way you pronounce words: the sounds of your vowels and consonants, and the tune of your sentences. Your <b>dialect</b> is more than that. It is your accent and also your own words (your <b>vocabulary</b>) and your own <b>grammar</b>. &ldquo;Where is it?&rdquo; and &ldquo;Where&rsquo;s it to?&rdquo; can be said in exactly the same accent, but they belong to different dialects.</p>' +
+    '<p>Everyone has an accent. People who think they have none simply sound like the people around them. No accent is wrong, lazy or ugly: each one follows its own rules.</p>' +
+    '<p><b>Standard English</b> is a dialect too: the one used in most writing, in the news and at school. It has its own grammar and words, and it can be spoken in any accent.</p></div>' +
+    '<div class="dia"><svg viewBox="0 0 280 250"><rect x="6" y="6" width="268" height="238" rx="6" fill="#fdf3ee" stroke="#b2361f" stroke-width="3"/><text x="18" y="30" font-family="Old Standard TT,serif" font-weight="700" font-size="19" fill="#b2361f">DIALECT</text>' +
+    '<rect x="22" y="44" width="236" height="74" rx="6" fill="#eaf2f8" stroke="#2f5d7c" stroke-width="3"/><text x="34" y="66" font-family="Old Standard TT,serif" font-weight="700" font-size="17" fill="#2f5d7c">ACCENT: sounds</text><text x="34" y="88" font-family="Gentium Book Plus,serif" font-size="15" fill="#1f2430">car with or without an r</text><text x="34" y="107" font-family="Gentium Book Plus,serif" font-size="15" fill="#1f2430">bath: long a or short a</text>' +
+    '<text x="22" y="148" font-family="Old Standard TT,serif" font-weight="700" font-size="17" fill="#b2361f">+ words</text><text x="22" y="168" font-family="Gentium Book Plus,serif" font-size="15" fill="#1f2430">wee = small &middot; bairn = child</text>' +
+    '<text x="22" y="200" font-family="Old Standard TT,serif" font-weight="700" font-size="17" fill="#b2361f">+ grammar</text><text x="22" y="220" font-family="Gentium Book Plus,serif" font-size="15" fill="#1f2430">we was &middot; them books &middot; I be</text></svg></div></div>' +
+    '<p class="fact"><b>A real fact.</b> Received Pronunciation (RP), the accent of old BBC newsreaders, is an accent, not a dialect, and only a small minority of people in Britain have ever spoken it. Most people speak Standard English with the accent of their own region.</p><p class="pg">Dr P. Quilliam &middot; Introduction to Phonetics</p>';
+  $('#handout').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: CARD, cls: 'card', clue: { id: 'card', title: 'Handout: accent or dialect?', kind: 'Handout' }, done: function () {
+      AC.terms(['accent', 'dialect', 'vocabulary', 'grammar', 'Standard English', 'Received Pronunciation']);
+      if (tell('card')) { paint(); if (ready()) ER.say('Now the whiteboard on the right, and Petra&rsquo;s notes.'); }
+    } });
+  });
+  AC.thing('#booth', null, 'The booth: a small room lined with grey foam spikes, so that no sound comes back off the walls. Petra spoke to three million people from that chair tonight.', isBusy);
+  AC.thing('#clock', null, 'Five past one. Shona went quiet at eight minutes to one. Thirteen minutes.', isBusy);
+  AC.thing('#console', null, 'The mixing desk: thirteen sliders, and every one of them pulled down to nothing.', isBusy);
+  AC.thing('#pad', null, 'Petra&rsquo;s yellow pad. She has torn the notes off it and stuck them on the whiteboard.', isBusy);
+
+  /* ---------- the whiteboard ---------- */
+  var NOTES = [
+    ['c1', '&ldquo;car park&rdquo;: an r in car AND in park'],
+    ['c2', 'home, half, hot: no h at the start'],
+    ['c3', 'bath: long a, like &ldquo;father&rdquo; (twice!)'],
+    ['c4', 'water, little, bottom: no t. A catch in the throat'],
+    ['c5', '&ldquo;Where&rsquo;s it to?&rdquo; = &ldquo;Where is it?&rdquo;'],
+    ['c6', '&ldquo;dimpsy&rdquo; = getting dark (Nan&rsquo;s)'],
+    ['c7', '&ldquo;a wee bit&rdquo; = a little bit'],
+    ['c8', '&ldquo;fall&rdquo; = autumn'],
+    ['c9', '&ldquo;them cartoons&rdquo; = those cartoons'],
+    ['c10', 'talks faster when nervous, laughs a lot'],
+    ['c11', 'vet nurse, twelve-hour shift']];
+  var MIX = [6, 0, 9, 3, 10, 1, 7, 4, 2, 8, 5];
+  var COLS = [['A', 'How she says it', 'accent', '#2f5d7c'], ['W', 'Her words', 'dialect', '#b2361f'], ['G', 'Her grammar', 'dialect', '#7a3a8a'], ['N', 'Not accent or dialect', 'nothing to do with where she&rsquo;s from', '#5a6070']];
+  $('#board').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The whiteboard: four columns, eleven yellow notes, all in the right places.'); return; }
+    if (!told.petra) { ER.say('A whiteboard with yellow notes on it, and SHONA written across the top. Talk to Petra first.'); return; }
+    if (!ready()) { ER.say('&ldquo;Read the call and the handout first,&rdquo; says Petra. &ldquo;Then sort.&rdquo;'); return; }
+    if (!board) board = makeBoard();
+    board.open();
+  });
+  function makeBoard() {
+    var box = ER.el('div', 'pz wb'), placed = ER.flag('a-pl') || {}, done = false;
+    box.innerHTML = '<div class="wb-in"><div class="wb-board"><h3>SHONA, line 3: what kind of clue is each one?</h3><div class="cols">' +
+      COLS.map(function (c) { return '<div class="col" data-b="' + c[0] + '" style="--c:' + c[3] + '"><h5>' + c[1] + '<small>' + c[2] + '</small></h5></div>'; }).join('') +
+      '</div></div><div class="tray"><h5>Petra&rsquo;s notes</h5></div></div><div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="b-go">Read the board to Petra</button></div>';
+    var tray = box.querySelector('.tray'), msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    MIX.forEach(function (i) { var n = ER.el('div', 'dnd-item stick', NOTES[i][1]); n.setAttribute('data-k', NOTES[i][0]); tray.appendChild(n); });
+    Object.keys(placed).forEach(function (k) { var n = box.querySelector('.stick[data-k="' + k + '"]'), c = box.querySelector('.col[data-b="' + placed[k] + '"]'); if (n && c) c.appendChild(n); });
+    function read() { var o = {}; ER.$$('.col', box).forEach(function (c) { ER.$$('.stick', c).forEach(function (n) { o[n.getAttribute('data-k')] = c.getAttribute('data-b'); }); }); return o; }
+    /* a column holds many notes: a note dropped on it is added, never swapped */
+    AC.many(box, { item: '.stick', slot: '.col', home: tray, lock: function () { return done; }, change: function () {
+      ER.$$('.stick', box).forEach(function (n) { n.classList.remove('bad'); });
+      placed = read(); ER.flag('a-pl', placed); AC.sfx.pin();
+    } });
+    box.querySelector('#b-go').addEventListener('click', function () {
+      if (done) return;
+      var o = read(), n = Object.keys(o).length, i, k, b, bad = null;
+      if (n < NOTES.length) { ER.sfx.no(); msg(n ? 'Eleven notes, and ' + n + ' on the board. Every note goes in one of the four columns.' : 'Drag each yellow note into a column (or click a note, then a column).'); return; }
+      for (i = 0; i < NOTES.length; i++) { k = NOTES[i][0]; if (!ER.check(k, o[k])) { bad = k; break; } }
+      if (bad) {
+        ER.sfx.no(); b = o[bad];
+        var nd = box.querySelector('.stick[data-k="' + bad + '"]'); nd.classList.add('bad'); ER.shake(nd);
+        var why = {
+          A: 'Petra taps the red note. &ldquo;Is that a <em>sound</em>? Would you notice it in the way she says a perfectly ordinary word?&rdquo;',
+          W: 'Petra taps the red note. &ldquo;A dialect <em>word</em> is a word other people don&rsquo;t use for that thing. Is this a different word, or an ordinary word said her way, or words put together her way?&rdquo;',
+          G: 'Petra taps the red note. &ldquo;Grammar is how words are put together into a sentence. Is that what this note is about?&rdquo;',
+          N: 'Nia shakes her head at the red note. &ldquo;That one is language. It tells us something, even if it&rsquo;s only a little.&rdquo;'
+        };
+        msg(why[b] + ' (Eleven notes: the first one that is wrong is marked.)');
+        return;
+      }
+      done = true;
+      nextFile = ER.exit([NOTES.map(function (x) { return o[x[0]]; }).join('')], { wait: true });
+      if (!nextFile) { msg('The way on will not open. Something is wrong with this page: tell your teacher.'); return; }
+      ER.flag('a-file', nextFile); paint();
+      AC.mine('sorted', 'Shona&rsquo;s clues, sorted', '<p><b>Accent (how she says it):</b> r in car and park &middot; no h in home, half, hot &middot; long a in bath &middot; no t in water, little, bottom.</p><p><b>Dialect words:</b> dimpsy (Nan&rsquo;s) &middot; wee &middot; fall.</p><p><b>Dialect grammar:</b> Where&rsquo;s it to? &middot; them cartoons.</p><p><b>Nothing to do with where she&rsquo;s from:</b> nervous talk, her job.</p>');
+      msg('<b>That&rsquo;s it.</b> Four sounds, three words, two pieces of grammar, two things that tell us nothing. Petra writes WORDS TRAVEL under the middle column, and underlines it twice.');
+      setTimeout(function () {
+        ER.closeAll(); busy = true;
+        ER.narrate([
+          '&ldquo;Good,&rdquo; says Petra. &ldquo;Now the trouble. The producer typed &lsquo;car park&rsquo;. I hear an r in it. Max would say it with no r at all. The spelling is the same both times.&rdquo;',
+          '&ldquo;Spelling hides sounds. So we write the sounds instead, with symbols that mean one sound each, and we check every one. Two people agree, or we don&rsquo;t send anybody anywhere.&rdquo;',
+          'She picks up her keys. &ldquo;Room 2.14. The phonetics room. Nia, ring the police and tell them we&rsquo;re on it.&rdquo;'
+        ], function () { busy = false; $('#go').classList.add('on'); });
+      }, 2600);
+    });
+    msg('Drag each note into a column (or click a note, then a column). Each column can take as many as it needs.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

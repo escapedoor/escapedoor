@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Lighthouse · The Verb Comes Last</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lang.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="pb.css">
+<style>
+  body{--bg:#3a2a4a;--accent:#f2a24a;--font-display:'Old Standard TT',serif;--font-ui:'Outfit',sans-serif;--font-body:'Gentium Book Plus',serif;
+    --tc-bg:rgba(44,30,56,.95);--tc-ink:#fbecd8;--cap-bg:rgba(40,28,52,.94);--cap-ink:#fbecd8;--panel:#fbf3e6;--panel-ink:#2a1a30;--face-bg:#8a1a14;--q-ink:#6a3a8a;
+    --fade:#1a1020;--hud-bg:rgba(40,28,52,.82);--hud-ink:#fbecd8;--hud-line:rgba(251,236,216,.3);--ov-bg:rgba(20,12,28,.66)}
+  .tc-room{font-size:clamp(40px,6vw,84px);color:#f2a24a}
+  .tc-theme{color:#f6d6a8}
+  .tc-text .iv,.cap .iv{color:#ffd08a}
+  .hbtn b{color:#2a1a30}
+  .pbook{position:fixed;left:16px;bottom:16px;z-index:33;display:flex;align-items:center;gap:10px;padding:9px 16px 8px 12px;background:#2a4a7a;color:#f4ead2;border-radius:3px 8px 8px 3px;
+    box-shadow:inset 6px 0 0 #1a3a6a,0 6px 18px rgba(0,0,0,.45);font-family:'Old Standard TT',serif;font-weight:700;font-size:17px}
+  .pbook:hover{background:#3a5a8a}
+  #lens .ring{animation:lens 4s steps(4,end) infinite}
+  @keyframes lens{50%{opacity:.6}}
+  #glit path{animation:glit 3s steps(2,end) infinite}
+  #glit path:nth-child(2n){animation-delay:-1.5s}
+  @keyframes glit{50%{opacity:.2}}
+  #ship{display:none}
+  #scene.over #ship{display:inline;animation:sail 14s ease-out forwards}
+  @keyframes sail{from{transform:translate(-200px,0)}to{transform:translate(0,0)}}
+  #naka{display:none}
+  #scene.naka #naka{display:inline}
+  #buli.ready,#philippa.ready{animation:glow 1.6s steps(1,end) infinite}
+  @keyframes glow{50%{filter:brightness(1.25)}}
+  #tail{animation:tail 2.6s ease-in-out infinite;transform-origin:20px -4px}
+  @keyframes tail{50%{transform:rotate(-18deg)}}
+  .ty{width:min(620px,94vw);background:#fbf3e6;color:#2a1a30;padding:20px 26px 16px;border-top:14px solid #1f2a44;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+  .ty h4{margin:0 0 6px;font-family:'Old Standard TT',serif;font-weight:700;font-size:25px}
+  .ty p{margin:0 0 10px;font-family:'Gentium Book Plus',serif;font-size:17px;line-height:1.45}
+  .ty .op{display:block;width:100%;text-align:left;margin:7px 0;padding:10px 16px 8px;border:2px solid #b9a8c8;border-radius:4px;background:#fff;font-family:'Gentium Book Plus',serif;font-style:italic;font-weight:700;font-size:23px;color:#7a1f3a}
+  .ty .op:hover{border-color:#1f2a44}
+  .ty .pmsg{color:#2a1a30;min-height:48px}
+  .done{left:2.2vw;right:auto}
+  .gl{display:inline-block;margin:0 12px 10px 0;text-align:center;vertical-align:top}
+  .gl b{display:block;font-family:'Gentium Book Plus',serif;font-style:italic;font-size:22px;color:#7a1f3a}
+  .gl small{display:block;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#4a4a52}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a3a7a"/><stop offset=".45" stop-color="#c86a6a"/><stop offset=".75" stop-color="#f2a24a"/><stop offset="1" stop-color="#f6d6a8"/></linearGradient>
+  <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6a5a8a"/><stop offset="1" stop-color="#2a2a4a"/></linearGradient>
+  <radialGradient id="lglow" cx="50%" cy="40%" r="50%"><stop offset="0" stop-color="#fff6d0" stop-opacity=".8"/><stop offset="1" stop-color="#fff6d0" stop-opacity="0"/></radialGradient>
+  <pattern id="grate" width="40" height="20" patternUnits="userSpaceOnUse"><rect width="40" height="20" fill="#3a3440"/><path d="M0 0H40M0 10H40M10 0V20M30 0V20" stroke="#2a2430" stroke-width="3"/></pattern>
+  <radialGradient id="vig" cx="50%" cy="45%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#100818" stop-opacity=".12"/><stop offset="1" stop-color="#100818" stop-opacity=".55"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="900" fill="url(#sky)"/>
+<circle cx="1280" cy="420" r="56" fill="#ffe2a0"/>
+<rect x="-1000" y="440" width="3600" height="200" fill="url(#sea)"/>
+<g id="glit" stroke="#ffd08a" stroke-width="4" stroke-linecap="round"><path d="M1240 460h60"/><path d="M1220 480h90"/><path d="M1250 500h50"/><path d="M1200 520h110"/><path d="M1260 540h40"/></g>
+<!-- the harbour far below, the Shearwater, and the ship's boat -->
+<path d="M-1000 520q500 -30 860 -6l60 120H-1000z" fill="#5a4a5a"/><rect x="-60" y="496" width="120" height="16" fill="#e8e0d8"/><rect x="-20" y="482" width="20" height="14" fill="#c8302a"/>
+<g id="ship" transform="translate(0 0)"><path d="M480 560h70l-10 12h-52z" fill="#f4f2ee"/><path d="M500 560v-14" stroke="#1f2a44" stroke-width="2"/><path d="M430 566q30 -4 50 0" stroke="#fff" stroke-width="2" opacity=".6"/></g>
+<!-- the lamp room: glass all round -->
+<g fill="#1f2a44"><rect x="-1000" y="-400" width="3600" height="90"/><rect x="-1000" y="560" width="3600" height="30"/></g>
+<g stroke="#1f2a44" stroke-width="14"><path d="M-260 -320V570M60 -320V570M380 -320V570M1220 -320V570M1540 -320V570M1860 -320V570"/></g>
+<path d="M-1000 330H2600" stroke="#1f2a44" stroke-width="8"/>
+<!-- the lens -->
+<ellipse cx="800" cy="330" rx="340" ry="300" fill="url(#lglow)" pointer-events="none"/>
+<g id="lens" class="hot"><rect x="720" y="520" width="160" height="70" fill="#2a2430"/><path d="M680 520V200q0 -70 120 -90q120 20 120 90v320z" fill="#f6e6b0" opacity=".55" stroke="#c9a24a" stroke-width="4"/>
+  <g class="ring" fill="none" stroke="#fffbe8" stroke-width="5" opacity=".9"><path d="M684 250h232M682 300h236M682 350h236M682 400h236M682 450h236M684 500h232"/></g>
+  <path d="M800 110v410" stroke="#c9a24a" stroke-width="3"/><circle cx="800" cy="360" r="22" fill="#fff6d0"/></g>
+<!-- the floor and the stair hatch -->
+<rect x="-1000" y="590" width="3600" height="900" fill="url(#grate)"/>
+<g id="stair"><ellipse cx="200" cy="700" rx="130" ry="36" fill="#141018"/><path d="M80 700q120 -60 240 0" stroke="#8a7a6a" stroke-width="6" fill="none"/><path d="M90 700v-90M310 700v-90M90 610q110 -40 220 0" stroke="#8a7a6a" stroke-width="6" fill="none"/></g>
+<!-- people -->
+<g id="naka" transform="translate(230 884) scale(.94)"></g>
+<g id="buli" class="hot" transform="translate(470 880) scale(1.08)"></g>
+<g id="chair"><path d="M1040 840V600q0 -40 40 -40h120q40 0 40 40v240z" fill="#7a2a2a"/></g>
+<g id="philippa" class="hot" transform="translate(1140 846) scale(.98)"></g>
+<g id="chairf"><rect x="1030" y="730" width="220" height="44" rx="12" fill="#8a3a3a"/><rect x="1016" y="690" width="40" height="150" rx="14" fill="#6a2222"/><rect x="1224" y="690" width="40" height="150" rx="14" fill="#6a2222"/><rect x="1056" y="774" width="168" height="66" fill="#7a2a2a"/></g>
+<g id="stool"><path d="M1040 746L950 756" stroke="#3a3f4a" stroke-width="24" stroke-linecap="round"/><rect x="880" y="770" width="110" height="20" rx="4" fill="#6a4a2a"/><path d="M890 790v60M980 790v60" stroke="#4a3a2a" stroke-width="8"/><path d="M890 768q20 -30 60 -28q30 2 30 14q-20 10 -90 14z" fill="#f2efe8"/><path d="M900 760h70" stroke="#c9c4bc" stroke-width="3"/></g>
+<g id="sanu" class="hot" transform="translate(1400 880) scale(.84)"></g>
+<g id="cat" class="hot" transform="translate(700 840)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="pbook" id="pbook">&#9776;&nbsp; Phrasebook</button>
+<div class="done" id="done">
+  <div class="okstamp">Understood</div>
+  <p id="d-time"></p><p id="d-hints"></p><p id="d-words"></p>
+  <h6>What you now know</h6>
+  <ol>
+    <li>You can work out a language from examples: compare sentences that differ in one place, find the piece that changed, and test it on a new sentence.</li>
+    <li>Languages put words in different orders. English is subject-verb-object; Isuvo, Japanese and Korean put the verb last. Most of the world&rsquo;s languages are SOV or SVO.</li>
+    <li>An ending or a particle can show who did what to whom. Then the words can move and the meaning stays the same.</li>
+    <li>Plurals differ: English says &ldquo;two eggs&rdquo;, but Isuvo and Turkish drop the plural after a number, and in Mandarin Chinese most nouns never change at all.</li>
+    <li>Many languages, like Japanese, Korean and Isuvo, build politeness into the verb. English uses extra words, such as &ldquo;please&rdquo;.</li>
+    <li>Words are made of morphemes: roots, prefixes and suffixes (un-break-able); a compound joins two roots (light-house). Not every bit that looks like a piece is one (carpet).</li>
+    <li>A false friend looks like a word you know and means something else. On Isu, a pea is an egg.</li>
+  </ol>
+  <div class="row"><button type="button" class="btn" id="b-task">Tell a friend</button><button type="button" class="btn" id="b-tari">The fisherman&rsquo;s words</button><button type="button" class="btn" id="b-book">Notebook</button><button type="button" class="btn" id="b-lobby">Back to the dictionary</button></div>
+  <small>The Verb Comes Last &middot; <button type="button" id="b-reset">play it again from the start</button></small>
+</div>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="pb.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, iv = PB.iv;
+
+  $('#buli').innerHTML = PB.who('buli', { smile: 6 });
+  $('#philippa').innerHTML = PB.who('philippa', { extra: '<rect x="20" y="-150" width="30" height="40" rx="3" fill="#2a4a7a"/><path d="M-30 -140h26v-12h-26z" fill="#f2efe8"/>' });
+  $('#sanu').innerHTML = PB.who('sanu', { extra: '<g transform="rotate(-8)"><rect x="-30" y="-176" width="56" height="70" fill="#fbf6e8" stroke="#c9bfa8"/><path d="M-22 -164h40M-22 -154h34M-22 -144h40M-22 -134h30" stroke="#8a8a8a" stroke-width="2"/></g>' });
+  $('#naka').innerHTML = PB.who('nakashima', { smile: 7 });
+  $('#cat').innerHTML = PB.cat();
+
+  ER.init({
+    theme: 'lang', story: 'phrasebook', storyTitle: 'The Verb Comes Last', id: 'lighthouse', no: 'V', title: 'The Lighthouse',
+    go: 'Climb the stairs',
+    intro: [
+      'Naso&rsquo;s blackboard came apart into pieces you knew: ' + iv('lamo|do|su tira|li|ko zuli|ka|ne') + ', she fell on the lighthouse&rsquo;s stairs; ' + iv('podo duma|ne') + ', her foot hurts (and ' + iv('podo') + ' is one piece, not two); ' + iv('kalo|vi mo|ari|ne') + ', she is not coming to the boat.',
+      'The path up the headland is steep and the wind is getting up. The lighthouse door is open, and from somewhere high above you comes the sound of somebody laughing.'
+    ],
+    exit: {"last":true,"rooms":5,"stars":3}, tags: {"ty":["ac4bd4f5"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('e-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('e-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#philippa').classList.toggle('ready', !told.phil);
+    $('#buli').classList.toggle('ready', !!(told.phil && !told.thanks));
+    $('#scene').classList.toggle('naka', !!told.in);
+    $('#scene').classList.toggle('over', !!told.thanks);
+  }
+  function hints() {
+    if (told.thanks) return null;
+    if (ty && ty.isOpen()) return ['ty', ['Buli is the one who did the helping, so he is not in the sentence (you are talking to him). Lukahemi is the one who was helped.', 'The one who was helped has <em>-ta</em>. And Buli is old: the verb needs the polite ending, after the past one.']];
+    if (!told.phil) return ['phil', ['Philippa is in the armchair on the right, with her foot up. Talk to her.']];
+    return ['buli', ['Philippa wants you to thank Buli, the keeper. He is on the left, by the stairs. Click him.']];
+  }
+  function begin() {
+    paint();
+    if (told.thanks) { busy = false; finish(true); return; }
+    if (told.in) { busy = false; ER.say('The lamp room at the top of the lighthouse, and the sun going down.'); return; }
+    tell('in'); paint();
+    ER.narrate([
+      'A hundred and twelve stairs, round and round, and at the top, the lamp room: glass all round, the great lens in the middle, and the whole sea on fire with the evening.',
+      'Philippa Whitaker is sitting in the keeper&rsquo;s armchair with her foot up on a stool and a wet cloth round her ankle. She has a cup of tea, and she looks extremely pleased with herself.',
+      'The keeper, very old and very tall, has to bend his head under the lamp. A girl in a yellow jumper is holding a sheaf of torn pages against her chest. And the cat is here. Of course the cat is here.',
+      'Behind you, on the stairs, Mrs Nakashima arrives, pink and out of breath, still holding her knitting.'
+    ], function () { busy = false; });
+  }
+
+  $('#philippa').addEventListener('click', function () {
+    if (busy) return;
+    if (told.thanks) { ER.say('&ldquo;Page forty-one,&rdquo; says Philippa, writing in the back of her phrasebook. &ldquo;I shall have to do it all again. I don&rsquo;t mind at all.&rdquo;'); return; }
+    ER.talk({
+      who: 'Philippa Whitaker', role: 'Retired teacher · author of a phrasebook', face: PB.face('philippa', 'smile'),
+      lines: [
+        { a: '&ldquo;There you are. I knew it would be you. You were the only person on that ferry who was reading anything.&rdquo;' },
+        { q: 'Are you all right?', a: '&ldquo;I went up those stairs eight hundred times last summer. After lunch today I went up them for the eight hundred and first time, and came down the last six without touching them.&rdquo; She waves at her ankle. &ldquo;Twisted, not broken. Buli has looked at it, and Buli has mended every twisted ankle on Isu for sixty years.&rdquo;' },
+        { q: 'Why didn&rsquo;t you send a message?', a: '&ldquo;I did! Sanu ran down to the school, and Naso wrote it on the board. Tari went down to the quay and told the captain, four times. Everybody on Isu has been telling you all afternoon.&rdquo; She smiles. &ldquo;Nobody on the ferry could read it. Until now.&rdquo;' },
+        { q: 'Why did you tear out the word list?', a: '&ldquo;I promised it to Sanu last summer. She wants to learn English, and she needs it more than you did. You had the sentences. A word list tells you what a word means. Sentences tell you how a language works.&rdquo;' },
+        { note: 'She looks at the notes you have written in the back of her phrasebook.', a: '&ldquo;You have made your own word list. Of course you have.&rdquo;' },
+        { a: '&ldquo;Now. Buli carried me up the last of those stairs, and he has made tea for everybody. Thank him for me, properly. In Isuvo there is no word for thank you: you say what the person did for you. <span class="iv">Haru</span> is help.&rdquo;' }
+      ],
+      clue: { id: 'phil', title: 'Philippa, at the top of the lighthouse', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('phil')) { paint(); ER.say('Thank Buli for helping Lukahemi. Politely: he is the oldest person on Isu.'); } }
+    });
+  });
+  $('#sanu').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Sanu', role: 'Eleven · holding the torn pages', face: PB.face('sanu', 'smile'),
+      lines: [
+        { note: 'She has two plaits and a yellow jumper, and she holds the word list against her chest as if somebody might take it back. She speaks in English, slowly, a word at a time, the way she has worked it out from the pages.', a: '&ldquo;You Philippa found!&rdquo;' },
+        { a: '&ldquo;Philippa stairs on fell. Philippa foot hurts. Philippa boat to not comes.&rdquo;' },
+        { note: 'Philippa laughs. &ldquo;English words, Isuvo order. That is what everybody does at first, in every language. The words come quickly. The order takes years.&rdquo;' },
+        { a: '&ldquo;I English learn. Next summer, I you English speak.&rdquo; She thinks. &ldquo;Better.&rdquo;' }
+      ],
+      clue: { id: 'sanu', title: 'Sanu: English words, Isuvo order', kind: 'What she said' },
+      done: function (seen) { if (seen) tell('sanu'); }
+    });
+  });
+  $('#cat').addEventListener('click', function () { if (busy) return; PB.sfx.mew(); ER.say('Pesahiba has climbed a hundred and twelve stairs for the chance of a fish. It is sitting by the lamp, looking at the sea as if it owned it.'); });
+  PB.thing('#lens', 'lens', 'The great lens: rings of glass, taller than a man, that turn a small lamp into a light you can see twenty miles out at sea.', isBusy);
+  PB.thing('#stair', null, 'The spiral stairs go down and down. A hundred and twelve of them. You counted.', isBusy);
+
+  var P40 = '<h4>A Pocket Phrasebook of Isuvo &middot; page 40</h4><h3>Why I wrote this book</h3>' +
+    '<p>About 7,000 languages are spoken in the world today. Roughly four in ten of them are <b>endangered</b>: fewer and fewer children are learning them, and when the last speakers die, the language goes too.</p>' +
+    '<p>Isuvo has about three hundred speakers, and every child on Isu still learns it first. It is not in danger yet. But nobody had ever written it down.</p>' +
+    '<p>A language is not a list of words. It is a set of rules that three hundred people carry in their heads without knowing that they do. This book is my try at writing some of them down, for whoever comes next.</p>' +
+    '<p class="rule">The word list follows. <span class="hand">P.W.</span></p><p class="pg">40</p>';
+  $('#pbook').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: P40, cls: 'pb', clue: { id: 'p40', title: 'Phrasebook, page 40: why I wrote this book', kind: 'Phrasebook' }, done: function () { PB.terms(['endangered language', 'grammar']); tell('p40'); } });
+  });
+
+  /* ---------- thank Buli: an easy last step ---------- */
+  var ty = null;
+  var TY = /*isuvo*/['Lukahemi harukane.', 'Lukahemita harukane.', 'Lukahemita haruka.'];
+  $('#buli').addEventListener('click', function () {
+    if (busy) return;
+    if (told.thanks) { ER.say('Buli pours more tea. He is smiling into his beard.'); return; }
+    if (!told.phil) {
+      ER.talk({
+        who: 'The keeper', role: 'The lighthouse of Isu', face: PB.face('buli', 'smile'),
+        lines: [
+          { note: 'He looks at you, and at the cat, which has somehow got here before you.', a: '&ldquo;' + iv('Kesa. Lapita volane?') + '&rdquo;' },
+          { note: 'He pours tea for you and for Mrs Nakashima without waiting for an answer, exactly as Hova did. He taps his chest: &ldquo;' + iv('Buli') + '.&rdquo; Then he nods towards Philippa, in the armchair.' }
+        ],
+        clue: { id: 'buli', title: 'Buli, the keeper', kind: 'At the lighthouse' }
+      });
+      return;
+    }
+    if (!ty) ty = makeTy();
+    ty.open();
+  });
+  function makeTy() {
+    var box = ER.el('div', 'ty'), wait = false;
+    box.innerHTML = '<h4>Thank Buli, in Isuvo</h4><p>Philippa: &ldquo;Say what he did. He helped Lukahemi. <span class="iv">Haru</span> is help.&rdquo; Which do you say?</p>' +
+      TY.map(function (t, i) { return '<button type="button" class="op" data-o="' + 'abc'.charAt(i) + '">' + iv(t) + '</button>'; }).join('') + '<p class="pmsg"></p>';
+    var msgEl = box.querySelector('.pmsg');
+    ER.$$('.op', box).forEach(function (b) {
+      b.addEventListener('click', function () {
+        if (wait) return;
+        var o = b.getAttribute('data-o');
+        if (ER.check('ty', o)) {
+          wait = true; told.thanks = 1; ER.flag('e-told', told); PB.solved();
+          msgEl.innerHTML = ER.gloss('(You) helped Lukahemi: <span class="iv">Lukahemi-ta haru-ka-ne</span>. Buli bows, very slowly, all the way down.');
+          setTimeout(ending, 2200);
+          return;
+        }
+        ER.sfx.no(); ER.shake(b);
+        msgEl.innerHTML = ER.gloss(o === 'a' ? 'Buli looks puzzled, and Philippa laughs. &ldquo;You have just told him that I helped. Who had the helping done to her?&rdquo;' : 'Buli&rsquo;s eyebrows go up. &ldquo;Plain,&rdquo; says Philippa, &ldquo;to a man of ninety. Try again, nicely.&rdquo;');
+      });
+    });
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+
+  function ending() {
+    ER.closeAll(); busy = true; paint();
+    ER.narrate([
+      'Sanu claps. Mrs Nakashima claps, with the knitting needles. Buli pours everybody more tea.',
+      'Down below, a small boat is coming round the headland: the Shearwater&rsquo;s boat, with Captain Brennan at the tiller and Mr Kaplan in the front, holding on with both hands. It bumps against the lighthouse jetty.',
+      'It takes Buli, Sanu, Mrs Nakashima and you to get Philippa down a hundred and twelve stairs. She talks the whole way down, in two languages.',
+      'At the bottom, Tari is waiting with his blue boat as well, in case. When he sees you, he points at his own foot, then at Philippa&rsquo;s, and raises his eyebrows. Did you understand, in the end?',
+      'You say it back to him, exactly as he said it to you at two o&rsquo;clock: &ldquo;' + iv('Lukahemi lamodoko dabine. Podo dumane.') + '&rdquo; Lukahemi is at the lighthouse. Her foot hurts.',
+      'Tari laughs until he has to sit down on the jetty.',
+      'At ten to six the Shearwater backs out of the harbour of Isu with every passenger on board and the tide still on her side. Philippa sits on deck with her foot up, writing in the back of her phrasebook. &ldquo;Page forty-one,&rdquo; she says. &ldquo;Again.&rdquo;'
+    ], function () { busy = false; finish(false); });
+  }
+
+  /* ---------- the end ---------- */
+  function finish(quick) {
+    var st = ER.state(), mins = PB.minutesPlayed(), hn = ER.hintsUsed();
+    PB.mine('tari2', 'What the fisherman said, read at last', '<p>' + iv('Lukahemi lamodoko dabine.') + '</p><p>luka|hemi lamo|do|ko dabi|ne: book woman, light-house-at, is (polite). Lukahemi is at the lighthouse.</p><p>' + iv('Podo dumane.') + '</p><p>podo duma|ne: foot hurts (polite). Her foot hurts.</p><p>He told us at two o&rsquo;clock.</p>', true);
+    $('#d-time').textContent = 'From the quay to the top of the lighthouse: ' + mins + (mins === 1 ? ' minute.' : ' minutes.');
+    $('#d-hints').textContent = hn ? 'Hints asked for: ' + hn + '.' : 'Hints asked for: none at all.';
+    $('#d-words').textContent = 'In your notebook: ' + st.clues.length + ' clues and ' + Object.keys(st.words).length + ' words.';
+    $('#done').classList.add('on');
+    if (quick) ER.say('The Shearwater is home, and Philippa is writing her word list again.');
+  }
+  $('#b-tari').addEventListener('click', function () {
+    var W = [['Luka|hemi', 'book woman'], ['lamo|do|ko', 'light-house-at'], ['dabi|ne', 'is (polite)'], ['Podo', 'foot'], ['duma|ne', 'hurts (polite)']];
+    ER.read({ html: '<h4>What the fisherman said at two o&rsquo;clock</h4><p>' + iv('Lukahemi lamodoko dabine. Podo dumane.') + '</p><p>' +
+      W.map(function (w) { return '<span class="gl"><!--nogloss--><b>' + w[0] + '</b><!--/nogloss--><small>' + w[1] + '</small></span>'; }).join('') + '</p>' +
+      '<p>&ldquo;Lukahemi is at the lighthouse. Her foot hurts.&rdquo;</p><p>He said it to the captain four times, very slowly and very kindly. Mr Kaplan heard &ldquo;foot&rdquo; and decided she had gone on foot. Everything you needed was in the first two sentences you heard.</p>', cls: 'pb' });
+  });
+  $('#b-book').addEventListener('click', ER.notebook);
+  $('#b-lobby').addEventListener('click', function () { ER.leave('../index.html'); });
+  $('#b-reset').addEventListener('click', function () {
+    var b = $('#b-reset');
+    if (b.getAttribute('data-sure')) { ER.resetStory(); location.href = '../index.html'; return; }
+    b.setAttribute('data-sure', '1'); b.textContent = 'this empties your notebook. click again to do it';
+  });
+  $('#b-task').addEventListener('click', function () {
+    var saved = ER.flag('task') || {}, box = ER.el('div', 'rp');
+    box.innerHTML = '<h4>The Verb Comes Last &middot; in your own words</h4><h3>Tell a friend</h3>' +
+      '<p>A friend asks how you could read a language that nobody taught you. Choose ONE of these and explain it, aloud or in writing, in 60 to 90 words. Use: first, then, because, so.</p>' +
+      '<p><b>A</b> How you worked out one Isuvo word or ending (for example <span class="iv">-ta</span>, <span class="iv">-vi</span> or <span class="iv">pea</span>): what you compared, and what rule you found.<br><b>B</b> How word order works in English and in Isuvo, with one example sentence in each, and where your own language puts the verb.<br><b>C</b> Philippa says that a word list tells you what a word means, but sentences tell you how a language works. Do you agree? Give a reason.</p>' +
+      '<textarea id="r1"></textarea><div class="count"></div><label for="r2">Name</label><input type="text" id="r2" maxlength="60">' +
+      '<div class="foot"><span>Nobody marks this. It is saved in this browser as you write.</span><button type="button" class="btn" id="r-print">Print</button><button type="button" class="btn" id="r-done">Done</button></div>';
+    ER.glossIn(box, '.rp > p');
+    box.querySelector('#r1').value = saved.r1 || ''; box.querySelector('#r2').value = saved.r2 || '';
+    function keep() {
+      var o = { r1: box.querySelector('#r1').value, r2: box.querySelector('#r2').value }, n = (o.r1.match(/[A-Za-z’']+/g) || []).length;
+      box.querySelector('.count').textContent = n + (n === 1 ? ' word' : ' words');
+      ER.flag('task', o);
+    }
+    box.addEventListener('input', keep);
+    box.addEventListener('keydown', function (e) { e.stopPropagation(); });
+    box.querySelector('#r-print').addEventListener('click', function () { keep(); window.print(); });
+    box.querySelector('#r-done').addEventListener('click', ER.close);
+    ER.open('ov-report', box); keep();
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>First Light · Where's It To?</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lang.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="ac.css">
+<style>
+  body{--bg:#e8a888;--accent:#e8574a;--font-display:'Old Standard TT',serif;--font-ui:'Outfit',sans-serif;--font-body:'Gentium Book Plus',serif;
+    --tc-bg:rgba(252,242,232,.97);--tc-ink:#2a2230;--cap-bg:rgba(252,244,236,.96);--cap-ink:#2a2230;--panel:#fcf6ee;--panel-ink:#2a2230;--face-bg:#2f7a7a;--q-ink:#a3461e;
+    --fade:#fbe8d8;--hud-bg:rgba(252,244,236,.88);--hud-ink:#2a2230;--hud-line:rgba(42,34,48,.3);--ov-bg:rgba(40,24,30,.55)}
+  .tc-room{font-size:clamp(40px,6vw,84px);color:#c0502e}
+  .tc-theme{color:#7a4a8a}
+  .hbtn b{color:#fff}
+  #sun{animation:sun 40s ease-out forwards}
+  @keyframes sun{from{transform:translate(0,60px)}to{transform:translate(0,0)}}
+  #bird{animation:bob 3s steps(2,end) infinite}
+  @keyframes bob{50%{transform:translate(0,-3px)}}
+  #lampon{animation:lampoff 12s ease-in forwards}
+  @keyframes lampoff{to{opacity:0}}
+  #ripple ellipse{animation:rip 4s ease-out infinite;transform-box:fill-box;transform-origin:50% 50%}
+  @keyframes rip{from{transform:scale(.3);opacity:.8}to{transform:scale(1.4);opacity:0}}
+  .done{left:2.2vw;right:auto}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a5a9a"/><stop offset=".4" stop-color="#d88aa0"/><stop offset=".7" stop-color="#f6b884"/><stop offset="1" stop-color="#fbe2b0"/></linearGradient>
+  <linearGradient id="stone" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c8b8a8"/><stop offset="1" stop-color="#9a8a80"/></linearGradient>
+  <radialGradient id="sung" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fff2c0" stop-opacity=".9"/><stop offset="1" stop-color="#fff2c0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="45%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".75" stop-color="#3a1a20" stop-opacity=".08"/><stop offset="1" stop-color="#3a1a20" stop-opacity=".35"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1000" fill="url(#sky)"/>
+<g id="sun"><circle cx="1180" cy="420" r="160" fill="url(#sung)"/><circle cx="1180" cy="420" r="54" fill="#fff0c0"/></g>
+<!-- the city -->
+<path d="M-1000 470H120v-60h40v-30h30v30h50v80h70v-120h20l10 -30 10 30h20v120h90v-50h60v50h120v-90l40 -40 40 40v90h140v-70h50v70h110v-40h80v40h120v-100h30v-20h20v20h30v100h140v-60h60v60H2600v300H-1000z" fill="#6a5a7a" opacity=".85"/>
+<g fill="#ffe2a0" opacity=".7"><rect x="350" y="400" width="8" height="10"/><rect x="900" y="420" width="8" height="10"/><rect x="1260" y="400" width="8" height="10"/></g>
+<!-- the Rennie Building -->
+<g><rect x="-400" y="120" width="560" height="560" fill="#b8a898"/><g fill="#8a7a70"><rect x="-300" y="200" width="70" height="110"/><rect x="-160" y="200" width="70" height="110"/><rect x="-20" y="200" width="70" height="110"/><rect x="-300" y="380" width="70" height="110"/><rect x="-160" y="380" width="70" height="110"/><rect x="-20" y="380" width="70" height="110"/></g>
+  <g fill="#e8d8c0"><rect x="-20" y="200" width="70" height="110" opacity=".5"/></g>
+  <rect x="60" y="520" width="120" height="160" fill="#5a4a40"/><rect x="20" y="470" width="150" height="34" fill="#e8dcc8" stroke="#5a4a40" stroke-width="2"/><text x="95" y="493" class="cO" font-size="15" font-weight="700" text-anchor="middle" fill="#5a4a40" letter-spacing="1">RENNIE BUILDING</text></g>
+<!-- the lamp post -->
+<g><path d="M1360 700V420" stroke="#2a2a30" stroke-width="10"/><path d="M1340 420h40l-6 -30h-28z" fill="#2a2a30"/><circle id="lampon" cx="1360" cy="420" r="40" fill="#ffe2a0" opacity=".7"/></g>
+<!-- railings and the blackbird -->
+<path d="M180 640H1600M180 600H1600" stroke="#2a2a30" stroke-width="5"/><g stroke="#2a2a30" stroke-width="4"><path d="M220 600v80M300 600v80M380 600v80M1060 600v80M1140 600v80M1220 600v80M1300 600v80M1440 600v80M1520 600v80"/></g>
+<g id="bird" class="hot"><path d="M1196 600q-4 -20 14 -24q14 0 16 12l12 2 -12 4q-6 10 -22 8z" fill="#1a1a1e"/><path d="M1224 590l10 2" stroke="#f2a020" stroke-width="3"/><circle cx="1218" cy="586" r="2" fill="#f2a020"/></g>
+<!-- the steps -->
+<g><rect x="-1000" y="680" width="3600" height="40" fill="url(#stone)"/><rect x="-1000" y="720" width="3600" height="50" fill="#b0a094"/><rect x="-1000" y="770" width="3600" height="60" fill="#a09084"/><rect x="-1000" y="830" width="3600" height="600" fill="#908078"/>
+  <path d="M-1000 720H2600M-1000 770H2600M-1000 830H2600" stroke="#7a6a62" stroke-width="3"/></g>
+<g id="ripple"><ellipse cx="1040" cy="860" rx="140" ry="16" fill="#e8b8a0" opacity=".6"/><ellipse cx="1040" cy="860" rx="40" ry="5" fill="none" stroke="#fff" stroke-width="2"/></g>
+<ellipse cx="1040" cy="860" rx="150" ry="18" fill="#f2c8a8" opacity=".5"/>
+<!-- the radio on the step -->
+<g id="radio" class="hot"><rect x="700" y="732" width="120" height="58" rx="10" fill="#c8b07a" stroke="#6a5a3a" stroke-width="3"/><circle cx="734" cy="762" r="20" fill="#6a5a3a"/><rect x="764" y="746" width="44" height="14" rx="3" fill="#2a2a20"/><rect x="780" y="749" width="5" height="8" fill="#ff8a2a"/><path d="M808 732l18 -40" stroke="#4a4a4a" stroke-width="3"/></g>
+<g id="petra" class="hot" transform="translate(560 900) scale(1.02)"></g>
+<g id="nia" class="hot" transform="translate(940 904) scale(1.0)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<div class="done" id="done">
+  <div class="okstamp">FOUND SAFE</div>
+  <p id="d-time"></p><p id="d-hints"></p><p id="d-words"></p>
+  <h6>What you now know</h6>
+  <ol>
+    <li>An accent is the way you pronounce words; a dialect is your accent plus your own words and grammar. Everyone has an accent, no accent is wrong, and Standard English is a dialect too.</li>
+    <li>Spelling hides sounds, so phoneticians use the IPA: one symbol for one sound, like <span class="ipa">/θ/</span> in think, <span class="ipa">/ð/</span> in this, <span class="ipa">/ʃ/</span> in ship and <span class="ipa">/ʔ/</span>, the glottal stop.</li>
+    <li>Rhotic speakers say the r in &ldquo;car&rdquo;; the south of England says &ldquo;bath&rdquo; with a long <span class="ipa">/ɑː/</span> and the north with a short <span class="ipa">/æ/</span>; many English accents drop h; the glottal stop for t is heard all over Britain. These are tendencies, not rules.</li>
+    <li>No single clue places a speaker, and words travel more easily than accents: &ldquo;wee&rdquo; came from Shona&rsquo;s dad and &ldquo;fall&rdquo; from her son&rsquo;s cartoons.</li>
+    <li>British and American English differ in words (pavement and sidewalk, rubbish and trash, autumn and fall) and in spelling (colour and color).</li>
+    <li>Language changes: meanings shift, new words arrive, and three generations of one family can have three words for one thing. Dialects keep old words, like the West Country &ldquo;lake&rdquo; for a stream.</li>
+    <li>Speech wears place names down while the spelling stays the same: Woolfardisworthy is &ldquo;Woolsery&rdquo;, and Hennardisworthy is &ldquo;Hensey&rdquo;.</li>
+  </ol>
+  <div class="row"><button type="button" class="btn" id="b-task">Tell a friend</button><button type="button" class="btn" id="b-call">Shona&rsquo;s call, read at last</button><button type="button" class="btn" id="b-book">Notebook</button><button type="button" class="btn" id="b-lobby">Back to the stories</button></div>
+  <small>Where&rsquo;s It To? &middot; <button type="button" id="b-reset">play it again from the start</button></small>
+</div>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="ac.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {};
+
+  $('#petra').innerHTML = AC.who('petra', { smile: 6, extra: '<path d="M-60 -150q20 -10 30 6" stroke="#3f6b4f" stroke-width="14" fill="none" stroke-linecap="round"/>' });
+  $('#nia').innerHTML = AC.who('nia', { smile: 8, mug: '#f2c94c' });
+
+  ER.init({
+    theme: 'lang', story: 'accent', storyTitle: 'Where’s It To?', id: 'dawn', no: 'VI', title: 'First Light',
+    go: 'Go out on to the steps',
+    intro: [
+      'On the map of Cuckoo Down, four of Shona&rsquo;s clues left one crossing: Hayne Ford. Inside mast 14&rsquo;s circle; on the open moor, because she had crossed the grid; near Hennardisworthy, which locals wear down to &ldquo;Hensey&rdquo;; and on a stream, because in Nan&rsquo;s words, and Shona&rsquo;s, a &ldquo;lake&rdquo; is a stream.',
+      'At thirty-one minutes past three, the phone rang in the map library.'
+    ],
+    exit: {"last":true,"rooms":6,"stars":4}, tags: {},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('f-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('f-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() { $('#radio').classList.toggle('ready', !told.shona); }
+  function hints() {
+    if (!told.shona) return ['radio', ['The radio on the step: Shona is on Nightjar. Click it.']];
+    if (!told.nan) return ['nan', ['Click the radio again: somebody else wants to talk.']];
+    return null;
+  }
+  function begin() {
+    paint();
+    if (told.nan) { busy = false; finish(true); return; }
+    if (told.in) { busy = false; ER.say('The steps of the Rennie Building, and the radio.'); return; }
+    tell('in');
+    ER.narrate([
+      'Tamsin Rowe did not say hello. She said: &ldquo;Found. Safe. Cold, wet, cross and safe.&rdquo; Then she said thank you three times, and something about a pasty that nobody understood, and rang off.',
+      'Now it is five past six. The rain stopped at four, as promised. The three of you are sitting on the front steps of the Rennie Building with a radio, a flask, and no intention of going to bed.',
+      'The sky over the city is going pink. A blackbird on the railings is singing as if it has been asked to.',
+      'On the radio, Max Ingleby says: &ldquo;And before we go, one more call on line three. Shona, are you there?&rdquo;'
+    ], function () { busy = false; });
+  }
+
+  $('#radio').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.shona) {
+      ER.talk({
+        who: 'Shona', role: 'Line 3 · Nightjar, 06.05', face: AC.face('shona', 'smile'),
+        lines: [
+          { note: 'A laugh, a bit wobbly, and the sound of a kettle.', a: '&ldquo;I&rsquo;m here, Max. I&rsquo;m in Nan&rsquo;s kitchen in a dressing gown with three hot-water bottles. And I&rsquo;ve had a bath. A big hot bath.&rdquo;' },
+          { q: 'What happened?', a: '&ldquo;It was Hayne Ford, at the bottom of our lane. I go through it twice a day. There&rsquo;s always a little bit of water. Last night it was a river. The car floated, Max. It actually floated, and then it stuck against the wall, and the engine died, and my phone went in the water by my feet.&rdquo;' },
+          { q: 'How did you get out?', a: '&ldquo;Through the window, on to the bank, before it got any deeper. Then I walked up the hill to Nan&rsquo;s linhay, that&rsquo;s the old open shed for the sheep, and I sat in the straw with forty ewes. I knew nobody knew where I was. I hadn&rsquo;t even told you.&rdquo;' },
+          { q: 'And then?', a: '&ldquo;Half past three: lights on the lane. A fire engine with a boat on the back. A man shouted, &lsquo;Shona? You said you were going down to the lake!&rsquo; And I said, &lsquo;I was! I did!&rsquo;&rdquo; She laughs. &ldquo;He said some people at a university worked out that our lake is a stream. How did they know that?&rdquo;' },
+          { note: 'Max tells her. Her r, her long a, her missing h, her nan&rsquo;s grammar, her nan&rsquo;s words, and a village nobody can spell. Three people, a light table and a map.' },
+          { a: '&ldquo;Tell them thank you, Max. Tell them proper job.&rdquo;' }
+        ],
+        clue: { id: 'shona', title: 'Shona, at six in the morning', kind: 'On the radio' },
+        done: function (seen) { if (seen && tell('shona')) { paint(); ER.say('Somebody else is coming to the phone in Nan&rsquo;s kitchen.'); } }
+      });
+      return;
+    }
+    if (!told.nan) {
+      ER.talk({
+        who: 'Nan', role: 'Vera Spurway, 82 · on Shona&rsquo;s phone', face: AC.face('vera', 'smile'),
+        lines: [
+          { note: 'A new voice, slower, with every r in it and not one h.', a: '&ldquo;Where&rsquo;s they to, these clever people? I want to send them a pasty.&rdquo;' },
+          { a: '&ldquo;I had the kettle on and off since dimpsy, and it was black as your hat when she should have been home. I said to Robbie, she&rsquo;s stuck down the lake, I bet you anything. Course, nobody asked me.&rdquo;' },
+          { note: 'In the background, a boy&rsquo;s voice: &ldquo;Mom&rsquo;s car is IN the creek! That&rsquo;s so awesome!&rdquo; And Shona: &ldquo;It is NOT a creek, Robbie, it&rsquo;s a brook, and it is NOT awesome.&rdquo;' },
+          { a: '&ldquo;Three of us in this kitchen,&rdquo; says Nan, &ldquo;and three words for one bit of water. That&rsquo;s families for you.&rdquo;' }
+        ],
+        clue: { id: 'nan', title: 'Nan: nobody asked me', kind: 'On the radio' },
+        done: function (seen) { if (seen && tell('nan')) ending(); }
+      });
+      return;
+    }
+    ER.say('The radio is playing the news now. The floods are going down. A dog in Somerset has been rescued from a roof, very pleased with itself.');
+  });
+  $('#petra').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(told.nan ? '&ldquo;Never one clue alone,&rdquo; says Petra, with her eyes closed and her face in the sun. &ldquo;And always ask Nan.&rdquo;' : '&ldquo;Shh,&rdquo; says Petra, smiling at the radio.');
+  });
+  $('#nia').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(told.nan ? '&ldquo;Three generations, one stream,&rdquo; says Nia. &ldquo;I&rsquo;m putting that family in my thesis. With permission. And a pasty.&rdquo;' : 'Nia is holding the flask with both hands and grinning at the radio.');
+  });
+  AC.thing('#bird', 'blackbird', 'A blackbird, singing on the railings. People say birds in different places sing with different accents. That one sounds like it&rsquo;s from round here.', isBusy);
+
+  function ending() {
+    busy = true;
+    ER.narrate([
+      'Max says goodbye, and Nightjar plays its last record, and the six o&rsquo;clock news begins.',
+      'Petra stretches. &ldquo;On the radio I guess where people are from for fun,&rdquo; she says. &ldquo;Tonight I didn&rsquo;t guess once. We listened, we wrote it down, we checked it, and we never trusted one clue alone.&rdquo;',
+      '&ldquo;And we asked whose word it was,&rdquo; says Nia.',
+      'The sun comes up over the city, all at once, the way it does after rain. Somewhere on a moor a long way off, a car is sitting in a brook that is going down, and forty ewes are wondering where their visitor went.'
+    ], function () { busy = false; finish(false); });
+  }
+
+  function finish(quick) {
+    var st = ER.state(), mins = AC.minutesPlayed(), hn = ER.hintsUsed();
+    $('#d-time').textContent = 'From the booth to the steps: ' + mins + (mins === 1 ? ' minute.' : ' minutes.');
+    $('#d-hints').textContent = hn ? 'Hints asked for: ' + hn + '.' : 'Hints asked for: none at all.';
+    $('#d-words').textContent = 'In your notebook: ' + st.clues.length + ' clues and ' + Object.keys(st.words).length + ' words.';
+    $('#done').classList.add('on');
+    if (quick) ER.say('Shona is home, and the floods are going down.');
+  }
+  $('#b-call').addEventListener('click', function () { AC.call(); });
+  $('#b-book').addEventListener('click', ER.notebook);
+  $('#b-lobby').addEventListener('click', function () { ER.leave('../index.html'); });
+  $('#b-reset').addEventListener('click', function () {
+    var b = $('#b-reset');
+    if (b.getAttribute('data-sure')) { ER.resetStory(); location.href = '../index.html'; return; }
+    b.setAttribute('data-sure', '1'); b.textContent = 'this empties your notebook. click again to do it';
+  });
+  $('#b-task').addEventListener('click', function () {
+    var saved = ER.flag('task') || {}, box = ER.el('div', 'rp');
+    box.innerHTML = '<h4>Where&rsquo;s It To? &middot; in your own words</h4><h3>Tell a friend</h3>' +
+      '<p>Choose ONE and explain it, aloud or in writing, in 60 to 90 words. Use: because, so, but, on its own.</p>' +
+      '<p><b>A</b> How Shona was found. Give at least three of her clues in order, and say why no single clue was enough.<br>' +
+      '<b>B</b> Your own accent and dialect. Describe one sound, one word and one piece of grammar from where you live (in Korean or in English), and say how a stranger might notice them.<br>' +
+      '<b>C</b> &ldquo;Schools should teach everybody to speak with the same accent.&rdquo; Do you agree? Give a reason, and answer one argument on the other side.</p>' +
+      '<textarea id="r1"></textarea><div class="count"></div><label for="r2">Name</label><input type="text" id="r2" maxlength="60">' +
+      '<div class="foot"><span>Nobody marks this. It is saved in this browser as you write.</span><button type="button" class="btn" id="r-print">Print</button><button type="button" class="btn" id="r-done">Done</button></div>';
+    ER.glossIn(box, '.rp > p');
+    box.querySelector('#r1').value = saved.r1 || ''; box.querySelector('#r2').value = saved.r2 || '';
+    function keep() {
+      var o = { r1: box.querySelector('#r1').value, r2: box.querySelector('#r2').value }, n = (o.r1.match(/[A-Za-z’']+/g) || []).length;
+      box.querySelector('.count').textContent = n + (n === 1 ? ' word' : ' words');
+      ER.flag('task', o);
+    }
+    box.addEventListener('input', keep);
+    box.addEventListener('keydown', function (e) { e.stopPropagation(); });
+    box.querySelector('#r-print').addEventListener('click', function () { keep(); window.print(); });
+    box.querySelector('#r-done').addEventListener('click', ER.close);
+    ER.open('ov-report', box); keep();
+  });
+})();
+</script>
+</body>
+</html>

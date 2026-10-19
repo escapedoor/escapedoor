@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Attic · Nobody Here Can Read This</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lang.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="sc.css">
+<style>
+  body{--bg:#2a1a12;--accent:#f2a24a;--font-display:'Cinzel',serif;--font-ui:'Outfit',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(36,22,14,.96);--tc-ink:#fbecd8;--cap-bg:rgba(36,22,14,.94);--cap-ink:#fbecd8;--panel:#fbf3e6;--panel-ink:#2a1a12;--face-bg:#6a3a1a;--q-ink:#f2a24a;
+    --fade:#140a06;--hud-bg:rgba(36,22,14,.84);--hud-ink:#fbecd8;--hud-line:rgba(251,236,216,.3);--ov-bg:rgba(16,8,4,.66)}
+  .tc-room{font-size:clamp(40px,6vw,84px);color:#f2a24a}
+  .tc-theme{color:#f6d6a8}
+  .hbtn b{color:#2a1a12}
+  #dust circle{animation:dust 9s ease-in-out infinite}
+  #dust circle:nth-child(2n){animation-delay:-4s}
+  #dust circle:nth-child(3n){animation-delay:-2s}
+  @keyframes dust{50%{transform:translate(14px,-22px);opacity:.3}}
+  #agata{display:none}
+  #scene.agata #agata{display:inline}
+  .done{left:2.2vw;right:auto}
+  .done .hg{color:#8a3a2a}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="roofin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a100a"/><stop offset="1" stop-color="#4a2e1c"/></linearGradient>
+  <radialGradient id="winglow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffb860" stop-opacity=".55"/><stop offset="1" stop-color="#ffb860" stop-opacity="0"/></radialGradient>
+  <pattern id="boards2" width="140" height="34" patternUnits="userSpaceOnUse"><rect width="140" height="34" fill="#5a3a24"/><path d="M0 33H140M90 0V34" stroke="#3a2416" stroke-width="2"/></pattern>
+  <radialGradient id="vig" cx="50%" cy="50%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".65" stop-color="#0a0402" stop-opacity=".2"/><stop offset="1" stop-color="#0a0402" stop-opacity=".75"/></radialGradient>
+</defs>
+<rect x="-1000" y="-500" width="3600" height="1100" fill="url(#roofin)"/>
+<!-- the slope of the roof and its beams -->
+<path d="M-1000 600L800 -40L2600 600z" fill="#3a2416"/>
+<g stroke="#24160c" stroke-width="26"><path d="M800 -40L-300 600M800 -40L1900 600"/></g>
+<g stroke="#2a1a10" stroke-width="18"><path d="M200 330H1400"/><path d="M380 260V600M1220 260V600"/></g>
+<!-- the round window and the streetlight through it -->
+<circle cx="800" cy="250" r="190" fill="url(#winglow)"/>
+<g id="win" class="hot"><circle cx="800" cy="250" r="86" fill="#d8803a"/><circle cx="800" cy="250" r="86" fill="none" stroke="#24160c" stroke-width="16"/><path d="M714 250H886M800 164V336" stroke="#24160c" stroke-width="9"/><circle cx="830" cy="230" r="10" fill="#ffe8b0"/></g>
+<g id="dust" fill="#ffd8a0" opacity=".5"><circle cx="760" cy="380" r="2.5"/><circle cx="820" cy="420" r="2"/><circle cx="790" cy="470" r="2.6"/><circle cx="850" cy="360" r="1.8"/><circle cx="730" cy="440" r="2"/></g>
+<!-- the floor -->
+<rect x="-1000" y="600" width="3600" height="900" fill="url(#boards2)"/>
+<!-- rolled posters and old boxes -->
+<g id="posters" class="hot"><g fill="#e8dcc0" stroke="#8a7a5a" stroke-width="2"><rect x="80" y="520" width="240" height="26" rx="13"/><rect x="100" y="494" width="220" height="26" rx="13"/><rect x="120" y="468" width="180" height="26" rx="13"/><rect x="60" y="546" width="270" height="26" rx="13"/></g>
+  <rect x="340" y="470" width="150" height="130" fill="#7a5a3a"/><rect x="340" y="470" width="150" height="20" fill="#5a3a24"/><text x="415" y="545" text-anchor="middle" font-family="Special Elite,monospace" font-size="16" fill="#e8d8b8">YOUNG</text><text x="415" y="565" text-anchor="middle" font-family="Special Elite,monospace" font-size="16" fill="#e8d8b8">SCRIBES</text></g>
+<!-- the trunk -->
+<g id="trunk"><rect x="1000" y="640" width="260" height="130" rx="10" fill="#6a3a22"/><rect x="1000" y="640" width="260" height="28" rx="10" fill="#7a4a2a"/><rect x="1120" y="660" width="20" height="26" fill="#c9a24a"/><path d="M1030 640v130M1230 640v130" stroke="#3a2010" stroke-width="6"/></g>
+<!-- the door, open -->
+<g><rect x="1440" y="300" width="170" height="320" fill="#ffd890" opacity=".85"/><path d="M1440 300l-60 30v300l60 -10z" fill="#4a2e1c"/></g>
+<!-- people -->
+<g id="elin" class="hot" transform="translate(1130 790) scale(1)"></g>
+<g id="agata" class="hot" transform="translate(1460 860) scale(1)"></g>
+<g id="delgado" class="hot" transform="translate(560 880) scale(1)"></g>
+<g id="szabo" class="hot" transform="translate(300 890) scale(.96)"></g>
+<g id="moreau" transform="translate(1340 870) scale(.98)"></g>
+<rect x="-1000" y="-500" width="3600" height="1900" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<div class="done" id="done">
+  <div class="okstamp">Read at last</div>
+  <p id="d-time"></p><p id="d-hints"></p><p id="d-words"></p>
+  <h6>What you now know</h6>
+  <ol id="know"></ol>
+  <div class="row"><button type="button" class="btn" id="b-task">Tell a friend</button><button type="button" class="btn" id="b-letter">The letter, read</button><button type="button" class="btn" id="b-book">Notebook</button><button type="button" class="btn" id="b-lobby">Back to the stories</button></div>
+  <small>Nobody Here Can Read This &middot; <button type="button" id="b-reset">play it again from the start</button></small>
+</div>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="sc.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, tl, hg = SC.hg;
+  $('#elin').innerHTML = SC.who('elin', { smile: 7, extra: '<path d="M-36 -110l-10 -60q30 -10 40 4z" fill="#e8dcc0"/>' });
+  $('#agata').innerHTML = SC.who('agata', { smile: 5 });
+  $('#delgado').innerHTML = SC.who('delgado', { smile: 8 });
+  $('#szabo').innerHTML = SC.who('szabo', { smile: 6 });
+  $('#moreau').innerHTML = SC.who('moreau', { smile: 6 });
+  $('#know').innerHTML = [
+    'Writing systems come in kinds, and counting the different signs in a long text tells you which: an alphabet has 20 to 40, an abjad writes only the consonants, an abugida changes one consonant shape with vowel marks, a syllabary has a sign for every syllable, and logographic writing has thousands.',
+    'A script can look like one you know and work quite differently: Cherokee signs look like English letters, but each one is a whole syllable.',
+    'Hangul is featural. Its consonants picture the mouth (' + hg('ㄱ ㄴ ㅁ ㅅ ㅇ') + '), an extra stroke means a stronger sound, the vowels are built from heaven, earth and person, and the letters are packed into syllable blocks. King Sejong finished it in 1443 and made it public in 1446.',
+    'If you count the blocks of a featural script, it looks like a syllabary with hundreds of signs. Count the letters inside the blocks instead: the simple rule of one sign, one sound can mislead.',
+    'Names are the way into an unknown script (Champollion&rsquo;s Ptolemy and Cleopatra, Ventris&rsquo;s Cretan towns), and a bilingual text is better still. In a script made by one person, one letter keeps one shape.',
+    'Not every sign is a sound: Linear B counted with upright strokes for ones and flat strokes for tens, and in English 4.30, &amp; and + are not letters either.',
+    'A rule about frequency (e is the commonest letter in English) works on a long text, not on a short letter full of names.'
+  ].map(function (t) { return '<li>' + t + '</li>'; }).join('');
+
+  ER.init({
+    theme: 'lang', story: 'script', storyTitle: 'Nobody Here Can Read This', id: 'attic', no: 'VI', title: 'The Attic',
+    go: 'Open the door',
+    intro: [
+      'In the education room you filled in the whole key. The names on the stone had given you eight shapes. The board from 1995, BEST FRIENDS with the English underneath, gave you more. The King&rsquo;s rules gave you the rest: the plain almond is M and the almond with two strokes is P, as ' + hg('ㅁ ㅂ ㅍ') + ' are m, b, p; the arch with a stroke is C; a dot above or below the earth curve makes O or U; and the girls&rsquo; own extra vowel is Y.',
+      'AGATA. I AM SORRY. I AM UP IN OUR ATTIC. Half past four. ELIN.',
+      'Mr Moreau finds the right key on the third try.'
+    ],
+    exit: {"last":true,"rooms":6,"stars":4}, tags: {},
+    hints: hints, onBegin: begin
+  });
+  tl = SC.tell('a-told');
+
+  function paint() {
+    $('#scene').classList.toggle('agata', !!tl.has('agata'));
+    $('#elin').classList.toggle('ready', !tl.has('elin'));
+    $('#agata').classList.toggle('ready', !!(tl.has('agata') && !tl.has('agtalk')));
+  }
+  function hints() {
+    if (tl.has('end')) return null;
+    if (!tl.has('elin')) return ['elin', ['Miss Lindahl is standing by the trunk on the right. Talk to her.']];
+    return ['agata', ['Somebody has just come up the stairs. Talk to her, by the door.']];
+  }
+  function begin() {
+    paint();
+    if (tl.has('end')) { busy = false; finish(true); return; }
+    if (tl.has('in')) { busy = false; ER.say('The attic, under the roof.'); return; }
+    tl.set('in');
+    ER.narrate([
+      'The door opens on a long low room under the roof, full of rolled posters and old boxes. Orange light from a streetlamp comes in through a round window.',
+      'By an old trunk under the window stands Miss Lindahl, in her green jumper, with a bundle of old children&rsquo;s drawings under her arm. She stops singing.',
+      '&ldquo;Gil!&rdquo; she says. &ldquo;Oh, thank goodness. Is it half past four yet?&rdquo;',
+      '&ldquo;It&rsquo;s half past five,&rdquo; says Mr Delgado, and sits down on the floor, quite suddenly, as if his legs had decided it for him.'
+    ], function () { busy = false; });
+  }
+
+  $('#elin').addEventListener('click', function () {
+    if (busy) return;
+    if (tl.has('end')) { ER.say('Miss Lindahl is counting everybody in the room. Twice.'); return; }
+    ER.talk({
+      who: 'Miss Elin Lindahl', role: 'English teacher · found', face: SC.face('elin', 'smile'),
+      lines: [
+        { a: '&ldquo;I&rsquo;m fine. Cold, and very embarrassed, and fine. The door clicked shut behind me at half past four, and it doesn&rsquo;t open from this side. I knocked until my hand hurt. Then I sang, so that I wouldn&rsquo;t feel silly. It didn&rsquo;t work.&rdquo;' },
+        { q: 'Why did you come up here?', a: '&ldquo;Agata and I came to the Young Scribes every Saturday when we were eleven. We found this attic through the bindery, and we met up here at half past four, when the club ended, to write notes in our script. Nobody else could read them. That was the point.&rdquo;' },
+        { q: 'And today?', a: '&ldquo;At lunch I saw her name on the staff board downstairs. We haven&rsquo;t spoken for thirty years. Then, in the gift shop, I thought: you are forty-two, Elin, be brave. I bought a notepad, went to her workshop, and there on her bench was our stone, from her mum&rsquo;s garden. So I wrote to her the only way that felt right.&rdquo;' },
+        { note: 'She looks at the letter, which Dr Szabo is holding out to her, still a little reluctantly.', a: '&ldquo;You read it? All of it?&rdquo; She laughs. &ldquo;We spent a whole summer making sure no grown-up could ever do that.&rdquo;' },
+        { q: 'Agata never saw it.', a: '&ldquo;No.&rdquo; She is quiet for a moment. &ldquo;No, she&rsquo;d gone. Of course she had.&rdquo;' }
+      ],
+      clue: { id: 'elin', title: 'Miss Lindahl, in the attic', kind: 'What she said' },
+      done: function (seen) {
+        if (!seen || tl.has('agata')) return;
+        tl.set('elin'); busy = true;
+        ER.narrate([
+          'Feet on the stairs: quick, light ones. A woman with dark hair coming down out of its bun stops in the doorway, out of breath, one hand on her cheek.',
+          '&ldquo;Barry rang me,&rdquo; she says, a little thickly. &ldquo;I came straight from the dentist. Half my face is asleep.&rdquo; She sees who is standing by the trunk. &ldquo;Elin.&rdquo;'
+        ], function () { busy = false; tl.set('agata'); paint(); });
+      }
+    });
+  });
+  $('#agata').addEventListener('click', function () {
+    if (busy) return;
+    if (tl.has('end')) { ER.say('Agata and Elin are sitting on the trunk, reading old notes, and laughing at their spelling.'); return; }
+    ER.talk({
+      who: 'Agata Marchetti', role: 'Conservator · half her face asleep', face: SC.face('agata', 'smile'),
+      lines: [
+        { note: 'Dr Szabo hands her the letter. She reads it in about two seconds, the way you read your own name.', a: '&ldquo;I am sorry,&rdquo; she reads aloud. &ldquo;Oh, Elin. So am I.&rdquo;' },
+        { q: 'What happened, thirty years ago?', a: '&ldquo;We were twelve. My family moved away, to Italy, and she promised to come to the station to say goodbye. She didn&rsquo;t come.&rdquo; &mdash; &ldquo;I couldn&rsquo;t,&rdquo; says Elin. &ldquo;I knew I&rsquo;d cry in front of everybody.&rdquo; &mdash; &ldquo;And I never wrote. So we were both stupid, for thirty years.&rdquo;' },
+        { q: 'Why did you go home today?', a: '&ldquo;I saw her name on the bookings and I panicked. I had a dentist&rsquo;s appointment I&rsquo;d been putting off for months, so I took it. Very brave of me.&rdquo; She shakes her head. &ldquo;I knew the stone was ours the moment I unpacked it. I was going to tell Ferenc on Monday.&rdquo;' },
+        { note: 'Dr Szabo coughs.', a: '&ldquo;Ferenc found out on Friday,&rdquo; says Dr Szabo, &ldquo;from a thirteen-year-old.&rdquo;' }
+      ],
+      clue: { id: 'agata', title: 'Agata Marchetti, at last', kind: 'What she said' },
+      done: function (seen) { if (seen) { tl.set('agtalk'); ending(); } }
+    });
+  });
+  SC.thing('#win', null, 'A round window, and the streetlamp outside it. From up here you can see the coach, and twenty-eight faces at its windows.', function () { return busy; });
+  SC.thing('#posters', null, 'Old posters, rolled up, and a box marked YOUNG SCRIBES. Inside: drawings, certificates, and notes in square signs that you can read now.', function () { return busy; });
+
+  function ending() {
+    if (tl.has('end')) return;
+    busy = true;
+    ER.narrate([
+      'Mr Moreau puts a wedge in the attic door, so that it can never shut on anybody again, and writes ATTIC in his notebook.',
+      'At five to six the coach pulls out of the car park with twenty-eight pupils on it, and two teachers, and every seat full. Miss Lindahl counts everybody twice. Kezia says &ldquo;told you&rdquo; to nobody in particular.',
+      'Agata stays behind with Dr Szabo, who has had an idea. He rings the photographer, and does not cancel. On Saturday at ten there will be a new case in the Hall of Signs: a garden stone, a letter, and a board from 1995, under a label that says &lsquo;A script made by two eleven-year-olds, and read by a thirteen-year-old&rsquo;.',
+      'On Monday, Miss Lindahl finds a note on her desk at school, folded very small. It is written in square signs. You know who sent it, and you can read it.'
+    ], function () { busy = false; tl.set('end'); finish(false); });
+  }
+  function finish(quick) {
+    var st = ER.state(), mins = SC.minutesPlayed(), hn = ER.hintsUsed();
+    $('#d-time').textContent = 'From the Hall of Signs to the attic: ' + mins + (mins === 1 ? ' minute.' : ' minutes.');
+    $('#d-hints').textContent = hn ? 'Hints asked for: ' + hn + '.' : 'Hints asked for: none at all.';
+    $('#d-words').textContent = 'In your notebook: ' + st.clues.length + ' clues and ' + Object.keys(st.words).length + ' words.';
+    $('#done').classList.add('on');
+    if (quick) ER.say('The attic, with a wedge in the door.');
+  }
+  $('#b-letter').addEventListener('click', function () {
+    ER.read({ html: '<h4>Elin&rsquo;s letter, read</h4>' + SC.letterDoc(560) + '<p>AGATA. &nbsp;I AM SORRY. &nbsp;I AM UP IN OUR ATTIC. &nbsp;(half past four) &nbsp;ELIN.</p><p>Written at about ten to four on museum notepaper, left on Agata&rsquo;s bench against their stone, found at ten past four by Dr Szabo, read at twenty-five past five by you.</p>', cls: 'sleeve' });
+  });
+  $('#b-book').addEventListener('click', ER.notebook);
+  $('#b-lobby').addEventListener('click', function () { ER.leave('../index.html'); });
+  $('#b-reset').addEventListener('click', function () {
+    var b = $('#b-reset');
+    if (b.getAttribute('data-sure')) { ER.resetStory(); location.href = '../index.html'; return; }
+    b.setAttribute('data-sure', '1'); b.textContent = 'this empties your notebook. click again to do it';
+  });
+  $('#b-task').addEventListener('click', function () {
+    var saved = ER.flag('task') || {}, box = ER.el('div', 'rp');
+    box.innerHTML = '<h4>Nobody Here Can Read This &middot; in your own words</h4><h3>Tell a friend</h3>' +
+      '<p>Choose ONE of these and explain it, aloud or in writing, in 70 to 100 words. Use: first, then, because, so, for example.</p>' +
+      '<p><b>A</b> Explain to a friend who does not know Korean how the letters of Hangul picture the mouth, with two examples, and why Hangul is called a featural script.<br><b>B</b> Explain how you read Elin&rsquo;s letter: what you used first, what you used next, and the one rule that nearly fooled you.<br><b>C</b> Is it better for a language to have a script that one person made on purpose, like Hangul or Cherokee, or one that grew slowly over hundreds of years, like English? Give your opinion and a reason.</p>' +
+      '<textarea id="r1"></textarea><div class="count"></div><label for="r2">Name</label><input type="text" id="r2" maxlength="60">' +
+      '<div class="foot"><span>Nobody marks this. It is saved in this browser as you write.</span><button type="button" class="btn" id="r-print">Print</button><button type="button" class="btn" id="r-done">Done</button></div>';
+    ER.glossIn(box, '.rp > p');
+    box.querySelector('#r1').value = saved.r1 || ''; box.querySelector('#r2').value = saved.r2 || '';
+    function keep() {
+      var o = { r1: box.querySelector('#r1').value, r2: box.querySelector('#r2').value }, n = (o.r1.match(/[A-Za-z’']+/g) || []).length;
+      box.querySelector('.count').textContent = n + (n === 1 ? ' word' : ' words');
+      ER.flag('task', o);
+    }
+    box.addEventListener('input', keep);
+    box.addEventListener('keydown', function (e) { e.stopPropagation(); });
+    box.querySelector('#r-print').addEventListener('click', function () { keep(); window.print(); });
+    box.querySelector('#r-done').addEventListener('click', ER.close);
+    ER.open('ov-report', box); keep();
+  });
+})();
+</script>
+</body>
+</html>

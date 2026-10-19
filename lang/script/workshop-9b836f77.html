@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Workshop · Nobody Here Can Read This</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lang.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="sc.css">
+<style>
+  body{--bg:#d6dde0;--accent:#1f7a74;--font-display:'Cinzel',serif;--font-ui:'Outfit',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(246,249,250,.97);--tc-ink:#1a2a2e;--cap-bg:rgba(250,252,252,.96);--cap-ink:#1a2a2e;--panel:#fbfdfd;--panel-ink:#1a2a2e;--face-bg:#1f5a56;--q-ink:#1f7a74;
+    --fade:#f2f6f7;--hud-bg:rgba(250,252,252,.9);--hud-ink:#1a2a2e;--hud-line:rgba(26,42,46,.3);--ov-bg:rgba(10,24,26,.6);--lab:#1f5a56}
+  .tc-room{font-size:clamp(40px,6vw,84px);color:#1f7a74}
+  .tc-theme{color:#8a3a2a}
+  .hbtn b{color:#fff}
+  #rain path{animation:rain 1.1s linear infinite}
+  #rain path:nth-child(2n){animation-delay:-.5s}
+  @keyframes rain{from{transform:translateY(-40px)}to{transform:translateY(40px)}}
+  #tube{animation:tube 6s steps(1,end) infinite}
+  @keyframes tube{0%,88%,100%{opacity:1}89%{opacity:.4}91%{opacity:1}93%{opacity:.6}}
+  /* the rubbing */
+  .rb{width:min(1060px,97vw)}
+  .rb-in{background:#e8eaea;border:1px solid #9aa6a8;padding:12px 14px;box-shadow:0 26px 70px rgba(0,0,0,.55)}
+  .rb-paper{background:#2c2f33 radial-gradient(ellipse at 40% 30%,#3e4247,#24272a 75%);padding:6px;border:6px solid #fbfbf8}
+  .rb-paper svg{display:block;width:100%;height:auto}
+  .rb .rb-paper svg{height:min(250px,30vh)}
+  .rb-row{display:grid;grid-template-columns:1fr 1.4fr;gap:12px;margin-top:10px}
+  .nslot{position:relative;min-height:56px;border:2px dashed #6a7a7c;background:#fbfdfd;display:flex;align-items:center;justify-content:center;padding:4px;cursor:pointer}
+  .nslot:before{content:attr(data-l);position:absolute;top:-9px;left:10px;padding:0 6px;background:#e8eaea;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#1f5a56}
+  .read{display:flex;flex-wrap:wrap;gap:6px 14px;min-height:46px;margin-top:6px;align-items:center}
+  .read .blk{display:flex;gap:3px;padding:3px 6px;border:1px solid #c9d2d4;background:#fff}
+  .read .pr{display:inline-flex;flex-direction:column;align-items:center;width:30px}
+  .read .pr svg{width:26px;height:26px;color:#23305a}
+  .read .pr b{font-family:'IBM Plex Mono',monospace;font-size:15px;line-height:1;color:#1a2a2e}
+  .read .pr.bad b{color:#d0302a}
+  .read .pr.bad svg{color:#d0302a}
+  .names{display:flex;flex-wrap:wrap;gap:8px;min-height:52px;margin-top:10px;padding:8px;border:2px dashed #6a7a7c;background:rgba(255,255,255,.08)}
+  .names:before{content:'Names from the sign-out book';display:block;width:100%;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#d6dde0;margin-bottom:-2px}
+  .nm{padding:8px 14px 6px;background:#fff6b8;color:#24304a;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:18px;letter-spacing:.14em;border-radius:2px;box-shadow:0 3px 0 #b8a85a;cursor:grab;touch-action:none}
+  .nslot .nm{box-shadow:none}
+  .doc.label .cart{display:flex;gap:18px;align-items:center;margin:6px 0 10px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallw" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eef2f3"/><stop offset="1" stop-color="#d8dfe1"/></linearGradient>
+  <linearGradient id="night" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#16243a"/><stop offset="1" stop-color="#2a3e58"/></linearGradient>
+  <pattern id="peg" width="24" height="24" patternUnits="userSpaceOnUse"><rect width="24" height="24" fill="#c9b48a"/><circle cx="12" cy="12" r="2.4" fill="#8a744a"/></pattern>
+  <pattern id="cork" width="18" height="18" patternUnits="userSpaceOnUse"><rect width="18" height="18" fill="#b8865a"/><circle cx="5" cy="6" r="1.6" fill="#9a6a3e"/><circle cx="13" cy="13" r="1.4" fill="#cfa070"/></pattern>
+  <pattern id="lino" width="80" height="80" patternUnits="userSpaceOnUse"><rect width="80" height="80" fill="#7a8a86"/><rect width="40" height="40" fill="#6e7e7a"/><rect x="40" y="40" width="40" height="40" fill="#6e7e7a"/></pattern>
+  <radialGradient id="lampg" cx="50%" cy="0%" r="80%"><stop offset="0" stop-color="#fffbe8" stop-opacity=".7"/><stop offset="1" stop-color="#fffbe8" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="46%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".75" stop-color="#0a1416" stop-opacity=".08"/><stop offset="1" stop-color="#0a1416" stop-opacity=".38"/></radialGradient>
+</defs>
+<rect x="-1000" y="-500" width="3600" height="1100" fill="url(#wallw)"/>
+<!-- strip lights -->
+<g id="tube"><rect x="300" y="30" width="420" height="14" rx="7" fill="#fbfff8"/><rect x="900" y="30" width="420" height="14" rx="7" fill="#fbfff8"/></g>
+<!-- the door and the sign-out book -->
+<g><rect x="-200" y="120" width="230" height="480" fill="#9aa8aa"/><rect x="-190" y="130" width="210" height="470" fill="#b8c4c6"/><circle cx="2" cy="380" r="9" fill="#5a6466"/></g>
+<g id="clip" class="hot"><rect x="70" y="420" width="96" height="130" rx="4" fill="#6a4a2a"/><rect x="78" y="434" width="80" height="108" fill="#fbfbf3"/><rect x="100" y="412" width="36" height="16" rx="3" fill="#a8a8a8"/>
+  <g stroke="#5a5a62" stroke-width="2.4"><path d="M86 452h64M86 464h56M86 476h64M86 488h50M86 500h62M86 512h40"/></g><path d="M118 420v-20" stroke="#6a6a6a" stroke-width="2"/></g>
+<!-- the pegboard of tools -->
+<g id="pegs" class="hot"><rect x="200" y="110" width="320" height="300" fill="url(#peg)" stroke="#8a744a" stroke-width="5"/>
+  <g fill="#3a4a4e"><rect x="226" y="140" width="8" height="90" rx="3"/><rect x="220" y="130" width="20" height="16" rx="3"/><rect x="256" y="140" width="6" height="110" rx="3"/><path d="M290 140h30v8h-11v90h-8v-90h-11z"/><circle cx="360" cy="170" r="22" fill="none" stroke="#3a4a4e" stroke-width="7"/><rect x="356" y="190" width="8" height="60"/>
+    <path d="M410 140l40 0 -6 70 -28 0z" fill="#5a7a7e"/><rect x="470" y="140" width="10" height="120" rx="4" fill="#8a3a2a"/><rect x="230" y="280" width="120" height="14" rx="6"/><rect x="380" y="300" width="110" height="40" rx="4" fill="#5a7a7e"/></g></g>
+<!-- the pinboard -->
+<g id="pin" class="hot"><rect x="560" y="120" width="360" height="310" fill="url(#cork)" stroke="#6a4a2a" stroke-width="8"/>
+  <rect x="580" y="146" width="220" height="150" fill="#2c2f33"/><g id="pinrub" color="#e8e8e2"></g><circle cx="690" cy="148" r="5" fill="#d0302a"/>
+  <rect x="816" y="150" width="84" height="76" fill="#fff6b8" transform="rotate(4 858 188)"/><g stroke="#24304a" stroke-width="2" transform="rotate(4 858 188)"><path d="M826 166h60M826 178h52M826 190h62M826 202h40M826 214h50"/></g>
+  <g id="photo" transform="rotate(-5 720 370)"><rect x="660" y="320" width="120" height="90" fill="#f2f0e8"/><rect x="666" y="326" width="108" height="66" fill="#8aa07a"/><circle cx="700" cy="350" r="7" fill="#2a1a14"/><rect x="694" y="357" width="12" height="22" fill="#c8302a"/><circle cx="740" cy="350" r="7" fill="#d9b46a"/><rect x="734" y="357" width="12" height="22" fill="#3d7a5a"/><rect x="706" y="372" width="28" height="14" fill="#9a968c"/></g>
+  <rect x="820" y="320" width="80" height="56" fill="#e8f0f4" transform="rotate(6 860 348)"/><path d="M830 340h56M830 352h40" stroke="#5a6a7a" stroke-width="2" transform="rotate(6 860 348)"/></g>
+<!-- the poster -->
+<g id="poster" class="hot"><rect x="960" y="110" width="190" height="290" fill="#f8f4ea" stroke="#9aa6a8" stroke-width="3"/>
+  <text x="1055" y="146" text-anchor="middle" font-family="Cinzel,serif" font-weight="700" font-size="17" fill="#1f5a56">NAMES ARE</text><text x="1055" y="168" text-anchor="middle" font-family="Cinzel,serif" font-weight="700" font-size="17" fill="#1f5a56">THE WAY IN</text>
+  <rect x="990" y="190" width="40" height="150" rx="20" fill="none" stroke="#3a3a36" stroke-width="4"/><rect x="1080" y="190" width="40" height="180" rx="20" fill="none" stroke="#3a3a36" stroke-width="4"/>
+  <g fill="#3a3a36"><rect x="1000" y="206" width="20" height="10"/><path d="M1000 232h20l-10 18z"/><circle cx="1010" cy="270" r="7"/><path d="M1000 296q10 -14 20 0z"/><rect x="1004" y="312" width="12" height="16"/>
+    <path d="M1090 206q10 -12 20 0v10h-20z"/><circle cx="1100" cy="236" r="7"/><path d="M1090 262h20l-10 18z"/><rect x="1094" y="290" width="12" height="16"/><path d="M1090 322q10 -14 20 0z"/><rect x="1090" y="346" width="20" height="10"/></g>
+  <text x="1055" y="390" text-anchor="middle" font-family="EB Garamond,serif" font-style="italic" font-size="14" fill="#5a5a52">Champollion, 1822</text></g>
+<!-- the window, rain -->
+<g id="win" class="hot"><rect x="1210" y="90" width="320" height="330" fill="url(#night)" stroke="#9aa8aa" stroke-width="12"/><path d="M1370 90V420M1210 255H1530" stroke="#9aa8aa" stroke-width="8"/>
+  <g id="rain" stroke="#8aa6c8" stroke-width="2" opacity=".5"><path d="M1240 110l-6 40M1300 150l-6 40M1350 120l-6 40M1420 170l-6 40M1480 110l-6 40M1260 300l-6 40M1330 330l-6 40M1450 300l-6 40M1500 360l-6 40"/></g>
+  <circle cx="1480" cy="160" r="5" fill="#f2c26a" opacity=".8"/><circle cx="1500" cy="160" r="5" fill="#f2c26a" opacity=".8"/></g>
+<!-- the floor -->
+<rect x="-1000" y="620" width="3600" height="900" fill="url(#lino)"/>
+<path d="M-1000 620H2600" stroke="#4a5654" stroke-width="5"/>
+<!-- the bench -->
+<g id="bench"><rect x="300" y="540" width="840" height="26" fill="#c9a77a"/><rect x="300" y="566" width="840" height="14" fill="#9a7a4e"/><rect x="320" y="580" width="20" height="240" fill="#6a5a44"/><rect x="1100" y="580" width="20" height="240" fill="#6a5a44"/><rect x="340" y="700" width="760" height="12" fill="#6a5a44"/>
+  <g id="jars"><rect x="350" y="488" width="40" height="52" rx="6" fill="#d8ecf0" opacity=".9"/><rect x="350" y="482" width="40" height="10" fill="#5a5a5a"/><rect x="400" y="500" width="34" height="40" rx="5" fill="#f2d8a0" opacity=".9"/><rect x="400" y="494" width="34" height="8" fill="#5a5a5a"/>
+    <path d="M450 540l10 -60h6l4 60z" fill="#8a3a2a"/><path d="M470 540l6 -66h5l2 66z" fill="#2a5a5a"/></g></g>
+<g id="cushion" class="hot"><ellipse cx="700" cy="534" rx="96" ry="18" fill="#5a6a70"/><ellipse cx="700" cy="528" rx="82" ry="12" fill="#6e8088"/><ellipse cx="700" cy="528" rx="44" ry="6" fill="#4e5e64"/>
+  <text x="700" y="600" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="13" fill="#4a3a2a">ACC. 2026.114</text></g>
+<g id="lamp"><path d="M1000 540V420l-60 -60" stroke="#3a4a4e" stroke-width="8" fill="none"/><ellipse cx="930" cy="352" rx="40" ry="14" fill="#3a4a4e" transform="rotate(-30 930 352)"/><path d="M900 370L820 530h200z" fill="url(#lampg)" opacity=".6"/></g>
+<g id="kettle" class="hot"><path d="M1040 540v-40q0 -18 22 -18h14q22 0 22 18v40z" fill="#c9cccc"/><path d="M1098 506q16 4 10 22" stroke="#c9cccc" stroke-width="6" fill="none"/><rect x="1050" y="474" width="36" height="10" rx="4" fill="#3a3a3a"/>
+  <rect x="1012" y="514" width="22" height="26" rx="3" fill="#1f7a74"/><text x="1023" y="533" text-anchor="middle" font-family="Cinzel,serif" font-weight="700" font-size="14" fill="#fff">A</text></g>
+<!-- people -->
+<g id="delgado" class="hot" transform="translate(230 880) scale(1)"></g>
+<g id="szabo" class="hot" transform="translate(1290 870) scale(.98)"></g>
+<rect x="-1000" y="-500" width="3600" height="1900" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Up the staff stairs</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="sc.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, tl, nextFile, rb = null;
+
+  (function () {
+    var art = SC.stoneArt({ S: 64, x: 0, y: 0 }), b = art.box, sc = 200 / b[2];
+    $('#pinrub').innerHTML = '<g transform="translate(' + (590 - b[0] * sc).toFixed(1) + ' ' + (154 - b[1] * sc).toFixed(1) + ') scale(' + sc.toFixed(3) + ')">' + art.svg + '</g>';
+  })();
+  $('#delgado').innerHTML = SC.who('delgado', { smile: -2 });
+  $('#szabo').innerHTML = SC.who('szabo', { smile: 2, extra: '<rect x="18" y="-170" width="44" height="58" fill="#e9eef2" stroke="#9aa8b6" stroke-width="2" transform="rotate(-10 40 -140)"/>' });
+
+  ER.init({
+    theme: 'lang', story: 'script', storyTitle: 'Nobody Here Can Read This', id: 'workshop', no: 'III', title: 'The Workshop',
+    go: 'Go in',
+    intro: [
+      'In the Korean Room you put every shape from the letter on the magnet board. The shapes came apart into families, one for each place in the mouth, with an extra stroke for a stronger sound, and the vowels were built from heaven, earth and a person, as King Sejong built his, though drawn the girls&rsquo; own way. Sixteen letters, not hundreds of syllables: a featural script, like Hangul, with shapes of its own.',
+      'Somebody made it. Kezia says Miss Lindahl and her best friend did, when they were eleven. And the letter was lying on the bench of the museum&rsquo;s conservator, Agata Marchetti, who went home early today.',
+      'Mr Moreau unlocks a plain door marked STAFF ONLY. It is five o&rsquo;clock.'
+    ],
+    exit: {"next":"print","w":{"3b6ce306":"2666be59"}}, tags: {},
+    hints: hints, onBegin: begin
+  });
+  tl = SC.tell('w-told'); nextFile = ER.flag('w-file') || null;
+
+  function isBusy() { return busy; }
+  function ready() { return tl.has('szabo') && tl.has('book') && tl.has('note') && tl.has('poster'); }
+  function paint() {
+    $('#szabo').classList.toggle('ready', !tl.has('szabo'));
+    $('#clip').classList.toggle('ready', !!(tl.has('szabo') && !tl.has('book')));
+    $('#pin').classList.toggle('ready', !!(tl.has('szabo') && !tl.has('note')) || !!(ready() && !tl.has('named')));
+    $('#poster').classList.toggle('ready', !!(tl.has('note') && !tl.has('poster')));
+    ER.pips((tl.has('szabo') ? 1 : 0) + (tl.has('book') ? 1 : 0) + (tl.has('note') ? 1 : 0) + (tl.has('poster') ? 1 : 0) + (tl.has('named') ? 1 : 0), 5);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The print-room light is on, and the staff stairs go up past it. The button at the bottom of the screen takes you there.']];
+    if (rb && rb.isOpen()) return ['names', [
+      'The stone has two names on it. Count the blocks in each: one block for each syllable. Then look at the first block of each name: what does the ring at the start of a block mean?',
+      'The first name has two blocks and starts with a vowel sound. Only one name from the book does that. The second has three blocks, and all three have the same vowel mark, so its name has the same vowel three times. Two names fit that.',
+      'Try ALANA, and look at the shapes under the letters: the L in ALANA and the L in ELIN would be two different shapes. A script made by one person keeps one shape for one letter. So it is not Alana.'
+    ]];
+    if (!tl.has('szabo')) return ['szabo', ['Dr Szabo knows the conservator. Talk to him, on the right.']];
+    if (!tl.has('book')) return ['book', ['Who was in the building today, and when did they leave? The sign-out book is on the clipboard by the door, on the left.']];
+    if (!tl.has('note')) return ['note', ['Agata&rsquo;s pinboard, above the bench: there is a rubbing of the stone on it, and a note.']];
+    if (!tl.has('poster')) return ['poster', ['The poster on the wall beside the pinboard says how scripts are cracked. Read it.']];
+    return ['rub', ['Now read the names on the stone. Click the rubbing on the pinboard.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('Agata Marchetti&rsquo;s workshop. ELIN and AGATA, inside a heart.'); return; }
+    if (tl.has('in')) { busy = false; ER.say('The conservator&rsquo;s workshop.'); return; }
+    tl.set('in');
+    ER.narrate([
+      'The strip lights blink twice and come on, white and humming. After the dim galleries the workshop is as bright as a hospital.',
+      'A long bench, tools on a pegboard, brushes in jars, a big lamp on an arm. In the middle of the bench is a grey cushion with a dent in it, where a heavy stone sat until ten past four.',
+      'Above the bench is a cork pinboard, crowded with papers. By the door hangs a clipboard on a string.',
+      'Mr Moreau goes back to his rounds. &ldquo;Second floor, then the roof,&rdquo; he says, and the door swings shut behind him.'
+    ], function () { busy = false; });
+  }
+
+  /* ---------- people ---------- */
+  $('#szabo').addEventListener('click', function () {
+    if (busy) return;
+    if (tl.has('named')) { ER.say('Dr Szabo is sitting on a stool with his chin in his hands, thinking about tomorrow&rsquo;s photographer.'); return; }
+    ER.talk({
+      who: 'Dr Ferenc Szabo', role: 'Curator · Agata&rsquo;s boss', face: SC.face('szabo'),
+      lines: [
+        { a: '&ldquo;Agata Marchetti. Our conservator since March. She cleans things, mends things, tells me off for touching things. The best I have ever had.&rdquo;' },
+        { q: 'Why did she go home early?', a: '&ldquo;This morning she came to the office to look at the day&rsquo;s bookings. She saw the name of your school, and the teacher&rsquo;s name, and she went quite white. Then she said she had a dentist&rsquo;s appointment, and could she go at three.&rdquo;' },
+        { q: 'Did she know Miss Lindahl?', a: '&ldquo;She did not say. She is not a person who says.&rdquo; He frowns. &ldquo;She was a child here in Elmsworth, though. And the stone came from Quarry Lane, and she unpacked it herself on Monday, and she did not say anything about that either.&rdquo;' },
+        { note: 'He looks at the dent in the cushion.', a: '&ldquo;Everybody who works here signs in and out in the book by the door. Even me, when I remember.&rdquo;' }
+      ],
+      clue: { id: 'szabo3', title: 'Dr Szabo: Agata went quite white', kind: 'What he said' },
+      done: function (seen) {
+        if (!seen) return;
+        ER.addWord('conservator', 'a person whose job is to clean, mend and look after old objects in a museum');
+        if (tl.set('szabo')) { paint(); ER.say('Agata saw the teacher&rsquo;s name and went home. Look at the sign-out book by the door.'); }
+      }
+    });
+  });
+  $('#delgado').addEventListener('click', function () {
+    if (busy) return;
+    if (!tl.has('book') || !tl.has('note')) {
+      ER.talk({ who: 'Mr Gil Delgado', role: 'PE teacher · looking at the tools', face: SC.face('delgado'),
+        lines: [{ note: 'He is reading the labels on the jars, one after another, without taking any of them in.', a: '&ldquo;Acetone. Deionised water. Microcrystalline wax.&rdquo; He puts the jar down. &ldquo;See who was here today. The book by the door.&rdquo;' }] });
+      return;
+    }
+    ER.talk({
+      who: 'Mr Gil Delgado', role: 'PE teacher · not happy', face: SC.face('delgado', 'cross'),
+      lines: [
+        { a: '&ldquo;So. This Agata saw Elin&rsquo;s name this morning and ran off home with a story about a dentist. She grew up in the same town. She has keys to every door in the place. And she and Elin cut their names into a stone when they were kids, by the look of it.&rdquo;' },
+        { q: 'You think she has something to do with it?', a: '&ldquo;I think people don&rsquo;t run away from a friend. They run away from somebody they&rsquo;ve fallen out with. I&rsquo;m not saying she locked our teacher in a cupboard. I&rsquo;m saying I&rsquo;d like to know when she left and when Elin went missing, to the minute.&rdquo;' },
+        { note: 'He rubs his face.', a: '&ldquo;Sorry. Read the names on that stone. Then we&rsquo;ll know who we&rsquo;re talking about.&rdquo;' }
+      ],
+      clue: { id: 'delgado3', title: 'Mr Delgado: people run away from somebody they&rsquo;ve fallen out with', kind: 'What he said' },
+      done: function (seen) { if (seen) { tl.set('delgado'); ER.addWord('fall out', 'to stop being friends after an argument'); } }
+    });
+  });
+  SC.thing('#pegs', null, 'Scalpels, brushes, tweezers, a magnifying glass, a soft hammer. Everything has a painted outline, so you can see at once what is missing. Nothing is.', isBusy);
+  SC.thing('#win', null, 'Rain on the glass, and two orange lights in the car park: the coach.', isBusy);
+  SC.thing('#kettle', null, 'A kettle, quite cold, and a green mug with an A on it, still half full. Somebody made tea this afternoon and left without drinking it.', isBusy);
+  SC.thing('#cushion', null, 'A grey cushion with a deep round dent in it. The label beside it: ACC. 2026.114, garden stone, Quarry Lane. The stone is in the Hall of Signs now, on Dr Szabo&rsquo;s trolley.', isBusy);
+
+  /* ---------- the book, the pinboard, the poster ---------- */
+  var BOOK = '<h4>Staff in and out &middot; Friday</h4><table><tr><th>Name</th><th>In</th><th>Out</th><th>Note</th></tr>' +
+    '<tr><td>Barry Moreau</td><td>8.00</td><td>&mdash;</td><td>on duty till ten</td></tr>' +
+    '<tr><td>Ferenc Szabo</td><td>8.45</td><td>&mdash;</td><td></td></tr>' +
+    '<tr><td>Agata Marchetti</td><td>8.50</td><td>14.50</td><td>dentist (really)</td></tr>' +
+    '<tr><td>Alana Ivanova, shop</td><td>9.30</td><td>16.35</td><td>till counted, money in the safe</td></tr></table>' +
+    '<h4 style="margin-top:12px">Visitors</h4><table><tr><td>Kingsmead School, Year 8: Miss E. Lindahl, Mr G. Delgado and 28 pupils</td><td>in 10.30</td></tr></table>';
+  $('#clip').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: BOOK, cls: 'ledger', clue: { id: 'book', title: 'The staff sign-out book', kind: 'In the workshop' }, done: function () {
+      if (tl.set('book')) { paint(); ER.say('Agata Marchetti signed out at ten to three. Who else was here? Now Agata&rsquo;s pinboard.'); }
+    } });
+  });
+  var NOTE = '<h4>On Agata&rsquo;s pinboard, under the rubbing</h4><p>Garden stone from 14 Quarry Lane. That was OUR house!!</p><p>Came in on Monday. NOT ancient. I know exactly who carved it, and when.</p><p>Must tell Ferenc before he rings the papers.</p><p>&mdash; A.</p>';
+  function rubbingDoc() {
+    var art = SC.stoneArt({ S: 56, x: 0, y: 0 }), b = art.box, m = 30;
+    return '<h4>A rubbing of the stone, pinned up by Agata</h4><div class="rb-paper"><svg viewBox="' + (b[0] - m) + ' ' + (b[1] - m) + ' ' + (b[2] + 2 * m) + ' ' + (b[3] + 2 * m) + '" color="#e8e8e2">' + art.svg + '</svg></div>' +
+      '<p class="small">A rubbing: paper laid on the carving and rubbed with black wax. The stone stays dark, and the cuts come out white.</p>';
+  }
+  $('#pin').addEventListener('click', function () {
+    if (busy) return;
+    if (!tl.has('note')) {
+      ER.read({ html: rubbingDoc() + '<div class="doc note" style="margin-top:12px;transform:none;width:auto;box-shadow:none">' + NOTE + '</div><p class="small">Beside them, a faded photograph: two girls of about eleven in a garden, one dark, one fair, one holding a hammer and the other a nail, both grinning.</p>', cls: 'label',
+        clue: { id: 'note', title: 'Agata&rsquo;s note and the rubbing', kind: 'In the workshop' }, done: function () {
+          SC.terms(['rubbing']);
+          if (tl.set('note')) { paint(); ER.say('I know exactly who carved it, and when. Two girls, a hammer and a nail. Read the poster beside the pinboard.'); }
+        } });
+      return;
+    }
+    if (tl.has('named')) { ER.say('The rubbing, with two names under it now, in your writing: ELIN and AGATA.'); return; }
+    if (!ready()) { ER.say(!tl.has('book') ? 'To read the names, you need names to try. The sign-out book is by the door.' : 'Read the poster beside the pinboard first: it says how names are read.'); return; }
+    if (!rb) rb = makeRubbing();
+    rb.open();
+  });
+  var POSTER = '<h4>On the wall of the workshop</h4><h3>Names are the way in</h3>' +
+    '<p>A name sounds much the same in any language. So if you can find a name you already know in a script you cannot read, you get the sounds of its signs for nothing.</p>' +
+    '<p>In Egyptian writing, a royal name is drawn inside an oval ring called a <b>cartouche</b>. In 1822 Jean-Fran&ccedil;ois Champollion compared two of them, the names Ptolemy and Cleopatra. They share several sounds, p, t, o and l, and the same sounds had the same signs in both rings. Those were his first letters, and the rest followed.</p>' +
+    '<p>In 1952 Michael Ventris tested his reading of Linear B, a script from ancient Crete, on the names of Cretan towns: <i>ko-no-so</i>, Knossos; <i>a-mi-ni-so</i>, Amnisos; <i>tu-ri-so</i>, Tulissos. They came out right.</p>' +
+    '<p>A rule of thumb for a script made by one person: one letter, one shape. If a reading makes one sign stand for two letters, or draws one letter two ways, the reading is wrong.</p>';
+  $('#poster').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: POSTER, cls: 'label', clue: { id: 'poster', title: 'Poster: names are the way in', kind: 'In the workshop' }, done: function () {
+      SC.terms(['decipher', 'cartouche', 'inscription']);
+      if (tl.set('poster')) { paint(); ER.say(ready() ? 'One letter, one shape. Now try names on the rubbing.' : 'Names are the way in. You still need names to try.'); }
+    } });
+  });
+
+  /* ---------- the names on the rubbing ---------- */
+  var SYL = { ELIN: ['E', 'LIN'], AGATA: ['A', 'GA', 'TA'], ALANA: ['A', 'LA', 'NA'], FERENC: ['FE', 'RENC'], BARRY: ['BAR', 'RY'], GIL: ['GIL'] };
+  var TILES = ['FERENC', 'ALANA', 'ELIN', 'BARRY', 'AGATA', 'GIL'];
+  var VOW = /[AEIOUY]/;
+  function blocksOf(slot) { return slot === 'a' ? SC.STONE.a : SC.STONE.b; }
+  /* what a name in a slot would make each shape mean; problems if it cannot fit */
+  function fit(name, slot) {
+    var bl = blocksOf(slot), sy = SYL[name], out = { pairs: [], prob: null };
+    if (sy.length !== bl.length) { out.prob = name + ' has ' + sy.length + (sy.length === 1 ? ' syllable' : ' syllables') + ', but this name on the stone has ' + bl.length + ' blocks. One block, one syllable.'; return out; }
+    bl.forEach(function (spec, i) {
+      var parts = SC.partsOf(spec), letters = sy[i].split(''), row = [];
+      if (parts[0] === 'ring') {
+        if (!VOW.test(letters[0]) && !out.prob) out.prob = 'The first block of this name begins with the ring, which is silent at the start of a block, the way ' + SC.hg('ㅇ') + ' is. So the name begins with a vowel sound, and ' + name + ' does not.';
+        row.push(['ring', '·']); parts = parts.slice(1);
+      }
+      if (parts.length !== letters.length && !out.prob) out.prob = 'The block for ' + sy[i] + ' would need ' + letters.length + ' letters, but it has ' + parts.length + ' in it.';
+      parts.forEach(function (p, j) { row.push([p, letters[j] || '?']); });
+      out.pairs.push(row);
+    });
+    return out;
+  }
+  function makeRubbing() {
+    var box = ER.el('div', 'pz rb'), put = ER.flag('w-names') || {}, done = !!tl.has('named');
+    var art = SC.stoneArt({ S: 56, x: 0, y: 0 }), b = art.box, m = 20;
+    box.innerHTML = '<div class="rb-in"><h5 style="color:#1f5a56">Agata&rsquo;s rubbing. Put a name under each group of signs.</h5><div class="rb-paper"><svg viewBox="' + (b[0] - m) + ' ' + (b[1] - m) + ' ' + (b[2] + 2 * m) + ' ' + (b[3] + 2 * m) + '" color="#e8e8e2">' + art.svg + '</svg></div>' +
+      '<div class="rb-row"><div><div class="nslot" data-s="a" data-l="the first name: two blocks"></div><div class="read" data-r="a"></div></div><div><div class="nslot" data-s="b" data-l="the second name: three blocks"></div><div class="read" data-r="b"></div></div></div></div>' +
+      '<div class="names"></div><div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="rb-go">Write the names under the rubbing</button></div>';
+    var home = box.querySelector('.names'), msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    TILES.forEach(function (t) {
+      var n = ER.el('div', 'nm dnd-item', t); n.setAttribute('data-n', t);
+      var s = put.a === t ? 'a' : put.b === t ? 'b' : null;
+      (s ? box.querySelector('.nslot[data-s="' + s + '"]') : home).appendChild(n);
+    });
+    function current() {
+      var o = {};
+      ['a', 'b'].forEach(function (s) { var n = box.querySelector('.nslot[data-s="' + s + '"] .nm'); o[s] = n ? n.getAttribute('data-n') : null; });
+      return o;
+    }
+    function readout() {
+      var c = current(), fits = {}, shape = {}, letter = {}, clash = {};
+      ['a', 'b'].forEach(function (s) { if (c[s]) fits[s] = fit(c[s], s); });
+      ['a', 'b'].forEach(function (s) {
+        if (!fits[s] || fits[s].prob) return;
+        fits[s].pairs.forEach(function (row) { row.forEach(function (pr) {
+          if (pr[0] === 'ring') return;
+          if (shape[pr[0]] && shape[pr[0]] !== pr[1]) { clash[pr[0]] = 1; }
+          if (letter[pr[1]] && letter[pr[1]] !== pr[0]) { clash[pr[0]] = 1; clash[letter[pr[1]]] = 1; }
+          shape[pr[0]] = shape[pr[0]] || pr[1]; letter[pr[1]] = letter[pr[1]] || pr[0];
+        }); });
+      });
+      ['a', 'b'].forEach(function (s) {
+        var r = box.querySelector('.read[data-r="' + s + '"]');
+        if (!fits[s]) { r.innerHTML = ''; return; }
+        r.innerHTML = fits[s].pairs.map(function (row) {
+          return '<span class="blk">' + row.map(function (pr) { return '<span class="pr' + (clash[pr[0]] ? ' bad' : '') + '"><svg viewBox="0 0 100 100">' + SC.part(pr[0], 0, 0, 100, 100, 0.1) + '</svg><b>' + pr[1] + '</b></span>'; }).join('') + '</span>';
+        }).join('');
+      });
+      return { c: c, fits: fits, clash: clash, shape: shape };
+    }
+    ER.dnd(box, { item: '.nm', slot: '.nslot', home: home, lock: function () { return done; }, change: function () { var c = current(); ER.flag('w-names', c); readout(); msg(''); } });
+    readout();
+    box.querySelector('#rb-go').addEventListener('click', function () {
+      if (done) return;
+      var R = readout(), c = R.c;
+      if (!c.a || !c.b) { ER.sfx.no(); msg('Two names are cut into the stone. Put a name under each.'); return; }
+      var pr = (R.fits.a.prob || R.fits.b.prob);
+      if (pr) { ER.sfx.no(); ER.shake(box.querySelector('.rb-row')); msg(pr); return; }
+      var cl = Object.keys(R.clash);
+      if (cl.length) {
+        ER.sfx.no(); ER.shake(box.querySelector('.rb-row'));
+        msg('Look at the red letters. With ' + c.a + ' and ' + c.b + ', the same letter is drawn with two different shapes, or one shape stands for two letters. In a script made by one person, one letter has one shape.');
+        return;
+      }
+      var f = ER.exit([c.a + '|' + c.b], { wait: true, quiet: true });
+      if (!f) { ER.sfx.no(); msg('&ldquo;It fits,&rdquo; says Mr Delgado slowly, &ldquo;but does it make sense? Who carved this stone, in whose garden?&rdquo;'); return; }
+      done = true; nextFile = f; ER.flag('w-file', f); tl.set('named'); SC.solved(); paint();
+      var key = {}; Object.keys(R.shape).forEach(function (k) { key[k] = R.shape[k]; }); key.ring = '-';
+      ER.flag('key0', key);
+      SC.mine('names', 'The names on the stone', '<p>First name, two blocks, starts with the silent ring: E-LIN.</p><p>Second name, three blocks, the same vowel three times: A-GA-TA. (Not ALANA: her L would have the arch shape, but ELIN&rsquo;s L has the loop.)</p><p>So now I know: the ring is silent, the earth curve is E, the little standing person is I, the person with a dot on the right is A, the loop-ended line is L, the plain turned-up line is N, the one with two strokes is T, the arch is G.</p><p>The + between the names, the heart round them and the two strokes underneath: not letters?</p>');
+      msg('ELIN, and AGATA. The shapes agree everywhere: one letter, one shape.');
+      setTimeout(ending, 2400);
+    });
+    msg(done ? 'ELIN and AGATA.' : 'Drag a name under a group of signs, or click it and then the space. The letters it would give appear underneath.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+  function ending() {
+    ER.closeAll(); busy = true;
+    ER.narrate([
+      'ELIN and AGATA, cut into a garden stone, with a heart round both of them.',
+      'Dr Szabo sits down on a stool. &ldquo;Two girls of eleven,&rdquo; he says, &ldquo;with a nail. And I have a photographer coming at ten.&rdquo; He looks at the letter in its sleeve. &ldquo;So this is not a find. It is post.&rdquo;',
+      '&ldquo;Elin wrote it,&rdquo; says Mr Delgado, &ldquo;in their old script, and left it on Agata&rsquo;s bench, against their stone. For Agata. Who had gone home.&rdquo; He is not looking happy. &ldquo;Or Agata wrote it for her. Either way, it says where one of them is.&rdquo;',
+      'The radio crackles. Mr Moreau, out of breath: &ldquo;Print room light&rsquo;s on, up the staff stairs from where you are. The printer switched it off at four. I saw him do it.&rdquo;',
+      'Somebody went up the staff stairs after four.'
+    ], function () { busy = false; $('#go').classList.add('on'); });
+  }
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Chancery · Snow Conditions Bad</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-history.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="everest.css">
+<style>
+  body{--bg:#0d1420;--accent:#e9d38a;--font-display:'Cinzel',serif;--font-ui:'Oswald',sans-serif;--font-body:'Libre Caslon Text',serif;
+    --tc-bg:rgba(10,15,24,.96);--tc-ink:#eef0f4;--cap-bg:rgba(12,17,27,.94);--panel:#162033;--face-bg:#1f2c44;--q-ink:#efd99a;--fade:#04060a;--hud-bg:rgba(12,17,27,.82)}
+  .lb{font-family:'Cinzel',serif;font-weight:700;text-anchor:middle;letter-spacing:.1em}
+  #fan{animation:fan 4s linear infinite;transform-origin:800px 40px}
+  @keyframes fan{from{transform:scaleX(1)}50%{transform:scaleX(-1)}to{transform:scaleX(1)}}
+  #moth{animation:moth 5s steps(10,end) infinite}
+  @keyframes moth{0%{transform:translate(0,0)}25%{transform:translate(30px,-20px)}50%{transform:translate(-10px,-34px)}75%{transform:translate(-30px,-6px)}100%{transform:translate(0,0)}}
+  .tw{animation:tw 3.6s steps(1,end) infinite}
+  @keyframes tw{50%{opacity:.3}}
+  #board.ready{animation:nudge 1.6s ease-in-out infinite}
+  @keyframes nudge{50%{transform:translateY(-6px)}}
+
+  /* the board: what each could know, and when */
+  .bd{display:grid;grid-template-columns:minmax(0,740px) 210px;gap:18px;width:min(990px,97vw);align-items:start}
+  .bd-main{padding:12px 16px 12px;background:#c9b48a;background-image:radial-gradient(rgba(90,60,30,.25) 1px,transparent 1.5px);background-size:9px 9px;border:10px solid #4a3220;box-shadow:0 20px 50px rgba(0,0,0,.6)}
+  .bd-main h6{margin:0 0 8px;font-family:'Cinzel',serif;font-weight:700;font-size:15px;letter-spacing:.12em;color:#2a1d10;text-align:center}
+  .bd-strip{position:relative;display:grid;grid-template-columns:repeat(14,1fr);background:#fbf8ef;border:1px solid #6b5a3a;margin-bottom:10px}
+  .bd-strip div{position:relative;height:84px;border-left:1px solid #c8c0a8;font-family:'Libre Caslon Text',serif;font-size:12px;text-align:center;color:#1d2433;padding-top:3px}
+  .bd-strip div:first-child{border-left:0}
+  .bd-strip div b{display:block;font-size:15px}
+  .bd-strip div.sun{background:#f1e7d0}
+  .bd-pin{position:absolute;left:50%;width:14px;height:14px;margin-left:-7px;border-radius:50%;box-shadow:0 2px 3px rgba(0,0,0,.5)}
+  .bd-pin.p1{background:#b3261c;bottom:3px}.bd-pin.p2{background:#1d4a8a;bottom:18px}.bd-pin.p3{background:#2d7a3a;bottom:33px}
+  .bd-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .bd-c{padding:8px 10px 10px;background:#fbf8ef;color:#1d2433;box-shadow:0 6px 12px rgba(0,0,0,.35);border-top:6px solid}
+  .bd-c.p1{border-color:#b3261c}.bd-c.p2{border-color:#1d4a8a}.bd-c.p3{border-color:#2d7a3a}
+  .bd-c h5{margin:0 0 4px;font-family:'Oswald',sans-serif;font-weight:600;font-size:13px;letter-spacing:.12em;text-transform:uppercase}
+  .bd-c p{margin:0 0 6px;font-family:'Libre Caslon Text',serif;font-size:13.5px;line-height:1.3}
+  .bd-c .ts output{min-width:104px;font-size:15px}
+  .bd-yn{display:flex;gap:6px;margin-top:6px}
+  .bd-yn button{flex:1;padding:4px 0;border:1px solid #6b5a3a;background:#efe6cc;font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:.1em;color:#2a1d10;cursor:pointer}
+  .bd-yn button.on{background:#2a1d10;color:#fbf8ef}
+  .bd-yn button.ok{background:#2d6a34;color:#fff}.bd-yn button.no{background:#9a2a1c;color:#fff}
+  .bd-foot{display:flex;justify-content:flex-end;margin-top:10px}
+  .bd-foot .btn{--accent:#2a1d10;background:#fbf8ef}
+  .bd-foot .btn:hover:not([disabled]){color:#fbf8ef;background:#2a1d10}
+  @media (max-width:900px){.bd,.bd-cards{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a3346"/><stop offset="1" stop-color="#1a2131"/></linearGradient>
+  <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#05080f"/><stop offset="1" stop-color="#1c2a44"/></linearGradient>
+  <radialGradient id="lampG" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#d8f0b0" stop-opacity=".55"/><stop offset=".4" stop-color="#e9e0a0" stop-opacity=".2"/><stop offset="1" stop-color="#e9e0a0" stop-opacity="0"/></radialGradient>
+  <linearGradient id="deskG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a3a22"/><stop offset="1" stop-color="#2a1a0e"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="46%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".6" stop-color="#020306" stop-opacity=".3"/><stop offset="1" stop-color="#020306" stop-opacity=".9"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#wallG)"/>
+<g stroke="#384258" stroke-width="2" opacity=".6"><path d="M-1000 120H2600M-1000 640H2600"/></g>
+<rect x="-1000" y="640" width="3600" height="680" fill="#20160e"/><g stroke="#3a2a1a" stroke-width="2"><path d="M-1000 700H2600M-1000 790H2600M-1000 900H2600"/></g>
+
+<!-- the fan -->
+<path d="M800 -400V30" stroke="#111" stroke-width="5"/><circle cx="800" cy="40" r="14" fill="#2a2a2a"/>
+<g id="fan"><path d="M800 40L660 54 662 66 800 50zM800 40L940 26 938 14 800 30z" fill="#3a2a1c"/></g>
+
+<!-- the window and the city -->
+<g id="window" class="hot">
+  <path d="M520 560V220q0-110 140-110t140 110v340z" fill="#3a2a1c"/>
+  <path d="M540 545V222q0-92 120-92t120 92v323z" fill="url(#skyG)"/>
+  <g fill="#e9eef8"><circle cx="590" cy="180" r="1.6" class="tw"/><circle cx="640" cy="160" r="1.2"/><circle cx="720" cy="190" r="1.5" class="tw"/><circle cx="700" cy="150" r="1.1"/><circle cx="610" cy="230" r="1.2"/></g>
+  <circle cx="730" cy="210" r="18" fill="#f4f0dc"/>
+  <path d="M540 470l40-30 30 8 20-24 40 20 30-34 30 18 40-12 10 4v125H540z" fill="#0a0f18"/>
+  <g fill="#0a0f18"><path d="M600 450l20-30 20 30z"/><path d="M596 470l24-26 24 26z"/><path d="M700 430h40l-20-26z"/><path d="M696 452h48l-24-24z"/></g>
+  <g fill="#ffd27a"><rect x="580" y="500" width="5" height="6"/><rect x="660" y="510" width="5" height="6"/><rect x="742" y="496" width="5" height="6"/></g>
+  <path d="M640 390q20-26 40 0z" fill="#d9dce6"/><rect x="657" y="372" width="6" height="18" fill="#c9a25a"/>
+  <path d="M660 130v415M540 330h240" stroke="#3a2a1c" stroke-width="10"/>
+</g>
+
+<!-- the calendar board -->
+<g id="board" class="hot">
+  <rect x="1180" y="180" width="300" height="300" fill="#4a3220"/><rect x="1194" y="194" width="272" height="272" fill="#c9b48a"/>
+  <text x="1330" y="226" class="lb" font-size="14" fill="#2a1d10">MAY &#183; JUNE 1953</text>
+  <g fill="#fbf8ef" stroke="#6b5a3a" stroke-width="1"><rect x="1212" y="244" width="236" height="70"/><rect x="1212" y="330" width="236" height="70"/></g>
+  <g stroke="#c8c0a8" stroke-width="1"><path d="M1246 244v70M1280 244v70M1314 244v70M1348 244v70M1382 244v70M1416 244v70M1246 330v70M1280 330v70M1314 330v70M1348 330v70M1382 330v70M1416 330v70"/></g>
+  <g fill="#b3261c"><circle cx="1228" cy="420" r="7"/></g><g fill="#1d4a8a"><circle cx="1260" cy="430" r="7"/></g><g fill="#2d7a3a"><circle cx="1292" cy="420" r="7"/></g>
+</g>
+
+<!-- the safe -->
+<g id="safe"><rect x="1500" y="470" width="150" height="190" fill="#2a2f38"/><rect x="1512" y="482" width="126" height="166" fill="#353b46"/><circle cx="1575" cy="560" r="20" fill="#1a1d22" stroke="#c9a25a" stroke-width="3"/></g>
+
+<!-- the desk -->
+<rect x="360" y="560" width="900" height="34" fill="#6a4628"/><rect x="380" y="594" width="860" height="200" fill="url(#deskG)"/>
+<g fill="#4a301a"><rect x="400" y="620" width="240" height="60"/><rect x="980" y="620" width="240" height="60"/></g><g fill="#c9a25a"><circle cx="520" cy="650" r="6"/><circle cx="1100" cy="650" r="6"/></g>
+<circle cx="560" cy="430" r="320" fill="url(#lampG)" pointer-events="none"/>
+<g><path d="M520 470h80l-12-34h-56z" fill="#1e6a3a"/><path d="M558 470v80" stroke="#c9a25a" stroke-width="5"/><ellipse cx="558" cy="556" rx="30" ry="8" fill="#c9a25a"/><path d="M528 470h64" stroke="#f4f0b0" stroke-width="3"/></g>
+<g id="moth"><path d="M590 400l8-6 8 6-8 3z" fill="#d9d2bd"/></g>
+
+<g id="card" class="hot"><rect x="400" y="510" width="90" height="56" fill="#fbf8ef" transform="rotate(-6 445 538)"/><g transform="rotate(-6 445 538)"><rect x="406" y="516" width="78" height="44" fill="none" stroke="#1d2a4a" stroke-width="1.5"/><path d="M420 530h50M420 540h44M420 550h48" stroke="#6b6552" stroke-width="1.5"/></g></g>
+<g id="book" class="hot"><path d="M620 556l70-14 74 14-4 10-70-10-70 10z" fill="#f3eede"/><path d="M690 542v16" stroke="#7a1d14" stroke-width="3"/><path d="M630 556l-6 14h146l-6-14" fill="#5a2a1a"/></g>
+<g id="tg" class="hot"><rect x="790" y="530" width="100" height="36" fill="#f0d8a8" transform="rotate(5 840 548)"/><g stroke="#6a4a1a" stroke-width="1.5" transform="rotate(5 840 548)"><path d="M800 542h70M800 552h60"/></g><rect x="790" y="530" width="100" height="8" fill="#c96a5a" transform="rotate(5 840 548)"/></g>
+<g id="msg" class="hot"><rect x="900" y="528" width="96" height="40" fill="#e6efe0" transform="rotate(-3 948 548)"/><rect x="900" y="528" width="96" height="7" fill="#2d5a3a" transform="rotate(-3 948 548)"/><g stroke="#4a5a4e" stroke-width="1.5" transform="rotate(-3 948 548)"><path d="M910 546h70M910 556h56"/></g></g>
+<g id="packet" class="hot"><rect x="1010" y="520" width="110" height="46" fill="#c9a87a"/><path d="M1010 520l55 26 55-26" stroke="#8a6a4a" stroke-width="2" fill="none"/><rect x="1052" y="536" width="26" height="14" fill="#9a2a1c"/></g>
+<g id="phone" class="hot"><ellipse cx="1190" cy="556" rx="34" ry="8" fill="#111"/><rect x="1170" y="526" width="40" height="28" rx="6" fill="#111"/><path d="M1160 520q30-20 60 0" stroke="#111" stroke-width="12" stroke-linecap="round" fill="none"/></g>
+
+<!-- Mr Dunmore -->
+<g id="dunmore" class="hot">
+  <ellipse cx="280" cy="790" rx="80" ry="12" fill="#000" opacity=".35"/>
+  <path d="M232 790V560q0-50 48-56q48 6 48 56v230z" fill="#e9e6dc"/>
+  <path d="M262 520l18 26 18-26" fill="#f6f3ea"/><path d="M276 540h8l4 50-8 10-8-10z" fill="#1d2a4a"/>
+  <rect x="268" y="482" width="24" height="28" fill="#efc9ad"/>
+  <ellipse cx="280" cy="452" rx="30" ry="36" fill="#efc9ad"/><path d="M250 446q0-40 30-40t30 40q-6-24-30-24t-30 24z" fill="#9a7a52"/>
+  <g fill="none" stroke="#2a2a2a" stroke-width="2"><circle cx="268" cy="452" r="8"/><circle cx="292" cy="452" r="8"/><path d="M276 452h8"/></g>
+  <path d="M232 600q-30 60-10 120M328 600q30 60 10 120" stroke="#e9e6dc" stroke-width="20" stroke-linecap="round" fill="none"/>
+  <path d="M248 790v40M312 790v40" stroke="#22262e" stroke-width="18"/>
+</g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Open the third bundle</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="everest.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, box = null, inBd = false;
+
+  ER.init({
+    theme: 'history', story: 'everest', storyTitle: 'Snow Conditions Bad', id: 'embassy', no: 'IV', title: 'The Chancery',
+    go: 'Untie the second bundle', back: '../index.html', backLabel: 'Archive',
+    intro: [
+      'At the wireless post, Mr Vohra&rsquo;s form was put right word by word: BAD, not POOR; YESTERDAY, not SATURDAY, because yesterday from Saturday is Friday; AWAITING, not WAITING. A code phrase with one word changed is a phrase on no card. Then the clocks. Monday&rsquo;s schedule, at 17.00 in Namche, is 11.30 G.M.T., because India and Nepal are five and a half hours ahead of Greenwich. London on summer time is one hour ahead of Greenwich, so 12.30. From 12.30 to 11 p.m. is ten and a half hours in hand.',
+      'You untie the second bundle. There is a red wax seal on it, and inside it a pink telegram form and a card printed with a crown.',
+      'Then it is Monday 1 June 1953, a quarter past ten at night, and you are sixteen, and you are the newest clerk at the British Embassy in Kathmandu. Tonight you are on duty with Mr Dunmore, because somebody has to fetch the files and make the tea.'
+    ],
+    exit: {"next":"times","w":{"7056b85a":"32f3fb9f"}}, tags: {"p1":["13d5e305"],"p2":["50beee6f"],"p3":["1fd62830"],"v1":["d60aab2e"],"v2":["aead7ff2"],"v3":["29684c7f"]},
+    hints: hints, onBegin: begin
+  });
+  nextFile = ER.flag('e-file') || null;
+
+  function isBusy() { return busy; }
+  function readAll() { return ER.flag('e-tg') && ER.flag('e-msg') && ER.flag('e-pk'); }
+  function paint() {
+    $('#board').classList.toggle('ready', !!readAll() && !nextFile);
+    ER.pips(nextFile ? 1 : 0, 1);
+    if (nextFile) $('#go').classList.add('on');
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The message has gone. Use the button at the bottom of the screen.']];
+    if (inBd) return ['board', [
+      'For each paper, find the day its news set out from the mountain, not the day it reached Kathmandu. The Times message says where and when Mr Morris wrote it.',
+      'The packet and Mr Baptiste&rsquo;s news both came on foot from Base Camp, and arrived this morning. The Times mail card from the trail (in your notebook) says how long a runner takes. The packet was written on a Sunday.',
+      'Then: when was the first attempt on the summit? The board in the tent at Base Camp says. News that set out before that day cannot know whether anybody got to the top.'
+    ]];
+    if (!readAll()) return ['read', [
+      'Mr Dunmore&rsquo;s three papers are on the desk: the pink telegram, the green form and the brown packet. Read all three.',
+      'The red book on the desk is his diary of the day, and the little card is the Chancery&rsquo;s rule for reports.'
+    ]];
+    return ['bd', ['The board on the right-hand wall. Mr Dunmore wants each paper pinned on it.']];
+  }
+
+  function begin() {
+    paint();
+    EV.need('mail', 'The Times mail card', EV.MAIL, 'sheet', 'In your pack');
+    EV.need('plan', 'The assault plan', EV.PLAN, 'board', 'Board on the tent pole');
+    if (ER.flag('e-in')) { busy = false; ER.say(nextFile ? 'The Chancery. The message has gone to London.' : 'The Chancery, at night. Mr Dunmore is waiting.'); return; }
+    EV.learn('embassy');
+    ER.narrate([
+      'The Chancery at night: one green lamp, a fan turning slowly under the high ceiling, and moths. Through the tall window the city is dark, except for a few lamps and the white dome of a temple on its hill.',
+      'Mr Dunmore is thirty, thin and careful, and he has three papers on his desk that do not agree with each other.',
+      '&ldquo;At seven o&rsquo;clock,&rdquo; he says, &ldquo;the police wireless sent over a message from Namche for The Times. We promised to pass on their correspondent&rsquo;s messages to London, and to keep our mouths shut. It says the snow is bad.&rdquo;',
+      '&ldquo;At nine o&rsquo;clock Mr Baptiste of Worldwire came round in a taxi, waving that pink thing. He says Everest was climbed on the 28th, and he wants us to confirm it. At eleven the line to India is free, and he will send his story to London whether we confirm it or not.&rdquo;',
+      '&ldquo;And this morning the mail runner brought The Times&rsquo;s ordinary packet down from Base Camp. If The Times&rsquo;s man says the snow is bad and Worldwire says the mountain is climbed, somebody is wrong. Before anything goes to London at eleven, I want to know who.&rdquo; He pushes a little printed card across the desk. &ldquo;Do it properly. Every paper on the board.&rdquo;'
+    ], function () { busy = false; ER.flag('e-in', 1); EV.learn('source', 'rumour'); paint(); });
+  }
+
+  var TG = '<h4>Press telegram (carbon copy)</h4><div class="hd">PRESS &middot; WORLDWIRE LONDON &middot; FROM KATHMANDU 1 JUNE &middot; TO BE HANDED IN 2300</div>' +
+    '<p class="body">EVEREST CLIMBED TWENTYEIGHTH STOP SHERPA TENZING REACHED SUMMIT ALONE WITHOUT OXYGEN STOP NEWS BROUGHT KATHMANDU TODAY BY RUNNER FROM BASE CAMP STOP BAPTISTE</p>' +
+    '<p class="hw">Left on the desk by Mr Baptiste at nine.</p>';
+  var MSG = '<h4>Police wireless, Kathmandu</h4><div class="hd">FROM NAMCHE 1 JUNE 1130 G.M.T. &middot; FOR BRITISH EMBASSY, TO BE SENT ON TO THE TIMES LONDON</div>' +
+    '<p class="body">FROM MORRIS BASE CAMP 30 MAY STOP SNOW CONDITIONS BAD STOP ADVANCED BASE ABANDONED YESTERDAY STOP AWAITING IMPROVEMENT</p>' +
+    '<p>With it, a line from the Namche police list: <span class="said">WORLDWIRE PORTER RETURNED SICK FROM LOBUJE 31 MAY. DID NOT REACH BASE CAMP.</span></p>';
+  var PK = '<h4>Packet for the air mail</h4><h5>Embassy register, 1 June. Written up by R. Dunmore.</h5>' +
+    '<p>One packet for The Times, London, brought down by the expedition&rsquo;s mail runner this morning. For the next air mail bag from Delhi.</p>' +
+    '<p>Written at Base Camp. Dated only &ldquo;<b>Sunday</b>&rdquo;.</p>' +
+    '<p>The covering note to the Embassy says, in short: the climbers are going up; the first attempt on the summit is expected in a few days, if the weather allows.</p>';
+  var BOOK = '<h4>The Everest book</h4><p class="dt">Kept at the Chancery. Monday 1 June.</p>' +
+    '<p><span class="dt">9 a.m.</span> Mail runner in from Base Camp with the Times packet. He says he left &ldquo;when all the sahibs were going up&rdquo;. Paid him for his tea. He went off to the bazaar to drink it, and to talk.</p>' +
+    '<p><span class="dt">7 p.m.</span> Police wireless: message from Namche for The Times. Weather.</p>' +
+    '<p><span class="dt">9 p.m.</span> Mr W. Baptiste, Worldwire. Says his runner came in from Base Camp this morning. Wants us to confirm his story. Did not.</p>';
+
+  $('#card').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: EV.CHANCERY, cls: 'chancery', clue: { id: 'chancery', title: 'The Chancery rule card', kind: 'On the desk' }, done: function () { EV.learn('report'); } });
+  });
+  $('#book').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: BOOK, cls: 'diary', clue: { id: 'ebook', title: 'The Everest book', kind: 'Mr Dunmore’s diary' }, done: function () { ER.flag('e-bk', 1); } });
+  });
+  $('#tg').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: TG, cls: 'tgram', clue: { id: 'tg', title: 'Mr Baptiste’s telegram', kind: 'Carbon copy' }, done: function () { EV.learn('telegram'); ER.flag('e-tg', 1); paint(); } });
+  });
+  $('#msg').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: MSG, cls: 'tgram', clue: { id: 'emsg', title: 'The message from Namche', kind: 'Police wireless' }, done: function () { ER.flag('e-msg', 1); paint(); } });
+  });
+  $('#packet').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: PK, cls: 'sheet', clue: { id: 'packet', title: 'The Times packet', kind: 'Embassy register' }, done: function () { EV.learn('dispatch'); ER.flag('e-pk', 1); paint(); } });
+  });
+  $('#board').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The board. Two red and blue pins on the left, one green pin on the right.'); return; }
+    if (!readAll()) { ER.say('The board is empty. Read Mr Dunmore&rsquo;s three papers first: they are on the desk.'); return; }
+    openBd();
+  });
+  EV.thing('#window', null, 'Kathmandu, asleep. Tomorrow the Embassy is giving a party for the Coronation, with a band. Mr Dunmore has been asked to make a speech, and is trying not to think about it.', isBusy);
+  EV.thing('#phone', null, function () { return nextFile ? 'The telephone. Mr Dunmore has just used it to tell Mr Baptiste that the Embassy cannot confirm anything at all.' : 'The telephone. Mr Baptiste will ring at half past ten. He said so.'; }, isBusy);
+  EV.thing('#safe', null, 'The safe. The code books of the Embassy live in it. The Times&rsquo;s code is not among them: Mr Dunmore does not know what &ldquo;snow conditions bad&rdquo; means, and he says he does not want to.', isBusy);
+  EV.thing('#dunmore', null, function () { return nextFile ? '&ldquo;Gone,&rdquo; says Mr Dunmore, &ldquo;exactly as it came.&rdquo;' : '&ldquo;Who, where, when, and how could he know,&rdquo; says Mr Dunmore. &ldquo;The card. Then the board.&rdquo;'; }, isBusy);
+
+  /* ---------- the board ---------- */
+  var DAYS = [], d; for (d = 20; d <= 33; d++) DAYS.push(d);
+  var WD = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  function dname(n) { var wd = WD[(n - 18 + 700) % 7]; return wd + ' ' + (n > 31 ? (n - 31) + ' June' : n + ' May'); }
+  var PAPERS = [['p1', 'Worldwire', 'Mr Baptiste&rsquo;s news, by his runner'], ['p2', 'The packet', 'The Times packet, by the mail runner'], ['p3', 'From Namche', 'Mr Morris&rsquo;s message, by wireless']];
+  function build() {
+    var b = ER.el('div', 'bd'), sets = {}, yn = {}, msgEl, lock = false;
+    var strip = '<div class="bd-strip">' + DAYS.map(function (n) { return '<div data-d="' + n + '"' + ((n - 18 + 700) % 7 === 6 ? ' class="sun"' : '') + '>' + dname(n).split(' ')[0] + '<b>' + (n > 31 ? n - 31 : n) + '</b></div>'; }).join('') + '</div>';
+    b.innerHTML = '<div class="bd-main"><h6>WHAT EACH COULD KNOW, AND WHEN</h6>' + strip + '<div class="bd-cards"></div><div class="bd-foot"><button type="button" class="btn" id="bd-go">Show Mr Dunmore</button></div></div>' +
+      '<div class="lk-side"><div class="lk-face">' + EV.FACE('dunmore') + '</div><h6 class="lk-h">Mr Dunmore</h6><p class="pmsg"></p></div>';
+    var cards = b.querySelector('.bd-cards'); msgEl = b.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function pins() {
+      ER.$$('.bd-pin', b).forEach(function (p) { p.parentNode.removeChild(p); });
+      PAPERS.forEach(function (p) { var c = b.querySelector('.bd-strip div[data-d="' + sets[p[0]].get() + '"]'); if (c) c.appendChild(ER.el('i', 'bd-pin ' + p[0])); });
+    }
+    PAPERS.forEach(function (p) {
+      var c = ER.el('div', 'bd-c ' + p[0], '<h5>' + p[1] + '</h5><p>' + p[2] + '. Its news set out from the mountain on:</p>');
+      sets[p[0]] = EV.setter({ val: 32, min: 20, max: 33, step: 1, fmt: dname, onChange: pins });
+      c.appendChild(sets[p[0]].el);
+      c.appendChild(ER.el('p', '', 'Could it know whether anybody reached the top?'));
+      var row = ER.el('div', 'bd-yn', '<button type="button" data-v="y">Yes</button><button type="button" data-v="n">No</button>');
+      ER.$$('button', row).forEach(function (bt) { bt.addEventListener('click', function () { if (lock) return; yn[p[0]] = bt.getAttribute('data-v'); ER.$$('button', row).forEach(function (o) { o.classList.remove('on', 'ok', 'no'); }); bt.classList.add('on'); EV.sfx.pin(); }); });
+      c.appendChild(row); cards.appendChild(c);
+    });
+    pins();
+    b.querySelector('#bd-go').addEventListener('click', function () {
+      if (lock) return;
+      if (PAPERS.some(function (p) { return !yn[p[0]]; })) { msg('&ldquo;Yes or no, for every paper. I cannot send London a perhaps.&rdquo;'); return; }
+      var bad = '', vals = {}, i;
+      for (i = 0; i < 3; i++) {
+        var k = PAPERS[i][0], n = sets[k].get(), ok = ER.check(k, String(n));
+        vals[k] = n; sets[k].mark(ok ? 'ok' : 'no');
+        if (!ok && !bad) {
+          if (k === 'p3') bad = n >= 31 ? '&ldquo;That is when it reached Namche, or us. Where was Mr Morris when he wrote it, and when? It says, at the top.&rdquo;' : '&ldquo;Read the top of the green form again. It says where and when it was written.&rdquo;';
+          else if (n === 32) bad = '&ldquo;' + (k === 'p1' ? 'Mr Baptiste&rsquo;s' : 'The packet&rsquo;s') + ' news arrived today. When did it set out? It came on foot from Base Camp. How many days does that take?&rdquo;';
+          else if (k === 'p1' && n === 28) bad = '&ldquo;The 28th is the day he says the climb was. That is what he claims, not when his news set out. Where did his news come from, and how fast does it travel?&rdquo;';
+          else if (k === 'p2' && n === 31) bad = '&ldquo;Yesterday was a Sunday, yes. But the packet came on foot. Could a runner come down from Base Camp in a day?&rdquo;';
+          else bad = '&ldquo;Not that day. A runner from Base Camp to Kathmandu: how many days? The card from The Times says. Then count back from this morning.&rdquo;';
+        }
+      }
+      if (bad) { EV.slip(); ER.sfx.no(); msg(bad); return; }
+      for (i = 0; i < 3; i++) {
+        var kk = PAPERS[i][0], v = 'v' + (i + 1), okv = ER.check(v, yn[kk]);
+        var btn = b.querySelector('.bd-c.' + kk + ' button[data-v="' + yn[kk] + '"]'); btn.classList.remove('on'); btn.classList.add(okv ? 'ok' : 'no');
+        if (!okv && !bad) bad = yn[kk] === 'y' ? '&ldquo;Its news set out on ' + dname(vals[kk]) + '. When was the first attempt on the summit? The board in the tent at Base Camp says. Could anybody know the end of a climb that had not begun?&rdquo;' : '&ldquo;Written at Base Camp on ' + dname(vals[kk]) + ', after the climbers came down. Why could he not know?&rdquo;';
+      }
+      if (bad) { EV.slip(); ER.sfx.no(); msg(bad); return; }
+      lock = true; ER.flag('e-v', [vals.p1, vals.p2, vals.p3].join('-') + '|' + [yn.p1, yn.p2, yn.p3].join('-')); ER.sfx.ok();
+      msg('Mr Dunmore looks at the board for a long time. &ldquo;Two runners who arrived on the same morning from the same place,&rdquo; he says. &ldquo;I wonder how many runners there really are.&rdquo;');
+      setTimeout(function () { ER.closeAll(); after(); }, 2600);
+    });
+    b.first = function () { msg('&ldquo;For each paper: the day its news set out from the mountain. Not the day it reached us. Then: could it know how the climb ended? The board does not care what we hope.&rdquo;'); };
+    return b;
+  }
+  function openBd() { var f = !box; if (!box) box = build(); inBd = true; ER.open('ov-lock', box, function () { inBd = false; }); if (f) box.first(); }
+
+  function after() {
+    busy = true; inBd = false;
+    var v = String(ER.flag('e-v') || '').split('|')[0].split('-');
+    EV.mine('board', 'What each could know', '<p>Worldwire and the packet: news set out on <b>' + dname(+v[0]) + '</b>. That is before the first attempt on the summit (26 May). They could not know how it ended.</p><p>Mr Morris&rsquo;s message: written on <b>' + dname(+v[2]) + '</b> at Base Camp, after he came down. He could know.</p><p>A report is no newer than its news.</p>', true);
+    ER.narrate([
+      '&ldquo;So,&rdquo; says Mr Dunmore. &ldquo;Mr Baptiste&rsquo;s runner is our mail runner, who left Base Camp on a Sunday before anybody had tried for the top, and spent this morning in the bazaar being bought drinks. His own porter never got there at all: Namche says so. Mr Baptiste has a rumour.&rdquo; He takes off his glasses. &ldquo;A good one. But a rumour.&rdquo;',
+      '&ldquo;And our message?&rdquo; He holds up the green form. &ldquo;I have no idea what &lsquo;snow conditions bad&rsquo; means. I strongly suspect that it does not mean that the snow conditions are bad. That is not my business. My business is that it gets to London exactly as it was written, and that nothing from Mr Baptiste goes with it.&rdquo;',
+      'At half past ten the telephone rings. Mr Dunmore tells Mr Baptiste, very politely, that the Embassy can confirm nothing whatever, and that his runner left Base Camp long before anybody tried for the top. There is a long silence on the line. Mr Baptiste is not a fool either. He says he will write something more careful.',
+      'At ten past eleven, Kathmandu time, the telegraph office takes the Embassy&rsquo;s traffic for London. You carry it across yourself, through the dark streets, with a policeman on a bicycle beside you. The clerk stamps it: <span class="said">KATHMANDU 1 JUN 2310</span>.',
+      'That is where the second bundle ends.'
+    ], function () {
+      var file = ER.exitOk([String(ER.flag('e-v') || '')]);
+      if (!file) { busy = false; ER.say('Something is wrong: tell your teacher.'); return; }
+      nextFile = file; ER.flag('e-file', file);
+      var st = ER.state(); st.done = st.done || {}; st.done.embassy = 1; ER.persist(true);
+      busy = false; paint();
+    });
+  }
+  $('#go').addEventListener('click', function () {
+    if (!nextFile || busy) return;
+    busy = true; EV.solved(true);
+    setTimeout(function () { ER.leave(nextFile); }, 1000);
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Wireless Post · Snow Conditions Bad</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-history.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="everest.css">
+<style>
+  body{--bg:#1d2220;--accent:#9fe0a8;--font-display:'Stardos Stencil',serif;--font-ui:'Oswald',sans-serif;--font-body:'Libre Caslon Text',serif;
+    --tc-bg:rgba(18,22,20,.96);--tc-ink:#eef2ea;--cap-bg:rgba(18,22,20,.94);--panel:#1f2a24;--face-bg:#2d3a32;--q-ink:#b8eebe;--fade:#060807;--hud-bg:rgba(18,22,20,.82)}
+  .lb{font-family:'IBM Plex Mono',monospace;font-weight:600;text-anchor:middle;letter-spacing:.06em}
+  #rain,#flash{display:none}
+  body.storm #rain{display:block}
+  body.storm #flash{display:block;animation:fl 7s steps(1,end) infinite}
+  @keyframes fl{0%{opacity:0}62%{opacity:.5}63%{opacity:0}66%{opacity:.35}67%{opacity:0}}
+  #rain path{animation:rn .5s linear infinite}
+  @keyframes rn{from{transform:translateY(-30px)}to{transform:translateY(30px)}}
+  #lamp1{animation:lp 3s steps(1,end) infinite}
+  @keyframes lp{50%{opacity:.4}}
+  body.mon #skyN{fill:#8fb6d8}
+  #spike.ready,#clocks.ready{animation:nudge 1.6s ease-in-out infinite}
+  @keyframes nudge{50%{transform:translateY(-6px)}}
+
+  /* the form */
+  .fm{display:grid;grid-template-columns:minmax(0,700px) 230px;gap:20px;width:min(960px,97vw);align-items:start}
+  .fm-two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .fm-orig{padding:12px 16px;background:#f7f2e2;color:#22201b;font-family:'Special Elite','Courier New',monospace;font-size:15px;line-height:1.55;box-shadow:0 10px 24px rgba(0,0,0,.5)}
+  .fm-orig h6,.fm-form h6{margin:0 0 6px;font-family:'Oswald',sans-serif;font-weight:500;font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:#6b6552}
+  .fm-form{padding:12px 16px;background:#e6efe0 linear-gradient(170deg,rgba(255,255,255,.5),rgba(40,80,50,.12));color:#18241c;border-top:6px solid #2d5a3a;box-shadow:0 10px 24px rgba(0,0,0,.5)}
+  .fm-form .hd{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#4a5a4e;border-bottom:1px dashed #8a9a8e;padding-bottom:5px;margin-bottom:6px}
+  .fm-words{display:flex;flex-wrap:wrap;gap:4px 6px;font-family:'Caveat',cursive;font-size:25px;line-height:1.15;color:#1d2a52}
+  .fm-w{padding:0 4px;border-radius:3px;cursor:pointer;border:0;background:none;font:inherit;color:inherit}
+  .fm-w:hover{background:#fff3a8}
+  .fm-w.fix{background:#cfe6c4;cursor:default;text-decoration:none}
+  .fm-w.miss{background:#f1c9c0}
+  .fm-foot{display:flex;align-items:center;gap:10px;margin-top:12px}
+  .fm-foot span{flex:1;font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#c9d6c9}
+  /* the clocks */
+  .ck{display:grid;grid-template-columns:minmax(0,700px) 230px;gap:20px;width:min(960px,97vw);align-items:start}
+  .ck-board{padding:14px 18px 12px;background:#2a2f2c;border:8px solid #5a4a36;color:#eef2ea}
+  .ck-board h6{margin:0 0 10px;font-family:'Oswald',sans-serif;font-weight:500;font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:#c9d6c9}
+  .ck-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .ck-c{text-align:center}
+  .ck-c svg{width:150px;height:150px;display:block;margin:0 auto 6px}
+  .ck-c b{display:block;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:13px;letter-spacing:.06em;color:#ffe9a8;margin-bottom:6px}
+  .ck-c .fixed{display:inline-block;min-width:64px;padding:3px 7px 2px;background:#111;color:#cdeec6;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:17px;border-radius:2px}
+  .ck-hand{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:12px;padding-top:10px;border-top:1px solid #4a524e;font-family:'Libre Caslon Text',serif;font-size:16px}
+  .ck-foot{display:flex;justify-content:flex-end;margin-top:10px}
+  @media (max-width:900px){.fm,.ck,.fm-two{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="stones" width="120" height="70" patternUnits="userSpaceOnUse"><rect width="120" height="70" fill="#8a8c84"/>
+    <g fill="#9c9e95" stroke="#5e6058" stroke-width="3"><path d="M4 4h52v28H4z"/><path d="M62 4h54v24H62z"/><path d="M4 38h34v28H4z"/><path d="M44 36h40v30H44z"/><path d="M90 34h26v32H90z"/></g></pattern>
+  <linearGradient id="setG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a5048"/><stop offset="1" stop-color="#2a2e28"/></linearGradient>
+  <radialGradient id="bulbG" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fff3c4" stop-opacity=".6"/><stop offset="1" stop-color="#fff3c4" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="45%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".65" stop-color="#050605" stop-opacity=".25"/><stop offset="1" stop-color="#050605" stop-opacity=".85"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#stones)"/>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="#e9e6da" opacity=".35"/>
+<rect x="-1000" y="-400" width="3600" height="130" fill="#3a2a1c"/><g fill="#2a1d12"><rect x="-1000" y="-280" width="3600" height="14"/></g>
+<g fill="#4a3624"><rect x="200" y="-400" width="30" height="140"/><rect x="760" y="-400" width="30" height="140"/><rect x="1320" y="-400" width="30" height="140"/></g>
+<rect x="-1000" y="700" width="3600" height="620" fill="#4a3a2a"/><g stroke="#2e2418" stroke-width="3"><path d="M-1000 760H2600M-1000 840H2600M-1000 940H2600"/></g>
+
+<!-- the window: Namche, and the weather -->
+<g id="window" class="hot">
+  <rect x="70" y="150" width="380" height="300" fill="#5a4a36"/>
+  <rect id="skyN" x="86" y="166" width="348" height="268" fill="#a9b9c8"/>
+  <path d="M86 300L160 230 210 260 290 190 350 240 434 210V434H86z" fill="#e9eef4"/>
+  <path d="M86 340L180 300 260 330 340 290 434 320V434H86z" fill="#6e8a5a"/>
+  <g fill="#e9e6da" stroke="#5a4a36" stroke-width="1.5"><rect x="140" y="370" width="26" height="16"/><rect x="180" y="380" width="22" height="14"/><rect x="214" y="364" width="28" height="18"/><rect x="258" y="378" width="24" height="16"/><rect x="300" y="368" width="26" height="16"/><rect x="340" y="384" width="22" height="14"/><rect x="200" y="404" width="26" height="16"/><rect x="250" y="410" width="22" height="14"/><rect x="300" y="404" width="24" height="16"/></g>
+  <g fill="#4a5a6a" opacity=".85"><ellipse cx="200" cy="200" rx="90" ry="30"/><ellipse cx="330" cy="186" rx="80" ry="26"/></g>
+  <g id="rain" stroke="#c9d6e4" stroke-width="2" opacity=".7"><path d="M110 170l-10 40M160 190l-10 40M210 175l-10 40M260 195l-10 40M310 180l-10 40M360 200l-10 40M410 176l-10 40M130 260l-10 40M190 280l-10 40M250 262l-10 40M320 284l-10 40M390 266l-10 40M150 350l-10 40M230 360l-10 40M330 352l-10 40"/></g>
+  <path d="M260 166v268M86 300h348" stroke="#5a4a36" stroke-width="10"/>
+</g>
+
+<!-- the notice, the three clocks -->
+<g id="notice" class="hot"><rect x="520" y="170" width="170" height="220" fill="#e9ecdf"/><rect x="520" y="170" width="170" height="10" fill="#2d5a3a"/>
+  <text x="605" y="206" class="lb" font-size="13" fill="#2d5a3a">WIRELESS</text><text x="605" y="222" class="lb" font-size="13" fill="#2d5a3a">POST</text>
+  <g stroke="#6b6552" stroke-width="2"><path d="M536 244h138M536 258h120M536 272h134M536 300h138M536 314h110M536 328h130M536 356h120M536 370h96"/></g><circle cx="605" cy="174" r="5" fill="#7a1d14"/></g>
+<g id="clocks" class="hot">
+  <rect x="760" y="150" width="420" height="160" rx="6" fill="#5a4a36"/>
+  <g fill="#f4f0e2" stroke="#2a2a2a" stroke-width="3"><circle cx="830" cy="222" r="50"/><circle cx="970" cy="222" r="50"/><circle cx="1110" cy="222" r="50"/></g>
+  <g stroke="#2a2a2a" stroke-width="5" stroke-linecap="round"><path d="M830 222L802 238M830 222l13 15"/><path d="M970 222l28 -16M970 222l-8 -18"/></g>
+  <circle cx="1110" cy="222" r="5" fill="#2a2a2a"/>
+  <g font-family="'IBM Plex Mono',monospace" font-size="12" font-weight="600" fill="#f4f0e2" text-anchor="middle"><text x="830" y="296">NAMCHE I.S.T.</text><text x="970" y="296">G.M.T.</text><text x="1110" y="296">LONDON ?</text></g>
+</g>
+
+<!-- the table, the set, the log, the spike -->
+<rect x="500" y="560" width="760" height="24" fill="#6a4e30"/><path d="M520 584v190M1240 584v190" stroke="#4a3622" stroke-width="20"/>
+<g id="set" class="hot">
+  <rect x="720" y="400" width="300" height="160" rx="6" fill="url(#setG)"/>
+  <g fill="#1a1c1a" stroke="#8a8f86" stroke-width="2"><circle cx="780" cy="470" r="26"/><circle cx="870" cy="470" r="26"/></g>
+  <g stroke="#e9e6da" stroke-width="3"><path d="M780 470l12-14M870 470l-8 -16"/></g>
+  <rect x="920" y="430" width="80" height="50" rx="3" fill="#e9e6c4"/><path d="M930 470q30-34 60 0" stroke="#2a2a2a" stroke-width="2" fill="none"/><path d="M960 472l14-24" stroke="#b3261c" stroke-width="2.5"/>
+  <circle id="lamp1" cx="960" cy="510" r="7" fill="#e94a2a"/>
+  <g fill="#c9a25a"><circle cx="750" cy="530" r="5"/><circle cx="790" cy="530" r="5"/><circle cx="830" cy="530" r="5"/></g>
+  <path d="M1020 420q60-80 40-420" stroke="#1a1a1a" stroke-width="5" fill="none"/>
+  <path d="M1060 540h70" stroke="#1a1a1a" stroke-width="4"/><rect x="1080" y="528" width="60" height="16" rx="3" fill="#3a2a1c"/><rect x="1094" y="518" width="30" height="8" fill="#c9a25a"/>
+</g>
+<g id="log" class="hot"><path d="M560 540l70-12 74 12-4 18-70-10-70 10z" fill="#f3eede"/><path d="M630 528v20" stroke="#2d5a3a" stroke-width="3"/><g stroke="#6b6552" stroke-width="1.2"><path d="M572 542l50-8M640 534l50 8M574 549l48-7M640 541l48 7"/></g></g>
+<g id="spike" class="hot"><rect x="1160" y="470" width="8" height="90" fill="#8a8a8a"/><rect x="1130" y="552" width="68" height="10" rx="3" fill="#3a2a1c"/>
+  <g fill="#e6efe0" stroke="#8a9a8e" stroke-width="1.5"><path d="M1124 520h88v26h-88z" transform="rotate(-6 1168 533)"/><path d="M1126 494h84v26h-84z" transform="rotate(4 1168 507)"/></g></g>
+<g fill="#2a2a2a"><rect x="760" y="620" width="70" height="50"/><rect x="840" y="620" width="70" height="50"/><rect x="920" y="620" width="70" height="50"/></g><g fill="#c9a25a"><circle cx="776" cy="616" r="5"/><circle cx="814" cy="616" r="5"/><circle cx="856" cy="616" r="5"/><circle cx="894" cy="616" r="5"/><circle cx="936" cy="616" r="5"/><circle cx="974" cy="616" r="5"/></g>
+
+<!-- Mr Vohra -->
+<g id="vohra" class="hot">
+  <path d="M1300 780q-6-150 30-190q30-20 70 0q34 40 30 190z" fill="#a08a5a"/>
+  <path d="M1330 612q36 20 70 0" stroke="#6b5a33" stroke-width="5" fill="none"/>
+  <ellipse cx="1365" cy="548" rx="30" ry="34" fill="#8a5a3a"/><path d="M1334 532q2-30 36-30q30 2 32 22q-34-8-68 8z" fill="#20304a"/>
+  <path d="M1350 566q15-8 30 0q-15 5-30 0z" fill="#141110"/><circle cx="1354" cy="548" r="2.6" fill="#141110"/><circle cx="1376" cy="548" r="2.6" fill="#141110"/>
+  <path d="M1336 560q30 28 58 0" stroke="#1a1a1a" stroke-width="4" fill="none"/><rect x="1328" y="556" width="10" height="16" rx="3" fill="#1a1a1a"/><rect x="1392" y="556" width="10" height="16" rx="3" fill="#1a1a1a"/>
+  <path d="M1300 650q-60 0-90 -80" stroke="#a08a5a" stroke-width="22" stroke-linecap="round" fill="none"/>
+</g>
+<circle cx="900" cy="-60" r="300" fill="url(#bulbG)" pointer-events="none"/>
+<rect id="flash" x="-1000" y="-400" width="3600" height="1720" fill="#dfe8ff" opacity="0" pointer-events="none"/>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Open the second bundle</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="everest.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, stage = 0, nextFile = null, fmBox = null, ckBox = null, inFm = false, inCk = false;
+
+  ER.init({
+    theme: 'history', story: 'everest', storyTitle: 'Snow Conditions Bad', id: 'namche', no: 'III', title: 'The Wireless Post',
+    go: 'Knock', back: '../index.html', backLabel: 'Archive',
+    intro: [
+      'Phurba&rsquo;s rule was added up stage by stage. Three hours on the ice; two hours, and an hour and a half, downhill on the path; two hours by the main path to Thyangboche, because its climb of 200 metres costs half an hour; three hours and a quarter to Namche. That is eleven hours and three quarters, with half an hour for tea: leave at half past four, arrive about a quarter to five. The high path was shorter, but 600 metres of climbing would have made you late. And the sick man went down, because going down helps most, and quickest.',
+      'It is twenty-five minutes to five on Sunday 31 May. The wireless post at Namche Bazar is a stone hut with a tall mast beside it. The man who keeps the set is Mr Vohra of the Indian police, and he is the only person for a week&rsquo;s walk in any direction who can talk to Kathmandu.'
+    ],
+    exit: {"next":"embassy","w":{"77f1357e":"6b413c4e"}}, tags: {"ch":["aadc2b44","5f0c796a","400a4fc9"],"gmt":["c3a49953"],"lon":["fc050180"],"hand":["f0d1c1cf"]},
+    hints: hints, onBegin: begin
+  });
+  stage = ER.flag('n-st') || 0; nextFile = ER.flag('n-file') || null;
+
+  function isBusy() { return busy; }
+  function setStage(n) { stage = n; ER.flag('n-st', n); paint(); }
+  function paint() {
+    var b = document.body.classList;
+    b.toggle('storm', stage === 2); b.toggle('mon', stage >= 3);
+    $('#spike').classList.toggle('ready', stage === 1);
+    $('#clocks').classList.toggle('ready', stage === 2);
+    ER.pips(nextFile ? 2 : stage >= 2 ? 1 : 0, 2);
+    if (nextFile) $('#go').classList.add('on');
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The message has gone to Kathmandu. Use the button at the bottom of the screen.']];
+    if (inCk || stage === 2) return ['clocks', [
+      'Read the notice on the wall again. India and Nepal are G.M.T. plus 5 hours 30 minutes. Take that away from 17.00.',
+      'London in June is not on Greenwich time. In 1953 British Summer Time ran from April to October, one hour ahead of G.M.T.',
+      'London must have the message by 11 p.m., London time: that is in the note from the Foreign Desk, in your notebook. Count the hours from London&rsquo;s time when the message goes.'
+    ]];
+    if (inFm || stage === 1) return ['form', [
+      'The form is on the spike at the end of the table. Put Mr Morris&rsquo;s typed sheet beside Mr Vohra&rsquo;s copy and read them word by word.',
+      'Three words are different. Click each one on Mr Vohra&rsquo;s copy.',
+      'One of the changes is a day. Even in plain English, is it the right day? Mr Morris wrote on Saturday.'
+    ]];
+    return ['look', ['Talk to Mr Vohra, on the right.']];
+  }
+
+  function begin() {
+    paint();
+    EV.need('desk', 'Codes and ciphers', EV.DESK, 'sheet', 'From the Foreign Desk');
+    EV.need('code', 'The code card', EV.CODE, 'code', 'From the tin');
+    if (ER.flag('n-in')) { busy = false; ER.say(nextFile ? 'The wireless post. Kathmandu has it.' : stage === 2 ? 'The wireless post. Rain on the window, and the set is quiet.' : 'The wireless post at Namche. Mr Vohra is waiting for you to sign.'); return; }
+    EV.learn('operator');
+    ER.narrate([
+      'Mr Vohra is a neat man with a neat moustache, a long way from home. He reads the envelope, and then the sheet inside it, and then he looks at you over the top of it.',
+      '&ldquo;Snow conditions bad,&rdquo; he says. &ldquo;You walked forty kilometres to tell London that it is snowing on a mountain.&rdquo; He shakes his head. &ldquo;The English. Sit. Tea is coming.&rdquo;',
+      'While you drink it, he copies the message onto one of his own green forms, in his best handwriting. Phurba and the Worldwire porter sit outside on the wall. The porter tells Mr Vohra all about his head, and Mr Vohra writes that down too, for his own report to Kathmandu.',
+      '&ldquo;Now,&rdquo; he says. &ldquo;The rules say that the person who hands in a message signs the form, to say it is right. The form is on the spike. Check it, and sign.&rdquo;'
+    ], function () { busy = false; ER.flag('n-in', 1); setStage(Math.max(stage, 1)); });
+  }
+
+  /* ---------- things ---------- */
+  $('#notice').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: EV.WIRELESS, cls: 'notice2', clue: { id: 'wireless', title: 'The wireless post notice', kind: 'On the wall' }, done: function () { EV.learn('schedule', 'Greenwich Mean Time', 'British Summer Time', 'time zone'); ER.flag('n-notice', 1); } });
+  });
+  $('#spike').addEventListener('click', function () {
+    if (busy) return;
+    if (stage !== 1) { ER.say(stage > 1 ? 'The spike. The form is signed, and waiting for the schedule.' : 'The spike.'); return; }
+    openFm();
+  });
+  $('#clocks').addEventListener('click', function (e) {
+    if (busy) return;
+    ER.wordAt(e.clientX, e.clientY, 'time zone');
+    if (stage !== 2) { ER.say(stage < 2 ? 'Three clocks. Mr Vohra has never set the third one. &ldquo;Who in Namche wants to know the time in London?&rdquo;' : 'Three clocks, and all three are right now.'); return; }
+    openCk();
+  });
+  $('#log').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: LOG(), cls: 'notice2', clue: { id: 'log', title: 'The wireless log', kind: 'On the table' }, done: function () { EV.learn('log'); } });
+  });
+  function LOG() {
+    var s = '<h4>Log &middot; Namche &middot; all times G.M.T.</h4><p>29 May, 1130: Kathmandu. Police list sent. Nothing received.</p><p>30 May, 1130: Kathmandu. Police list sent. Weather for Delhi received.</p>';
+    if (stage >= 3) s += '<p>31 May, 1130: Kathmandu did not answer. Storm.</p><p>1 June, 1130: Kathmandu. Sent: press message for The Times (11 words); police list. <b>Received: R.</b></p>';
+    else s += '<p>31 May, 1130: </p>';
+    return s;
+  }
+  EV.thing('#set', 'wireless', function () { return stage === 2 ? 'The set. Only a hiss in the headphones, and now and then a crack like a whip when the lightning strikes somewhere.' : 'The wireless set: a transmitter and a receiver in one grey box, and a Morse key. Everything Mr Vohra says to Kathmandu goes as dots and dashes.'; }, isBusy);
+  EV.thing('#window', null, function () { return stage === 2 ? 'Rain, and cloud right down on the roofs. Somewhere over the hills there is thunder.' : stage >= 3 ? 'Monday. The clouds have gone. Somebody&rsquo;s yak is eating somebody else&rsquo;s potatoes.' : 'Namche: stone houses on a steep green hillside, and clouds building over the far ridge.'; }, isBusy);
+  $('#vohra').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Gone,&rdquo; says Mr Vohra. &ldquo;Your weather is in Kathmandu. Kathmandu can worry about it now.&rdquo;'); return; }
+    if (stage === 1) { ER.say('&ldquo;Check it and sign it,&rdquo; says Mr Vohra. &ldquo;It is on the spike. My handwriting is better than your sahib&rsquo;s typing.&rdquo;'); return; }
+    if (stage === 2) { ER.say('&ldquo;Tomorrow,&rdquo; says Mr Vohra. &ldquo;At 1130. Before you cry, look at the clocks.&rdquo;'); return; }
+    ER.say('Mr Vohra.');
+  });
+
+  /* ---------- the form ---------- */
+  var ORIG = ['SNOW', 'CONDITIONS', 'BAD', 'STOP', 'ADVANCED', 'BASE', 'ABANDONED', 'YESTERDAY', 'STOP', 'AWAITING', 'IMPROVEMENT'];
+  var COPY = ['SNOW', 'CONDITIONS', 'POOR', 'STOP', 'ADVANCED', 'BASE', 'ABANDONED', 'SATURDAY', 'STOP', 'WAITING', 'IMPROVEMENT'];
+  var SAY = {
+    POOR: '&ldquo;&lsquo;Bad&rsquo; is not a word for a Government form,&rdquo; says Mr Vohra. &ldquo;I made it &lsquo;poor&rsquo;.&rdquo; You point at the notice: messages are sent exactly as written. He sighs. &ldquo;Rules are rules. Even mine.&rdquo;',
+    SATURDAY: '&ldquo;But &lsquo;yesterday&rsquo; is wrong now,&rdquo; he says. &ldquo;Today is Sunday. So I put the day.&rdquo; &ldquo;He wrote it on Saturday,&rdquo; you say. &ldquo;Yesterday, from Saturday, is Friday.&rdquo; Mr Vohra looks at his form for a long time. &ldquo;So I made it wrong in two ways at once. Yesterday it is.&rdquo;',
+    WAITING: '&ldquo;&lsquo;Awaiting&rsquo; has one letter too many,&rdquo; he says. Then he remembers that the Government pays by the word, not by the letter. &ldquo;Very well. Your sahib may await.&rdquo;'
+  };
+  function buildFm() {
+    var b = ER.el('div', 'fm'), found = {}, misses = 0, msgEl;
+    b.innerHTML = '<div><div class="fm-two"><div class="fm-orig"><h6>Mr Morris&rsquo;s typed sheet</h6>' + ORIG.join(' ') + '</div>' +
+      '<div class="fm-form"><h6>Wireless post &middot; message form</h6><div class="hd">TO: BRITISH EMBASSY KATHMANDU FOR THE TIMES LONDON &middot; HANDED IN NAMCHE 31 MAY &middot; WORDS: 11</div><div class="fm-words">' +
+      COPY.map(function (w, i) { return '<button type="button" class="fm-w" data-i="' + i + '">' + w + '</button>'; }).join('') + '</div></div></div>' +
+      '<div class="fm-foot"><span>Click each word on the form that is not what Mr Morris typed.</span><button type="button" class="btn" id="fm-sign" disabled>Sign the form</button></div></div>' +
+      '<div class="lk-side"><div class="lk-face">' + EV.FACE('vohra') + '</div><h6 class="lk-h">Mr Vohra</h6><p class="pmsg"></p></div>';
+    msgEl = b.querySelector('.pmsg');
+    var sign = b.querySelector('#fm-sign');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function n() { return Object.keys(found).length; }
+    ER.$$('.fm-w', b).forEach(function (w) {
+      w.addEventListener('click', function () {
+        var i = w.getAttribute('data-i');
+        if (found[i] || n() >= 3) return;
+        if (ER.check('ch', i)) {
+          found[i] = 1; EV.sfx.pencil(); ER.sfx.ok();
+          msg(SAY[COPY[i]] || ''); w.textContent = ORIG[i]; w.classList.add('fix'); w.classList.remove('miss');
+          b.setAttribute('data-found', Object.keys(found).sort().join('-'));
+          if (n() === 3) { sign.disabled = false; msg(SAY[COPY[i]] + '<br><br>Now the form says exactly what Mr Morris typed.'); }
+          return;
+        }
+        misses++; if (misses % 2 === 0) EV.slip(); ER.sfx.no(); w.classList.add('miss');
+        setTimeout(function () { w.classList.remove('miss'); }, 900);
+        msg('&ldquo;' + COPY[i] + '? That is just as your sahib typed it. Look again.&rdquo;');
+      });
+    });
+    sign.addEventListener('click', function () {
+      if (n() < 3) return;
+      ER.flag('n-ch', Object.keys(found).sort(function (a, c) { return a - c; }).join('-'));
+      sign.disabled = true; ER.sfx.ok(); EV.sfx.pencil();
+      msg('You sign. Mr Vohra blots it, stamps it, and puts it back on the spike. &ldquo;Twenty minutes to the schedule,&rdquo; he says.');
+      setTimeout(function () { ER.closeAll(); storm(); }, 2200);
+    });
+    b.first = function () { msg('&ldquo;My copy is on the right. Your sahib&rsquo;s sheet is on the left. If you find anything wrong, I shall be very surprised.&rdquo;'); };
+    return b;
+  }
+  function openFm() { var f = !fmBox; if (!fmBox) fmBox = buildFm(); inFm = true; ER.open('ov-lock', fmBox, function () { inFm = false; }); if (f) fmBox.first(); }
+
+  function storm() {
+    busy = true; inFm = false;
+    ER.narrate([
+      'At ten to five the rain comes, all at once, as if somebody had turned it on. Then thunder, over the hills to the south. Mr Vohra puts on the headphones and frowns.',
+      'At five o&rsquo;clock exactly he begins to call Kathmandu. He calls for twenty minutes. Kathmandu does not answer. There is nothing in the headphones but a hiss, and every time the lightning strikes, a crack that makes him pull them off his ears.'
+    ], function () {
+      ER.sfx.thunder(); EV.sfx.crackle(8); setStage(2); EV.mood('tense');
+      ER.narrate([
+        '&ldquo;The storm is between us,&rdquo; he says at last. &ldquo;He cannot hear me, and I cannot hear him. Tomorrow, at the same time.&rdquo;',
+        'A whole day. You walked forty kilometres for nothing. Phurba, in the doorway, says nothing at all, which is worse.',
+        '&ldquo;Before you cry,&rdquo; says Mr Vohra, &ldquo;do your sums. Tomorrow at 1130 G.M.T. the message goes. What time is that in London? And how long has London then? Look at my clocks. Set the third one, which I have never needed.&rdquo;'
+      ], function () { busy = false; });
+    });
+  }
+
+  /* ---------- the clocks ---------- */
+  function face(m, id) {
+    var h = (m / 60) % 12, mi = m % 60;
+    return '<svg viewBox="0 0 120 120" id="' + id + '"><circle cx="60" cy="60" r="54" fill="#f4f0e2" stroke="#111" stroke-width="4"/>' +
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(function (k) { var a = k * Math.PI / 6; return '<path d="M' + (60 + 44 * Math.sin(a)).toFixed(1) + ' ' + (60 - 44 * Math.cos(a)).toFixed(1) + 'L' + (60 + 50 * Math.sin(a)).toFixed(1) + ' ' + (60 - 50 * Math.cos(a)).toFixed(1) + '" stroke="#111" stroke-width="' + (k % 3 ? 2 : 4) + '"/>'; }).join('') +
+      '<path d="M60 60L' + (60 + 28 * Math.sin(h * Math.PI / 6)).toFixed(1) + ' ' + (60 - 28 * Math.cos(h * Math.PI / 6)).toFixed(1) + '" stroke="#111" stroke-width="6" stroke-linecap="round"/>' +
+      '<path d="M60 60L' + (60 + 42 * Math.sin(mi * Math.PI / 30)).toFixed(1) + ' ' + (60 - 42 * Math.cos(mi * Math.PI / 30)).toFixed(1) + '" stroke="#111" stroke-width="3.5" stroke-linecap="round"/><circle cx="60" cy="60" r="4" fill="#7a1d14"/></svg>';
+  }
+  function buildCk() {
+    var b = ER.el('div', 'ck'), msgEl, lock = false;
+    b.innerHTML = '<div class="ck-board"><h6>Monday 1 June: the schedule</h6><div class="ck-row">' +
+      '<div class="ck-c"><b>NAMCHE (I.S.T.)</b>' + face(1020, 'f1') + '<span class="fixed">17.00</span></div>' +
+      '<div class="ck-c" id="c2"><b>G.M.T.</b>' + face(0, 'f2') + '</div>' +
+      '<div class="ck-c" id="c3"><b>LONDON</b>' + face(0, 'f3') + '</div></div>' +
+      '<div class="ck-hand"><span>Time London still has, before 11 p.m. London time:</span></div>' +
+      '<div class="ck-foot"><button type="button" class="btn" id="ck-go">Show Mr Vohra</button></div></div>' +
+      '<div class="lk-side"><div class="lk-face">' + EV.FACE('vohra') + '</div><h6 class="lk-h">Mr Vohra</h6><p class="pmsg"></p></div>';
+    msgEl = b.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function redraw(id, v) { var o = b.querySelector('#' + id); o.outerHTML = face(v, id); }
+    var g = EV.setter({ val: 1020, min: 0, max: 1425, step: 15, onChange: function (v) { redraw('f2', v); } });
+    var l = EV.setter({ val: 1020, min: 0, max: 1425, step: 15, onChange: function (v) { redraw('f3', v); } });
+    var hd = EV.setter({ val: 0, min: 0, max: 1440, step: 15, fmt: EV.dur });
+    b.querySelector('#c2').appendChild(g.el); b.querySelector('#c3').appendChild(l.el); b.querySelector('.ck-hand').appendChild(hd.el);
+    redraw('f2', 1020); redraw('f3', 1020);
+    b.querySelector('#ck-go').addEventListener('click', function () {
+      if (lock) return;
+      var gv = g.get(), lv = l.get(), hv = hd.get(), okG = ER.check('gmt', String(gv)), okL = ER.check('lon', String(lv)), okH = ER.check('hand', String(hv));
+      g.mark(okG ? 'ok' : 'no'); l.mark(okL ? 'ok' : 'no'); hd.mark(okH ? 'ok' : 'no');
+      if (!okG) { EV.slip(); ER.sfx.no(); msg('&ldquo;Greenwich first. My notice says India and Nepal are G.M.T. plus five and a half hours. So G.M.T. is behind me, or ahead?&rdquo;'); return; }
+      if (!okL) { EV.slip(); ER.sfx.no(); msg(lv === gv ? '&ldquo;That is Greenwich. Is London on Greenwich time in June? Read my notice to the end.&rdquo;' : '&ldquo;London. Start from Greenwich, not from me. In summer London is one hour ahead of Greenwich, or behind?&rdquo;'); return; }
+      if (!okH) { EV.slip(); ER.sfx.no(); msg('&ldquo;Your Foreign Desk wants it by eleven at night, London time. From London&rsquo;s time when it goes, to eleven at night: how long?&rdquo;'); return; }
+      lock = true; ER.flag('n-ck', [gv, lv, hv].join('|')); ER.sfx.ok();
+      msg('&ldquo;So when I send it, London is having its lunch on Monday,&rdquo; says Mr Vohra, &ldquo;and London has the whole afternoon and the evening still. You have half a day in hand. My wireless goes west faster than the sun does.&rdquo;');
+      setTimeout(function () { ER.closeAll(); monday(); }, 2800);
+    });
+    b.first = function () { msg('&ldquo;Monday, 1130 G.M.T.: here that is 17.00, the same as today. Set Greenwich and London for that moment. Then tell me how long London has left.&rdquo;'); };
+    return b;
+  }
+  function openCk() { var f = !ckBox; if (!ckBox) ckBox = buildCk(); inCk = true; ER.open('ov-lock', ckBox, function () { inCk = false; }); if (f) ckBox.first(); }
+
+  function monday() {
+    busy = true; inCk = false; EV.mood('calm');
+    var c = String(ER.flag('n-ck') || '').split('|');
+    EV.mine('days', 'Days in hand', '<p>The message goes from Namche on <b>Monday 1 June at 17.00</b> Indian time.</p><p>That is <b>' + EV.clock(+c[0]) + ' G.M.T.</b>, and <b>' + EV.clock(+c[1]) + ' in London</b> (British Summer Time).</p><p>London must have it by 23.00 London time: <b>' + EV.dur(+c[2]) + '</b> in hand.</p>', true);
+    ER.narrate([
+      'You sleep on the floor of the post, under Mr Vohra&rsquo;s spare blanket, with the rain on the roof. Phurba sleeps sitting up, like a man who has done it all his life.',
+      'Monday is blue and washed clean. At five o&rsquo;clock Mr Vohra puts on the headphones, and this time Kathmandu answers at once. He sends the police list first, because rules are rules, with a line about a Worldwire porter who came back sick from Lobuje and never reached Base Camp. Then your eleven words, at an even speed, one letter at a time.',
+      'Out of the headphones, faint and clear, comes one letter: R. Received.',
+      'That is where the first bundle ends. The message is in Kathmandu now, and you are not. Phurba puts a hand on your shoulder, once. &ldquo;About,&rdquo; he says. &ldquo;Ten minutes better than about.&rdquo;'
+    ], function () {
+      setStage(3);
+      var file = ER.exitOk([ER.flag('n-ch') + '|' + ER.flag('n-ck')]);
+      if (!file) { busy = false; ER.say('Something is wrong: tell your teacher.'); return; }
+      nextFile = file; ER.flag('n-file', file);
+      var st = ER.state(); st.done = st.done || {}; st.done.namche = 1; ER.persist(true);
+      busy = false; paint();
+    });
+  }
+  $('#go').addEventListener('click', function () {
+    if (!nextFile || busy) return;
+    busy = true; EV.solved(true);
+    setTimeout(function () { ER.leave(nextFile); }, 1000);
+  });
+})();
+</script>
+</body>
+</html>

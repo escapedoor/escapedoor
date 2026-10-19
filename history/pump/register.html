@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Copying Room · By the Nearest Road</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-history.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="pump.css">
+<style>
+  body{--bg:#2a2016;--accent:#e9c27a;--font-display:'Abril Fatface',serif;--font-ui:'Oswald',sans-serif;--font-body:'Libre Caslon Text',serif;
+    --tc-bg:rgba(30,22,14,.95);--tc-ink:#f4ecd8;--cap-bg:rgba(32,24,16,.93);--panel:#2a2016;--face-bg:#4a3828;--q-ink:#f2cf8e;--fade:#100c08;--hud-bg:rgba(30,22,14,.82)}
+  .lb{font-family:'Oswald',sans-serif;font-weight:500;text-anchor:middle;letter-spacing:.12em}
+  #barge{animation:drift 60s linear infinite}
+  @keyframes drift{from{transform:translateX(-120px)}to{transform:translateX(260px)}}
+  #pen{animation:scratch 1.4s steps(3,end) infinite}
+  @keyframes scratch{50%{transform:translate(3px,-2px)}}
+  #tray.ready,#line.ready,#note.ready{animation:nudge 1.6s ease-in-out infinite}
+  @keyframes nudge{50%{transform:translateY(-5px)}}
+
+  /* the lock: slips of the returns, Dr Snow's sheet and the spike */
+  .rg{display:grid;grid-template-columns:minmax(0,640px) minmax(0,470px);gap:18px;width:min(1130px,97vw);align-items:start}
+  .rg-tray{display:grid;grid-template-columns:1fr 1fr;gap:7px;align-content:start;min-height:420px;padding:10px;background:#4a3424 linear-gradient(160deg,#5a4030,#3a2818);border:6px solid #2a1c10;box-shadow:inset 0 0 18px rgba(0,0,0,.6)}
+  .rg-tray:before{content:'THE RETURNS · WEEK ENDING 2ND SEPT.';grid-column:1/-1;font-family:'Oswald',sans-serif;font-size:11.5px;letter-spacing:.22em;color:#e9d8b4}
+  .pc.sl{position:relative;padding:5px 8px 5px 10px;background:#f1ebd8;color:#1d2230;border-left:4px solid #7a1d14;font-family:'EB Garamond',serif;font-size:14.2px;line-height:1.22;box-shadow:0 3px 6px rgba(0,0,0,.4);text-align:left}
+  .pc.sl b{font-family:'Oswald',sans-serif;font-weight:500;font-size:11.5px;letter-spacing:.12em;color:#7a1d14}
+  .pc.sl .sd{margin-left:8px;font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.08em;color:#4a4f40;text-transform:uppercase}
+  .pc.sl .ad{display:block}
+  .pc.sl .c{display:block;font-style:italic}
+  .pc.sl .r{display:block;font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.08em;color:#5a4f3a}
+  .rg-side{display:grid;gap:10px}
+  .bin{position:relative;min-height:190px;padding:30px 10px 10px;border-radius:2px}
+  .bin h6{position:absolute;left:12px;top:7px;margin:0;font-family:'Oswald',sans-serif;font-weight:500;font-size:12px;letter-spacing:.2em;text-transform:uppercase}
+  .bin.snow{background:#faf6ea repeating-linear-gradient(transparent 0 25px,rgba(90,120,170,.2) 25px 26px);color:#1d2230;border-left:3px double #b3261c;box-shadow:0 10px 24px rgba(0,0,0,.5)}
+  .bin.spike{background:#2a1e14;color:#e9d8b4;border:1px dashed #8a6a4a}
+  .bin.spike:after{content:'';position:absolute;right:16px;top:8px;width:3px;height:26px;background:#c9c3ae;box-shadow:0 26px 0 -1px #5a4a3a}
+  .bin .bin-in{display:flex;flex-direction:column;gap:4px;min-height:140px}
+  .bin .pc.sl{font-size:13px;padding:3px 8px;border-left-width:3px}
+  .bin .pc.sl .c,.bin .pc.sl .r{display:none}
+  .bin .pc.sl .ad{display:inline;margin-left:6px}
+  .bin .pc.sl .sd{font-size:10px}
+  .bin .pc.sl b{margin-right:6px}
+  .rg-foot{display:grid;grid-template-columns:96px minmax(0,1fr);gap:12px;align-items:start}
+  .rg-foot .lk-face{width:96px}
+  .rg-foot .btn{margin-top:8px}
+  @media (max-width:980px){.rg{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8f8370"/><stop offset="1" stop-color="#b6a98c"/></linearGradient>
+  <linearGradient id="panG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a3e26"/><stop offset="1" stop-color="#3a2716"/></linearGradient>
+  <linearGradient id="riverG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c4c6c0"/><stop offset=".55" stop-color="#9ea39c"/><stop offset=".56" stop-color="#6e6a58"/><stop offset="1" stop-color="#57513f"/></linearGradient>
+  <linearGradient id="floorG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a3624"/><stop offset="1" stop-color="#22180e"/></linearGradient>
+  <linearGradient id="deskG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7a5434"/><stop offset="1" stop-color="#4a301a"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="45%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#0a0604" stop-opacity=".22"/><stop offset="1" stop-color="#0a0604" stop-opacity=".72"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#wallG)"/>
+<!-- cornice and the long panelled dado -->
+<path d="M-1000 60H2600" stroke="#6a5a44" stroke-width="18"/><path d="M-1000 78H2600" stroke="#cfc3a6" stroke-width="4"/>
+<rect x="-1000" y="470" width="3600" height="200" fill="url(#panG)"/>
+<g fill="none" stroke="#2a1c10" stroke-width="3" opacity=".7"><path d="M-200 490h180v150h-180zM40 490h180v150H40zM1380 490h180v150h-180zM1620 490h180v150h-180z"/></g>
+<rect x="-1000" y="660" width="3600" height="660" fill="url(#floorG)"/>
+<g stroke="#2a1c10" stroke-width="2" opacity=".5"><path d="M-1000 720H2600M-1000 800H2600M-1000 900H2600"/></g>
+
+<!-- three tall windows on the river -->
+<g id="window" class="hot">
+  <g fill="url(#riverG)"><path d="M610 440V180q0-70 70-70t70 70v260z"/><path d="M790 440V180q0-70 70-70t70 70v260z"/><path d="M970 440V180q0-70 70-70t70 70v260z"/></g>
+  <g fill="#7d7a6e" opacity=".8"><path d="M610 300q40-6 80-2t70 4v14H610z"/><path d="M830 296q14-30 30-36q16 6 30 36z"/><rect x="852" y="268" width="16" height="12"/><circle cx="860" cy="254" r="6"/></g>
+  <g id="barge"><path d="M640 360h70l-10 12h-52z" fill="#3a2a1a"/><path d="M672 360V318l26 40z" fill="#8a4a2a"/></g>
+  <g fill="none" stroke="#3a2a1a" stroke-width="9"><path d="M610 440V180q0-70 70-70t70 70v260zM790 440V180q0-70 70-70t70 70v260zM970 440V180q0-70 70-70t70 70v260z"/></g>
+  <g stroke="#3a2a1a" stroke-width="4"><path d="M680 112V440M610 260h140M860 112V440M790 260h140M1040 112V440M970 260h140"/></g>
+  <g fill="#5a4630"><rect x="598" y="440" width="164" height="16"/><rect x="778" y="440" width="164" height="16"/><rect x="958" y="440" width="164" height="16"/></g>
+</g>
+
+<!-- shelves of registers on the left -->
+<g id="shelves" class="hot">
+  <rect x="-60" y="90" width="300" height="560" fill="#3a2716"/>
+  <g fill="#2a1a0c"><rect x="-60" y="200" width="300" height="10"/><rect x="-60" y="320" width="300" height="10"/><rect x="-60" y="440" width="300" height="10"/><rect x="-60" y="560" width="300" height="10"/></g>
+  <g id="spines">
+    <g fill="#7a2a1c"><rect x="-40" y="110" width="26" height="90"/><rect x="40" y="114" width="26" height="86"/><rect x="120" y="110" width="26" height="90"/><rect x="200" y="112" width="26" height="88"/><rect x="0" y="232" width="26" height="88"/><rect x="80" y="230" width="26" height="90"/><rect x="160" y="234" width="26" height="86"/><rect x="-40" y="352" width="26" height="88"/><rect x="40" y="350" width="26" height="90"/><rect x="120" y="354" width="26" height="86"/><rect x="200" y="352" width="26" height="88"/><rect x="0" y="472" width="26" height="88"/><rect x="80" y="470" width="26" height="90"/><rect x="160" y="474" width="26" height="86"/></g>
+    <g fill="#2a3a4a"><rect x="-14" y="110" width="26" height="90"/><rect x="66" y="112" width="26" height="88"/><rect x="146" y="114" width="26" height="86"/><rect x="26" y="230" width="26" height="90"/><rect x="106" y="232" width="26" height="88"/><rect x="186" y="230" width="26" height="90"/><rect x="-14" y="350" width="26" height="90"/><rect x="66" y="352" width="26" height="88"/><rect x="146" y="350" width="26" height="90"/><rect x="26" y="470" width="26" height="90"/><rect x="106" y="472" width="26" height="88"/><rect x="186" y="470" width="26" height="90"/></g>
+    <g fill="#d9b24a" opacity=".8"><rect x="-36" y="130" width="18" height="4"/><rect x="44" y="134" width="18" height="4"/><rect x="124" y="130" width="18" height="4"/><rect x="4" y="252" width="18" height="4"/><rect x="84" y="250" width="18" height="4"/><rect x="164" y="254" width="18" height="4"/><rect x="-36" y="372" width="18" height="4"/><rect x="44" y="370" width="18" height="4"/><rect x="124" y="374" width="18" height="4"/><rect x="4" y="492" width="18" height="4"/><rect x="84" y="490" width="18" height="4"/><rect x="164" y="494" width="18" height="4"/></g>
+  </g>
+</g>
+
+<!-- a pillar with the card pinned to it -->
+<rect x="300" y="78" width="70" height="600" fill="#a99a7c"/><rect x="292" y="78" width="86" height="24" fill="#8f8068"/><rect x="292" y="640" width="86" height="30" fill="#5a4630"/>
+<g id="line" class="hot"><rect x="290" y="268" width="90" height="118" fill="#eef0e6" transform="rotate(-2 335 327)"/><g transform="rotate(-2 335 327)"><rect x="290" y="268" width="90" height="10" fill="#7a1d14"/><g stroke="#6b7466" stroke-width="2"><path d="M300 296h70M300 308h70M300 320h50M300 340h70M300 352h64M300 364h70"/></g><circle cx="335" cy="273" r="3.5" fill="#2a2a2a"/></g></g>
+
+<!-- the almanac -->
+<g id="almanac" class="hot"><rect x="470" y="190" width="104" height="150" fill="#efe6cc"/><rect x="470" y="190" width="104" height="26" fill="#3a2a1a"/><text x="522" y="208" class="lb" font-size="12" fill="#efe6cc">1854</text>
+  <g fill="#3a2a1a" font-family="'Libre Caslon Text',serif" font-size="11"><text x="480" y="232">AUGUST</text><text x="480" y="290">SEPTEMBER</text></g>
+  <g fill="#6b5a3a"><rect x="480" y="240" width="84" height="40" opacity=".25"/><rect x="480" y="298" width="84" height="34" opacity=".25"/></g></g>
+
+<!-- the two clerks at the far desks -->
+<g id="clerks" class="hot">
+  <g fill="#3a2716"><path d="M560 480l40-36h170l-30 36z"/><rect x="566" y="480" width="10" height="70"/><rect x="726" y="480" width="10" height="70"/></g>
+  <g fill="#1e1a18"><path d="M600 450q-4-40 22-46q26 6 24 46z"/><circle cx="624" cy="398" r="15" fill="#d9b494"/><path d="M609 394q2-16 15-17q13 1 15 14q-14-6-30 3z" fill="#4a3a2a"/>
+  <path d="M690 452q-4-40 22-46q26 6 24 46z"/><circle cx="714" cy="400" r="15" fill="#e2bc9c"/><path d="M699 392q8-14 30-2q-14-2-30 2z" fill="#9a9488"/></g>
+  <g fill="#f2ebd8"><path d="M610 448l40-6 8 6-40 6z"/><path d="M698 450l40-6 8 6-40 6z"/></g>
+</g>
+
+<!-- the clock -->
+<g id="clock" class="hot"><circle cx="1400" cy="200" r="46" fill="#efe6cc" stroke="#5a3e26" stroke-width="10"/><g stroke="#2a1c10" stroke-width="4" stroke-linecap="round"><path d="M1400 200v-30M1400 200l9 3"/></g><g fill="#2a1c10"><circle cx="1400" cy="162" r="2.5"/><circle cx="1438" cy="200" r="2.5"/><circle cx="1400" cy="238" r="2.5"/><circle cx="1362" cy="200" r="2.5"/></g><rect x="1394" y="246" width="12" height="40" fill="#5a3e26"/></g>
+
+<!-- Dr Snow at the window -->
+<g id="snow" class="hot">
+  <ellipse cx="985" cy="664" rx="64" ry="11" fill="#000" opacity=".3"/>
+  <path d="M948 660q-8-180 14-214q22-14 46 0q22 34 14 214z" fill="#1d1d24"/>
+  <path d="M960 452l25 30 25-30" fill="#f2efe6"/><path d="M972 456h26l-5 10h-16z" fill="#141414"/>
+  <rect x="975" y="410" width="20" height="34" fill="#ecc6a6"/><ellipse cx="985" cy="394" rx="28" ry="33" fill="#ecc6a6"/>
+  <path d="M957 392q-2-30 14-38q-4 12-6 34zM1013 392q2-30-14-38q4 12 6 34z" fill="#3a2a1c"/><path d="M968 362q17-10 34 0q-17-4-34 0z" fill="#3a2a1c"/>
+  <circle cx="975" cy="394" r="2.6" fill="#1b1512"/><circle cx="995" cy="394" r="2.6" fill="#1b1512"/><path d="M978 412q7 3 14 0" stroke="#5a2a20" stroke-width="2" fill="none"/>
+  <path d="M1010 470q24 30 16 90" stroke="#1d1d24" stroke-width="18" stroke-linecap="round" fill="none"/><path d="M960 470q-20 40-6 92" stroke="#1d1d24" stroke-width="18" stroke-linecap="round" fill="none"/>
+  <path d="M960 660v26M1008 660v26" stroke="#141414" stroke-width="14"/>
+</g>
+
+<!-- Mr Peebles at his desk, on the right -->
+<g id="peebles" class="hot">
+  <path d="M1210 600q-6-110 24-128q30-16 56 0q26 22 20 128z" fill="#2a2a32"/><path d="M1238 480q26 26 52 0l4 120h-60z" fill="#6a4a2a"/>
+  <path d="M1250 476l14 16 14-16" fill="#f6f3ea"/><path d="M1252 478h24l-4 9h-16z" fill="#141414"/>
+  <rect x="1253" y="436" width="22" height="30" fill="#f0c9ae"/><ellipse cx="1264" cy="420" rx="30" ry="34" fill="#f0c9ae"/>
+  <path d="M1236 424q-4 24 8 36q4-18 4-34zM1292 424q4 24-8 36q-4-18-4-34z" fill="#a9a294"/>
+  <g fill="none" stroke="#2a2a2a" stroke-width="2"><circle cx="1253" cy="420" r="8"/><circle cx="1275" cy="420" r="8"/><path d="M1261 420h6"/></g>
+  <circle cx="1253" cy="420" r="2.4" fill="#1b1512"/><circle cx="1275" cy="420" r="2.4" fill="#1b1512"/>
+</g>
+<g fill="url(#deskG)"><path d="M1090 590h330l20 30H1070z"/><rect x="1080" y="620" width="350" height="140"/></g>
+<g fill="#3a2716"><rect x="1100" y="640" width="140" height="50"/><rect x="1270" y="640" width="140" height="50"/></g><g fill="#d9b24a"><circle cx="1170" cy="665" r="4"/><circle cx="1340" cy="665" r="4"/></g>
+<g id="note" class="hot"><path d="M1130 596l90-8 6 22-92 8z" fill="#f7f1e1"/><g stroke="#1f2438" stroke-width="1.5"><path d="M1140 600l60-5M1142 606l70-6M1144 612l40-3"/></g></g>
+<g fill="#1a1a1a"><rect x="1330" y="584" width="26" height="16" rx="3"/></g><path d="M1352 586l30-50" stroke="#e6dcc4" stroke-width="3"/>
+
+<!-- the stove -->
+<g id="stove" class="hot"><rect x="1470" y="560" width="90" height="140" rx="10" fill="#2a2a2a"/><rect x="1490" y="600" width="50" height="40" rx="4" fill="#1a1a1a"/><path d="M1515 560V60" stroke="#2a2a2a" stroke-width="16"/><rect x="1458" y="692" width="114" height="16" fill="#1a1a1a"/></g>
+
+<!-- your desk, in front -->
+<g fill="url(#deskG)"><path d="M380 640l40-60h520l20 60z"/><rect x="380" y="640" width="580" height="30"/><rect x="400" y="670" width="22" height="200"/><rect x="918" y="670" width="22" height="200"/></g>
+<g id="card" class="hot"><rect x="460" y="602" width="90" height="56" fill="#fbf7ec" transform="rotate(-6 505 630)"/><rect x="466" y="608" width="78" height="44" fill="none" stroke="#1d1a16" stroke-width="1.5" transform="rotate(-6 505 630)"/><g stroke="#4a4438" stroke-width="1.5" transform="rotate(-6 505 630)"><path d="M474 620h60M474 630h52M474 640h60"/></g></g>
+<g id="tray" class="hot">
+  <path d="M640 600h220l-8 44H648z" fill="#5a3a1e"/><path d="M640 600h220" stroke="#3a2412" stroke-width="5"/>
+  <g fill="#f1ebd8"><path d="M654 600l6-26h180l-6 26z"/><path d="M660 590l8-24h170l-6 24z" opacity=".9"/></g>
+  <g stroke="#7a1d14" stroke-width="2"><path d="M672 580h40M720 580h60"/></g><g stroke="#6b7466" stroke-width="1.4"><path d="M672 590h150M668 596h150"/></g>
+</g>
+<g><rect x="880" y="610" width="26" height="24" rx="4" fill="#1a1a1a"/><path id="pen" d="M896 612l40-70" stroke="#e6dcc4" stroke-width="3"/></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Go with Dr Snow to Broad Street</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="pump.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, box = null, inLock = false;
+
+  ER.init({
+    theme: 'history', story: 'pump', storyTitle: 'By the Nearest Road', id: 'register', no: 'I', title: 'The Copying Room',
+    go: 'Take off your coat', back: '../index.html', backLabel: 'Archive',
+    intro: [
+      'London, Tuesday 5 September 1854. Somerset House, on the river: the General Register Office, where every birth, marriage and death in England and Wales is sent to be copied, counted and kept.',
+      'You are thirteen, the junior copying clerk. For four days the death returns from the streets round Golden Square, in Soho, have come in by the armful, and the grown men in the copying room have stopped making jokes.',
+      'This morning a doctor is waiting at Mr Peebles&rsquo;s desk.'
+    ],
+    exit: {"next":"street","w":{"f5f9b392":"f5d3622c"}}, tags: {"in":["5592f09b","12b327ca","464ab1e1","5cedd66b","cc02a7e4","d4323d84"],"why":["38b7e994","a0c3366b","b2216db4","2244e8bf","7a6cac2f","3e05fa76","4bde63ca","a464aab6"]},
+    hints: hints, onBegin: begin
+  });
+
+  function file() { return ER.flag('r-file'); }
+  function isBusy() { return busy; }
+  function paint() {
+    var ready = ER.flag('r-note') && ER.flag('r-line');
+    $('#note').classList.toggle('ready', !file() && !ER.flag('r-note'));
+    $('#line').classList.toggle('ready', !file() && !!ER.flag('r-note') && !ER.flag('r-line'));
+    $('#tray').classList.toggle('ready', !file() && !!ready);
+    ER.pips(file() ? 1 : 0, 1);
+    if (file()) PU.door($('#go'), file(), 'r-file');
+  }
+  function hints() {
+    if (file()) return ['go', ['Dr Snow is waiting. Use the button at the bottom of the screen.']];
+    if (inLock) return ['sort', [
+      'Dr Snow asked for three things at once: one cause, one week of registering, and three sub-districts. A slip goes on his list only if all three are right.',
+      'For each slip, check the cause word for word, the sub-district next to the number, and the last line: the day it was registered, not the day of the death. The almanac on the wall shows which days are in the week ending Saturday 2 September.',
+      'A death in a hospital is registered in the hospital&rsquo;s sub-district. A death registered on Monday 4 September belongs to the next week, and nothing registered before Sunday 27 August belongs to this one. Old age, scarlet fever and exhaustion after diarrhoea are not cholera. Six slips go to Dr Snow.'
+    ]];
+    if (!ER.flag('r-note') || !ER.flag('r-line')) return ['read', [
+      'Dr Snow&rsquo;s note is on Mr Peebles&rsquo;s desk, on the right. The card about the register is pinned to the pillar.',
+      'Read both. Then the tray of returns on your desk will open.'
+    ]];
+    return ['tray', ['The tray of returns is on your desk, in front of you. The almanac and Mr Peebles&rsquo;s card are worth a look too.']];
+  }
+
+  function begin() {
+    paint();
+    if (ER.flag('r-in')) { busy = false; ER.say(file() ? 'Dr Snow has his list. He is putting on his hat.' : 'The copying room. The clock, the river, and a doctor waiting.'); return; }
+    ER.narrate([
+      'Somerset House is so big that the General Register Office has only a corner of it, and the corner is so big that Mr Peebles keeps a map of it in his drawer.',
+      'Since Friday nobody in the copying room has said the word cholera out loud. They write it instead, again and again, in their best hand.',
+      'The doctor is standing at the window. He is a short, quiet man of about forty in a black coat, and he looks at the river as if he expected it to explain itself.',
+      '&ldquo;Dr Snow has the Registrar General&rsquo;s permission to have a list,&rdquo; says Mr Peebles. &ldquo;His note says exactly what. Copy him exactly that, Tapping: not a line more, not a line less. A clerk who copies what nobody asked for is a clerk who has run out of work.&rdquo;'
+    ], function () { busy = false; ER.flag('r-in', 1); paint(); PU.learn('register', 'registrar'); });
+  }
+
+  /* ---------- people and things ---------- */
+  $('#peebles').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({ who: 'Mr Augustus Peebles', role: 'Senior clerk of the copying room', face: PU.FACE('peebles'), lines: [
+      '&ldquo;The returns came in this morning, sub-district by sub-district. Each slip is one line of a registrar&rsquo;s book, copied out. They are in the tray on your desk.&rdquo;',
+      '&ldquo;Read the card on the pillar before you touch them. Every new clerk thinks he can read a register. Every new clerk is wrong for a fortnight.&rdquo;',
+      { q: 'Why does Dr Snow want them?', a: '&ldquo;He has a theory. Doctors generally do. Ours is not to ask why, Tapping. Ours is to copy correctly.&rdquo;' },
+      { note: 'He lowers his voice.' },
+      '&ldquo;Though I will say this. He is the man who gave the Queen chloroform last year, when the little prince was born, and she was very well pleased with it. So he is not a fool. And keep my card by you, the one on your desk. You will want it more than you think.&rdquo;'
+    ], clue: { id: 'peebles', title: 'Mr Peebles on the returns', kind: 'Statement' } });
+  });
+  $('#snow').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({ who: 'Dr John Snow', role: 'Physician, of Sackville Street', face: PU.FACE('snow'), lines: [
+      '&ldquo;I have been in Broad Street since Sunday,&rdquo; he says. &ldquo;I should like to know where every one of them lived. The registrars know. So I have come to the registrars.&rdquo;',
+      { q: 'Is it the bad air, sir? Everybody says so.', a: '&ldquo;Everybody does. Everybody may be wrong, but thinking so is not knowing so. A list is a beginning.&rdquo;' },
+      '&ldquo;Cholera only, if you please. If a line says anything else, leave it out, however much you suspect it. I would rather have a short list I can trust than a long one I must check.&rdquo;'
+    ], clue: { id: 'snow1', title: 'Dr Snow, at the window', kind: 'Statement' }, done: function () { PU.learn('cholera'); } });
+  });
+  $('#note').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: PU.REQUEST, cls: 'notes', clue: { id: 'request', title: 'Dr Snow’s note', kind: 'Letter' }, done: function () {
+      ER.flag('r-note', 1); PU.learn('sub-district'); paint();
+      if (!ER.flag('r-line')) ER.say('Three things at once: one cause, one week, three sub-districts. The card on the pillar says how to read a line.');
+    } });
+  });
+  $('#line').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: PU.LINE, cls: 'reg', clue: { id: 'line', title: 'How to read a line of the register', kind: 'On the pillar' }, done: function () {
+      ER.flag('r-line', 1); PU.learn('informant', 'certify'); paint();
+      if (ER.flag('r-note') && !file()) ER.say('Now the tray of returns, on your desk.');
+    } });
+  });
+  $('#card').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: PU.CARD, cls: 'card', clue: { id: 'card', title: 'Mr Peebles’s card', kind: 'On your desk' } });
+  });
+  $('#almanac').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: almanac(), cls: 'office', clue: { id: 'almanac', title: 'The almanac for 1854', kind: 'On the wall' } });
+  });
+  function almanac() {
+    function month(name, first, days) {
+      var h = '<table style="border-collapse:collapse;margin:0 0 10px;font-family:\'IBM Plex Mono\',monospace;font-size:14px"><tr><th colspan="7" style="text-align:left;font-family:\'Libre Caslon Text\',serif;font-size:15px;padding:2px 0 4px">' + name + ' 1854</th></tr><tr>';
+      ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].forEach(function (d) { h += '<th style="padding:2px 9px;font-size:12px;color:#7a6a4e">' + d + '</th>'; });
+      h += '</tr><tr>';
+      var c = 0, i;
+      for (i = 0; i < first; i++) { h += '<td></td>'; c++; }
+      for (i = 1; i <= days; i++) { h += '<td style="padding:2px 9px;text-align:right">' + i + '</td>'; c++; if (c % 7 === 0 && i < days) h += '</tr><tr>'; }
+      return h + '</tr></table>';
+    }
+    return '<h4>Almanac</h4><h5>For the year of our Lord 1854</h5><div class="two"><div>' + month('August', 2, 31) + '</div><div>' + month('September', 5, 30) + '</div></div>';
+  }
+  PU.thing('#window', null, 'The river, brown and busy, and the dome of St Paul&rsquo;s in the haze downstream. Mr Peebles says the view is the only thing in the building that is never filed.', isBusy);
+  PU.thing('#shelves', 'register', 'Registers: one book for every sub-district for every quarter of every year since 1837. Somebody has copied all of them.', isBusy);
+  PU.thing('#clerks', null, 'Two clerks at the far desks, copying births. They have not looked up since you came in.', isBusy);
+  PU.thing('#clock', null, 'A quarter past ten. Mr Peebles likes the copying room quiet enough to hear the clock.', isBusy);
+  PU.thing('#stove', null, 'A stove, unlit. It is September, and Mr Peebles does not believe in coal before November.', isBusy);
+  $('#tray').addEventListener('click', function () {
+    if (busy || file()) return;
+    if (!ER.flag('r-note') || !ER.flag('r-line')) { ER.say('&ldquo;Not yet,&rdquo; says Mr Peebles, without looking up. &ldquo;The doctor&rsquo;s note first, and then the card on the pillar.&rdquo;'); return; }
+    openLock();
+  });
+
+  /* ---------- the lock: which lines go to Dr Snow ---------- */
+  var SL = [
+    ['219', 'All Souls, Marylebone', 'Middlesex Hospital, 1 Sept. · M · 30 · Cabinet-maker, brought in from Noel Street', 'Cholera, 15 hours. Certified.', 'Registered 2 Sept.'],
+    ['214', 'Golden Square', '38 Broad Street, 2 Sept. · M · 38 · Tailor', 'Cholera, 10 hours. Certified.', 'Registered 2 Sept.'],
+    ['223', 'Golden Square', '3 Marshall Street, 26 Aug. · M · 28 · Carman', 'Cholera, 2 days. Certified.', 'Registered 26 Aug.'],
+    ['216', 'St Ann, Soho', '9 Dean Street, 1 Sept. · M · 45 · French polisher', 'Asiatic cholera, 18 hours. Certified.', 'Registered 2 Sept.'],
+    ['220', 'Berwick Street', '5 Hopkins Street, 30 Aug. · F · 71 · Widow', 'Old age. Not certified.', 'Registered 31 Aug.'],
+    ['h41', 'Hampstead', 'West End, 2 Sept. · F · 59 · The widow of a percussion-cap maker', 'Diarrhœa two hours, cholera epidemica sixteen hours.', 'Registered 4 Sept.'],
+    ['221', 'Golden Square', '8 Cambridge Street, 31 Aug. · M · 4 · Son of a tailor', 'Cholera, 20 hours. Certified.', 'Registered 1 Sept.'],
+    ['218', 'Golden Square', '20 Broad Street, 2 Sept. · M · 52 · Shoemaker', 'Cholera, 8 hours. Certified.', 'Registered 4 Sept.'],
+    ['225', 'St Ann, Soho', '17 Greek Street, 1 Sept. · M · 3 · Son of a waiter', 'Scarlatina, 6 days. Certified.', 'Registered 2 Sept.'],
+    ['215', 'Berwick Street', '12 Peter Street, 1 Sept. · F · 6 · Daughter of a labourer', 'Cholera, 14 hours. Certified.', 'Registered 2 Sept.'],
+    ['222', 'St James&rsquo;s Square', '30 Jermyn Street, 1 Sept. · M · 60 · Gentleman', 'Cholera, 22 hours. Certified.', 'Registered 2 Sept.'],
+    ['217', 'Golden Square', '40 Broad Street, 2 Sept. · F · 5 months · Daughter of a police constable', 'Exhaustion, after an attack of diarrhœa four days previous to death.', 'Registered 2 Sept.'],
+    ['226', 'Golden Square', '14 Silver Street, 1 Sept. · F · 41 · Laundress', 'Cholera, 9 hours. Certified.', 'Registered 2 Sept.'],
+    ['224', 'Berwick Street', '18 Poland Street, 2 Sept. · F · 33 · Wife of a tailor', 'Cholera, 16 hours. Certified.', 'Registered 2 Sept.']
+  ];
+  function num(id) { return id === 'h41' ? 'Hampstead No. 41' : 'No. ' + id; }
+  function build() {
+    var b = ER.el('div', 'rg'), tray = ER.el('div', 'rg-tray'), side = ER.el('div', 'rg-side'), lock = false, msgEl;
+    SL.forEach(function (s) {
+      var c = ER.el('div', 'pc sl', '<b>' + num(s[0]) + '</b><span class="sd">' + s[1] + '</span><span class="ad">' + s[2] + '</span><span class="c">' + s[3] + '</span><span class="r">' + s[4] + '</span>');
+      c.setAttribute('data-id', s[0]); tray.appendChild(c);
+    });
+    side.innerHTML = '<div class="bin snow" data-b="snow"><h6>For Dr Snow</h6><div class="bin-in"></div></div>' +
+      '<div class="bin spike" data-b="spike"><h6>Not asked for</h6><div class="bin-in"></div></div>' +
+      '<div class="rg-foot"><div class="lk-face">' + PU.FACE('peebles') + '</div><div><h6 class="lk-h">Mr Peebles</h6><p class="pmsg"></p><button type="button" class="btn" id="rg-go">Give Dr Snow the list</button></div></div>';
+    b.appendChild(tray); b.appendChild(side);
+    msgEl = side.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    PU.bins(b, { item: '.pc', bin: '.bin', home: tray, lock: function () { return lock; }, change: function () { PU.sfx.pen(); } });
+    function ids(which) { return ER.$$('.bin[data-b="' + which + '"] .pc', b).map(function (n) { return n.getAttribute('data-id'); }); }
+    b.querySelector('#rg-go').addEventListener('click', function () {
+      if (lock) return;
+      ER.$$('.pc', b).forEach(function (n) { n.classList.remove('no', 'ok'); });
+      var left = ER.$$('.pc', tray).length;
+      if (left) { msg('&ldquo;Every slip goes somewhere, Tapping: to the doctor, or on the spike. ' + left + (left === 1 ? ' slip is' : ' slips are') + ' still in the tray.&rdquo;'); return; }
+      var mine = ids('snow');
+      if (!mine.length) { msg('&ldquo;An empty sheet? The doctor walked here from Piccadilly.&rdquo;'); return; }
+      var cand = mine.slice().sort(function (x, y) { return (parseInt(x, 10) || 9999) - (parseInt(y, 10) || 9999); }).join('-');
+      var nxt = ER.exit([cand], { wait: true });
+      if (nxt) { lock = true; b.querySelector('#rg-go').disabled = true; ER.$$('.bin[data-b="snow"] .pc', b).forEach(function (n) { n.classList.add('ok'); }); solved(nxt); return; }
+      PU.slip(); ER.sfx.no();
+      var bad = [], first = null;
+      mine.forEach(function (id) {
+        if (ER.check('in', id)) return;
+        var w = PU.why('why', [id + '>cause', id + '>reg', id + '>place']);
+        bad.push(id); if (!first) first = [id, w ? w.split('>')[1] : 'x'];
+      });
+      ids('spike').forEach(function (id) { if (ER.check('in', id)) { bad.push(id); if (!first) first = [id, 'in']; } });
+      bad.forEach(function (id) { var n = b.querySelector('.pc[data-id="' + id + '"]'); if (n) n.classList.add('no'); });
+      var head = bad.length === 1 ? 'One slip is in the wrong place.' : bad.length + ' slips are in the wrong place.';
+      var k = first[1], n = num(first[0]);
+      msg('&ldquo;' + head + ' Take ' + n + '. ' + (
+        k === 'cause' ? 'Read the cause again, word for word. Does it say what the doctor asked for?' :
+        k === 'reg' ? 'Look at the last line: when was it registered? The doctor asked for one week of registering, Sunday to Saturday.' :
+        k === 'place' ? 'Where did it happen, and so in which sub-district was it registered? Look at the sub-district next to the number, and at the doctor&rsquo;s note.' :
+        k === 'in' ? 'It is on the spike, and it should not be. Read it against the doctor&rsquo;s note again: the cause, the week, the place.' :
+        'Read it against the doctor&rsquo;s note again: the cause, the week, the place.') + '&rdquo;');
+    });
+    b.first = function () { msg('&ldquo;Fourteen slips. Each one goes to the doctor or on the spike. Read every column: the card on the pillar says what they mean.&rdquo;'); };
+    return b;
+  }
+  function openLock() { var f = !box; if (!box) box = build(); inLock = true; ER.open('ov-lock', box, function () { inLock = false; }); if (f) box.first(); }
+
+  function solved(nxt) {
+    busy = true;
+    setTimeout(function () {
+      ER.closeAll(); inLock = false;
+      ER.narrate([
+        'Dr Snow reads the six lines twice, and then the totals that Mr Peebles has copied for him from the rest of the returns. Eighty-nine deaths from cholera registered in the week in the three sub-districts. Only six in the first four days. Four on Thursday the 31st. Seventy-nine on Friday and Saturday.',
+        '&ldquo;Then it began on Thursday night,&rdquo; he says quietly. &ldquo;All at once. A thing that begins all at once has one cause, in one place.&rdquo;',
+        '&ldquo;The doctor has asked to borrow a clerk who can read a registrar&rsquo;s hand,&rdquo; says Mr Peebles. &ldquo;The list belongs to this Office, so it goes with him, and so do you. Bring it back clean.&rdquo;',
+        'While you get your coat you put the Hampstead slip back in its bundle. Then, for no reason you could explain, you copy it into your own book first.'
+      ], function () {
+        PU.mine('list', 'Dr Snow’s list', PU.LIST);
+        PU.mine('h41', 'The Hampstead line', PU.H41);
+        PU.learn('outbreak');
+        PU.door($('#go'), nxt, 'r-file'); busy = false; paint();
+      });
+    }, 1600);
+  }
+})();
+</script>
+</body>
+</html>

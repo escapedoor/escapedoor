@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Common Room · Where's It To?</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lang.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="ac.css">
+<style>
+  body{--bg:#6a3a24;--accent:#f2c94c;--font-display:'Old Standard TT',serif;--font-ui:'Outfit',sans-serif;--font-body:'Gentium Book Plus',serif;
+    --tc-bg:rgba(60,34,22,.96);--tc-ink:#fbeedc;--cap-bg:rgba(58,34,22,.95);--cap-ink:#fbeedc;--panel:#fbf4e6;--panel-ink:#2a1a12;--face-bg:#c8402e;--q-ink:#a8461e;
+    --fade:#2a160c;--hud-bg:rgba(58,34,22,.86);--hud-ink:#fbeedc;--hud-line:rgba(251,238,220,.3);--ov-bg:rgba(24,12,6,.66)}
+  .tc-room{font-size:clamp(40px,6vw,84px);color:#f2c94c}
+  .tc-theme{color:#f6b98a}
+  .hbtn b{color:#2a1a12}
+  #steam path{animation:steam 3s ease-in-out infinite;opacity:.0}
+  #steam path:nth-child(2){animation-delay:-1.5s}
+  @keyframes steam{0%{transform:translate(0,0);opacity:0}30%{opacity:.6}100%{transform:translate(6px,-60px);opacity:0}}
+  #dial{animation:dial 2s steps(2,end) infinite}
+  @keyframes dial{50%{fill:#ffb84a}}
+  #wpane path{animation:rainw 1s linear infinite}
+  @keyframes rainw{from{transform:translate(0,-30px)}to{transform:translate(-6px,30px)}}
+  /* the form */
+  .fm{width:min(1120px,97vw)}
+  .fm-in{display:grid;grid-template-columns:1fr 210px;gap:14px}
+  .fm-page{background:#fff;color:#22262e;padding:12px 18px 10px;box-shadow:0 26px 70px rgba(0,0,0,.55);border-top:12px solid #1c2433}
+  .fm-page h3{margin:0;font-family:'Oswald',sans-serif;font-weight:500;font-size:19px;letter-spacing:.06em}
+  .fm-page .sub{margin:0 0 6px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#7a7e88}
+  .grid{display:grid;grid-template-columns:200px 1fr 1fr 1fr;gap:6px 8px;align-items:stretch}
+  .grid .hd{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;letter-spacing:.1em;color:#1c2433;text-align:center;padding:2px 0;border-bottom:3px solid #1c2433}
+  .grid .q{font-family:'Gentium Book Plus',serif;font-size:15px;line-height:1.2;color:#22262e;display:flex;align-items:center}
+  .cell{min-height:42px;border:2px dashed #b8bcc6;border-radius:3px;display:flex;align-items:stretch;background:#f6f7f9}
+  .cell.bad{border-color:#c0392b;background:#fbe3df}
+  .fm-page .foot{margin:8px 0 0;font-family:'Gentium Book Plus',serif;font-size:14.5px;color:#4a4e58}
+  .fm-page .foot b{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:11.5px;color:#7a7e88}
+  .tray{background:rgba(255,255,255,.08);border:2px dashed rgba(255,255,255,.3);border-radius:4px;padding:8px;display:flex;flex-direction:column;gap:5px}
+  .tray h5{margin:0 0 2px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#fbeedc}
+  .slip{display:block;width:100%;padding:7px 10px 5px;background:#eef3fa;color:#1c2433;font-family:'IBM Plex Mono',monospace;font-size:14px;line-height:1.2;cursor:grab;box-shadow:0 2px 5px rgba(0,0,0,.3);border-left:4px solid #2f5d7c;touch-action:none;text-align:left}
+  .slip.held{outline:3px solid #f2c94c}
+  .slip.fly{position:fixed;z-index:80;pointer-events:none}
+  .cell .slip{box-shadow:none}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="paper" width="60" height="60" patternUnits="userSpaceOnUse"><rect width="60" height="60" fill="#b8643c"/><path d="M0 30h60" stroke="#a85a34" stroke-width="2"/><circle cx="30" cy="15" r="3" fill="#c8744a"/></pattern>
+  <pattern id="carpet" width="50" height="50" patternUnits="userSpaceOnUse"><rect width="50" height="50" fill="#4a3a3a"/><path d="M0 50L50 0" stroke="#544242" stroke-width="6"/></pattern>
+  <radialGradient id="lampg" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffd890" stop-opacity=".55"/><stop offset="1" stop-color="#ffd890" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="45%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#1a0a04" stop-opacity=".18"/><stop offset="1" stop-color="#1a0a04" stop-opacity=".6"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1080" fill="url(#paper)"/>
+<rect x="-1000" y="670" width="3600" height="800" fill="url(#carpet)"/>
+<rect x="-1000" y="660" width="3600" height="14" fill="#5a2e1a"/>
+<!-- the window -->
+<g id="window" class="hot"><rect x="40" y="110" width="300" height="360" fill="#162236" stroke="#e8dcc8" stroke-width="14"/><path d="M190 110V470" stroke="#e8dcc8" stroke-width="8"/>
+  <g id="wpane" stroke="#9fc4e0" stroke-width="2" opacity=".55"><path d="M70 150l-5 26M120 210l-5 26M160 140l-5 26M230 190l-5 26M290 250l-5 26M100 330l-5 26M260 380l-5 26M220 300l-5 26"/></g></g>
+<!-- the poster -->
+<g id="poster" class="hot"><rect x="420" y="110" width="260" height="330" fill="#f6efd8"/><rect x="420" y="110" width="260" height="60" fill="#1c2433"/>
+  <text x="550" y="140" class="cW" font-size="19" font-weight="500" text-anchor="middle" fill="#f6efd8" letter-spacing="2">HOW LANGUAGE</text><text x="550" y="162" class="cW" font-size="19" font-weight="500" text-anchor="middle" fill="#f2c94c" letter-spacing="2">CHANGES</text>
+  <text x="550" y="222" class="cO" font-size="30" font-weight="700" text-anchor="middle" fill="#1c2433">NICE</text><text x="550" y="250" class="cK" font-size="17" text-anchor="middle" fill="#c0392b">used to mean</text><text x="550" y="286" class="cO" font-size="30" font-weight="700" text-anchor="middle" fill="#1c2433">SILLY</text>
+  <path d="M460 316h180M460 336h150M460 356h170M460 376h120M460 396h160" stroke="#c8bfa4" stroke-width="5"/></g>
+<!-- the shelf and the radio -->
+<rect x="720" y="300" width="360" height="14" fill="#5a3a22"/>
+<g id="radio" class="hot"><rect x="760" y="230" width="150" height="70" rx="10" fill="#c8b07a" stroke="#6a5a3a" stroke-width="3"/><circle cx="800" cy="265" r="24" fill="#6a5a3a"/><g stroke="#c8b07a" stroke-width="2"><path d="M784 258h32M782 266h36M784 274h32"/></g><rect x="836" y="246" width="60" height="18" rx="3" fill="#2a2a20"/><rect id="dial" x="850" y="250" width="6" height="10" fill="#ff8a2a"/><circle cx="866" cy="282" r="7" fill="#6a5a3a"/><circle cx="888" cy="282" r="7" fill="#6a5a3a"/></g>
+<g><rect x="940" y="250" width="22" height="50" fill="#2f5d7c"/><rect x="966" y="240" width="18" height="60" fill="#a8461e"/><rect x="988" y="256" width="26" height="44" fill="#3f6b4f"/><rect x="1018" y="246" width="16" height="54" fill="#d8c8a0"/></g>
+<!-- the sofa -->
+<g id="sofa"><rect x="520" y="560" width="440" height="130" rx="20" fill="#3a5a6a"/><rect x="520" y="490" width="440" height="100" rx="24" fill="#456a7c"/><rect x="496" y="540" width="60" height="150" rx="20" fill="#3a5a6a"/><rect x="924" y="540" width="60" height="150" rx="20" fill="#3a5a6a"/><rect x="600" y="520" width="90" height="60" rx="14" fill="#f2c94c" transform="rotate(-8 645 550)"/></g>
+<!-- the kitchen corner -->
+<rect x="1130" y="420" width="520" height="250" fill="#e8e0d0"/><rect x="1120" y="410" width="540" height="18" fill="#7a6a5a"/>
+<g id="fridge" class="hot"><rect x="1450" y="170" width="170" height="500" rx="10" fill="#eef0f0" stroke="#b8bcc0" stroke-width="4"/><path d="M1450 360h170" stroke="#b8bcc0" stroke-width="4"/><rect x="1600" y="220" width="8" height="100" rx="3" fill="#9aa0a6"/>
+  <rect x="1470" y="200" width="110" height="140" fill="#fff" transform="rotate(2 1525 270)"/><circle cx="1525" cy="200" r="7" fill="#c0392b"/><g transform="rotate(2 1525 270)"><text x="1480" y="224" class="cK" font-size="14" fill="#1c2433">BrE / AmE</text><path d="M1480 240h90M1480 256h80M1480 272h90M1480 288h70M1480 304h86M1480 320h60" stroke="#9aa6b8" stroke-width="3"/></g>
+  <circle cx="1490" cy="400" r="10" fill="#f2c94c"/><rect x="1540" y="420" width="40" height="30" fill="#4ec3b0" transform="rotate(-8 1560 435)"/></g>
+<g id="kettle" class="hot"><path d="M1220 410q-6 -60 30 -66h40q36 6 30 66z" fill="#c0392b"/><path d="M1320 370q24 -4 24 18" stroke="#c0392b" stroke-width="8" fill="none"/><path d="M1240 344q30 -24 60 0" stroke="#2a2a2a" stroke-width="6" fill="none"/>
+  <g id="steam" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round"><path d="M1262 330q-10 -20 4 -36"/><path d="M1282 330q10 -22 -4 -40"/></g>
+  <g fill="#f6efd8" stroke="#8a7a6a" stroke-width="2"><rect x="1352" y="380" width="30" height="32" rx="3"/><rect x="1392" y="384" width="30" height="28" rx="3"/></g></g>
+<!-- the printer -->
+<g id="printer" class="hot"><rect x="1010" y="560" width="110" height="110" fill="#5a3a22"/><rect x="1000" y="500" width="130" height="64" rx="6" fill="#d8dadc" stroke="#8a8e94" stroke-width="3"/><rect x="1016" y="490" width="98" height="14" fill="#8a8e94"/><rect x="1024" y="452" width="82" height="44" fill="#fff" transform="rotate(-3 1065 474)"/><circle cx="1112" cy="520" r="4" fill="#4ec3b0"/></g>
+<ellipse cx="1000" cy="480" rx="420" ry="260" fill="url(#lampg)" pointer-events="none"/>
+<g id="nia" class="hot" transform="translate(760 884) scale(1.0)"></g>
+<g id="petra" class="hot" transform="translate(1320 890) scale(1.02)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Across the landing to the map library</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="ac.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, nextFile = null, form = null;
+
+  $('#nia').innerHTML = AC.who('nia', { smile: 2, extra: '<rect x="-30" y="-150" width="40" height="26" rx="3" fill="#1a1d24"/>' });
+  $('#petra').innerHTML = AC.who('petra', { extra: '<rect x="30" y="-300" width="12" height="26" rx="3" fill="#1a1d24"/>' });
+
+  ER.init({
+    theme: 'lang', story: 'accent', storyTitle: 'Where’s It To?', id: 'common', no: 'IV', title: 'The Common Room',
+    go: 'Put the kettle on',
+    intro: [
+      'On the light table, four films left one region shining: the South-West of England. Her r, her long a in &ldquo;bath&rdquo;, her dropped h and her &ldquo;Where&rsquo;s it to?&rdquo; all fit there. &ldquo;Wee&rdquo; is her Glaswegian dad&rsquo;s, and &ldquo;fall&rdquo; is her boy&rsquo;s cartoons: words travel, accents mostly stay put.',
+      'It is a quarter past two. The common room has a sofa that eats people, a kettle that sounds like a jet engine, and a radio on the shelf, still tuned to Nightjar.'
+    ],
+    exit: {"next":"maps","w":{"c39b7308":"3ee56369"}}, tags: {"1n":["6313a19e"],"1s":["3aa97bfc"],"1r":["bb7753e4"],"2n":["5afb5a05"],"2s":["29bdf7be"],"2r":["26273b10"],"3n":["e4ee0624"],"3s":["b26678bd"],"3r":["1bfc3ca0"],"4n":["18d9a88a"],"4s":["af8d4e94"],"4r":["3a245c3a"],"5n":["ad96f298"],"5s":["208107d4"],"5r":["e4022b24"],"rw":["8840d74d","a0e71232","52c8df0f","ac2a541b","a4994a44","10c25dab","81c30269","1df22e71","46abbe72","76e54912","7d5b85e7","3f2c3b54","3145ffa1","11d5692a","d7b9d9db","c61a6750","ca31ddcd","4ab8d322","43856268","ef1e9623","a5eeb2ea","67f2a3fa","64f16857","16f32f17","e9f58e05","787cf58b","736fbd95","645962ac","48685c56","4fb3fccc"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('d-told') || {}; nextFile = ER.flag('d-file') || null;
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('d-told', told); return true; }
+  function isBusy() { return busy; }
+  function ready() { return told.poster && told.list; }
+  function paint() {
+    $('#nia').classList.toggle('ready', !told.nia);
+    $('#poster').classList.toggle('ready', !!(told.nia && !told.poster));
+    $('#fridge').classList.toggle('ready', !!(told.nia && !told.list));
+    $('#printer').classList.toggle('ready', !!(ready() && !nextFile));
+    ER.pips((told.nia ? 1 : 0) + (told.poster ? 1 : 0) + (told.list ? 1 : 0) + (nextFile ? 1 : 0), 4);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The phone network has found Shona&rsquo;s mast. The map library is across the landing: the button at the bottom.']];
+    if (form && form.isOpen()) return ['form', [
+      'First find the row: what does each word mean? Then the person: Nan is 82, Shona is 31, and Robbie is 9 and watches American cartoons.',
+      'Robbie&rsquo;s words are the American ones on Nia&rsquo;s list. Shona&rsquo;s are today&rsquo;s ordinary British words. Nan&rsquo;s are the older words, and her dialect words: the poster says what an old West Country &ldquo;lake&rdquo; is.',
+      'Good things: proper job (Nan), brilliant (Shona), awesome (Robbie). The stream: the lake, the brook, the creek. The bin: the dustbin, the bin, the trash can. Films: the pictures, the cinema, the movies. Mother: Mother, Mum, Mom.'
+    ]];
+    if (!told.nia) return ['nia', ['Nia is on the sofa with her phone. Talk to her.']];
+    if (!told.poster) return ['poster', ['The poster on the wall: &ldquo;How language changes&rdquo;. Read it.']];
+    if (!told.list) return ['list', ['Nia&rsquo;s list is stuck on the fridge, on the right: British and American words. Read it.']];
+    return ['form', ['Shona&rsquo;s form is coming out of the printer, next to the sofa on the right. Click the printer.', 'The radio on the shelf is reading out listeners&rsquo; texts, if you want to hear what the country thinks.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('Mast 14, on Cuckoo Down. The map library is across the landing.'); return; }
+    if (told.in) { busy = false; ER.say('The common room: sofa, kettle, radio, printer.'); return; }
+    tell('in');
+    ER.narrate([
+      'Petra fills the kettle and talks to Tamsin Rowe on the phone at the same time, which nobody should try with a kettle like that one.',
+      'On the radio, Max Ingleby is reading out texts from listeners, more and more of them, in the voice of a man who has not had a cup of tea since midnight either.',
+      'Nia drops on to the sofa and holds up her phone. &ldquo;Right. Shona&rsquo;s form.&rdquo;'
+    ], function () { busy = false; });
+  }
+
+  $('#nia').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Three generations, three words for one stream,&rdquo; says Nia. &ldquo;I could write a whole chapter on that family.&rdquo;'); return; }
+    ER.talk({
+      who: 'Nia Prothero', role: 'Research student · teenagers&rsquo; speech', face: AC.face('nia'),
+      lines: [
+        { a: '&ldquo;Tonight&rsquo;s programme had a form on the website: &lsquo;Your family&rsquo;s words&rsquo;. Five questions, three people: you, someone older, someone younger. Shona filled it in at two minutes to midnight, on her break. That&rsquo;s how Yolande picked her.&rdquo;' },
+        { q: 'So what&rsquo;s the problem?', a: '&ldquo;The website broke the table. All fifteen words came through in one long list, in alphabetical order, with the questions underneath and nothing joining them up.&rdquo; She sighs. &ldquo;Somebody built that website on a Friday.&rdquo;' },
+        { q: 'Why does it matter, tonight?', a: '&ldquo;Because it&rsquo;s Shona&rsquo;s own words, written down, and her nan&rsquo;s, and her boy&rsquo;s. If she said something on the phone we don&rsquo;t understand, the answer might be in her family.&rdquo;' },
+        { a: '&ldquo;Read the poster first. Then my list on the fridge. Then the printer: I&rsquo;ve sent the form to it, cut up into slips, so we can put it back together.&rdquo;' }
+      ],
+      clue: { id: 'nia4', title: 'Nia: the form came through in a mess', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('nia')) { paint(); ER.say('The poster, then the list on the fridge.'); } }
+    });
+  });
+  $('#petra').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Map library,&rdquo; says Petra, with the phone still at her ear. &ldquo;Tamsin, give me two minutes.&rdquo;'); return; }
+    ER.talk({
+      who: 'Dr Petra Quilliam', role: 'Your aunt · on the phone to Control', face: AC.face('petra', 'worried'),
+      lines: [
+        { note: 'She has her hand over the phone.', a: '&ldquo;Tamsin has crews out all over the moors. Two cars in rivers already tonight, both found, both fine. Shona isn&rsquo;t either of them.&rdquo;' },
+        { q: 'Any news of the mast?', a: '&ldquo;Soon, they say. &lsquo;Soon&rsquo; has been the word since one o&rsquo;clock.&rdquo;' },
+        { a: '&ldquo;Do the form with Nia. Words are her side of things. I listen to sounds; she listens to people.&rdquo;' }
+      ]
+    });
+  });
+
+  var POSTER = '<h4>Department of Linguistics &middot; poster</h4><h3>How language changes</h3><div class="two"><div>' +
+    '<p>Language never stands still.</p><p><b>Words change their meaning.</b> In the 1300s, &ldquo;nice&rdquo; meant foolish. &ldquo;Silly&rdquo; once meant happy, even holy.</p>' +
+    '<p><b>New words arrive.</b> &ldquo;Selfie&rdquo; was Oxford Dictionaries&rsquo; Word of the Year in 2013.</p>' +
+    '<p><b>Old words hang on</b>, in the mouths of older people and in dialects. &ldquo;Wireless&rdquo; was the usual British word for a radio until the 1950s. And in old West Country speech, a &ldquo;lake&rdquo; is often not a big pool at all but a small stream. That word comes from Old English <i>lacu</i>, a stream; the big lake came later, from the Latin <i>lacus</i>.</p>' +
+    '<p>So one family can hold three <b>generations</b> of words for the same thing: a grandmother&rsquo;s, a mother&rsquo;s and a child&rsquo;s. Today many of the newest words come from screens, and a lot of them are American.</p></div>' +
+    '<div class="dia"><svg viewBox="0 0 280 300"><g font-family="Kalam,cursive" font-size="17"><circle cx="140" cy="44" r="22" fill="#f0d4c0"/><path d="M140 66v34M80 120h120M80 120v30M200 120v30M140 100v20" stroke="#5a4a3a" stroke-width="3"/>' +
+    '<circle cx="80" cy="172" r="20" fill="#f2cfb4"/><circle cx="200" cy="172" r="20" fill="#e9c09a"/><path d="M200 192v30" stroke="#5a4a3a" stroke-width="3"/><circle cx="200" cy="244" r="16" fill="#f2cfb4"/>' +
+    '<rect x="172" y="18" width="98" height="30" rx="12" fill="#fff" stroke="#1c2433" stroke-width="2"/><text x="182" y="39" fill="#1c2433">&ldquo;a snap&rdquo;</text><text x="110" y="18" font-size="13" fill="#7a6a5a">Gran</text>' +
+    '<rect x="4" y="194" width="98" height="30" rx="12" fill="#fff" stroke="#1c2433" stroke-width="2"/><text x="14" y="215" fill="#1c2433">&ldquo;a photo&rdquo;</text><text x="56" y="152" font-size="13" fill="#7a6a5a">Mum</text>' +
+    '<rect x="150" y="266" width="88" height="30" rx="12" fill="#fff" stroke="#1c2433" stroke-width="2"/><text x="164" y="287" fill="#1c2433">&ldquo;a pic&rdquo;</text><text x="222" y="250" font-size="13" fill="#7a6a5a">kid</text></g>' +
+    '<text x="6" y="80" font-family="Old Standard TT,serif" font-weight="700" font-size="14" fill="#c0392b">one picture,</text><text x="6" y="98" font-family="Old Standard TT,serif" font-weight="700" font-size="14" fill="#c0392b">three words</text></svg></div></div>' +
+    '<p class="fact"><b>A real fact.</b> &ldquo;Fall&rdquo; was an ordinary word for autumn in England in the 1600s (&ldquo;the fall of the leaf&rdquo;). Settlers took it to America, where it stayed. In Britain, &ldquo;autumn&rdquo; won.</p>';
+  $('#poster').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: POSTER, cls: 'card', clue: { id: 'poster', title: 'Poster: how language changes', kind: 'Poster' }, done: function () {
+      AC.terms(['language change', 'generation']);
+      if (tell('poster')) { paint(); if (!told.list) ER.say('Now Nia&rsquo;s list on the fridge.'); else if (ready()) ER.say('Now the printer.'); }
+    } });
+  });
+  var LIST = '<h4>Stuck on the fridge &middot; Nia&rsquo;s handout for Year 9 visitors</h4><h3>British or American?</h3>' +
+    '<table><tr><th>British</th><th>American</th></tr><tr><td>pavement</td><td>sidewalk</td></tr><tr><td>lorry</td><td>truck</td></tr><tr><td>autumn</td><td>fall</td></tr><tr><td>rubbish, bin</td><td>trash, trash can</td></tr><tr><td>queue</td><td>line</td></tr>' +
+    '<tr><td>the cinema</td><td>the movies</td></tr><tr><td>Mum</td><td>Mom</td></tr><tr><td>a stream, a brook</td><td>a creek (in Britain, a creek is a narrow inlet of the sea)</td></tr><tr><td>brilliant!</td><td>awesome!</td></tr><tr><td>colour, centre, favourite</td><td>color, center, favorite</td></tr></table>' +
+    '<p>Most British children now know both columns, from films and the internet, and many use some of the right-hand words without noticing. Spelling changed in America partly because of Noah Webster, whose <i>American Dictionary of the English Language</i> (1828) chose spellings like <i>color</i> and <i>center</i>.</p><p class="pg">N. Prothero &middot; &ldquo;Do you say awesome?&rdquo;</p>';
+  $('#fridge').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: LIST, cls: 'card', clue: { id: 'list', title: 'Nia&rsquo;s list: British or American?', kind: 'List' }, done: function () {
+      AC.terms(['British English', 'American English', 'spelling']);
+      if (tell('list')) { paint(); if (!told.poster) ER.say('Now the poster on the wall.'); else if (ready()) ER.say('Now the printer.'); }
+    } });
+  });
+  var TEXTS = '<h4>Nightjar &middot; texts read on air, 02.05 to 02.15</h4>' +
+    '<p>&ldquo;Graham in Ohio says she&rsquo;s from Tennessee, because she said &lsquo;fall&rsquo;. Graham, she also said &lsquo;bath&rsquo; like a duchess.&rdquo;</p>' +
+    '<p>&ldquo;Sandra in Taunton: my nan says &lsquo;dimpsy&rsquo; too! Thank you, Sandra.&rdquo;</p>' +
+    '<p>&ldquo;Ross in Glasgow says &lsquo;wee&rsquo;, therefore Glasgow. Ross, I admire your confidence.&rdquo;</p>' +
+    '<p>&ldquo;Pete, a retired postman, says if she said &lsquo;the lake&rsquo; she must have been near a reservoir: there aren&rsquo;t many real lakes down there.&rdquo;</p>' +
+    '<p>&ldquo;And Jodie, aged fifteen, says it&rsquo;s obvious, she&rsquo;s from Bristol, because that&rsquo;s where her auntie lives. Jodie, go to bed.&rdquo;</p>';
+  $('#radio').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: TEXTS, cls: 'statement', clue: { id: 'texts', title: 'Texts read on Nightjar', kind: 'On the radio' }, done: function () { tell('radio'); } });
+  });
+  AC.thing('#window', null, 'Rain, still. The forecast on the radio says it will stop at about four. That is no use to anybody now.', isBusy);
+  AC.thing('#kettle', 'kettle', 'The kettle roars like a jet engine and then clicks off. Nobody drinks the tea.', isBusy);
+  AC.thing('#sofa', null, 'The sofa that eats people. There is a yellow cushion on it with &ldquo;ALL ACCENTS WELCOME&rdquo; stitched on it, crookedly.', isBusy);
+
+  /* ---------- the form ---------- */
+  var ROWS = ['When something&rsquo;s really good, you say&hellip;', 'The little stream at the bottom of our lane', 'Where the rubbish goes', 'Where you go to see a film', 'What you call your mother'];
+  var SLIPS = [['aw', 'awesome'], ['br', 'brilliant'], ['mm', 'Mom'], ['mo', 'Mother'], ['mu', 'Mum'], ['pj', 'proper job'], ['bn', 'the bin'], ['bk', 'the brook'], ['ci', 'the cinema'], ['ck', 'the creek'], ['db', 'the dustbin'], ['lk', 'the lake'], ['mv', 'the movies'], ['pi', 'the pictures'], ['tc', 'the trash can']];
+  var CN = { n: 'Nan', s: 'Shona', r: 'Robbie' };
+  $('#printer').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The form, put back together, with a cold mug of tea on one corner.'); return; }
+    if (!told.nia) { ER.say('The printer has been printing something for ten minutes. Talk to Nia first.'); return; }
+    if (!ready()) { ER.say('&ldquo;Poster and list first,&rdquo; says Nia. &ldquo;Trust me.&rdquo;'); return; }
+    if (!form) form = makeForm();
+    form.open();
+  });
+  function makeForm() {
+    var box = ER.el('div', 'pz fm'), placed = ER.flag('d-pl') || {}, done = false;
+    box.innerHTML = '<div class="fm-in"><div class="fm-page"><h3>NIGHTJAR &middot; YOUR FAMILY&rsquo;S WORDS</h3><p class="sub">Sent 23.58 by: Shona &middot; Someone older: Nan (82) &middot; Someone younger: Robbie (9)</p><div class="grid">' +
+      '<div></div><div class="hd">NAN, 82</div><div class="hd">ME, 31</div><div class="hd">ROBBIE, 9</div>' +
+      ROWS.map(function (q, i) { return '<div class="q">' + q + '</div>' + ['n', 's', 'r'].map(function (c) { return '<div class="cell" data-c="' + (i + 1) + c + '"></div>'; }).join(''); }).join('') +
+      '</div><p class="foot"><b>ANYTHING ELSE?</b> &nbsp;Nan says &ldquo;Where&rsquo;s it to?&rdquo; about everything. I&rsquo;ve caught it off her. So has Robbie, and he does her voice.</p></div>' +
+      '<div class="tray"><h5>The list, as it came</h5></div></div><div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="f-go">Read it to Nia</button></div>';
+    var tray = box.querySelector('.tray'), msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    SLIPS.forEach(function (s) { var d = ER.el('div', 'dnd-item slip', s[1]); d.setAttribute('data-k', s[0]); tray.appendChild(d); });
+    Object.keys(placed).forEach(function (c) { var d = box.querySelector('.slip[data-k="' + placed[c] + '"]'), cell = box.querySelector('.cell[data-c="' + c + '"]'); if (d && cell) cell.appendChild(d); });
+    function read() { var o = {}; ER.$$('.cell', box).forEach(function (c) { var d = c.querySelector('.slip'); if (d) o[c.getAttribute('data-c')] = d.getAttribute('data-k'); }); return o; }
+    ER.dnd(box, { item: '.slip', slot: '.cell', home: tray, lock: function () { return done; }, change: function () {
+      ER.$$('.cell', box).forEach(function (c) { c.classList.remove('bad'); }); placed = read(); ER.flag('d-pl', placed);
+    } });
+    box.querySelector('#f-go').addEventListener('click', function () {
+      if (done) return;
+      var o = read(), n = Object.keys(o).length, order = [], i, c, bad = null;
+      if (n < 15) { ER.sfx.no(); msg(n ? 'Fifteen spaces, and ' + n + ' of them filled. Every slip has a place.' : 'Drag each slip into the right space (or click a slip, then a space).'); return; }
+      for (i = 1; i <= 5; i++) ['n', 's', 'r'].forEach(function (k) { order.push(i + k); });
+      for (i = 0; i < order.length; i++) { c = order[i]; if (!ER.check(c, o[c])) { bad = c; break; } }
+      if (bad) {
+        ER.sfx.no(); var cell = box.querySelector('.cell[data-c="' + bad + '"]'); cell.classList.add('bad'); ER.shake(cell);
+        var w = cell.textContent;
+        if (ER.check('rw', bad + ':' + o[bad])) msg('Nia taps &ldquo;' + w + '&rdquo;. &ldquo;Right row. Wrong person. Would ' + CN[bad.charAt(1)] + ' say that? Think how old they are, and where their words come from.&rdquo;');
+        else msg('Nia taps &ldquo;' + w + '&rdquo;. &ldquo;That&rsquo;s not an answer to this question at all. What does &lsquo;' + w + '&rsquo; mean?&rdquo;');
+        return;
+      }
+      done = true;
+      nextFile = ER.exit([order.map(function (k) { return o[k]; }).join('.')], { wait: true });
+      if (!nextFile) { msg('The way on will not open. Something is wrong with this page: tell your teacher.'); return; }
+      ER.flag('d-file', nextFile); paint();
+      AC.mine('family', 'Shona&rsquo;s family words', '<p>Good! &mdash; Nan: proper job &middot; Shona: brilliant &middot; Robbie: awesome</p><p>The little stream at the bottom of our lane &mdash; Nan: <b>the lake</b> &middot; Shona: the brook &middot; Robbie: the creek</p><p>Rubbish &mdash; the dustbin &middot; the bin &middot; the trash can</p><p>Films &mdash; the pictures &middot; the cinema &middot; the movies</p><p>Mother &mdash; Mother &middot; Mum &middot; Mom</p><p>Shona has &ldquo;caught&rdquo; Nan&rsquo;s words. Robbie&rsquo;s are American, from screens.</p>');
+      msg('<b>The form is whole again.</b> Older words and dialect words for Nan, today&rsquo;s British words for Shona, American words from the screen for Robbie. Three words for one stream at the bottom of one lane.');
+      setTimeout(function () {
+        ER.closeAll(); busy = true; AC.sfx.beep();
+        ER.narrate([
+          'Petra&rsquo;s phone beeps. She listens, says &ldquo;Yes. Yes. Thank you,&rdquo; and puts it on speaker.',
+          'Tamsin Rowe: &ldquo;The network&rsquo;s come back. Her phone last used mast 14, on Cuckoo Down. That mast covers a circle about seven kilometres across, mostly open moor. Moor roads, farm lanes, a reservoir, three villages.&rdquo;',
+          '&ldquo;My nearest crew is twenty minutes from the middle of it. Where do I send them?&rdquo;',
+          '&ldquo;The geography department&rsquo;s map library is across the landing,&rdquo; says Petra. &ldquo;They have every map of Britain ever printed. Give us five minutes.&rdquo;'
+        ], function () { busy = false; $('#go').classList.add('on'); });
+      }, 3000);
+    });
+    msg(Object.keys(placed).length ? 'Your slips are where you left them.' : 'Drag each slip into a space (or click a slip, then a space). Each space takes one slip.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>
