@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Medical Bay · Only What Was Asked</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-scifi.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="sleepers.css">
+<style>
+  body{--bg:#1c120e;--accent:#ffcf9a;--font-display:'Orbitron',sans-serif;--font-ui:'Share Tech Mono',monospace;--font-body:'Outfit',sans-serif;
+    --tc-bg:rgba(28,18,14,.96);--tc-ink:#f8ede4;--cap-bg:rgba(28,18,14,.93);--cap-ink:#fbf2ea;--panel:#2a1c16;--face-bg:#2a1e18;--q-ink:#ffd9b0;--fade:#070403;--hud-bg:rgba(28,18,14,.82)}
+  .drift{animation:drift 60s linear infinite}
+  @keyframes drift{from{transform:translate(0,0)}to{transform:translate(-220px,40px)}}
+  .beat{animation:beat 2.4s steps(1) infinite}
+  @keyframes beat{0%,80%{opacity:.25}85%{opacity:1}}
+  .glowS{animation:glowS 6s ease-in-out infinite}
+  @keyframes glowS{50%{opacity:.8}}
+  .done li{margin:0 0 4px}
+  .done .say{margin:8px 0 0;padding:6px 10px;border-left:4px solid #a8402c;background:#efe8dc;font-family:'Outfit',sans-serif;font-weight:300;font-size:14.5px;line-height:1.35}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="mWall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a1c16"/><stop offset=".6" stop-color="#4a3226"/><stop offset="1" stop-color="#2a1c16"/></linearGradient>
+  <radialGradient id="warmG"><stop offset="0" stop-color="#ffcf9a" stop-opacity=".45"/><stop offset="1" stop-color="#ffcf9a" stop-opacity="0"/></radialGradient>
+  <linearGradient id="podW" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#e8e2da"/><stop offset=".5" stop-color="#fbf6f0"/><stop offset="1" stop-color="#c9c0b4"/></linearGradient>
+  <radialGradient id="vig" cx="48%" cy="46%" r="74%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".62" stop-color="#070403" stop-opacity=".25"/><stop offset="1" stop-color="#070403" stop-opacity=".9"/></radialGradient>
+  <clipPath id="winM"><rect x="80" y="130" width="240" height="190" rx="20"/></clipPath>
+  <clipPath id="podC"><path d="M480 230Q480 170 560 170Q640 170 640 230V560H480Z"/></clipPath>
+</defs>
+<rect x="-1000" y="-600" width="3600" height="2100" fill="url(#mWall)"/>
+<circle cx="800" cy="380" r="600" fill="url(#warmG)" class="glowS" pointer-events="none"/>
+<!-- a window: the stars, sliding very slowly, because the ship is turning back over -->
+<g id="win" class="hot"><rect x="68" y="118" width="264" height="214" rx="26" fill="#5a4234"/><rect x="80" y="130" width="240" height="190" rx="20" fill="#05060c"/>
+  <g clip-path="url(#winM)"><g class="drift" id="mstars" fill="#fff"></g></g></g>
+<!-- the shelf, and a strawberry plant from the garden -->
+<path d="M60 380H340V396H60Z" fill="#6a4c3a"/>
+<g id="plant" class="hot"><path d="M150 380l10 -60h60l10 60z" fill="#a8502c"/><g fill="#4a8a3a"><path d="M190 320q-40-30-60-10q20 20 60 10z"/><path d="M190 320q40-40 64-16q-24 24-64 16z"/><path d="M190 320q-6-46 18-56q8 30-18 56z"/></g>
+  <g fill="#d8343a"><path d="M140 332q8 -6 12 4q-4 12 -12 -4z"/><path d="M236 330q8 -6 12 4q-4 12 -12 -4z"/></g><g fill="#f4f1e8"><circle cx="170" cy="304" r="5"/><circle cx="218" cy="296" r="5"/></g></g>
+<!-- the screen on the wall -->
+<g id="screen" class="hot"><rect x="60" y="430" width="280" height="130" rx="8" fill="#0a0806" stroke="#6a4c3a" stroke-width="4"/>
+  <text x="200" y="462" text-anchor="middle" class="mono" font-size="14" fill="#ffcf9a">M1 · M. LINDGREN</text><text x="200" y="490" text-anchor="middle" class="mono" font-size="12" fill="#f8ede4">ASLEEP · WRIST: SPLINTED</text>
+  <text x="200" y="516" text-anchor="middle" class="mono" font-size="12" fill="#f8ede4">WAKE: WHEN A DOCTOR IS AWAKE</text><path d="M84 540h40l10 -14 12 26 10 -12h150" stroke="#7dffb0" stroke-width="2" fill="none"/></g>
+<!-- TALLY's speaker grille -->
+<g id="tally" class="hot"><rect x="352" y="150" width="76" height="104" rx="8" fill="#2a1c16" stroke="#6a4c3a" stroke-width="3"/><g fill="#0a0806"><circle cx="374" cy="178" r="5"/><circle cx="390" cy="178" r="5"/><circle cx="406" cy="178" r="5"/><circle cx="374" cy="196" r="5"/><circle cx="390" cy="196" r="5"/><circle cx="406" cy="196" r="5"/><circle cx="374" cy="214" r="5"/><circle cx="390" cy="214" r="5"/><circle cx="406" cy="214" r="5"/></g><text x="390" y="242" text-anchor="middle" class="orb" font-size="11" font-weight="700" letter-spacing="2" fill="#9fd8ff">TALLY</text></g>
+<!-- the pod -->
+<g id="pod" class="hot"><ellipse cx="560" cy="720" rx="180" ry="24" fill="#000" opacity=".35"/>
+  <path d="M440 230Q440 130 560 130Q680 130 680 230V700H440Z" fill="url(#podW)"/><path d="M480 230Q480 170 560 170Q640 170 640 230V560H480Z" fill="#cfe4ee"/>
+  <g clip-path="url(#podC)"><use href="#ch-lind" x="460" y="230" width="200" height="260"/><rect x="480" y="170" width="160" height="390" fill="#e6f4ff" opacity=".22"/></g>
+  <path d="M492 186q30-26 80-20" stroke="#fff" stroke-width="6" fill="none" opacity=".5" stroke-linecap="round"/>
+  <rect x="500" y="590" width="120" height="44" rx="6" fill="#2a1c16"/><text x="560" y="618" text-anchor="middle" class="mono" font-size="16" fill="#ffcf9a">M1</text><circle class="beat" cx="606" cy="612" r="5" fill="#7dffb0"/></g>
+<!-- a cabinet, and the far wall -->
+<g fill="#3a2a20"><rect x="1000" y="150" width="260" height="420" rx="6"/></g><g fill="#5a4234"><rect x="1016" y="166" width="110" height="190" rx="4"/><rect x="1134" y="166" width="110" height="190" rx="4"/><rect x="1016" y="370" width="228" height="184" rx="4"/></g>
+<path d="M1300 160v400M1420 160v400" stroke="#3a2a20" stroke-width="10"/>
+<!-- the floor -->
+<path d="M-1000 700H2600V1500H-1000Z" fill="#20150f"/><path d="M-1000 700H2600" stroke="#6a4c3a" stroke-width="5"/>
+<!-- Tanaka, with two mugs -->
+<g id="tanakaG" class="hot"><use href="#ch-tanaka" x="650" y="430" width="210" height="273"/><path d="M846 640h34l-4 40h-28z" fill="#2e4a63"/><path d="M880 650q12 0 10 12t-12 8" stroke="#2e4a63" stroke-width="5" fill="none"/></g><rect x="-1000" y="-600" width="3600" height="2100" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<div class="done" id="done">
+  <div class="stampd">RULE 14 ENDED · 08:51</div>
+  <p id="d-time"></p><p id="d-hints"></p><p id="d-slips"></p><p id="d-words"></p>
+  <h6>What you now know</h6>
+  <ol>
+    <li>A machine that answers only what it is asked needs the right kind of question: a yes-no question gets yes or no and nothing more, and &ldquo;Is there&hellip;?&rdquo; is not &ldquo;How many&hellip;?&rdquo;.</li>
+    <li>An answer can be true and still mislead. &ldquo;Can you see the shield?&rdquo; &ldquo;No.&rdquo; did not mean that the shield had gone.</li>
+    <li>A question that takes something for granted that is not true gets back only the mistake.</li>
+    <li>Tenses give the order of events: the past perfect looks back from a later moment, and &ldquo;nothing has happened&rdquo; can only be written before something does.</li>
+    <li>A log can be lying (the writer knows it is untrue), mistaken (the writer believes something she worked out wrongly) or incomplete (true, with something that matters left out).</li>
+    <li>In space a ship coasts at the same speed in the same direction until something pushes it. Turning it round does not turn its journey round: it is the first step of braking.</li>
+    <li>A test needs a control. A dark picture means something only if the same camera can see a star when nothing is in the way.</li>
+  </ol>
+  <p class="say">Say it aloud: explain to a friend, in four or five sentences, why turning a spaceship round does not send it home.</p>
+  <div class="row"><button type="button" class="btn" id="b-task">Write the crew log</button><button type="button" class="btn" id="b-book">Notebook</button><button type="button" class="btn" id="b-lobby">Back to the stories</button></div>
+  <small>Only What Was Asked &middot; <button type="button" id="b-reset">play it again from the start</button></small>
+</div>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="sleepers.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = false;
+  (function () { var s = '', i, seed = 9; function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+    for (i = 0; i < 70; i++) s += '<circle cx="' + Math.round(80 + rnd() * 460) + '" cy="' + Math.round(100 + rnd() * 240) + '" r="' + (0.6 + rnd() * 1.5).toFixed(1) + '" opacity="' + (0.3 + rnd() * 0.7).toFixed(2) + '"/>';
+    $('#mstars').innerHTML = s; })();
+
+  ER.init({
+    theme: 'scifi', story: 'sleepers', storyTitle: 'Only What Was Asked', id: 'medbay', no: 'VI', title: 'The Medical Bay',
+    go: 'Go and see Officer Lindgren',
+    intro: [
+      'In the engine room you could not tell TALLY anything, so you asked it. Where is the bow pointing? At the Sun. Is the Sun in picture 1? No. Is Celandine in picture 2? Yes: so the camera can see. And then the question it had answered &ldquo;I do not know&rdquo; all night: is there a bow shield? This time TALLY put its own answers together, and said yes.',
+      'At twelve minutes past ten nothing happened at all. It was the best nothing you have ever heard.',
+      'Afterwards, while the <i>Amaranth</i> turned slowly back over, you went to see Officer Lindgren.'
+    ],
+    exit: {"last":true,"rooms":6,"stars":4}, tags: {},
+    hints: hints, onBegin: begin
+  });
+
+  function hints() { return ['end', ['Nothing more to unlock. Click on Officer Lindgren&rsquo;s pod, on Tanaka and on TALLY&rsquo;s speaker if you like. The card on the right has the numbers, what you now know, and a last piece of writing.']]; }
+  function begin() {
+    if (ER.flag('m-seen')) { finish(); return; }
+    busy = true; ER.flag('m-seen', 1);
+    ER.narrate([
+      'The medical bay is the warmest room on the ship, and the quietest. Officer Lindgren is asleep in pod M1, with her wrist in a splint and her grey plait over her shoulder. She looks a good deal younger than her diary.',
+      'Tanaka puts a strawberry plant from the garden on the shelf by the window. &ldquo;She&rsquo;ll want it watered,&rdquo; he says. &ldquo;You&rsquo;ll have to ask TALLY how often. Exactly how often.&rdquo;',
+      'You ask TALLY one more thing. &ldquo;Why was I woken?&rdquo; &ldquo;Officer Lindgren chose you.&rdquo; &ldquo;Why did she choose me?&rdquo; &ldquo;I do not know,&rdquo; says TALLY. &ldquo;She did not tell me. She told you.&rdquo;',
+      'So you read her page again. On the day you boarded, eighty-two years ago, you asked her what they would do if TALLY was wrong. This morning you found out. TALLY was never wrong. Every answer it gave was true. It was the questions that were wrong, and the first of them was hers, at a locked door, at half past four in the morning.',
+      'The other 1,202 sleepers sleep on. In forty years, when the <i>Amaranth</i> turns over on purpose, they will wake up and never know about this morning. Tanaka says you could go back to sleep in a month, when the sensors are mended. You have not decided.'
+    ], function () { busy = false; SLP.solved(true); finish(); });
+  }
+  function finish() {
+    var st = ER.state(), mins = SLP.minutes(), hn = ER.hintsUsed(), sl = ER.flag('slips') || 0;
+    $('#d-time').textContent = 'The morning took you ' + mins + (mins === 1 ? ' minute.' : ' minutes.');
+    $('#d-hints').textContent = hn ? 'You asked for ' + hn + (hn === 1 ? ' hint.' : ' hints.') : 'You did not ask for a single hint.';
+    $('#d-slips').textContent = sl ? sl + (sl === 1 ? ' time' : ' times') + ' this morning an answer was true, and it was not the one you needed.' : 'Not once this morning did you take a true answer for the one you needed.';
+    $('#d-words').textContent = 'In your notebook: ' + st.clues.length + ' papers and ' + Object.keys(st.words).length + ' words.';
+    $('#done').classList.add('on');
+  }
+  SLP.thing('#pod', 'medical pod', function () { return 'Pod M1. Officer Lindgren&rsquo;s heart, on the little light, beats about twice a minute. TALLY will wake her when a doctor is awake. This time somebody has woken somebody on purpose: TALLY began to warm the doctor&rsquo;s pod at nine o&rsquo;clock, and in twenty-one hours there will be a doctor.'; }, function () { return busy; });
+  SLP.thing('#plant', 'strawberry', 'Three strawberries, two of them red. On the pot, in pencil: <i>Do not eat these, M.L.</i> and under it, in another hand: <i>Too late, R.T.</i>', function () { return busy; });
+  SLP.thing('#win', null, 'The stars are sliding past the window, very slowly. In six hours the bow will face Celandine again, and the shield will be in front, where it belongs.', function () { return busy; });
+  SLP.thing('#screen', null, 'M1 · M. LINDGREN · ASLEEP · WRIST: SPLINTED. WAKE: WHEN A DOCTOR IS AWAKE.', function () { return busy; });
+  $('#tanakaG').addEventListener('click', function () {
+    if (busy) return;
+    ER.say('&ldquo;Something hit the mast that holds all four bow sensors,&rdquo; says Tanaka. &ldquo;Four sensors, one mast, one cable. Somebody saved a great deal of money there, eighty-two years ago.&rdquo; He hands you a mug. &ldquo;Hot water. I&rsquo;m afraid it&rsquo;s still the best thing on the menu.&rdquo;');
+  });
+  $('#tally').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(ER.flag('e-who') === 'me' ? 'TALLY&rsquo;s speaker: &ldquo;Officer of the watch, pod C-07. You have no questions waiting.&rdquo; It is the nearest thing to good morning that TALLY knows how to say.'
+      : 'TALLY&rsquo;s speaker: &ldquo;Officer of the watch, Ren Tanaka. No questions waiting.&rdquo; It is the nearest thing to good morning that TALLY knows how to say.');
+  });
+  $('#b-book').addEventListener('click', ER.notebook);
+  $('#b-lobby').addEventListener('click', function () { ER.leave('../index.html'); });
+  $('#b-reset').addEventListener('click', function () {
+    var b = $('#b-reset');
+    if (b.getAttribute('data-sure')) { ER.resetStory(); location.href = '../index.html'; return; }
+    b.setAttribute('data-sure', '1'); b.textContent = 'this empties your notebook. click again to do it';
+  });
+  $('#b-task').addEventListener('click', function () {
+    var saved = ER.flag('m-task') || {}, box = ER.el('div', 'rp');
+    box.innerHTML = '<h4>Amaranth &middot; crew log &middot; Year 82 &middot; day 197</h4><h3>The true entries</h3>' +
+      '<label for="r1">Write this morning&rsquo;s entries for the crew log: five to eight entries, each with its time, and 70 to 110 words in all. Use the <b>past simple</b> for what happened this morning, the <b>past perfect</b> for what had happened before it, and the <b>present perfect</b> for what is still true now. Then write one question that you would ask TALLY tomorrow, and say why its answer could not mislead you.</label><textarea id="r1"></textarea>' +
+      '<div class="count"></div><label for="r2">Officer of the watch (your name)</label><input type="text" id="r2" maxlength="60">' +
+      '<div class="foot"><span>Nobody marks this. It is saved in this browser as you write.</span><button type="button" class="btn" id="r-print">Print</button><button type="button" class="btn" id="r-done">Done</button></div>';
+    ER.glossIn(box, '.rp > label');
+    box.querySelector('#r1').value = saved.r1 || ''; box.querySelector('#r2').value = saved.r2 || '';
+    function keepT() {
+      var o = { r1: box.querySelector('#r1').value, r2: box.querySelector('#r2').value }, n = (o.r1.match(/[A-Za-z’']+/g) || []).length;
+      box.querySelector('.count').textContent = n + (n === 1 ? ' word' : ' words');
+      ER.flag('m-task', o);
+    }
+    box.addEventListener('input', keepT);
+    box.addEventListener('keydown', function (e) { e.stopPropagation(); });
+    box.querySelector('#r-print').addEventListener('click', function () { keepT(); window.print(); });
+    box.querySelector('#r-done').addEventListener('click', ER.close);
+    ER.open('ov-report', box); keepT();
+  });
+})();
+</script>
+</body>
+</html>

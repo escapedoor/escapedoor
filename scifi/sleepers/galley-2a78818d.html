@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Galley · Only What Was Asked</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-scifi.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="sleepers.css">
+<style>
+  body{--bg:#15110d;--accent:#ffc777;--font-display:'Orbitron',sans-serif;--font-ui:'Share Tech Mono',monospace;--font-body:'Outfit',sans-serif;
+    --tc-bg:rgba(20,15,11,.96);--tc-ink:#f2e9dc;--cap-bg:rgba(20,15,11,.94);--cap-ink:#f6efe4;--panel:#221a13;--face-bg:#2a2018;--q-ink:#ffd9a0;--fade:#070504;--hud-bg:rgba(20,15,11,.82)}
+  .steam path{animation:steam 3.6s ease-out infinite;opacity:0}
+  .steam path:nth-child(2){animation-delay:-1.2s}.steam path:nth-child(3){animation-delay:-2.4s}
+  @keyframes steam{0%{opacity:0;transform:translateY(10px)}30%{opacity:.5}100%{opacity:0;transform:translateY(-60px)}}
+  .lampP{animation:lampP 5.7s steps(3) infinite}
+  @keyframes lampP{50%{opacity:.85}}
+  .mote{animation:mote 24s linear infinite}
+  @keyframes mote{0%{transform:translate(0,0)}50%{transform:translate(20px,-30px)}100%{transform:translate(0,0)}}
+  .hatchG{animation:hatchG 4.4s ease-in-out infinite}
+  @keyframes hatchG{50%{opacity:.7}}
+  #rail.next #railBar{animation:snudge 1.7s ease-in-out infinite}
+
+  /* the order rail */
+  .gr{display:grid;grid-template-columns:minmax(0,520px) 470px;gap:16px;width:min(1010px,96vw);align-items:start}
+  .gr-rail{position:relative;padding:10px 12px 10px 30px;background:#2a2f33 linear-gradient(90deg,#3a4045,#23282c);border-radius:6px;box-shadow:0 20px 50px rgba(0,0,0,.55)}
+  .gr-rail:before{content:'';position:absolute;left:14px;top:8px;bottom:8px;width:6px;border-radius:3px;background:linear-gradient(90deg,#c9ced2,#7c858c)}
+  .gr-row{position:relative;display:flex;align-items:center;min-height:33px;margin:0 0 4px}
+  .gr-row:before{content:'';position:absolute;left:-14px;top:50%;width:12px;height:2px;background:#9aa3aa}
+  .gr-t{flex:1;padding:4px 9px 3px;background:#fbfbf7;color:#2a2f34;font-family:'Share Tech Mono',monospace;font-size:12.5px;line-height:1.25;border-top:2px dotted #c9cdd2;box-shadow:0 2px 0 rgba(0,0,0,.35)}
+  .gr-t b{font-weight:normal;color:#000;margin-right:6px}
+  .gr-c{flex:1;min-height:36px;padding:2px;border:2px dashed rgba(255,210,140,.45);border-radius:4px;background:rgba(0,0,0,.25)}
+  .gr-c:before{content:attr(data-n);float:left;margin:7px 6px 0 4px;font-family:'Share Tech Mono',monospace;font-size:11px;color:rgba(255,210,140,.7)}
+  .gr-c.full{border-style:solid;border-color:#ffc777}.gr-c.full:before{display:none}
+  .gr-c.bad{border-color:#e0603a;background:rgba(224,96,58,.18)}
+  .gr-tray{display:flex;flex-direction:column;gap:6px;min-height:60px;padding:8px;border-radius:6px;background:#3a2c1e;border:1px solid #6b5236}
+  .gr-tray:empty:before{content:'The biscuit tin: empty';font-family:'Share Tech Mono',monospace;font-size:12px;letter-spacing:.08em;color:#b7a58a}
+  .pgt{display:block;padding:5px 10px 4px;background:#fbf6e6 repeating-linear-gradient(transparent 0 15px,rgba(70,100,160,.18) 15px 16px);color:#2a2a3a;font-family:'Caveat',cursive;font-weight:700;font-size:18px;line-height:1.1;
+    border-left:3px solid rgba(190,70,60,.45);box-shadow:0 2px 0 rgba(0,0,0,.35);-webkit-user-select:none;user-select:none;cursor:grab}
+  .pgt.messy{font-family:'Homemade Apple',cursive;font-weight:400;font-size:12.5px;line-height:1.5}
+  .pgt.held{outline:3px solid #ffd27a}
+  .pgt small{float:right;font-family:'Share Tech Mono',monospace;font-size:10px;color:#8a7a5a}
+  .gr-read{height:196px;overflow:auto;margin:8px 0 0;padding:8px 14px 8px 16px;background:#fbf6e6 repeating-linear-gradient(transparent 0 23px,rgba(70,100,160,.2) 23px 24px);color:#2a2a3a;font-family:'Caveat',cursive;font-weight:700;font-size:19px;line-height:24px;border-left:2px solid rgba(190,70,60,.45)}
+  .gr-read.messy{font-family:'Homemade Apple',cursive;font-weight:400;font-size:13.5px;line-height:24px}
+  .gr-read i{display:block;font-style:normal;font-family:'Share Tech Mono',monospace;font-size:11px;color:#8a7a5a}
+  .gr-side .pmsg{min-height:72px;margin:10px 0 8px;font-size:16.5px}
+  .gr-side .btn{float:right}
+  @media (max-width:1000px){.gr{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="gWall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1f1a15"/><stop offset=".7" stop-color="#3a3128"/><stop offset="1" stop-color="#28211a"/></linearGradient>
+  <linearGradient id="steel" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8c8a83"/><stop offset="1" stop-color="#4f4d48"/></linearGradient>
+  <linearGradient id="sheet" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d8d0c0"/><stop offset="1" stop-color="#9c9282"/></linearGradient>
+  <radialGradient id="lampG"><stop offset="0" stop-color="#ffd38a" stop-opacity=".6"/><stop offset=".5" stop-color="#ffb84a" stop-opacity=".16"/><stop offset="1" stop-color="#ffb84a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="greenG"><stop offset="0" stop-color="#9ff07a" stop-opacity=".55"/><stop offset="1" stop-color="#9ff07a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="54%" cy="48%" r="74%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".6" stop-color="#070504" stop-opacity=".3"/><stop offset="1" stop-color="#070504" stop-opacity=".92"/></radialGradient>
+  <clipPath id="portC"><circle cx="1150" cy="230" r="74"/></clipPath>
+  <symbol id="chairS" viewBox="0 0 60 70"><path d="M8 4h44v6H8zM12 10v40M48 10v40M8 30h44" stroke="#5a5048" stroke-width="5" fill="none"/></symbol>
+</defs>
+
+<rect x="-1000" y="-600" width="3600" height="2100" fill="url(#gWall)"/>
+<g id="panels" stroke="#15110d" stroke-width="4" opacity=".6"></g>
+<path d="M-1000 70H2600" stroke="#4a4036" stroke-width="12"/><path d="M-1000 84H2600" stroke="#15110d" stroke-width="4"/>
+<!-- a porthole: the stars, still now -->
+<g id="port" class="hot"><circle cx="1150" cy="230" r="92" fill="#4a4036"/><circle cx="1150" cy="230" r="80" fill="#15110d"/><circle cx="1150" cy="230" r="74" fill="#03050a"/>
+  <g clip-path="url(#portC)" id="pstars" fill="#fff"></g><circle cx="1150" cy="230" r="74" fill="none" stroke="#8c8a83" stroke-width="4"/><g id="pbolts" fill="#6b6258"></g></g>
+
+<!-- the hotplate, the hood, the order rail and the kettle -->
+<path d="M60 150H700L660 250H100Z" fill="#3a3530"/><path d="M60 150H700" stroke="#57514a" stroke-width="5"/>
+<g id="rail" class="hot"><rect x="90" y="270" width="580" height="90" fill="#000" opacity="0"/><g id="railBar"><rect x="96" y="282" width="568" height="10" rx="5" fill="url(#steel)"/>
+  <g id="tickets"></g></g>
+  <text x="380" y="380" text-anchor="middle" class="mono" font-size="13" letter-spacing="4" fill="#b7a58a">ORDER RAIL</text></g>
+<g id="hcard" class="hot"><path d="M24 300l60 -6 6 84 -60 6z" fill="#f4f1e8"/><path d="M28 300l58 -6v14l-58 6z" fill="#a8402c"/><path d="M36 330l42 -4M37 342l42 -4M38 354l38 -4M39 366l40 -4" stroke="#7a6a58" stroke-width="2.6"/><circle cx="56" cy="304" r="4" fill="#c9553f"/></g>
+<rect x="60" y="400" width="640" height="200" fill="#4f4d48"/><rect x="60" y="400" width="640" height="16" fill="url(#steel)"/>
+<g fill="#2a2724"><rect x="110" y="430" width="140" height="10" rx="5"/><rect x="290" y="430" width="140" height="10" rx="5"/></g>
+<g id="kettle" class="hot"><path d="M500 400q-10-60 50-64q60 4 50 64z" fill="#9c9a93"/><path d="M600 360q30 0 26 26" stroke="#9c9a93" stroke-width="8" fill="none"/><path d="M512 362q-24-6-34-30" stroke="#9c9a93" stroke-width="9" fill="none" stroke-linecap="round"/><rect x="536" y="326" width="28" height="12" rx="5" fill="#2a2724"/>
+  <g class="steam" fill="none" stroke="#f2e9dc" stroke-width="5" stroke-linecap="round"><path d="M476 326q-10-20 4-38"/><path d="M466 320q-14-24 2-46"/><path d="M486 322q-6-16 6-34"/></g></g>
+
+<!-- TALLY's printer on the wall -->
+<g id="printer" class="hot"><rect x="760" y="170" width="170" height="120" rx="6" fill="#26303a" stroke="#45525e" stroke-width="3"/><rect x="776" y="186" width="138" height="54" rx="3" fill="#06111c"/>
+  <text x="845" y="210" text-anchor="middle" class="orb" font-size="13" font-weight="700" letter-spacing="3" fill="#9fd8ff">TALLY</text><text x="845" y="230" text-anchor="middle" class="mono" font-size="10" fill="#bfe6ff">SHIP'S LOG · D196</text>
+  <rect x="786" y="254" width="118" height="8" fill="#0a131c"/><path d="M792 258h106l-6 200q-48 10 -94 0z" fill="#fbfbf7"/><g stroke="#8a8f94" stroke-width="2"><path d="M804 284h80M804 300h70M804 316h82M804 332h60M804 348h76M804 364h66M804 380h80M804 396h58"/></g></g>
+
+<!-- the ladder up to the garden deck -->
+<g id="ladder" class="hot"><rect x="1380" y="0" width="120" height="690" fill="#000" opacity="0"/><circle cx="1440" cy="40" r="170" fill="url(#greenG)" class="hatchG" pointer-events="none"/><rect x="1370" y="-20" width="140" height="40" fill="#9ff07a" opacity=".5"/>
+  <path d="M1390 0V680M1490 0V680" stroke="#7c858c" stroke-width="10"/><g id="rungs" stroke="#7c858c" stroke-width="8"></g><path d="M1400 196l70 -2" stroke="#c9ced2" stroke-width="3" opacity=".7"/>
+  <text x="1440" y="720" text-anchor="middle" class="mono" font-size="12" fill="#b7a58a">GARDEN DECK</text></g>
+
+<!-- the far table: chairs upside down on it, under dust sheets -->
+<g id="far" class="hot"><path d="M720 470H1330V530H720Z" fill="url(#sheet)" opacity=".75"/><use href="#chairS" x="760" y="420" width="60" height="60" transform="rotate(180 790 450)"/><use href="#chairS" x="880" y="420" width="60" height="60" transform="rotate(180 910 450)"/>
+  <use href="#chairS" x="1000" y="420" width="60" height="60" transform="rotate(180 1030 450)"/><use href="#chairS" x="1120" y="420" width="60" height="60" transform="rotate(180 1150 450)"/><path d="M730 470q120 -24 280 -6q160 18 310 -8v20H730z" fill="#cfc6b6" opacity=".8"/></g>
+
+<!-- Tanaka, by the kettle -->
+<g id="tanakaG" class="hot"><use href="#ch-tanaka" x="560" y="390" width="220" height="286"/></g>
+
+<!-- the near table, and Lindgren's end of it -->
+<path d="M-1000 720H2600V1500H-1000Z" fill="#221b15"/>
+<path d="M140 660H1340L1400 740H80Z" fill="#6b5f52"/><path d="M80 740H1400V760H80Z" fill="#4a4036"/><path d="M140 660H700L690 680H130Z" fill="#8a7d6c" opacity=".5"/>
+<circle class="lampP" cx="1090" cy="680" r="300" fill="url(#lampG)" pointer-events="none"/>
+<g id="lamp"><path d="M1230 700V600q0-30-30-40" stroke="#2a2724" stroke-width="8" fill="none"/><path d="M1160 540l70 20-16 30q-40 0-60-26z" fill="#a8402c"/><ellipse cx="1230" cy="702" rx="30" ry="7" fill="#2a2724"/></g>
+<g id="mug" class="hot"><path d="M960 712h48l-5-54h-38z" fill="#2e4a63"/><path d="M1008 672q18 0 14 18t-16 12" stroke="#2e4a63" stroke-width="7" fill="none"/><ellipse cx="984" cy="660" rx="20" ry="5" fill="#3a2418"/><ellipse cx="984" cy="716" rx="40" ry="6" fill="none" stroke="#a89a86" stroke-width="2" opacity=".6"/></g>
+<g id="tin" class="hot"><rect x="1050" y="672" width="120" height="48" rx="8" fill="#a8402c"/><rect x="1046" y="664" width="128" height="14" rx="6" fill="#c9553f"/><path d="M1064 700h92" stroke="#f2d9a8" stroke-width="4"/><text x="1110" y="712" text-anchor="middle" font-family="Cinzel,serif" font-size="11" fill="#f2d9a8">SHORTBREAD</text>
+  <path d="M1070 664l30 -20 46 6 -14 18z" fill="#fbf6e6"/><path d="M1080 656l40 -4" stroke="#7a8ab0" stroke-width="2"/></g>
+<g fill="#cfc6b6" id="motes"></g>
+<rect x="-1000" y="-600" width="3600" height="2100" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Go to the watch room</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="sleepers.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = false, nextFile = null;
+
+  (function () {
+    var s = '', i, a, seed = 5;
+    function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+    for (i = -6; i < 22; i++) s += '<path d="M' + (i * 110) + ' 84V640"/>';
+    $('#panels').innerHTML = s; s = '';
+    for (i = 0; i < 40; i++) s += '<circle cx="' + Math.round(1076 + rnd() * 148) + '" cy="' + Math.round(156 + rnd() * 148) + '" r="' + (0.6 + rnd() * 1.6).toFixed(1) + '" opacity="' + (0.3 + rnd() * 0.7).toFixed(2) + '"/>';
+    $('#pstars').innerHTML = s; s = '';
+    for (i = 0; i < 12; i++) { a = i * Math.PI / 6; s += '<circle cx="' + (1150 + Math.cos(a) * 86).toFixed(1) + '" cy="' + (230 + Math.sin(a) * 86).toFixed(1) + '" r="4"/>'; }
+    $('#pbolts').innerHTML = s; s = '';
+    for (i = 0; i < 12; i++) s += '<path d="M1390 ' + (40 + i * 56) + 'H1490"/>';
+    $('#rungs').innerHTML = s; s = '';
+    for (i = 0; i < 7; i++) s += '<rect x="' + (120 + i * 76) + '" y="292" width="40" height="' + (46 + (i % 3) * 8) + '" fill="#fbfbf7" opacity="' + (i % 2 ? 0.9 : 0.75) + '"/><rect x="' + (128 + i * 76) + '" y="286" width="24" height="10" rx="2" fill="#7c858c"/>';
+    $('#tickets').innerHTML = s; s = '';
+    for (i = 0; i < 30; i++) s += '<circle class="mote" cx="' + Math.round(900 + rnd() * 420) + '" cy="' + Math.round(470 + rnd() * 220) + '" r="' + (0.8 + rnd() * 1.4).toFixed(1) + '" opacity="' + (0.2 + rnd() * 0.4).toFixed(2) + '" style="animation-duration:' + (14 + rnd() * 20).toFixed(1) + 's;animation-delay:-' + (rnd() * 20).toFixed(1) + 's"/>';
+    $('#motes').innerHTML = s;
+  })();
+
+  ER.init({
+    theme: 'scifi', story: 'sleepers', storyTitle: 'Only What Was Asked', id: 'galley', no: 'II', title: 'The Galley',
+    go: 'Climb up to the galley',
+    intro: [
+      'TALLY answers exactly what it is asked. &ldquo;Is anybody awake?&rdquo; got a yes; &ldquo;How many people are awake?&rdquo; got a number. &ldquo;What is the ship doing?&rdquo; got Rule 14, &ldquo;When will the engine start?&rdquo; got 10:12, and &ldquo;Who can end Rule 14?&rdquo; got the only answer that mattered: the officer of the watch, or anybody who shows TALLY that the bow shield is in place.',
+      'The galley of Ring C was built for the end of the voyage, when two hundred hungry people will sit down in it at once. Until then it has one kettle that works, eighty-two years of dust, and the watchkeeper&rsquo;s things at the end of one table.',
+      'It is ten past five. The engine starts at 10:12.'
+    ],
+    exit: {"next":"watchroom","w":{"9c517b4e":"45ed68b3"}}, tags: {"c1":["0c62bcdd"],"c2":["f311de65"],"c3":["1b0e2cfa"],"c4":["c0e7e660"],"c5":["6083af38"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('g-file') || null;
+  var S = ER.flag('g-st') || { clips: {} };
+  function keep() { ER.flag('g-st', S); }
+
+  var LOG = [
+    ['02:50', 'GARDEN DOOR OPENED. M. LINDGREN IN.'],
+    ['04:12', 'STRIKE, BOW. BOW SENSORS 1 TO 4 SILENT. BOW SHIELD LOST BY RULE 14. RULE 14 BEGUN.'],
+    ['04:13', 'RULE 14, STEP 1: BOW DOOR SEALED.'],
+    ['04:19', 'GARDEN DOOR OPENED. M. LINDGREN OUT.'],
+    ['04:20', 'RULE 14, STEP 2: TURNOVER BEGUN.'],
+    ['04:26', 'BOW DOOR: OPEN REFUSED (M. LINDGREN).'],
+    ['04:31', 'QUESTION AT BOW DOOR (M. LINDGREN). ANSWERED.'],
+    ['05:41', 'FALL, GALLEY LADDER (M. LINDGREN). WRIST.'],
+    ['06:30', 'RULE 14, STEP 3: ARRIVAL TEAM CHOSEN (M. LINDGREN).'],
+    ['06:31', 'POD C-06 WARMING.'],
+    ['07:10', 'RULE 6: M. LINDGREN INTO MEDICAL POD M1.'],
+    ['07:31', 'POD C-07 WARMING.'],
+    ['10:20', 'TURNOVER DONE.']
+  ];
+  var LOGDOC = '<h4>SHIP&rsquo;S LOG · TALLY · YEAR 82 · DAY 196</h4><h5>Kept by TALLY. Records doors, pods, strikes, rules and questions.</h5>' +
+    LOG.map(function (l) { return '<p><b>' + l[0] + '</b>' + l[1] + '</p>'; }).join('');
+  var PAGES = {
+    a: { m: 0, t: 'Night 1,456 of my watch. In the garden, as usual: it is the only place on this ship that smells of anything. I have kept this ship for nearly four years, and in all that time nothing has happened. The strawberries have done well. Hall C is at four degrees. I am going to lie down in the hammock for ten minutes.' },
+    b: { m: 0, t: 'I had been sleeping for more than an hour when the alarm went. I ran. By the time I got to the bow door, it had already sealed itself, and the lights were flashing red. I asked TALLY whether it could see the shield. It said no. So the shield must have gone. The ship has started to turn over: I can see the stars sliding past the galley window.' },
+    c: { m: 1, t: 'I have done something stupid to my wrist on the galley ladder. It is not broken, I think. I am writing with the wrong hand, so forgive the mess. TALLY wants me to choose two of the arrival team, and I have not chosen yet. I have been sitting here for twenty minutes with the list.' },
+    d: { m: 1, t: 'I have chosen, and TALLY has been warming the first pod since half past six. Ren Tanaka, because if anybody can stop that engine, it is the engineer who looks after it. And the young one in C-07. On the day we boarded, you asked me what we would do if TALLY was wrong. Nobody else asked. I did not have an answer. I still do not. Perhaps you will.' },
+    e: { m: 1, t: 'This is the last page. TALLY says that I must go into a medical pod until a doctor can look at me, and TALLY does not take no for an answer. It does not take answers at all: only questions. By the time you read this, I will have been asleep for nearly a day. The engine will start at twelve minutes past ten. Do not let it start unless you are sure. M.L.' }
+  };
+  var TIN = ['d', 'a', 'e', 'b', 'c'];                 /* the order they came out of the tin */
+  function first(k) { return PAGES[k].t.split(/[.:]/)[0] + '&hellip;'; }
+  var DIARYDOC = '<h4>Loose pages from M. Lindgren&rsquo;s diary · no times, no numbers · in the order they came out of the tin</h4>' +
+    TIN.map(function (k) { return '<div class="pg"><i>' + (PAGES[k].m ? 'In pencil, in a shaky left hand' : 'In pencil, neatly') + '</i><p' + (PAGES[k].m ? ' class="messy"' : '') + '>' + PAGES[k].t + '</p></div>'; }).join('');
+  var CARD = '<h4>Watchkeeper&rsquo;s Handbook · 7 · Reading a log for time</h4><h5>A page with no clock on it still tells you when it was written. Read the verbs.</h5>' +
+    '<svg viewBox="0 0 640 96"><path d="M20 52H612" stroke="#20242b" stroke-width="3"/><path d="M612 52l-14 -8v16z" fill="#20242b"/>' +
+    '<g font-family="Share Tech Mono,monospace" font-size="13" fill="#20242b" text-anchor="middle"><circle cx="90" cy="52" r="7" fill="#a8402c"/><text x="90" y="30">it HAD sealed</text><text x="90" y="80" fill="#7a6a58">before that</text>' +
+    '<circle cx="250" cy="52" r="7" fill="#a8402c"/><text x="250" y="30">it sealed</text><text x="250" y="80" fill="#7a6a58">then</text>' +
+    '<rect x="402" y="40" width="16" height="24" fill="#20242b"/><text x="410" y="30">it HAS sealed</text><text x="410" y="80" fill="#7a6a58">NOW (the writer)</text>' +
+    '<circle cx="560" cy="52" r="7" fill="none" stroke="#a8402c" stroke-width="3"/><text x="560" y="30">it WILL HAVE started</text><text x="560" y="80" fill="#7a6a58">by a later time</text></g></svg>' +
+    '<p class="r"><b>1</b><span><b>Past simple</b> (<i>the door sealed</i>): a finished thing, at a time in the past.</span></p>' +
+    '<p class="r"><b>2</b><span><b>Past perfect</b> (<i>it had sealed</i>): one step further back, done before another past thing. Whoever writes it is looking back.</span></p>' +
+    '<p class="r"><b>3</b><span><b>Past continuous</b> and <b>had been &hellip;ing</b> (<i>the lights were flashing; I had been sleeping for an hour</i>): something going on when something else happened.</span></p>' +
+    '<p class="r"><b>4</b><span><b>Present perfect</b> (<i>it has sealed; nothing has happened</i>): written while the result is still there. &ldquo;Nothing has happened&rdquo; is true only until something does.</span></p>' +
+    '<p class="r"><b>5</b><span><b>Will have</b> (<i>by ten it will have started</i>): stand at a time in the future, and look back from it.</span></p>' +
+    '<p class="ft">by = at that time or before · until = up to that time, and then no more · since = from then until now · for = how long · already = sooner than you might think · still = not over · yet = so far (in questions, and with not)</p>';
+  /* the rail: TALLY's times, and the five empty clips between them */
+  var RAIL = [['t', '02:50', 'GARDEN DOOR · M. LINDGREN IN'], ['c', 'c1'], ['t', '04:12', 'STRIKE, BOW · RULE 14 BEGUN'], ['t', '04:19', 'GARDEN DOOR · M. LINDGREN OUT'],
+    ['t', '04:31', 'QUESTION AT BOW DOOR · ANSWERED'], ['c', 'c2'], ['t', '05:41', 'FALL, GALLEY LADDER · WRIST'], ['c', 'c3'], ['t', '06:30', 'ARRIVAL TEAM CHOSEN'], ['c', 'c4'], ['c', 'c5'], ['t', '07:10', 'M. LINDGREN INTO MEDICAL POD M1']];
+  var CLIPS = ['c1', 'c2', 'c3', 'c4', 'c5'];
+
+  function hints() {
+    if (nextFile) return ['go', ['Lindgren will have written the night up in the crew log as well, and the crew log is kept in the watch room. The way there is the button at the bottom of the screen.']];
+    if (!(ER.flag('g-log') && ER.flag('g-tin') && ER.flag('g-card'))) return ['look', [
+      'Three things in this end of the galley tell you about last night: TALLY&rsquo;s printout on the wall, the red biscuit tin beside the lamp, and the card pinned up by the hotplate. Read all three.',
+      'The tin is full of loose pages from Lindgren&rsquo;s diary. They have no times on them, and they came out of the tin in the wrong order.'
+    ]];
+    return ['rail', [
+      'The rail over the hotplate has TALLY&rsquo;s times on it already. Hang each page of the diary on the empty clip between the two times when she must have written it.',
+      'Read the verbs (card 7). &ldquo;Nothing has happened&rdquo; is present perfect: true only until something does. &ldquo;I had been sleeping &hellip; when the alarm went&rdquo; looks back at the alarm, so it was written after it. And look at the handwriting: it changes at 05:41.',
+      'The page that says nothing has happened goes before the strike. The page about the alarm and TALLY&rsquo;s answer goes after 04:31. The page about her wrist goes after 05:41, and it says she has not chosen yet. The last two pages go after 06:30, and one of them says that it is the last.'
+    ]];
+  }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#rail').setAttribute('class', 'hot' + (!nextFile && ER.flag('g-log') && ER.flag('g-tin') && ER.flag('g-card') ? ' next' : ''));
+    $('#go').classList.toggle('on', !!nextFile && !busy);
+    ER.pips(nextFile ? 1 : 0, 1);
+  }
+  function begin() {
+    paint();
+    if (nextFile) { ER.say('The galley. Five pages of a diary hang on the order rail, between TALLY&rsquo;s times.'); return; }
+    if (ER.flag('g-seen')) { ER.say('The galley: dust sheets, a kettle, a ladder, and Lindgren&rsquo;s end of the table.'); return; }
+    busy = true; ER.flag('g-seen', 1);
+    ER.narrate([
+      'The galley is long and low and smells of old metal. The chairs are upside down on the tables, under dust sheets, the way somebody left them eighty-two years ago. At the far end a ladder goes up through a hatch, and a green light comes down it from the garden deck.',
+      'At the near end of one table, the dust has been wiped off. There is a lamp, a mug with an inch of cold tea in it, and a red biscuit tin. Tanaka has already found the kettle. &ldquo;It works,&rdquo; he says, as if that were the first good news of the century. It may be.'
+    ], function () { busy = false; });
+  }
+
+  /* ---------- the galley ---------- */
+  $('#printer').addEventListener('click', function () { if (!busy) ER.read({ html: LOGDOC, cls: 'tlog', clue: { id: 'shiplog', title: 'The ship’s log, day 196', kind: 'TALLY’s printout' }, done: function () { ER.flag('g-log', 1); SLP.learn(['ship\'s log', 'sensor', 'seal']); paint(); } }); });
+  $('#tin').addEventListener('click', function () { if (!busy) ER.read({ html: DIARYDOC, cls: 'diary', clue: { id: 'diary', title: 'Lindgren’s diary: five loose pages', kind: 'In the biscuit tin' }, done: function () { ER.flag('g-tin', 1); SLP.learn(['diary', 'wrist', 'hammock']); paint(); } }); });
+  $('#hcard').addEventListener('click', function () { if (!busy) ER.read({ html: CARD, cls: 'manual', clue: { id: 'tenses', title: 'Reading a log for time', kind: 'Watchkeeper’s Handbook' }, done: function () { ER.flag('g-card', 1); paint(); } }); });
+  $('#rail').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The order rail: TALLY&rsquo;s times, and five pages of a diary between them, in the order they were written.'); return; }
+    if (!(ER.flag('g-log') && ER.flag('g-tin') && ER.flag('g-card'))) { ER.say('The order rail, where the cooks will one day clip their orders. TALLY&rsquo;s printer has put its times on it. Read the printout, the tin and the card first.'); return; }
+    openRail();
+  });
+  $('#tanakaG').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(nextFile ? '&ldquo;She chose us,&rdquo; says Tanaka. &ldquo;Me because of the engine. You because of a question.&rdquo; He looks at you over his mug. &ldquo;Do you remember asking it?&rdquo; You do not. For you it was yesterday, and you do not.'
+      : ER.flag('g-tin') ? '&ldquo;No times on her pages,&rdquo; says Tanaka. &ldquo;TALLY has the times and none of the words. She has the words and none of the times. Between them, we might have one night.&rdquo;'
+      : '&ldquo;Tea,&rdquo; says Tanaka, &ldquo;is eighty-two years old, and so is the milk. I am drinking hot water. Read whatever she left.&rdquo;');
+  });
+  SLP.thing('#kettle', 'kettle', function () { SLP.sfx.kettle(); return 'The kettle: the only thing in this galley that has been used in the last eighty-two years. It has been used a great deal.'; }, isBusy);
+  SLP.thing('#ladder', 'ladder', 'The galley ladder goes up through a hatch to the garden deck. On the third rung from the top there is a scuff, and below it a long smear in the dust, where somebody came down a great deal faster than she meant to.', isBusy);
+  SLP.thing('#port', 'porthole', 'Stars, quite still. Page by page, the diary says that yesterday they were sliding past this window, while the ship turned over.', isBusy);
+  SLP.thing('#mug', null, 'Lindgren&rsquo;s mug, with an inch of cold tea in it. Round it on the table is a clean ring where the mug has stood all day, and dust everywhere else.', isBusy);
+  SLP.thing('#far', 'dust sheet', 'Chairs upside down on the tables, under dust sheets. Somebody put them up like that eighty-two years ago, the way you do at the end of the day, and nobody has had a day since.', isBusy);
+
+  /* ---------- the order rail ---------- */
+  function openRail() {
+    var box = ER.el('div', 'gr'), s = '', done = false;
+    s = '<div class="gr-rail">';
+    RAIL.forEach(function (r) { s += r[0] === 't' ? '<div class="gr-row"><div class="gr-t"><b>' + r[1] + '</b>' + r[2] + '</div></div>' : '<div class="gr-row"><div class="gr-c" data-c="' + r[1] + '" data-n="clip"></div></div>'; });
+    s += '</div><div class="gr-side"><div class="gr-tray"></div><div class="gr-read"><i>Click a page to read it here. Then put it on a clip.</i></div><p class="pmsg"></p><button type="button" class="btn" id="g-show">Show Tanaka</button></div>';
+    box.innerHTML = s;
+    var tray = box.querySelector('.gr-tray'), reader = box.querySelector('.gr-read'), msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function token(k) { var n = ER.el('div', 'pgt dnd-item' + (PAGES[k].m ? ' messy' : ''), first(k)); n.setAttribute('data-p', k); return n; }
+    TIN.forEach(function (k) { var c = null, x; for (x in S.clips) if (S.clips[x] === k) c = x; (c ? box.querySelector('.gr-c[data-c="' + c + '"]') : tray).appendChild(token(k)); });
+    function read(k) {
+      reader.className = 'gr-read' + (PAGES[k].m ? ' messy' : '');
+      reader.innerHTML = '<i>' + (PAGES[k].m ? 'In pencil, in a shaky left hand' : 'In pencil, neatly') + '</i>' + ER.gloss(PAGES[k].t); reader.scrollTop = 0;
+    }
+    box.addEventListener('pointerdown', function (e) { var t = e.target.closest ? e.target.closest('.pgt') : null; if (t) read(t.getAttribute('data-p')); });
+    function clips() { var o = {}; ER.$$('.gr-c', box).forEach(function (c) { var t = c.querySelector('.pgt'); o[c.getAttribute('data-c')] = t ? t.getAttribute('data-p') : ''; c.classList.toggle('full', !!t); c.classList.remove('bad'); }); return o; }
+    ER.dnd(box, { item: '.pgt', slot: '.gr-c', home: tray, change: function () { S.clips = clips(); SLP.sfx.clip(); keep(); }, lock: function () { return done; } });
+    clips();
+    var N = { c1: 1, c2: 2, c3: 3, c4: 4, c5: 5 };
+    function why(p, c) {
+      var n = N[c];
+      if (p === 'a') return '&ldquo;&lsquo;In all that time nothing has happened.&rsquo; Present perfect: true up to the moment she wrote it,&rdquo; says Tanaka. &ldquo;Could she write that after something had hit the bow?&rdquo;';
+      if (p === 'b') return n === 1 ? '&ldquo;&lsquo;I had been sleeping for more than an hour <i>when the alarm went</i>.&rsquo; She&rsquo;s looking back at the alarm. Can that page hang before the strike?&rdquo;'
+        : '&ldquo;Look at the handwriting on that page,&rdquo; says Tanaka, &ldquo;and then at 05:41. Which hand was she writing with?&rdquo;';
+      if (p === 'c') return n < 3 ? '&ldquo;&lsquo;I have done something stupid to my wrist on the galley ladder.&rsquo; When did TALLY see her fall?&rdquo;'
+        : '&ldquo;&lsquo;I have not chosen yet.&rsquo; TALLY&rsquo;s rail says when she chose. Before this page, or after it?&rdquo;';
+      if (p === 'd') return n < 4 ? '&ldquo;&lsquo;I have chosen, and TALLY has been warming the first pod since half past six.&rsquo; So when was that written?&rdquo;'
+        : '&ldquo;Two pages after 06:30,&rdquo; says Tanaka. &ldquo;One of them says it&rsquo;s the last. Which did she write last?&rdquo;';
+      if (p === 'e') return n < 4 ? '&ldquo;&lsquo;TALLY says that I must go into a medical pod.&rsquo; It took her there at 07:10, and the page says it&rsquo;s the last one.&rdquo;'
+        : '&ldquo;Two pages after 06:30,&rdquo; says Tanaka. &ldquo;One of them says it&rsquo;s the last. Which did she write last?&rdquo;';
+      return '';
+    }
+    box.querySelector('#g-show').addEventListener('click', function () {
+      if (done) return;
+      var C = clips(), i, bad = null;
+      for (i = 0; i < CLIPS.length; i++) if (!C[CLIPS[i]]) { msg('&ldquo;Five pages, five clips,&rdquo; says Tanaka. &ldquo;She wrote every one of them last night.&rdquo;'); ER.shake(box.querySelector('.gr-rail')); return; }
+      for (i = 0; i < CLIPS.length; i++) if (!ER.check(CLIPS[i], C[CLIPS[i]])) { bad = CLIPS[i]; break; }
+      if (bad) { SLP.bump('slips'); SLP.sfx.hm(); box.querySelector('.gr-c[data-c="' + bad + '"]').classList.add('bad'); msg(why(C[bad], bad)); return; }
+      var file = ER.exitOk([CLIPS.map(function (c) { return C[c]; }).join('|')]);
+      if (!file) return;
+      done = true; nextFile = file; ER.flag('g-file', file); SLP.done('galley'); busy = true;
+      SLP.mine('night', 'Last night (day 196)', '<p>02:50 into the garden. Nothing has happened. Hammock.</p><p>04:12 strike: she is ASLEEP (had been sleeping for an hour).</p><p>04:26 bow door sealed already. 04:31 asks TALLY: can you see the shield? NO. So: must have gone.</p>' +
+        '<p>05:41 wrist. 06:30 chooses Tanaka + me (C-07): I asked her once what if TALLY was wrong.</p><p>07:10 into pod M1. &ldquo;Do not let it start unless you are sure.&rdquo;</p>', true);
+      msg('Tanaka reads the rail from top to bottom with his finger, the way you would read a timetable.');
+      setTimeout(function () { ER.closeAll(); SLP.solved(); paint(); after(); }, 2400);
+    });
+    msg(Object.keys(S.clips).some(function (c) { return S.clips[c]; }) ? 'The rail is as you left it.' : 'TALLY&rsquo;s times are on the rail already. Hang each page of the diary on the clip where it belongs: between the two times when she wrote it.');
+    ER.open('ov-lock', box);
+  }
+  function after() {
+    ER.narrate([
+      '&ldquo;So,&rdquo; says Tanaka. &ldquo;She went up to the garden before three, and lay down for ten minutes. She was still asleep at twelve minutes past four, when something hit the bow. Nobody saw it. TALLY&rsquo;s sensors went silent, the bow door sealed itself, and she asked TALLY one question at a locked door.&rdquo;',
+      '&ldquo;&lsquo;Can you see the shield?&rsquo; &lsquo;No.&rsquo; &lsquo;So the shield must have gone.&rsquo;&rdquo; He puts his finger on the word <i>must</i>. &ldquo;That isn&rsquo;t something she saw. That&rsquo;s something she worked out.&rdquo;',
+      'Then he reads the page in the shaky left hand, out loud: <i>you asked me what we would do if TALLY was wrong</i>. He looks at you. You were sixteen, and it was the day you boarded. For you, that was yesterday.',
+      '&ldquo;She&rsquo;ll have written it all up properly in the crew log,&rdquo; he says. &ldquo;Officers always do. That&rsquo;s kept in the watch room. Let&rsquo;s see what she told the ship.&rdquo;'
+    ], function () { busy = false; paint(); SLP.learn(['log', 'crew log']); });
+  }
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

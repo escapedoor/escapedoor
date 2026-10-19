@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Salt Pan · Four and a Half Times</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-wild.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="dune.css">
+<style>
+  body{--bg:#f4e6e8;--accent:#c23b5a;--font-display:'Oswald',sans-serif;--font-ui:'Overpass',sans-serif;--font-body:'Lora',serif;
+    --tc-bg:rgba(250,240,242,.97);--tc-ink:#2a1e2a;--cap-bg:rgba(252,246,246,.95);--cap-ink:#2a1e2a;--panel:#fcf4f4;--panel-ink:#2a1e2a;--face-bg:#d8c0c8;--q-ink:#a02a48;--fade:#f8eef0;
+    --hud-bg:rgba(252,246,246,.9);--hud-ink:#2a1e2a;--hud-line:rgba(42,30,42,.3);--ov-bg:rgba(48,30,44,.8)}
+  .hbtn.hnt{border-color:#c23b5a;color:#c23b5a}
+  .hbtn b{color:#fff}
+  #sunglow{animation:sg 6s ease-in-out infinite}
+  @keyframes sg{50%{opacity:.8}}
+  .glitter{animation:gl 2.4s steps(1,end) infinite}
+  .glitter.b{animation-delay:-1.2s}
+  @keyframes gl{0%{opacity:0}30%{opacity:.9}36%{opacity:0}}
+  #radio.ready,#stones.ready,#mirror.ready{animation:ready 1.5s steps(1,end) infinite}
+  @keyframes ready{50%{filter:brightness(1.25) saturate(1.3)}}
+  .hot:hover{filter:brightness(1.08) saturate(1.2)}
+
+  .pv{display:block;width:100%;height:auto;background:#f4f0ea;touch-action:none}
+  .pvT{font-family:'Overpass',sans-serif;font-weight:700;font-size:12px;fill:#4a3a4a;letter-spacing:.1em}
+  .pvL{font-family:'Overpass Mono',monospace;font-weight:600;font-size:15px;fill:#2a1e2a}
+  .pvH{font-family:'Caveat',cursive;font-weight:700;font-size:22px;fill:#2a1e2a}
+  .sym{font-family:'Oswald',sans-serif;font-size:22px !important;min-width:52px}
+  .bx .pmsg{color:#fbf3f4}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="skyG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f6c8a0"/><stop offset=".35" stop-color="#f4d6d0"/><stop offset="1" stop-color="#b8c8e2"/></linearGradient>
+  <linearGradient id="skyV" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8aa6d0" stop-opacity=".7"/><stop offset=".7" stop-color="#fff" stop-opacity="0"/></linearGradient>
+  <linearGradient id="saltG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6eef0"/><stop offset=".4" stop-color="#fbf8f6"/><stop offset="1" stop-color="#ece4e6"/></linearGradient>
+  <radialGradient id="sunG"><stop offset="0" stop-color="#fff6d8" stop-opacity=".95"/><stop offset=".3" stop-color="#ffd8a0" stop-opacity=".5"/><stop offset="1" stop-color="#ffb890" stop-opacity="0"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="900" fill="url(#skyG)"/><rect x="-1000" y="-400" width="3600" height="900" fill="url(#skyV)"/>
+<circle id="sunglow" cx="80" cy="420" r="220" fill="url(#sunG)"/><circle cx="80" cy="420" r="26" fill="#fff6e0"/>
+<!-- the pan: white to the horizon, with a far blue shore -->
+<path d="M-1000 470H2600V1300H-1000Z" fill="url(#saltG)"/>
+<path d="M-1000 470Q0 464 800 468T2600 466" stroke="#9aa6c0" stroke-width="3" fill="none" opacity=".6"/>
+<g fill="#c9c0d0" opacity=".7"><path d="M1200 470q80 -14 200 -10t160 10z"/><path d="M1700 470q60 -10 140 -8t120 8z"/></g>
+<g stroke="#e2d8de" stroke-width="2" fill="none" opacity=".8"><path d="M200 560l120 40l80 -30M600 620l100 50l140 -20M1000 560l90 30l120 -10M300 760l160 50l180 -40M1100 700l140 60l120 -30"/></g>
+<g fill="#fff"><circle class="glitter" cx="420" cy="600" r="2.500"/><circle class="glitter b" cx="980" cy="640" r="2"/><circle class="glitter" cx="1280" cy="720" r="2.500"/><circle class="glitter b" cx="700" cy="780" r="2"/></g>
+<!-- the shore behind you: a low red dune and saltbush, with the long shadows of the dawn -->
+<g id="shore" class="hot"><path d="M1060 900Q1160 760 1400 700Q1700 650 2600 640V1300H1060Z" fill="#b4603a"/><path d="M1060 900Q1160 760 1400 700" stroke="#d98a5a" stroke-width="4" fill="none"/>
+  <g fill="#7a8a6a"><ellipse cx="1250" cy="760" rx="44" ry="22"/><ellipse cx="1420" cy="716" rx="36" ry="18"/><ellipse cx="1560" cy="700" rx="40" ry="20"/></g>
+  <path d="M1060 900Q900 880 600 900Z" fill="#8a6a8a" opacity=".25"/></g>
+<!-- the stones you carried out, the packs, the radio -->
+<g id="stones" class="hot" transform="translate(0 -56)"><g fill="#3a2a2a"><ellipse cx="600" cy="760" rx="14" ry="8"/><ellipse cx="624" cy="768" rx="12" ry="7"/><ellipse cx="612" cy="750" rx="10" ry="6"/><ellipse cx="640" cy="758" rx="13" ry="7"/><ellipse cx="588" cy="772" rx="11" ry="6"/><ellipse cx="652" cy="772" rx="10" ry="6"/><ellipse cx="628" cy="744" rx="9" ry="5"/></g>
+  <g fill="#3a2a2a" opacity=".9"><ellipse cx="700" cy="790" rx="12" ry="7"/><ellipse cx="722" cy="796" rx="10" ry="6"/></g><rect x="570" y="730" width="180" height="80" fill="#fff" opacity="0"/></g>
+<g id="radio" class="hot" transform="translate(0 -56)"><path d="M920 760L944 700" stroke="#9aa08a" stroke-width="3" stroke-linecap="round"/><rect x="890" y="756" width="64" height="42" rx="5" fill="#6b4a2a"/><rect x="896" y="761" width="52" height="16" rx="2" fill="#e8d9a4"/><circle cx="938" cy="787" r="6" fill="#22241f"/></g>
+<g id="book" class="hot" transform="translate(0 -56)"><path d="M780 820q-4 -40 24 -46q50 -6 66 8q10 24 2 40z" fill="#5a6a3a"/><g transform="rotate(5 830 790)"><rect x="796" y="772" width="70" height="42" fill="#f4efdf" stroke="#6b5a3a"/><rect x="796" y="772" width="70" height="8" fill="#d9661f"/><path d="M831 780v34" stroke="#c9bc98"/><text x="808" y="806" font-family="Oswald,sans-serif" font-size="16" fill="#b4471a">V</text><text x="842" y="806" font-family="Oswald,sans-serif" font-size="16" fill="#b4471a">X</text></g></g>
+<g id="mirror" class="hot" transform="translate(0 -56)"><rect x="1010" y="782" width="34" height="26" rx="3" fill="#c8ccd4" stroke="#6a6e78" stroke-width="2"/><circle cx="1027" cy="795" r="3" fill="#6a6e78"/><path d="M1016 786l12 8" stroke="#fff" stroke-width="2" opacity=".8"/></g>
+<!-- Mr Strachan, on a pack, and Dr Hayashi, standing -->
+<g id="str" class="hot" transform="translate(0 -56)">
+  <ellipse cx="400" cy="830" rx="90" ry="12" fill="#8a6a8a" opacity=".3"/>
+  <path d="M360 800q-4 -20 30 -22l60 0q20 4 16 22z" fill="#5a6a3a"/><path d="M372 790q-8 -90 30 -100q44 -4 50 54l4 46z" fill="#a8956a"/><path d="M392 694l14 22l14 -22z" fill="#c23b26"/>
+  <path d="M440 780l70 10" stroke="#625840" stroke-width="20" stroke-linecap="round"/><ellipse cx="518" cy="792" rx="12" ry="10" fill="#efeee8"/><path d="M380 790l-10 36" stroke="#5a5038" stroke-width="20" stroke-linecap="round"/>
+  <path d="M440 720q30 -30 36 -70" stroke="#a08c60" stroke-width="15" fill="none" stroke-linecap="round"/><circle cx="476" cy="648" r="8" fill="#c48f6a"/>
+  <rect x="398" y="660" width="14" height="18" fill="#c48f6a"/><circle cx="405" cy="645" r="20" fill="#d3a07c"/><path d="M393 654q6 -5 12 -1q6 -4 12 1q-1 6 -6 5l-6 -2l-6 2q-5 1 -6 -5z" fill="#efeee8"/>
+  <path d="M370 636q35 -13 70 0l-3 7q-32 -10 -64 0z" fill="#5e4026"/><path d="M386 636q2 -22 19 -22q17 0 19 22z" fill="#6f4c2c"/>
+  <path d="M330 830l40 -150" stroke="#6b4a2a" stroke-width="5" stroke-linecap="round"/>
+</g>
+<g id="hay" class="hot" transform="translate(0 -56)">
+  <ellipse cx="1110" cy="826" rx="50" ry="9" fill="#8a6a8a" opacity=".3"/>
+  <path d="M1094 822V740h16v82zM1114 822V740h16v82z" fill="#5a5a48"/><path d="M1080 750q-8 -100 30 -108q42 -4 46 50l2 58z" fill="#9fc0d6"/><path d="M1084 700q-2 -40 18 -52l10 40l-6 60h-22zM1152 700q2 -40 -16 -52l-10 40l4 60h22z" fill="#8a8558"/>
+  <path d="M1086 680q-30 30 -30 70" stroke="#9fc0d6" stroke-width="14" fill="none" stroke-linecap="round"/><path d="M1054 752v26" stroke="#8a8f93" stroke-width="1.400"/><path d="M1049 778h10v8h-3v-4h-4v4h-3z" fill="#c8321e"/>
+  <rect x="1108" y="626" width="12" height="16" fill="#d9ad84"/><circle cx="1114" cy="612" r="19" fill="#e6bd94"/><path d="M1094 622q-4 -30 20 -32q24 2 20 32q-4 -14 -20 -16q-16 2 -20 16z" fill="#1c1918"/>
+  <circle cx="1108" cy="612" r="5" fill="none" stroke="#2a2420" stroke-width="1.600"/><circle cx="1122" cy="612" r="5" fill="none" stroke="#2a2420" stroke-width="1.600"/>
+  <ellipse cx="1114" cy="595" rx="36" ry="7" fill="#7e8a6a"/><path d="M1096 594q0 -18 18 -18t18 18z" fill="#8c9878"/>
+</g>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Watch the plane</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="dune.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, bench = null;
+
+  ER.init({
+    theme: 'wild', story: 'dune', storyTitle: 'Four and a Half Times', id: 'pan', no: 'V', title: 'The Salt Pan',
+    go: 'Wake up',
+    intro: [
+      'The second peg went in at 05.14 by Mr Strachan&rsquo;s watch, when the tip of the shadow touched the ring again. Noon was half way between, at 03.44 UTC, and the noon shadow pointed south. Noon at Greenwich comes at 12.00: yours came 8 hours and 16 minutes earlier. Fifteen degrees for each hour and one for every four minutes: 124 degrees east. With 25 degrees south from the Cross, the map put you a few kilometres north of Sixpenny Pan.',
+      'You walked south in the evening, along the line of stones and then by the Cross, and reached the shore four hours later, in the dark. You slept on the salt, which is harder than it looks.',
+      'Saturday 16 April, twenty to seven in the morning. The sun is just up. At half past seven, if the radio was right, a small aeroplane will come along this shore looking for you.'
+    ],
+    exit: {"next":"wings","w":{"87a27d03":"31ff2595"}}, tags: {"fday":["26e1f24b"],"fnight":["9ed8e3aa"],"sym":["fd51c47a"],"symx":["028aac18"],"symarrow":["53e6cb2a"],"symny":["cb94532b","03b93652"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('e-file') || null; told = ER.flag('e-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('e-told', told); return true; }
+  function isBusy() { return busy; }
+  function stage() { return ER.flag('e-stage') || 0; }
+  function paint() {
+    $('#radio').classList.toggle('ready', !!(told.str && stage() === 0 && !nextFile));
+    $('#stones').classList.toggle('ready', !!(told.book && stage() >= 1 && stage() < 3 && !nextFile));
+    $('#mirror').classList.toggle('ready', !!(stage() === 3 && !nextFile));
+    ER.pips((told.str ? 1 : 0) + (told.book ? 1 : 0) + (told.hay ? 1 : 0) + Math.min(4, stage()) + (nextFile ? 1 : 0), 8);
+  }
+  function showGo() { $('#go').classList.add('on'); }
+
+  function hints() {
+    if (nextFile) return ['go', ['The plane has seen you. Watch it.']];
+    if (bench && bench.isOpen()) return bench.hint();
+    if (!told.str) return ['str', ['Mr Strachan is sitting on a pack on the left, with his foot out. Ask him what happens now.']];
+    if (stage() === 0) return ['radio', ['It is nearly seven: the morning sched. The receiver is standing on the salt in the middle, with its aerial up. Click it.']];
+    if (!told.book) return ['book', [
+      'Before you lay anything out, find out what a pilot can read from the air.',
+      'The booklet is lying on the green pack, open at a page with big letters on it. Click it.'
+    ]];
+    if (!told.hay) return ['hay', ['Dr Hayashi is standing on the right with her magnet on its string. Ask her about the salt.']];
+    if (stage() < 3) return ['stones', ['The dark stones you carried out on to the salt are in a heap in the middle. Click them.']];
+    return ['mirror', ['The little steel mirror is lying on the salt by Dr Hayashi&rsquo;s feet. Click it, and wait for the plane.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; showGo(); ER.say('The pan, half past seven. The plane has turned towards you.'); return; }
+    if (told.in) { busy = false; ER.say('The shore of Sixpenny Pan, early. Everything is white, pink and very quiet.'); return; }
+    tell('in');
+    ER.narrate([
+      'In the dark it was a crunch under your boots. In the morning it is a white floor as big as the sky, going away to a blue line that might be the far shore or might be the air shivering.',
+      'Behind you is a low red dune with saltbush on it, throwing long shadows across the edge of the salt. In front of you there is nothing at all, for twenty kilometres.',
+      'Last night, before you slept, you carried armfuls of dark stones out from the shore, where the ground is covered with them. &ldquo;Signals,&rdquo; said Mr Strachan, &ldquo;are made in the morning, by people who have had their breakfast.&rdquo; There is no breakfast.'
+    ], function () { busy = false; });
+  }
+
+  /* ---------- people ---------- */
+  $('#str').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Mr Strachan', role: 'On a pack, on the salt', face: window.FACE('strachan'),
+      lines: [
+        { note: 'He has slept badly, shaved with nothing, and looks at the empty sky in the west as if it were late.', a: '&ldquo;Twenty-five south, a hundred and twenty-four east, and the north shore of Sixpenny Pan. If Col keeps his word, he&rsquo;ll be along this shore at half past seven. Mrs Tolliver will have made him promise.&rdquo;' },
+        { q: 'Will he see us?', a: 'Three people on a white pan are three full stops on a very big page. Pilots are looking for shapes. We are going to give him a shape that nature never made. Seven o&rsquo;clock first: the radio, in case the plan has changed.' },
+        { q: 'Should we put out an X? Your ankle&hellip;', a: 'X says somebody needs a doctor, now. It brings a doctor three hundred miles in a hurry, while somebody with a real emergency waits. My ankle is not an emergency. It is an ankle. We need help, which is a different letter.' },
+        { q: 'What did you write on the truck?', a: 'The date, the time, our names, and which way we went. And an arrow of stones beside it, the size of a car, pointing the same way. If anybody finds the truck before they find us, they will know where to look. Always leave a note. The desert is full of people who meant to.' }
+      ],
+      clue: { id: 'str5', title: 'Mr Strachan, on the salt', kind: 'What he said' },
+      done: function (seen) { if (seen && tell('str')) { paint(); ER.say('It is four minutes to seven, by your watch. Which is to say, it is seven.'); } }
+    });
+  });
+  $('#hay').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Dr Hayashi', role: 'On the salt, with her magnet', face: window.FACE('hayashi'),
+      lines: [
+        { note: 'She has a small magnet on a string round her wrist, and she cannot stop looking at the ground.', a: '&ldquo;A salt pan is a lake that keeps forgetting to be a lake. Rain comes, water lies here, the sun takes it away again, and the salt stays behind. A little more every time.&rdquo;' },
+        { q: 'Is it safe to walk on?', a: 'The crust holds us here, near the shore. Further out, under the crust, there can be mud as soft as porridge. So we stay near the edge, where the plane is coming anyway.' },
+        { q: 'Why is a salt pan good for a signal?', a: 'For the same reason it is good for finding meteorites. Everything is white and flat, so anything dark shows from a long way off. My stone, if it is here, is a black full stop on a white page. Your signal will be a very large black letter.' },
+        { q: 'What is the magnet for?', a: 'Most stones from space have iron in them, and a magnet sticks to them. Most stones from the Earth do not. I have tried it on four hundred stones since Thursday. They were all from the Earth. It is a very good test of patience.' }
+      ],
+      clue: { id: 'hay5', title: 'Dr Hayashi, on the salt', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('hay')) paint(); }
+    });
+  });
+
+  /* ---------- the booklet ---------- */
+  var BOOK = '<h4><small>Outback Travel &middot; a booklet for drivers</small>Signals to aircraft</h4><div class="two"><div>' +
+    '<p>A searching aircraft sees shapes, not people. Make a sign that nature could not have made.</p>' +
+    '<p>The <b>ground-to-air</b> code, used all over the world:</p>' +
+    '<table><tr><td class="k">V</td><td>We need help.</td></tr><tr><td class="k">X</td><td>We need a doctor: somebody is badly hurt or ill.</td></tr><tr><td class="k">&rarr;</td><td>We have gone this way.</td></tr><tr><td class="k">N</td><td>No.</td></tr><tr><td class="k">Y</td><td>Yes.</td></tr></table>' +
+    '<ul><li><b>Big</b>: each sign at least ten metres long, its lines a metre wide. Bigger is better.</li><li><b>Straight</b> lines and sharp corners: nature makes few.</li>' +
+    '<li><b>Contrast</b>: dark on light ground, light on dark.</li><li><b>Open</b>, flat ground, out of shadows and away from bushes, where it can be seen from every side.</li></ul>' +
+    '<p><b>A signal mirror.</b> Hold it under your eye. Hold out your other hand with two fingers in a V, and put the aircraft between them. Tilt the mirror until the spot of light falls on your fingers: the flash goes where they point. It can be seen many kilometres away.</p>' +
+    '<p class="rule">If the pilot has seen and understood, by day the aircraft rocks its wings.</p></div>' +
+    '<div><svg viewBox="0 0 280 330"><rect width="280" height="330" fill="#fffaf0"/><rect x="10" y="10" width="260" height="170" fill="#f0ece4"/>' +
+    '<path d="M60 40L105 150L150 40" stroke="#2a2420" stroke-width="12" fill="none" stroke-linejoin="miter"/><text x="190" y="80" font-family="Overpass,sans-serif" font-size="12" fill="#5a4a2a">10 m or more</text><path d="M168 40V150" stroke="#b4471a" stroke-width="1.500"/><path d="M162 40h12M162 150h12" stroke="#b4471a" stroke-width="1.500"/>' +
+    '<g transform="translate(70 250)"><rect x="-22" y="-14" width="30" height="22" rx="3" fill="#c8ccd4" stroke="#6a6e78" stroke-width="2"/><circle cx="-7" cy="-3" r="5" fill="#2a2420"/><path d="M20 -6L190 -50" stroke="#e8b030" stroke-width="2" stroke-dasharray="5 4"/></g>' +
+    '<g transform="translate(200 200)"><path d="M0 0l-10 -26M0 0l10 -26" stroke="#c48f6a" stroke-width="7" stroke-linecap="round"/><path d="M-8 6h16v30h-16z" fill="#c48f6a"/></g>' +
+    '<path d="M196 160l12 -4l-6 8z" fill="#2a2420"/><text x="16" y="312" font-family="Overpass,sans-serif" font-size="12" fill="#5a4a2a">mirror under the eye, two fingers round the aircraft</text></svg></div></div>' +
+    '<p class="pg">page 22</p>';
+  $('#book').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: BOOK, cls: 'book', clue: { id: 'book5', title: 'Signals to aircraft', kind: 'The booklet in the glovebox' }, done: function () {
+      DUNE.terms(['ground-to-air signal', 'signal mirror', 'contrast', 'salt pan']);
+      if (tell('book')) { paint(); ER.say('V for help, X for a doctor. Ten metres. Dark on light. You look at the white salt, and at the heap of dark stones.'); }
+    } });
+  });
+
+  /* ---------- things ---------- */
+  DUNE.thing('#shore', 'saltbush', 'The shore: a low red dune, grey-green saltbush, and the ground at its foot covered with small dark stones, packed together like cobbles. At this hour the dune throws its shadow a long way out across the salt.', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  $('#radio').addEventListener('click', function () { if (busy) return; if (!told.str) { ER.say('The receiver. &ldquo;Seven o&rsquo;clock,&rdquo; says Mr Strachan. &ldquo;Come here first.&rdquo;'); return; } open(0); });
+  $('#stones').addEventListener('click', function () {
+    if (busy) return;
+    if (stage() === 0) { ER.say('The heap of dark stones. &ldquo;The radio first,&rdquo; says Mr Strachan. &ldquo;Then the signal.&rdquo;'); return; }
+    if (!told.book) { ER.say('A heap of dark stones, carried out from the shore last night. What shape should they make? The booklet knows.'); return; }
+    if (stage() >= 3) { ER.say('The V, laid out on the open salt: two lines of dark stones, each longer than a bus.'); return; }
+    open(1);
+  });
+  $('#mirror').addEventListener('click', function (e) {
+    if (busy) return;
+    if (stage() < 3) { ER.wordAt(e.clientX, e.clientY, 'signal mirror'); ER.say('A little steel mirror from the first-aid box, with a hole in the middle. Its time comes when the plane does.'); return; }
+    open(3);
+  });
+  function open(n) { if (!bench) bench = makeBench(); bench.open(n); }
+
+  /* ---------- the sched, the letter, the stones and the mirror ---------- */
+  function makeBench() {
+    var stg = stage(), box = ER.el('div', 'bx'), rec, spk, line = 0, sym = '', V = ER.flag('e-v') || { a: [470, 120], l: [420, 70], r: [520, 70] }, drag = null, plane = null, timer = 0, held = 0, laps = 0, aim = [500, 300],
+      LINES = [
+        '<span class="who">TOLLIVER BASE:</span> Tolliver Base, Tolliver Base, calling the Strachan party. Duncan, still not a word from you since Thursday. If you can hear me, listen.',
+        'Col took off at half past six. He&rsquo;s flying your route now, out along the Old Well Track, and he&rsquo;ll come back <b>east along the north shore of Sixpenny Pan</b> from the well, low, at about <b>half past seven</b>. Put your signal out on the open salt, where he can see it.',
+        'He&rsquo;s got water, a first-aid kit, and a great deal to say about your radio. Weather: clear and still this morning, thirty-two this afternoon, dust haze after ten.',
+        'Tolliver Base out. Good luck, Duncan.'
+      ];
+    var SC = 10, SHORE = function (x) { return 70 + 18 * Math.sin(x / 140); }, SHADE = function (x) { return SHORE(x) + 70 + 30 * Math.sin(x / 90 + 1); };
+    box.innerHTML = '<div class="frame"><div class="pane" id="f-radio"><div id="f-rx"></div><div class="spk" id="f-spk"></div></div>' +
+      '<div class="pane" id="f-lay"><svg class="pv" id="f-pv" viewBox="0 0 1000 470"></svg></div><div class="pane" id="f-sky"><svg class="pv" id="f-sv" viewBox="0 0 1000 470"></svg></div></div>' +
+      '<div class="bx-foot"><p class="pmsg"></p><span class="nudge" id="f-nudge"><button type="button" data-d="-1">&lsaquo;</button><button type="button" data-d="1">&rsaquo;</button></span><span class="picks" id="f-picks"></span><button type="button" class="btn" id="f-go"></button></div>';
+    var msgEl = box.querySelector('.pmsg'), go = box.querySelector('#f-go'), nudge = box.querySelector('#f-nudge'), picks = box.querySelector('#f-picks'), pv = box.querySelector('#f-pv'), sv = box.querySelector('#f-sv');
+    spk = box.querySelector('#f-spk');
+    function msg(x) { msgEl.innerHTML = ER.gloss(x); }
+    function signal(f) { return Math.abs(f - 8.0) < 0.05 ? 1 : Math.abs(f - 8.0) < 0.25 ? 0.4 : 0.05; }
+    function hear(f) {
+      if (Math.abs(f - 8.0) < 0.05) return '<p><span class="who">A WOMAN&rsquo;S VOICE, CLEAR:</span> &hellip;Tolliver Base, standing by for the seven o&rsquo;clock sched&hellip;</p>';
+      if (Math.abs(f - 4.4) < 0.15) return '<p class="hs">shhhhhhhhhhhhhhhh</p><p class="hs">(nothing on 4.4 this morning: the frequency of the night is empty)</p>';
+      if (Math.abs(f - 8.0) < 0.25) return '<p class="hs">shhhh &hellip; Tol&hellip; shhhh &hellip; even o&rsquo;clock&hellip; shhhh</p>';
+      return '<p class="hs">shhhhhhhhhhhhhhhhhhhhh</p>';
+    }
+    rec = DUNE.receiver({ f: ER.flag('e-f') || 4.4, signal: signal, change: function (f) { ER.flag('e-f', f); if (stg === 0 && !line) { spk.innerHTML = hear(f); DUNE.hiss(signal(f) > 0.9 ? 0.25 : 1); } } });
+    box.querySelector('#f-rx').appendChild(rec.node);
+    nudge.addEventListener('click', function (e) { var b = e.target.closest ? e.target.closest('button') : null; if (!b || stg !== 0 || line) return; rec.set(rec.get() + (+b.getAttribute('data-d')) / 10); });
+
+    /* ---- the layout, from above: 1 m is 10 px; the shore along the top ---- */
+    function len(p, q) { return Math.sqrt((p[0] - q[0]) * (p[0] - q[0]) + (p[1] - q[1]) * (p[1] - q[1])) / SC; }
+    function angle() { var a = [V.l[0] - V.a[0], V.l[1] - V.a[1]], b = [V.r[0] - V.a[0], V.r[1] - V.a[1]]; return Math.acos(DUNE.clamp((a[0] * b[0] + a[1] * b[1]) / (Math.hypot(a[0], a[1]) * Math.hypot(b[0], b[1])), -1, 1)) * 180 / Math.PI; }
+    function inShade(p) { return p[1] < SHADE(p[0]); }
+    function pts() { var out = [], k, t; [V.l, V.r].forEach(function (e) { for (k = 0; k <= 1.0001; k += 0.04) out.push([V.a[0] + (e[0] - V.a[0]) * k, V.a[1] + (e[1] - V.a[1]) * k]); }); return out; }
+    function drawLay() {
+      var o = '<rect width="1000" height="470" fill="#f7f3ee"/>', x, i, r = DUNE.rnd(9), sh = '', top = '';
+      for (i = 0; i < 70; i++) o += '<path d="M' + (r() * 1000).toFixed(0) + ' ' + (120 + r() * 340).toFixed(0) + 'l' + (20 + r() * 40).toFixed(0) + ' ' + (r() * 10 - 5).toFixed(0) + '" stroke="#e6dee0" stroke-width="2"/>';
+      for (x = 0; x <= 1000; x += 20) { sh += (x ? 'L' : 'M') + x + ' ' + SHADE(x).toFixed(1); top += (x ? 'L' : 'M') + x + ' ' + SHORE(x).toFixed(1); }
+      o += '<path d="' + sh + 'L1000 0L0 0Z" fill="#9a8aa8" opacity=".35"/><path d="' + top + 'L1000 0L0 0Z" fill="#b4603a"/>';
+      for (i = 0; i < 16; i++) { x = 30 + i * 62 + r() * 20; var y = SHORE(x) + 8 + r() * 14; o += '<ellipse cx="' + x.toFixed(0) + '" cy="' + y.toFixed(0) + '" rx="' + (14 + r() * 10).toFixed(0) + '" ry="9" fill="#7a8a6a"/><path d="M' + x.toFixed(0) + ' ' + y.toFixed(0) + 'l-' + (60 + r() * 40).toFixed(0) + ' 22" stroke="#7a6a8a" stroke-width="12" opacity=".25" stroke-linecap="round"/>'; }
+      o += '<g class="pvT"><text x="12" y="22" style="fill:#fff">THE SHORE (NORTH)</text><text x="12" y="' + (SHADE(12) + 20).toFixed(0) + '" style="fill:#6a5a7a">the shadow of the dune</text><text x="988" y="458" text-anchor="end">OPEN SALT &middot; SOUTH</text></g>';
+      o += '<g transform="translate(880 400)"><path d="M0 0H100M0 -5V5M50 -4V4M100 -5V5" stroke="#4a3a4a" stroke-width="1.500"/><text class="pvT" x="0" y="-9" text-anchor="middle">0</text><text class="pvT" x="100" y="-9" text-anchor="middle">10 m</text></g>';
+      pts().forEach(function (p, k) { o += '<ellipse cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" rx="' + (k % 3 ? 3.4 : 4.2) + '" ry="2.800" fill="' + (inShade(p) ? '#7a5a6a' : '#2a1e22') + '"/>'; });
+      var la = len(V.a, V.l), lb = len(V.a, V.r);
+      o += '<text class="pvL" x="' + ((V.a[0] + V.l[0]) / 2 - 12).toFixed(0) + '" y="' + ((V.a[1] + V.l[1]) / 2).toFixed(0) + '" text-anchor="end">' + la.toFixed(0) + ' m</text><text class="pvL" x="' + ((V.a[0] + V.r[0]) / 2 + 12).toFixed(0) + '" y="' + ((V.a[1] + V.r[1]) / 2).toFixed(0) + '">' + lb.toFixed(0) + ' m</text>';
+      [['a', V.a], ['l', V.l], ['r', V.r]].forEach(function (h) { o += '<g class="tool" data-h="' + h[0] + '"><circle cx="' + h[1][0].toFixed(1) + '" cy="' + h[1][1].toFixed(1) + '" r="' + (h[0] === 'a' ? 13 : 10) + '" fill="none" stroke="#c23b5a" stroke-width="2.500"/><circle cx="' + h[1][0].toFixed(1) + '" cy="' + h[1][1].toFixed(1) + '" r="20" fill="#fff" opacity="0"/></g>'; });
+      pv.innerHTML = o;
+      pv.setAttribute('data-v', [V.a, V.l, V.r].map(function (p) { return p[0].toFixed(0) + ',' + p[1].toFixed(0); }).join(' '));
+      pv.setAttribute('data-arms', la.toFixed(1) + ',' + lb.toFixed(1));
+    }
+    ER.drag(pv, {
+      start: function (e) { var g = e.target.closest ? e.target.closest('[data-h]') : null; if (!g || stg !== 2) return false; drag = { h: g.getAttribute('data-h'), p: ER.pt(pv, e), V: JSON.parse(JSON.stringify(V)) }; },
+      move: function (e) {
+        if (!drag) return;
+        var q = ER.pt(pv, e), dx = q.x - drag.p.x, dy = q.y - drag.p.y, o = drag.V;
+        function cl(p) { return [DUNE.clamp(p[0], 10, 990), DUNE.clamp(p[1], 10, 460)]; }
+        if (drag.h === 'a') { V.a = cl([o.a[0] + dx, o.a[1] + dy]); V.l = cl([o.l[0] + dx, o.l[1] + dy]); V.r = cl([o.r[0] + dx, o.r[1] + dy]); }
+        else V[drag.h] = cl([o[drag.h][0] + dx, o[drag.h][1] + dy]);
+        drawLay();
+      },
+      end: function () { drag = null; ER.flag('e-v', V); DUNE.sfx.stone(); }
+    });
+
+    /* ---- the western sky, the plane, and the mirror ---- */
+    function drawSky() {
+      var o = '<defs><linearGradient id="fsk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9ab4dc"/><stop offset="1" stop-color="#f4e4e4"/></linearGradient></defs><rect width="1000" height="470" fill="url(#fsk)"/>' +
+        '<path d="M0 400H1000V470H0Z" fill="#fbf8f6"/><path d="M0 400Q300 394 600 398T1000 396" stroke="#9aa6c0" stroke-width="2" fill="none"/><path d="M0 410Q200 380 380 396L420 400H0Z" fill="#b4603a" opacity=".8"/>' +
+        '<g class="pvT"><text x="12" y="24">THE WEST, ALONG THE SHORE</text></g><g id="f-plane"></g>' +
+        '<g id="f-aim" class="tool"><circle r="44" fill="none" stroke="#fff" stroke-width="1.500" stroke-dasharray="4 5" opacity=".9"/><path d="M-10 70L-34 -12M10 70L34 -12" stroke="#e8b48a" stroke-width="14" stroke-linecap="round" opacity=".9"/><circle r="9" fill="#fffbe0" opacity=".95"/><circle r="70" fill="#fff" opacity="0"/></g>' +
+        '<rect x="0" y="440" width="' + (1000 * Math.min(1, held / 1.6)).toFixed(0) + '" height="8" fill="#c23b5a" id="f-held"/>';
+      sv.innerHTML = o; placeAim();
+    }
+    function placeAim() { var g = sv.querySelector('#f-aim'); if (g) g.setAttribute('transform', 'translate(' + aim[0].toFixed(1) + ' ' + aim[1].toFixed(1) + ')'); sv.setAttribute('data-aim', aim[0].toFixed(0) + ',' + aim[1].toFixed(0)); }
+    ER.drag(sv, {
+      start: function (e) { if (stg !== 3 || !(e.target.closest && e.target.closest('#f-aim'))) return false; },
+      move: function (e) { var q = ER.pt(sv, e); aim = [DUNE.clamp(q.x, 20, 980), DUNE.clamp(q.y, 20, 420)]; placeAim(); },
+      end: function () {}
+    });
+    function fly() {
+      clearInterval(timer); held = 0; plane = { x: -60, t: 0 }; DUNE.plane(9, 0.6);
+      msg('A sound like a bee in a jar, very far off in the west. Then a speck, low over the shore, coming this way. Hold the mirror up, fingers round the plane: drag the bright spot on to it, and keep it there.');
+      timer = setInterval(function () {
+        if (!plane || stg !== 3) { clearInterval(timer); return; }
+        plane.t += 0.1; plane.x += 7;
+        var y = 250 - 50 * Math.sin(plane.x / 600), s = 0.5 + plane.x / 1400, g = sv.querySelector('#f-plane');
+        if (g) g.innerHTML = '<g transform="translate(' + plane.x.toFixed(1) + ' ' + y.toFixed(1) + ') scale(' + s.toFixed(2) + ')"><path d="M-46 0h80q10 0 12 6l-10 4h-82z" fill="#f4f4f0" stroke="#5a5a64" stroke-width="2"/><path d="M-10 -4l-20 -2h60l-12 2z" fill="#f4f4f0" stroke="#5a5a64" stroke-width="2"/><path d="M-46 0l-8 -16h10l10 14z" fill="#c8321e"/><path d="M-30 4h60" stroke="#c8321e" stroke-width="3"/><circle cx="36" cy="5" r="3" fill="#5a5a64"/></g>';
+        sv.setAttribute('data-plane', plane.x.toFixed(0) + ',' + y.toFixed(0));
+        var near = Math.hypot(plane.x - aim[0], y - aim[1]) < 46;
+        if (near && plane.x > 40) { held += 0.1; if (Math.round(held * 10) % 4 === 0) DUNE.sfx.glint(); }
+        var hb = sv.querySelector('#f-held'); if (hb) hb.setAttribute('width', (1000 * Math.min(1, held / 1.6)).toFixed(0));
+        sv.setAttribute('data-held', held.toFixed(1));
+        if (held >= 1.6) { clearInterval(timer); win(); return; }
+        if (plane.x > 1080) {
+          clearInterval(timer); laps++;
+          msg(laps === 1 ? 'The plane goes on along the shore to the east and gets smaller. Your heart sinks. Then, far off, it banks, and turns, and comes back along the shore again. Keep the spot on it this time.' : 'Round again. &ldquo;He is very patient,&rdquo; says Dr Hayashi. &ldquo;Keep the light on him: fingers round the plane, the spot on your fingers.&rdquo;');
+          setTimeout(function () { if (stg === 3) fly(); }, 2600);
+        }
+      }, 100);
+    }
+    function win() {
+      var c = '8.0|' + (ER.flag('e-sym') || '');
+      if (!ER.exitOk([c])) { msg('Something is wrong with this page: tell your teacher.'); return; }
+      nextFile = ER.exit([c], { wait: true }); ER.flag('e-file', nextFile); stg = 4; ER.flag('e-stage', 4); DUNE.sfx.glint(); DUNE.plane(4, 1);
+      DUNE.mine('signal', 'The signal', '<p>At 07.00 Tolliver Base was on <b>8.0 MHz</b>: high by day. Col would come east along the north shore at about 07.30.</p><p>We laid a <b>V</b> (we need help: not X, which means we need a doctor). Two lines of dark stones on white salt, each more than <b>ten metres</b> long, out on the <b>open salt</b>, away from the bushes and the shadow of the dune.</p><p>When the plane came, the mirror under my eye, two fingers round the plane, the spot of light on my fingers: <b>flash</b>.</p>', true);
+      msg('The spot of light is on the plane, and stays there. Then the plane&rsquo;s nose swings round, towards you, and it comes down low over the salt, straight at the V.');
+      setTimeout(function () { ER.closeAll(); paint(); busy = false; showGo(); ER.say('It has turned. It is coming straight at you.'); }, 3600);
+    }
+    function draw() {
+      box.querySelector('#f-radio').classList.toggle('on', stg === 0);
+      box.querySelector('#f-lay').classList.toggle('on', stg === 1 || stg === 2);
+      box.querySelector('#f-sky').classList.toggle('on', stg >= 3);
+      nudge.style.display = stg === 0 && !line ? '' : 'none';
+      picks.innerHTML = stg === 1 ? [['v', 'V'], ['x', 'X'], ['arrow', '&rarr;'], ['n', 'N'], ['y', 'Y']].map(function (s) { return '<button type="button" class="sym" data-v="' + s[0] + '">' + s[1] + '</button>'; }).join('') : '';
+      ER.$$('#f-picks button', box).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-v') === sym); });
+      go.style.display = stg >= 3 ? 'none' : '';
+      go.textContent = stg === 0 ? (line ? 'Go on' : 'Listen') : stg === 1 ? 'Lay that letter' : 'That is the signal';
+      rec.lock(stg !== 0 || line > 0);
+      if (stg === 1 || stg === 2) drawLay();
+      if (stg >= 3) drawSky();
+    }
+    picks.addEventListener('click', function (e) { var b = e.target.closest ? e.target.closest('button') : null; if (!b) return; sym = b.getAttribute('data-v'); DUNE.sfx.click(); draw(); });
+    function speak() { var s = '', i; for (i = 0; i < line; i++) s += '<p>' + LINES[i] + '</p>'; spk.innerHTML = s; spk.scrollTop = spk.scrollHeight; }
+    function setStage(n) { stg = n; ER.flag('e-stage', n); draw(); paint(); }
+    go.addEventListener('click', function () {
+      var f = rec.get().toFixed(1);
+      if (stg === 0) {
+        if (!line) {
+          if (ER.check('fday', f)) { line = 1; DUNE.hiss(0.18); speak(); draw(); msg('Seven o&rsquo;clock, and Mrs Tolliver, as clear as if she were standing on the salt.'); return; }
+          DUNE.sfx.no();
+          msg(ER.check('fnight', f) ? '&ldquo;That was last night&rsquo;s frequency,&rdquo; says Mr Strachan. &ldquo;The sun is up. What does the booklet say a station does by day?&rdquo;' : 'Nobody there. The Downs use one of the two frequencies on the card: put the needle exactly on the one for the daytime.');
+          return;
+        }
+        if (line < LINES.length) { line++; speak(); return; }
+        DUNE.hiss(0);
+        ER.addClue('sched2', 'Tolliver Base, Saturday, 07.00', '<h4>Tolliver Base &middot; Saturday 07.00 &middot; 8.0 MHz</h4>' + LINES.map(function (l) { return '<p>' + l + '</p>'; }).join(''), 'radio', 'What the radio said');
+        setStage(1); ER.closeAll();
+        ER.say('&ldquo;East along the shore, from the well, half past seven,&rdquo; says Mr Strachan. &ldquo;Now the signal. Read the booklet first.&rdquo;');
+        return;
+      }
+      if (stg === 1) {
+        if (!sym) { msg('Choose a letter first: click one.'); return; }
+        if (ER.check('sym', sym)) { ER.flag('e-sym', sym); setStage(2); DUNE.sfx.stone(); msg('A V, then. Drag the round handles: the point moves the whole V, the two ends make its arms longer and shorter. Put it where a pilot will see it.'); return; }
+        DUNE.sfx.no();
+        msg(ER.check('symx', sym) ? '&ldquo;X brings a doctor three hundred miles,&rdquo; says Mr Strachan. &ldquo;For an ankle. No. Somebody somewhere may need that doctor more than I do.&rdquo;' :
+          ER.check('symarrow', sym) ? '&ldquo;An arrow says we have gone that way,&rdquo; says Dr Hayashi. &ldquo;We are not going anywhere. We are waiting to be picked up.&rdquo;' :
+          '&ldquo;Yes or no to what?&rdquo; says Mr Strachan. &ldquo;Nobody has asked us anything yet. What do we need?&rdquo;');
+        return;
+      }
+      if (stg === 2) {
+        var la = len(V.a, V.l), lb = len(V.a, V.r), an = angle(), shade = pts().some(inShade);
+        if (la < 10 || lb < 10) { DUNE.sfx.no(); msg('Too small. From a thousand feet that is a smudge. The booklet says each sign at least ten metres long: both arms.'); return; }
+        if (la > 14 || lb > 14) { DUNE.sfx.no(); msg('You have not got stones enough for that: about twenty-eight metres of line altogether. Make the arms a little shorter.'); return; }
+        if (an < 25) { DUNE.sfx.no(); msg('The arms are so close together that from the air it will look like one thick line. Open the V wider.'); return; }
+        if (an > 100) { DUNE.sfx.no(); msg('The arms are so far apart that it looks like a flat line with a dent in it. Close the V up a little.'); return; }
+        if (shade) { DUNE.sfx.no(); msg('Part of it is in the shadow of the dune, among the bushes and their shadows: dark stones in a dark shadow. The booklet says open ground, out of shadows. Move it out on to the white salt.'); return; }
+        ER.flag('e-v', V); DUNE.sfx.stone(); setStage(3);
+        msg('Two lines of dark stones on white salt, far from anything that nature made. One of the stones is much heavier than the others: you put it at the point of the V. Now the mirror. It is twenty-five past seven. Wait for the plane, and hold the mirror ready.');
+        setTimeout(function () { if (stg === 3 && box.parentNode) fly(); }, 2500);
+      }
+    });
+    draw();
+    if (stg === 0) { spk.innerHTML = hear(rec.get()); msg('Seven o&rsquo;clock. The needle is still where you left it on Thursday night. Put it exactly on the frequency the Downs use by day, and listen.'); }
+    else if (stg === 1) msg('Which letter? Choose it from the booklet&rsquo;s code.');
+    else if (stg === 2) msg('Drag the round handles: the point moves the whole V, the two ends make its arms longer and shorter. Put it where a pilot will see it.');
+    return {
+      open: function (n) {
+        if (stg === 0 && n !== 0) return;
+        ER.open('ov-lock', box, function () { DUNE.hiss(0); clearInterval(timer); plane = null; });
+        draw();
+        if (stg === 0 && !line) DUNE.hiss(signal(rec.get()) > 0.9 ? 0.25 : 1);
+        if (stg === 3) { laps = 0; setTimeout(function () { if (stg === 3 && box.parentNode) fly(); }, 1800); msg('The mirror in your hand. Wait for the plane.'); }
+      },
+      isOpen: function () { return !!box.parentNode; },
+      hint: function () {
+        return [['tune', [
+          'Thursday night the Downs were on the lower of their two frequencies. What does the booklet say a station uses by day?',
+          'High by day, low by night: put the needle exactly on 8.0, the higher frequency, and listen.'
+        ]], ['letter', [
+          'The booklet gives the code: V, X, an arrow, N and Y. What do you need?',
+          'X is for a doctor, when somebody is badly hurt. An arrow means you have gone somewhere. You need help, and you are staying here.'
+        ]], ['lay', [
+          'Drag the round handles. The point moves the whole V; the two ends make the arms longer or shorter. Watch the numbers on the arms.',
+          'The booklet: each sign at least ten metres long, on open ground, out of the shadows and away from the bushes. The shadow of the dune lies along the top.',
+          'Make both arms between ten and fourteen metres, keep the V open like the letter, and drag it down on to the white salt, well below the shadow.'
+        ]], ['mirror', [
+          'Wait for the plane. When it comes, drag the bright spot between your fingers on to it, and keep it there as it moves.',
+          'Keep the plane inside the dotted ring round your fingers until the red bar at the bottom is full. If it goes past, it will come round again.'
+        ]]][Math.min(stg, 3)];
+      }
+    };
+  }
+})();
+</script>
+</body>
+</html>

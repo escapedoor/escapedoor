@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Overhang · Four and a Half Times</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-wild.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="dune.css">
+<style>
+  body{--bg:#2a1830;--accent:#ff9a3c;--font-display:'Fjalla One',sans-serif;--font-ui:'Overpass',sans-serif;--font-body:'Lora',serif;
+    --tc-bg:rgba(40,22,44,.96);--tc-ink:#fbe9d8;--cap-bg:rgba(36,20,40,.93);--panel:#2e1a34;--face-bg:#5a3a4a;--q-ink:#ffc48a;--fade:#2a1830;--hud-bg:rgba(36,20,40,.84)}
+  #shimmer{animation:shim 2.6s steps(1,end) infinite}
+  @keyframes shim{0%{transform:translateY(0)}33%{transform:translateY(2px) scaleY(1.02)}66%{transform:translateY(-1px)}}
+  .fly{animation:fly 1s steps(1,end) infinite}
+  @keyframes fly{0%{transform:translate(0,0)}25%{transform:translate(8px,-5px)}50%{transform:translate(-4px,4px)}75%{transform:translate(5px,7px)}}
+  #stick.ready{animation:ready 1.5s steps(1,end) infinite}
+  @keyframes ready{50%{filter:brightness(1.35)}}
+  .hot:hover{filter:brightness(1.15)}
+
+  /* the sand round the stick, from above */
+  .sd{display:block;width:100%;height:auto;background:#f0d8a8;touch-action:none}
+  .sdT{font-family:'Overpass',sans-serif;font-weight:700;font-size:12px;fill:#5a3a1a;letter-spacing:.1em}
+  .sdC{font-family:'Overpass Mono',monospace;font-weight:600;font-size:26px;fill:#f3e3b0}
+  .sdS{font-family:'Overpass Mono',monospace;font-weight:600;font-size:15px}
+  .sdH{font-family:'Caveat',cursive;font-weight:700;font-size:22px;fill:#3a2414}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c8dcea"/><stop offset="1" stop-color="#f6f0e2"/></linearGradient>
+  <linearGradient id="plainG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f0d2a0"/><stop offset="1" stop-color="#e2b478"/></linearGradient>
+  <linearGradient id="roofG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a2418"/><stop offset=".7" stop-color="#7a3420"/><stop offset="1" stop-color="#9a4a2a"/></linearGradient>
+  <linearGradient id="shadeG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a2a4a" stop-opacity=".0"/><stop offset=".25" stop-color="#3a2040" stop-opacity=".8"/><stop offset="1" stop-color="#24142a"/></linearGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="900" fill="url(#skyG)"/>
+<!-- the plain to the south, white with light -->
+<path d="M-1000 420H2600V900H-1000Z" fill="url(#plainG)"/>
+<g id="shimmer" opacity=".6"><path d="M-1000 420Q-500 416 0 421T1000 418T2600 422V428H-1000Z" fill="#fbf2de"/></g>
+<g fill="#b9a060" opacity=".75"><ellipse cx="200" cy="440" rx="30" ry="6"/><ellipse cx="560" cy="450" rx="40" ry="8"/><ellipse cx="1120" cy="446" rx="36" ry="7"/><ellipse cx="1400" cy="460" rx="44" ry="9"/><ellipse cx="900" cy="470" rx="50" ry="10"/></g>
+<g fill="#a08a4a" opacity=".8"><ellipse cx="300" cy="520" rx="60" ry="14"/><ellipse cx="1300" cy="540" rx="70" ry="16"/><ellipse cx="760" cy="500" rx="40" ry="10"/></g>
+<!-- the stick in the sun, with its ring of string and its shadow -->
+<g id="stick" class="hot">
+  <ellipse cx="800" cy="600" rx="150" ry="34" fill="none" stroke="#7a5a3a" stroke-width="2" stroke-dasharray="6 5"/>
+  <path d="M800 600L768 566" stroke="#8a5a3a" stroke-width="7" opacity=".55" stroke-linecap="round"/>
+  <path d="M800 600V430" stroke="#f4f0e6" stroke-width="7"/><g stroke="#c8321e" stroke-width="7"><path d="M800 600v-17M800 566v-17M800 532v-17M800 498v-17M800 464v-17"/></g>
+  <path d="M676 592v-14" stroke="#4a3a2a" stroke-width="4"/><circle cx="676" cy="577" r="4" fill="#c8321e"/>
+  <rect x="640" y="420" width="320" height="200" fill="#fff" opacity="0"/>
+</g>
+<!-- the rock: the underside of the overhang, and its pillars -->
+<path d="M-1000 -400H2600V240Q1800 300 800 270Q-200 300 -1000 240Z" fill="url(#roofG)"/>
+<g stroke="#4a1a10" stroke-width="3" opacity=".5" fill="none"><path d="M-200 200q300 30 600 10M500 230q300 20 700 0M1100 220q300 30 600 -10M100 120q400 30 900 -10"/></g>
+<path d="M-1000 240Q-600 300 -300 320L-260 900H-1000Z" fill="#6a2c1a"/><path d="M2600 240Q2200 290 1900 320L1860 900H2600Z" fill="#6a2c1a"/>
+<path d="M-300 320Q-200 700 -100 900H-260Z" fill="#4a1a10" opacity=".6"/><path d="M1900 320Q1800 700 1700 900H1860Z" fill="#4a1a10" opacity=".6"/>
+<!-- the shade under the rock, where you are -->
+<path d="M-1000 620Q-200 600 800 640T2600 620V1300H-1000Z" fill="url(#shadeG)"/>
+<path d="M-1000 700Q0 680 800 712T2600 700V1300H-1000Z" fill="#24142a"/>
+<!-- Mr Strachan, lying down, his foot up on a stone -->
+<g id="str" class="hot">
+  <ellipse cx="300" cy="790" rx="60" ry="16" fill="#8a7a6a" opacity=".5"/><path d="M330 776q30 -4 40 10q-6 14 -40 10z" fill="#6a5a4a"/>
+  <path d="M120 790q60 -40 170 -30l50 8q10 16 0 28l-60 6q-110 10 -160 -12z" fill="#7a6a4a"/><path d="M286 762l60 2" stroke="#4a4030" stroke-width="18" stroke-linecap="round"/><ellipse cx="352" cy="766" rx="13" ry="10" fill="#d8d4c8"/>
+  <path d="M150 764l26 18l20 -20z" fill="#8a2a1c"/><circle cx="114" cy="770" r="20" fill="#a88a72"/><path d="M90 780q24 -36 50 -10" fill="#4a3220"/><path d="M80 772q30 -16 60 6" stroke="#3e2a16" stroke-width="7" fill="none" stroke-linecap="round"/>
+</g>
+<!-- Dr Hayashi, sitting, writing -->
+<g id="hay" class="hot">
+  <path d="M1150 790q-10 -30 40 -34q60 0 70 34z" fill="#5a5a40"/><path d="M1170 770q-8 -90 30 -100q40 -4 48 50l4 50z" fill="#7a9ab0"/><path d="M1174 716q-4 -30 12 -40l8 34l-4 60h-16zM1244 716q4 -30 -10 -40l-8 34l2 60h18z" fill="#6a6a48"/>
+  <path d="M1240 720q30 30 -10 50" stroke="#7a9ab0" stroke-width="13" fill="none" stroke-linecap="round"/><rect x="1196" y="752" width="40" height="28" fill="#d8dcc8" transform="rotate(-10 1216 766)"/>
+  <rect x="1202" y="652" width="12" height="16" fill="#b9906c"/><circle cx="1208" cy="638" r="19" fill="#c49c78"/><path d="M1188 648q-4 -30 20 -32q24 2 20 32q-4 -14 -20 -16q-16 2 -20 16z" fill="#1c1918"/>
+  <ellipse cx="1208" cy="620" rx="36" ry="7" fill="#5e6a4c"/><path d="M1190 620q0 -18 18 -18t18 18z" fill="#6c7858"/>
+</g>
+<!-- the notebook and the map on a flat stone -->
+<g id="nbk" class="hot"><path d="M560 790q0 -20 30 -22l140 -4q30 2 30 24l-6 30h-190z" fill="#5a3a3a"/><g transform="rotate(-4 640 776)"><rect x="590" y="756" width="100" height="40" fill="#e8e0d0"/><path d="M640 756v40" stroke="#b44a3a" stroke-width="1.500"/><path d="M598 766h34M598 774h30M648 766h34M648 774h28M598 782h26" stroke="#3a3a5a" stroke-width="1.500"/></g></g>
+<g id="map" class="hot"><g transform="rotate(6 860 790)"><rect x="800" y="764" width="120" height="66" fill="#e6dcc0"/><path d="M840 764v66M880 764v66M800 797h120" stroke="#bfb08c"/><path d="M812 812q40 -16 96 -10" stroke="#e8e6e0" stroke-width="10" opacity=".9"/><path d="M810 784q50 6 100 -6" stroke="#b4471a" stroke-width="1.600" fill="none"/></g></g>
+<g id="watch" class="hot"><circle cx="990" cy="800" r="16" fill="#2a2a2c" stroke="#b9b4a6" stroke-width="3"/><path d="M990 800v-10M990 800l7 4" stroke="#f3ecd6" stroke-width="2"/><path d="M974 800h-14M1006 800h14" stroke="#3a3a3a" stroke-width="5"/></g>
+<g fill="#1a1012"><circle class="fly" cx="420" cy="720" r="2"/><circle class="fly" cx="1010" cy="760" r="1.800"/></g>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Walk south in the cool</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="dune.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, bench = null, leave = (function () { try { var o = ER.readStore()['wild/dune']; return (o && o.flags && o.flags['c-leave']) || 17 * 60; } catch (e) { return 17 * 60; } })();
+
+  ER.init({
+    theme: 'wild', story: 'dune', storyTitle: 'Four and a Half Times', id: 'overhang', no: 'IV', title: 'The Overhang',
+    go: 'Into the sun',
+    intro: [
+      'In the creek bed Mr Strachan had the first signs of heat exhaustion: a headache, dizziness, cramp, and pale, damp skin, with a full bottle in his pocket. Shade, water and a wet cloth put him right. Then you made the plan: ration sweat, not water. Drink what you need, rest through the heat of the day, and walk to the pan in the cool of the evening, at ' + DUNE.clock(leave) + '.',
+      'Friday, a quarter past ten. The breakaway leans out over the sand like the brim of a hat, and under it there is shade all day. Out in the sun Mr Strachan has stood a metre stick upright, with its shadow lying on flat sand.',
+      'At 02.14 by his watch he marked the tip of the shadow with a peg, and Dr Hayashi tied a loop of string round the stick and drew a ring through the peg. Since then the shadow has been getting shorter. You are going to watch it get longer again.'
+    ],
+    exit: {"next":"pan","w":{"cd175406":"2a36370e"}}, tags: {"mark":["f90c56e6"],"shadow":["3e37f636"],"shadow_n":["12e2e7d8"],"noon":["b3cfb823"],"noon_wst":["835a0b70"],"noon_you":["ee05a4bc"],"noon_tokyo":["7b696d4a"],"noon_end":["7e0857a7","84ae1ac6"],"lon":["3c122bc9"],"lon_you":["d32ea0c1"],"lon_tokyo":["31d7e0e0"],"lon_back":["3609fc6a"],"lon_mul":["8a5ddb26"],"fix":["3116a427"],"fix_lat":["b68e695f","d6285d35","2a1335cd","7afc0feb","ea11d94a","2a1335cd","1eacae02"],"way":["5c878cdd"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('d-file') || null; told = ER.flag('d-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('d-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#stick').classList.toggle('ready', !!(told.str && told.page && !nextFile));
+    ER.pips((told.str ? 1 : 0) + (told.page ? 1 : 0) + (told.hay ? 1 : 0) + Math.min(4, ER.flag('d-stage') || 0) + (nextFile ? 1 : 0), 8);
+  }
+  function showGo() { $('#go').classList.add('on'); }
+
+  function hints() {
+    if (nextFile) return ['go', ['You know where you are, and which way the pan lies. When the heat is over, walk south.']];
+    if (bench && bench.isOpen()) return bench.hint();
+    if (!told.str) return ['str', ['Mr Strachan is lying in the shade on the left, with his foot up on a stone. Ask him what the stick is for.']];
+    if (!told.page) return ['page', [
+      'How a stick tells you the time of noon is written in Mr Strachan&rsquo;s notebook.',
+      'The notebook is lying open on the flat stone in the middle of the shade. Click it.'
+    ]];
+    if (!told.hay) return ['hay', ['Dr Hayashi is sitting on the right with her notes. She has something to say about watches.']];
+    return ['stick', ['Now the stick itself, out in the sun. Click it.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; showGo(); ER.say('The overhang, in the afternoon. The pin on the map says what the stick said. In the evening you walk south.'); return; }
+    if (told.in) { busy = false; ER.say('The shade of the overhang. Out in the sun, the stick and its shadow.'); return; }
+    tell('in');
+    ER.narrate([
+      'It is ten degrees cooler in the shade, and still hot. Out beyond the edge of the rock the plain is white with light, and the air over it shivers.',
+      'Mr Strachan is lying with his foot up on a stone and his watch in his hand. He has drunk two more bottles of water this morning and admitted nothing.',
+      '&ldquo;The sun crosses the sky once a day,&rdquo; he says, &ldquo;at fifteen degrees an hour. It does it in Greenwich and it does it here. All we have to do is catch it at the top.&rdquo;'
+    ], function () { busy = false; });
+  }
+
+  /* ---------- people ---------- */
+  $('#str').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Mr Strachan', role: 'In the shade, with his foot up', face: window.FACE('strachan'),
+      lines: [
+        { note: 'He holds up his watch: black, with twenty-four hours round the dial.', a: '&ldquo;Greenwich time. A navigator&rsquo;s watch never changes country. It means I always know what time it is somewhere that matters.&rdquo;' },
+        { q: 'What is the stick for?', a: 'For noon. Not twelve o&rsquo;clock: noon, the moment the sun is highest here. Noon comes to Greenwich at twelve o&rsquo;clock by my watch. It comes to us earlier, because the Earth turns towards the east and we are a long way east. How much earlier tells us how far east.' },
+        { q: 'Why not just watch for the shortest shadow?', a: 'Try it. Near noon the shadow hardly changes for half an hour: you&rsquo;ll be guessing to ten minutes, and ten minutes is two and a half degrees. Equal shadows are better. The shadow at a quarter past ten and the shadow that matches it in the afternoon are the same distance from noon, one on each side.' },
+        { q: 'How exact will it be?', a: 'A stick and a good watch give you longitude to a quarter of a degree, on a good day: twenty-five kilometres. Last night&rsquo;s latitude is good to half a degree. So we do not aim at a well. We aim at something big: a salt pan forty miles long, which you could not miss if you tried.' }
+      ],
+      clue: { id: 'str4', title: 'Mr Strachan, in the shade', kind: 'What he said' },
+      done: function (seen) { if (seen && tell('str')) { paint(); ER.say('&ldquo;The page is on the stone,&rdquo; he says. &ldquo;It explains it better than I do. I wrote it when I was younger.&rdquo;'); } }
+    });
+  });
+  $('#hay').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Dr Hayashi', role: 'In the shade, writing', face: window.FACE('hayashi'),
+      lines: [
+        { note: 'She has written the times of every shadow since ten o&rsquo;clock in her notebook, by her own watch.', a: '&ldquo;I have been measuring too. With a Tokyo watch. Duncan says this is like measuring a room in Japanese feet.&rdquo;' },
+        { q: 'Can we use your watch?', a: 'Yes, if you remember what it keeps. It is Tokyo time: one hour ahead of here, nine ahead of Greenwich. Forget the hour, and you will put us in the sea. Duncan&rsquo;s watch is simpler: it already keeps Greenwich.' },
+        { q: 'And mine?', a: 'Yours keeps the time here, and it is four minutes slow. Four minutes is a whole degree of longitude. You may wear it. Do not navigate by it.' },
+        { q: 'Which way is south?', a: 'In Tokyo I would say: look at the shadow at noon, it points north. Duncan says that here it is the other way round, and that the sun has been in the north all morning. I have checked. He is right, which he finds very satisfying.' }
+      ],
+      clue: { id: 'hay4', title: 'Dr Hayashi, in the shade', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('hay')) { paint(); } }
+    });
+  });
+
+  /* ---------- papers ---------- */
+  var PAGE = '<h4>Noon and longitude</h4><div class="two"><div>' +
+    '<p>South of the Tropics the midday sun is due <b>north</b>, so the noon shadow points <b>south</b>. (The British rule, &ldquo;shadows point north at noon&rdquo;, is upside down here.)</p>' +
+    '<p><b>Local noon</b>: the moment the sun is highest, shadow shortest. Near noon the shadow hardly changes, so don&rsquo;t try to see the shortest one. Do this:</p>' +
+    '<ol><li>A straight stick, upright. In the morning, mark the tip of its shadow, note the time, and draw a ring round the stick through the mark.</li>' +
+    '<li>In the afternoon the shadow grows again. Note the time when its tip touches the ring.</li>' +
+    '<li>Noon is exactly <b>half way</b> between the two times.</li></ol>' +
+    '<p>The Earth turns 360&deg; in 24 hours: <b>15&deg; an hour, 1&deg; every 4 minutes</b>. Noon comes to Greenwich (0&deg;) at 12.00 UTC, and an hour earlier for every 15&deg; east. So:</p>' +
+    '<p>longitude east = (12.00 &minus; noon by a UTC watch) &times; 15&deg; an hour.</p>' +
+    '<p>In mid-April the sun keeps almost perfect time. (In other months it can be a quarter of an hour early or late: look it up.) &nbsp;H.S.</p></div>' +
+    '<div><svg viewBox="0 0 290 360"><g font-family="Handlee,cursive" font-size="15" fill="#1d2a4a">' +
+    '<circle cx="145" cy="60" r="5" fill="#1d2a4a"/><circle cx="145" cy="60" r="96" fill="none" stroke="#1d2a4a" stroke-width="1.400" stroke-dasharray="4 4"/>' +
+    '<path d="M145 60L80 131" stroke="#7a2a1a" stroke-width="2"/><path d="M145 60L210 131" stroke="#7a2a1a" stroke-width="2"/><path d="M145 60V156" stroke="#c8321e" stroke-width="2.400"/>' +
+    '<circle cx="80" cy="131" r="4" fill="#7a2a1a"/><circle cx="210" cy="131" r="4" fill="#7a2a1a"/><text x="20" y="150">morning</text><text x="196" y="150">afternoon</text><text x="122" y="180">noon: S</text>' +
+    '<text x="156" y="40">stick</text><path d="M60 230h170" stroke="#1d2a4a" stroke-width="1.400"/>' +
+    '<text x="22" y="226">0&deg;</text><text x="236" y="226">E</text><circle cx="60" cy="230" r="3" fill="#1d2a4a"/>' +
+    '<text x="26" y="262">Greenwich: noon at 12.00</text><text x="26" y="290">15&deg; east: noon at 11.00</text><text x="26" y="318">30&deg; east: noon at 10.00</text><text x="26" y="346">1&deg; = 4 minutes</text></g></svg></div></div>';
+  $('#nbk').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: PAGE, cls: 'nav', clue: { id: 'page4', title: 'Noon and longitude', kind: 'Mr Strachan&rsquo;s notebook' }, done: function () {
+      DUNE.terms(['local noon', 'longitude', 'shadow', 'Tropics', 'Greenwich', 'equator']);
+      if (tell('page')) { paint(); ER.say('Half way between the two times. It sounds too simple to work, which, says Mr Strachan, is how you know it does.'); }
+    } });
+  });
+  DUNE.thing('#watch', null, 'Mr Strachan&rsquo;s watch on the stone, where he can see it: Greenwich time, twenty-four hours round the dial.', isBusy);
+  DUNE.thing('#map', null, function () { return told.page ? 'The map, held flat by a stone. It has lines of latitude and longitude on it every quarter of a degree. Sixpenny Pan is a long white shape, and Dr Hayashi has drawn a pencil ring on its north-eastern shore.' : 'The map, held flat by a stone.'; }, isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  $('#stick').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The stick, with three pegs round it now, and a line of stones along the noon shadow, pointing south.'); return; }
+    if (!told.str) { ER.say('A metre stick, painted in red and white bands, standing in the sun. &ldquo;Ask before you touch my instruments,&rdquo; says Mr Strachan, without opening his eyes.'); return; }
+    if (!told.page) { ER.say('&ldquo;Read the page first,&rdquo; says Mr Strachan. &ldquo;It&rsquo;s on the stone.&rdquo;'); return; }
+    if (!bench) bench = makeBench();
+    bench.open();
+  });
+
+  /* ---------- the stick, the noon line, the sums and the map ---------- */
+  function makeBench() {
+    var RAD = Math.PI / 180, DEC = 9.88, NOON = 3 * 60 + 44, PX = 300, SX = 500, SY = 80, T0 = 2 * 60, T1 = 5 * 60 + 30, MARK1 = 2 * 60 + 14,
+      stage = ER.flag('d-stage') || 0, t = ER.flag('d-t') || 3 * 60 + 10, mark2 = ER.flag('d-mark2') || null, way = '', pin = ER.flag('d-pin') || null, end = '',
+      box = ER.el('div', 'bx'), s, svg, map, wN, wL;
+    /* where the sun is, a few hours either side of noon (its height and its bearing from north) */
+    function sun(m) {
+      var H = (m - NOON) * 0.25 * RAD, d = DEC * RAD, p = DUNE.SITE.phi * RAD;
+      var alt = Math.asin(Math.sin(p) * Math.sin(d) + Math.cos(p) * Math.cos(d) * Math.cos(H));
+      var az = Math.atan2(-Math.sin(H) * Math.cos(d), Math.cos(p) * Math.sin(d) - Math.sin(p) * Math.cos(d) * Math.cos(H));
+      return [alt, az];
+    }
+    function tip(m) { var a = sun(m), L = 1 / Math.tan(a[0]), b = a[1] + Math.PI; return [SX + PX * L * Math.sin(b), SY - PX * L * Math.cos(b), L]; }
+    var RING = tip(MARK1)[2];
+    function hhmm(m) { return DUNE.two(Math.floor(m / 60) % 24) + DUNE.two(m % 60); }
+    s = '<div class="pane" id="e-sand"><svg class="sd" viewBox="0 0 1000 470"><rect width="1000" height="470" fill="#f0d8a8"/><g id="e-grain"></g>' +
+      '<circle cx="' + SX + '" cy="' + SY + '" r="' + (RING * PX).toFixed(1) + '" fill="none" stroke="#7a5a3a" stroke-width="2" stroke-dasharray="8 6"/>' +
+      '<g id="e-pegs"></g><path id="e-sh" stroke="#8a5a3a" stroke-width="12" stroke-linecap="round" opacity=".55"/><circle cx="' + SX + '" cy="' + SY + '" r="9" fill="#f4f0e6" stroke="#c8321e" stroke-width="4"/>' +
+      '<g id="e-noon"></g><g class="sdT"><text x="' + (SX + 12) + '" y="' + (SY - 12) + '">THE STICK (1 m)</text></g>' +
+      '<g transform="translate(20 20)"><rect width="250" height="150" rx="6" fill="#2a1a24"/><text class="sdT" x="14" y="24" style="fill:#e8c8a8">MR STRACHAN&rsquo;S WATCH (UTC)</text><text class="sdC" id="e-utc" x="125" y="66" text-anchor="middle"></text>' +
+      '<text class="sdT" x="14" y="98" style="fill:#c8a8b8">DR HAYASHI&rsquo;S (TOKYO)</text><text class="sdS" id="e-tok" x="236" y="98" text-anchor="end" style="fill:#e8d8c0"></text>' +
+      '<text class="sdT" x="14" y="128" style="fill:#c8a8b8">YOURS (4 MIN SLOW)</text><text class="sdS" id="e-you" x="236" y="128" text-anchor="end" style="fill:#e8d8c0"></text></g>' +
+      '<text class="sdH" id="e-ruler" x="980" y="40" text-anchor="end"></text>' +
+      '<rect y="410" width="1000" height="60" fill="#e2c490"/><path d="M70 432H930" stroke="#7a5a3a" stroke-width="5"/>';
+    function TX(m) { return 70 + (m - T0) * 860 / (T1 - T0); }
+    for (var m = T0; m <= T1; m += 10) s += '<path d="M' + TX(m).toFixed(1) + ' 432v' + (m % 30 ? 7 : 12) + '" stroke="#5a3a1a" stroke-width="1.500"/>' + (m % 30 ? '' : '<text class="sdT" x="' + TX(m).toFixed(1) + '" y="462" text-anchor="middle">' + DUNE.clock(m) + '</text>');
+    s += '<g id="e-ptr"><path d="M0 428L-10 408H10Z" fill="#ffe0a0" stroke="#7a5a3a"/></g><rect id="e-strip" class="tool" x="50" y="412" width="900" height="58" fill="#fff" opacity="0"/></svg></div>';
+    s += '<div class="pane" id="e-map"><svg class="mp" viewBox="0 0 1000 470"></svg></div>';
+    box.innerHTML = '<div class="frame">' + s + '</div><div class="bx-foot"><p class="pmsg"></p><span class="nudge" id="e-nudge"><button type="button" data-d="-10">&laquo;</button><button type="button" data-d="-1">&lsaquo;</button><button type="button" data-d="1">&rsaquo;</button><button type="button" data-d="10">&raquo;</button></span>' +
+      '<span class="picks" id="e-picks"></span><span id="e-slot"></span><button type="button" class="btn" id="e-go"></button></div>';
+    svg = box.querySelector('svg.sd'); map = box.querySelector('svg.mp');
+    var msgEl = box.querySelector('.pmsg'), go = box.querySelector('#e-go'), nudge = box.querySelector('#e-nudge'), picks = box.querySelector('#e-picks'), slot = box.querySelector('#e-slot');
+    wN = DUNE.wheels(slot, { label: 'Noon<br>(UTC)', vals: [DUNE.HOURS, DUNE.MINS], sep: { 1: '.' }, start: ER.flag('d-wn') || [12, 0], change: keep });
+    wL = DUNE.wheels(slot, { label: 'Longitude', vals: [DUNE.DIGITS, DUNE.DIGITS, DUNE.DIGITS], tail: '&deg; E', start: ER.flag('d-wl') || [0, 0, 0], change: keep });
+    function keep() { ER.flag('d-wn', wN.at()); ER.flag('d-wl', wL.at()); }
+    function msg(x) { msgEl.innerHTML = ER.gloss(x); }
+    (function () { var r = DUNE.rnd(5), o = '', i; for (i = 0; i < 140; i++) o += '<circle cx="' + (r() * 1000).toFixed(0) + '" cy="' + (r() * 405).toFixed(0) + '" r="' + (0.8 + r() * 1.6).toFixed(1) + '" fill="#c9a874" opacity=".5"/>'; svg.querySelector('#e-grain').innerHTML = o; })();
+
+    /* ---- the map: 123 30 E to 125 00 E, 24 40 S to 25 25 S ---- */
+    function MX(lon) { return 60 + (lon - 123.5) * 593; }
+    function MY(lat) { return 30 + (lat - 24 - 40 / 60) * 545; }
+    function mapDraw() {
+      var o = '<rect width="1000" height="470" fill="#efe2c4"/>', i, lat, lon, r = DUNE.rnd(11);
+      for (i = 0; i < 46; i++) { var y = 40 + r() * 400, x = 20 + r() * 900; o += '<path d="M' + x.toFixed(0) + ' ' + y.toFixed(0) + 'q' + (40 + r() * 40).toFixed(0) + ' -' + (4 + r() * 4).toFixed(0) + ' ' + (110 + r() * 60).toFixed(0) + ' 2" stroke="#d9b98a" stroke-width="2.200" fill="none"/>'; }
+      o += '<path d="M' + MX(123.6) + ' ' + MY(25.06) + 'Q' + MX(123.8) + ' ' + MY(25.035) + ' ' + MX(124.0) + ' ' + MY(25.05) + 'T' + MX(124.25) + ' ' + MY(25.07) + 'Q' + MX(124.38) + ' ' + MY(25.12) + ' ' + MX(124.33) + ' ' + MY(25.2) + 'T' + MX(124.1) + ' ' + MY(25.33) + 'Q' + MX(123.85) + ' ' + MY(25.36) + ' ' + MX(123.65) + ' ' + MY(25.3) + 'T' + MX(123.6) + ' ' + MY(25.06) + 'Z" fill="#fbfaf4" stroke="#8aa6b8" stroke-width="1.600"/>';
+      o += '<g fill="#cfdbe2" opacity=".7"><circle cx="' + MX(123.9) + '" cy="' + MY(25.18) + '" r="3"/><circle cx="' + MX(124.1) + '" cy="' + MY(25.22) + '" r="2.500"/><circle cx="' + MX(123.75) + '" cy="' + MY(25.25) + '" r="2"/></g>';
+      o += '<text class="mpN" x="' + MX(123.95) + '" y="' + MY(25.2) + '" text-anchor="middle">Sixpenny Pan</text><text class="mpS" x="' + MX(123.95) + '" y="' + (MY(25.2) + 16) + '" text-anchor="middle">salt, dry</text>';
+      o += '<path d="M' + MX(124.68) + ' ' + MY(24.78) + 'q20 -10 40 0t10 18q-20 10 -40 4t-10 -22z" fill="#fbfaf4" stroke="#8aa6b8" stroke-width="1.400"/><text class="mpN" x="' + (MX(124.68) + 60) + '" y="' + (MY(24.78) + 8) + '">Lake Ronning</text>';
+      o += '<path d="M' + MX(124.95) + ' ' + MY(24.68) + 'Q' + MX(124.82) + ' ' + MY(24.9) + ' ' + MX(124.8) + ' ' + MY(25.17) + 'T' + MX(124.66) + ' ' + MY(25.42) + '" stroke="#5f93ad" stroke-width="2" stroke-dasharray="7 4" fill="none"/><text class="mpN" x="' + (MX(124.82) + 10) + '" y="' + MY(24.95) + '" transform="rotate(80 ' + (MX(124.82) + 10) + ' ' + MY(24.95) + ')">Glass Creek</text>';
+      o += '<path d="M' + [[125.0, 25.15], [124.8, 25.167], [124.55, 25.12], [124.3, 25.055], [124.1, 25.033], [123.95, 25.035], [123.933, 25.045]].map(function (q) { return MX(q[0]).toFixed(1) + ' ' + MY(q[1]).toFixed(1); }).join('L') + '" stroke="#b4471a" stroke-width="2.600" fill="none" stroke-linejoin="round"/>' +
+        '<text class="mpT" x="' + MX(124.5) + '" y="' + (MY(25.13) + 18) + '" transform="rotate(-8 ' + MX(124.5) + ' ' + (MY(25.13) + 18) + ')" style="fill:#b4471a">Old Well Track</text><text class="mpS" x="992" y="' + (MY(25.15) - 8) + '" text-anchor="end">to Tolliver Downs 75 km &rarr;</text>';
+      o += '<circle cx="' + MX(123.933) + '" cy="' + MY(25.045) + '" r="5" fill="none" stroke="#1d1c1a" stroke-width="2"/><text class="mpT" x="' + (MX(123.933) - 8) + '" y="' + (MY(25.045) - 9) + '" text-anchor="end">Sixpenny Well (ruin)</text>';
+      o += '<g stroke="#7a6a4a" stroke-width="1.400" stroke-dasharray="2 5" fill="none"><path d="M' + MX(124.8) + ' ' + MY(25.167) + 'L' + MX(123.6) + ' ' + MY(24.93) + '"/><path d="M' + MX(124.8) + ' ' + MY(25.167) + 'L' + MX(124.45) + ' ' + MY(24.7) + '"/><path d="M' + MX(125.0) + ' ' + MY(24.83) + 'L' + MX(123.5) + ' ' + MY(24.76) + '"/></g>' +
+        '<text class="mpS" x="' + MX(124.3) + '" y="' + (MY(25.03) - 12) + '" transform="rotate(10 ' + MX(124.3) + ' ' + (MY(25.03) - 12) + ')">old seismic line</text>';
+      [[124.02, 24.99], [124.62, 25.3], [123.7, 24.85], [124.4, 24.9]].forEach(function (b) { o += '<path d="M' + (MX(b[0]) - 18) + ' ' + MY(b[1]) + 'h36" stroke="#7a3a1a" stroke-width="2.500"/><path d="M' + (MX(b[0]) - 16) + ' ' + MY(b[1]) + 'l-3 6M' + (MX(b[0]) - 6) + ' ' + MY(b[1]) + 'l-3 6M' + (MX(b[0]) + 4) + ' ' + MY(b[1]) + 'l-3 6M' + (MX(b[0]) + 14) + ' ' + MY(b[1]) + 'l-3 6" stroke="#7a3a1a" stroke-width="1.400"/>'; });
+      o += '<ellipse cx="' + MX(124.1) + '" cy="' + MY(25.09) + '" rx="56" ry="30" fill="none" stroke="#5a5a6a" stroke-width="1.600" stroke-dasharray="3 3" transform="rotate(-14 ' + MX(124.1) + ' ' + MY(25.09) + ')"/><text class="mpG" x="' + (MX(124.1) + 30) + '" y="' + (MY(25.09) + 44) + '" style="fill:#5a5a6a">fall zone? Y.H.</text>';
+      for (lat = 24.75; lat <= 25.3; lat += 0.25) o += '<path d="M40 ' + MY(lat).toFixed(1) + 'H990" stroke="#7a3a2a" stroke-width=".9" opacity=".55"/><text class="mpG" x="44" y="' + (MY(lat) - 4).toFixed(1) + '">' + Math.floor(lat) + '&deg;' + DUNE.two(Math.round((lat % 1) * 60)) + '&prime; S</text>';
+      for (lon = 123.75; lon <= 124.9; lon += 0.25) o += '<path d="M' + MX(lon).toFixed(1) + ' 20V450" stroke="#7a3a2a" stroke-width=".9" opacity=".55"/><text class="mpG" x="' + (MX(lon) + 4).toFixed(1) + '" y="460">' + Math.floor(lon) + '&deg;' + DUNE.two(Math.round((lon % 1) * 60)) + '&prime; E</text>';
+      o += '<g transform="translate(950 70)"><path d="M0 24V-20M-6 -8L0 -22L6 -8" fill="none" stroke="#1d1c1a" stroke-width="1.800"/><text class="mpT" y="-26" text-anchor="middle">N</text></g>' +
+        '<g transform="translate(760 432)"><path d="M0 0H117.6M0 -5V5M58.8 -4V4M117.6 -5V5" stroke="#1d1c1a" stroke-width="1.500"/><text class="mpS" y="-8" text-anchor="middle">0</text><text class="mpS" x="117.6" y="-8" text-anchor="middle">20 km</text></g>' +
+        '<text class="mpT" x="560" y="16">SIXPENNY &middot; 1:250 000 &middot; lines every quarter of a degree (15&prime;)</text>';
+      o += '<rect id="e-mhit" x="40" y="20" width="950" height="430" fill="#fff" opacity="0"/>';
+      if (pin) o += '<g transform="translate(' + MX(pin[1]).toFixed(1) + ' ' + MY(pin[0]).toFixed(1) + ')"><path d="M0 0l-8 -22a10 10 0 1 1 16 0z" fill="#c8321e" stroke="#5a1a10" stroke-width="1.500"/><circle cy="-26" r="3.500" fill="#fff"/></g>';
+      map.innerHTML = o;
+      if (pin) map.setAttribute('data-pin', pin.join(','));
+    }
+    map.addEventListener('click', function (e) {
+      if (stage !== 3) return;
+      var q = ER.pt(map, e), lat = 24 + 40 / 60 + (q.y - 30) / 545, lon = 123.5 + (q.x - 60) / 593;
+      pin = [Math.round(lat * 4) / 4, Math.round(lon * 4) / 4]; ER.flag('d-pin', pin); DUNE.sfx.pin(); mapDraw(); draw();
+      msg('The pin is at ' + fmt(pin[0], 'S') + ', ' + fmt(pin[1], 'E') + '. If that is where we are, choose which way the pan lies from here.');
+    });
+    function fmt(v, h) { return Math.floor(v) + '&deg;' + DUNE.two(Math.round((v % 1) * 60)) + '&prime; ' + h; }
+    function fixCode(pp) { var a = Math.floor(pp[0]), am = Math.round((pp[0] % 1) * 60), b = Math.floor(pp[1]), bm = Math.round((pp[1] % 1) * 60); return a + (am ? DUNE.two(am) : '') + 's' + b + (bm ? DUNE.two(bm) : '') + 'e'; }
+
+    function draw() {
+      var tp = tip(t), o = '', mid, pg;
+      svg.querySelector('#e-sh').setAttribute('d', 'M' + SX + ' ' + SY + 'L' + tp[0].toFixed(1) + ' ' + tp[1].toFixed(1));
+      pg = tip(MARK1);
+      o += '<g><path d="M' + pg[0].toFixed(1) + ' ' + (pg[1] - 2).toFixed(1) + 'v-18" stroke="#4a3a2a" stroke-width="4"/><circle cx="' + pg[0].toFixed(1) + '" cy="' + (pg[1] - 20).toFixed(1) + '" r="5" fill="#c8321e"/><text class="sdH" x="' + (pg[0] - 14).toFixed(1) + '" y="' + (pg[1] + 22).toFixed(1) + '" text-anchor="end">02.14</text></g>';
+      if (mark2) { pg = tip(mark2); o += '<g><path d="M' + pg[0].toFixed(1) + ' ' + (pg[1] - 2).toFixed(1) + 'v-18" stroke="#4a3a2a" stroke-width="4"/><circle cx="' + pg[0].toFixed(1) + '" cy="' + (pg[1] - 20).toFixed(1) + '" r="5" fill="#2d5a73"/><text class="sdH" x="' + (pg[0] + 14).toFixed(1) + '" y="' + (pg[1] + 22).toFixed(1) + '">' + DUNE.clock(mark2) + '</text></g>'; }
+      svg.querySelector('#e-pegs').innerHTML = o; o = '';
+      if (stage >= 1 && mark2) {
+        var a1 = tip(MARK1), a2 = tip(mark2); mid = [(a1[0] + a2[0]) / 2, (a1[1] + a2[1]) / 2];
+        var dx = mid[0] - SX, dy = mid[1] - SY, k = 1.35;
+        o += '<path d="M' + a1[0].toFixed(1) + ' ' + a1[1].toFixed(1) + 'L' + a2[0].toFixed(1) + ' ' + a2[1].toFixed(1) + '" stroke="#7a5a3a" stroke-width="1.500" stroke-dasharray="3 4"/>' +
+          '<path d="M' + SX + ' ' + SY + 'L' + (SX + dx * k).toFixed(1) + ' ' + (SY + dy * k).toFixed(1) + '" stroke="#c8321e" stroke-width="3"/><circle cx="' + mid[0].toFixed(1) + '" cy="' + mid[1].toFixed(1) + '" r="5" fill="#c8321e"/>' +
+          '<text class="sdH" x="' + (SX + dx * k + 14).toFixed(1) + '" y="' + (SY + dy * k + 6).toFixed(1) + '">' + (end ? (end === 's' ? 'SOUTH' : 'NORTH') : 'the noon line: this end is &hellip;?') + '</text>';
+      }
+      svg.querySelector('#e-noon').innerHTML = o;
+      var gap = (tp[2] - RING) * 1000;
+      svg.querySelector('#e-ruler').textContent = stage === 0 ? (Math.abs(gap) < 0.6 ? 'the tip is on the ring' : 'the tip is ' + Math.abs(gap).toFixed(0) + ' mm ' + (gap < 0 ? 'inside' : 'outside') + ' the ring') : '';
+      svg.querySelector('#e-utc').textContent = DUNE.clock(t);
+      svg.querySelector('#e-tok').textContent = DUNE.clock(t + 9 * 60);
+      svg.querySelector('#e-you').textContent = DUNE.clock(t + 8 * 60 - 4);
+      svg.querySelector('#e-ptr').setAttribute('transform', 'translate(' + TX(t).toFixed(1) + ' 0)');
+      svg.setAttribute('data-t', t); svg.setAttribute('data-gap', gap.toFixed(1));
+      box.querySelector('#e-sand').classList.toggle('on', stage < 3);
+      box.querySelector('#e-map').classList.toggle('on', stage >= 3);
+      nudge.style.display = stage === 0 ? '' : 'none';
+      wN.node.style.display = wL.node.style.display = stage === 2 ? '' : 'none';
+      picks.innerHTML = stage === 1 ? '<button type="button" data-v="n">This end is north</button><button type="button" data-v="s">This end is south</button>' :
+        stage === 3 && pin ? ['n', 'ne', 'e', 'se', 's', 'sw', 'w', 'nw'].map(function (d) { return '<button type="button" data-v="' + d + '"' + (way === d ? ' class="on"' : '') + '>' + d.toUpperCase() + '</button>'; }).join('') : '';
+      go.style.display = stage === 1 ? 'none' : '';
+      go.textContent = ['Mark the tip', '', 'Those are the sums', 'That is the way to the pan'][stage] || '';
+      if (stage >= 3) mapDraw();
+    }
+    function setT(v) { if (stage !== 0) return; t = Math.round(DUNE.clamp(v, T0, T1)); ER.flag('d-t', t); draw(); }
+    ER.drag(svg.querySelector('#e-strip'), {
+      start: function () { if (stage !== 0) return false; },
+      move: function (e) { setT(T0 + (ER.pt(svg, e).x - 70) * (T1 - T0) / 860); },
+      end: function (e) { setT(T0 + (ER.pt(svg, e).x - 70) * (T1 - T0) / 860); DUNE.sfx.notch(); }
+    });
+    nudge.addEventListener('click', function (e) { var b = e.target.closest ? e.target.closest('button') : null; if (!b) return; setT(t + (+b.getAttribute('data-d'))); DUNE.sfx.notch(); });
+    function setStage(n) { stage = n; ER.flag('d-stage', n); draw(); paint(); }
+    picks.addEventListener('click', function (e) {
+      var b = e.target.closest ? e.target.closest('button') : null, v; if (!b) return;
+      v = b.getAttribute('data-v'); DUNE.sfx.click();
+      if (stage === 1) {
+        if (ER.check('shadow', v)) { end = 's'; ER.flag('d-end', 's'); setStage(2); msg('&ldquo;South,&rdquo; says Mr Strachan. &ldquo;And last night&rsquo;s stones agree with it to a few degrees, which is as good as the Cross ever is. Now the sums. Noon by my watch, and the longitude.&rdquo;'); return; }
+        DUNE.sfx.no(); end = 'n'; draw(); end = '';
+        msg('&ldquo;That is the rule for Britain,&rdquo; says Mr Strachan. &ldquo;There the sun is in the south at noon, so the shadow points north. Where has the sun been all morning, here? Look at which side of the stick the shadow fell.&rdquo;');
+        return;
+      }
+      if (stage === 3) { way = v; draw(); msg('From the pin, the pan lies to the ' + v.toUpperCase() + '. If so, say so.'); }
+    });
+    go.addEventListener('click', function () {
+      var c, n, l;
+      if (stage === 0) {
+        var gap = (tip(t)[2] - RING) * 1000;
+        if (ER.check('mark', hhmm(t))) {
+          mark2 = t; ER.flag('d-mark2', t); DUNE.sfx.pin(); setStage(1);
+          msg('A second peg, where the tip touches the ring again, at ' + DUNE.clock(t) + '. Dr Hayashi draws a line from the stick to the point half way between the two pegs: the noon line, where the shortest shadow fell. Which way does it point?');
+          return;
+        }
+        DUNE.sfx.no();
+        msg(Math.abs(t - MARK1) <= 3 ? 'That is the morning mark, the first peg. You want the moment in the afternoon when the shadow has grown back to the ring.' :
+          t < NOON ? 'It is still the morning: the shadow is still getting shorter. Let the time run on into the afternoon.' :
+          gap < 0 ? 'The tip is still inside the ring: the shadow has not grown back enough yet. Let the time run on.' :
+          'The tip is outside the ring now: the shadow has grown past it. Go back a little, to the minute it touches.');
+        return;
+      }
+      if (stage === 2) {
+        n = wN.get(); l = String(+wL.get());
+        if (ER.check('noon', n) && ER.check('lon', l)) {
+          ER.flag('d-noon', n); DUNE.sfx.pencil(); setStage(3);
+          msg('&ldquo;One hundred and twenty-four east,&rdquo; says Mr Strachan. &ldquo;And how far south we are, you found last night. Now put us on the map. Click where those two lines cross.&rdquo;');
+          return;
+        }
+        DUNE.sfx.no();
+        if (!ER.check('noon', n)) msg(ER.check('noon_wst', n) ? 'That is noon by a watch that keeps the time here. The wheels ask for noon by Mr Strachan&rsquo;s watch, which keeps UTC.' :
+          ER.check('noon_tokyo', n) ? 'That is noon by Dr Hayashi&rsquo;s watch, which keeps Tokyo time. The wheels ask for Mr Strachan&rsquo;s.' :
+          ER.check('noon_you', n) ? 'That is noon by your watch: the time here, and four minutes slow at that. The wheels ask for noon by Mr Strachan&rsquo;s.' :
+          ER.check('noon_end', n) ? 'That is the time of one of the pegs. Noon is half way between the two.' :
+          'Noon is half way between 02.14 and the time of the second peg, by Mr Strachan&rsquo;s watch.');
+        else msg(ER.check('lon_you', l) ? 'That is what your watch would give: it is four minutes slow, and four minutes is a whole degree.' :
+          ER.check('lon_tokyo', l) ? '&ldquo;In the sea,&rdquo; says Dr Hayashi. &ldquo;That is my watch read as if it kept the time here. It is an hour ahead, and an hour is fifteen degrees.&rdquo;' :
+          ER.check('lon_back', l) ? 'East or west? Noon comes here earlier than at Greenwich, so we are east: the hours before twelve count, not the hours after.' :
+          ER.check('lon_mul', l) ? 'That is 03.44 turned into degrees. But Greenwich has its noon at 12.00, not at 00.00: how long before Greenwich&rsquo;s noon did ours come?' :
+          'How long before 12.00 UTC did our noon come? Fifteen degrees for each hour, one for every four minutes.');
+        return;
+      }
+      if (stage === 3) {
+        if (!pin) { msg('Click the map where our latitude from last night and our longitude cross.'); return; }
+        if (!way) { msg('Now choose which way the pan lies from the pin.'); return; }
+        c = hhmm(mark2) + '|s|' + (ER.flag('d-noon') || '') + '|' + String(+wL.get()) + '|' + fixCode(pin) + '|' + way;
+        if (ER.exitOk([c])) {
+          nextFile = ER.exit([c], { wait: true }); ER.flag('d-file', nextFile); stage = 4; ER.flag('d-stage', 4); draw(); go.style.display = 'none'; picks.innerHTML = '';
+          DUNE.mine('noon', 'Noon, and where we are', '<p>Morning peg 02.14, afternoon peg ' + DUNE.clock(mark2) + ' (UTC): noon half way, at <b>03.44 UTC</b>. The noon shadow pointed <b>south</b>.</p>' +
+            '<p>Greenwich has noon at 12.00. Ours came 8 hours 16 minutes earlier: 8 &times; 15&deg; + 16 &divide; 4 = <b>124&deg; E</b>.</p><p>With 25&deg; S from the Cross: <b>25&deg; S, 124&deg; E</b>, a few kilometres north of the north shore of Sixpenny Pan. Walk <b>south</b>, along the noon line.</p>', true);
+          msg('&ldquo;Five or six kilometres to the shore,&rdquo; says Mr Strachan, &ldquo;straight down the noon line. And Col flies along that shore tomorrow at half past seven. Navigation, ladies and gentlemen. I shall now go to sleep.&rdquo;');
+          setTimeout(function () {
+            ER.closeAll(); paint(); busy = true;
+            ER.narrate([
+              'You lay a line of stones along the noon shadow, from the stick to the edge of the sun, pointing south. Last night&rsquo;s stones on the dune point three degrees to the west of it. &ldquo;The Cross is good to a few degrees,&rdquo; says Mr Strachan. &ldquo;The sun is better. Both of them are better than an engine.&rdquo;',
+              'The heat goes on for hours. Dr Hayashi tells you about Japanese meteorites. Mr Strachan sleeps, and says in his sleep that he is not asleep.',
+              'At ' + DUNE.clock(leave) + ' the shadows are long and the air begins to move, and the three of you set off south, slowly, along the line of stones and then by the Cross. Four hours later, in the dark, your boots crunch on something that is not sand. It is salt.'
+            ], function () { busy = false; showGo(); });
+          }, 3000);
+          return;
+        }
+        DUNE.sfx.no();
+        var lonW = +wL.get(), latW = ER.flag('b-wl') ? +ER.flag('b-wl').join('') : pin[0];
+        msg(pin[0] !== latW ? 'Latitude: how far south did the Cross say we were? It is in your notes from last night. The pin is not on that line.' :
+          pin[1] !== lonW ? 'The pin is on the right line of latitude, but not at the longitude you have just worked out.' :
+          !ER.check('way', way) ? 'Look at the map again: from the pin, where is the nearest shore of the pan?' :
+          'Something does not agree. Check the pin, and the way.');
+      }
+    });
+    end = ER.flag('d-end') || '';
+    draw();
+    msg(['The sand round the stick, from above. Drag along the watch strip (or use the arrows) to let the time run on, and watch the shadow. When its tip touches the ring again, mark it.', 'The noon line runs from the stick to the point half way between the pegs. Which way does it point?',
+      'Set noon by Mr Strachan&rsquo;s watch, and the longitude it gives.', 'The map. Click where our latitude from last night and our longitude cross, then choose which way the pan lies.'][Math.min(stage, 3)]);
+    return {
+      open: function () { ER.open('ov-lock', box); },
+      isOpen: function () { return !!box.parentNode; },
+      hint: function () {
+        return [['mark', [
+          'Drag along the watch strip, or use the arrows, and let the time run on into the afternoon. Watch the shadow shorten and then grow again.',
+          'Dr Hayashi is measuring for you: the writing in the top right corner says how far the tip is from the ring. Mark the tip at the minute it is on the ring.',
+          'The morning peg went in at 02.14, an hour and a half before noon. The afternoon touch comes the same time after noon.'
+        ]], ['end', [
+          'Which side of the stick has the sun been on all morning? The shadow always falls on the other side.',
+          'Mr Strachan&rsquo;s page: south of the Tropics the noon sun is due north, so the noon shadow points south.'
+        ]], ['sums', [
+          'Noon is half way between the two pegs, by Mr Strachan&rsquo;s watch. Then: how long before 12.00 UTC was that?',
+          'Half way between 02.14 and 05.14 is 03.44. That is 8 hours and 16 minutes before Greenwich&rsquo;s noon.',
+          'Fifteen degrees for each hour, and one degree for every four minutes: 8 &times; 15 = 120, and 16 minutes is 4 degrees more.'
+        ]], ['map', [
+          'Find the line of the latitude you measured last night (it is in your notes: South, and how far south), and the line of the longitude you have just worked out, and click where they cross.',
+          'From the pin, look for the nearest shore of Sixpenny Pan, the long white shape. Which way is it?'
+        ]]][Math.min(stage, 3)];
+      }
+    };
+  }
+})();
+</script>
+</body>
+</html>

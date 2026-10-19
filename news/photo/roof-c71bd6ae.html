@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Roof · One Sun</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-news.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="photo.css">
+<style>
+  body{--bg:#0b0d1e;--accent:#9fe0d6;--font-display:'Libre Franklin',sans-serif;--font-ui:'Libre Franklin',sans-serif;--font-body:'Newsreader',serif;
+    --tc-bg:rgba(11,13,30,.97);--tc-ink:#eef0f8;--cap-bg:rgba(10,12,26,.95);--panel:#141832;--face-bg:#151a2e;--q-ink:#9fe0d6;--fade:#04050c;--hud-bg:rgba(10,12,26,.86)}
+  .gobtn{color:#0b0d1e}
+  #redlamp{animation:blink 1s steps(1,end) infinite}
+  @keyframes blink{50%{opacity:.15}}
+  #letterO{animation:flick 6.5s steps(1,end) infinite}
+  @keyframes flick{0%,61%,63%,66%,100%{opacity:1}62%,64.5%{opacity:.2}}
+  .tw{animation:tw 3s ease-in-out infinite}
+  @keyframes tw{50%{opacity:.35}}
+
+  /* the record and the four pictures */
+  .wx{width:min(1120px,97vw)}
+  .wx-rec{background:#fff;padding:8px 10px 6px;box-shadow:0 14px 34px rgba(0,0,0,.5);border-left:8px solid #e6ece9;border-right:8px solid #e6ece9}
+  .wx-rec h6{margin:0 0 4px;display:flex;justify-content:space-between;font-family:'Outfit',sans-serif;font-weight:600;font-size:12px;letter-spacing:.12em;color:#1b4f5c;text-transform:uppercase}
+  .wx-rec h6 small{font-family:'DM Mono',monospace;font-weight:400;font-size:11px;letter-spacing:.04em;color:#4a5f6e;text-transform:none}
+  .cells{display:flex;gap:1px;background:#d7e0dd}
+  .cell{flex:1 1 0;min-width:0;height:96px;background:#fbfdfc;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:2px;cursor:pointer;position:relative}
+  .cell:hover{background:#eaf4f1}
+  .cell b{font-family:'DM Mono',monospace;font-weight:500;font-size:9.5px;color:#16222c;letter-spacing:-.02em}
+  .cell i{font-style:normal;font-family:'Outfit',sans-serif;font-weight:600;font-size:12px;color:#16222c}
+  .cell svg{width:24px;height:20px;display:block;margin:1px 0}
+  .cell u{text-decoration:none;font-family:'DM Mono',monospace;font-size:9px;color:#1f6fa8;min-height:11px}
+  .cell .pins{position:absolute;left:0;right:0;bottom:2px;display:flex;justify-content:center}
+  .pin{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:12px 12px 12px 2px;font-family:'Libre Franklin',sans-serif;font-weight:900;font-size:13px;color:#fff;box-shadow:0 3px 5px rgba(0,0,0,.4);cursor:grab;touch-action:none;transform:rotate(-45deg)}
+  .pin span{transform:rotate(45deg)}
+  .pin.held{outline:3px solid #ffcf40;outline-offset:2px}
+  .pin.fly{position:fixed;z-index:80;pointer-events:none}
+  .pin.pA{background:#d8432a}.pin.pB{background:#1f6fa8}.pin.pC{background:#2e8a57}.pin.pD{background:#7a3f8a}
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:12px}
+  .pcard{background:#f4f1e8;padding:6px 6px 7px;box-shadow:0 10px 24px rgba(0,0,0,.5)}
+  .pcard svg{display:block;width:100%;height:auto;cursor:crosshair}
+  .pcard p{margin:5px 2px 0;font-family:'Libre Franklin',sans-serif;font-size:11.5px;line-height:1.25;color:#2a2a1a;min-height:44px}
+  .pcard p b{font-weight:900}
+  .pcard .slot{display:flex;align-items:center;gap:8px;margin-top:5px;font-family:'DM Mono',monospace;font-size:11px;color:#5a5346}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#05061a"/><stop offset=".7" stop-color="#1b1f44"/><stop offset="1" stop-color="#3a3350"/></linearGradient>
+  <linearGradient id="roofG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a2c36"/><stop offset="1" stop-color="#101118"/></linearGradient>
+  <radialGradient id="cityGlow" cx="50%" cy="100%" r="70%"><stop offset="0" stop-color="#ff9a4a" stop-opacity=".35"/><stop offset="1" stop-color="#ff9a4a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="neon" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ff3b2e" stop-opacity=".55"/><stop offset="1" stop-color="#ff3b2e" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="75%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".6" stop-color="#000" stop-opacity=".25"/><stop offset="1" stop-color="#000" stop-opacity=".85"/></radialGradient>
+</defs>
+
+<rect x="-1000" y="-400" width="3600" height="1000" fill="url(#skyG)"/>
+<g id="stars"></g>
+<!-- the city, and the park far off -->
+<g id="view" class="hot"><ellipse cx="800" cy="600" rx="1100" ry="260" fill="url(#cityGlow)"/><g id="city"></g>
+  <path d="M960 524q60 -12 150 -4q30 8 -10 14q-90 6 -140 -10z" fill="#0a0d18"/><g fill="#fff4c4"><circle cx="1000" cy="520" r="2.4"/><circle cx="1030" cy="518" r="2.4"/><circle cx="1060" cy="519" r="2.4"/><circle cx="1090" cy="521" r="2.4"/></g>
+  <path d="M1196 470l4 -60l4 60z" fill="#1d1f2c"/></g>
+<!-- the roof itself -->
+<rect x="-1000" y="600" width="3600" height="800" fill="url(#roofG)"/>
+<g stroke="#000" stroke-width="2" opacity=".35"><path d="M-1000 660H2600M-1000 740H2600M-1000 840H2600M300 600L100 1300M800 600V1300M1300 600L1500 1300"/></g>
+<!-- the parapet, and the back of the sign -->
+<rect x="-1000" y="560" width="3600" height="50" fill="#3a3c48"/><rect x="-1000" y="556" width="3600" height="8" fill="#55586a"/>
+<g id="sign" class="hot"><ellipse cx="800" cy="500" rx="440" ry="90" fill="url(#neon)"/><g id="letters"></g></g>
+<g id="pigeons" class="hot"><g transform="translate(250 556)"><ellipse cx="0" cy="-12" rx="16" ry="11" fill="#7a7e8c"/><circle cx="12" cy="-20" r="7" fill="#7a7e8c"/><path d="M-16 -10l-10 4" stroke="#5a5e6c" stroke-width="5"/></g><g transform="translate(290 556)"><ellipse cx="0" cy="-11" rx="15" ry="10" fill="#8a8e9c"/><circle cx="-11" cy="-18" r="6.5" fill="#8a8e9c"/></g></g>
+
+<!-- the aerial with its red light -->
+<g id="mast" class="hot"><path d="M1460 610V180" stroke="#4a4e5c" stroke-width="6"/><path d="M1440 610L1460 300L1480 610" fill="none" stroke="#4a4e5c" stroke-width="3"/><path d="M1430 260h60M1436 320h48M1442 380h36" stroke="#4a4e5c" stroke-width="3"/><circle id="redlamp" cx="1460" cy="176" r="7" fill="#ff3b2e"/></g>
+<!-- the satellite dishes -->
+<g id="dishes" class="hot"><path d="M1240 700v-90" stroke="#5a5e6c" stroke-width="8"/><ellipse cx="1240" cy="560" rx="64" ry="80" fill="#cfd4dc" transform="rotate(-28 1240 560)"/><ellipse cx="1240" cy="560" rx="52" ry="66" fill="#aeb4be" transform="rotate(-28 1240 560)"/><path d="M1240 560l44 -30" stroke="#5a5e6c" stroke-width="4"/>
+  <path d="M1360 700v-60" stroke="#5a5e6c" stroke-width="6"/><ellipse cx="1360" cy="610" rx="38" ry="48" fill="#cfd4dc" transform="rotate(-24 1360 610)"/></g>
+<!-- the door to the stairs -->
+<g id="door" class="hot"><rect x="40" y="420" width="190" height="300" fill="#2a2c36"/><rect x="66" y="452" width="120" height="250" fill="#ffd98a" opacity=".85"/><path d="M66 452l60 30v250l-60 -30z" fill="#3a3c48"/><rect x="40" y="412" width="190" height="14" fill="#3a3c48"/></g>
+<!-- Hammond's old weather box, and his rain gauge -->
+<g id="wxbox" class="hot"><path d="M430 760v-170M520 760v-170M446 770v-170M504 770v-170" stroke="#e8e8e2" stroke-width="7"/>
+  <rect x="404" y="430" width="142" height="168" fill="#f2f2ec"/><path d="M396 430h158l-10 -22h-138z" fill="#e8e8e2"/><g stroke="#c9ccc4" stroke-width="4"><path d="M414 450h122M414 466h122M414 482h122M414 498h122M414 514h122M414 530h122M414 546h122M414 562h122M414 578h122"/></g>
+  <rect x="404" y="430" width="142" height="168" fill="none" stroke="#bfc3ba" stroke-width="3"/><circle cx="532" cy="514" r="4" fill="#8a8e86"/></g>
+<g id="gauge" class="hot"><rect x="600" y="690" width="36" height="70" fill="#b87333"/><ellipse cx="618" cy="690" rx="18" ry="6" fill="#d89a5a"/><ellipse cx="618" cy="690" rx="12" ry="3.5" fill="#3a2a1a"/></g>
+<!-- Lorna on the bench, with her flask, the printout and the tablet -->
+<g id="lorna" class="hot" transform="translate(900 850) scale(1.12)"></g>
+<g id="bench"><rect x="780" y="752" width="320" height="18" fill="#5a4636"/><path d="M800 770v70M1080 770v70" stroke="#3a2a1e" stroke-width="12"/><rect x="780" y="700" width="320" height="12" fill="#5a4636"/><path d="M800 712v40M1080 712v40" stroke="#3a2a1e" stroke-width="8"/></g>
+<g id="record" class="hot" transform="rotate(-6 1010 742)"><rect x="972" y="728" width="80" height="26" fill="#fff"/><rect x="972" y="728" width="80" height="7" fill="#1b4f5c"/><path d="M978 740h66M978 746h50" stroke="#8a9aa4" stroke-width="2"/></g>
+<g id="tablet" class="hot"><rect x="1034" y="718" width="66" height="44" rx="4" fill="#111"/><rect x="1038" y="722" width="58" height="36" fill="#2b5d8a"/><g fill="#f4f1e8" opacity=".8"><rect x="1041" y="725" width="25" height="15"/><rect x="1068" y="725" width="25" height="15"/><rect x="1041" y="742" width="25" height="13"/><rect x="1068" y="742" width="25" height="13"/></g></g>
+
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Down to the yard</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="photo.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, lock = null, told = {};
+  /* the airfield's record: time, degrees, sky (0 dark, 1 clear, 2 mist, 3 sun, 4 sun and cloud, 5 cloud, 6 overcast, 7 heavy shower, 8 sunny spells after rain), rain in the half hour before */
+  var REC = [['0600', 5, 0, 0], ['0630', 5, 2, 0], ['0700', 5, 2, 0], ['0730', 6, 1, 0], ['0800', 8, 3, 0], ['0830', 10, 3, 0], ['0900', 11, 3, 0], ['0930', 12, 3, 0], ['1000', 14, 3, 0], ['1030', 15, 3, 0],
+    ['1100', 16, 4, 0], ['1130', 17, 4, 0], ['1200', 18, 4, 0], ['1230', 19, 4, 0], ['1300', 19, 4, 0], ['1330', 19, 4, 0], ['1400', 19, 5, 0], ['1430', 18, 5, 0], ['1500', 18, 5, 0], ['1530', 17, 5, 0],
+    ['1600', 17, 5, 0], ['1630', 16, 6, 0], ['1700', 15, 6, 0], ['1730', 12, 7, 4.0], ['1800', 13, 8, 2.2], ['1830', 13, 8, 0], ['1900', 12, 1, 0], ['1930', 11, 1, 0], ['2000', 10, 0, 0]];
+  var SKY = ['dark', 'clear', 'clear, mist', 'sunny', 'sun, a little cloud', 'cloudy', 'overcast', 'heavy shower', 'sunny spells'];
+  function icon(k) {
+    var sun = '<circle cx="12" cy="10" r="5" fill="#f2b51b"/>', cl = function (x, y, c) { return '<path d="M' + x + ' ' + y + 'h12q4 0 4 -4t-4 -4q-1 -4 -5 -4t-5 4q-4 0 -4 4t2 4z" fill="' + (c || '#9aa4ac') + '"/>'; };
+    return ['<circle cx="12" cy="10" r="5" fill="#2a3a5a"/><circle cx="14" cy="8" r="4.5" fill="#fbfdfc"/>', sun, sun + '<path d="M2 15h20M4 18h16" stroke="#9ab" stroke-width="1.6"/>', sun + '<g stroke="#f2b51b" stroke-width="1.4"><path d="M12 1v2M12 17v2M3 10h2M19 10h2"/></g>',
+      '<circle cx="9" cy="8" r="4.5" fill="#f2b51b"/>' + cl(8, 17, '#c3cbd1'), cl(4, 16), cl(4, 14, '#6f7a84') + '<path d="M2 18h20" stroke="#6f7a84" stroke-width="2"/>', cl(4, 12, '#5a6470') + '<path d="M7 14l-2 5M11 14l-2 5M15 14l-2 5M19 14l-2 5" stroke="#1f6fa8" stroke-width="1.6"/>',
+      '<circle cx="9" cy="7" r="4.5" fill="#f2b51b"/>' + cl(9, 15, '#9aa4ac') + '<path d="M4 19h16" stroke="#1f6fa8" stroke-width="1.6" stroke-dasharray="2 2"/>'][k];
+  }
+
+  (function () {
+    var s = '', i, r = 5, x, w, h;
+    function rnd() { r = (r * 16807) % 2147483647; return r / 2147483647; }
+    for (i = 0; i < 90; i++) s += '<circle' + (i % 7 ? '' : ' class="tw"') + ' cx="' + (rnd() * 1800 - 100).toFixed(0) + '" cy="' + (rnd() * 420 - 60).toFixed(0) + '" r="' + (rnd() < 0.15 ? 1.8 : 1.0) + '" fill="#fff" opacity="' + (0.4 + rnd() * 0.6).toFixed(2) + '"/>';
+    $('#stars').innerHTML = s; s = '';
+    for (x = -300; x < 1900;) {
+      w = 30 + rnd() * 70; h = 30 + rnd() * 120 * (Math.abs(x - 500) < 300 ? 1.6 : 1);
+      s += '<rect x="' + x.toFixed(0) + '" y="' + (560 - h).toFixed(0) + '" width="' + w.toFixed(0) + '" height="' + h.toFixed(0) + '" fill="#0c0f1c"/>';
+      for (i = 0; i < 10; i++) if (rnd() < 0.3) s += '<rect x="' + (x + 4 + rnd() * (w - 10)).toFixed(0) + '" y="' + (560 - h + 6 + rnd() * (h - 16)).toFixed(0) + '" width="4" height="5" fill="#ffcf7a" opacity=".75"/>';
+      x += w + 3;
+    }
+    s += '<path d="M520 560V380l14 -60l14 60V560z" fill="#0c0f1c"/>';
+    $('#city').innerHTML = s; s = '';
+    'STOPFORD'.split('').reverse().forEach(function (c, k) {
+      s += '<g' + (k === 5 ? ' id="letterO"' : '') + '><rect x="' + (470 + k * 84) + '" y="440" width="66" height="116" fill="#2a1416" stroke="#ff3b2e" stroke-width="3" opacity=".95"/>' +
+        '<text x="' + (503 + k * 84) + '" y="530" class="fL" font-size="92" font-weight="900" text-anchor="middle" fill="none" stroke="#ff6a5a" stroke-width="2.4" transform="translate(' + (2 * (503 + k * 84)) + ' 0) scale(-1 1)">' + c + '</text></g>';
+    });
+    s += '<path d="M450 556h700" stroke="#55586a" stroke-width="6"/>';
+    $('#letters').innerHTML = s;
+    $('#lorna').innerHTML = PH.who('lorna', { long: 1, armL: 'M-31 -222Q-46 -180 -30 -150', handL: [-26, -146], armR: 'M31 -222Q56 -230 50 -262', handR: [46, -268],
+      extra: '<rect x="38" y="-290" width="14" height="26" rx="4" fill="#1b1d22"/><rect x="-40" y="-178" width="22" height="46" rx="5" fill="#8a9198"/>' });
+  })();
+
+  ER.init({
+    theme: 'news', story: 'photo', storyTitle: 'One Sun', id: 'roof', no: 'III', title: 'The Roof',
+    go: 'Go up',
+    intro: [
+      'Four lines on the print. Three of them ran side by side, up to the left, at the same low slope: one sun, low in the west. The fourth climbed steeply to the right and ran into the floodlight. The litter bin stands in the long shadow of the ice-cream kiosk, where the only light that can throw a shadow is a lamp. A low sun in the west, in early September, means between half past five and a quarter to eight in the evening. The picture is not a fake.',
+      'Lorna is not satisfied. &ldquo;A real picture,&rdquo; she says, &ldquo;of what?&rdquo;',
+      'She has gone up on the roof, as she does when the night is going badly, with a flask of soup.'
+    ],
+    exit: {"next":"van","w":{"4e5f8e84":"bec30146","837e0db0":"0db6455c","bda48ef7":"6214f188","126537bc":"82a3630f","07ee49bc":"c5a6e9f4","d82146c8":"b562b68c","90ca9a1b":"17071c81","4265ec36":"a786e6bb","958afd26":"fa0171bb","aff4d99e":"1be3cbe6","8eb5d1c3":"d915560f","71e463cb":"7aa8d389","e5d485e5":"81868349","4a79c6a1":"61b2a5c4","5a869711":"d4a47bbc","e0efda81":"661efd1f","c0ce9bc1":"61cddc17","08a6ed74":"b717b8b6"}}, tags: {"tA":["451f6319","dff5f532","dd1bec7e"],"tB":["44761816","22554e5d","47cfe5f2"],"tC":["5e345a71"],"tD":["d63723f3","be0ae8a5"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('c-file') || null; told = ER.flag('c-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('c-told', told); return true; }
+  function isBusy() { return busy; }
+  function showGo() { $('#go').classList.add('on'); }
+  function paint() {
+    $('#lorna').classList.toggle('ready', !!(told.in && !told.lorna));
+    $('#wxbox').classList.toggle('ready', !!(told.lorna && !told.card));
+    $('#record').classList.toggle('ready', !!(told.card && !told.rec));
+    $('#tablet').classList.toggle('ready', !!(told.rec && !nextFile));
+    ER.pips((told.lorna ? 1 : 0) + (told.card ? 1 : 0) + (told.rec ? 1 : 0) + (nextFile ? 1 : 0), 4);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Only Platt’s picture could show the Teapot coming down. Lou is in the van in the yard: the button is at the bottom of the screen.']];
+    if (lock && lock.isOpen()) return ['pins', [
+      'Each picture has a lettered pin. Drag it (or click it, and then click the record) on to the half hour when the picture could have been taken. Move the mouse over a picture: the glass shows small things like breath and shadows.',
+      'Look for weather that the record can check: umbrellas up (it is raining now), wet ground with umbrellas down (it has rained and stopped), breath like smoke (cold air), no shadows at all (cloud). Then the shadows: which way do they point, and how long are they?',
+      'Kev: breath, and long shadows to the left, west: cold, with the sun just up in the east. Sandra: dry and sunny, with short shadows pointing away from the camera, towards the spire, which is north. BalloonDad: umbrellas up, no shadows. Platt: wet, umbrellas down, long shadows to the right, east.'
+    ]];
+    if (!told.lorna) return ['talk', ['Lorna Frisby, the night editor, is standing by the bench with a flask and a telephone.', 'Click Lorna.']];
+    if (!told.card) return ['card', ['Hammond used to keep his own weather record up here. There is a card inside the door of his weather box.', 'Click the white box on legs, on the left.']];
+    if (!told.rec) return ['record', ['You need the record of today’s weather. Lorna left the airfield’s printout on the bench.', 'Click the printout on the bench beside Lorna.']];
+    return ['tablet', ['Kasia has sent four of the pictures up to the tablet on the bench.', 'Click the tablet on the bench.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; showGo(); ER.say('Only Platt’s picture could be six o’clock. Lou is in the yard.'); return; }
+    if (told.in) { busy = false; ER.say('The roof, ten to twelve. The sky has cleared.'); return; }
+    ER.narrate([
+      'The roof. The shower has gone, the sky has cleared, and you can see every star that Cobbleford allows: about forty.',
+      'The back of the agency&rsquo;s sign stands along the edge, eight red letters a metre high, all of them backwards from here. One of them flickers.',
+      'Lorna Frisby is standing by the bench near the satellite dishes, with a flask of soup, a telephone and a face like a closed door.'
+    ], function () { busy = false; tell('in'); paint(); });
+  }
+
+  $('#lorna').addEventListener('click', function () {
+    if (busy) return;
+    if (told.lorna) { ER.say(nextFile ? '&ldquo;Lou is in the van,&rdquo; says Lorna. &ldquo;Go. I am going to finish my soup and then come down and be wrong in a warm room.&rdquo;' : '&ldquo;Four pictures,&rdquo; says Lorna. &ldquo;All of them six o&rsquo;clock, they say. Put them on the record.&rdquo;'); return; }
+    ER.talk({
+      who: 'Lorna Frisby', role: 'Night editor · on the roof', face: window.FACE('lorna'),
+      lines: [
+        { note: 'She does not look round.', a: '&ldquo;Hammond rang. &lsquo;Floodlight,&rsquo; he said, and put the phone down. I suppose he thinks he has won.&rdquo;' },
+        { q: 'The shadows say about six in the evening.', a: '&ldquo;The shadows say a low sun in the west. Fine. So it is a real picture of an evening. WHICH evening? Of what? Kasia has had forty-one pictures of that balloon tonight, and every one of them says it shows the Teapot coming down at six. Half of them were taken at breakfast.&rdquo;' },
+        { q: 'What do the organisers say?', a: '&ldquo;I have just had them on the phone.&rdquo; She reads from her notebook. &ldquo;&lsquo;At 18.02 the Teapot, pilot Hamish Ure, made a controlled landing in the shallow end of the boating lake. Nobody was hurt.&rsquo;&rdquo; She sniffs. &ldquo;Controlled. They would say that.&rdquo;' },
+        { q: 'How do we tell which pictures are which?', a: '<p>&ldquo;The weather. It has done everything today. I could see my breath at seven this morning, it was sunny all day, then a shower at half past five soaked me to the knees, and then the sun came out again. A picture cannot lie about the weather it was taken in.&rdquo;</p><p>&ldquo;The airfield&rsquo;s record is on the bench, every half hour. Kasia has sent four of the pictures up to the tablet. Put each one where it belongs. And Hammond&rsquo;s old weather box is over there: there is a card inside the door. He wrote it for me, in 1998, after I put a sunny picture of a flood on page one.&rdquo;</p>' }
+      ],
+      clue: { id: 'lorna1', title: 'Lorna, on the roof', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('lorna')) { PH.terms(['weather record', 'controlled landing']); paint(); ER.say('Hammond&rsquo;s weather box is the white box on legs.'); } }
+    });
+  });
+
+  /* ---------- what the weather says ---------- */
+  var DIA = '<svg viewBox="0 0 250 330"><g font-family="Kalam,cursive" fill="#1b4f5c" font-size="15">' +
+    '<path d="M30 34q20 -26 40 0z" fill="#2b5d8a"/><path d="M50 34v24q0 6 -6 6" stroke="#1b4f5c" stroke-width="2.4" fill="none"/><path d="M36 10l-4 12M52 6l-4 12M68 10l-4 12" stroke="#1f6fa8" stroke-width="2"/><text x="96" y="36">up: raining now</text>' +
+    '<path d="M48 82v34" stroke="#2b5d8a" stroke-width="6" stroke-linecap="round"/><ellipse cx="50" cy="122" rx="26" ry="5" fill="#9ccbe8"/><text x="96" y="104">down, ground wet:</text><text x="96" y="122">it rained, then stopped</text>' +
+    '<circle cx="40" cy="160" r="10" fill="#f0d3bc"/><g fill="#9ab"><circle cx="58" cy="160" r="4"/><circle cx="68" cy="156" r="5"/><circle cx="78" cy="160" r="4"/></g><text x="96" y="166">breath: cold air</text>' +
+    '<path d="M30 220h40" stroke="#1b4f5c" stroke-width="2"/><path d="M48 220v-26" stroke="#1b4f5c" stroke-width="5"/><path d="M28 200h12q4 0 4 -4t-4 -4q-1 -4 -5 -4t-5 4q-4 0 -4 4t2 4z" fill="#9aa4ac" transform="translate(16 -6)"/><text x="96" y="206">no shadow:</text><text x="96" y="224">cloud over the sun</text>' +
+    '<path d="M44 290q-20 -30 4 -50q24 20 4 50z" fill="#3f7a3a"/><path d="M48 292v-44" stroke="#2a4a20" stroke-width="2"/><text x="96" y="262">leaves: the season,</text><text x="96" y="280" fill="#c0392b" font-weight="700">never the hour</text>' +
+    '<text x="125" y="320" text-anchor="middle" font-size="14">and check the place AND the time</text></g></svg>';
+  var CARD = '<h4>Taped inside the weather box &middot; C.H., 1998</h4><h3>What the weather says</h3><div class="two"><div>' +
+    '<p>Set the weather in a picture against the <b>weather record</b> for that place and that hour.</p>' +
+    '<p><b>UMBRELLAS UP:</b> it is raining now. <b>Umbrellas down and the ground wet:</b> it has rained, and stopped.</p>' +
+    '<p><b>WET GROUND AND PUDDLES</b> last after the rain: minutes on a hot windy day, hours on a cool damp one. They tell you that it rained, not when.</p>' +
+    '<p><b>BREATH</b> like smoke: the air is cold, usually below about 7&nbsp;&deg;C.</p>' +
+    '<p><b>NO SHADOWS AT ALL:</b> the sun is behind cloud, and the sky is <b>overcast</b>. Sharp shadows: it is out, and then the shadows tell you the hour (see the sun card).</p>' +
+    '<p><b>LEAVES</b> on the trees tell you the season, never the hour.</p>' +
+    '<p>And a record is for one place. A <b>shower</b> can soak the park and miss the airfield three miles away. Check that it rained on both.</p>' +
+    '</div><div class="dia">' + DIA + '</div></div><p class="pen">For Lorna, who put a sunny picture of a flood on the front page. C.H.</p>';
+  $('#wxbox').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.lorna) { ER.say('A white wooden box on legs, with slatted sides, like a beehive for thermometers. Lorna is watching you over her flask.'); return; }
+    PH.sfx.door();
+    ER.read({ html: CARD, cls: 'wx', clue: { id: 'wxcard', title: 'What the weather says', kind: 'Inside the weather box' }, done: function () {
+      PH.terms(['overcast', 'shower', 'weather box']);
+      if (tell('card')) { paint(); ER.say('Now the record itself: the printout on the bench.'); }
+    } });
+  });
+  function recHtml() {
+    function rows(a, b) { var t = '<table><tr><th>Time</th><th>&deg;C</th><th>Sky</th><th>Rain</th></tr>'; for (var i = a; i < b; i++) t += '<tr><td>' + REC[i][0].slice(0, 2) + '.' + REC[i][0].slice(2) + '</td><td>' + REC[i][1] + '</td><td>' + SKY[REC[i][2]] + '</td><td>' + (REC[i][3] ? REC[i][3] + ' mm' : '&ndash;') + '</td></tr>'; return t + '</table>'; }
+    return '<h4><span>Cobbleford Airfield &middot; weather record</span><small>SATURDAY 5 SEPTEMBER &middot; EVERY HALF HOUR</small></h4><div class="cols"><div>' + rows(0, 15) + '</div><div>' + rows(15, 29) + '</div></div>' +
+      '<p>Sunrise 06.25 &middot; sunset 19.45 &middot; heavy shower 17.15 to 17.45, 6.2 mm in all &middot; rain is what fell in the half hour before the time. The airfield is 3 miles north of Lockyer Park.</p>';
+  }
+  $('#record').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.lorna) { ER.say('A printout, held down by Lorna&rsquo;s elbow. She has not offered it to you yet.'); return; }
+    ER.read({ html: recHtml(), cls: 'rec', clue: { id: 'record', title: 'The airfield’s record for Saturday', kind: 'A printout' }, done: function () {
+      if (tell('rec')) { paint(); ER.say('Breath at seven, sun all day, a shower at half past five, sun again. Now the four pictures on the tablet.'); }
+    } });
+  });
+  PH.thing('#gauge', 'rain gauge', 'Hammond’s old rain gauge, still out on the roof. There is about six millimetres of today’s rain in it. The airfield says 6.2: the shower soaked both.', isBusy);
+  PH.thing('#view', null, 'Cobbleford from the roof. Out there is the dark square of Lockyer Park, with the festival field still lit. The airfield says tomorrow will be fine, and the Teapot is meant to fly again at seven.', isBusy);
+  PH.thing('#sign', null, 'The back of the agency’s sign: STOPFORD, in red letters a metre high, facing the street. The O has flickered since 1987, and Lorna says it is the most reliable thing in the building.', isBusy);
+  PH.thing('#dishes', null, 'Satellite dishes. Pictures used to leave this building on a motorbike. Now they go down the wire, which is not a wire.', isBusy);
+  PH.thing('#mast', null, 'An aerial with a red light on top, for aircraft. It blinks once a second, and has done all night, and will do all of tomorrow.', isBusy);
+  PH.thing('#pigeons', null, 'Two pigeons, asleep on the parapet. They were here before the satellite dishes, and they mean to be here after them.', isBusy);
+  PH.thing('#door', null, 'The door to the stairs. Lou&rsquo;s van is in the yard, four floors down.', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  $('#tablet').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Four pictures, four pins. Only one of them is six o&rsquo;clock.'); return; }
+    if (!told.lorna) { ER.say('A tablet on the bench, glowing. Lorna has her hand flat on it.'); return; }
+    if (!told.card) { ER.say('&ldquo;Read Hammond&rsquo;s card first,&rdquo; says Lorna. &ldquo;Inside the weather box. He will ask me if you did.&rdquo;'); return; }
+    if (!told.rec) { ER.say('&ldquo;And the record,&rdquo; says Lorna. &ldquo;You cannot put a picture on a record you have not read.&rdquo; The printout is under her elbow.'); return; }
+    if (!lock) lock = makeWall();
+    lock.open();
+  });
+
+  /* ---------- four pictures, one record ---------- */
+  function makeWall() {
+    var CARDS = [
+      { k: 'A', from: 'Kev, by email, 22.51', says: 'The Teapot just before it came down. 6pm. Do I get money?', vb: '190 70 690 460', art: function () { return PH.lake({ id: 'wa', time: 'dawn' }); } },
+      { k: 'B', from: 'Sandra, 23.05', says: 'The Teapot on the ground just after it came down, about six.', vb: '150 140 750 500', art: function () { return PH.field({ id: 'wb', time: 'noon' }); } },
+      { k: 'C', from: 'BalloonDad, 23.12', says: 'Six o&rsquo;clock: the Teapot&rsquo;s crew fight to hold it down.', vb: '75 100 900 600', art: function () { return PH.field({ id: 'wc', time: 'shower' }); } },
+      { k: 'D', from: 'Gideon Platt, 23.38', says: 'Crowds flee as a runaway balloon plunges into Lockyer Park, Saturday evening.', vb: '40 150 560 373', art: function () { return PH.lake({ id: 'wd', time: 'eve' }); } }
+    ];
+    var st = ER.flag('c-st') || {}, wait = false, box = ER.el('div', 'job wx'), s;
+    s = '<div class="wx-rec"><h6><span>Cobbleford Airfield &middot; Saturday 5 September</span><small>sunrise 06.25 &middot; sunset 19.45 &middot; heavy shower 17.15&ndash;17.45</small></h6><div class="cells">';
+    REC.forEach(function (r) {
+      s += '<div class="cell" data-t="' + r[0] + '" title="' + r[0].slice(0, 2) + '.' + r[0].slice(2) + ': ' + SKY[r[2]] + '"><b>' + r[0].slice(0, 2) + '.' + r[0].slice(2) + '</b><svg viewBox="0 0 24 20">' + icon(r[2]) + '</svg><i>' + r[1] + '&deg;</i><u>' + (r[3] ? r[3] + 'mm' : '') + '</u><div class="pins"></div></div>';
+    });
+    s += '</div></div><div class="cards">';
+    CARDS.forEach(function (c) {
+      s += '<div class="pcard"><svg viewBox="' + c.vb + '"><g id="art' + c.k + '">' + c.art() + '</g></svg><p><b>' + c.k + ' &middot; ' + c.from + '</b><br>&lsquo;' + c.says + '&rsquo;</p>' +
+        '<div class="slot"><span class="home" data-k="' + c.k + '"><button type="button" class="pin p' + c.k + '" data-k="' + c.k + '"><span>' + c.k + '</span></button></span><em class="when"></em></div></div>';
+    });
+    s += '</div><div class="job-foot"><p class="jmsg"></p><button type="button" class="btn" id="w-go">Tell Lorna</button></div>';
+    box.innerHTML = s;
+    var msgEl = box.querySelector('.jmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function keep() { ER.flag('c-st', st); }
+    function nice(t) { return t.slice(0, 2) + '.' + t.slice(2); }
+    function draw() {
+      CARDS.forEach(function (c) {
+        var pin = box.querySelector('.pin[data-k="' + c.k + '"]'), t = st[c.k];
+        if (t) box.querySelector('.cell[data-t="' + t + '"] .pins').appendChild(pin);
+        else box.querySelector('.home[data-k="' + c.k + '"]').appendChild(pin);
+        box.querySelector('.home[data-k="' + c.k + '"]').parentNode.querySelector('.when').textContent = t ? 'on the record at ' + nice(t) : 'not on the record yet';
+      });
+    }
+    ER.$$('.pcard svg', box).forEach(function (sv, i) { var v = CARDS[i].vb.split(' ').map(Number); PH.loupe(sv, 'art' + CARDS[i].k, v[2] / 7, 2.6, [v[0], v[1], v[0] + v[2], v[1] + v[3]]); });
+    var kit = PH.place(box, {
+      item: '.pin', zone: '.cell, .home', lock: function () { return wait || !!nextFile; },
+      drop: function (item, zone) {
+        var k = item.getAttribute('data-k'), t = zone.getAttribute('data-t'), o;
+        if (!t) { delete st[k]; keep(); draw(); PH.sfx.slip(); msg('Pin ' + k + ' goes back to its picture.'); return; }
+        for (o in st) if (st[o] === t && o !== k) delete st[o];
+        st[k] = t; keep(); draw(); PH.sfx.pin();
+        msg('Picture ' + k + ' at ' + nice(t) + ': ' + SKY[REC.filter(function (r) { return r[0] === t; })[0][2]] + ', ' + REC.filter(function (r) { return r[0] === t; })[0][1] + ' degrees.');
+      }
+    });
+    var WHY = {
+      A: function (t) { var h = +t.slice(0, 2); return h >= 8 ? 'Look at the people&rsquo;s mouths through the glass: breath like smoke. Which half hours on the record are cold enough for that?' : t === '0600' ? 'Cold enough, yes. But there are long, sharp shadows: the sun is up. When did it rise?' : 'Look again: breath, and long shadows.'; },
+      B: function (t) { return +t.slice(0, 2) >= 17 ? 'Dry grass, T-shirts and sharp shadows. Was it dry and sunny at that time?' : 'Dry and sunny, yes: that fits half the day. Now the shadows. They are short, and they all point away from the camera, towards the spire of St Aldhelm&rsquo;s, which is north. When is the sun due south and shadows shortest?'; },
+      C: function (t) { return 'Umbrellas up, and not one shadow. When was it raining, under a sky with no sun in it?'; },
+      D: function (t) { var h = +t.slice(0, 2), m = +t.slice(2); return (h < 17 || (h === 17 && m < 45)) ? 'The ground is wet and the umbrellas are down: it has rained, and stopped. When did the shower stop?' : h >= 19 ? 'At seven the sun is so low that the boy&rsquo;s shadow would be ten times as long as he is. In this picture it is about four times. Read the sun card again.' : 'Look again.'; }
+    };
+    box.querySelector('#w-go').addEventListener('click', function () {
+      var left = CARDS.filter(function (c) { return !st[c.k]; }), i, c, file;
+      if (wait || nextFile) return;
+      kit.hold(null);
+      if (left.length) { ER.sfx.no(); msg('&ldquo;' + (left.length === 4 ? 'Not one pin on the record' : left.length === 1 ? 'Picture ' + left[0].k + ' is not on the record' : 'Pictures ' + left.map(function (x) { return x.k; }).join(', ') + ' are not on the record') + ',&rdquo; says Lorna. &ldquo;All four. Then we talk.&rdquo;'); return; }
+      for (i = 0; i < CARDS.length; i++) {
+        c = CARDS[i];
+        if (!ER.check('t' + c.k, st[c.k])) { ER.sfx.no(); msg('&ldquo;Picture ' + c.k + ' at ' + nice(st[c.k]) + '?&rdquo; says Lorna. &ldquo;' + WHY[c.k](st[c.k]) + '&rdquo;'); delete st[c.k]; keep(); draw(); return; }
+      }
+      file = ER.exit([st.A + '|' + st.B + '|' + st.C + '|' + st.D], { wait: true });
+      if (!file) { msg('The door will not open. Something is wrong with this page: tell your teacher.'); return; }
+      wait = true; nextFile = file; ER.flag('c-file', file);
+      PH.mine('weather', 'Four pictures on the record', '<p>A (Kev): breath, dry, long shadows WEST. About half past seven in the MORNING: the morning flight. The Teapot going up.</p><p>B (Sandra): dry, sunny, short shadows pointing NORTH. About ONE o&rsquo;clock: the Teapot laid out on the grass.</p><p>C (BalloonDad): umbrellas up, no shadows. HALF PAST FIVE, in the shower. Nothing flying.</p><p>D (Platt): wet ground, umbrellas down, no breath, long shadows EAST. SIX o&rsquo;clock, after the shower. Only D can show the Teapot coming down.</p>', true);
+      msg('Lorna looks at the four pins for a long time. &ldquo;So it is the Teapot, at six, in that park, and it is real,&rdquo; she says. &ldquo;I hate this job.&rdquo;');
+      setTimeout(function () {
+        ER.closeAll(); paint(); busy = true;
+        ER.narrate([
+          'Breath like smoke, and long shadows pointing west: Kev&rsquo;s picture was taken at about half past seven in the morning, on the morning flight. The Teapot in it was going UP.',
+          'Short shadows pointing north, towards the spire: Sandra&rsquo;s was taken at about one o&rsquo;clock, when the Teapot was laid out on the grass for people to look at. It had not come down. It had not gone up yet.',
+          'Umbrellas up and no shadows at all: BalloonDad&rsquo;s was taken in the shower at half past five, when nothing was flying.',
+          'And Platt&rsquo;s: wet ground, umbrellas down, no breath, long shadows pointing east. Six o&rsquo;clock, just after the shower. Of four pictures that said they showed the Teapot coming down, only one could.',
+          'Lorna screws the top back on her flask. &ldquo;So who took it? Platt says he did. Platt could not take a picture of a wall.&rdquo; Her phone buzzes. &ldquo;Lou is back. She is in the van in the yard, with every picture from that park on her laptop. Go and ask her.&rdquo;'
+        ], function () { busy = false; showGo(); });
+      }, 3000);
+    });
+    draw();
+    msg(Object.keys(st).length ? 'Four pictures, and ' + Object.keys(st).length + ' of them on the record.' : 'Move the mouse over a picture to look closely. Then put its pin on the half hour when it could have been taken.');
+    return {
+      open: function () { ER.open('ov-lock', box); },
+      isOpen: function () { return !!box.parentNode; }
+    };
+  }
+})();
+</script>
+</body>
+</html>

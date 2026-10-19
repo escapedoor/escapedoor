@@ -1,0 +1,209 @@
+/* One Sun - what every room of the story shares: the lettering of a picture agency at night, the frame round a piece
+   of work done with the hands, the papers that lie about a picture desk, and a contact-sheet skin for the notebook,
+   the hints and the word tags. Each room sets its own palette on <body>. */
+
+.tc-theme{font-family:'DM Mono',monospace;font-weight:500;font-size:13px;letter-spacing:.32em}
+.tc-room{font-family:'Libre Franklin',sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.01em;line-height:.95;font-size:clamp(46px,6.6vw,92px)}
+.tc-text{font-family:'Newsreader',Georgia,serif;font-size:clamp(17.5px,1.42vw,21.5px);line-height:1.55}
+.tc-text p{margin:0 0 12px}
+.cap{font-family:'Newsreader',Georgia,serif;font-size:clamp(17.5px,1.4vw,21.5px);line-height:1.5}
+.chip,.hbtn{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:13.5px;letter-spacing:.12em}
+.btn{font-family:'Libre Franklin',sans-serif;font-weight:700;font-size:13.5px;letter-spacing:.14em;text-transform:uppercase}
+.ov-x{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:13px}
+.gobtn{position:fixed;left:50%;bottom:5vh;transform:translateX(-50%);z-index:35;display:none;padding:12px 30px 12px;border:2px solid var(--accent,#ffcf40);
+  color:#111;background:var(--accent,#ffcf40);font-family:'Libre Franklin',sans-serif;font-weight:800;font-size:16px;letter-spacing:.16em;text-transform:uppercase;border-radius:2px;
+  box-shadow:0 10px 30px rgba(0,0,0,.5)}
+.gobtn.on{display:block}
+.gobtn:hover{background:#fff;border-color:#fff}
+.tk-name{font-family:'Libre Franklin',sans-serif;font-weight:800;letter-spacing:.02em;text-transform:uppercase}
+.tk-role{font-family:'DM Mono',monospace;font-weight:500;font-size:12.5px;letter-spacing:.1em}
+.tk-face svg{height:100%;min-height:300px}
+.tk-text{font-family:'Newsreader',Georgia,serif;font-size:clamp(17px,1.34vw,20.5px);line-height:1.52}
+.hot{cursor:pointer}
+.hot:hover{filter:brightness(1.18)}
+.ready{animation:ready 1.6s steps(1,end) infinite}
+@keyframes ready{50%{filter:brightness(1.35)}}
+
+/* lettering inside drawings */
+.fM{font-family:'DM Mono',monospace}
+.fK{font-family:'Kalam',cursive}
+.fC{font-family:'Caveat',cursive}
+.fT{font-family:'Special Elite',monospace}
+.fN{font-family:'Newsreader',serif}
+.fS{font-family:'Stardos Stencil',serif}
+.fL{font-family:'Libre Franklin',sans-serif}
+.fG{font-family:'EB Garamond',serif}
+.fU{font-family:'UnifrakturCook',serif}
+.fO{font-family:'Oswald',sans-serif}
+.fX{font-family:'Outfit',sans-serif}
+
+/* ---- a piece of work: the frame, the line that answers, the button ---- */
+.job{width:min(1080px,95vw);-webkit-user-select:none;user-select:none}
+.job svg text{pointer-events:none}
+.job-foot{display:flex;align-items:flex-start;gap:16px;margin-top:10px}
+.jmsg{flex:1;min-height:52px;margin:0;font-family:'Newsreader',Georgia,serif;font-size:17px;line-height:1.38;color:#f3efe4}
+.jmsg b{color:var(--accent,#ffcf40);font-weight:700}
+.job-foot .btn{flex:0 0 auto;white-space:nowrap;background:rgba(0,0,0,.45)}
+.seg{display:flex;flex-wrap:wrap;gap:4px}
+.seg button{padding:4px 8px 3px;border:1.5px solid #6b6450;border-radius:3px;background:#fffdf5;color:#3a3528;font-family:'Libre Franklin',sans-serif;font-weight:700;font-size:11.5px;letter-spacing:.04em;white-space:nowrap}
+.seg button:hover{border-color:#1d2228}
+.seg button.on{background:#1d2228;border-color:#1d2228;color:#fff}
+/* a sheet of answers on a piece of work */
+.vcard{background:#f6f2e4;color:#1d2228;padding:9px 12px 10px;border-radius:4px;border:1px solid #cfc7ae}
+.vcard h5{margin:0 0 6px;font-family:'Libre Franklin',sans-serif;font-weight:900;font-size:15px;letter-spacing:.12em;text-transform:uppercase;border-bottom:3px solid #d8432a;padding-bottom:4px}
+.vcard h5 small{font-family:'Newsreader',serif;font-style:italic;font-weight:400;font-size:13.5px;letter-spacing:0;text-transform:none;color:#5a5346;margin-left:6px}
+.vrow{padding:5px 0 6px;border-bottom:1px dotted #b9b29c}
+.vrow:last-child{border-bottom:0}
+.vrow h6{margin:0 0 4px;font-family:'Libre Franklin',sans-serif;font-weight:700;font-size:13px;letter-spacing:.04em}
+.vrow h6 small{font-family:'Newsreader',serif;font-style:italic;font-weight:400;font-size:13px;letter-spacing:0;color:#5a5346;margin-left:5px}
+
+/* ---- paper ---- */
+.doc h4{font-weight:normal}
+.doc svg{display:block;max-width:100%;height:auto}
+.doc .w:hover{color:#c0392b}
+.doc .two{display:grid;grid-template-columns:1fr 250px;gap:22px;align-items:start}
+.doc .dia{background:#fffdf6;border:1px solid #d6cdb2;padding:6px}
+/* one of Cyril Hammond's index cards, yellow with age */
+.doc.card{width:min(900px,95vw);background:#f3e7bf linear-gradient(176deg,rgba(255,255,255,.4),rgba(160,120,40,.14));color:#24201a;font-family:'Special Elite','Courier New',monospace;font-size:15.5px;line-height:1.5;
+  padding:24px 34px 18px;background-image:repeating-linear-gradient(transparent 0 23px,rgba(70,110,170,.22) 23px 24px);border-top:4px solid #c0392b}
+.doc.card h4{margin:0 0 4px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#7a6a46}
+.doc.card h3{margin:0 0 10px;font-family:'Libre Franklin',sans-serif;font-weight:900;font-size:30px;line-height:1;letter-spacing:-.01em;text-transform:uppercase}
+.doc.card p{margin:0 0 8px}
+.doc.card b{font-family:'Libre Franklin',sans-serif;font-weight:800;font-size:.92em;letter-spacing:.05em;color:#a8321f}
+.doc.card .pen{font-family:'Caveat',cursive;font-size:22px;line-height:1.15;color:#27457a;transform:rotate(-1deg);margin-top:6px}
+/* the sun card over the light table: printed, with a hand-drawn chart */
+.doc.sun{width:min(930px,96vw);background:#fbf7ec;color:#1f2a33;font-family:'Newsreader',Georgia,serif;font-size:16.5px;line-height:1.42;padding:22px 30px 16px;border:1px solid #d8cfb5;border-left:16px solid #e2a21b}
+.doc.sun h4{margin:0 0 2px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#8a7a52}
+.doc.sun h3{margin:0 0 9px;font-family:'Libre Franklin',sans-serif;font-weight:900;font-size:32px;line-height:1;text-transform:uppercase;border-bottom:3px solid #1f2a33;padding-bottom:6px}
+.doc.sun p{margin:0 0 7px}
+.doc.sun b{font-family:'Libre Franklin',sans-serif;font-weight:800;font-size:.9em;letter-spacing:.05em;color:#b4560f}
+.doc.sun .two{grid-template-columns:1fr 300px}
+.doc.sun .pen{font-family:'Caveat',cursive;font-size:22px;line-height:1.15;color:#27457a;transform:rotate(-1deg)}
+/* the card inside the door of the weather box */
+.doc.wx{width:min(900px,95vw);background:#eef3f1;color:#17262a;font-family:'Outfit',Arial,sans-serif;font-size:16px;line-height:1.45;padding:22px 30px 16px;border:8px solid #fff;outline:1px solid #b9c7c4}
+.doc.wx h4{margin:0 0 2px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#5b7470}
+.doc.wx h3{margin:0 0 9px;font-family:'Libre Franklin',sans-serif;font-weight:900;font-size:30px;line-height:1;text-transform:uppercase;color:#1b4f5c}
+.doc.wx p{margin:0 0 6px}
+.doc.wx b{font-family:'Libre Franklin',sans-serif;font-weight:800;font-size:.9em;letter-spacing:.06em;color:#1b4f5c}
+.doc.wx .pen{font-family:'Caveat',cursive;font-size:22px;line-height:1.15;color:#27457a;transform:rotate(-1deg)}
+/* the airfield's printout */
+.doc.rec{width:min(760px,94vw);background:#fff;color:#16222c;font-family:'DM Mono',monospace;font-size:13.5px;line-height:1.35;padding:0 0 14px;border-left:10px solid #e6ece9;border-right:10px solid #e6ece9}
+.doc.rec h4{margin:0;padding:10px 20px 9px;background:#1b4f5c;color:#fff;font-family:'Outfit',sans-serif;font-weight:600;font-size:14px;letter-spacing:.12em;text-transform:uppercase;display:flex;justify-content:space-between;gap:12px}
+.doc.rec h4 small{font-family:'DM Mono',monospace;font-weight:400;font-size:11.5px;letter-spacing:.08em;opacity:.85}
+.doc.rec table{width:calc(100% - 40px);margin:8px 20px 6px;border-collapse:collapse}
+.doc.rec td,.doc.rec th{padding:1px 8px;border-bottom:1px solid #dfe7e4;text-align:left}
+.doc.rec th{font-family:'Outfit',sans-serif;font-weight:600;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:#4a5f6e}
+.doc.rec .cols{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.doc.rec p{margin:4px 20px 0;font-size:12.5px;color:#3a4a52}
+/* Lou's card, taped inside the van door */
+.doc.lou{width:min(900px,95vw);background:#1e2326;color:#eef1ee;font-family:'Outfit',Arial,sans-serif;font-size:16px;line-height:1.46;padding:22px 30px 16px;border:2px dashed #ffd400}
+.doc.lou h4{margin:0 0 2px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#9aa6a8}
+.doc.lou h3{margin:0 0 9px;font-family:'Libre Franklin',sans-serif;font-weight:900;font-size:30px;line-height:1;text-transform:uppercase;color:#ffd400}
+.doc.lou p{margin:0 0 7px}
+.doc.lou b{font-family:'Libre Franklin',sans-serif;font-weight:800;font-size:.92em;letter-spacing:.05em;color:#ffd400}
+.doc.lou .dia{background:#2a3134;border-color:#4a5458}
+.doc.lou .pen{font-family:'Caveat',cursive;font-size:22px;line-height:1.15;color:#ffe680;transform:rotate(-1deg)}
+.doc.lou .w:hover{color:#ffd400}
+/* the agency's style book */
+.doc.style{width:min(920px,95vw);background:#fdfcf8;color:#191919;font-family:'Newsreader',Georgia,serif;font-size:16.5px;line-height:1.42;padding:22px 32px 16px;border-top:10px solid #191919;box-shadow:inset 0 -3px 0 #d8432a}
+.doc.style h4{margin:0 0 2px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#7b7b74}
+.doc.style h3{margin:0 0 9px;font-family:'UnifrakturCook',serif;font-weight:700;font-size:36px;line-height:1.05}
+.doc.style p{margin:0 0 7px}
+.doc.style b{font-family:'Libre Franklin',sans-serif;font-weight:800;font-size:.9em;letter-spacing:.06em;color:#b22d1b}
+.doc.style ul{margin:0 0 7px;padding-left:20px}
+.doc.style li{margin:0 0 2px}
+.doc.style .two{grid-template-columns:1fr 270px}
+.doc.style .pen{font-family:'Caveat',cursive;font-size:22px;line-height:1.15;color:#b22d1b;transform:rotate(-1deg)}
+/* an email on a screen */
+.doc.mail{width:min(760px,94vw);background:#fff;color:#1d2228;font-family:'Outfit',Arial,sans-serif;font-size:16px;line-height:1.5;padding:0 0 16px}
+.doc.mail h4{margin:0;padding:10px 22px 8px;background:#e9edf0;border-bottom:1px solid #c9d2d8;font-family:'DM Mono',monospace;font-size:12.5px;letter-spacing:.04em;color:#3a4650;line-height:1.6}
+.doc.mail p{margin:10px 22px 0}
+.doc.mail .att{margin:12px 22px 0;padding:6px 10px;border:1px solid #c9d2d8;background:#f6f8f9;font-family:'DM Mono',monospace;font-size:12.5px;color:#3a4650}
+/* what somebody said, kept */
+.doc.statement{background:#f4f1e8;font-family:'Newsreader',Georgia,serif;font-size:17.5px;line-height:1.5;border-left:6px solid #d8432a}
+.doc.statement h4{font-family:'Libre Franklin',sans-serif;font-weight:800;font-size:14px;letter-spacing:.18em;text-transform:uppercase;color:#b22d1b}
+/* a telephone message, or a statement that came in by email */
+.doc.slip{width:min(640px,92vw);background:#fffdf5;color:#1d2228;font-family:'Libre Franklin',sans-serif;font-size:16px;line-height:1.45;padding:0 26px 18px;border-top:22px solid #2b5d8a}
+.doc.slip h4{margin:0 -26px 12px;padding:7px 26px 6px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.14em;color:#2b5d8a;border-bottom:1px dashed #9db3c7;display:flex;justify-content:space-between;gap:10px}
+.doc.slip p{margin:0 0 8px}
+/* the night's front pages */
+.doc.fronts{width:min(980px,96vw);background:#2a2c2f;padding:16px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.doc.fronts .pg{background:#f7f5ee;color:#111;padding:10px 12px 12px;box-shadow:0 6px 18px rgba(0,0,0,.5)}
+.doc.fronts .pg h5{margin:0;text-align:center;font-family:'UnifrakturCook',serif;font-size:27px;line-height:1.05;border-bottom:3px double #111;padding-bottom:3px}
+.doc.fronts .pg h6{margin:7px 0 6px;font-family:'Libre Franklin',sans-serif;font-weight:900;font-size:19px;line-height:1.02;text-transform:uppercase}
+.doc.fronts .pg p{margin:5px 0 0;font-family:'Newsreader',serif;font-size:12.5px;line-height:1.3;color:#333}
+.doc.fronts .pg svg{display:block;width:100%;height:auto}
+/* what you worked out for yourself: the trainee's notebook */
+.doc.mine{width:min(620px,92vw);background-color:#fafaf7;background-image:linear-gradient(#cfd8e6 1px,transparent 1px);background-size:100% 30px;
+  color:#1d2a66;font-family:'Caveat',cursive;font-size:24px;line-height:30px;padding:32px 30px 20px 52px;border-left:3px double #d8432a}
+.doc.mine h4{margin:0 0 2px;font-family:'Libre Franklin',sans-serif;font-weight:800;font-size:14px;line-height:30px;letter-spacing:.2em;text-transform:uppercase;color:#b22d1b}
+.doc.mine p{margin:0}
+/* in the notebook every paper is as wide as the page it is shown on (this has to come after the widths above) */
+.nb-view .doc{width:100%}
+
+/* ---- the notebook: a contact sheet ---- */
+.nb{background:#141516 linear-gradient(140deg,#24272a,#0e0f10);border:1px solid #3d4246;border-radius:3px;color:#eef1f0;box-shadow:0 30px 90px rgba(0,0,0,.75),inset 0 0 0 5px #08090a}
+.nb-tabs{border-bottom-color:#3d4246}
+.nb-tabs button{font-family:'Libre Franklin',sans-serif;font-weight:700;font-size:13.5px;letter-spacing:.16em;color:#a9b0b5}
+.nb-tabs button.on{background:#f4f1e8;color:#111;border-color:#3d4246}
+.nb-list{border-right-color:#3d4246}
+.nb-list button{font-family:'Newsreader',serif;font-size:16.5px;color:#eef1f0}
+.nb-list button small{font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.14em;color:#ffcf40;opacity:.9}
+.nb-list button.on{background:#f4f1e8;color:#111}
+.nb-list button.on small{color:#b22d1b}
+.nb-view{background:#08090a}
+.nb-empty{font-family:'Newsreader',serif}
+.nb-words{background:#f4f1e8;color:#111}
+.nb-words b{font-family:'Libre Franklin',sans-serif;font-weight:800;font-size:16.5px;letter-spacing:.01em}
+.nb-words span{font-family:'Newsreader',serif;font-size:16px;line-height:1.35;color:#4a5054}
+.nb-ko{border-color:#8a9094;color:#4a5054}
+.nb-ko.on{background:#111;color:#ffcf40;border-color:#111}
+.wtip,.wtag{background:#f4f1e8;color:#111;border-radius:2px;box-shadow:0 10px 26px rgba(0,0,0,.55),inset 0 4px 0 #d8432a}
+.wtag{transform:rotate(-1deg);padding:12px 16px 10px}
+.wtag:before{display:none}
+.wtip{padding-top:12px}
+.wtip b,.wtag b{font-family:'Libre Franklin',sans-serif;font-weight:800;font-size:17px;letter-spacing:.01em}
+.wtip span,.wtag span{font-family:'Newsreader',serif;font-size:16px;line-height:1.35;color:#4a5054}
+.wtip i,.wtag i,.nb-words i{color:#b22d1b}
+.hintbox{background:#f4f1e8;color:#111;border-top:6px solid #d8432a;border-radius:2px}
+.hintbox h6{font-family:'Libre Franklin',sans-serif;font-weight:800;font-size:13.5px;letter-spacing:.28em;color:#b22d1b}
+.hintbox p{font-family:'Newsreader',serif;font-size:17px;line-height:1.4}
+.hintbox p i{background:#111;color:#f4f1e8;font-family:'Libre Franklin',sans-serif;font-weight:700;font-size:12px}
+.hintbox p.hint-none{font-style:italic;color:#5a6064;font-size:16px}
+.hintbox .btn{font-size:12.5px}
+.hintbox .w:hover{color:#b22d1b}
+.hint-x:hover{color:#b22d1b}
+.toast{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:13.5px;background:rgba(10,11,12,.94)}
+
+/* ---- the card at the end ---- */
+.done{position:fixed;right:2.2vw;top:60px;z-index:34;width:min(540px,94vw);max-height:calc(100vh - 76px);overflow:auto;padding:14px 26px 12px;display:none;background:#fdfcf8;color:#111;border-top:10px solid #d8432a;box-shadow:0 20px 60px rgba(0,0,0,.45)}
+.done.on{display:block}
+.okstamp{display:inline-block;padding:3px 12px 1px;border:4px solid #b22d1b;color:#b22d1b;font-family:'Stardos Stencil',serif;font-weight:700;font-size:19px;letter-spacing:.12em;transform:rotate(-2deg);margin:4px 0 10px}
+.done h6{margin:8px 0 4px;font-family:'Libre Franklin',sans-serif;font-weight:800;font-size:13.5px;letter-spacing:.24em;text-transform:uppercase;color:#111}
+.done p{margin:0 0 2px;font-family:'DM Mono',monospace;font-size:13px;line-height:1.4}
+.done ol{margin:0;padding-left:20px;font-family:'Newsreader',serif;font-size:13.6px;line-height:1.3}
+.done li{margin:0 0 3px}
+.done .row{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
+.done .btn{--accent:#111;font-size:12.5px;padding:7px 12px}
+.done .btn:hover:not([disabled]){color:#fff}
+.done small{display:block;margin-top:7px;font-family:'DM Mono',monospace;font-size:11.5px;opacity:.75;line-height:1.5}
+.done small button{text-decoration:underline;font:inherit}
+.rp{width:min(800px,94vw);max-height:84vh;overflow:auto;background:#fdfcf8;color:#111;padding:20px 34px 16px;box-shadow:0 26px 70px rgba(0,0,0,.5);-webkit-user-select:text;user-select:text;border-left:6px solid #d8432a}
+.rp h4{margin:0 0 3px;font-family:'DM Mono',monospace;font-weight:500;font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:#b22d1b}
+.rp h3{margin:0 0 8px;font-family:'Libre Franklin',sans-serif;font-weight:900;font-size:30px;line-height:1.05;text-transform:uppercase}
+.rp p,.rp label{display:block;font-family:'Newsreader',serif;font-size:16.5px;line-height:1.42;margin:0 0 6px}
+.rp .notes{font-family:'DM Mono',monospace;font-size:13px;line-height:1.5;background:#f1ede2;padding:7px 12px;margin:0 0 8px}
+.rp textarea,.rp input[type=text]{width:100%;font-family:'Special Elite','Courier New',monospace;font-size:17px;line-height:28px;color:#111;background:#fff repeating-linear-gradient(transparent 0 27px,#d9d2bd 27px 28px);border:1px solid #9aa7b5;padding:0 12px;border-radius:0;resize:vertical;-webkit-user-select:text;user-select:text}
+.rp textarea{min-height:150px}
+.rp input[type=text]{height:30px}
+.rp .count{font-family:'DM Mono',monospace;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;opacity:.7;text-align:right;margin-top:3px}
+.rp .foot{display:flex;gap:10px;align-items:center;margin-top:10px}
+.rp .foot span{flex:1;font-family:'DM Mono',monospace;font-size:12px;opacity:.75}
+.rp .btn{--accent:#111}.rp .btn:hover:not([disabled]){color:#fdfcf8}
+@media print{
+  body{overflow:visible;background:#fff}
+  body>*:not(.ov){display:none!important}
+  .ov{position:static!important;display:block!important;background:#fff!important;padding:0!important;overflow:visible!important}
+  .ov-bar,.rp .foot{display:none!important}
+  .rp{box-shadow:none;max-height:none;width:auto;overflow:visible}
+}

@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Engine Room · Only What Was Asked</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-scifi.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="sleepers.css">
+<style>
+  body{--bg:#140908;--accent:#ff9a5a;--font-display:'Saira Stencil One',sans-serif;--font-ui:'Share Tech Mono',monospace;--font-body:'Outfit',sans-serif;
+    --tc-bg:rgba(20,9,8,.96);--tc-ink:#f6e6de;--cap-bg:rgba(20,9,8,.94);--cap-ink:#fbeee6;--panel:#22100d;--face-bg:#2a1610;--q-ink:#ffc7a0;--fade:#050202;--hud-bg:rgba(20,9,8,.82)}
+  .tc-room{font-family:'Saira Stencil One','Stardos Stencil',sans-serif;font-weight:400;letter-spacing:.06em}
+  .heat{animation:heat 2.6s ease-in-out infinite}
+  @keyframes heat{50%{opacity:.62}}
+  #scene.cold .heat{animation:none;opacity:0;transition:opacity 3s}
+  #scene.cold #ringHot{opacity:.12;transition:opacity 4s}
+  #scene.cold #board .hotT{fill:#7dffb0}
+  .fan{animation:fan 1.2s linear infinite;transform-box:fill-box;transform-origin:50% 50%}
+  @keyframes fan{to{transform:rotate(360deg)}}
+  .blinkR{animation:blinkR 1s steps(1) infinite}
+  @keyframes blinkR{50%{opacity:.2}}
+  #console.next #conScr{animation:snudge 1.7s ease-in-out infinite}
+
+  .ec{display:grid;grid-template-columns:minmax(0,600px) 400px;gap:16px;width:min(1020px,96vw);align-items:start}
+  .ec-side{color:#f6e6de}
+  .ec-facts{padding:10px 12px;border-radius:6px;background:#2a1610;border:1px solid #6a3a2a;font-family:'Share Tech Mono',monospace;font-size:13px;line-height:1.4}
+  .ec-facts h6{margin:0 0 6px;font-weight:normal;font-size:12px;letter-spacing:.14em;color:#ffb48a}
+  .ec-facts p{margin:0 0 4px;padding-left:22px;text-indent:-22px;color:#a88a7e}
+  .ec-facts p:before{content:'\25CB';display:inline-block;width:22px;text-indent:0;color:#a88a7e}
+  .ec-facts p.on{color:#fff}.ec-facts p.on:before{content:'\25CF';color:#7dffb0}
+  .ec-pics{display:flex;gap:8px;margin-top:10px}
+  .ec-pics div{flex:1;padding:4px;background:#000;border:1px solid #3a4a5a;border-radius:4px;font-family:'Share Tech Mono',monospace;font-size:10.5px;color:#9fd8ff}
+  .ec-pics svg{display:block;width:100%;height:auto}
+  .ec-side .pmsg{min-height:120px;margin:10px 0 8px;font-size:16.5px}
+  .ec-who{display:none;gap:10px;margin-top:6px}.ec-who.on{display:flex}
+  .ec-who .btn{flex:1}
+  @media (max-width:1000px){.ec{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="fadeB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a1210" stop-opacity="0"/><stop offset=".75" stop-color="#1a1210"/></linearGradient>
+  <linearGradient id="eWall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a0d0b"/><stop offset=".7" stop-color="#2e1914"/><stop offset="1" stop-color="#1a0d0b"/></linearGradient>
+  <radialGradient id="engG" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#3a2a26"/><stop offset=".7" stop-color="#241614"/><stop offset="1" stop-color="#120a09"/></radialGradient>
+  <radialGradient id="hotG"><stop offset="0" stop-color="#ffb070" stop-opacity=".0"/><stop offset=".62" stop-color="#ff7a3a" stop-opacity=".0"/><stop offset=".7" stop-color="#ff7a3a" stop-opacity=".8"/><stop offset=".78" stop-color="#ff5a2a" stop-opacity=".0"/></radialGradient>
+  <radialGradient id="glowG"><stop offset="0" stop-color="#ff7a3a" stop-opacity=".42"/><stop offset="1" stop-color="#ff7a3a" stop-opacity="0"/></radialGradient>
+  <pattern id="haz" width="40" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="40" height="40" fill="#16130a"/><rect width="20" height="40" fill="#f2c230"/></pattern>
+  <pattern id="grate" width="22" height="22" patternUnits="userSpaceOnUse"><rect width="22" height="22" fill="#1a1210"/><path d="M0 11H22M11 0V22" stroke="#2e2420" stroke-width="3"/></pattern>
+  <radialGradient id="vig" cx="56%" cy="44%" r="74%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".6" stop-color="#050202" stop-opacity=".3"/><stop offset="1" stop-color="#050202" stop-opacity=".92"/></radialGradient>
+</defs>
+<rect x="-1000" y="-600" width="3600" height="2100" fill="url(#eWall)"/>
+<g stroke="#3a2420" stroke-width="18" fill="none"><path d="M-1000 60H2600"/><path d="M60 -600V700M300 -600V700"/></g>
+<g stroke="#4a2e26" stroke-width="10" fill="none"><path d="M40 260H640Q680 260 680 300V700"/><path d="M40 300H600Q640 300 640 340V700"/></g>
+<!-- the engine: the inside face of it, as tall as a house -->
+<circle cx="1000" cy="380" r="420" fill="url(#glowG)" class="heat" pointer-events="none"/>
+<g id="engine" class="hot"><circle cx="1000" cy="380" r="330" fill="url(#engG)" stroke="#4a2e26" stroke-width="16"/>
+  <g id="ebolts" fill="#5a3a30"></g>
+  <circle cx="1000" cy="380" r="250" fill="none" stroke="#3a2420" stroke-width="10"/>
+  <circle id="ringHot" cx="1000" cy="380" r="300" fill="url(#hotG)" class="heat"/>
+  <circle cx="1000" cy="380" r="120" fill="#1a0d0b" stroke="#5a3a30" stroke-width="8"/><g class="fan" fill="#3a2a26"><path d="M1000 380l-20 -96h40z"/><path d="M1000 380l96 -20v40z"/><path d="M1000 380l20 96h-40z"/><path d="M1000 380l-96 20v-40z"/></g><circle cx="1000" cy="380" r="22" fill="#5a3a30"/>
+  <g id="plate" class="hot"><rect x="900" y="640" width="200" height="54" rx="4" fill="#c9a56a"/><text x="1000" y="664" text-anchor="middle" font-family="Saira Stencil One,sans-serif" font-size="17" fill="#2a1610">MAIN ENGINE</text><text x="1000" y="684" text-anchor="middle" class="mono" font-size="11" fill="#2a1610">ONE BRAKING · NO SECOND</text></g></g>
+<!-- the countdown board -->
+<g id="board" class="hot"><rect x="360" y="96" width="330" height="128" rx="6" fill="#0c0605" stroke="#5a3a30" stroke-width="4"/>
+  <text x="525" y="132" text-anchor="middle" font-family="Saira Stencil One,sans-serif" font-size="22" fill="#ff9a5a">ENGINE START</text>
+  <text x="525" y="178" text-anchor="middle" class="mono hotT" font-size="40" fill="#ffb070" id="bdT">10:12</text>
+  <text x="525" y="210" text-anchor="middle" class="mono" font-size="14" fill="#ffc7a0" id="bdS">PRE-HEAT ON · NOW 08:20</text></g>
+<!-- the floor, the stripes -->
+<path d="M-1000 700H2600V1500H-1000Z" fill="url(#grate)"/><rect x="-1000" y="700" width="3600" height="18" fill="url(#haz)"/>
+<!-- the engine stop, under glass -->
+<g id="lever" class="hot"><rect x="1390" y="520" width="120" height="200" rx="6" fill="#2e1914" stroke="#5a3a30" stroke-width="4"/><rect x="1402" y="532" width="96" height="176" rx="4" fill="#3a2420"/>
+  <path d="M1450 690V580" stroke="#9aa3aa" stroke-width="10" stroke-linecap="round"/><circle cx="1450" cy="572" r="20" fill="#c9342a"/><circle class="blinkR" cx="1450" cy="700" r="6" fill="#ff5a3a"/>
+  <rect x="1396" y="526" width="108" height="188" rx="5" fill="#bfe6ff" opacity=".16"/><text x="1450" y="742" text-anchor="middle" font-family="Saira Stencil One,sans-serif" font-size="17" fill="#ff9a5a">ENGINE STOP</text></g>
+<!-- TALLY's Rule 14 console -->
+<g id="console" class="hot"><path d="M300 760L340 540H600L640 760Z" fill="#2e1914" stroke="#5a3a30" stroke-width="4"/><g id="conScr"><path d="M356 556H584L596 660H344Z" fill="#06111c" stroke="#5f89a6" stroke-width="2"/>
+  <text x="470" y="590" text-anchor="middle" class="orb" font-size="16" font-weight="700" letter-spacing="3" fill="#9fd8ff">TALLY</text><text x="470" y="618" text-anchor="middle" class="mono" font-size="12" fill="#bfe6ff">RULE 14 CONSOLE</text><text x="372" y="646" class="mono" font-size="12" fill="#e6f4ff">&gt; ASK_</text></g>
+  <g id="tcard"><path d="M380 676h80l4 54h-88z" fill="#eaf3f7"/><path d="M386 690h70M386 702h64M386 714h68" stroke="#5f89a6" stroke-width="2.4"/></g></g>
+<!-- Tanaka, at the gauges -->
+<g id="tanakaG" class="hot"><use href="#ch-tanaka" x="640" y="430" width="230" height="300"/></g><rect x="630" y="660" width="250" height="110" fill="url(#fadeB)" pointer-events="none"/>
+<rect x="-1000" y="-600" width="3600" height="2100" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Go to the medical bay</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="sleepers.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = false, nextFile = null, sc = $('#scene');
+  (function () { var s = '', i, a; for (i = 0; i < 24; i++) { a = i * Math.PI / 12; s += '<circle cx="' + (1000 + Math.cos(a) * 314).toFixed(1) + '" cy="' + (380 + Math.sin(a) * 314).toFixed(1) + '" r="7"/>'; } $('#ebolts').innerHTML = s; })();
+
+  ER.init({
+    theme: 'scifi', story: 'sleepers', storyTitle: 'Only What Was Asked', id: 'engine', no: 'V', title: 'The Engine Room',
+    go: 'Go down to the engine',
+    intro: [
+      'On the brass rail you put the ship at 4.0 light years: a tenth for the first four years, and one for every twenty since. You turned the model so that its bow looked back at the Sun, and left it moving towards Celandine, because turning round does not turn the journey round. If the engine starts at 10:12, four years of braking will stop the ship at 4.1, two light years short, with nothing left to start again. Then you took two pictures. Off the stern: Celandine, bright as a lamp. Off the bow: a round black patch, exactly where the Sun should be.',
+      'The engine room is the stern of the ship, and since yesterday it has been the front of it. At twelve minutes past eight the engine began to warm up. By 10:12 it will have been warming for two hours, and then it will do what it was built to do.',
+      'It is twenty past eight.'
+    ],
+    exit: {"next":"medbay","w":{"7bfe9054":"66baf125"}}, tags: {},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('e-file') || null;
+  var S = ER.flag('e-st') || { f1: 0, f2: 0, f3: 0 };
+  function keep() { ER.flag('e-st', S); }
+
+  var CARD = '<h4>How TALLY makes up its mind</h4>' +
+    '<p><b>1</b><span>TALLY cannot be told that a thing is true. Tell it, and it will say: That is not a question.</span></p>' +
+    '<p><b>2</b><span>Every answer TALLY gives, it has checked for itself, and it remembers.</span></p>' +
+    '<p><b>3</b><span>When answers it has already given, taken together, prove a thing, TALLY accepts that thing, and acts on it.</span></p>' +
+    '<p><b>4</b><span>So if you want TALLY to believe something, do not say it. Ask the questions whose answers prove it, one at a time. Then ask the thing itself.</span></p>' +
+    '<small>TALLY&rsquo;s help screen, page 2. Underneath, in pencil: This is slower than arguing. It is also the only thing that works. M.L.</small>';
+  var PLATE = '<h4>Main engine</h4><p class="plain">Fuel for one braking, from full speed to a stop. There is no second.</p><p class="plain">Pre-heat: two hours before the engine starts.</p><small>Do not stand in front of this plate when the engine is running. There is no reason to. You will want to.</small>';
+
+  function pic(n) {
+    var s = '<svg viewBox="0 0 200 130"><rect width="200" height="130" fill="#000"/>', i, px, py, seed = n * 7 + 1;
+    function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+    for (i = 0; i < 70; i++) { px = rnd() * 200; py = rnd() * 130; if (n === 1 && Math.pow(px - 100, 2) + Math.pow(py - 65, 2) < 2100) continue; s += '<circle cx="' + px.toFixed(0) + '" cy="' + py.toFixed(0) + '" r="' + (0.4 + rnd()).toFixed(1) + '" fill="#fff" opacity="' + (0.4 + rnd() * 0.6).toFixed(2) + '"/>'; }
+    if (n === 1) s += '<circle cx="100" cy="65" r="45" fill="none" stroke="#1c2232" stroke-width="2"/>';
+    if (n === 2) s += '<radialGradient id="pcg2"><stop offset="0" stop-color="#fff8d8"/><stop offset=".25" stop-color="#ffe9a0" stop-opacity=".8"/><stop offset="1" stop-color="#ffd060" stop-opacity="0"/></radialGradient><circle cx="100" cy="65" r="22" fill="url(#pcg2)"/><circle cx="100" cy="65" r="3" fill="#fffbe8"/>';
+    return s + '<path d="M100 55v20M90 65h20" stroke="#9fd8ff" stroke-width="1"/></svg>';
+  }
+  var DUNNO = { t: 'I do not know.', id: 'dunno' };
+  var A = {
+    'where is the bow pointing?': { id: 'bowpt', f: 'f1', t: 'At the Sun. Since turnover, the bow has pointed straight back along our path.' },
+    'where is the sun?': { id: 'sunwhere', f: 'f1', t: 'Straight ahead of the bow, 4.0 light years away.' },
+    'what is straight ahead of the bow?': { id: 'ahead', f: 'f1', t: 'The bow shield, if there is one. Beyond it, the Sun.' },
+    'is the sun straight ahead of the bow?': { id: 'sunahead', f: 'f1', t: 'Yes.' },
+    'is the sun in picture 1?': { id: 'p1sun', f: 'f2', t: 'I have looked. No.' },
+    'what is in picture 1?': { id: 'p1what', t: 'Stars round the edge. In the middle, a round black patch with no stars in it.' },
+    'is celandine in picture 2?': { id: 'p2cel', f: 'f3', t: 'I have looked. Yes: in the middle of picture 2.' },
+    'what is in picture 2?': { id: 'p2what', f: 'f3', t: 'Stars. In the middle, Celandine.' },
+    'can you see celandine?': { id: 'seecel', f: 'f3', t: 'Yes: in picture 2.' },
+    'is the sun in picture 2?': { id: 'p2sun', t: 'No.' },
+    'is celandine in picture 1?': { id: 'p1cel', t: 'No.' },
+    'can you see the sun?': { id: 'seesun', t: 'No.' },
+    'why can you not see the sun?': { id: 'whysun', t: 'I do not know.' },
+    'why is the sun not in picture 1?': { id: 'whyp1', t: 'I do not know.' },
+    'where is celandine?': { id: 'celwhere', t: 'Straight ahead of the stern, 2.1 light years away.' },
+    'can you see the bow shield?': { id: 'seeshield', t: 'No.' },
+    'is the bow shield lost?': { id: 'lost', t: 'Yes, by Rule 14: all four of its sensors are silent.' },
+    'what is the bow shield?': { id: 'whatshield', t: 'The shield that takes the dust. It is wider than the ship.' },
+    'when was the bow shield destroyed?': { id: 'false1', t: 'Your question takes something for granted that I do not know to be true: that the bow shield was destroyed.' },
+    'why was the bow shield destroyed?': { id: 'false2', t: 'Your question takes something for granted that I do not know to be true: that the bow shield was destroyed.' },
+    'is the sun behind the ship?': { id: 'behind', t: '&ldquo;Behind&rdquo; has two meanings on this ship today: behind the stern, or behind us on our journey. Ask with the bow or the stern.' },
+    'when will the engine start?': { id: 'when', t: 'At 10:12.' }
+  };
+  function hints() {
+    if (nextFile && ER.flag('e-who')) return ['go', ['Rule 14 is ended, and the ship is turning back over. Go and tell Officer Lindgren: the button at the bottom of the screen.']];
+    if (nextFile) return ['who', ['TALLY has asked you a question, the first one it has ever asked. Answer it: click one of the two names under its screen.']];
+    if (!ER.flag('e-card')) return ['look', [
+      'Read the card on TALLY&rsquo;s console: how TALLY makes up its mind. Rule 14 and your two pictures are in the notebook.',
+      'The red lever under the glass on the right is the engine stop. You may try it.'
+    ]];
+    return ['ask', [
+      'You cannot tell TALLY that the shield is there. Ask it the questions whose answers prove it, one at a time; then ask whether there is a bow shield.',
+      'TALLY needs three answers of its own: where the Sun is (or where the bow is pointing); whether the Sun is in picture 1; and whether the camera can see a star when nothing is in the way, which is picture 2.',
+      'Begin with WHERE and the bow, or with WHERE and the Sun. Then ask IS about the Sun and picture 1, and IS about Celandine and picture 2. Then ask whether there is a bow shield.'
+    ]];
+  }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#console').setAttribute('class', 'hot' + (!nextFile && ER.flag('e-card') ? ' next' : ''));
+    sc.setAttribute('class', nextFile ? 'cold' : '');
+    $('#bdT').textContent = nextFile ? 'NONE' : '10:12';
+    $('#bdS').textContent = nextFile ? 'RULE 14 ENDED · 08:51' : 'PRE-HEAT ON · NOW 08:20';
+    $('#go').classList.toggle('on', !!nextFile && !!ER.flag('e-who') && !busy);
+    ER.pips(nextFile ? 1 : 0, 1);
+  }
+  function begin() {
+    paint();
+    if (nextFile) { ER.say(ER.flag('e-who') ? 'The engine room, cooling. The board says: ENGINE START: NONE.' : 'TALLY has asked you a question. It is waiting.'); if (!ER.flag('e-who')) openCon(); return; }
+    if (ER.flag('e-seen')) { ER.say('The engine room: a red glow, a countdown, a lever under glass, and TALLY&rsquo;s console.'); return; }
+    busy = true; ER.flag('e-seen', 1); SLP.sfx.rumble(4);
+    ER.narrate([
+      'The engine room is warm, for the first time since you woke up, and it is warm for the wrong reason. A great round wall fills one end of it, and a ring of red light is turning slowly round it, brighter, and then less bright, and then brighter again.',
+      '&ldquo;Pre-heat,&rdquo; says Tanaka. He does not sound like a man who is pleased to see his engine. &ldquo;If anybody had asked me, I would have said I wanted to see it run once in my life. I take it back.&rdquo;'
+    ], function () { busy = false; });
+  }
+
+  /* ---------- the room ---------- */
+  $('#tcard').addEventListener('click', function (e) { e.stopPropagation(); if (!busy) ER.read({ html: CARD, cls: 'card', clue: { id: 'mind', title: 'How TALLY makes up its mind', kind: 'TALLY’s help screen' }, done: function () { ER.flag('e-card', 1); SLP.learn(['prove']); paint(); } }); });
+  $('#console').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile && ER.flag('e-who')) { ER.say('TALLY&rsquo;s console: RULE 14 ENDED · 08:51. TURNING BACK OVER: SIX HOURS.'); return; }
+    if (!ER.flag('e-card')) { ER.say('TALLY&rsquo;s Rule 14 console. There is a card on it, in Lindgren&rsquo;s writing as well as TALLY&rsquo;s. Read it first.'); return; }
+    openCon();
+  });
+  $('#plate').addEventListener('click', function (e) { e.stopPropagation(); if (!busy) ER.read({ html: PLATE, cls: 'card', clue: { id: 'plate', title: 'Main engine', kind: 'Plate on the engine' }, done: function () { SLP.learn(['fuel', 'pre-heat']); } }); });
+  $('#lever').addEventListener('click', function () {
+    if (busy) return;
+    SLP.sfx.lever();
+    ER.say(nextFile ? 'The engine stop, under its glass. Nobody will need it today.' : 'You lift the glass and pull the lever. TALLY&rsquo;s voice, from somewhere in the ceiling: &ldquo;The engine is not running. Nothing that has not started can be stopped.&rdquo; &ldquo;I know,&rdquo; says Tanaka. &ldquo;I wanted to hear it say so.&rdquo;');
+    SLP.learn(['lever']);
+  });
+  SLP.thing('#engine', 'engine', function () { return nextFile ? 'The engine. The red ring has gone dark, and the metal is ticking as it cools.' : 'The inside face of the main engine, as tall as a house. A ring of red light goes slowly round it: pre-heat.'; }, isBusy);
+  SLP.thing('#board', 'countdown', function () { return nextFile ? 'ENGINE START: NONE. RULE 14 ENDED · 08:51.' : 'ENGINE START 10:12. PRE-HEAT ON. It is twenty past eight.'; }, isBusy);
+  $('#tanakaG').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(nextFile ? '&ldquo;I&rsquo;m going to sit on the floor for a bit,&rdquo; says Tanaka, and does.'
+      : '&ldquo;Don&rsquo;t tell it anything,&rdquo; says Tanaka. &ldquo;It doesn&rsquo;t take news. Ask it things it can check, one at a time, until the only answer left is the one we want.&rdquo;');
+  });
+
+  /* ---------- the console ---------- */
+  function openCon() {
+    var box = ER.el('div', 'ec'), ask, done = !!nextFile;
+    box.innerHTML = '<div class="ec-main"></div><div class="ec-side"><div class="ec-facts"><h6>WHAT TALLY HAS CHECKED FOR ITSELF</h6><p data-f="f1"></p><p data-f="f2"></p><p data-f="f3"></p></div>' +
+      '<div class="ec-pics"><div>' + pic(1) + 'PICTURE 1 · OFF THE BOW</div><div>' + pic(2) + 'PICTURE 2 · OFF THE STERN</div></div><p class="pmsg"></p>' +
+      '<div class="ec-who"><button type="button" class="btn" data-w="tanaka">Ren Tanaka</button><button type="button" class="btn" data-w="me">I am</button></div></div>';
+    var msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    var FT = { f1: 'Where the Sun is', f2: 'Whether the Sun is in picture 1', f3: 'Whether the camera can see a star when nothing is in the way: picture 2' };
+    function facts() { ER.$$('.ec-facts p', box).forEach(function (p) { var f = p.getAttribute('data-f'); p.classList.toggle('on', !!S[f]); p.textContent = S[f] ? FT[f] : 'not checked yet'; }); }
+    ask = SLP.ask(box.querySelector('.ec-main'), {
+      words: ['What', 'Where', 'When', 'Why', 'Is', 'Can', 'is', 'was', 'in', 'the bow', 'the stern', 'the Sun', 'Celandine', 'picture 1', 'picture 2', 'the bow shield', 'bow shield', 'there', 'a', 'you', 'see', 'not', 'lost', 'pointing', 'destroyed', 'behind', 'the ship', 'straight ahead of', 'the engine', 'start', 'will', '?'],
+      title: 'Rule 14 console · answers questions', note: 'You cannot tell TALLY. You can ask it.',
+      reply: function (q) {
+        if (q === 'is the bow shield there?' || q === 'is there a bow shield?') return S.f1 && S.f2 && S.f3 ? { id: 'yes', t: 'Checking. The Sun is straight ahead of the bow. The Sun is not in picture 1. The same camera saw Celandine in picture 2, so it can see a star when nothing is in the way. Something straight ahead of the bow is hiding the Sun from the blister, and only the bow shield is wide enough. Yes. The bow shield is there.' } : DUNNO;
+        if (!/\?$/.test(q)) return { t: 'That is not a question. I do not take orders or news. I take questions.', bad: true, tell: true };
+        return A[q] || SLP.fallback(q);
+      },
+      onReply: function (r) {
+        if (done) return;
+        if (r.f && !S[r.f]) { S[r.f] = 1; keep(); facts(); }
+        if (r.tell) { msg('&ldquo;You can&rsquo;t tell it,&rdquo; says Tanaka. &ldquo;I tried that at half past three this morning. Ask it.&rdquo;'); return; }
+        if (r.id === 'dunno') {
+          SLP.bump('slips'); SLP.sfx.hm();
+          msg(!S.f1 && !S.f2 && !S.f3 ? '&ldquo;Of course it doesn&rsquo;t,&rdquo; says Tanaka. &ldquo;It hasn&rsquo;t checked anything yet. Card, line 4: first the questions that prove it.&rdquo;'
+            : !S.f1 ? '&ldquo;It&rsquo;s looked at the pictures,&rdquo; says Tanaka. &ldquo;But does it know that picture 1 is where the Sun ought to be? Ask it where the Sun is.&rdquo;'
+            : !S.f2 ? '&ldquo;It knows where the Sun should be,&rdquo; says Tanaka. &ldquo;Has it looked for the Sun in picture 1?&rdquo;'
+            : '&ldquo;No Sun in picture 1,&rdquo; says Tanaka. &ldquo;But TALLY doesn&rsquo;t know the camera works. A camera with frost on its glass takes black pictures too. What did we take picture 2 for?&rdquo;');
+          return;
+        }
+        if (r.id === 'false1' || r.id === 'false2') { msg('&ldquo;A question with the answer we&rsquo;re afraid of already inside it,&rdquo; says Tanaka. &ldquo;TALLY won&rsquo;t touch it, and quite right.&rdquo;'); return; }
+        if (r.id === 'seeshield') { msg('&ldquo;That&rsquo;s Lindgren&rsquo;s question,&rdquo; says Tanaka. &ldquo;And Lindgren&rsquo;s answer.&rdquo;'); return; }
+        if (r.id === 'yes') win();
+      }
+    });
+    function win() {
+      var file = ER.exitOk(['f1+f2+f3'], { wait: true }); if (!file) return;
+      done = true; nextFile = file; ER.flag('e-file', file); busy = true;
+      SLP.mine('proof', 'How TALLY was shown', '<p>Where is the bow pointing? AT THE SUN.</p><p>Is the Sun in picture 1? NO.</p><p>Is Celandine in picture 2? YES (so the camera works).</p><p>So something straight ahead of the bow hides the Sun: only the shield is wide enough.</p><p>Is there a bow shield? YES. Rule 14 ended, 08:51.</p>', true);
+      ask.busy(true);
+      setTimeout(function () {
+        ask.say('RULE 14 IS ENDED. THE ENGINE WILL NOT START.', 'a'); SLP.sfx.down(4); paint(); ER.mood('calm');
+        msg('The red ring on the engine slows, and fades, and goes out. Somewhere a long way off, a pump you had stopped hearing stops.');
+        setTimeout(function () {
+          ask.say('Turnover can be undone by the officer of the watch. Rule 6: the officer of the watch is in a medical pod, so the arrival team names another.', 'a');
+          setTimeout(function () {
+            ask.say('Who is the officer of the watch?', 'a'); SLP.sfx.beep();
+            msg('TALLY has asked a question. Tanaka stares at the screen. &ldquo;I didn&rsquo;t know it could do that,&rdquo; he says. &ldquo;Go on. It&rsquo;s asking you.&rdquo;');
+            box.querySelector('.ec-who').classList.add('on'); busy = false; paint();
+          }, 2600);
+        }, 3200);
+      }, 1200);
+    }
+    box.querySelector('.ec-who').addEventListener('click', function (e) {
+      var b = e.target.closest ? e.target.closest('button') : null; if (!b || ER.flag('e-who')) return;
+      var w = b.getAttribute('data-w'); ER.flag('e-who', w); ER.sfx.click();
+      ask.say(w === 'me' ? 'Noted. Officer of the watch: pod C-07. Turning the ship back over: six hours.' : 'Noted. Officer of the watch: Ren Tanaka. Turning the ship back over: six hours.', 'a');
+      box.querySelector('.ec-who').classList.remove('on');
+      msg(w === 'me' ? '&ldquo;Good,&rdquo; says Tanaka. &ldquo;You ask better questions than I do. I&rsquo;ll mend the sensors.&rdquo;' : '&ldquo;Me,&rdquo; says Tanaka. &ldquo;Fine. But you&rsquo;re asking the questions. I&rsquo;ll mend the sensors.&rdquo;');
+      SLP.done('engine');
+      setTimeout(function () { ER.closeAll(); after(); }, 2600);
+    });
+    facts();
+    if (nextFile && !ER.flag('e-who')) { ask.say('Who is the officer of the watch?', 'a'); box.querySelector('.ec-who').classList.add('on'); msg('TALLY has asked you a question.'); }
+    else msg('Your two pictures are on the right. Ask TALLY the questions whose answers prove that the shield is there. It ticks off what it has checked for itself.');
+    ER.open('ov-lock', box);
+  }
+  function after() {
+    busy = true;
+    ER.narrate([
+      'The ship begins, very slowly, to turn back over. You cannot feel it. On the countdown board the numbers have gone green: ENGINE START: NONE.',
+      'Tanaka sits on the floor with his back against the console. &ldquo;She&rsquo;ll want to know,&rdquo; he says. &ldquo;Lindgren. She won&rsquo;t hear us, but she&rsquo;ll want to know.&rdquo; He gets up again, which takes him two goes. &ldquo;Medical bay. Bring your notebook.&rdquo;'
+    ], function () { busy = false; paint(); });
+  }
+  $('#go').addEventListener('click', function () { if (nextFile && ER.flag('e-who') && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Truck · Four and a Half Times</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-wild.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="dune.css">
+<style>
+  body{--bg:#1a1630;--accent:#f0a24a;--font-display:'Special Elite',monospace;--font-ui:'Overpass',sans-serif;--font-body:'Lora',serif;
+    --tc-bg:rgba(24,20,44,.96);--tc-ink:#f4ead8;--cap-bg:rgba(22,18,40,.93);--panel:#221d3a;--face-bg:#2a2540;--q-ink:#ffc98a;--fade:#1a1630;--hud-bg:rgba(22,18,40,.82)}
+  .sE{font-family:'Special Elite',monospace}
+  #lampglow{animation:lamp 2.3s steps(1,end) infinite}
+  @keyframes lamp{0%{opacity:.95}31%{opacity:.78}37%{opacity:.92}64%{opacity:.84}71%{opacity:1}}
+  #venusglow{animation:vg 4s ease-in-out infinite}
+  @keyframes vg{50%{opacity:.75}}
+  .tw{animation:tw 3.1s steps(1,end) infinite}
+  .tw.b{animation-duration:2.3s;animation-delay:-1s}
+  .tw.c{animation-duration:3.7s;animation-delay:-2s}
+  @keyframes tw{0%{opacity:1}40%{opacity:.55}46%{opacity:.95}70%{opacity:.7}}
+  #moth{animation:moth 1.4s steps(1,end) infinite}
+  @keyframes moth{0%{transform:translate(0,0)}25%{transform:translate(6px,-5px)}50%{transform:translate(-3px,4px)}75%{transform:translate(4px,6px)}}
+  #venus.ready{animation:ready 1.5s steps(1,end) infinite}
+  #radio.ready{animation:ready 1.5s steps(1,end) infinite}
+  @keyframes ready{50%{filter:brightness(1.6)}}
+
+  /* the north-western sky, close to */
+  .skyv{display:block;width:100%;height:auto;background:#1c1838;touch-action:none}
+  .skT{font-family:'Overpass',sans-serif;font-weight:700;font-size:12px;fill:#cfc6e8;letter-spacing:.12em}
+  .skC{font-family:'Overpass Mono',monospace;font-weight:600;font-size:22px;fill:#f3e3b0}
+  /* the three watches */
+  .wt{gap:10px;background:#211c36;padding:12px 14px 14px}
+  .wt.pane.on{display:flex}
+  .wt>div{flex:1;background:#2c2648;border-radius:4px;padding:8px 10px 10px;text-align:center}
+  .wt h6{margin:0 0 4px;font-family:'Overpass',sans-serif;font-weight:700;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#f0c88a}
+  .wt svg{display:block;width:150px;height:150px;margin:0 auto 6px}
+  .wt .picks{display:flex;justify-content:center;gap:4px;margin:4px 0 0}
+  .wt .picks button{height:30px;padding:0 8px;font-size:11.5px;letter-spacing:.04em}
+  .wt small{display:block;font-family:'Overpass',sans-serif;font-weight:700;font-size:10px;letter-spacing:.2em;color:#a99fc8;margin-top:6px;text-transform:uppercase}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0f1330"/><stop offset=".42" stop-color="#2a2354"/><stop offset=".68" stop-color="#5e3a6a"/><stop offset=".86" stop-color="#c8704a"/><stop offset="1" stop-color="#f0b066"/></linearGradient>
+  <linearGradient id="sandG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a2c24"/><stop offset="1" stop-color="#2c1614"/></linearGradient>
+  <linearGradient id="duneG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6e3426"/><stop offset=".6" stop-color="#55291f"/><stop offset="1" stop-color="#3e1f1a"/></linearGradient>
+  <radialGradient id="lampG"><stop offset="0" stop-color="#ffcf7a" stop-opacity=".85"/><stop offset=".35" stop-color="#ffa64a" stop-opacity=".35"/><stop offset="1" stop-color="#ff8a2a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="venG"><stop offset="0" stop-color="#fffbe8" stop-opacity=".95"/><stop offset=".25" stop-color="#fff3c8" stop-opacity=".4"/><stop offset="1" stop-color="#fff3c8" stop-opacity="0"/></radialGradient>
+</defs>
+
+<rect x="-1000" y="-400" width="3600" height="1000" fill="url(#skyG)"/>
+<g id="stars" fill="#f3ecd6"></g>
+<g fill="#f3ecd6"><circle class="tw" cx="1144" cy="332" r="2.400" fill="#ffd2a0"/><circle cx="1210" cy="80" r="2.600" class="tw b" fill="#ffc28a"/>
+  <g opacity=".75"><circle cx="1140" cy="494" r="1.300"/><circle cx="1147" cy="490" r="1.100"/><circle cx="1151" cy="497" r="1"/><circle cx="1144" cy="500" r="1"/></g></g>
+<g id="venus" class="hot"><circle id="venusglow" cx="1232" cy="404" r="46" fill="url(#venG)"/><circle cx="1232" cy="404" r="4.600" fill="#fffdf2"/><circle cx="1232" cy="404" r="34" fill="#fff" opacity="0"/></g>
+
+<!-- the dunes: far ones in the last of the light, and the near one over the truck -->
+<path d="M-1000 600Q-600 556 -200 570T600 552T1300 566T2000 548T2600 560V900H-1000Z" fill="#3a2240"/>
+<path d="M-1000 640Q-500 600 0 618T900 600T1700 622T2600 604V900H-1000Z" fill="#4a2632"/>
+<path id="dune" class="hot" d="M-1000 690Q-700 470 -200 430Q200 404 560 520Q760 590 900 660L900 900H-1000Z" fill="url(#duneG)"/>
+<g stroke="#7a3c2c" stroke-width="2" fill="none" opacity=".5"><path d="M-260 470q120 -16 240 10M-120 520q140 -10 260 20M40 580q120 -6 220 26"/></g>
+<rect x="-1000" y="690" width="3600" height="700" fill="url(#sandG)"/>
+<path d="M-1000 660Q-200 650 400 676T1600 668T2600 680V720H-1000Z" fill="#4e2620"/>
+<!-- a desert oak, black against the glow -->
+<g fill="none" stroke="#1b1424" stroke-linecap="round"><path d="M1424 704q-4 -90 6 -190" stroke-width="12"/><path d="M1428 600q-30 -30 -60 -40M1430 560q30 -26 66 -30M1430 530q-20 -20 -30 -50" stroke-width="6"/></g><g id="oak" stroke="#1b1424" stroke-width="2.200" fill="none" opacity=".95"></g>
+<g id="grass" fill="#2e3320"></g>
+
+<!-- the truck, with its bonnet up -->
+<g id="truck">
+  <ellipse cx="760" cy="742" rx="380" ry="20" fill="#000" opacity=".35"/>
+  <path d="M410 560h300v-90h170l60 90h120q22 0 22 22v118H410z" fill="#a9a497"/>
+  <path d="M410 560h300v140H410z" fill="#9c978a"/><path d="M410 560h300" stroke="#c9c4b4" stroke-width="5"/>
+  <path d="M724 480h150l52 76H724z" fill="#3c4250"/><path d="M800 480v76" stroke="#a9a497" stroke-width="7"/>
+  <path d="M430 456h240v14H430z" fill="#4a4438"/><g stroke="#4a4438" stroke-width="5"><path d="M440 470v-28M520 470v-28M600 470v-28M660 470v-28"/></g>
+  <g id="cansroof"><rect x="470" y="414" width="44" height="42" rx="4" fill="#3d5a2a"/><rect x="530" y="414" width="44" height="42" rx="4" fill="#3d5a2a"/></g>
+  <circle cx="530" cy="704" r="50" fill="#1e1c1a"/><circle cx="530" cy="704" r="22" fill="#6a6660"/><circle cx="960" cy="704" r="50" fill="#1e1c1a"/><circle cx="960" cy="704" r="22" fill="#6a6660"/>
+  <path d="M1098 586h18q14 0 14 14v84q0 14 -14 14h-18" fill="none" stroke="#5a5850" stroke-width="9"/><path d="M1104 620h24M1104 660h24" stroke="#5a5850" stroke-width="6"/>
+  <g id="bonnet" class="hot"><path d="M940 560L1010 452L1120 470L1100 568z" fill="#b8b3a5" stroke="#8c887c" stroke-width="3"/><path d="M944 562h176v40H944z" fill="#2a2a2c"/><g stroke="#55534e" stroke-width="5"><path d="M960 590h60M1040 586h50"/></g><rect x="1060" y="574" width="30" height="20" fill="#6b6a5e"/></g>
+  <g id="glove" class="hot"><path d="M724 556L690 560L700 690L724 690z" fill="#8c887c"/><rect x="742" y="584" width="44" height="26" fill="#2c2a26"/><rect x="746" y="590" width="30" height="16" fill="#d9661f"/><path d="M750 596h20" stroke="#fff3df" stroke-width="2"/></g>
+  <g id="radio" class="hot"><path d="M1032 530L1060 452" stroke="#9aa08a" stroke-width="3" stroke-linecap="round"/><rect x="996" y="528" width="64" height="42" rx="5" fill="#6b4a2a"/><rect x="1002" y="533" width="52" height="16" rx="2" fill="#e8d9a4"/><circle cx="1044" cy="559" r="6" fill="#22241f"/><g fill="#2b2d26"><rect x="1006" y="553" width="4" height="12"/><rect x="1013" y="553" width="4" height="12"/><rect x="1020" y="553" width="4" height="12"/></g></g>
+</g>
+<g id="lamp" class="hot"><circle id="lampglow" cx="702" cy="512" r="210" fill="url(#lampG)" pointer-events="none"/><path d="M702 470v18" stroke="#2c2a26" stroke-width="3"/><path d="M690 488h24l-4 34h-16z" fill="#ffd27a" stroke="#4a3a20" stroke-width="3"/><path d="M688 488h28M688 522h28" stroke="#4a3a20" stroke-width="4"/></g>
+<g id="moth"><path d="M728 470l-6 -4l6 2l6 -2l-6 4z" fill="#d8c8a8"/></g>
+
+<!-- the water: a full jerrycan, and the one that split -->
+<g id="cans" class="hot">
+  <g transform="rotate(-78 240 712)"><rect x="210" y="682" width="54" height="70" rx="5" fill="#8a2a1c"/><path d="M216 716h44" stroke="#2a120c" stroke-width="5"/></g>
+  <g fill="#7a8a9a" opacity=".85"><rect x="256" y="690" width="18" height="34" rx="4"/><rect x="276" y="696" width="18" height="28" rx="4"/></g></g>
+
+<!-- Mr Strachan on the tailgate, his bad foot up on a jerrycan -->
+<g id="str" class="hot">
+  <rect x="300" y="636" width="50" height="70" rx="5" fill="#3d5a2a"/><path d="M310 650h30M310 690h30" stroke="#2c4220" stroke-width="3"/>
+  <path d="M420 572L372 578L366 700" stroke="#5a5038" stroke-width="24" fill="none" stroke-linejoin="round" stroke-linecap="round"/><path d="M352 700h28v12h-34z" fill="#2c2018"/>
+  <path d="M424 584L378 596L338 634" stroke="#625840" stroke-width="24" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M318 622q-6 6 -2 22l30 -4l-4 -24z" fill="#efeee8"/><path d="M322 628l20 -4M320 636l22 -3" stroke="#cfcab8" stroke-width="2.500"/>
+  <path d="M398 572q-14 -84 30 -92q44 -4 50 54l2 40z" fill="#a8956a"/><path d="M420 484l14 22l14 -22z" fill="#c23b26"/><path d="M438 486v86" stroke="#8a7a52" stroke-width="2"/>
+  <path d="M470 504q22 34 2 66" stroke="#a08c60" stroke-width="17" fill="none" stroke-linecap="round"/><circle cx="466" cy="574" r="9" fill="#c48f6a"/>
+  <path d="M404 506q-26 34 -18 66" stroke="#a08c60" stroke-width="17" fill="none" stroke-linecap="round"/><circle cx="388" cy="576" r="9" fill="#c48f6a"/>
+  <rect x="428" y="466" width="14" height="18" fill="#c48f6a"/><circle cx="435" cy="450" r="22" fill="#d3a07c"/>
+  <path d="M418 448q-4 -14 4 -22l2 20zM452 448q4 -14 -4 -22l-2 20z" fill="#efeee8"/>
+  <path d="M422 460q7 -5 13 -1q6 -4 13 1q-1 6 -6 5l-7 -2l-7 2q-5 1 -6 -5z" fill="#efeee8"/><path d="M430 468h10" stroke="#8a4a3c" stroke-width="1.600"/><path d="M426 446h6M439 446h6" stroke="#2a1a10" stroke-width="2.200"/><path d="M425 441l7 -2M438 439l7 2" stroke="#efeee8" stroke-width="3" stroke-linecap="round"/>
+  <path d="M398 440q37 -14 74 0l-3 7q-34 -10 -68 0z" fill="#5e4026"/><path d="M414 440q2 -24 21 -24q19 0 21 24z" fill="#6f4c2c"/><path d="M415 434q20 -6 40 0" stroke="#3e2a16" stroke-width="4" fill="none"/>
+</g>
+<g id="nbk" class="hot"><g transform="rotate(-8 428 574)"><rect x="404" y="560" width="48" height="30" fill="#f7f5ec" stroke="#7a2a1a" stroke-width="1.500"/><path d="M428 560v30" stroke="#c8321e" stroke-width="1.200"/><path d="M409 567h15M409 574h13M432 567h15M432 574h12M409 581h14" stroke="#1d2a4a" stroke-width="1.300"/></g><circle cx="428" cy="575" r="26" fill="#fff" opacity="0"/></g>
+<!-- Dr Hayashi by the bonnet, with the flare -->
+<g id="hay" class="hot">
+  <ellipse cx="1196" cy="742" rx="56" ry="9" fill="#000" opacity=".35"/>
+  <path d="M1180 738V650h16v88zM1200 738V650h16v88z" fill="#5a5a48"/><path d="M1174 738h26v9h-30zM1200 738h26v9h-28z" fill="#2c2018"/>
+  <path d="M1166 660q-8 -110 30 -118q42 -4 46 50l2 68z" fill="#9fc0d6"/><path d="M1168 600q-2 -40 18 -52l10 40l-6 70h-22zM1240 600q2 -40 -16 -52l-10 40l4 70h22z" fill="#8a8558"/>
+  <path d="M1234 560q30 -40 52 -70" stroke="#9fc0d6" stroke-width="15" fill="none" stroke-linecap="round"/><circle cx="1288" cy="488" r="8" fill="#d9ad84"/>
+  <g id="flare"><rect x="1284" y="452" width="10" height="34" rx="2" fill="#c8321e" transform="rotate(30 1289 470)"/><path d="M1294 452l6 -6" stroke="#f3e3b0" stroke-width="3" transform="rotate(30 1289 470)"/></g>
+  <path d="M1172 566q-16 40 -4 80" stroke="#9fc0d6" stroke-width="15" fill="none" stroke-linecap="round"/>
+  <rect x="1196" y="528" width="12" height="16" fill="#d9ad84"/><circle cx="1202" cy="514" r="19" fill="#e6bd94"/><path d="M1182 524q-4 -30 20 -32q24 2 20 32q-4 -14 -20 -16q-16 2 -20 16z" fill="#1c1918"/>
+  <circle cx="1196" cy="514" r="5" fill="none" stroke="#2a2420" stroke-width="1.600"/><circle cx="1210" cy="514" r="5" fill="none" stroke="#2a2420" stroke-width="1.600"/>
+  <ellipse cx="1202" cy="497" rx="36" ry="7" fill="#7e8a6a"/><path d="M1184 496q0 -18 18 -18t18 18z" fill="#8c9878"/>
+</g>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Climb the dune</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="dune.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, sky = null, rx = null;
+
+  (function () {        /* the first stars of the evening, and the spinifex */
+    var r = DUNE.rnd(41), s = '', i, x, y;
+    for (i = 0; i < 70; i++) { x = -400 + r() * 2400; y = -300 + r() * r() * 620; s += '<circle cx="' + x.toFixed(0) + '" cy="' + y.toFixed(0) + '" r="' + (0.6 + r() * 1.1).toFixed(1) + '" opacity="' + (0.35 + r() * 0.5).toFixed(2) + '"' + (i % 7 ? '' : ' class="tw c"') + '/>'; }
+    $('#stars').innerHTML = s; s = '';
+    for (i = 0; i < 30; i++) { x = -600 + r() * 2800; y = 700 + r() * 160; s += '<path d="M' + x.toFixed(0) + ' ' + y.toFixed(0) + 'q-14 -' + (14 + r() * 16).toFixed(0) + ' -24 -4M' + x.toFixed(0) + ' ' + y.toFixed(0) + 'q4 -' + (20 + r() * 16).toFixed(0) + ' 2 -26M' + x.toFixed(0) + ' ' + y.toFixed(0) + 'q16 -' + (14 + r() * 14).toFixed(0) + ' 26 -6" stroke="#2e3320" stroke-width="4" fill="none"/>'; }
+    $('#grass').innerHTML = s; s = '';
+    [[1368, 556], [1496, 528], [1400, 478], [1432, 506], [1460, 470], [1380, 510]].forEach(function (c) {      /* a desert oak: drooping grey needles */
+      for (i = 0; i < 16; i++) { x = c[0] - 30 + r() * 60; y = c[1] - 14 + r() * 20; s += '<path d="M' + x.toFixed(0) + ' ' + y.toFixed(0) + 'q' + (r() * 8 - 4).toFixed(0) + ' ' + (18 + r() * 22).toFixed(0) + ' ' + (r() * 10 - 5).toFixed(0) + ' ' + (36 + r() * 30).toFixed(0) + '"/>'; }
+    });
+    $('#oak').innerHTML = s;
+  })();
+
+  ER.init({
+    theme: 'wild', story: 'dune', storyTitle: 'Four and a Half Times', id: 'truck', no: 'I', title: 'The Truck',
+    go: 'Climb down from the cab',
+    intro: [
+      'Thursday 14 April 1988, twenty to seven in the evening. You are a very long way from anywhere: in the desert in the west of Australia, a day&rsquo;s drive from the nearest house, which belongs to a cattle station called Tolliver Downs.',
+      'There are three of you. Mr Strachan was a navigator in the air force for thirty years, and has spent the twenty since looking for stones that fell from the sky. Dr Hayashi has come from a museum in Tokyo to look for one of them: on the night of 2 April a fireball crossed this desert, and she has worked out where it came down. You are here because Mr Strachan is your great-uncle, and somebody had to carry the water. You were told to stay close.',
+      'At sunset the truck&rsquo;s lights went dim. Twenty minutes later the engine stopped, and so did everything else that runs on electricity, the truck&rsquo;s radio among it. It is 1988: there are no mobile telephones out here, and nothing in anybody&rsquo;s pocket that can say where you are.'
+    ],
+    exit: {"next":"crest","w":{"cfaaabee":"fbcb467c"}}, tags: {"light":["3a24cd6f"],"fnight":["1089c2d5"],"fday":["3ce28fe7"],"ws":["f142a6be"],"wh":["ebdf0c7e"],"wy":["b4d81fce"],"wy_fast":["b685d7ed"],"wh_wst":["6d30d9ba","36c7da90","0d9fcec8","6282ddc1","239aa53a"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('a-file') || null; told = ER.flag('a-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('a-told', told); return true; }
+  function isBusy() { return busy; }
+  function lightDone() { return ER.flag('a-light') === 'keep'; }
+  function paint() {
+    $('#venus').classList.toggle('ready', !!(told.str && told.hay && told.lights && !lightDone()));
+    $('#radio').classList.toggle('ready', !!(lightDone() && told.book && told.card && !nextFile));
+    $('#venus').style.display = nextFile ? 'none' : '';
+    ER.pips((told.str ? 1 : 0) + (told.hay ? 1 : 0) + (told.lights ? 1 : 0) + (lightDone() ? 1 : 0) + (told.book ? 1 : 0) + (ER.flag('a-tuned') ? 1 : 0) + (nextFile ? 1 : 0), 7);
+  }
+  function showGo() { $('#go').classList.add('on'); }
+
+  function hints() {
+    if (nextFile) return ['go', ['Mr Strachan wants to find the Cross. Climb the dune behind the truck.']];
+    if (sky && sky.isOpen()) return ['light', [
+      'Watch the light for a while: drag along the watch strip under the sky (or use the arrows), and see what it does, and what the stars round it do.',
+      'Mr Strachan&rsquo;s page on lights at night is in your notebook. An aircraft flashes, and moves across the stars.',
+      'The light does not flash, and it sinks towards the dunes together with the reddish star and the little cluster beside it. Something that keeps its place among the stars is not an aircraft.'
+    ]];
+    if (rx && rx.isOpen()) return rx.hint();
+    if (!told.str) return ['str', ['Mr Strachan is sitting on the tailgate of the truck with his foot up. Ask him what happened, and what he wants to do.']];
+    if (!told.hay) return ['hay', ['Dr Hayashi is standing by the bonnet with the flare in her hand. Ask her what she has seen.']];
+    if (!told.lights) return ['lights', [
+      'Before anybody decides about the light, read what Mr Strachan wrote about lights at night.',
+      'His notebook is open on his knee. Click the notebook in his hand.'
+    ]];
+    if (!lightDone()) return ['venus', ['The light is low in the north-west, to the right above the dune. Click it, and watch it.']];
+    if (!told.book) return ['book', [
+      'It is nearly seven: time for the radio. But first, find out what a radio that only listens is good for.',
+      'The survival booklet is in the glovebox of the truck: the open door of the cab, with something orange inside. Click it.'
+    ]];
+    return ['radio', ['The little receiver is standing on the wing of the truck, by the bonnet, with its aerial up. Click it.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; showGo(); ER.say('The hollow between the dunes, after the sched. The light in the north-west has gone down behind the dune, as a planet should.'); return; }
+    if (told.in) { busy = false; ER.say('The truck, a little before seven. The lamp is the only light that is not a star.'); return; }
+    tell('in');
+    ER.narrate([
+      'The truck has stopped in a hollow between two long red dunes. The battery is flat: the part that charges it gave up an hour ago, and Mr Strachan drove on until there was nothing left. The headlights went brown, and then out.',
+      'Mr Strachan climbed on to the roof to look for the track in the last of the light. He did not see the track. Coming down, he found a stone with his left foot. He is now sitting on the tailgate with his boot off and his ankle strapped, saying things about stones that a meteorite hunter should not say.',
+      'Dr Hayashi is holding the only flare, and looking at the sky in the north-west.',
+      '&ldquo;Duncan,&rdquo; she says. &ldquo;There is a light.&rdquo;'
+    ], function () { busy = false; });
+  }
+
+  /* ---------- people ---------- */
+  $('#nbk').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.str) { ER.say('Mr Strachan&rsquo;s notebook, open on his knee. &ldquo;Ask before you read a navigator&rsquo;s notebook,&rdquo; he says. &ldquo;It&rsquo;s only polite. Then read it.&rdquo;'); return; }
+    readLights();
+  });
+  $('#str').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Mr Strachan', role: 'Navigator, retired · meteorite hunter · your great-uncle', face: window.FACE('strachan'),
+      lines: [
+        { note: 'His ankle is the size of a grapefruit and propped on a jerrycan. His notebook is open on his knee.', a: '&ldquo;Twisted, not broken. I&rsquo;ve done it before. Scotland, 1952: a much better class of stone.&rdquo;' },
+        { q: 'Where are we?', a: 'That is the question, isn&rsquo;t it. We crossed Glass Creek at four, and I took a fork that I thought was the Old Well Track. It was dead straight and nicely used. I should have known: nothing out here is dead straight but a seismic line. An oil company cut them through the scrub years ago, hundreds of them. We drove that one for two hours.' },
+        { q: 'Which way did we go?', a: 'West, more or less, by the compass on the dashboard. Which tells me nothing, because a compass in a steel truck points at the engine as much as at the pole. Tonight I don&rsquo;t know where we are to within forty miles. By noon tomorrow I mean to know.' },
+        { q: 'Can we call for help?', a: 'The truck&rsquo;s radio runs off the battery, so no. But the Doctor has a little set that runs on torch batteries. It can&rsquo;t send a word. It can listen, and at seven o&rsquo;clock Tolliver Downs will be talking to us whether we answer or not. Mrs Tolliver has never missed a sched in her life.' },
+        { q: 'What do we do?', a: 'Three things, in this order. Find out what the people looking for us are going to do. Find out where we are. Then put ourselves where they will see us. Nobody walks off into the dark. And nobody fires that flare at anything until they are sure what it is. I wrote down what the lights in the sky are, years ago. It&rsquo;s in the notebook.' }
+      ],
+      clue: { id: 'str1', title: 'Mr Strachan, on the tailgate', kind: 'What he said' },
+      done: function (seen) { if (seen && tell('str')) { paint(); ER.say('He holds up the notebook, open at a page, without looking at it.'); } }
+    });
+  });
+  $('#hay').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Dr Hayashi', role: 'Meteorites · a museum in Tokyo', face: window.FACE('hayashi'),
+      lines: [
+        { note: 'She is small, exact and very calm, and she holds the flare the way other people hold a pen before they sign something.', a: '&ldquo;Yumi Hayashi. I came eight thousand kilometres to look for one stone, and I have found a great many, all of them the wrong kind.&rdquo;' },
+        { q: 'What light?', a: 'Low in the north-west, over the dune. Very bright, and white. If it is an aircraft, we must fire now, while it can see us. If it is not, we must not, because we have one flare. So: is it? I would like somebody to be sure.' },
+        { q: 'Why does your watch say something different?', a: 'Because it keeps Tokyo time. Tokyo is nine hours ahead of Greenwich: one hour ahead of here. I never change it. My mother telephones at nine o&rsquo;clock every Sunday, Tokyo time, and I like to know when I am missing her.' },
+        { q: 'What is a fireball?', a: 'A stone from space, burning as it comes down through the air. On the second of April, at a quarter to nine at night, people saw this one from three cattle stations. From where they saw it, I worked out where it fell: near the north shore of Sixpenny Pan. If it is lying on the salt, it will be easy to see. A black stone on white.' },
+        { q: 'Is a meteorite valuable?', a: 'To me, very. It is older than the Earth. It has been travelling for four and a half thousand million years, and it is only the last ten seconds that were exciting.' }
+      ],
+      clue: { id: 'hay1', title: 'Dr Hayashi, by the bonnet', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('hay')) { paint(); ER.say('The light in the north-west is still there. So is the flare.'); } }
+    });
+  });
+
+  /* ---------- papers ---------- */
+  var LIGHTS = '<h4>Lights at night &middot; what they are</h4>' +
+    '<p><b>Stars</b> twinkle, and keep their places in the pattern. The whole pattern turns slowly round the pole of the sky, about 15&deg; an hour, so a star near the horizon rises or sinks.</p>' +
+    '<p><b>Planets</b> look like bright stars, but shine with a steadier light. From hour to hour they keep their place among the stars and move with them. Venus is the brightest thing in the sky after the Sun and the Moon, and is only ever seen in the west after sunset or in the east before dawn. It is often reported as an aircraft.</p>' +
+    '<p><b>Aircraft</b> flash: a red light, a green light and a white one that blinks. They move across the stars, not with them.</p>' +
+    '<p><b>Satellites</b>: a steady point that slides across the sky in a few minutes, and does not flash.</p>' +
+    '<p><b>Meteors</b>: a streak, gone in a second. (The Doctor&rsquo;s department.)</p>' +
+    '<p>Watch for five minutes before you believe anything. &nbsp;H.S.</p>';
+  function readLights() {
+    ER.read({ html: LIGHTS, cls: 'nav', clue: { id: 'lights', title: 'Lights at night', kind: 'Mr Strachan&rsquo;s notebook' }, done: function () {
+      DUNE.terms(['planet', 'twinkle', 'satellite', 'meteor']);
+      if (tell('lights')) { paint(); ER.say('&ldquo;Watch for five minutes,&rdquo; says Mr Strachan. &ldquo;Ten, if you have them. We have.&rdquo;'); }
+    } });
+  }
+  var BOOK = '<h4><small>Outback Travel &middot; a booklet for drivers</small>Your radio</h4><div class="two"><div>' +
+    '<p>A <b>receiver</b> only listens. It cannot call for help, but it can tell you three things that may save your life.</p>' +
+    '<ul><li><b>The plan.</b> People who are looking for you will say on the radio where and when they will search. Listen at every sched, and write it down.</li>' +
+    '<li><b>The weather.</b> Tomorrow&rsquo;s heat decides how much water you need, and when you can move.</li>' +
+    '<li><b>The time.</b> Many stations give a time signal. At the tone, check every watch you have, and write down how wrong each one is.</li></ul>' +
+    '<p><b>High by day, low by night.</b> Short-wave signals travel a long way by bouncing off a layer of the air far above the ground. By day the sun makes that layer strong, and a high frequency works best. At night the layer changes, and stations change to a lower frequency.</p>' +
+    '<p class="rule">Western Australia keeps Western Standard Time: eight hours ahead of UTC, the time at Greenwich in London, which pilots and navigators use all over the world.</p></div>' +
+    '<div><svg viewBox="0 0 280 230"><rect width="280" height="230" fill="#fffaf0"/><path d="M10 200H270" stroke="#6b5a3a" stroke-width="2"/><path d="M10 40H270" stroke="#d9661f" stroke-width="3" stroke-dasharray="6 5"/>' +
+    '<text x="140" y="30" font-family="Overpass,sans-serif" font-size="12" font-weight="700" fill="#b4471a" text-anchor="middle">the layer, high above the ground</text>' +
+    '<path d="M30 200L90 40L150 200L210 40L262 172" fill="none" stroke="#1f1d18" stroke-width="2.500"/><circle cx="30" cy="200" r="6" fill="#1f1d18"/><circle cx="262" cy="176" r="6" fill="#1f1d18"/>' +
+    '<text x="30" y="222" font-family="Overpass,sans-serif" font-size="12" fill="#1f1d18" text-anchor="middle">station</text><text x="252" y="222" font-family="Overpass,sans-serif" font-size="12" fill="#1f1d18" text-anchor="middle">you</text>' +
+    '<rect x="96" y="104" width="88" height="46" fill="#fffaf0" stroke="#d9661f"/><text x="140" y="123" font-family="Oswald,sans-serif" font-size="15" fill="#1f1d18" text-anchor="middle">HIGH by day</text><text x="140" y="143" font-family="Oswald,sans-serif" font-size="15" fill="#1f1d18" text-anchor="middle">LOW by night</text></svg></div></div>' +
+    '<p class="pg">page 14</p>';
+  $('#glove').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: BOOK, cls: 'book', clue: { id: 'book1', title: 'Your radio', kind: 'The booklet in the glovebox' }, done: function () {
+      DUNE.terms(['receiver', 'sched', 'time signal', 'frequency', 'UTC', 'Western Standard Time']);
+      if (tell('book')) { paint(); ER.say('The booklet&rsquo;s orange cover says OUTBACK TRAVEL. Somebody has written inside it, in pencil: READ THIS BEFORE YOU NEED IT.'); }
+    } });
+  });
+  var CARD = '<h4>TOLLIVER DOWNS &middot; RADIO</h4><p>Call sign: <b>Tolliver Base</b>.</p><p>We use two frequencies:</p><table><tr><td>4.4 MHz</td><td>8.0 MHz</td></tr></table>' +
+    '<p>Scheds, Western Standard Time:</p><table><tr><td>07.00</td><td>12.00</td><td>18.00</td><td>19.00</td></tr></table>' +
+    '<p>At a sched we call you first, and then we listen for you. If we don&rsquo;t hear you, we call at the next one, and the next. &nbsp;L. T.</p>';
+  function readCard(then) {
+    ER.read({ html: CARD, cls: 'rcard', clue: { id: 'card', title: 'The card in the lid of the receiver', kind: 'From Tolliver Downs' }, done: function () {
+      if (tell('card')) { paint(); }
+      if (then) then();
+    } });
+  }
+
+  /* ---------- things ---------- */
+  DUNE.thing('#bonnet', 'bonnet', 'The engine. Nothing wrong with it, Mr Strachan says, except that it needs electricity and there isn&rsquo;t any. &ldquo;A spark plug can&rsquo;t spark on good intentions.&rdquo;', isBusy);
+  DUNE.thing('#cans', 'jerrycan', 'Two jerrycans. One is full: twenty litres. The other split along its side when the truck dropped into a washout at Glass Creek, and is empty and smells of hot plastic. With the bottles, there are about twenty-two litres of water for three people.', isBusy);
+  DUNE.thing('#lamp', 'hurricane lamp', 'A hurricane lamp, burning kerosene: the only thing in the truck that never needed a battery. Mr Strachan says that this is the moral of the story.', isBusy);
+  DUNE.thing('#dune', 'dune', 'The dune is about fifteen metres high, and runs east and west as far as the light lets you see. They all do out here: long red ridges in rows, with hollows between them like the furrows of a field ploughed by giants.', isBusy);
+  DUNE.thing('#grass', 'spinifex', 'Spinifex: round clumps of grass with leaves as sharp as knitting needles. You found that out at four o&rsquo;clock.', isBusy);
+  DUNE.thing('#cansroof', null, 'Two more jerrycans on the roof rack. They are full of petrol, which the truck no longer wants, and which nobody can drink.', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  $('#venus').addEventListener('click', function () {
+    if (busy) return;
+    if (lightDone()) { ER.say('Venus, sinking with the stars into the north-west. It is not coming to look for anybody.'); return; }
+    if (!told.hay) { ER.say('A light, low over the dune in the north-west: brighter than anything else in the sky. Dr Hayashi is looking at it too, with the flare in her hand.'); return; }
+    if (!told.lights) { ER.say('&ldquo;Before you decide anything,&rdquo; says Mr Strachan, &ldquo;read what I wrote about lights.&rdquo; He holds up the notebook.'); return; }
+    if (!sky) sky = makeSky();
+    sky.open();
+  });
+  $('#radio').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The receiver, switched off to save its batteries. Tolliver Base calls again at seven tomorrow morning.'); return; }
+    if (!lightDone()) { ER.say('&ldquo;The light first,&rdquo; says Dr Hayashi. &ldquo;If it is a plane, the radio can wait. If it is not, the radio is all we have.&rdquo;'); return; }
+    if (!told.book) { ER.say('&ldquo;Read the booklet first,&rdquo; says Mr Strachan. &ldquo;It&rsquo;s in the glovebox. A radio is only as clever as the person listening.&rdquo;'); return; }
+    if (!told.card) { readCard(function () { ER.say('Two frequencies, and no word about which is for when. The booklet knows.'); }); return; }
+    if (!rx) rx = makeRadio();
+    rx.open();
+  });
+
+  /* ---------- the light in the north-west ---------- */
+  function makeSky() {
+    var T0 = 18 * 60 + 45, SPAN = 13, t = T0, seen = 0, box = ER.el('div', 'bx'), s, svg, P = DUNE.view(302, 12, 800, 500, 270), r = DUNE.rnd(7), i, faint = [];
+    for (i = 0; i < 90; i++) faint.push([40 + r() * 70, -5 + r() * 50, 4.4 + r() * 1.4]);
+    function TX(m) { return 80 + (m - T0) * 840 / SPAN; }
+    s = '<svg class="skyv" viewBox="0 0 1000 520"><defs><linearGradient id="nwG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#151436"/><stop offset=".6" stop-color="#2c2550"/><stop offset=".86" stop-color="#5a3a62"/><stop offset="1" stop-color="#8a4e58"/></linearGradient>' +
+      '<radialGradient id="vG2"><stop offset="0" stop-color="#fffbe8" stop-opacity=".95"/><stop offset=".3" stop-color="#fff3c8" stop-opacity=".35"/><stop offset="1" stop-color="#fff3c8" stop-opacity="0"/></radialGradient></defs>' +
+      '<rect width="1000" height="440" fill="url(#nwG)"/><g id="a-st"></g>' +
+      '<path d="M0 420Q140 396 300 410T620 398T1000 412V440H0Z" fill="#3e2230"/><path d="M0 440V428Q200 418 420 432T1000 426V440Z" fill="#2c1820"/>' +
+      '<g class="skT"><text x="14" y="430">TO THE WEST</text><text x="986" y="430" text-anchor="end">TO THE NORTH</text></g>' +
+      '<rect y="440" width="1000" height="80" fill="#1d1a30"/><path d="M80 474H920" stroke="#8a7a52" stroke-width="5"/>';
+    for (i = 0; i <= SPAN; i++) s += '<path d="M' + TX(T0 + i).toFixed(1) + ' 474v' + (i % 5 ? 7 : 12) + '" stroke="#cfc6e8" stroke-width="1.500"/>' + (i % 5 ? '' : '<text class="skT" x="' + TX(T0 + i).toFixed(1) + '" y="504" text-anchor="middle">' + DUNE.clock(T0 + i) + '</text>');
+    s += '<g id="a-ptr"><path d="M0 470L-10 450H10Z" fill="#f3e3b0" stroke="#7a6230"/></g><rect id="a-strip" class="tool" x="60" y="444" width="880" height="72" fill="#fff" opacity="0"/>' +
+      '<g transform="translate(940 40)"><rect x="-120" y="-26" width="120" height="46" rx="4" fill="#2a2440" stroke="#8a7a52"/><text class="skC" id="a-time" x="-60" y="8" text-anchor="middle"></text></g></svg>';
+    box.innerHTML = '<div class="frame">' + s + '</div><div class="bx-foot"><p class="pmsg"></p><span class="nudge" id="a-nudge"><button type="button" data-d="-1" title="a minute back">&lsaquo;</button><button type="button" data-d="1" title="a minute on">&rsaquo;</button></span>' +
+      '<button type="button" class="btn quiet" id="a-fire">Fire the flare</button><button type="button" class="btn" id="a-keep">Keep the flare</button></div>';
+    svg = box.querySelector('svg');
+    var msgEl = box.querySelector('.pmsg');
+    function msg(x) { msgEl.innerHTML = ER.gloss(x); }
+    function draw() {
+      var L = DUNE.lst(t), o = '', i, a, p, st;
+      faint.forEach(function (f) { a = DUNE.altaz(f[0], f[1], L); if (a[0] < 0.5) return; p = P(a[0], a[1]); if (!p || p[1] > 425) return; o += '<circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r=".8" fill="#e8e2f4" opacity=".55"/>'; });
+      DUNE.WEST.forEach(function (w, k) {
+        a = DUNE.altaz(w[1], w[2], L); if (a[0] < 0.2) return; p = P(a[0], a[1]); if (!p || p[1] > 425) return;
+        if (w[0] === 'p1') o += '<circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="40" fill="url(#vG2)"/><circle id="a-venus" cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="6" fill="#fffdf2"/>';
+        else o += '<circle class="tw' + (k % 3 ? (k % 3 === 1 ? ' b' : ' c') : '') + '" cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="' + DUNE.starR(w[3]).toFixed(1) + '" fill="' + (w[0] === 'w01' || w[0] === 'w09' ? '#ffcf9a' : '#f3ecd6') + '"/>';
+      });
+      svg.querySelector('#a-st').innerHTML = o;
+      svg.querySelector('#a-ptr').setAttribute('transform', 'translate(' + TX(t).toFixed(1) + ' 0)');
+      svg.querySelector('#a-time').textContent = DUNE.clock(t);
+      seen = Math.max(seen, t - T0); svg.setAttribute('data-t', t); svg.setAttribute('data-seen', seen);
+    }
+    function setT(v) { t = Math.round(DUNE.clamp(v, T0, T0 + SPAN)); draw(); }
+    ER.drag(svg.querySelector('#a-strip'), {
+      move: function (e) { setT(T0 + (ER.pt(svg, e).x - 80) * SPAN / 840); },
+      end: function (e) { setT(T0 + (ER.pt(svg, e).x - 80) * SPAN / 840); DUNE.sfx.notch(); }
+    });
+    box.querySelector('#a-nudge').addEventListener('click', function (e) { var b = e.target.closest ? e.target.closest('button') : null; if (!b) return; setT(t + (+b.getAttribute('data-d'))); DUNE.sfx.notch(); });
+    box.querySelector('#a-fire').addEventListener('click', function () {
+      if (lightDone()) return;
+      DUNE.sfx.no();
+      msg(seen < 8 ? 'Mr Strachan catches Dr Hayashi&rsquo;s wrist. &ldquo;Not yet. You haven&rsquo;t watched it. Five minutes, I wrote. Drag the watch on and see what it does.&rdquo;' :
+        '&ldquo;Is it flashing?&rdquo; says Mr Strachan. &ldquo;Is it crossing the stars, or going down with them? Look at the reddish star and the little cluster beside it, and tell me what the light does that they don&rsquo;t.&rdquo; Dr Hayashi lowers the flare.');
+    });
+    box.querySelector('#a-keep').addEventListener('click', function () {
+      if (lightDone()) return;
+      if (seen < 8) { DUNE.sfx.no(); msg('&ldquo;Keep it because you&rsquo;re sure,&rdquo; says Dr Hayashi, &ldquo;not because you are tired of holding it. Watch it first. Drag the watch on.&rdquo;'); return; }
+      if (!ER.check('light', 'keep')) { msg('Something is wrong with this page: tell your teacher.'); return; }
+      ER.flag('a-light', 'keep'); DUNE.sfx.click();
+      msg('&ldquo;It doesn&rsquo;t flash,&rdquo; says Dr Hayashi slowly, &ldquo;and it goes down with the stars, not across them. It is Venus.&rdquo; She puts the flare back in its tube. &ldquo;Good evening, Venus. You are not what I wanted.&rdquo;');
+      DUNE.mine('venus', 'The light in the north-west', '<p>Very bright, white, low in the north-west after sunset. It did <b>not flash</b>. In ten minutes it sank towards the dune <b>with</b> the reddish star and the little cluster next to it, keeping its place among them.</p><p>So: not an aircraft. A planet: <b>Venus</b>. The flare is still in its tube.</p>', true);
+      setTimeout(function () { ER.closeAll(); paint(); ER.say('It is a minute to seven. &ldquo;Now the radio,&rdquo; says Mr Strachan. &ldquo;Somebody is looking for us, even if Venus isn&rsquo;t.&rdquo;'); }, 3400);
+    });
+    draw();
+    msg('The north-western sky, over the dune. Dr Hayashi has the flare ready. Watch the light: drag along the watch strip to let the minutes go by. Then decide.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+
+  /* ---------- the seven o'clock sched ---------- */
+  function makeRadio() {
+    var stage = ER.flag('a-heard') ? 2 : 0, line = 0, box = ER.el('div', 'bx'), rec, spk, w = {}, picks = {},
+      LINES = [
+        '<span class="who">TOLLIVER BASE:</span> Tolliver Base, Tolliver Base, calling the Strachan party. Duncan, we didn&rsquo;t hear you at the six o&rsquo;clock sched. If you can hear me and can&rsquo;t answer, just listen.',
+        'Col has the mail plane at the coast tonight. He&rsquo;ll be back here tomorrow, Friday, at dusk. On <b>Saturday at first light</b> he&rsquo;ll fly your route: the Old Well Track west from Glass Creek to Sixpenny Well, where you said you&rsquo;d camp, and then along <b>the north shore of Sixpenny Pan</b>. He should be over the pan by about <b>half past seven</b>.',
+        'Weather for the next two days: fine and hot. Friday thirty-four degrees, Saturday thirty-two. Light easterly winds. Clear mornings, dust haze in the afternoons.',
+        'The time. At the start of the long pip it will be seven o&rsquo;clock, Western Standard Time.',
+        '<span class="pips">&middot; &middot; &middot; &middot; &middot; &mdash;&mdash;&mdash;</span>',
+        'I&rsquo;ll call you again at seven tomorrow morning, and at noon. Keep your hats on. Tolliver Base out.'
+      ];
+    var WATCH = [['s', 'Mr Strachan&rsquo;s'], ['h', 'Dr Hayashi&rsquo;s'], ['y', 'Your']], ZONES = [['utc', 'UTC'], ['wst', 'W. Standard'], ['tokyo', 'Tokyo']],
+      ERRS = [['right', 'right'], ['slow4', '4 min slow'], ['fast4', '4 min fast'], ['slow1', '1 min slow'], ['fast1', '1 min fast']];
+    function face(k) {
+      var s = '<svg viewBox="0 0 150 150">', i, a;
+      if (k === 's') {        /* a navigator's watch: black, with a 24-hour dial */
+        s += '<circle cx="75" cy="75" r="70" fill="#2a2a2c" stroke="#b9b4a6" stroke-width="5"/><circle cx="75" cy="75" r="60" fill="#121214"/>';
+        for (i = 0; i < 24; i++) { a = i * 15 * Math.PI / 180; s += '<text x="' + (75 + 49 * Math.sin(a)).toFixed(1) + '" y="' + (80 - 49 * Math.cos(a)).toFixed(1) + '" text-anchor="middle" font-family="Overpass,sans-serif" font-size="' + (i % 6 ? 9 : 12) + '" font-weight="700" fill="' + (i % 6 ? '#b9b4a6' : '#f3e3b0') + '">' + i + '</text>'; }
+        s += '<text x="75" y="104" text-anchor="middle" font-family="Overpass,sans-serif" font-size="8" font-weight="700" fill="#c8321e" letter-spacing="1">24 HOUR</text>' +
+          '<path d="M75 75L' + (75 + 32 * Math.sin(165 * Math.PI / 180)).toFixed(1) + ' ' + (75 - 32 * Math.cos(165 * Math.PI / 180)).toFixed(1) + '" stroke="#f3ecd6" stroke-width="5" stroke-linecap="round"/><path d="M75 75V22" stroke="#f3ecd6" stroke-width="3" stroke-linecap="round"/><circle cx="75" cy="75" r="4" fill="#c8321e"/>';
+      } else if (k === 'h') {   /* a digital watch, 1988 */
+        s += '<rect x="10" y="30" width="130" height="90" rx="16" fill="#3a3a40" stroke="#9a9aa2" stroke-width="4"/><rect x="22" y="48" width="106" height="54" rx="4" fill="#b7c2a2"/>' +
+          '<text x="75" y="88" text-anchor="middle" font-family="Overpass Mono,monospace" font-size="30" font-weight="600" fill="#20261a">20:00</text><text x="120" y="64" text-anchor="end" font-family="Overpass Mono,monospace" font-size="10" fill="#20261a">00</text>' +
+          '<text x="75" y="114" text-anchor="middle" font-family="Overpass,sans-serif" font-size="8" font-weight="700" fill="#d8d8de" letter-spacing="1">LIGHT · MODE</text>';
+      } else {                  /* yours: a cheap one with hands */
+        s += '<circle cx="75" cy="75" r="68" fill="#efe8d8" stroke="#c8321e" stroke-width="6"/>';
+        for (i = 1; i <= 12; i++) { a = i * 30 * Math.PI / 180; s += '<text x="' + (75 + 50 * Math.sin(a)).toFixed(1) + '" y="' + (81 - 50 * Math.cos(a)).toFixed(1) + '" text-anchor="middle" font-family="Overpass,sans-serif" font-size="15" font-weight="700" fill="#2a2420">' + i + '</text>'; }
+        a = (6 + 56 / 60) * 30 * Math.PI / 180;
+        s += '<path d="M75 75L' + (75 + 30 * Math.sin(a)).toFixed(1) + ' ' + (75 - 30 * Math.cos(a)).toFixed(1) + '" stroke="#2a2420" stroke-width="5" stroke-linecap="round"/>';
+        a = 56 * 6 * Math.PI / 180;
+        s += '<path d="M75 75L' + (75 + 46 * Math.sin(a)).toFixed(1) + ' ' + (75 - 46 * Math.cos(a)).toFixed(1) + '" stroke="#2a2420" stroke-width="3" stroke-linecap="round"/><path d="M75 75V24" stroke="#c8321e" stroke-width="1.500"/><circle cx="75" cy="75" r="4" fill="#2a2420"/>';
+      }
+      return s + '</svg>';
+    }
+    var wt = '<div class="pane wt" id="b-watches">';
+    WATCH.forEach(function (x) {
+      wt += '<div data-w="' + x[0] + '"><h6>' + x[1] + ' watch</h6>' + face(x[0]) + '<small>It keeps</small><div class="picks" data-g="z">' +
+        ZONES.map(function (z) { return '<button type="button" data-v="' + z[0] + '">' + z[1] + '</button>'; }).join('') + '</div><small>and it is</small><div class="picks" data-g="e">' +
+        ERRS.map(function (z) { return '<button type="button" data-v="' + z[0] + '">' + z[1] + '</button>'; }).join('') + '</div></div>';
+    });
+    wt += '</div>';
+    box.innerHTML = '<div class="frame"><div id="b-rx"></div><div class="spk" id="b-spk"></div>' + wt + '</div>' +
+      '<div class="bx-foot"><p class="pmsg"></p><span class="nudge" id="b-nudge"><button type="button" data-d="-1">&lsaquo;</button><button type="button" data-d="1">&rsaquo;</button></span><button type="button" class="btn" id="b-go"></button></div>';
+    var msgEl = box.querySelector('.pmsg'), go = box.querySelector('#b-go'), nudge = box.querySelector('#b-nudge');
+    spk = box.querySelector('#b-spk');
+    function msg(x) { msgEl.innerHTML = ER.gloss(x); }
+    function signal(f) {
+      var d = Math.abs(f - 4.4);
+      if (stage >= 1) return d < 0.05 ? 1 : 0;
+      return d < 0.05 ? 1 : d < 0.25 ? 0.55 - d * 2 : Math.abs(f - 5.9) < 0.15 ? 0.3 : Math.abs(f - 9.6) < 0.15 ? 0.35 : 0.06;
+    }
+    function hear(f) {
+      var d = Math.abs(f - 4.4);
+      if (d < 0.05) return '<p><span class="who">A WOMAN&rsquo;S VOICE, CLEAR:</span> &hellip;Tolliver Base, Tolliver Base&hellip; standing by for the seven o&rsquo;clock sched&hellip;</p>';
+      if (d < 0.25) return '<p class="hs">shhhhhh &hellip; ase, Tol&hellip; shhhh &hellip; by for the s&hellip; shhhh</p>';
+      if (Math.abs(f - 8.0) < 0.15) return '<p class="hs">shhhhhhhhhhhhhhh</p><p class="hs">(nothing on 8.0 at all: only the hiss of the whole sky)</p>';
+      if (Math.abs(f - 5.9) < 0.15) return '<p class="hs">shhhh &hellip; very faint music, violins, from somewhere a very long way away &hellip; shhhh</p>';
+      if (Math.abs(f - 9.6) < 0.15) return '<p class="hs">shhhh &hellip; a man reading the news in a language you don&rsquo;t know &hellip; shhhh</p>';
+      return '<p class="hs">shhhhhhhhhhhhhhhhhhhhh</p>';
+    }
+    rec = DUNE.receiver({ f: ER.flag('a-f') || 6.0, signal: signal, change: function (f) { ER.flag('a-f', f); if (stage === 0) { spk.innerHTML = hear(f); DUNE.hiss(signal(f) > 0.9 ? 0.25 : 1); } } });
+    box.querySelector('#b-rx').appendChild(rec.node);
+    nudge.addEventListener('click', function (e) { var b = e.target.closest ? e.target.closest('button') : null; if (!b || stage) return; rec.set(rec.get() + (+b.getAttribute('data-d')) / 10); });
+    ER.$$('#b-watches > div', box).forEach(function (d) {
+      var k = d.getAttribute('data-w'); w[k] = { z: '', e: '' };
+      ER.$$('.picks', d).forEach(function (g) {
+        g.addEventListener('click', function (e) {
+          var b = e.target.closest ? e.target.closest('button') : null; if (!b || stage !== 2) return;
+          w[k][g.getAttribute('data-g')] = b.getAttribute('data-v');
+          ER.$$('button', g).forEach(function (o) { o.classList.toggle('on', o === b); }); DUNE.sfx.click();
+        });
+      });
+    });
+    function draw() {
+      box.querySelector('#b-watches').classList.toggle('on', stage === 2);
+      box.querySelector('#b-spk').style.display = stage === 2 ? 'none' : '';
+      box.querySelector('#b-rx').style.display = stage === 2 ? 'none' : '';
+      nudge.style.display = stage === 0 ? '' : 'none';
+      go.textContent = ['Listen', 'Go on', 'That is what they keep'][stage];
+      rec.lock(stage > 0);
+    }
+    function speak() {
+      var s = '', i;
+      for (i = 0; i <= line; i++) s += '<p>' + LINES[i] + '</p>';
+      spk.innerHTML = s; spk.scrollTop = spk.scrollHeight;
+    }
+    go.addEventListener('click', function () {
+      var f = rec.get().toFixed(1), c;
+      if (stage === 0) {
+        if (ER.check('fnight', f)) {
+          stage = 1; line = 0; ER.flag('a-tuned', 1); DUNE.hiss(0.18); draw(); speak(); paint();
+          msg('Seven o&rsquo;clock. Mrs Tolliver&rsquo;s voice comes out of the little speaker as if she were sitting on the bonnet. Dr Hayashi writes down every word.');
+          return;
+        }
+        DUNE.sfx.no();
+        msg(ER.check('fday', f) ? 'The other frequency on the card, and the dial is exactly on it: but there is nothing there but hiss. &ldquo;What did the booklet say?&rdquo; says Mr Strachan. &ldquo;Which one would a station use at night?&rdquo;' :
+          'There is nobody there worth listening to. The Downs use one of the two frequencies on the card. Put the needle exactly on the right one for the time of day.');
+        return;
+      }
+      if (stage === 1) {
+        if (line < LINES.length - 1) {
+          line++; speak();
+          if (line === 4) { for (var i = 0; i < 5; i++) DUNE.sfx.pip(false, i); DUNE.sfx.pip(true, 5); msg('Five short pips, and a long one. At the start of the long one, everybody looks at their watch, and nobody breathes.'); }
+          else if (line === 5) msg('&ldquo;Saturday, half past seven, the north shore of Sixpenny Pan,&rdquo; says Dr Hayashi, writing. &ldquo;If we are there, he will find us. If we are not, he will find a very nice salt pan.&rdquo;');
+          else msg('');
+          return;
+        }
+        stage = 2; ER.flag('a-heard', 1); DUNE.hiss(0); draw();
+        ER.addClue('sched1', 'Tolliver Base, Thursday, 19.00', '<h4>Tolliver Base &middot; Thursday 19.00 &middot; 4.4 MHz</h4>' + LINES.map(function (l) { return '<p>' + l + '</p>'; }).join(''), 'radio', 'What the radio said');
+        DUNE.terms(['search', 'weather']);
+        msg('At the start of the long pip, it was exactly seven o&rsquo;clock here. This is what the three watches said at that moment. For each one, say what time it keeps, and how wrong it is.');
+        return;
+      }
+      if (stage === 2) {
+        if (!w.s.z || !w.s.e || !w.h.z || !w.h.e || !w.y.z || !w.y.e) { msg('Choose two things for every watch: what time it keeps, and how right it is.'); return; }
+        var a = w.s.z + '.' + w.s.e, b = w.h.z + '.' + w.h.e, y = w.y.z + '.' + w.y.e;
+        c = 'keep|4.4|' + a + '|' + b + '|' + y;
+        if (ER.exitOk([c])) {
+          DUNE.sfx.pencil();
+          DUNE.mine('watches', 'The three watches', '<p>At the long pip it was <b>19.00</b> Western Standard Time (UTC + 8).</p><p>Mr Strachan&rsquo;s said 11.00: it keeps <b>UTC</b>, and is right. Dr Hayashi&rsquo;s said 20.00: <b>Tokyo time</b> (UTC + 9), right. Mine said 18.56: Western Standard Time, <b>four minutes slow</b>.</p>', true);
+          DUNE.mine('plan', 'The plan', '<p>Col flies the mail plane on <b>Saturday at first light</b>: the Old Well Track to Sixpenny Well, then the <b>north shore of Sixpenny Pan</b>, at about <b>07.30</b>.</p><p>We have to be there, where he can see us. First we have to know where &ldquo;here&rdquo; is.</p>', true);
+          nextFile = ER.exit([c], { wait: true }); ER.flag('a-file', nextFile);
+          msg('&ldquo;Greenwich, Tokyo, and you,&rdquo; says Mr Strachan. &ldquo;Three watches, and now we know exactly what each of them is worth. Yours is worth four minutes less than it thinks.&rdquo;');
+          setTimeout(function () {
+            ER.closeAll(); paint(); busy = true;
+            ER.narrate([
+              'Supper is a tin of beans heated on the lamp, which takes a long time, and tastes better than any beans have ever tasted. The light in the north-west has gone down behind the dune, as a planet should.',
+              'Now the sky is full. You have never seen so many stars: not a sky with stars in it, but stars with a little sky between them.',
+              '&ldquo;Second thing,&rdquo; says Mr Strachan, and gets up on one leg and a spade. &ldquo;Where are we. Up the dune, all of us. Bring the torch with the red paper over it, and my protractor. We want the Cross.&rdquo;'
+            ], function () { busy = false; showGo(); });
+          }, 2800);
+          return;
+        }
+        DUNE.sfx.no();
+        if (!ER.check('ws', a)) msg(w.s.z === 'utc' ? 'Mr Strachan&rsquo;s watch says 11.00 at 19.00. Is that right for the clock you chose, to the minute?' :
+          'Mr Strachan&rsquo;s watch said 11.00 when it was 19.00 here. Which clock is eight hours behind Western Standard Time? The booklet says.');
+        else if (!ER.check('wh', b)) msg(ER.check('wh_wst', b) ? '&ldquo;I told you what my watch keeps,&rdquo; says Dr Hayashi. &ldquo;Not this country&rsquo;s time. And none of these is an hour wrong: say what it keeps, and how wrong it is at that.&rdquo;' :
+          'Dr Hayashi&rsquo;s watch said 20.00 at 19.00 here. Tokyo is nine hours ahead of UTC. Is her watch right for Tokyo?');
+        else if (!ER.check('wy', y)) msg(ER.check('wy_fast', y) ? 'Yours said 18.56 when it was 19.00. Has it got there yet, or is it ahead? A watch that has not got there yet is slow.' :
+          'Your watch said 18.56 when it was exactly 19.00 here. Which time does it keep, and by how much is it out?');
+        else msg('Something does not agree. Check each watch against 19.00 here.');
+      }
+    });
+    draw();
+    if (stage === 0) { spk.innerHTML = hear(rec.get()); msg('A minute to seven. The card says the Downs use 4.4 or 8.0. Turn the knob, or drag along the dial, and put the needle exactly on the frequency they use at night. Then listen.'); }
+    else msg('This is what the three watches said at the long pip. For each one, say what time it keeps, and how wrong it is.');
+    return {
+      open: function () { ER.open('ov-lock', box, function () { DUNE.hiss(0); }); if (stage === 0) DUNE.hiss(signal(rec.get()) > 0.9 ? 0.25 : 1); else if (stage === 1) DUNE.hiss(0.18); },
+      isOpen: function () { return !!box.parentNode; },
+      hint: function () {
+        if (stage === 0) return ['tune', [
+          'The card in the lid gives the Downs two frequencies. Which one do they use at night?',
+          'The booklet: short-wave stations use a high frequency by day and a low one at night. Turn the knob, or drag along the dial, to the lower of the two, exactly. Then Listen.'
+        ]];
+        if (stage === 1) return ['listen', ['Press Go on to hear the rest of the sched, and watch for the time signal.']];
+        return ['watch', [
+          'At the long pip it was exactly seven o&rsquo;clock here, Western Standard Time. Compare each watch with 19.00.',
+          'The booklet: Western Standard Time is eight hours ahead of UTC. Dr Hayashi told you how far ahead of UTC Tokyo is. So at 19.00 here, what time is it in UTC, and in Tokyo?',
+          'At 19.00 here it is 11.00 UTC and 20.00 in Tokyo. And a watch that says 18.56 when it is 19.00 has not got there yet.'
+        ]];
+      }
+    };
+  }
+})();
+</script>
+</body>
+</html>

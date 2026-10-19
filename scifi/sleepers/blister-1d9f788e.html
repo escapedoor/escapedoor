@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Blister · Only What Was Asked</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-scifi.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="sleepers.css">
+<style>
+  body{--bg:#02030a;--accent:#f2d27a;--font-display:'Orbitron',sans-serif;--font-ui:'Share Tech Mono',monospace;--font-body:'Outfit',sans-serif;
+    --tc-bg:rgba(3,4,12,.96);--tc-ink:#ece8f6;--cap-bg:rgba(3,4,12,.93);--cap-ink:#f2eefb;--panel:#0d0f1c;--face-bg:#16222e;--q-ink:#f6e3a8;--fade:#000;--hud-bg:rgba(3,4,12,.82)}
+  .tw{animation:tw 3.4s steps(2) infinite}
+  @keyframes tw{50%{opacity:.45}}
+  .cel{animation:cel 5s ease-in-out infinite}
+  @keyframes cel{50%{opacity:.75}}
+  .breath{animation:breath 5.4s ease-in-out infinite;transform-box:fill-box;transform-origin:0 100%}
+  @keyframes breath{0%,40%{opacity:0;transform:scale(.6)}60%{opacity:.55}100%{opacity:0;transform:scale(1.5) translate(20px,-30px)}}
+  #vrail.next #railBar{animation:snudge 1.7s ease-in-out infinite}
+  #camG{transition:transform 1.2s ease-in-out}
+  #scene.bow #camG{transform:translateX(-300px)}#scene.stern #camG{transform:translateX(300px)}
+
+  /* the voyage rail */
+  .vr{display:grid;grid-template-columns:minmax(0,640px) 350px;gap:16px;width:min(1010px,96vw);align-items:start}
+  .vr-rail{background:#1b1610 linear-gradient(170deg,#2a2218,#120e09);border:1px solid #6b5326;border-radius:8px;padding:8px 10px;box-shadow:0 20px 50px rgba(0,0,0,.6)}
+  .vr-rail svg{display:block;width:100%;height:auto}
+  .vrT{font-family:'Share Tech Mono',monospace;font-size:11px;fill:#d8c48c;text-anchor:middle}
+  .vrB{font-family:'Cinzel',serif;font-size:14px;fill:#f2d27a;text-anchor:middle;font-weight:700;letter-spacing:.06em}
+  .vr-row{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin:8px 0 0;padding:7px 10px;border:1px solid #4a3c22;border-radius:6px;background:rgba(0,0,0,.32);font-family:'Share Tech Mono',monospace;font-size:13.5px;color:#eadfc0}
+  .vr-row>span{flex:1;min-width:150px}
+  .vr-row output{min-width:70px;padding:3px 6px;text-align:center;background:#0c0a06;border:1px solid #6b5326;border-radius:4px;font-size:18px;color:#ffe9b8}
+  .vr-row .st2{min-width:34px;height:30px;padding:0 6px;border:1px solid #6b5326;border-radius:4px;background:#2a2218;font-family:'Share Tech Mono',monospace;font-size:13px;color:#eadfc0}
+  .vr-row .st2:hover{border-color:#f2d27a;color:#f2d27a}
+  .vr-row .ch{padding:5px 9px;border:1px solid #6b5326;border-radius:4px;background:#2a2218;font-family:'Share Tech Mono',monospace;font-size:12.5px;color:#eadfc0}
+  .vr-row .ch.on{background:#f2d27a;color:#16120a;border-color:#f2d27a}
+  .vr-side{color:#eadfc0}
+  .vr-plaque{padding:12px 14px 10px;border-radius:6px;background:linear-gradient(135deg,#8a6a26,#e6c873 30%,#b08a35 55%,#f0d98f 78%,#8a6a26);color:#3a2a08;font-family:'Cinzel',serif;font-size:13.5px;line-height:1.36;font-weight:700}
+  .vr-plaque h6{margin:0 0 6px;font-size:14px;letter-spacing:.1em}
+  .vr-plaque p{margin:0 0 5px}
+  .vr-side .pmsg{min-height:96px;margin:10px 0 8px;font-size:16.5px}
+  .vr-side .btn{float:right}
+  .vr-cam{display:none;margin-top:10px}
+  .vr-cam.on{display:block}
+  .vr-cam .pics{display:flex;gap:8px;margin-top:8px}
+  .vr-cam .pic{flex:1;background:#000;border:1px solid #3a4a5a;border-radius:4px;padding:4px;font-family:'Share Tech Mono',monospace;font-size:11px;color:#9fd8ff;min-height:120px}
+  .vr-cam .pic svg{display:block;width:100%;height:auto}
+  @media (max-width:1000px){.vr{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="fadeB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#14161e" stop-opacity="0"/><stop offset=".75" stop-color="#14161e"/></linearGradient>
+  <radialGradient id="celG"><stop offset="0" stop-color="#fff8d8"/><stop offset=".2" stop-color="#ffe9a0" stop-opacity=".8"/><stop offset="1" stop-color="#ffd060" stop-opacity="0"/></radialGradient>
+  <linearGradient id="milky" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3a3a6a" stop-opacity="0"/><stop offset=".5" stop-color="#5a5a8a" stop-opacity=".28"/><stop offset="1" stop-color="#3a3a6a" stop-opacity="0"/></linearGradient>
+  <linearGradient id="hullG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7a8290"/><stop offset=".5" stop-color="#3a414c"/><stop offset="1" stop-color="#1a1e24"/></linearGradient>
+  <linearGradient id="brass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f0d98f"/><stop offset=".5" stop-color="#b08a35"/><stop offset="1" stop-color="#6b5326"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="44%" r="74%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".64" stop-color="#000" stop-opacity=".2"/><stop offset="1" stop-color="#000" stop-opacity=".9"/></radialGradient>
+  <clipPath id="domeC"><path d="M60 640Q60 40 800 40Q1540 40 1540 640Z"/></clipPath>
+</defs>
+<rect x="-1000" y="-600" width="3600" height="2100" fill="#0d0f16"/>
+<!-- outside: stars, the ship's own hull, the shield at the bow and the engine at the stern -->
+<g clip-path="url(#domeC)">
+  <rect x="60" y="40" width="1480" height="600" fill="#02030a"/>
+  <path d="M60 520L1540 120V260L60 660Z" fill="url(#milky)"/>
+  <g id="stars" fill="#fff"></g>
+  <g id="shieldG" class="hot"><ellipse cx="300" cy="420" rx="80" ry="300" fill="#05060b"/><ellipse cx="300" cy="420" rx="80" ry="300" fill="none" stroke="#4a5a7a" stroke-width="4" opacity=".8"/>
+    <path d="M258 130Q226 420 258 710" stroke="#7a8aaa" stroke-width="2" fill="none" opacity=".5"/><text x="420" y="160" class="mono" font-size="14" fill="#8a9aba">BOW SHIELD</text><path d="M416 164L360 210" stroke="#8a9aba" stroke-width="1.5"/></g>
+  <path d="M340 560L1380 600V640H340Z" fill="url(#hullG)"/><path d="M340 560L1380 600" stroke="#a8b0bc" stroke-width="3"/>
+  <g stroke="#2a3038" stroke-width="3"><path d="M400 566v80M600 572v80M800 579v80M1000 586v80M1200 593v80"/></g>
+  <g id="engineG" class="hot"><path d="M1380 590L1460 560V650L1380 650Z" fill="#4a525e"/><path d="M1460 540L1530 500V680L1460 660Z" fill="#2a3038"/>
+    <g fill="#6a7280" opacity=".9"><path d="M1240 594l40 -120h14l-30 122zM1300 596l40 -130h14l-30 132z"/></g><text x="1260" y="460" class="mono" font-size="13" fill="#8a92a0">ENGINE</text></g>
+  <g id="celS" class="hot"><circle class="cel" cx="1478" cy="388" r="64" fill="url(#celG)"/><circle cx="1478" cy="388" r="5" fill="#fffbe8"/><path d="M1478 360v56M1450 388h56" stroke="#fff6cc" stroke-width="1.4" opacity=".7"/></g>
+  <!-- the camera, on its track along the top of the dome -->
+  <path d="M480 74H1120" stroke="#5a6470" stroke-width="6"/><g id="camG" class="hot"><rect x="780" y="64" width="40" height="34" rx="5" fill="#2a3038" stroke="#7a8290" stroke-width="2"/><circle cx="800" cy="102" r="10" fill="#0a131c" stroke="#9fd8ff" stroke-width="2"/></g>
+  <g fill="#e6f4ff" opacity=".35"><path d="M60 640Q80 560 140 600Q120 640 60 640Z"/><path d="M1540 640Q1520 560 1460 600Q1480 640 1540 640Z"/></g>
+</g>
+<path d="M60 640Q60 40 800 40Q1540 40 1540 640" fill="none" stroke="#3a4250" stroke-width="22"/><path d="M60 640Q60 40 800 40Q1540 40 1540 640" fill="none" stroke="#6a7280" stroke-width="4"/>
+<g stroke="#3a4250" stroke-width="12" fill="none"><path d="M800 40V640"/><path d="M380 110Q330 360 330 640"/><path d="M1220 110Q1270 360 1270 640"/></g>
+
+<!-- inside: the floor, the brass rail, the lectern, the old painted chart -->
+<path d="M-1000 640H2600V1500H-1000Z" fill="#14161e"/>
+<path d="M-1000 640H2600" stroke="#2a2e3a" stroke-width="6"/>
+<g id="chart" class="hot"><rect x="250" y="800" width="1100" height="70" fill="#1c1f2a"/>
+  <text x="300" y="845" font-family="Cinzel,serif" font-weight="700" font-size="24" fill="#c9bfa0" opacity=".8">◀ BOW · AHEAD OF US: CELANDINE</text>
+  <text x="1300" y="845" text-anchor="end" font-family="Cinzel,serif" font-weight="700" font-size="24" fill="#c9bfa0" opacity=".8">BEHIND US: THE SUN · STERN ▶</text></g>
+<g id="vrail" class="hot"><rect x="150" y="660" width="1300" height="120" fill="#000" opacity="0"/><g id="railBar"><rect x="170" y="700" width="1260" height="16" rx="8" fill="url(#brass)"/>
+  <circle cx="190" cy="708" r="16" fill="#ffe08a"/><text x="190" y="752" text-anchor="middle" font-family="Cinzel,serif" font-weight="700" font-size="15" fill="#d8c48c">THE SUN</text>
+  <circle cx="1410" cy="708" r="12" fill="#fff2b0"/><text x="1410" y="752" text-anchor="middle" font-family="Cinzel,serif" font-weight="700" font-size="15" fill="#d8c48c">CELANDINE</text>
+  <g id="model"><path d="M640 690h80l14 18-14 18h-80z" fill="#c9ced2"/><rect x="726" y="684" width="10" height="48" rx="3" fill="#2a3038"/></g>
+  <g id="plaque"><rect x="880" y="730" width="170" height="40" rx="3" fill="url(#brass)"/><path d="M896 744h138M896 756h110" stroke="#5a4416" stroke-width="2.5"/></g></g></g>
+<g id="lectern" class="hot"><path d="M60 600l150 -20 10 30 -150 22z" fill="#4a3c22"/><path d="M80 610l120 -18" stroke="#f4f1e8" stroke-width="10"/><path d="M130 620v190M90 810h90" stroke="#2a2218" stroke-width="12" stroke-linecap="round"/></g>
+<!-- Tanaka, very cold -->
+<g id="tanakaG" class="hot"><use href="#ch-tanaka" x="960" y="440" width="230" height="300"/><ellipse class="breath" cx="1082" cy="580" rx="26" ry="12" fill="#e6f4ff" pointer-events="none"/></g><rect x="950" y="670" width="250" height="110" fill="url(#fadeB)" pointer-events="none"/>
+<rect x="-1000" y="-600" width="3600" height="2100" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Go down to the engine room</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="sleepers.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = false, nextFile = null, sc = $('#scene');
+
+  /* stars everywhere except behind the bow shield */
+  (function () {
+    var s = '', i, x, y, seed = 3;
+    function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+    for (i = 0; i < 260; i++) {
+      x = 60 + rnd() * 1480; y = 40 + rnd() * 560;
+      if (Math.pow((x - 300) / 84, 2) + Math.pow((y - 420) / 304, 2) < 1) continue;
+      s += '<circle' + (i % 9 === 0 ? ' class="tw"' : '') + ' cx="' + x.toFixed(0) + '" cy="' + y.toFixed(0) + '" r="' + (0.5 + rnd() * 1.6).toFixed(1) + '" opacity="' + (0.35 + rnd() * 0.65).toFixed(2) + '"/>';
+    }
+    $('#stars').innerHTML = s;
+  })();
+
+  ER.init({
+    theme: 'scifi', story: 'sleepers', storyTitle: 'Only What Was Asked', id: 'blister', no: 'IV', title: 'The Blister',
+    go: 'Climb into the blister',
+    intro: [
+      'In the watch room you put three flags on three logs. Red on the crew log at 04:12: Lindgren wrote that she was in the watch room, but TALLY&rsquo;s garden door and her own past perfect put her asleep in the garden. Amber on the diary: &ldquo;so the shield must have gone&rdquo; is a conclusion, not a sighting. Grey on TALLY&rsquo;s 04:31, which says that a question was answered, and not what. Then TALLY filled the gap. She had asked whether it could see the shield, and it had said no. Asked whether there is a shield, it said: I do not know.',
+      'The observation blister is a bubble of glass on the side of Ring C, half way along the ship. It is very cold and very beautiful, and from it you can see nearly the whole of the outside of the ship, from end to end.',
+      'It is twenty to seven. The engine starts at 10:12.'
+    ],
+    exit: {"next":"engine","w":{"7dfad4ed":"f9541e64"}}, tags: {"pos":["1a7ef512"],"nose":["c7e1f302"],"move":["bba830d7"],"stop":["02578e5a"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('b-file') || null;
+  var S = ER.flag('b-st') || { pos: 20, nose: 'cel', move: '', stop: 61, ok: 0, p1: 0, p2: 0 };
+  function keep() { ER.flag('b-st', S); }
+
+  var MANUAL = '<h4>Turnover</h4><h5>The ship&rsquo;s manual · on the lectern in the blister</h5>' +
+    '<svg viewBox="0 0 640 170"><g font-family="Share Tech Mono,monospace" font-size="12" fill="#20242b">' +
+    '<text x="10" y="18">BEFORE TURNOVER</text><circle cx="24" cy="50" r="9" fill="#e6b93c"/><text x="24" y="76" text-anchor="middle">SUN</text><circle cx="616" cy="50" r="7" fill="#f2d27a"/><text x="616" y="76" text-anchor="middle">CELANDINE</text>' +
+    '<path d="M250 40h120v20H250z" fill="#9aa3aa"/><path d="M370 30v40" stroke="#20242b" stroke-width="7"/><path d="M240 44l-14 6 14 6z" fill="#20242b"/><text x="372" y="92" text-anchor="middle">bow + shield</text><text x="236" y="92" text-anchor="middle">engine</text>' +
+    '<path d="M400 50h80" stroke="#a8402c" stroke-width="3"/><path d="M480 50l-10 -6v12z" fill="#a8402c"/><text x="440" y="40" text-anchor="middle" fill="#a8402c">moving</text>' +
+    '<text x="10" y="118">AFTER TURNOVER</text><path d="M270 130h120v20H270z" fill="#9aa3aa"/><path d="M270 120v40" stroke="#20242b" stroke-width="7"/><path d="M400 134l14 6 -14 6z" fill="#20242b"/><text x="268" y="168" text-anchor="middle">bow + shield</text><text x="404" y="168" text-anchor="middle">engine</text>' +
+    '<path d="M430 140h80" stroke="#a8402c" stroke-width="3"/><path d="M510 140l-10 -6v12z" fill="#a8402c"/><text x="470" y="130" text-anchor="middle" fill="#a8402c">still moving</text><path d="M120 140h120" stroke="#20242b" stroke-width="1.5" stroke-dasharray="4 4"/><text x="150" y="132">the bow looks back</text></g></svg>' +
+    '<p>In space nothing slows a ship down. When the engine stops, the ship goes on at the same speed, in the same direction, for as long as nothing pushes it. This is <b>coasting</b>.</p>' +
+    '<p>Turning the ship round does not turn the journey round. It only changes which end goes first. To brake, the ship turns over, so that the engine at the stern faces the way we are going, and pushes against it.</p>' +
+    '<p>While the ship flies bow first, the bow shield takes the dust. The shield is wider than the ship, so everything on board is in its shadow: nothing straight ahead of the bow can be seen from any window. Since turnover, the bow has pointed back the way we came.</p>';
+  var PLAQUE = '<h4>The voyage in numbers</h4><h5>Brass plaque on the rail</h5>' +
+    '<p class="r"><b>1</b><span>We left the Sun in Year 0. For four years the engine pushed us up to speed, and in those four years we went one tenth of a light year.</span></p>' +
+    '<p class="r"><b>2</b><span>Since Year 4 we have been coasting at one twentieth of the speed of light: 15,000 kilometres a second, or one light year in every twenty years.</span></p>' +
+    '<p class="r"><b>3</b><span>In Year 122 we turn over and brake. Braking takes four years, and takes us as far as speeding up did.</span></p>' +
+    '<p class="r"><b>4</b><span>In Year 126: Celandine, 6.1 light years from the Sun.</span></p>' +
+    '<p class="ft">Clocks on board run a little slow at this speed: since we left, they have lost about five weeks against Earth&rsquo;s. Ship time is the time we live by.</p>';
+
+  function hints() {
+    if (nextFile) return ['go', ['You have two pictures. TALLY can read pictures, and its Rule 14 console is in the engine room. The way there is the button at the bottom of the screen.']];
+    if (!(ER.flag('b-man') && ER.flag('b-plq'))) return ['look', [
+      'Read the manual on the lectern on the left, and the brass plaque on the rail under the window.',
+      'Then the rail itself: Tanaka wants the model on it set the way things really are this morning.'
+    ]];
+    if (!S.ok) return ['rail', [
+      'Four things to set on the rail: where the ship is now, which way the bow points, which way the ship is moving, and where it would stop if the engine started at 10:12. The plaque and the manual have everything you need.',
+      'Where: a tenth of a light year for the first four years, then one light year in every twenty years since Year 4. Which way: since turnover the bow looks back the way we came, but turning round does not turn the journey round. The old paint on the wall was right before turnover.',
+      'It is Year 82: 0.1 + 78 &divide; 20. Braking for four years takes the ship as far as four years of speeding up did, a tenth of a light year more, from wherever it is when the engine starts.'
+    ]];
+    return ['pics', [
+      'Now the camera. Take a picture straight off the bow, where the Sun ought to be. Then take one off the stern, to show that the camera can see a star when nothing is in the way.',
+      'If there were no shield, the Sun would be in the middle of the picture off the bow: from here it is still one of the brightest stars in the sky.'
+    ]];
+  }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#vrail').setAttribute('class', 'hot' + (!nextFile && ER.flag('b-man') && ER.flag('b-plq') ? ' next' : ''));
+    $('#go').classList.toggle('on', !!nextFile && !busy);
+    ER.pips(nextFile ? 2 : S.ok ? 1 : 0, 2);
+  }
+  function begin() {
+    paint();
+    if (nextFile) { ER.say('The blister. Two pictures in your notebook, and a round black patch where the Sun should be.'); return; }
+    if (ER.flag('b-seen')) { ER.say('The blister: the whole sky, the whole ship, and a brass rail.'); return; }
+    busy = true; ER.flag('b-seen', 1);
+    ER.narrate([
+      'You climb up into the blister and stop on the top rung. Over your head and all round you there is nothing but glass, and beyond the glass, more stars than you have ever seen in your life.',
+      'Below you the hull of the <i>Amaranth</i> runs away in both directions. To the left, at the bow, a great black shape stands across the sky with no stars in it. To the right, past the engine, one bright yellow star.',
+      '&ldquo;The shield,&rdquo; says Tanaka, through his teeth, &ldquo;or something shaped exactly like it. That proves nothing to TALLY: it&rsquo;s a dark thing against a dark sky. We need something TALLY can check for itself.&rdquo; He points at the brass rail under the window. &ldquo;First, though. I want to know exactly where we are, and which way we&rsquo;re facing. Nobody has asked that this morning.&rdquo;'
+    ], function () { busy = false; });
+  }
+
+  /* ---------- the blister ---------- */
+  $('#lectern').addEventListener('click', function () { if (!busy) ER.read({ html: MANUAL, cls: 'manual', clue: { id: 'turnover', title: 'Turnover', kind: 'The ship’s manual' }, done: function () { ER.flag('b-man', 1); SLP.learn(['coast', 'turnover', 'stern']); paint(); } }); });
+  $('#plaque').addEventListener('click', function (e) { e.stopPropagation(); if (!busy) ER.read({ html: PLAQUE, cls: 'manual', clue: { id: 'voyage', title: 'The voyage in numbers', kind: 'Plaque on the rail' }, done: function () { ER.flag('b-plq', 1); SLP.learn(['light year', 'voyage']); paint(); } }); });
+  $('#vrail').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The rail, set the way things are: 4.0 light years out, bow to the Sun, moving towards Celandine, and a flag at 4.1.'); return; }
+    if (!(ER.flag('b-man') && ER.flag('b-plq'))) { ER.say('A brass rail from the Sun to Celandine, with a model of the ship on it and a little flag. Read the plaque on the rail, and the manual on the lectern, before you move anything.'); return; }
+    openRail();
+  });
+  SLP.thing('#chart', null, 'Painted on the wall under the window, long ago: BOW: AHEAD OF US, CELANDINE. BEHIND US: THE SUN, STERN. It was true for eighty-two years. Since yesterday morning, half of it has not been.', isBusy);
+  SLP.thing('#shieldG', 'bow shield', 'The bow shield, or something the shape of it: a black disc wider than the ship, standing across the sky at the far end of the hull. There are no stars in it. Then again, there are no stars in a lot of things.', isBusy);
+  SLP.thing('#engineG', 'stern', 'The stern: the engine, and the fins that carry its heat away. Since turnover, it is the end of the ship that goes first.', isBusy);
+  SLP.thing('#celS', null, 'One bright yellow star, just past the stern. Celandine: the star you are all going to, forty-four years from now.', isBusy);
+  SLP.thing('#camG', null, function () { return nextFile ? 'The blister camera, back in the middle of its track.' : 'The blister camera, on a track along the top of the dome. It can look straight off the bow, or straight off the stern.'; }, isBusy);
+  $('#tanakaG').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(nextFile ? '&ldquo;A round black patch exactly where the Sun should be,&rdquo; says Tanaka. &ldquo;Either the Sun has gone out, or something is in front of it. I know which I&rsquo;d rather.&rdquo;'
+      : S.ok ? '&ldquo;Two light years short,&rdquo; says Tanaka. &ldquo;Now the camera. Two pictures. One proves nothing.&rdquo;'
+      : '&ldquo;I can&rsquo;t feel my ears,&rdquo; says Tanaka. &ldquo;Set the rail. Then I&rsquo;ll be able to stop thinking about my ears.&rdquo;');
+  });
+
+  /* ---------- the rail ---------- */
+  var X0 = 34, X1 = 610, LY = (X1 - X0) / 61;            /* rail x for tenths of a light year */
+  function railSvg() {
+    var s = '', i, x;
+    s += '<rect x="' + X0 + '" y="74" width="' + (X1 - X0) + '" height="8" rx="4" fill="#b08a35"/>';
+    for (i = 0; i <= 61; i++) { x = X0 + i * LY; s += '<path d="M' + x.toFixed(1) + ' ' + (i % 10 === 0 ? 62 : i % 5 === 0 ? 66 : 70) + 'V74" stroke="#d8c48c" stroke-width="' + (i % 10 === 0 ? 1.6 : 0.8) + '"/>'; if (i % 10 === 0) s += '<text x="' + x.toFixed(1) + '" y="57" class="vrT">' + (i / 10) + '</text>'; }
+    s += '<text x="' + (X0 + 30 * LY).toFixed(0) + '" y="150" class="vrT">light years from the Sun</text>';
+    s += '<circle cx="' + X0 + '" cy="78" r="11" fill="#ffd060"/><text x="' + X0 + '" y="108" class="vrB">SUN</text><circle cx="' + X1 + '" cy="78" r="8" fill="#fff2b0"/><text x="' + (X1 - 38) + '" y="108" class="vrB">CELANDINE</text>';
+    s += '<g id="vr-stop"><path d="M0 0V40" stroke="#e6e0d0" stroke-width="1.6"/><path d="M0 26h20l-5 6 5 6h-20z" fill="#e0463a"/><text x="10" y="54" class="vrT" style="fill:#ffb8a8">STOP</text></g>';
+    s += '<g id="vr-ship"><path d="M-22 -7h40l8 7-8 7h-40z" fill="#e6eaee" stroke="#2a3038" stroke-width="1"/><rect x="-28" y="-13" width="7" height="26" rx="2" fill="#2a3038"/></g><text id="vr-bowt" class="vrT" style="font-size:10px;fill:#fff">BOW</text>';
+    s += '<g id="vr-move"><path d="M-30 0h60" stroke="#ff8a5a" stroke-width="3"/><path id="vr-head" d="" fill="#ff8a5a"/><text y="-8" class="vrT" style="fill:#ffb08a">moving</text></g>';
+    return s;
+  }  function openRail() {
+    var box = ER.el('div', 'vr'), done = false;
+    box.innerHTML = '<div class="vr-main"><div class="vr-rail"><svg viewBox="0 0 640 158">' + railSvg() + '</svg></div>' +
+      '<div class="vr-row" data-r="pos"><span>WE ARE HERE</span><button type="button" class="st2" data-d="-10">&minus;1</button><button type="button" class="st2" data-d="-1">&minus;0.1</button><output></output><button type="button" class="st2" data-d="1">+0.1</button><button type="button" class="st2" data-d="10">+1</button></div>' +
+      '<div class="vr-row" data-r="nose"><span>THE BOW POINTS</span><button type="button" class="ch" data-v="sun">towards the Sun</button><button type="button" class="ch" data-v="cel">towards Celandine</button></div>' +
+      '<div class="vr-row" data-r="move"><span>WE ARE MOVING</span><button type="button" class="ch" data-v="sun">towards the Sun</button><button type="button" class="ch" data-v="cel">towards Celandine</button></div>' +
+      '<div class="vr-row" data-r="stop"><span>IF THE ENGINE STARTS AT 10:12, WE STOP AT</span><button type="button" class="st2" data-d="-10">&minus;1</button><button type="button" class="st2" data-d="-1">&minus;0.1</button><output></output><button type="button" class="st2" data-d="1">+0.1</button><button type="button" class="st2" data-d="10">+1</button></div></div>' +
+      '<div class="vr-side"><div class="vr-plaque"><h6>THE VOYAGE IN NUMBERS</h6><p>Years 0 to 4: up to speed, one tenth of a light year.</p><p>Since Year 4: coasting, one light year in every twenty years.</p><p>Braking: four years, as far as speeding up.</p></div>' +
+      '<div class="vr-cam"><div class="vr-row"><button type="button" class="ch" data-cam="bow">Picture off the bow</button><button type="button" class="ch" data-cam="stern">Picture off the stern</button></div><div class="pics"><div class="pic" data-p="1">PICTURE 1</div><div class="pic" data-p="2">PICTURE 2</div></div></div>' +
+      '<p class="pmsg"></p><button type="button" class="btn" id="b-check">Show Tanaka</button></div>';
+    var msgEl = box.querySelector('.pmsg'), svg = box.querySelector('svg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function x(v) { return X0 + v * LY; }
+    function draw() {
+      box.querySelector('[data-r="pos"] output').textContent = (S.pos / 10).toFixed(1) + ' ly';
+      box.querySelector('[data-r="stop"] output').textContent = (S.stop / 10).toFixed(1) + ' ly';
+      ER.$$('[data-r="nose"] .ch', box).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-v') === S.nose); });
+      ER.$$('[data-r="move"] .ch', box).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-v') === S.move); });
+      svg.querySelector('#vr-ship').setAttribute('transform', 'translate(' + x(S.pos).toFixed(1) + ' 78)' + (S.nose === 'sun' ? '' : ' scale(-1 1)'));
+      svg.querySelector('#vr-bowt').setAttribute('x', (x(S.pos) + (S.nose === 'sun' ? -24 : 24)).toFixed(1)); svg.querySelector('#vr-bowt').setAttribute('y', 104);
+      svg.querySelector('#vr-move').setAttribute('transform', 'translate(' + x(S.pos).toFixed(1) + ' 30)');
+      svg.querySelector('#vr-move').style.display = S.move ? '' : 'none';
+      svg.querySelector('#vr-head').setAttribute('d', S.move === 'sun' ? 'M-36 0l10 -7v14z' : 'M36 0l-10 -7v14z');
+      svg.querySelector('#vr-stop').setAttribute('transform', 'translate(' + x(S.stop).toFixed(1) + ' 84)');
+      box.querySelector('.vr-cam').classList.toggle('on', !!S.ok);
+      box.querySelector('#b-check').style.display = S.ok ? 'none' : '';
+      ER.$$('.vr-row[data-r] button', box).forEach(function (b) { b.disabled = !!S.ok; });
+      pics();
+    }
+    function picSvg(n) {
+      var s = '<svg viewBox="0 0 200 130"><rect width="200" height="130" fill="#000"/>', i, px, py, seed = n * 7 + 1;
+      function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+      for (i = 0; i < 70; i++) { px = rnd() * 200; py = rnd() * 130; if (n === 1 && Math.pow(px - 100, 2) + Math.pow(py - 65, 2) < 2100) continue; s += '<circle cx="' + px.toFixed(0) + '" cy="' + py.toFixed(0) + '" r="' + (0.4 + rnd()).toFixed(1) + '" fill="#fff" opacity="' + (0.4 + rnd() * 0.6).toFixed(2) + '"/>'; }
+      if (n === 1) s += '<circle cx="100" cy="65" r="45" fill="none" stroke="#1c2232" stroke-width="2"/>';
+      if (n === 2) s += '<radialGradient id="pcg"><stop offset="0" stop-color="#fff8d8"/><stop offset=".25" stop-color="#ffe9a0" stop-opacity=".8"/><stop offset="1" stop-color="#ffd060" stop-opacity="0"/></radialGradient><circle cx="100" cy="65" r="22" fill="url(#pcg)"/><circle cx="100" cy="65" r="3" fill="#fffbe8"/>';
+      s += '<path d="M100 55v20M90 65h20" stroke="#9fd8ff" stroke-width="1"/></svg>';
+      return s;
+    }
+    function pics() {
+      [1, 2].forEach(function (n) {
+        var p = box.querySelector('.pic[data-p="' + n + '"]');
+        p.innerHTML = S['p' + n] ? picSvg(n) + (n === 1 ? 'PICTURE 1 · OFF THE BOW' : 'PICTURE 2 · OFF THE STERN') : 'PICTURE ' + n + ' · not taken';
+      });
+    }
+    box.addEventListener('click', function (e) {
+      var b = e.target.closest ? e.target.closest('button') : null; if (!b || done) return;
+      var r = b.closest('.vr-row'), rr = r ? r.getAttribute('data-r') : null;
+      if (b.classList.contains('st2') && rr && !S.ok) {
+        S[rr] = Math.max(0, Math.min(61, S[rr] + (+b.getAttribute('data-d')))); SLP.sfx.slide(); keep(); draw(); return;
+      }
+      if (b.hasAttribute('data-v') && rr && !S.ok) { S[rr] = b.getAttribute('data-v'); ER.sfx.click(); keep(); draw(); return; }
+      if (b.hasAttribute('data-cam')) { camera(b.getAttribute('data-cam')); }
+    });
+    function no(t) { SLP.bump('slips'); SLP.sfx.hm(); msg(t); }
+    box.querySelector('#b-check').addEventListener('click', function () {
+      if (done || S.ok) return;
+      if (!S.move) { msg('&ldquo;And which way are we moving?&rdquo; says Tanaka. &ldquo;The arrow isn&rsquo;t on the rail yet.&rdquo;'); return; }
+      if (!ER.check('pos', S.pos)) {
+        no(S.pos === 41 ? '&ldquo;4.1 would be eighty-two years at full speed,&rdquo; says Tanaka. &ldquo;For the first four we were still getting up to speed.&rdquo;'
+          : S.pos === 39 ? '&ldquo;3.9 is the coasting: seventy-eight years at one light year in twenty. And the first four years?&rdquo;'
+          : S.pos === 38 ? '&ldquo;Seventy-six years? We&rsquo;ve been coasting since Year 4, and it&rsquo;s Year 82.&rdquo;'
+          : '&ldquo;It&rsquo;s Year 82,&rdquo; says Tanaka. &ldquo;Plaque: a tenth of a light year for the first four years, then one light year in every twenty. Where does that put us?&rdquo;');
+        return;
+      }
+      if (!ER.check('nose', S.nose)) { no('&ldquo;That&rsquo;s how the paint on the wall says it,&rdquo; says Tanaka. &ldquo;The paint is older than the turnover. Which way did TALLY turn us yesterday?&rdquo;'); return; }
+      if (!ER.check('move', S.move)) { no('&ldquo;If turning round turned the journey round,&rdquo; says Tanaka, &ldquo;nobody would need an engine to brake. We turned. We didn&rsquo;t stop.&rdquo;'); return; }
+      if (!ER.check('stop', S.stop)) {
+        no(S.stop === 61 ? '&ldquo;The engine doesn&rsquo;t know where Celandine is,&rdquo; says Tanaka. &ldquo;That flag is where we&rsquo;d stop in Year 126. The engine just brakes, for four years, from wherever we are when it starts.&rdquo;'
+          : S.stop === S.pos ? '&ldquo;Four years of braking isn&rsquo;t a wall,&rdquo; says Tanaka. &ldquo;We go on moving while we slow down. How far did four years of speeding up take us?&rdquo;'
+          : S.stop < S.pos ? '&ldquo;We&rsquo;re not going backwards,&rdquo; says Tanaka. &ldquo;We&rsquo;re slowing down. That&rsquo;s different, and it&rsquo;s why we need an engine.&rdquo;'
+          : '&ldquo;Plaque, line 3,&rdquo; says Tanaka. &ldquo;Braking takes us as far as speeding up did. And how far did speeding up take us?&rdquo;');
+        return;
+      }
+      S.ok = 1; keep(); SLP.sfx.beep(); draw();
+      SLP.mine('where', 'Where we are', '<p>Year 82: 0.1 + 78 &divide; 20 = 4.0 light years from the Sun.</p><p>Bow to the Sun (turnover). Still MOVING towards Celandine: turning round doesn&rsquo;t turn the journey round.</p><p>Engine at 10:12: 4 years of braking, +0.1. We stop at 4.1. Celandine is 6.1. TWO LIGHT YEARS SHORT, and no fuel to start again.</p>', true);
+      msg('Tanaka looks at the little red flag at 4.1 for a long time. &ldquo;Two light years short,&rdquo; he says. &ldquo;Of everything. And nothing left to start again with.&rdquo; Then he points at the camera on its track. &ldquo;Now. The bow points at the Sun. Take a picture off the bow, and one off the stern.&rdquo;');
+    });
+    function camera(w) {
+      if (!S.ok || done) return;
+      SLP.sfx.slide(); sc.setAttribute('class', w);
+      setTimeout(function () {
+        SLP.sfx.shutter();
+        if (w === 'bow') { S.p1 = 1; ER.addClue('pic1', 'Picture 1: off the bow', '<h4>PICTURE 1 · OFF THE BOW · 07:02</h4>' + picSvg(1) + '<p>Straight ahead of the bow. Stars round the edge. In the middle, a round black patch with no stars in it.</p>', 'pic', 'Blister camera'); }
+        else { S.p2 = 1; ER.addClue('pic2', 'Picture 2: off the stern', '<h4>PICTURE 2 · OFF THE STERN · 07:03</h4>' + picSvg(2) + '<p>Straight ahead of the stern. Stars, and in the middle, Celandine.</p>', 'pic', 'Blister camera'); }
+        keep(); draw();
+        if (S.p1 && S.p2) finish();
+        else msg(w === 'bow' ? '&ldquo;A round black patch,&rdquo; says Tanaka, &ldquo;exactly in the middle. If the Sun were there, it would be one of the brightest stars in the sky. But a camera with frost on its glass would take that picture too. Now the other end.&rdquo;'
+          : '&ldquo;Celandine, bright as a lamp, right in the middle,&rdquo; says Tanaka. &ldquo;So the camera works, and it can see a star when nothing is in the way. Now the bow.&rdquo;');
+      }, 1300);
+    }
+    function finish() {
+      var file = ER.exitOk([S.pos + '-' + S.nose + '-' + S.move + '-' + S.stop]); if (!file) return;
+      done = true; nextFile = file; ER.flag('b-file', file); SLP.done('blister'); busy = true;
+      SLP.learn(['shadow', 'control']);
+      msg('Two pictures. The same camera, the same morning, a minute apart.');
+      setTimeout(function () { ER.closeAll(); SLP.solved(); sc.setAttribute('class', ''); paint(); after(); }, 2600);
+    }
+    draw();
+    msg(S.ok ? '&ldquo;Now the camera,&rdquo; says Tanaka. &ldquo;Off the bow, and off the stern.&rdquo;' : 'The rail runs from the Sun to Celandine, 6.1 light years. The model is set the way it has always been set. Set it the way things are this morning, and show Tanaka.');
+    ER.open('ov-lock', box);
+  }
+  function after() {
+    ER.narrate([
+      '&ldquo;Picture 2 is the one nobody would think of,&rdquo; says Tanaka. &ldquo;Without it, picture 1 is a black square from a camera that might be broken. With it, picture 1 is a camera that can see stars, looking at the one place in the sky where the brightest star should be, and seeing nothing at all.&rdquo;',
+      '&ldquo;Something round and black is standing exactly between us and the Sun. The only thing on this ship that size is the bow shield.&rdquo; He blows on his hands. &ldquo;We know that. TALLY doesn&rsquo;t. And TALLY can&rsquo;t be told.&rdquo;',
+      '&ldquo;Engine room,&rdquo; he says. &ldquo;Rule 14&rsquo;s console is down there, next to the thing it&rsquo;s going to start. If we&rsquo;re going to argue with a computer, I want to do it where I can see the engine.&rdquo;'
+    ], function () { busy = false; paint(); });
+  }
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

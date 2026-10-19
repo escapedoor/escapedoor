@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Van · One Sun</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-news.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="photo.css">
+<style>
+  body{--bg:#101412;--accent:#ffd400;--font-display:'Libre Franklin',sans-serif;--font-ui:'Libre Franklin',sans-serif;--font-body:'Newsreader',serif;
+    --tc-bg:rgba(14,18,16,.97);--tc-ink:#eef1ee;--cap-bg:rgba(12,15,13,.95);--panel:#1a201c;--face-bg:#1d2420;--q-ink:#ffd400;--fade:#050605;--hud-bg:rgba(12,15,13,.86)}
+  .gobtn{color:#101412}
+  #seclight .bulb{animation:sec 9s steps(1,end) infinite}
+  @keyframes sec{0%,40%,43%,100%{opacity:1}41%,42.5%{opacity:.25}}
+  #fox{animation:fox 14s ease-in-out infinite}
+  @keyframes fox{0%,100%{transform:translateX(0)}45%,55%{transform:translateX(-60px)}}
+
+  /* the laptop: the sunglasses, then the crowd at the shallows */
+  .rf{width:min(1080px,96vw)}
+  .rf-two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .rf-p{background:#f4f1e8;color:#1d2228;padding:8px 10px 10px;box-shadow:0 14px 34px rgba(0,0,0,.55)}
+  .rf-p h6{margin:0 0 6px;font-family:'DM Mono',monospace;font-weight:500;font-size:11px;letter-spacing:.1em;color:#5a5346}
+  .rf-row{display:grid;grid-template-columns:minmax(0,1fr) 150px;gap:10px;align-items:center}
+  .rf-row svg{display:block;width:100%;height:auto}
+  .rf-row .lens{background:#1d2228;border-radius:50%;padding:0}
+  .rf-row .lens small{display:block;text-align:center;font-family:'DM Mono',monospace;font-size:10px;color:#5a5346;margin-top:3px}
+  .rf-slot{margin-top:8px;min-height:50px;border:2px dashed #b9b29c;border-radius:4px;padding:4px;display:flex;align-items:center;gap:8px}
+  .rf-slot>b{flex:0 0 auto;font-family:'Libre Franklin',sans-serif;font-weight:900;font-size:11px;letter-spacing:.1em;color:#7a7462;text-transform:uppercase}
+  .rf .seg{margin-top:7px}
+  .rf-tray{margin-top:12px;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;min-height:58px;padding:8px;background:#1e2326;border:2px dashed #ffd400;border-radius:4px}
+  .kcard{background:#fffdf5;color:#1d2228;font-family:'Newsreader',serif;font-size:13.5px;line-height:1.25;padding:5px 9px;border-left:5px solid #ffd400;box-shadow:0 3px 6px rgba(0,0,0,.35);cursor:grab;touch-action:none;text-align:left;width:100%}
+  .kcard.held{outline:3px solid #ffd400;outline-offset:1px}
+  .kcard.fly{position:fixed;z-index:80;pointer-events:none}
+  .rf-slot .kcard{flex:1}
+  .rf-crowd{background:#f4f1e8;padding:8px;box-shadow:0 14px 34px rgba(0,0,0,.55)}
+  .rf-crowd h6{margin:0 0 6px;font-family:'DM Mono',monospace;font-weight:500;font-size:11px;letter-spacing:.1em;color:#5a5346}
+  .rf-crowd svg{display:block;width:100%;height:auto}
+  .rf-crowd .who{cursor:pointer}
+  .rf-st2{display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:14px;align-items:start}
+  .rf-st2 .lens{background:#1d2228;border-radius:50%}
+  .rf-st2 p{margin:8px 0 0;font-family:'Newsreader',serif;font-size:15px;line-height:1.35;color:#eef1ee}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b211d"/><stop offset="1" stop-color="#2a302a"/></linearGradient>
+  <linearGradient id="yardG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#262a26"/><stop offset="1" stop-color="#0b0d0b"/></linearGradient>
+  <radialGradient id="secG" cx="50%" cy="0%" r="80%"><stop offset="0" stop-color="#fff2c4" stop-opacity=".45"/><stop offset="1" stop-color="#fff2c4" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vanG" cx="50%" cy="50%" r="60%"><stop offset="0" stop-color="#ffe6a8" stop-opacity=".55"/><stop offset="1" stop-color="#ffe6a8" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="55%" r="72%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".6" stop-color="#000" stop-opacity=".3"/><stop offset="1" stop-color="#000" stop-opacity=".9"/></radialGradient>
+  <pattern id="cobble" width="44" height="22" patternUnits="userSpaceOnUse"><rect width="44" height="22" fill="#1f231f"/><rect x="2" y="2" width="18" height="8" rx="3" fill="#2c312c"/><rect x="24" y="2" width="18" height="8" rx="3" fill="#2a2f2a"/><rect x="13" y="13" width="18" height="8" rx="3" fill="#2e332e"/><rect x="-9" y="13" width="18" height="8" rx="3" fill="#292e29"/><rect x="35" y="13" width="18" height="8" rx="3" fill="#292e29"/></pattern>
+</defs>
+
+<rect x="-1000" y="-400" width="3600" height="1050" fill="url(#wallG)"/>
+<g stroke="#141814" stroke-width="3" opacity=".7"><path d="M-1000 120H2600M-1000 240H2600M-1000 360H2600M-1000 480H2600M-1000 600H2600"/></g>
+<rect x="-1000" y="640" width="3600" height="700" fill="url(#cobble)"/><rect x="-1000" y="640" width="3600" height="700" fill="url(#yardG)" opacity=".6"/>
+<!-- the back door of the agency, the bins, the drainpipe, the security light -->
+<g id="backdoor" class="hot"><rect x="90" y="330" width="170" height="312" fill="#3a2a22"/><rect x="104" y="344" width="142" height="298" fill="#5a3a2a"/><rect x="118" y="360" width="114" height="80" fill="#ffd98a" opacity=".55"/><circle cx="226" cy="500" r="6" fill="#c9a23a"/>
+  <text x="175" y="322" class="fL" font-size="12" font-weight="900" text-anchor="middle" fill="#9aa69a" letter-spacing="1.5">STOPFORD · STAFF</text></g>
+<path d="M300 0V640" stroke="#3a403a" stroke-width="10"/>
+<g id="seclight" class="hot"><rect x="330" y="260" width="40" height="22" fill="#2a2d2a"/><path d="M336 282h28l8 16h-44z" fill="#3a3f3a"/><rect class="bulb" x="332" y="296" width="36" height="5" fill="#fff6d8"/>
+  <path class="bulb" d="M300 300L80 650H640Z" fill="url(#secG)" pointer-events="none"/></g>
+<g id="bins" class="hot"><rect x="420" y="520" width="110" height="130" rx="6" fill="#2b5d3a"/><rect x="414" y="510" width="122" height="16" rx="4" fill="#1f4a2c"/><rect x="546" y="540" width="90" height="110" rx="6" fill="#4a4f55"/><rect x="540" y="530" width="102" height="14" rx="4" fill="#3a3f45"/></g>
+<g transform="translate(-390 0)"><g id="fox" class="hot"><path d="M690 646q0 -30 36 -32q30 0 34 22l14 -4q-4 22 -24 18q-30 6 -60 -4z" fill="#b5532a"/><path d="M760 636l18 -18l4 14z" fill="#b5532a"/><path d="M776 626l6 -8l2 9" fill="#1d1d1d"/><path d="M690 640q-34 -6 -40 -24q16 10 40 12z" fill="#b5532a"/><path d="M650 616q-6 -6 0 -10q4 6 8 8z" fill="#f2efe6"/>
+  <path d="M704 646v12M716 646v12M740 646v12M752 646v12" stroke="#1d1d1d" stroke-width="4"/></g></g>
+
+<!-- Lou's van, its back doors open, lit inside -->
+<ellipse cx="1120" cy="470" rx="420" ry="280" fill="url(#vanG)" pointer-events="none"/>
+<g id="van"><path d="M820 640V330q0 -30 30 -30H1360q40 0 60 40l60 120q12 24 12 52V640Z" fill="#e8e8e2"/><path d="M1360 300q40 0 60 40l60 120H1360Z" fill="#9ab0bf" opacity=".9"/><path d="M1380 330l50 110" stroke="#fff" stroke-width="6" opacity=".4"/>
+  <rect x="820" y="600" width="672" height="40" fill="#cfd0ca"/><circle cx="930" cy="650" r="44" fill="#1d1d1d"/><circle cx="930" cy="650" r="18" fill="#6b7076"/><circle cx="1380" cy="650" r="44" fill="#1d1d1d"/><circle cx="1380" cy="650" r="18" fill="#6b7076"/>
+  <text x="1210" y="400" class="fL" font-size="34" font-weight="900" text-anchor="middle" fill="#1d2228" letter-spacing="1">STOPFORD</text><text x="1210" y="430" class="fM" font-size="15" text-anchor="middle" fill="#d8432a" letter-spacing="3">PRESS PICTURES</text>
+  <!-- the open back: the inside -->
+  <rect x="842" y="318" width="250" height="282" fill="#3a3530"/><rect x="842" y="318" width="250" height="282" fill="#ffe6a8" opacity=".18"/>
+  <g id="shelf" class="hot"><rect x="852" y="340" width="230" height="10" fill="#5a4a3a"/><rect x="852" y="410" width="230" height="10" fill="#5a4a3a"/>
+    <g fill="#1d1d1d"><rect x="862" y="306" width="30" height="34" rx="4"/><rect x="900" y="316" width="22" height="24" rx="4"/><rect x="930" y="300" width="40" height="40" rx="4"/><rect x="980" y="318" width="20" height="22" rx="3"/><rect x="1010" y="304" width="56" height="36" rx="5"/>
+      <rect x="866" y="372" width="70" height="38" rx="5"/><rect x="944" y="382" width="30" height="28" rx="14"/><rect x="984" y="376" width="88" height="34" rx="16"/></g><g fill="#6b7076"><circle cx="877" cy="323" r="9"/><circle cx="950" cy="320" r="12"/><circle cx="1038" cy="322" r="11"/><circle cx="1072" cy="393" r="12"/></g></g>
+  <g id="vest" class="hot"><path d="M1040 430l-10 70h56l-10 -70z" fill="#dfe62a"/><path d="M1034 470h48" stroke="#cfd6da" stroke-width="5"/><text x="1058" y="492" class="fL" font-size="10" font-weight="900" text-anchor="middle" fill="#2a2a1a">PRESS</text><path d="M1048 430q10 -14 20 0" fill="none" stroke="#2a2a1a" stroke-width="3"/></g>
+  <g id="laptop" class="hot"><rect x="872" y="540" width="120" height="60" fill="#2a2d2a"/><path d="M880 540l8 -64h104l-8 64z" fill="#1d1d1d"/><path d="M890 532l7 -50h88l-6 50z" fill="#9fd0f0"/><g fill="#f4f1e8" opacity=".85"><rect x="900" y="490" width="36" height="20"/><rect x="942" y="490" width="34" height="20"/></g><circle cx="918" cy="518" r="8" fill="#1d2228"/><circle cx="958" cy="518" r="8" fill="#1d2228"/></g>
+  <!-- the left back door, swung open, with Lou's card taped inside it -->
+  <path d="M842 318L760 300V620L842 600Z" fill="#d8d8d2"/><path d="M842 318L760 300" stroke="#bfc0ba" stroke-width="3"/>
+  <g id="card" class="hot"><path d="M772 360l58 6v70l-58 -6z" fill="#1e2326"/><path d="M772 360l58 6v70l-58 -6z" fill="none" stroke="#ffd400" stroke-width="2" stroke-dasharray="4 3"/><path d="M780 378l42 4M780 390l40 4M780 402l42 4M780 414l30 3" stroke="#eef1ee" stroke-width="2" opacity=".7"/></g>
+  <!-- the dashboard radio -->
+  <g id="radio" class="hot"><rect x="1396" y="350" width="44" height="18" rx="3" fill="#1d1d1d"/><rect x="1400" y="354" width="22" height="10" fill="#ff5a3c" opacity=".8"/></g></g>
+<!-- Lou, at the back of the van -->
+<g id="lou" class="hot" transform="translate(690 860) scale(1.18)"></g>
+
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">To the glass box</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="photo.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, lock = null, told = {};
+  $('#lou').innerHTML = PH.who('lou', { lit: '#ffe6a8', armR: 'M31 -222Q50 -180 30 -150', handR: [26, -146], extra: '<path d="M-20 -238L30 -150" stroke="#111" stroke-width="5"/><rect x="10" y="-170" width="36" height="26" rx="4" fill="#1b1d22"/><circle cx="28" cy="-157" r="9" fill="#2a2d33"/>' });
+
+  ER.init({
+    theme: 'news', story: 'photo', storyTitle: 'One Sun', id: 'van', no: 'IV', title: 'The Van',
+    go: 'Go down to the yard',
+    intro: [
+      'The weather record put each picture in its half hour. Breath and long shadows pointing west: half past seven in the morning, on the morning flight. Short shadows pointing north, towards the spire: one o&rsquo;clock, with the Teapot laid out on the grass. Umbrellas up and no shadows at all: half past five, in the shower. Wet ground, umbrellas down, long shadows pointing east: six o&rsquo;clock. Of four pictures that said they showed the Teapot coming down, only Platt&rsquo;s could.',
+      'So the picture is real, and it was taken at six. Platt says he took it himself, with his big camera.',
+      'Lou Pennock is back. Her van is in the yard behind the building, with its back doors open.'
+    ],
+    exit: {"next":"box","w":{"4bef5eb1":"d2ebf878"}}, tags: {"cardP":["bca90eac"],"cardF":["b5a4a83e"],"vP":["48adb8fa"],"vF":["d8788fc7"],"who":["b6a27b46"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('d-file') || null; told = ER.flag('d-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('d-told', told); return true; }
+  function isBusy() { return busy; }
+  function showGo() { $('#go').classList.add('on'); }
+  function paint() {
+    $('#lou').classList.toggle('ready', !!(told.in && !told.lou));
+    $('#card').classList.toggle('ready', !!(told.lou && !told.card));
+    $('#laptop').classList.toggle('ready', !!(told.card && !nextFile));
+    ER.pips((told.lou ? 1 : 0) + (told.card ? 1 : 0) + (ER.flag('d-stage') ? 1 : 0) + (nextFile ? 1 : 0), 4);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Esme Ure took the picture, and Lorna has her grandfather on the phone. The glass box: the button is at the bottom of the screen.']];
+    if (lock && lock.isOpen() && ER.flag('d-stage')) return ['who', [
+      'Lou&rsquo;s picture shows everybody who was at the shallows at ten past six. Which of them matches the small person in the steward&rsquo;s sunglasses? The lens is beside the picture.',
+      'In a mirror, writing reads backwards: the vest in the lens says CREW, back to front. Look for a small person with a ponytail, a vest that says CREW, and a phone held up in front of her face. Not STEWARD, and not a big camera.'
+    ]];
+    if (lock && lock.isOpen()) return ['glasses', [
+      'Lou has zoomed in on the sunglasses in each picture. Sunglasses that face the camera work like small curved mirrors: they show what is BEHIND the camera. Drag the card that says what each pair shows on to that picture&rsquo;s space.',
+      'The steward&rsquo;s lenses show a low sun on the left, a café roof, a lamp post with a number on it, and a small person in a vest holding up a phone. The pilot&rsquo;s lenses show palm trees and a sun high in the sky. The lake and the spire are behind neither camera: they are in front of it.',
+      'Then judge each one. Could the steward&rsquo;s reflection be Lockyer Park at six, with a low sun on the left behind the camera, just where the shadows said it was? Could the pilot&rsquo;s be, with palm trees and a high sun, on a wet September evening?'
+    ]];
+    if (!told.lou) return ['talk', ['Lou Pennock is standing at the back of her van, with a camera round her neck.', 'Click Lou.']];
+    if (!told.card) return ['card', ['Lou keeps one rule taped inside the door of the van.', 'Click the dark card with the yellow border, inside the open door on the left.']];
+    return ['laptop', ['Lou has every picture of the night on her laptop, in the back of the van.', 'Click the laptop on the floor of the van.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; showGo(); ER.say('Esme Ure, fourteen. Lorna has her grandfather on the phone.'); return; }
+    if (told.in) { busy = false; ER.say('The yard, five to twelve.'); return; }
+    ER.narrate([
+      'The yard behind the building: cobbles, bins, a security light that cannot decide, and a fox who has seen it all before.',
+      'Lou Pennock&rsquo;s van is backed up to the wall with its doors open and the light on inside. It smells of wet grass and coffee.',
+      'Lou is standing at the back of it with a camera round her neck, looking at a laptop as if it owed her money.'
+    ], function () { busy = false; tell('in'); paint(); });
+  }
+
+  $('#lou').addEventListener('click', function () {
+    if (busy) return;
+    if (told.lou) { ER.say(nextFile ? '&ldquo;Glass box,&rdquo; says Lou. &ldquo;Lorna has Hamish on the line, and he will not stop talking about his pond.&rdquo;' : '&ldquo;Behind the camera,&rdquo; says Lou. &ldquo;Read my card, then the laptop.&rdquo;'); return; }
+    ER.talk({
+      who: 'Lou Pennock', role: 'Staff photographer · just back from Lockyer Park', face: window.FACE('lou'),
+      lines: [
+        { note: 'She does not take her eyes off the laptop.', a: '&ldquo;Eight minutes. I was eight minutes late, because I was at the other end of the field taking a picture of a balloon shaped like a cow. By the time I got to the lake the Teapot was in the water and half of Cobbleford was pulling it out.&rdquo;' },
+        { q: 'Was Gideon Platt there?', a: '&ldquo;Oh, he was there. He turned up at about ten past, with a camera the size of a Labrador, and took a great many pictures of the basket. So did I. Mine are better.&rdquo; She turns the laptop round. &ldquo;I took one of the crowd at the shallows. Everybody who was at that end of the lake is in it.&rdquo;' },
+        { q: 'Do you know the pilot?', a: '&ldquo;Hamish Ure. Everybody knows Hamish. He has flown the Teapot for twenty years. Bald as an egg, a white moustache like a yard brush, and when he is in trouble he does not wave, he steers.&rdquo; She frowns at the screen. &ldquo;Which makes this one interesting. It came in ten minutes ago: &lsquo;Pilot waves as Teapot hits the water&rsquo;.&rdquo;' },
+        { q: 'How do we find out who took Platt’s picture?', a: '&ldquo;Look behind the camera. A photographer is never in her own picture,&rdquo; says Lou. &ldquo;Except when she is.&rdquo; She taps the card taped inside the van door. &ldquo;Read that. Then look at the sunglasses.&rdquo;' }
+      ],
+      clue: { id: 'lou', title: 'Lou, in the yard', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('lou')) { PH.terms(['hi-vis']); paint(); ER.say('Lou&rsquo;s card is taped inside the open door of the van.'); } }
+    });
+  });
+
+  /* ---------- Lou's card ---------- */
+  var DIA = '<svg viewBox="0 0 250 300"><g font-family="Kalam,cursive" fill="#eef1ee" text-anchor="middle">' +
+    '<rect x="96" y="230" width="58" height="36" rx="6" fill="#111" stroke="#ffd400" stroke-width="2"/><circle cx="125" cy="248" r="11" fill="#2a3134" stroke="#ffd400" stroke-width="2"/><text x="125" y="290" font-size="15">the camera</text>' +
+    '<circle cx="125" cy="62" r="26" fill="#d9a37c"/><path d="M104 56h18v10q-9 6 -18 0zM128 56h18v10q-9 6 -18 0z" fill="#111"/><path d="M95 92q30 -14 60 0v30h-60z" fill="#3a4a5a"/><text x="125" y="20" font-size="15">sunglasses, facing the camera</text>' +
+    '<path d="M125 128V218" stroke="#ffd400" stroke-width="2" stroke-dasharray="5 4"/><path d="M118 210l7 10l7 -10" fill="none" stroke="#ffd400" stroke-width="2"/>' +
+    '<circle cx="200" cy="66" r="34" fill="#111" stroke="#eef1ee" stroke-width="2"/><rect x="190" y="70" width="20" height="14" rx="3" fill="#ffd400"/><circle cx="200" cy="77" r="4" fill="#111"/><path d="M160 62l8 2" stroke="#eef1ee" stroke-width="1.5"/>' +
+    '<text x="200" y="120" font-size="14">in the lens:</text><text x="200" y="137" font-size="14">the camera!</text>' +
+    '<rect x="16" y="150" width="78" height="30" fill="#2a3134" stroke="#9aa6a8"/><text x="55" y="171" font-family="Libre Franklin,sans-serif" font-weight="900" font-size="17">CREW</text><text x="55" y="198" font-size="13">in a mirror:</text>' +
+    '<rect x="16" y="204" width="78" height="30" fill="#2a3134" stroke="#ffd400"/><text x="55" y="225" font-family="Libre Franklin,sans-serif" font-weight="900" font-size="17" transform="translate(110 0) scale(-1 1)">CREW</text></g></svg>';
+  var CARD = '<h4>Taped inside the van door &middot; L.P.</h4><h3>What is behind you</h3><div class="two"><div>' +
+    '<p>A window, a puddle, a shiny car or a pair of sunglasses is a mirror, and a mirror shows a <b>reflection</b>.</p>' +
+    '<p>A mirror that faces the camera shows what is <b>behind the camera</b>: the sky, the buildings, the sun, and very often the photographer.</p>' +
+    '<p>In a mirror, left stays left and right stays right, but front and back change places. So the reflection is a <b>mirror image</b>, and writing in it reads backwards.</p>' +
+    '<p>A puddle shows the sky upside down. Curved glass, like sunglasses, squeezes a whole wide scene into one small round picture.</p>' +
+    '<p>A reflection has to agree with the picture it is in: the same place, the same weather, the sun on the same side. When it does not, two pictures have been put together into a <b>composite</b>, and one of them came from somewhere else.</p>' +
+    '</div><div class="dia">' + DIA + '</div></div><p class="pen">Every photographer is in somebody&rsquo;s sunglasses. L.P.</p>';
+  $('#card').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.lou) { ER.say('A dark card with a yellow border, taped inside the van door. Lou has not noticed you yet.'); return; }
+    ER.read({ html: CARD, cls: 'lou', clue: { id: 'behind', title: 'Lou’s rule: what is behind you', kind: 'Inside the van door' }, done: function () {
+      PH.terms(['reflection', 'mirror image', 'composite']);
+      if (tell('card')) { paint(); ER.say('&ldquo;Now the laptop,&rdquo; says Lou. &ldquo;I have zoomed in on the sunglasses for you.&rdquo;'); }
+    } });
+  });
+  PH.thing('#seclight', null, 'The security light. It comes on when anything moves in the yard, including the fox, the rain and, once, the moon.', isBusy);
+  PH.thing('#fox', null, 'A fox, going through the bins with great care. Lou says he is called Gerald, and that he has a better eye for a picture than Platt.', isBusy);
+  PH.thing('#bins', null, 'Two bins. The green one says PAPER ONLY. It is full of last week&rsquo;s newspapers, which is where last week&rsquo;s newspapers go.', isBusy);
+  PH.thing('#backdoor', null, 'The back door of the agency. Up the stairs and to the right is Lorna&rsquo;s glass box.', isBusy);
+  PH.thing('#shelf', null, 'Lenses on a shelf, from one the size of an egg to one the size of a loaf. Lou says the big one is for football, and for people who do not want their picture taken.', isBusy);
+  PH.thing('#vest', 'hi-vis', 'Lou&rsquo;s hi-vis vest: PRESS, in black on bright yellow. At a festival everybody wears one: the stewards, the marshals, the balloon crews, and Lou.', isBusy);
+  PH.thing('#radio', null, 'The van&rsquo;s radio, turned down low. Somebody on it is saying that tomorrow will be fine.', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  $('#laptop').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Esme Ure, at the shallows, with her phone. Lou has put a ring round her on the screen.'); return; }
+    if (!told.lou) { ER.say('A laptop on a camera case in the back of the van. Lou is looking at it as if it owed her money.'); return; }
+    if (!told.card) { ER.say('&ldquo;Card first,&rdquo; says Lou, and points at the door. &ldquo;It is a short card. I am not a long-card person.&rdquo;'); return; }
+    if (!lock) lock = makeLaptop();
+    lock.open();
+  });
+
+  /* ---------- the laptop: two pairs of sunglasses, then the crowd at the shallows ---------- */
+  function makeLaptop() {
+    var KC = { crew: 'A low sun on the left, the roof of a café, a lamp post, and a small person in a hi-vis vest, holding up a phone.', beach: 'A high sun, palm trees, a blue sea and a sandy beach.',
+      front: 'The lake, the boathouse and a church spire.', platt: 'A big man with a beard and a flat cap, and a camera with a long lens.' };
+    var st = ER.flag('d-st') || { c: {}, v: {}, who: '' }, wait = false, box = ER.el('div', 'job rf'), kit = null;
+    function msg(t) { var m = box.querySelector('.jmsg'); if (m) m.innerHTML = ER.gloss(t); }
+    function keep() { ER.flag('d-st', st); }
+    function stage1() {
+      var s = '<div class="rf-two">';
+      [['P', 'GIDEON PLATT &middot; 23.38 &middot; THE STEWARD&rsquo;S SUNGLASSES', '<svg viewBox="40 200 400 340"><g>' + PH.lake({ id: 'rp', time: 'eve' }) + '</g><circle cx="' + PH.OBJ.lens[0] + '" cy="' + PH.OBJ.lens[1] + '" r="16" fill="none" stroke="#ffd400" stroke-width="3"/></svg>', 'crew'],
+        ['F', '&lsquo;PILOT WAVES AS TEAPOT HITS THE WATER&rsquo; &middot; 23.46', '<svg viewBox="0 0 600 400"><g>' + PH.pilot({ id: 'rq' }) + '</g><ellipse cx="300" cy="175" rx="58" ry="22" fill="none" stroke="#ffd400" stroke-width="3"/></svg>', 'beach']].forEach(function (p) {
+        s += '<div class="rf-p" data-p="' + p[0] + '"><h6>' + p[1] + '</h6><div class="rf-row"><div>' + p[2] + '</div><div><div class="lens"><svg viewBox="0 0 200 200">' + PH.lens(p[3], 'l' + p[0]) + '</svg></div><small>the lens, zoomed in</small></div></div>' +
+          '<div class="rf-slot zone" data-z="' + p[0] + '"><b>Behind<br>the camera</b></div>' +
+          '<div class="seg" data-d="' + p[0] + '"><button type="button" data-v="fits">FITS LOCKYER PARK AT SIX</button><button type="button" data-v="fake">CANNOT BE LOCKYER PARK AT SIX</button></div></div>';
+      });
+      s += '</div><div class="rf-tray zone" data-z="tray">' + ['front', 'crew', 'platt', 'beach'].map(function (k) { return '<button type="button" class="kcard" data-k="' + k + '">' + KC[k] + '</button>'; }).join('') + '</div>' +
+        '<div class="job-foot"><p class="jmsg"></p><button type="button" class="btn" id="r-go">Tell Lou</button></div>';
+      box.innerHTML = s;
+      function draw() {
+        ER.$$('.kcard', box).forEach(function (c) {
+          var k = c.getAttribute('data-k'), where = st.c.P === k ? 'P' : st.c.F === k ? 'F' : 'tray';
+          box.querySelector('.zone[data-z="' + where + '"]').appendChild(c);
+        });
+        ER.$$('.seg', box).forEach(function (g) { var d = g.getAttribute('data-d'); ER.$$('button', g).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-v') === st.v[d]); }); });
+      }
+      kit = PH.place(box, {
+        item: '.kcard', zone: '.zone', lock: function () { return wait || !!nextFile; },
+        drop: function (item, zone) {
+          var k = item.getAttribute('data-k'), z = zone.getAttribute('data-z');
+          if (st.c.P === k) delete st.c.P; if (st.c.F === k) delete st.c.F;
+          if (z !== 'tray') st.c[z] = k;
+          keep(); draw(); PH.sfx.slip();
+          msg(z === 'tray' ? 'The card goes back.' : 'On the ' + (z === 'P' ? 'steward&rsquo;s' : 'pilot&rsquo;s') + ' sunglasses: &ldquo;' + KC[k] + '&rdquo;');
+        }
+      });
+      ER.$$('.seg', box).forEach(function (g) {
+        g.addEventListener('click', function (e) {
+          var b = e.target.closest ? e.target.closest('button') : null;
+          if (!b || wait || nextFile) return;
+          st.v[g.getAttribute('data-d')] = b.getAttribute('data-v'); keep(); PH.sfx.key(); draw();
+        });
+      });
+      box.querySelector('#r-go').addEventListener('click', function () {
+        if (wait || nextFile) return;
+        kit.hold(null);
+        if (!st.c.P || !st.c.F) { ER.sfx.no(); msg('&ldquo;Every picture gets a card,&rdquo; says Lou. &ldquo;What is behind each camera?&rdquo;'); return; }
+        var F_ = { front: '&ldquo;The lake and the spire are IN the picture, in front of the camera. Sunglasses that face the camera show what is BEHIND it.&rdquo;' };
+        if (!ER.check('cardP', st.c.P)) {
+          ER.sfx.no();
+          msg(F_[st.c.P] || (st.c.P === 'platt' ? '&ldquo;Look at the person in the steward&rsquo;s lenses,&rdquo; says Lou. &ldquo;Big, with a beard and a flat cap? Or small, with a ponytail and a phone?&rdquo;' : '&ldquo;Palm trees? Look at the steward&rsquo;s lenses again,&rdquo; says Lou. &ldquo;That card belongs to the other pair.&rdquo;'));
+          delete st.c.P; keep(); draw(); return;
+        }
+        if (!ER.check('cardF', st.c.F)) {
+          ER.sfx.no();
+          msg(F_[st.c.F] || (st.c.F === 'platt' ? '&ldquo;There is nobody with a beard in the pilot&rsquo;s glasses,&rdquo; says Lou. &ldquo;Look again.&rdquo;' : '&ldquo;That is what the steward&rsquo;s sunglasses show,&rdquo; says Lou. &ldquo;Look at the pilot&rsquo;s.&rdquo;'));
+          delete st.c.F; keep(); draw(); return;
+        }
+        if (!st.v.P || !st.v.F) { ER.sfx.no(); msg('&ldquo;Good,&rdquo; says Lou. &ldquo;And does each one fit Lockyer Park at six, or not?&rdquo;'); return; }
+        if (!ER.check('vP', st.v.P)) { ER.sfx.no(); msg('&ldquo;Everything in the steward&rsquo;s glasses fits,&rdquo; says Lou. &ldquo;The sun low on the left and behind the camera, just where the shadows put it at six. A café. A lamp post with a 4 on it, backwards, where the camera stood. Why would that not be Lockyer Park?&rdquo;'); delete st.v.P; keep(); draw(); return; }
+        if (!ER.check('vF', st.v.F)) { ER.sfx.no(); msg('&ldquo;A high sun and palm trees,&rdquo; says Lou, &ldquo;over Lockyer Park at six o&rsquo;clock on a wet September evening? And that is not Hamish. Hamish has a moustache like a yard brush.&rdquo;'); delete st.v.F; keep(); draw(); return; }
+        ER.flag('d-stage', 1); PH.solved(true); paint();
+        PH.mine('glasses', 'Two pairs of sunglasses', '<p>The STEWARD&rsquo;S glasses (Platt&rsquo;s picture): a low sun on the left, the Lakeside Café, lamp post 4, and a small person in a hi-vis vest that says CREW (backwards), holding up a PHONE. It fits Lockyer Park at six.</p><p>The PILOT&rsquo;S glasses: palm trees and a high sun. It cannot be Lockyer Park at six. A composite: two pictures put together. And he is not Hamish Ure.</p>', true);
+        msg('&ldquo;So the pilot is a holiday picture with a teapot stuck on behind it,&rdquo; says Lou. &ldquo;And Platt&rsquo;s was taken by a small person in a crew vest, holding up a phone. Not by a man with a camera the size of a Labrador.&rdquo;');
+        setTimeout(function () { stage2(); }, 2600);
+      });
+      draw();
+      msg('Lou has zoomed in on two pairs of sunglasses. Drag a card on to each picture: what is behind its camera?');
+    }
+    function stage2() {
+      var s = '<div class="rf-st2"><div class="rf-crowd"><h6>LOU PENNOCK &middot; THE SHALLOWS &middot; 18.10</h6><svg viewBox="0 0 900 600"><g>' + PH.shallows({ id: 'rs' }) + '</g><g id="pick" pointer-events="none"></g></svg></div>' +
+        '<div><div class="lens"><svg viewBox="0 0 200 200">' + PH.lens('crew', 'l2') + '</svg></div><p>In the steward&rsquo;s sunglasses, at six o&rsquo;clock: the person who took Platt&rsquo;s picture. Who is it?</p></div></div>' +
+        '<div class="job-foot"><p class="jmsg"></p><button type="button" class="btn" id="r-who">That one</button></div>';
+      box.innerHTML = s;
+      var svg = box.querySelector('.rf-crowd svg');
+      function draw() {
+        var m = PH.SHALLOWS.filter(function (x) { return x.id === st.who; })[0];
+        box.querySelector('#pick').innerHTML = m ? '<rect x="' + (m.x - m.h * 0.26) + '" y="' + (m.y - m.h * 1.12) + '" width="' + (m.h * 0.52) + '" height="' + (m.h * 1.16) + '" fill="none" stroke="#ffd400" stroke-width="5" stroke-dasharray="10 6" rx="8"/>' : '';
+      }
+      svg.addEventListener('click', function (e) {
+        var g = e.target.closest ? e.target.closest('.who') : null;
+        if (!g || wait || nextFile) return;
+        st.who = g.getAttribute('data-who'); keep(); PH.sfx.shutter(); draw();
+        msg('A ring round ' + ({ hamish: 'the bald man in the water, by the basket', crew: 'the big man on the rope, in a crew vest', esme: 'the girl with the ponytail and the phone', steward: 'the man in the steward&rsquo;s vest and sunglasses', platt: 'the man with the beard and the big camera', runner: 'the runner with the medal' })[st.who] + '.');
+      });
+      box.querySelector('#r-who').addEventListener('click', function () {
+        var file;
+        if (wait || nextFile) return;
+        if (!st.who) { ER.sfx.no(); msg('&ldquo;Click the person who took it,&rdquo; says Lou.'); return; }
+        if (!ER.check('who', st.who)) {
+          ER.sfx.no();
+          msg(({ platt: '&ldquo;Platt? He got there at ten past, with his big camera,&rdquo; says Lou. &ldquo;Is a big camera what the person in the lens is holding? And at six o&rsquo;clock he was not even there.&rdquo;',
+            crew: '&ldquo;He is crew, and he has the vest,&rdquo; says Lou. &ldquo;But the person in the lens is small, with a ponytail, holding up a phone. He has short hair and both hands on a rope.&rdquo;',
+            steward: '&ldquo;He IS the man with the sunglasses,&rdquo; says Lou. &ldquo;He was in front of the camera, not behind it. And his vest says STEWARD.&rdquo;',
+            hamish: '&ldquo;Hamish was in the basket,&rdquo; says Lou. &ldquo;Up in the sky, in the middle of Platt&rsquo;s picture.&rdquo;',
+            runner: '&ldquo;No vest,&rdquo; says Lou. &ldquo;And he was running the 5K, not taking pictures of it.&rdquo;' })[st.who]);
+          st.who = ''; keep(); draw(); return;
+        }
+        file = ER.exit([st.c.P + ':' + st.v.P + '|' + st.c.F + ':' + st.v.F + '|' + st.who], { wait: true });
+        if (!file) { msg('The door will not open. Something is wrong with this page: tell your teacher.'); return; }
+        wait = true; nextFile = file; ER.flag('d-file', file);
+        PH.mine('esme', 'Who took it', '<p>ESME URE, fourteen, the Teapot&rsquo;s ground crew (Hamish&rsquo;s granddaughter). Small, ponytail, CREW vest, a phone. She was standing at lamp post 4 at six o&rsquo;clock.</p><p>Gideon Platt arrived at about ten past six. He did not take it.</p>', true);
+        msg('&ldquo;Esme,&rdquo; says Lou. &ldquo;Esme Ure. Hamish&rsquo;s granddaughter. Fourteen. She has crewed for him since she was nine.&rdquo; She is already dialling.');
+        setTimeout(function () {
+          ER.closeAll(); paint(); busy = true;
+          ER.narrate([
+            'In the steward&rsquo;s sunglasses: the sun low on the left, behind the camera, as it was at six. The Lakeside Café. Lamp post 4. And a small person in a hi-vis vest that says CREW, backwards, holding up a phone.',
+            'In Lou&rsquo;s picture at the shallows only one person fits: Esme Ure, fourteen, the Teapot&rsquo;s ground crew.',
+            '&ldquo;Platt was there,&rdquo; says Lou. &ldquo;He got there late, like me. He did not take that picture. He found it somewhere, and he cut it, and he wrote &lsquo;crowds flee&rsquo; under it.&rdquo;',
+            'And the pilot waving from the basket? His sunglasses are full of palm trees and a sun high in the sky. It is a holiday picture with a teapot pasted in behind it, and he is not Hamish Ure. Lou deletes it with some pleasure.',
+            '&ldquo;Lorna has Hamish on the phone,&rdquo; says Lou, &ldquo;and Hamish says his granddaughter has the whole picture, not just Platt&rsquo;s square of it. The glass box. Go. You have six minutes.&rdquo;'
+          ], function () { busy = false; showGo(); });
+        }, 2800);
+      });
+      draw();
+      msg('Everybody at the shallows at ten past six. Click the person who took Platt&rsquo;s picture.');
+    }
+    if (ER.flag('d-stage')) stage2(); else stage1();
+    return {
+      open: function () { ER.open('ov-lock', box); },
+      isOpen: function () { return !!box.parentNode; }
+    };
+  }
+})();
+</script>
+</body>
+</html>

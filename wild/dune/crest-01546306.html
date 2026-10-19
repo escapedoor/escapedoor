@@ -1,0 +1,478 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Dune Crest · Four and a Half Times</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-wild.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="dune.css">
+<style>
+  body{--bg:#05070f;--accent:#e86a52;--font-display:'Cinzel',serif;--font-ui:'Overpass',sans-serif;--font-body:'Lora',serif;
+    --tc-bg:rgba(6,8,18,.96);--tc-ink:#e6e8f2;--cap-bg:rgba(8,10,22,.93);--panel:#0e1222;--face-bg:#1a1e30;--q-ink:#ffb2a0;--fade:#05070f;--hud-bg:rgba(8,10,22,.82)}
+  .tw{animation:tw 3.3s steps(1,end) infinite}
+  .tw.b{animation-duration:2.6s;animation-delay:-1.2s}
+  .tw.c{animation-duration:4.1s;animation-delay:-2.3s}
+  @keyframes tw{0%{opacity:1}38%{opacity:.6}44%{opacity:.95}72%{opacity:.75}}
+  #meteor{opacity:0;animation:met 11s steps(1,end) infinite}
+  @keyframes met{0%{opacity:0}62%{opacity:.9}63%{opacity:0}}
+  #torch{animation:tor 2.9s steps(1,end) infinite}
+  @keyframes tor{0%{opacity:.9}50%{opacity:.75}56%{opacity:.95}}
+  #sky.ready{animation:ready 1.6s steps(1,end) infinite}
+  @keyframes ready{50%{filter:brightness(1.35)}}
+  .hot:hover{filter:brightness(1.3)}
+
+  /* the sky, close to */
+  .cs{display:block;width:100%;height:auto;background:#070a16;touch-action:none}
+  .cs .hit{fill:#fff;opacity:0;cursor:pointer}
+  .cs .ring{fill:none;stroke:#ff8a6a;stroke-width:2}
+  .csT{font-family:'Overpass',sans-serif;font-weight:700;font-size:12px;fill:#9aa2c0;letter-spacing:.12em}
+  .csN{font-family:'Overpass',sans-serif;font-weight:700;font-size:13px;fill:#ffb2a0}
+  .csC{font-family:'Overpass Mono',monospace;font-weight:600;font-size:22px;fill:#f3e3b0}
+  .csQ{font-family:'Overpass',sans-serif;font-weight:700;font-size:11px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="nightG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#03040b"/><stop offset=".6" stop-color="#080c1c"/><stop offset="1" stop-color="#141a30"/></linearGradient>
+  <linearGradient id="crestG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a4a52"/><stop offset=".5" stop-color="#3a2e36"/><stop offset="1" stop-color="#1a141a"/></linearGradient>
+  <radialGradient id="redG"><stop offset="0" stop-color="#ff4a3a" stop-opacity=".55"/><stop offset="1" stop-color="#ff3a2a" stop-opacity="0"/></radialGradient>
+  <filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="9"/></filter>
+</defs>
+
+<g id="sky" class="hot">
+  <rect x="-1000" y="-400" width="3600" height="1100" fill="url(#nightG)"/>
+  <g id="mw" filter="url(#soft)"></g>
+  <g id="st"></g>
+  <path id="meteor" d="M1180 120l-140 70" stroke="#f3f0ff" stroke-width="2.200" stroke-linecap="round"/>
+</g>
+
+<!-- the far dunes, and the hollow with the truck in it -->
+<path d="M-1000 640Q-500 618 0 630T1000 620T2600 634V900H-1000Z" fill="#120e16"/>
+<g id="farcar" class="hot"><path d="M-1000 700Q0 680 1000 692T2600 690V900H-1000Z" fill="#0c090e"/><rect x="236" y="676" width="34" height="13" fill="#4a4652"/><circle cx="226" cy="684" r="16" fill="#ffaa5a" opacity=".35"/><circle cx="226" cy="684" r="2.400" fill="#ffd28a"/></g>
+<!-- the crest, pale in the starlight -->
+<path d="M-1000 760Q-300 690 300 716Q800 740 1100 700Q1500 650 2600 690V1300H-1000Z" fill="url(#crestG)"/>
+<g stroke="#6a5a62" stroke-width="2" fill="none" opacity=".55"><path d="M-200 790q120 -10 260 4M200 800q160 -14 320 6M760 790q140 -16 300 0M1200 760q120 -12 240 0M40 850q200 -10 380 8M900 860q200 -12 360 4"/></g>
+
+<!-- Mr Strachan, sitting, with the spade -->
+<g id="str" class="hot">
+  <path d="M520 742q-8 -70 28 -80q40 -4 46 50l2 34z" fill="#1c1820"/><path d="M590 730l86 6" stroke="#1c1820" stroke-width="20" stroke-linecap="round"/><ellipse cx="684" cy="735" rx="11" ry="9" fill="#cfcabc" opacity=".55"/>
+  <circle cx="556" cy="642" r="18" fill="#1c1820"/><path d="M526 636q30 -10 60 0l-2 5q-28 -8 -56 0z" fill="#1c1820"/><path d="M540 634q2 -18 16 -18q14 0 16 18z" fill="#1c1820"/>
+  <path d="M470 760L640 640" stroke="#2a2428" stroke-width="7" stroke-linecap="round"/><path d="M634 630l22 -16l8 12l-22 16z" fill="#4a4448"/>
+</g>
+<!-- Dr Hayashi, flat on her back, counting meteors -->
+<g id="hay" class="hot">
+  <path d="M900 724q60 -14 150 -6l40 6q8 8 0 16l-40 4q-90 6 -150 -4z" fill="#1c1820"/><circle cx="886" cy="726" r="17" fill="#1c1820"/><ellipse cx="960" cy="712" rx="24" ry="6" fill="#262028"/>
+</g>
+<!-- the notebook under a red torch, and the protractor -->
+<g id="nbk" class="hot"><circle id="torch" cx="742" cy="772" r="90" fill="url(#redG)"/><g transform="rotate(-6 742 772)"><rect x="712" y="752" width="64" height="40" fill="#e8b0a8"/><path d="M744 752v40" stroke="#a03a2a" stroke-width="1.500"/><path d="M718 762h20M718 770h18M750 762h20M750 770h16M718 778h18" stroke="#4a1a1a" stroke-width="1.400"/></g>
+  <rect x="690" y="786" width="30" height="10" rx="3" fill="#2a2428"/><circle cx="719" cy="791" r="5" fill="#ff5a4a"/></g>
+<g id="prot" class="hot"><rect x="806" y="770" width="52" height="52" fill="#d8e0e8" opacity=".55" transform="rotate(8 832 796)"/><path d="M810 774l40 6" stroke="#5a6a7a" stroke-width="1.500" opacity=".8"/><path d="M820 780v36" stroke="#e8e6e0" stroke-width="1.200"/><circle cx="820" cy="818" r="3.500" fill="#8a8a90"/></g>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Down to the truck</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="dune.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, bench = null;
+  var COLOR = { k08: '#ffb27a', k01: '#fff0c8', k50: '#ff9a6a', k25: '#f4f6ff', k02: '#e8eeff' };
+
+  /* ---------- the sky behind the scene, at ten past nine ---------- */
+  function band(P, w, l0, l1) {
+    var up = DUNE.galactic(w, l0, l1, 2), dn = DUNE.galactic(-w, l0, l1, 2).reverse(), L = DUNE.lst(21 * 60 + 10), pts = [];
+    up.concat(dn).forEach(function (q) { var a = DUNE.altaz(q[0], q[1], L), p = P(a[0], a[1]); if (p) pts.push(p[0].toFixed(0) + ' ' + p[1].toFixed(0)); });
+    return pts.length > 2 ? '<path d="M' + pts.join('L') + 'Z"/>' : '';
+  }
+  (function () {
+    var P = DUNE.view(180, 30, 520, 800, 350), L = DUNE.lst(21 * 60 + 10), s = '', r = DUNE.rnd(19), i, a, p, x, y;
+    $('#mw').innerHTML = '<g fill="#c8d0f0" opacity=".08">' + band(P, 9, 200, 360) + '</g><g fill="#dde4ff" opacity=".1">' + band(P, 4, 200, 360) + '</g>';
+    for (i = 0; i < 260; i++) { x = -700 + r() * 3000; y = -380 + r() * 1020; s += '<circle cx="' + x.toFixed(0) + '" cy="' + y.toFixed(0) + '" r="' + (0.5 + r() * 0.8).toFixed(1) + '" fill="#e6e8f6" opacity="' + (0.25 + r() * 0.45).toFixed(2) + '"/>'; }
+    DUNE.SOUTH.forEach(function (q, k) {
+      a = DUNE.altaz(q[1], q[2], L); if (a[0] < 1) return; p = P(a[0], a[1]); if (!p || p[1] > 700) return;
+      s += (q[3] < 1.2 ? '<circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="' + (14 - q[3] * 4).toFixed(1) + '" fill="' + (COLOR[q[0]] || '#f3f4fc') + '" opacity=".14"/>' : '') + '<circle class="tw' + (k % 3 === 1 ? ' b' : k % 3 === 2 ? ' c' : '') + '" cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="' + (DUNE.starR(q[3]) * 1.35).toFixed(1) + '" fill="' + (COLOR[q[0]] || '#f3f4fc') + '"/>';
+    });
+    ['lmc', 'smc'].forEach(function (k) { var c = DUNE.PATCH[k]; a = DUNE.altaz(c[0], c[1], L); p = P(a[0], a[1]); if (p) s += '<ellipse cx="' + p[0].toFixed(0) + '" cy="' + p[1].toFixed(0) + '" rx="' + (c[2] * 5) + '" ry="' + (c[3] * 4.5) + '" fill="#cfd6f2" opacity=".08" filter="url(#soft)"/>'; });
+    $('#st').innerHTML = s;
+  })();
+
+  ER.init({
+    theme: 'wild', story: 'dune', storyTitle: 'Four and a Half Times', id: 'crest', no: 'II', title: 'The Dune Crest',
+    go: 'Climb to the top',
+    intro: [
+      'The light in the north-west was Venus. It did not flash, and in ten minutes it sank towards the dune together with the stars beside it, keeping its place among them: a planet, not an aircraft. The flare is still in its tube. Tolliver Downs came in on 4.4 megahertz, because by night a short-wave station goes low. At the long pip it was seven o&rsquo;clock: Mr Strachan&rsquo;s watch said 11.00, because it keeps UTC; Dr Hayashi&rsquo;s said 20.00, because it keeps Tokyo time; and yours said 18.56, four minutes slow.',
+      'The plane will fly the north shore of Sixpenny Pan on Saturday at half past seven in the morning. To be there, you have to know where &ldquo;here&rdquo; is.',
+      'It is ten past nine. The dune behind the truck is steep and soft, and Mr Strachan climbs it on his bottom, backwards, with the spade, refusing all help in a voice that carries a long way in the desert.'
+    ],
+    exit: {"next":"creek","w":{"58fc21d8":"6c042217"}}, tags: {"cross":["94d35dad"],"false":["742fd427"],"bar":["f23c30b5"],"bar_up":["f79e04d4"],"bar_short":["2c5ded69","933cedf8"],"mult":["1d5d0cb1"],"short":["85ef578b","f8226959","64ca016f","4d811648","cef0aaed"],"long":["b0540051","288bf5aa","290d8be6"],"south":["bbdd97dd","1579795b","de30e956","b28c585e","f55e4570","d8e772b6","5874ba76","dc382370","ac220e06","2845bec5","4a08055c","8600b674"],"lat":["29ea0882"],"lat_tilt":["d70ea75c","4c5953f3"],"lat_comp":["5f326676","741dfcc7","634f61f8","468d3fee"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('b-file') || null; told = ER.flag('b-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('b-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#sky').classList.toggle('ready', !!(told.str && told.page && !nextFile));
+    ER.pips((told.str ? 1 : 0) + (told.hay ? 1 : 0) + (told.page ? 1 : 0) + Math.min(5, ER.flag('b-stage') || 0) + (nextFile ? 1 : 0), 9);
+  }
+  function showGo() { $('#go').classList.add('on'); }
+
+  function hints() {
+    if (nextFile) return ['go', ['South is marked with stones, and you know your latitude. Go down to the truck and sleep.']];
+    if (bench && bench.isOpen()) return bench.hint();
+    if (!told.str) return ['str', ['Mr Strachan is sitting on the crest with the spade across his knees. Ask him what the sky can tell you.']];
+    if (!told.page) return ['page', [
+      'Everything you need is on a page of Mr Strachan&rsquo;s notebook.',
+      'The notebook is lying open on the sand in the red light of the torch, in front of you. Click it.'
+    ]];
+    if (!told.hay) return ['hay', ['Dr Hayashi is lying on her back on the crest, counting meteors. She has seen something you should know about.']];
+    return ['sky', ['Now the sky itself. Click anywhere in the stars.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; showGo(); ER.say('The crest, near eleven. A short row of stones points south along the sand.'); return; }
+    if (told.in) { busy = false; ER.say('The crest of the dune, under more stars than you knew there were.'); return; }
+    tell('in');
+    ER.narrate([
+      'From the top of the dune you can see the whole sky at once, from edge to edge, and it is full. The Milky Way goes over from one side of the world to the other like smoke from a very long fire.',
+      'Below you, in the hollow, the lamp by the truck is the only light on Earth.',
+      'Mr Strachan sits down on the crest facing the way he says is south, more or less, with his bad leg out in front of him. &ldquo;More or less,&rdquo; he says, &ldquo;is not good enough. Not out here.&rdquo; He puts his notebook down on the sand and lays the torch beside it. The torch has red paper over the glass.'
+    ], function () { busy = false; });
+  }
+
+  /* ---------- people ---------- */
+  $('#str').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Mr Strachan', role: 'On the crest, with a spade for a crutch', face: window.FACE('strachan'),
+      lines: [
+        { note: 'He sits with his bad leg straight out and the spade across his knees, like a king with a very poor sceptre.', a: '&ldquo;Look at that. Thirty years I navigated by those stars, and they still take my breath away.&rdquo;' },
+        { q: 'How can the stars tell us where we are?', a: 'Two numbers make a position: how far south, and how far east. Tonight the sky gives us the first. The Cross shows where south is, and how high the pole of the sky stands. That height is our latitude. Tomorrow at noon the sun gives us the second.' },
+        { q: 'Can&rsquo;t you just show me?', a: 'I could. But my glasses are in the truck, and you will remember it better if your own hand finds it. Everything you need is on the page under the red torch. I&rsquo;ll check your sums. That is what great-uncles are for.' },
+        { q: 'Why is the torch red?', a: 'White light ruins your night eyes for half an hour. Red light hardly touches them. A navigator who shines a white torch in the cockpit is not asked to fly again.' },
+        { q: 'Is there a south pole star?', a: 'There is not. In the north they have the Pole Star sitting nearly on the spot, and very smug about it. Down here the pole of the sky is an empty place. You have to find it from stars that are somewhere else. That is half the fun, and all of the difficulty.' }
+      ],
+      clue: { id: 'str2', title: 'Mr Strachan, on the crest', kind: 'What he said' },
+      done: function (seen) { if (seen && tell('str')) { paint(); ER.say('He nods at the notebook in the red light.'); } }
+    });
+  });
+  $('#hay').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Dr Hayashi', role: 'Lying on her back, counting meteors', face: window.FACE('hayashi'),
+      lines: [
+        { note: 'She is lying flat on the sand with her hat on her stomach.', a: '&ldquo;Seven meteors so far. In Tokyo I am lucky to see seven stars.&rdquo;' },
+        { q: 'Which is the Southern Cross?', a: 'I can see two crosses. One on the left, small and bright. One on the right, bigger, a little fainter. I would choose the big one, because it looks more like a cross. Duncan says that is exactly what the big one wants.' },
+        { q: 'What are the two pale clouds?', a: 'The Clouds of Magellan. Two small galaxies, near neighbours of ours. Near, here, means more than a hundred and fifty thousand light years. So please do not walk towards them.' },
+        { q: 'Are you worried?', a: 'About us, a little. About my stone, not at all. It has waited four and a half thousand million years. It can wait until Saturday.' }
+      ],
+      clue: { id: 'hay2', title: 'Dr Hayashi, on the crest', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('hay')) { paint(); ER.say('Two crosses, then. And only one of them is telling the truth.'); } }
+    });
+  });
+
+  /* ---------- the page ---------- */
+  var PAGE = '<h4>South by the Cross</h4><div class="two"><div>' +
+    '<p>There is no star at the south pole of the sky. You find the <b>empty place</b>.</p>' +
+    '<ol><li>Find the <b>Southern Cross</b>: four bright stars, small and close together, with a faint fifth one off to the side. The <b>False Cross</b> is bigger and fainter, and has no Pointers.</li>' +
+    '<li>The <b>Pointers</b>: two very bright stars beside the true Cross. They point at it.</li>' +
+    '<li>Take the long bar of the Cross, from the top star to the foot. Carry it on beyond the foot, <b>four and a half times</b> its own length. That is the pole of the sky. Nothing marks it.</li>' +
+    '<li>Drop straight down from there to the horizon. That is <b>south</b>.</li>' +
+    '<li>The pole stands as high above the horizon as you are south of the equator: its height is your <b>latitude</b>. Measure it with a protractor and a plumb line (or roughly: a fist at arm&rsquo;s length is about 10&deg;).</li></ol>' +
+    '<p>Best when the Cross stands upright: the long bar then points straight down. The rule is good to two or three degrees. The whole sky turns round the empty place, about 15&deg; an hour. &nbsp;H.S.</p></div>' +
+    '<div><svg viewBox="0 0 290 370"><rect width="290" height="370" fill="#f7f5ec" opacity=".2"/>' +
+    '<g fill="#1d2a4a"><circle cx="150" cy="30" r="5"/><circle cx="150" cy="96" r="6.500"/><circle cx="122" cy="60" r="4"/><circle cx="176" cy="66" r="5"/><circle cx="162" cy="78" r="2.400"/><circle cx="70" cy="120" r="7"/><circle cx="96" cy="100" r="5.500"/></g>' +
+    '<path d="M150 30V96" stroke="#1d2a4a" stroke-width="1.600"/><path d="M122 60L176 66" stroke="#1d2a4a" stroke-width="1.200"/><path d="M150 96V300" stroke="#c8321e" stroke-width="1.600" stroke-dasharray="5 4"/>' +
+    '<g stroke="#c8321e" stroke-width="1.400"><path d="M144 162h12M144 228h12M144 294h12"/></g>' +
+    '<path d="M72 118L94 102L118 86" stroke="#1d2a4a" stroke-width="1" stroke-dasharray="3 3"/>' +
+    '<circle cx="150" cy="300" r="7" fill="none" stroke="#c8321e" stroke-width="2"/><path d="M150 307V352" stroke="#1d2a4a" stroke-width="1.200" stroke-dasharray="2 3"/><path d="M10 352H280" stroke="#1d2a4a" stroke-width="2"/>' +
+    '<path d="M60 352A90 90 0 0 1 64 316" stroke="#1d2a4a" stroke-width="1.200" fill="none"/>' +
+    '<g font-family="Handlee,cursive" font-size="15" fill="#1d2a4a"><text x="184" y="34">top</text><text x="164" y="104">foot</text><text x="14" y="148">the Pointers</text><text x="164" y="200">x 4&frac12;</text><text x="166" y="304">the pole: nothing there!</text>' +
+    '<text x="156" y="346">S</text><text x="20" y="342">latitude</text></g></svg></div></div>';
+  $('#nbk').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: PAGE, cls: 'nav', clue: { id: 'page2', title: 'South by the Cross', kind: 'Mr Strachan&rsquo;s notebook' }, done: function () {
+      DUNE.terms(['Southern Cross', 'Pointers', 'False Cross', 'south celestial pole', 'latitude', 'horizon']);
+      if (tell('page')) { paint(); ER.say('In the red light the page looks as if it were written in blood. It is only biro.'); }
+    } });
+  });
+  $('#prot').addEventListener('click', function (e) {
+    if (busy) return;
+    ER.wordAt(e.clientX, e.clientY, 'protractor');
+    ER.say('Mr Strachan&rsquo;s square protractor, the one navigators used, with a piece of string and a nut tied to one corner: a plumb line. Together they make a quadrant, for measuring how high something is.');
+    DUNE.terms(['plumb line', 'quadrant']);
+  });
+  DUNE.thing('#farcar', null, 'Down in the hollow, the truck is a pale shape beside the lamp. From up here you can see how well it is hidden: an aircraft would have to fly right over the top of it.', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  $('#sky').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The Cross is lying over on its side now, as the sky turns. The empty place has not moved.'); return; }
+    if (!told.str) { ER.say('&ldquo;Ask me first,&rdquo; says Mr Strachan, &ldquo;or you will be up here all night looking at the pretty ones.&rdquo;'); return; }
+    if (!told.page) { ER.say('&ldquo;The page,&rdquo; says Mr Strachan, &ldquo;under the red torch. Read it before you look.&rdquo;'); return; }
+    if (!bench) bench = makeBench();
+    bench.open();
+  });
+
+  /* ---------- the sky, the Cross and the empty place ---------- */
+  function makeBench() {
+    var T0 = 21 * 60 + 10, SPAN = 140, HZ = 450, P = DUNE.view(180, 36, 321, 500, 216.5), stage = ER.flag('b-stage') || 0, t = ER.flag('b-t') || T0,
+      sel = [], bar = ER.flag('b-bar') || '', mult = 1, stone = null, sight = 10, box = ER.el('div', 'bx'), s, svg, i, wl, faint = [], r = DUNE.rnd(3),
+      BY = {}; DUNE.SOUTH.forEach(function (q) { BY[q[0]] = q; });
+    if (stage > 3) stage = 3;      /* after a reload the ring and the stone are placed again */
+    if (stage >= 1 && !bar) stage = 1;
+    for (i = 0; i < 160; i++) faint.push([r() * 360, -90 + Math.acos(1 - r() * 0.9) * 180 / Math.PI * 0.95, 4.3 + r() * 1.3]);
+    function TX(m) { return 70 + (m - T0) * 860 / SPAN; }
+    s = '<svg class="cs" viewBox="0 0 1000 530"><defs><filter id="cbl" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="7"/></filter></defs><rect width="1000" height="470" fill="#070a16"/><g id="c-mw" filter="url(#cbl)"></g><g id="c-st"></g><g id="c-lines"></g>' +
+      '<path d="M0 456Q160 440 330 448T640 444T1000 450V470H0Z" fill="#140f16"/><path d="M0 ' + HZ + 'H1000" stroke="#3a2e36" stroke-width="1.500"/><g id="c-ticks"></g>' +
+      '<g id="c-stone"></g><g id="c-quad"></g><rect id="c-hz" x="0" y="' + (HZ - 26) + '" width="1000" height="44" fill="#fff" opacity="0"/>' +
+      '<rect y="470" width="1000" height="60" fill="#0d1020"/><path d="M70 494H930" stroke="#8a7a52" stroke-width="5"/>';
+    for (i = 0; i <= SPAN; i += 10) s += '<path d="M' + TX(T0 + i).toFixed(1) + ' 494v' + (i % 30 ? 7 : 12) + '" stroke="#9aa2c0" stroke-width="1.500"/>' + (i % 30 ? '' : '<text class="csT" x="' + TX(T0 + i).toFixed(1) + '" y="522" text-anchor="middle">' + DUNE.clock(T0 + i) + '</text>');
+    s += '<g id="c-ptr"><path d="M0 490L-10 470H10Z" fill="#f3e3b0" stroke="#7a6230"/></g><rect id="c-strip" class="tool" x="50" y="472" width="900" height="58" fill="#fff" opacity="0"/>' +
+      '<g transform="translate(985 34)"><rect x="-110" y="-24" width="110" height="42" rx="4" fill="#141830" stroke="#8a7a52"/><text class="csC" id="c-time" x="-55" y="6" text-anchor="middle"></text></g></svg>';
+    box.innerHTML = '<div class="frame">' + s + '</div><div class="bx-foot"><p class="pmsg"></p><span class="nudge" id="c-nudge"><button type="button" data-d="-10">&laquo;</button><button type="button" data-d="-1">&lsaquo;</button><button type="button" data-d="1">&rsaquo;</button><button type="button" data-d="10">&raquo;</button></span>' +
+      '<span id="c-slot"></span><button type="button" class="btn quiet" id="c-undo">Start again</button><button type="button" class="btn" id="c-go"></button></div>';
+    svg = box.querySelector('svg');
+    var msgEl = box.querySelector('.pmsg'), go = box.querySelector('#c-go'), undo = box.querySelector('#c-undo'), nudge = box.querySelector('#c-nudge');
+    wl = DUNE.wheels(box.querySelector('#c-slot'), { label: 'Latitude', vals: [DUNE.DIGITS, DUNE.DIGITS], tail: '&deg; S', start: ER.flag('b-wl') || [0, 0], change: function () { ER.flag('b-wl', wl.at()); } });
+    function msg(x) { msgEl.innerHTML = ER.gloss(x); }
+    function L() { return DUNE.lst(t); }
+    function pos(id) { var q = BY[id], a = DUNE.altaz(q[1], q[2], L()); return P(a[0], a[1]); }
+    function barParts() { return bar ? bar.split('>') : null; }
+    function ptAt(k) { var b = barParts(), A = BY[b[0]], B = BY[b[1]], q = DUNE.beyond([A[1], A[2]], [B[1], B[2]], k), a = DUNE.altaz(q[0], q[1], L()); return { a: a, p: P(a[0], a[1]) }; }
+    function band(w, l0, l1) {
+      var up = DUNE.galactic(w, l0, l1, 2), dn = DUNE.galactic(-w, l0, l1, 2).reverse(), pts = [];
+      up.concat(dn).forEach(function (q) { var a = DUNE.altaz(q[0], q[1], L()), p = P(a[0], a[1]); if (p) pts.push(p[0].toFixed(0) + ' ' + p[1].toFixed(0)); });
+      return pts.length > 2 ? '<path d="M' + pts.join('L') + 'Z"/>' : '';
+    }
+    function draw() {
+      var o = '', a, p, id, k;
+      svg.querySelector('#c-mw').innerHTML = '<g fill="#b8c2ea" opacity=".05">' + band(8, 200, 360) + '</g><g fill="#cfd6f6" opacity=".06">' + band(3.5, 200, 360) + '</g>';
+      faint.forEach(function (f) { a = DUNE.altaz(f[0], f[1], L()); if (a[0] < 1) return; p = P(a[0], a[1]); if (!p || p[1] > HZ - 4 || p[0] < 0 || p[0] > 1000 || p[1] < 0) return; o += '<circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r=".7" fill="#e6e8f6" opacity=".5"/>'; });
+      ['lmc', 'smc', 'coal', 'neb'].forEach(function (k2) { var c = DUNE.PATCH[k2]; a = DUNE.altaz(c[0], c[1], L()); p = P(a[0], a[1]); if (!p || a[0] < 1) return;
+        o += '<ellipse cx="' + p[0].toFixed(0) + '" cy="' + p[1].toFixed(0) + '" rx="' + (c[2] * 3.4).toFixed(0) + '" ry="' + (c[3] * 3).toFixed(0) + '" fill="' + (k2 === 'coal' ? '#070a16' : k2 === 'neb' ? '#e6a0b0' : '#cfd6f2') + '" opacity="' + (k2 === 'coal' ? '.7' : k2 === 'neb' ? '.22' : '.1') + '"/>'; });
+      DUNE.SOUTH.forEach(function (q, n) {
+        a = DUNE.altaz(q[1], q[2], L()); if (a[0] < 0.6) return; p = P(a[0], a[1]); if (!p || p[1] > HZ - 3 || p[0] < -10 || p[0] > 1010) return;
+        o += '<circle class="tw' + (n % 3 === 1 ? ' b' : n % 3 === 2 ? ' c' : '') + '" cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="' + DUNE.starR(q[3]).toFixed(1) + '" fill="' + (COLOR[q[0]] || '#f3f4fc') + '"/>';
+        if (sel.indexOf(q[0]) >= 0) o += '<circle class="ring" cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="11"/>';
+        if (q[3] < 3.5) o += '<circle class="hit" data-id="' + q[0] + '" cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="13"/>';
+      });
+      svg.querySelector('#c-st').innerHTML = o; o = '';
+      if (bar && stage >= 2) {
+        var b = barParts(), A = pos(b[0]), B = pos(b[1]);
+        if (A && B) o += '<path d="M' + A[0].toFixed(1) + ' ' + A[1].toFixed(1) + 'L' + B[0].toFixed(1) + ' ' + B[1].toFixed(1) + '" stroke="#ff8a6a" stroke-width="2.200"/>';
+        if (stage >= 3) {
+          var e = ptAt(6).p, pts = [B];
+          for (k = 0.5; k <= 6; k += 0.5) pts.push(ptAt(k).p);
+          o += '<path d="M' + B[0].toFixed(1) + ' ' + B[1].toFixed(1) + 'L' + e[0].toFixed(1) + ' ' + e[1].toFixed(1) + '" stroke="#ff8a6a" stroke-width="1.500" stroke-dasharray="5 5" opacity=".75"/>';
+          for (k = 1; k <= 6; k++) { p = ptAt(k).p; o += '<path d="M' + (p[0] - 7).toFixed(1) + ' ' + p[1].toFixed(1) + 'h14" stroke="#ff8a6a" stroke-width="1.600"/><text class="csN" x="' + (p[0] + 12).toFixed(1) + '" y="' + (p[1] + 4).toFixed(1) + '">' + k + '</text>'; }
+          p = ptAt(mult).p;
+          o += '<g id="c-ring" class="tool"><circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="10" fill="none" stroke="#ffd2a0" stroke-width="2.400"/><circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="18" fill="#fff" opacity="0"/></g>';
+        }
+      }
+      svg.querySelector('#c-lines').innerHTML = o; o = '';
+      if (stone) {
+        p = P(0, stone); if (p) o += '<path d="M' + p[0].toFixed(1) + ' ' + (HZ - 6) + 'l-9 12h18z" fill="#c9b8a8" stroke="#2a2428"/>';
+        if (stage >= 5) {
+          var top = P(60, stone), bot = P(0, stone), sp = P(sight, stone);
+          o += '<path d="M' + bot[0].toFixed(1) + ' ' + bot[1].toFixed(1) + 'L' + top[0].toFixed(1) + ' ' + top[1].toFixed(1) + '" stroke="#f3e3b0" stroke-width="1.200" stroke-dasharray="3 5" opacity=".6"/>' +
+            '<g id="c-sight" class="tool"><path d="M' + (sp[0] - 14).toFixed(1) + ' ' + sp[1].toFixed(1) + 'h28M' + sp[0].toFixed(1) + ' ' + (sp[1] - 14).toFixed(1) + 'v28" stroke="#f3e3b0" stroke-width="2"/><circle cx="' + sp[0].toFixed(1) + '" cy="' + sp[1].toFixed(1) + '" r="20" fill="#fff" opacity="0"/></g>';
+        }
+      }
+      svg.querySelector('#c-stone').innerHTML = o;
+      svg.querySelector('#c-quad').innerHTML = stage >= 5 ? quad(sight) : '';
+      svg.querySelector('#c-ptr').setAttribute('transform', 'translate(' + TX(t).toFixed(1) + ' 0)');
+      svg.querySelector('#c-time').textContent = DUNE.clock(t);
+      svg.setAttribute('data-t', t); svg.setAttribute('data-stage', stage); svg.setAttribute('data-mult', mult);
+      if (bar) { var bb = barParts(), A2 = pos(bb[0]), B2 = pos(bb[1]); if (A2 && B2) svg.setAttribute('data-tilt', (Math.atan2(B2[0] - A2[0], B2[1] - A2[1]) * 180 / Math.PI).toFixed(1)); }
+      if (stage >= 3 && bar) { var pp = ptAt(mult).p; svg.setAttribute('data-ring', pp[0].toFixed(1) + ',' + pp[1].toFixed(1)); }
+      if (stage >= 5) { var s2 = P(sight, stone); svg.setAttribute('data-sight', s2[0].toFixed(1) + ',' + s2[1].toFixed(1)); svg.setAttribute('data-alt', sight.toFixed(1)); }
+      nudge.style.display = stage <= 2 ? '' : 'none';
+      wl.node.style.display = stage === 5 ? '' : 'none';
+      undo.style.display = stage >= 1 && stage <= 4 ? '' : 'none';
+      go.textContent = ['These four are the Cross', 'That is the long bar', 'It stands upright', 'The empty place is here', 'Mark south', 'That is our latitude'][stage] || '';
+      go.style.visibility = stage > 5 ? 'hidden' : '';
+    }
+    /* the quadrant: the protractor tilted to the sight, the plumb line hanging straight down across its scale */
+    function quad(alt) {
+      var cx = 196, cy = 250, R = 140, o = '<g transform="translate(' + cx + ' ' + cy + ')"><g transform="rotate(' + (-alt).toFixed(2) + ')">' +
+        '<path d="M0 0V' + R + 'A' + R + ' ' + R + ' 0 0 1 -' + R + ' 0Z" fill="#d8e0e8" opacity=".9" stroke="#5a6a7a" stroke-width="1.500"/><path d="M-' + (R + 20) + ' 0H' + (R + 60) + '" stroke="#f3e3b0" stroke-width="1.400" stroke-dasharray="4 4"/>', d, a;
+      for (d = 0; d <= 90; d += 5) {
+        a = (90 + d) * Math.PI / 180;
+        o += '<path d="M' + (R * Math.cos(a)).toFixed(1) + ' ' + (R * Math.sin(a)).toFixed(1) + 'L' + ((R - (d % 10 ? 8 : 14)) * Math.cos(a)).toFixed(1) + ' ' + ((R - (d % 10 ? 8 : 14)) * Math.sin(a)).toFixed(1) + '" stroke="#2a3440" stroke-width="1.200"/>';
+        if (d % 10 === 0) o += '<text class="csQ" fill="#1d2a4a" x="' + ((R - 26) * Math.cos(a)).toFixed(1) + '" y="' + ((R - 26) * Math.sin(a) + 3).toFixed(1) + '" text-anchor="middle">' + d + '</text>' +
+          '<text class="csQ" fill="#a03a2a" x="' + ((R - 46) * Math.cos(a)).toFixed(1) + '" y="' + ((R - 46) * Math.sin(a) + 3).toFixed(1) + '" text-anchor="middle">' + (90 - d) + '</text>';
+      }
+      o += '</g><path d="M0 0V' + (R + 16) + '" stroke="#f3f0e6" stroke-width="1.400"/><circle cy="' + (R + 18) + '" r="4.500" fill="#8a8a90"/><circle r="3" fill="#2a3440"/></g>';
+      return o;
+    }
+    function setT(v) { if (stage > 2) return; t = Math.round(DUNE.clamp(v, T0, T0 + SPAN)); ER.flag('b-t', t); draw(); }
+    ER.drag(svg.querySelector('#c-strip'), {
+      start: function () { if (stage > 2) return false; },
+      move: function (e) { setT(T0 + (ER.pt(svg, e).x - 70) * SPAN / 860); },
+      end: function (e) { setT(T0 + (ER.pt(svg, e).x - 70) * SPAN / 860); DUNE.sfx.notch(); }
+    });
+    nudge.addEventListener('click', function (e) { var b = e.target.closest ? e.target.closest('button') : null; if (!b) return; setT(t + (+b.getAttribute('data-d'))); DUNE.sfx.notch(); });
+    /* clicks on stars: choose four (the Cross), then two (the long bar, top first) */
+    var pick2 = [];
+    svg.addEventListener('click', function (e) {
+      var h = e.target.closest ? e.target.closest('.hit') : null, id;
+      if (!h) return;
+      id = h.getAttribute('data-id');
+      if (stage === 0) {
+        if (sel.indexOf(id) >= 0) sel.splice(sel.indexOf(id), 1); else if (sel.length < 4) sel.push(id); else { sel.shift(); sel.push(id); }
+        DUNE.sfx.click(); draw(); msg(sel.length < 4 ? 'Ringed: ' + sel.length + ' of 4. Click again to take a ring off.' : 'Four stars ringed. If they are the Cross, say so.');
+      } else if (stage === 1) {
+        if (sel.indexOf(id) < 0) { msg('Choose from the four stars of the Cross.'); return; }
+        pick2.push(id); if (pick2.length > 2) pick2 = [id];
+        DUNE.sfx.click();
+        msg(pick2.length === 1 ? 'From this star&hellip; now click the star at the other end of the bar.' : 'A bar from the first star you clicked to the second. If that is the long bar, from the top to the foot, say so.');
+      }
+    });
+    ER.drag(svg, {
+      start: function (e) {
+        var g = e.target.closest ? e.target.closest('#c-ring, #c-sight') : null;
+        if (!g) return false;
+        this._g = g.id;
+      },
+      move: function (e) { drag(e); },
+      end: function (e) { drag(e); DUNE.sfx.notch(); }
+    });
+    var dragWhat = null;
+    svg.addEventListener('pointerdown', function (e) { var g = e.target.closest ? e.target.closest('#c-ring, #c-sight') : null; dragWhat = g ? g.id : null; }, true);
+    function drag(e) {
+      var q = ER.pt(svg, e), best = 1, bd = 1e9, k, p, d;
+      if (dragWhat === 'c-ring' && stage === 3) {
+        for (k = 0.5; k <= 6; k += 0.5) { p = ptAt(k).p; d = (p[0] - q.x) * (p[0] - q.x) + (p[1] - q.y) * (p[1] - q.y); if (d < bd) { bd = d; best = k; } }
+        mult = best; draw();
+      } else if (dragWhat === 'c-sight' && stage === 5) {
+        var a = P.back(q.x, q.y); sight = DUNE.clamp(Math.round(a[0] * 10) / 10, 0, 60); draw();
+      }
+    }
+    svg.querySelector('#c-hz').addEventListener('click', function (e) {
+      if (stage !== 4) return;
+      var q = ER.pt(svg, e), a = P.back(q.x, HZ); stone = Math.round(a[1]); DUNE.sfx.stone(); draw();
+      msg('A stone on the horizon, under the line of the dunes. If it is straight below the empty place, say so.');
+    });
+    undo.addEventListener('click', function () {
+      sel = []; pick2 = []; bar = ''; mult = 1; stone = null; ER.flag('b-bar', ''); setStage(0);
+      msg('All the rings are off. Start with the Cross.');
+    });
+    function setStage(n) { stage = n; ER.flag('b-stage', n); draw(); paint(); }
+    go.addEventListener('click', function () {
+      var c, b;
+      if (stage === 0) {
+        if (sel.length < 4) { msg('Ring four stars first: click each of them.'); return; }
+        c = sel.slice().sort().join('-');
+        if (ER.check('cross', c)) {
+          DUNE.sfx.pencil(); ER.flag('b-cross', c); setStage(1);
+          msg('&ldquo;That&rsquo;s it,&rdquo; says Mr Strachan, &ldquo;and there are the Pointers, the two bright ones beside it, as plain as a pair of headlamps. Now the long bar. Top first, then the foot.&rdquo;');
+          return;
+        }
+        DUNE.sfx.no();
+        msg(ER.check('false', c) ? '&ldquo;The big one,&rdquo; says Dr Hayashi, sitting up. &ldquo;I would have chosen it too.&rdquo; &ldquo;Then where are its Pointers?&rdquo; says Mr Strachan. &ldquo;And why is it so faint? That is the False Cross. It has fooled better navigators than either of you.&rdquo;' :
+          'Mr Strachan looks along your arm. &ldquo;Four stars, but not a cross that anybody named. Find the small bright one with two very bright stars beside it.&rdquo;');
+        return;
+      }
+      if (stage === 1) {
+        if (pick2.length < 2) { msg('Click two stars of the Cross: the top of the long bar first, then the foot.'); return; }
+        b = pick2[0] + '>' + pick2[1];
+        if (ER.check('bar', b)) { bar = b; ER.flag('b-bar', b); DUNE.sfx.pencil(); setStage(2); msg('The long bar, top to foot. &ldquo;Now wait,&rdquo; says Mr Strachan. &ldquo;Let the night go on until it stands upright. Drag the watch along. We are in no hurry.&rdquo;'); return; }
+        DUNE.sfx.no(); pick2 = [];
+        msg(ER.check('bar_up', b) ? '&ldquo;Wrong way round,&rdquo; says Mr Strachan. &ldquo;You have carried it upwards, away from the ground. The pole is beyond the foot: the bright star at the bottom of the Cross.&rdquo;' :
+          ER.check('bar_short', b) ? '&ldquo;That is the short bar, the arms of the Cross,&rdquo; says Mr Strachan. &ldquo;I want the long one: from the top of the Cross to its foot.&rdquo;' :
+          'That is not a bar of the Cross: it goes corner to corner. The long bar runs from the top star to the foot.');
+        return;
+      }
+      if (stage === 2) {
+        var bb = barParts(), A = pos(bb[0]), B = pos(bb[1]), tilt = Math.atan2(B[0] - A[0], B[1] - A[1]) * 180 / Math.PI;
+        if (Math.abs(tilt) <= 3.5) { DUNE.sfx.pencil(); setStage(3); msg('Upright: the top straight above the foot. &ldquo;Now carry it on,&rdquo; says Mr Strachan. &ldquo;Drag the ring down the dotted line. The numbers count lengths of the bar.&rdquo;'); return; }
+        DUNE.sfx.no();
+        msg(tilt > 0 ? 'Not yet: the Cross is still leaning, its foot to the right of its top. Let the night go on.' : 'Too far: the Cross has gone past upright and is leaning the other way. Go back a little.');
+        return;
+      }
+      if (stage === 3) {
+        var mm = String(mult);
+        if (ER.check('mult', mm)) {
+          var pt = ptAt(mult); ER.flag('b-pole', [pt.a[0], pt.a[1]]); DUNE.sfx.pencil(); setStage(4);
+          msg('&ldquo;There,&rdquo; says Mr Strachan softly. &ldquo;Nothing at all. That is the pole of the sky. Now drop straight down from it to the horizon, and put a stone there.&rdquo;');
+          return;
+        }
+        DUNE.sfx.no();
+        msg(ER.check('short', mm) ? 'Not far enough. The empty place is further on, beyond the foot: count the lengths again on the page.' : ER.check('long', mm) ? 'Too far: you have gone past the empty place. Count the lengths again.' : 'Drag the ring along the dotted line first.');
+        return;
+      }
+      if (stage === 4) {
+        if (stone == null) { msg('Click the horizon, under the line of the dunes, straight below the ring.'); return; }
+        var pole = ER.flag('b-pole') || [25, 180];
+        if (!ER.check('south', String(stone)) || Math.abs(stone - pole[1]) > 4) { DUNE.sfx.no(); msg('&ldquo;Straight down,&rdquo; says Mr Strachan. &ldquo;Not to one side. Look at the ring, and put the stone under it.&rdquo;'); return; }
+        ER.flag('b-stone', stone); DUNE.sfx.stone(); setStage(5); sight = 10; draw();
+        msg('South. &ldquo;Now how high,&rdquo; says Mr Strachan. &ldquo;Drag the sight up the dotted line on to the empty place. The plumb line hangs across the scale of the protractor. Read it, and set the wheels.&rdquo;');
+        return;
+      }
+      if (stage === 5) {
+        var v = String(+wl.get());
+        c = ER.flag('b-cross') + '|' + String(mult) + '|' + v;
+        if (ER.exitOk([c])) {
+          nextFile = ER.exit([c], { wait: true }); ER.flag('b-file', nextFile); stage = 6; ER.flag('b-stage', 6); draw();
+          DUNE.mine('south', 'South, and how far south', '<p>The small bright Cross, with the Pointers beside it (not the big faint False Cross). The long bar, top to foot, carried on <b>4&frac12; times</b>: the empty place, the pole of the sky. Straight down from it: <b>south</b>. A row of stones on the crest points there.</p><p>The pole stood <b>25&deg;</b> above the horizon, so we are <b>25&deg; south</b> of the equator. Latitude 25&deg; S.</p>', true);
+          msg('&ldquo;Twenty-five south,&rdquo; says Mr Strachan. &ldquo;Now we know which line of the map we are on. Tomorrow at noon the sun will tell us where on it.&rdquo;');
+          setTimeout(function () {
+            ER.closeAll(); paint(); busy = true;
+            ER.narrate([
+              'You lay a row of stones along the crest, pointing at the stone on the horizon: south. In the morning the stars will be gone, but the stones will still be there.',
+              'Dr Hayashi has seen eleven meteors. &ldquo;None of them was mine,&rdquo; she says. &ldquo;Mine is already down.&rdquo;',
+              'Mr Strachan goes down the dune the way he came up, on his bottom, with the spade, and the stars go on turning round the empty place all night without anybody watching them.'
+            ], function () { busy = false; showGo(); });
+          }, 3000);
+          return;
+        }
+        DUNE.sfx.no();
+        msg(ER.check('lat_comp', v) ? 'That is the angle down from straight overhead: the red numbers. The latitude is the height above the horizon: the other scale, the one that reads 0 when the sight is level.' :
+          ER.check('lat_tilt', v) ? 'Nearly. Is the sight exactly on the empty place, and not a little above it? Read where the plumb line crosses the scale.' :
+          'Put the sight exactly on the empty place you found, read the scale that counts up from the horizon where the plumb line crosses it, and set that on the wheels.');
+      }
+    });
+    draw();
+    msg(['The southern sky, from the crest. Ring the four stars of the Southern Cross: click each one.', 'Click the top of the long bar of the Cross, then its foot.', 'Drag along the watch strip (or use the arrows) and let the night go on, until the long bar of the Cross stands upright.',
+      'Drag the ring down the dotted line, beyond the foot, to the empty place.', 'Click the horizon straight below the ring, to put a stone there.', 'Drag the sight on to the empty place, read the protractor, and set the wheels.'][stage] || '');
+    if (stage >= 1) { sel = (ER.flag('b-cross') || '').split('-').filter(Boolean); draw(); }
+    return {
+      open: function () { ER.open('ov-lock', box); },
+      isOpen: function () { return !!box.parentNode; },
+      hint: function () {
+        return [['cross', [
+          'There are two crosses in the southern sky tonight. Mr Strachan&rsquo;s page says how to tell the true one.',
+          'The true Cross is the smaller and brighter one, and it has two very bright stars beside it that point at it: the Pointers. The False Cross is bigger and fainter, and has none.',
+          'It is the small cross on the left of the sky, with the two very bright stars below it and further left. Click its four bright stars.'
+        ]], ['bar', [
+          'The long bar runs from the top star of the Cross to its foot. Which end is nearer the horizon?',
+          'Click the top star of the long bar first, then the foot: the bright star at the bottom of the Cross.'
+        ]], ['upright', [
+          'Drag along the watch strip under the sky, or use the arrows, and let the night go on. Watch the Cross turn.',
+          'Stop when the long bar stands straight up and down, with the foot directly below the top. That happens at about eleven o&rsquo;clock.'
+        ]], ['carry', [
+          'Drag the ring along the dotted line, beyond the foot. The numbers count lengths of the long bar.',
+          'Mr Strachan&rsquo;s page: four and a half times its own length. Stop the ring half way between 4 and 5.'
+        ]], ['drop', [
+          'South is straight below the empty place you found. Click the horizon there.',
+          'Click the line of the dunes just under the ring.'
+        ]], ['measure', [
+          'Drag the cross-shaped sight up the dotted line until it sits on the empty place. The protractor tilts with it, and the plumb line hangs straight down across the scale.',
+          'There are two scales. The dark one counts up from the horizon: 0 when the sight is level. The red one counts down from overhead. Latitude is the height above the horizon.',
+          'Read the dark number where the plumb line crosses the scale, to the nearest degree, and set it on the wheels.'
+        ]]][Math.min(stage, 5)];
+      }
+    };
+  }
+})();
+</script>
+</body>
+</html>

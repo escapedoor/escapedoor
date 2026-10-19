@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Picture Desk · One Sun</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-news.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="photo.css">
+<style>
+  body{--bg:#0b121a;--accent:#7cc4f0;--font-display:'Libre Franklin',sans-serif;--font-ui:'Libre Franklin',sans-serif;--font-body:'Newsreader',serif;
+    --tc-bg:rgba(10,16,24,.97);--tc-ink:#eaf2f7;--cap-bg:rgba(9,15,22,.95);--panel:#0f1a26;--face-bg:#0f1a26;--q-ink:#7cc4f0;--fade:#05080c;--hud-bg:rgba(9,15,22,.86)}
+  .gobtn{color:#0b121a}
+  #hand{transform-origin:760px 128px;animation:sweep 60s steps(60,end) infinite}
+  @keyframes sweep{100%{transform:rotate(360deg)}}
+  .blink{animation:blink 1s steps(1,end) infinite}
+  @keyframes blink{50%{opacity:0}}
+  #phone .lamp{display:none}
+  #phone.ready .lamp{display:block}
+  #wire .scan{animation:scan 3.2s linear infinite}
+  @keyframes scan{0%{transform:translateY(0)}100%{transform:translateY(96px)}}
+
+  /* the plan and the picture */
+  .fc{width:min(1070px,96vw)}
+  .fc-top{display:grid;grid-template-columns:420px minmax(0,1fr);gap:16px;align-items:start}
+  .fc-pic{background:#f4f1e8;padding:8px 8px 6px;box-shadow:0 18px 40px rgba(0,0,0,.6)}
+  .fc-pic h6,.fc-map h6{margin:0 0 6px;font-family:'DM Mono',monospace;font-weight:500;font-size:11.5px;letter-spacing:.14em;color:#5a5346}
+  .fc-pic svg{display:block;width:100%;height:auto;cursor:crosshair}
+  .fc-pic p{margin:5px 2px 0;font-family:'Libre Franklin',sans-serif;font-size:12.5px;line-height:1.3;color:#1d2228}
+  .fc-pic p b{font-weight:900}
+  .fc-map{background:#f2ecd8;padding:8px 8px 8px;box-shadow:0 18px 40px rgba(0,0,0,.6)}
+  .fc-map svg{display:block;width:100%;height:auto;touch-action:none}
+  .fc-map .mk,.fc-map .post{cursor:pointer}
+  .fc-map .mk.on .hit{fill:#1f6fa8;r:6}
+  .fc-map .post.on circle+circle{fill:#1f6fa8}
+  .fc-map .post.on text{fill:#fff}
+  .fc-ctl{display:flex;align-items:center;gap:10px;margin-top:7px;flex-wrap:wrap}
+  .fc-ctl span{font-family:'Libre Franklin',sans-serif;font-weight:800;font-size:12px;letter-spacing:.1em;color:#3a3528;text-transform:uppercase}
+  .fc-ctl .btn{--accent:#3a3528;padding:5px 10px;font-size:11.5px}
+  .fc-ctl .btn:hover:not([disabled]){color:#fff}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0c141d"/><stop offset="1" stop-color="#132130"/></linearGradient>
+  <linearGradient id="floorG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a2330"/><stop offset="1" stop-color="#090d12"/></linearGradient>
+  <linearGradient id="nightG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0a1426"/><stop offset="1" stop-color="#26324a"/></linearGradient>
+  <radialGradient id="screenGlow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#7cc4f0" stop-opacity=".35"/><stop offset="1" stop-color="#7cc4f0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="warm" cx="50%" cy="40%" r="60%"><stop offset="0" stop-color="#ffd9a0" stop-opacity=".5"/><stop offset="1" stop-color="#ffd9a0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="55%" r="75%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".6" stop-color="#000" stop-opacity=".25"/><stop offset="1" stop-color="#000" stop-opacity=".85"/></radialGradient>
+  <clipPath id="winC"><rect x="70" y="90" width="440" height="230"/></clipPath>
+</defs>
+
+<rect x="-1000" y="-400" width="3600" height="1100" fill="url(#wallG)"/>
+<rect x="-1000" y="690" width="3600" height="700" fill="url(#floorG)"/>
+<g stroke="#0a1018" stroke-width="2" opacity=".8"><path d="M-1000 740H2600M-1000 800H2600M-1000 880H2600"/></g>
+<g fill="#16263a" opacity=".7"><rect x="-1000" y="40" width="3600" height="6"/><rect x="560" y="40" width="10" height="650"/></g>
+<g fill="#cfe4f2" opacity=".14"><rect x="140" y="20" width="160" height="10"/><rect x="620" y="20" width="160" height="10"/><rect x="1120" y="20" width="160" height="10"/></g>
+
+<!-- one window: Cobbleford at midnight -->
+<g id="window" class="hot"><rect x="58" y="78" width="464" height="254" fill="#22303f"/><rect x="70" y="90" width="440" height="230" fill="url(#nightG)"/>
+  <g clip-path="url(#winC)"><g id="city"></g></g>
+  <path d="M216 90V320M362 90V320M70 205H510" stroke="#22303f" stroke-width="8"/><rect x="50" y="330" width="480" height="12" fill="#2a3a4c"/></g>
+
+<!-- the clock, the deadline board -->
+<g id="clock" class="hot"><circle cx="760" cy="128" r="58" fill="#1d2a38"/><circle cx="760" cy="128" r="50" fill="#f4f1e8"/>
+  <g stroke="#1d1d1d" stroke-width="3"><path d="M760 82v8M760 166v8M714 128h8M798 128h8"/></g>
+  <path d="M760 128L755 104" stroke="#1d1d1d" stroke-width="5" stroke-linecap="round"/><path d="M760 128L748 94" stroke="#1d1d1d" stroke-width="3" stroke-linecap="round" transform="rotate(-10 760 128)"/>
+  <path d="M760 128L760 86" stroke="#1d1d1d" stroke-width="5" stroke-linecap="round" transform="rotate(-6 760 128)"/>
+  <path id="hand" d="M760 140V84" stroke="#d8432a" stroke-width="2"/><circle cx="760" cy="128" r="4" fill="#d8432a"/></g>
+<g id="board" class="hot"><rect x="852" y="86" width="210" height="96" fill="#111820" stroke="#2c3e52" stroke-width="3"/>
+  <text x="957" y="114" class="fL" font-size="13" font-weight="900" text-anchor="middle" fill="#7cc4f0" letter-spacing="2">SUNDAY FRONTS</text>
+  <text x="957" y="146" class="fM" font-size="22" font-weight="500" text-anchor="middle" fill="#ffcf40">LAST PICS 00.00</text>
+  <text x="957" y="170" class="fC" font-size="18" text-anchor="middle" fill="#ff8a6a" transform="rotate(-3 957 170)">not 00.01. L.F.</text></g>
+
+<!-- the glass box at the back, where the night editor sits -->
+<g id="box" class="hot"><rect x="1110" y="110" width="450" height="470" fill="#18283a"/>
+  <rect x="1124" y="124" width="422" height="442" fill="url(#warm)"/>
+  <rect x="1124" y="124" width="422" height="442" fill="#9ccbe8" opacity=".1"/>
+  <g fill="#e6d8c0" opacity=".25"><rect x="1124" y="124" width="200" height="90"/></g>
+  <g stroke="#cfe4f2" stroke-width="1" opacity=".25"><path d="M1124 136h200M1124 150h200M1124 164h200M1124 178h200M1124 192h200M1124 206h200"/></g>
+  <path d="M1124 124V566M1335 124V566M1546 124V566M1124 124H1546" stroke="#2c3e52" stroke-width="7"/>
+  <g id="lorna" transform="translate(1440 560) scale(.78)"></g>
+  <rect x="1180" y="460" width="320" height="22" fill="#3a2a1e"/><rect x="1196" y="482" width="10" height="84" fill="#2a1e14"/><rect x="1476" y="482" width="10" height="84" fill="#2a1e14"/>
+  <rect x="1360" y="420" width="70" height="40" fill="#111" stroke="#3a3f45" stroke-width="3"/><rect x="1366" y="426" width="58" height="28" fill="#2b5d8a" opacity=".7"/>
+  <rect x="1150" y="84" width="380" height="26" fill="#0b121a"/><text x="1340" y="102" class="fL" font-size="11.5" font-weight="800" text-anchor="middle" fill="#f4f1e8" letter-spacing="1.4">IF YOUR MOTHER SAYS SHE LOVES YOU, CHECK IT.</text>
+  <path d="M1110 110H1560" stroke="#7cc4f0" stroke-width="1" opacity=".3"/></g>
+
+<!-- the pillar, and the plan of Lockyer Park pinned to it -->
+<rect x="984" y="190" width="96" height="500" fill="#1a2838"/><rect x="984" y="190" width="10" height="500" fill="#22344a"/>
+<g id="plan" class="hot"><g transform="rotate(2 1032 360)"><rect x="964" y="290" width="136" height="104" fill="#000" opacity=".35" transform="translate(4 5)"/><rect x="964" y="290" width="136" height="104" fill="#f2ecd8"/>
+  <path d="M990 360Q1010 330 1040 338Q1070 334 1076 356Q1066 378 1036 378Q1000 380 990 360Z" fill="#a9cfe6" stroke="#5c8fb5" stroke-width="1.5"/><rect x="996" y="300" width="70" height="22" fill="#eef0d0" stroke="#7d8f5a" stroke-dasharray="3 2"/>
+  <path d="M972 386h120" stroke="#c9b993" stroke-width="3"/><circle cx="1030" cy="386" r="2.5" fill="#2a2a1a"/><circle cx="1014" cy="386" r="2.5" fill="#2a2a1a"/><circle cx="1046" cy="386" r="2.5" fill="#2a2a1a"/>
+  <text x="972" y="304" class="fL" font-size="8" font-weight="900" fill="#2a2a1a">LOCKYER PARK</text><circle cx="1032" cy="294" r="4" fill="#d8432a"/></g></g>
+
+<!-- the picture desk: three screens, Hammond's card, the telephone, the crisps -->
+<g id="wire" class="hot"><rect x="804" y="436" width="146" height="124" rx="4" fill="#111820"/><rect x="812" y="444" width="130" height="100" fill="#0d2a3d"/>
+  <g fill="#7cc4f0" opacity=".5"><rect x="818" y="450" width="36" height="24"/><rect x="858" y="450" width="36" height="24"/><rect x="898" y="450" width="36" height="24"/><rect x="818" y="480" width="36" height="24"/><rect x="858" y="480" width="36" height="24"/><rect x="898" y="480" width="36" height="24"/><rect x="818" y="510" width="36" height="24"/></g>
+  <rect class="scan" x="812" y="444" width="130" height="3" fill="#cfe4f2" opacity=".35"/><text x="877" y="556" class="fM" font-size="9" text-anchor="middle" fill="#7cc4f0">THE WIRE</text><rect x="868" y="560" width="18" height="40" fill="#1d2a38"/></g>
+<g id="left" class="hot"><rect x="300" y="440" width="170" height="122" rx="4" fill="#111820"/><rect x="308" y="448" width="154" height="98" fill="#16324a"/>
+  <g stroke="#7cc4f0" stroke-width="3" opacity=".5"><path d="M318 462h80M318 474h120M318 486h100M318 498h130M318 510h90M318 522h110"/></g><rect x="376" y="562" width="18" height="40" fill="#1d2a38"/></g>
+<ellipse cx="640" cy="490" rx="260" ry="160" fill="url(#screenGlow)" pointer-events="none"/>
+<g id="screen" class="hot"><rect x="494" y="372" width="292" height="222" rx="5" fill="#111820"/><rect x="503" y="381" width="274" height="196" fill="#000"/>
+  <svg x="503" y="381" width="274" height="196" viewBox="40 40 560 400" preserveAspectRatio="xMidYMid slice"><g id="thumb"></g></svg>
+  <rect x="628" y="594" width="24" height="16" fill="#1d2a38"/></g>
+<g id="note" class="hot" transform="rotate(6 790 386)"><rect x="752" y="360" width="76" height="52" fill="#000" opacity=".3" transform="translate(3 4)"/><rect x="752" y="360" width="76" height="52" fill="#f3e7bf"/><rect x="752" y="360" width="76" height="4" fill="#c0392b"/>
+  <path d="M760 374h60M760 382h52M760 390h58M760 398h40" stroke="#6a7fa0" stroke-width="1.6"/><text x="790" y="408" class="fC" font-size="11" text-anchor="middle" fill="#27457a">C.H.</text><rect x="780" y="355" width="22" height="9" fill="#e2d28c" opacity=".8"/></g>
+<path d="M240 610H960L986 646H214Z" fill="#2a3442"/><path d="M214 646H986V664H214z" fill="#1a222c"/><path d="M250 664v200M950 664v200" stroke="#1a222c" stroke-width="16"/>
+<path d="M240 610H960" stroke="#3a4a5c" stroke-width="2"/>
+<g id="crisps" class="hot"><path d="M296 606l12 -44l44 6l-6 44z" fill="#2b8a4a"/><path d="M302 584l40 6" stroke="#f4f1e8" stroke-width="5"/><g fill="#e0b21c"><ellipse cx="364" cy="612" rx="9" ry="4"/><ellipse cx="378" cy="618" rx="7" ry="3"/></g></g>
+<g id="mug"><rect x="430" y="584" width="26" height="30" rx="3" fill="#d8432a"/><path d="M456 592q12 0 12 9t-12 9" fill="none" stroke="#d8432a" stroke-width="4"/></g>
+<g id="phone" class="hot"><path d="M824 616l14 -26h60l14 26z" fill="#1d1d1d"/><rect x="832" y="582" width="72" height="14" rx="6" fill="#2a2d33"/><rect x="846" y="598" width="40" height="10" fill="#7cc4f0" opacity=".6"/>
+  <circle class="lamp blink" cx="900" cy="606" r="4" fill="#ff5a3c"/></g>
+<rect x="560" y="620" width="160" height="10" rx="3" fill="#3a4a5c"/><rect x="740" y="618" width="34" height="14" rx="6" fill="#3a4a5c"/>
+
+<!-- Kasia Wrobel, the night picture editor -->
+<g id="kasia" class="hot" transform="translate(170 860) scale(1.22)"></g>
+
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Down to the light table</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="photo.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, lock = null, told = {};
+
+  /* the city at the window, the picture on the screen, the people */
+  (function () {
+    var s = '', i, r = 9, x, w, h;
+    function rnd() { r = (r * 16807) % 2147483647; return r / 2147483647; }
+    for (x = 60; x < 520;) {
+      w = 26 + rnd() * 50; h = 40 + rnd() * 130;
+      s += '<rect x="' + x.toFixed(0) + '" y="' + (320 - h).toFixed(0) + '" width="' + w.toFixed(0) + '" height="' + h.toFixed(0) + '" fill="#0d1522"/>';
+      for (i = 0; i < 12; i++) if (rnd() < 0.35) s += '<rect x="' + (x + 4 + rnd() * (w - 10)).toFixed(0) + '" y="' + (320 - h + 6 + rnd() * (h - 16)).toFixed(0) + '" width="4" height="5" fill="#ffd98a" opacity=".8"/>';
+      x += w + 2;
+    }
+    s += '<circle cx="420" cy="122" r="1.4" fill="#fff"/><circle cx="160" cy="110" r="1.2" fill="#fff"/><circle cx="300" cy="140" r="1" fill="#fff"/>';
+    $('#city').innerHTML = s;
+    $('#thumb').innerHTML = PH.lake({ id: 'th', time: 'eve' });
+    $('#kasia').innerHTML = PH.who('kasia', { lit: '#7cc4f0', armR: 'M31 -222Q52 -200 70 -214', handR: [74, -218] });
+    $('#lorna').innerHTML = PH.who('lorna', { armR: 'M31 -222Q56 -230 50 -262', handR: [46, -268], extra: '<rect x="38" y="-290" width="14" height="26" rx="4" fill="#1b1d22"/>' });
+  })();
+
+  ER.init({
+    theme: 'news', story: 'photo', storyTitle: 'One Sun', id: 'desk', no: 'I', title: 'The Picture Desk',
+    go: 'Go to the desk',
+    intro: [
+      'Saturday 5 September. Twenty-two minutes to midnight.',
+      'The Stopford Press Agency has sold pictures to newspapers since 1952. Tonight the Sunday papers are waiting for their front pages, and the last pictures go down the wire at midnight.',
+      'You are the trainee on the night picture desk. It is your second week. You were meant to go home at ten.'
+    ],
+    exit: {"next":"table","w":{"6f1aa392":"3c4dc0c6"}}, tags: {"pair":["7ff68c4e","f61511d1"],"post":["c27df17c"],"face":["e655ba30"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('a-file') || null; told = ER.flag('a-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('a-told', told); return true; }
+  function isBusy() { return busy; }
+  function showGo() { $('#go').classList.add('on'); }
+  function paint() {
+    $('#kasia').classList.toggle('ready', !!(told.in && !told.kasia));
+    $('#phone').classList.toggle('ready', !!(told.kasia && !told.platt));
+    $('#note').classList.toggle('ready', !!(told.platt && !told.note));
+    $('#plan').classList.toggle('ready', !!(told.note && !nextFile));
+    ER.pips((told.kasia ? 1 : 0) + (told.platt ? 1 : 0) + (told.note ? 1 : 0) + (nextFile ? 1 : 0), 4);
+  }
+
+  function hints() {
+    if (nextFile) return ['go', ['You know where the camera stood and which way it looked. Kasia is sending you down to Mr Hammond: the button is at the bottom of the screen.']];
+    if (lock && lock.isOpen()) return ['plan', [
+      'Hammond’s card says: find two pairs of things that are IN LINE in the picture, a near thing standing exactly in front of a far one. Move the mouse over the picture: the glass makes it bigger. When you have found a pair, click both things on the plan, one after the other, and a string runs through them.',
+      'One pair is at the top right of the picture: the flagpole on the boathouse, with the thin spire straight above it. The other pair is on the left: the little arrow on top of the summer house, right in front of the water tower. Two strings: where do they cross?',
+      'The strings cross on the Terrace at the bottom of the plan, at one of the numbered lamp posts. Click that lamp post. Then turn the camera with the compass buttons until it points at what is in the middle of the picture: the boathouse across the lake, with the spire behind it.'
+    ]];
+    if (!told.kasia) return ['talk', ['Kasia Wrobel, the night picture editor, is standing at the left of the desk. She has something to show you.', 'Click Kasia.']];
+    if (!told.platt) return ['phone', ['The telephone on the desk is ringing. It is the man who sent the picture.', 'Click the telephone with the red light, on the right of the desk.']];
+    if (!told.note) return ['note', ['Before you can test the picture, you need to know how. An old photographer left his first rule on Kasia’s screen.', 'Click the yellow card stuck to the top corner of the big screen.']];
+    return ['plan', ['Now you need a map. The plan of Lockyer Park is pinned to the pillar on the right.', 'Click the plan on the pillar.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; showGo(); ER.say('Lamp post 4, looking north. Mr Hammond is down at the light table.'); return; }
+    if (told.in) { busy = false; ER.say('The picture desk, twenty to twelve.'); return; }
+    ER.narrate([
+      'The picture desk of the Stopford Press Agency, on the third floor. Six screens, one window, and a clock that everybody looks at and nobody trusts.',
+      'Tonight there has been one story: the Cobbleford Balloon Weekend, and the hot-air balloon shaped like a teapot that came down in Lockyer Park at about six o’clock. Nobody was hurt. Everybody wants a picture.',
+      'Lou Pennock, the agency’s photographer, got there eight minutes late and took a very good picture of a wet basket.',
+      'At 23.38 an email arrives from a freelance called Gideon Platt. Kasia Wrobel, the night picture editor, opens it, stops eating her crisps, and says a word that you will not be repeating.',
+      'Then she waves you over.'
+    ], function () { busy = false; tell('in'); paint(); });
+  }
+
+  /* ---------- people ---------- */
+  $('#kasia').addEventListener('click', function () {
+    if (busy) return;
+    if (told.kasia) { ER.say(nextFile ? '&ldquo;Light table,&rdquo; says Kasia, without looking up. &ldquo;Basement. Mind the cat.&rdquo;' : '&ldquo;Seventeen minutes,&rdquo; says Kasia. &ldquo;Find me the camera.&rdquo;'); return; }
+    ER.talk({
+      who: 'Kasia Wrobel', role: 'Night picture editor', face: window.FACE('kasia'),
+      lines: [
+        { note: 'She turns the big screen round so that you can see it.', a: '&ldquo;Look at that. Just look at it. A balloon shaped like a teapot, coming down on a park full of people running for their lives. Every Sunday paper in the country will want it on the front page. Platt wants four hundred pounds, and for this picture I would pay him.&rdquo;' },
+        { q: 'What does the caption say?', a: '<p>&ldquo;TEAPOT TERROR,&rdquo; she reads. &ldquo;Crowds flee as a runaway hot-air balloon plunges into Lockyer Park, Cobbleford, on Saturday evening. Picture: Gideon Platt.&rdquo;</p><p>She frowns. &ldquo;He writes like a fire alarm. But the picture is the thing.&rdquo;</p>' },
+        { q: 'So why haven’t you sent it?', a: '<p>She points through the glass at the office at the back, where the lights are on. &ldquo;Lorna. The night editor. She looked at it for four seconds and said, &lsquo;Fake. That litter bin has its own sun.&rsquo; Then she said what she always says.&rdquo;</p><p>The words are painted over Lorna&rsquo;s door: IF YOUR MOTHER SAYS SHE LOVES YOU, CHECK IT.</p>' },
+        { q: 'Can we check it before midnight?', a: '&ldquo;We can try. Old Mr Hammond says you never ask WHEN a picture was taken until you know WHERE the camera stood, and which way it was looking. His rule is on the edge of my screen, where he stuck it in 1994. Read it. The plan of the park is on the pillar: Lou brought it back from the festival.&rdquo;' }
+      ],
+      clue: { id: 'kasia', title: 'Kasia: the perfect picture', kind: 'What she said' },
+      done: function (seen) {
+        if (!seen || !tell('kasia')) return;
+        PH.terms(['picture desk', 'caption', 'deadline']); paint(); PH.sfx.ring();
+        ER.say('The telephone on the desk starts to ring. The little screen on it says: G. PLATT.');
+      }
+    });
+  });
+  $('#phone').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.kasia) { ER.say('A telephone with a little screen. It is quiet. Kasia is waving at you.'); return; }
+    if (told.platt) { ER.say('The telephone is quiet. Platt has rung off, and he is not the sort to ring back unless he wants something. He will want something.'); return; }
+    ER.talk({
+      who: 'Gideon Platt', role: 'Freelance · on the telephone', face: window.FACE('platt'),
+      lines: [
+        { note: 'He does not say hello.', a: '&ldquo;Have you sent it? It&rsquo;s twenty to. If you don&rsquo;t want it, somebody else does.&rdquo;' },
+        { q: 'Did you take this picture yourself?', a: '&ldquo;Course I did. I was standing right there by the lake with my big camera, the one with the long lens. Best picture of my life. Four hundred quid, and my name under it.&rdquo;' },
+        { q: 'Where exactly were you standing?', a: '&ldquo;By the water. Near the &hellip; by the water, I said. Does it matter? It&rsquo;s a picture, not a map.&rdquo;' },
+        { q: 'And when was it taken?', a: '<p>&ldquo;Saturday evening. It says so. Six-ish. Look, are you buying it or not?&rdquo;</p><p>He rings off.</p>' }
+      ],
+      clue: { id: 'platt', title: 'Gideon Platt, on the telephone', kind: 'What he said' },
+      done: function (seen) {
+        if (!seen || !tell('platt')) return;
+        PH.terms(['freelance']); paint();
+        ER.say('Kasia shrugs. &ldquo;That is Platt. Now: Mr Hammond&rsquo;s card, on the corner of my screen.&rdquo;');
+      }
+    });
+  });
+
+  /* ---------- Hammond's first rule ---------- */
+  var DIA = '<svg viewBox="0 0 250 300"><g font-family="Kalam,cursive" fill="#1a2a52" text-anchor="middle">' +
+    '<rect x="20" y="8" width="210" height="104" fill="#e8eef0" stroke="#22201b" stroke-width="2"/><path d="M20 92h210v20H20z" fill="#a9c79a"/>' +
+    '<path d="M150 92V40" stroke="#22201b" stroke-width="2.4"/><path d="M150 40l14 3l-14 4" fill="#c0392b"/><path d="M146 92V30l4 -14l4 14V92" fill="#8a8578" opacity=".55"/>' +
+    '<path d="M60 92v-30h40v30" fill="#b9a27c" stroke="#22201b" stroke-width="1.5"/><text x="96" y="30" font-size="14">far spire</text><path d="M114 26l26 -2" stroke="#1a2a52" stroke-width="1.4"/><text x="196" y="66" font-size="14">near pole</text><path d="M176 62l-22 -6" stroke="#1a2a52" stroke-width="1.4"/>' +
+    '<text x="125" y="132" font-size="16" font-weight="700" fill="#c0392b">one in front of the other: IN LINE</text>' +
+    '<rect x="20" y="144" width="210" height="150" fill="#f2ecd8" stroke="#22201b" stroke-width="2"/>' +
+    '<circle cx="70" cy="164" r="5" fill="#5a4a3a"/><circle cx="96" cy="206" r="5" fill="#2b5d8a"/><circle cx="196" cy="172" r="5" fill="#5a4a3a"/><circle cx="168" cy="214" r="5" fill="#2b5d8a"/>' +
+    '<path d="M64 154L132 270M206 156L120 270" stroke="#c0392b" stroke-width="2" stroke-dasharray="5 4"/>' +
+    '<path d="M126 260L96 214M126 260L158 214" stroke="#1a2a52" stroke-width="1.2"/><path d="M126 260L96 214L158 214Z" fill="#1a2a52" opacity=".12"/>' +
+    '<circle cx="126" cy="262" r="7" fill="none" stroke="#1a2a52" stroke-width="2.4"/><text x="126" y="290" font-size="15" font-weight="700">the camera stood HERE</text></g></svg>';
+  var NOTE = '<h4>Stopford Press Agency · picture desk · C.H.</h4><h3>Rule one: find the camera</h3><div class="two"><div>' +
+    '<p>Before you ask WHEN a picture was taken, find WHERE the camera stood and WHICH WAY it was pointing. Use <b>landmarks</b>: things that do not move, like towers, spires and flagpoles.</p>' +
+    '<p>When a near thing stands exactly in front of a far thing in a picture, the two are <b>in line</b>. The camera stood somewhere on the straight line that runs through both of them. On a map, lay a string across the two and carry it on past them.</p>' +
+    '<p>One string only tells you &ldquo;somewhere along here&rdquo;. Find a second pair in line and lay a second string. Where the two strings cross, the camera stood.</p>' +
+    '<p>Then look at what is in the middle of the picture: the camera was pointing at it. If it pointed north, the left of the picture is west and the right is east.</p>' +
+    '</div><div class="dia">' + DIA + '</div></div><p class="pen">Stuck here in 1994. Still true. C.H.</p>';
+  $('#note').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.kasia) { ER.say('A yellow index card, stuck to the corner of the big screen with sticky tape that has gone brown. Kasia is waving at you.'); return; }
+    ER.read({ html: NOTE, cls: 'card', clue: { id: 'rule1', title: 'Hammond’s rule one: find the camera', kind: 'An index card' }, done: function () {
+      PH.terms(['landmark', 'in line']);
+      if (tell('note')) { paint(); ER.say('Two pairs of things in line, two strings on a map. The plan of the park is on the pillar.'); }
+    } });
+  });
+
+  /* ---------- things in the room ---------- */
+  PH.thing('#window', null, 'Cobbleford at midnight: wet roofs, a taxi, a lit window or two. Somewhere out there is a park with a teapot in its lake.', isBusy);
+  PH.thing('#clock', null, 'Twenty to twelve. Kasia says the clock is two minutes fast and has been since 2003, and that nobody will touch it, because then everybody would be two minutes late.', isBusy);
+  PH.thing('#board', 'deadline', 'SUNDAY FRONTS. LAST PICS 00.00. And under it, in Lorna’s red pen: not 00.01.', isBusy);
+  PH.thing('#crisps', 'crisps', 'Cheese and onion, half eaten. Kasia stopped at 23.38 and has not started again.', isBusy);
+  PH.thing('#wire', 'down the wire', 'The wire: every picture the agency sends out appears on this screen as it goes to the papers. The last one, at 23.30, was Lou’s: a wet wicker basket, and a man’s legs.', isBusy);
+  PH.thing('#left', null, 'Kasia’s list of the night’s pictures. Forty-one of the balloon. Thirty-nine of them are of the sky.', isBusy);
+  PH.thing('#box', null, function () {
+    return told.kasia ? 'Lorna Frisby, the night editor, in her glass box. Over her door: IF YOUR MOTHER SAYS SHE LOVES YOU, CHECK IT. She sees you looking and holds up four fingers. Four minutes? Probably four seconds.' :
+      'A glass office at the back, with the lights on. Somebody in a red jacket is on the telephone, and does not look pleased with it.';
+  }, isBusy);
+  PH.thing('#screen', null, function () {
+    return told.kasia ? 'Platt’s picture: the Teapot low over the lake, people running, a steward laughing at the left. It is very, very good.' : 'A picture is up on the big screen. Kasia has not let go of the mouse.';
+  }, isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  $('#plan').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Two strings, crossing at lamp post 4. Kasia has left them on the plan, for Lorna.'); return; }
+    if (!told.kasia) { ER.say('A plan of Lockyer Park, pinned to the pillar. Kasia is waving at you.'); return; }
+    if (!told.platt) { ER.say('The telephone is still ringing. &ldquo;Get that,&rdquo; says Kasia. &ldquo;It will be Platt.&rdquo;'); return; }
+    if (!told.note) { ER.say('&ldquo;Card first,&rdquo; says Kasia. &ldquo;Hammond&rsquo;s card, on my screen. A plan is just paper until you know what to do with it.&rdquo;'); return; }
+    if (!lock) lock = makePlan();
+    lock.open();
+  });
+
+  /* ---------- the plan and the picture: two strings, a lamp post, a direction ---------- */
+  function makePlan() {
+    var st = ER.flag('a-st') || { s: [], post: 0, face: '' }, pend = '', wait = false, box = ER.el('div', 'job fc'), s;
+    var NAME = {}; Object.keys(PH.MARK).forEach(function (k) { NAME[k] = PH.MARK[k].name; });
+    var DIRS = [['n', 'N', 0], ['ne', 'NE', 45], ['e', 'E', 90], ['se', 'SE', 135], ['s', 'S', 180], ['sw', 'SW', 225], ['w', 'W', 270], ['nw', 'NW', 315]];
+    s = '<div class="fc-top"><div class="fc-pic"><h6>PLATT&rsquo;S PICTURE &middot; IN AT 23.38</h6><svg viewBox="40 40 560 560"><g id="fcart">' + PH.lake({ id: 'fa', time: 'eve' }) + '</g></svg>' +
+      '<p><b>TEAPOT TERROR.</b> Crowds flee as a runaway hot-air balloon plunges into Lockyer Park, Cobbleford, on Saturday evening. <b>Picture: Gideon Platt</b></p></div>' +
+      '<div class="fc-map"><h6>LOCKYER PARK &middot; THE FESTIVAL&rsquo;S PLAN</h6><svg viewBox="0 0 720 540"><g>' + PH.map() + '</g><g id="strings" pointer-events="none"></g><g id="cam" pointer-events="none"></g></svg>' +
+      '<div class="fc-ctl"><span>The camera faces</span><div class="seg" data-d="face">' + DIRS.map(function (d) { return '<button type="button" data-v="' + d[0] + '">' + d[1] + '</button>'; }).join('') + '</div>' +
+      '<button type="button" class="btn" id="m-clear">Take the strings off</button></div></div></div>' +
+      '<div class="job-foot"><p class="jmsg"></p><button type="button" class="btn" id="m-go">Show Kasia</button></div>';
+    box.innerHTML = s;
+    var msgEl = box.querySelector('.jmsg'), map = box.querySelector('.fc-map svg'), pic = box.querySelector('.fc-pic svg');
+    PH.loupe(pic, 'fcart', 70, 3, [40, 40, 600, 600]);
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function keep() { ER.flag('a-st', st); }
+    function key(a, b) { return [a, b].sort().join('-'); }
+    function draw() {
+      var g = '', a, b, d, k, cam = '';
+      st.s.forEach(function (pr, i) {
+        var q = pr.split('-'); a = PH.MARK[q[0]].at; b = PH.MARK[q[1]].at; d = [b[0] - a[0], b[1] - a[1]]; k = 30;
+        g += '<path d="M' + (a[0] - d[0] * k).toFixed(1) + ' ' + (a[1] - d[1] * k).toFixed(1) + 'L' + (a[0] + d[0] * k).toFixed(1) + ' ' + (a[1] + d[1] * k).toFixed(1) + '" stroke="' + (i ? '#1f6fa8' : '#c0392b') + '" stroke-width="2.2" stroke-dasharray="7 4"/>';
+      });
+      box.querySelector('#strings').innerHTML = g;
+      ER.$$('.mk', map).forEach(function (m) { m.classList.toggle('on', m.getAttribute('data-mk') === pend); });
+      ER.$$('.post', map).forEach(function (m) { m.classList.toggle('on', +m.getAttribute('data-post') === st.post); });
+      if (st.post) {
+        var p = PH.POSTS[st.post - 1], dir = null;
+        DIRS.forEach(function (x) { if (x[0] === st.face) dir = x[2]; });
+        if (dir !== null) {
+          var a1 = (dir - 35) * Math.PI / 180, a2 = (dir + 35) * Math.PI / 180, L = 800;
+          cam += '<path d="M' + p[0] + ' ' + p[1] + 'L' + (p[0] + Math.sin(a1) * L).toFixed(1) + ' ' + (p[1] - Math.cos(a1) * L).toFixed(1) + 'L' + (p[0] + Math.sin(a2) * L).toFixed(1) + ' ' + (p[1] - Math.cos(a2) * L).toFixed(1) + 'Z" fill="#1f6fa8" opacity=".14"/>' +
+            '<path d="M' + (p[0] + Math.sin(a1) * L).toFixed(1) + ' ' + (p[1] - Math.cos(a1) * L).toFixed(1) + 'L' + p[0] + ' ' + p[1] + 'L' + (p[0] + Math.sin(a2) * L).toFixed(1) + ' ' + (p[1] - Math.cos(a2) * L).toFixed(1) + '" fill="none" stroke="#1f6fa8" stroke-width="1.4"/>';
+        }
+        cam += '<g transform="translate(' + p[0] + ' ' + (p[1] - 18) + ')"><rect x="-11" y="-7" width="22" height="14" rx="3" fill="#1d1d1d"/><circle r="4.5" fill="#7cc4f0" stroke="#1d1d1d" stroke-width="1.5"/><rect x="-5" y="-10" width="8" height="4" fill="#1d1d1d"/></g>';
+      }
+      box.querySelector('#cam').innerHTML = cam;
+      ER.$$('.seg button', box).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-v') === st.face); });
+    }
+    map.addEventListener('click', function (e) {
+      if (wait || nextFile) return;
+      var mk = e.target.closest ? e.target.closest('.mk') : null, po = e.target.closest ? e.target.closest('.post') : null, k, pr;
+      if (mk) {
+        k = mk.getAttribute('data-mk');
+        if (!pend) { pend = k; PH.sfx.pin(); msg('One end of a string on ' + NAME[k] + '. Now click the thing it should run through.'); draw(); return; }
+        if (pend === k) { pend = ''; msg('The string goes back in the drawer.'); draw(); return; }
+        pr = key(pend, k); pend = '';
+        if (st.s.indexOf(pr) < 0) { st.s.push(pr); if (st.s.length > 2) st.s.shift(); }
+        keep(); PH.sfx.pen(); draw();
+        msg('A string through ' + NAME[pr.split('-')[0]] + ' and ' + NAME[pr.split('-')[1]] + '.' + (st.s.length < 2 ? ' One more.' : ''));
+        return;
+      }
+      if (po) { st.post = +po.getAttribute('data-post'); keep(); PH.sfx.key(); draw(); msg('The camera on lamp post ' + st.post + '.' + (st.face ? '' : ' Which way is it pointing?')); }
+    });
+    box.querySelector('.seg').addEventListener('click', function (e) {
+      var b = e.target.closest ? e.target.closest('button') : null;
+      if (!b || wait || nextFile) return;
+      st.face = b.getAttribute('data-v'); keep(); PH.sfx.key(); draw();
+    });
+    box.querySelector('#m-clear').addEventListener('click', function () { if (wait || nextFile) return; st.s = []; pend = ''; keep(); draw(); msg('The strings are off the plan.'); });
+    var WHERE = { n: 'north', ne: 'north-east', e: 'east', se: 'south-east', s: 'south', sw: 'south-west', w: 'west', nw: 'north-west' };
+    box.querySelector('#m-go').addEventListener('click', function () {
+      var i, q, bad = null, file;
+      if (wait || nextFile) return;
+      if (st.s.length < 2) { ER.sfx.no(); msg('&ldquo;Two strings,&rdquo; says Kasia. &ldquo;Hammond&rsquo;s card: one string only tells you &lsquo;somewhere along here&rsquo;.&rdquo;'); return; }
+      for (i = 0; i < st.s.length; i++) if (!ER.check('pair', st.s[i])) { bad = st.s[i]; break; }
+      if (bad) {
+        ER.sfx.no(); q = bad.split('-');
+        msg('&ldquo;' + (q.indexOf('cafe') >= 0 ? 'The café?&rdquo; says Kasia. &ldquo;It is not in the picture at all. It must be behind the camera, and a thing behind the camera cannot stand in line in front of it.' :
+          q.indexOf('fountain') >= 0 ? 'Where is the fountain in this picture?&rdquo; says Kasia. &ldquo;Nowhere. Whatever is in line in the picture has to be IN the picture.' :
+          q.indexOf('oak') >= 0 ? 'The old oak is in that wood on the far shore somewhere,&rdquo; says Kasia, &ldquo;but nothing stands exactly in front of it. Find two things that are one right behind the other.' :
+          'In the picture, does ' + NAME[q[0]] + ' stand right in front of ' + NAME[q[1]] + ', or right behind it?&rdquo; says Kasia. &ldquo;Look again with the glass.') + '&rdquo;');
+        st.s.splice(st.s.indexOf(bad), 1); keep(); draw(); return;
+      }
+      if (!st.post) { ER.sfx.no(); msg('&ldquo;Good strings,&rdquo; says Kasia. &ldquo;Now where do they cross? Click that lamp post.&rdquo;'); return; }
+      if (!ER.check('post', String(st.post))) { ER.sfx.no(); msg('&ldquo;Lamp post ' + st.post + '?&rdquo; says Kasia. &ldquo;Look where your two strings cross. A string through two things in line runs straight back to the camera.&rdquo;'); st.post = 0; keep(); draw(); return; }
+      if (!st.face) { ER.sfx.no(); msg('&ldquo;Lamp post 4. And which way was it pointing?&rdquo; says Kasia. &ldquo;Set the compass.&rdquo;'); return; }
+      if (!ER.check('face', st.face)) {
+        ER.sfx.no();
+        msg('&ldquo;' + ({ e: 'Pointing east, the camera would see the fountain and the railway, and no spire at all.', w: 'Pointing west, it would see the far end of the lake and that old oak. Where is the boathouse?',
+          s: 'Pointing south, it would see the café. Look at the plan: the café is behind lamp post 4.', se: 'Pointing south-east, it would see the railway and the café.', sw: 'Pointing south-west, it would see a lot of trees and the back of the café.',
+          ne: 'Pointing north-east, the spire would be at the left edge and the summer house would be out of the picture altogether.', nw: 'Pointing north-west, the boathouse would be at the right edge. In the picture it is in the middle.' })[st.face] +
+          ' What is in the middle of the picture?&rdquo; says Kasia.');
+        st.face = ''; keep(); draw(); return;
+      }
+      file = ER.exit([st.s.slice().sort().join('+') + '|' + st.post + '|' + st.face], { wait: true });
+      if (!file) { msg('The door will not open. Something is wrong with this page: tell your teacher.'); return; }
+      wait = true; nextFile = file; ER.flag('a-file', file);
+      PH.mine('camera', 'Where the camera stood', '<p>Lamp post 4, on the Terrace, on the south side of the lake.</p><p>The flagpole on the boathouse is right in front of the spire. The weathervane on the summer house is right in front of the water tower. Two strings, one crossing.</p><p>Pointing NORTH, across the lake at the boathouse. So the left of the picture is WEST, and the right is EAST.</p>', true);
+      msg('Kasia looks from the plan to the picture and back. &ldquo;Lamp post 4,&rdquo; she says. &ldquo;Looking north. Platt said &lsquo;by the water&rsquo;. He was not wrong. He was just not anywhere.&rdquo;');
+      setTimeout(function () {
+        ER.closeAll(); paint(); busy = true;
+        ER.narrate([
+          'Two strings, and they cross at lamp post 4, on the Terrace on the south side of the lake. That is where the camera stood.',
+          'It was pointing north, across the water at the boathouse. So the left of the picture is west, and the right is east. Write that down, says Kasia: in a minute the sun is going to matter.',
+          '&ldquo;Lorna says the shadows are wrong,&rdquo; says Kasia. &ldquo;So we ask the man who knows about shadows. Mr Hammond is down at the light table. He started here the week Britain changed to decimal money, and he has been looking at shadows ever since.&rdquo;'
+        ], function () { busy = false; showGo(); });
+      }, 3000);
+    });
+    draw();
+    msg(st.s.length ? 'The plan, with ' + st.s.length + (st.s.length === 1 ? ' string' : ' strings') + ' on it.' : 'Move the mouse over the picture: the glass shows small things. Click two things on the plan to lay a string through them.');
+    return {
+      open: function () { ER.open('ov-lock', box); },
+      isOpen: function () { return !!box.parentNode; }
+    };
+  }
+})();
+</script>
+</body>
+</html>

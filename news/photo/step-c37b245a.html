@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Front Step · One Sun</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-news.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="photo.css">
+<style>
+  body{--bg:#0d1220;--accent:#ffcf7a;--font-display:'Libre Franklin',sans-serif;--font-ui:'Libre Franklin',sans-serif;--font-body:'Newsreader',serif;
+    --tc-bg:rgba(13,18,32,.97);--tc-ink:#f2efe6;--cap-bg:rgba(12,16,28,.95);--panel:#151c30;--face-bg:#1b2232;--q-ink:#ffcf7a;--fade:#05070c;--hud-bg:rgba(12,16,28,.86)}
+  #drip{animation:drip 1.4s linear infinite}
+  @keyframes drip{0%{transform:translateY(0);opacity:1}80%{transform:translateY(46px);opacity:1}100%{transform:translateY(50px);opacity:0}}
+  #steam path{animation:steam 3s ease-in-out infinite}
+  @keyframes steam{50%{transform:translateY(-6px);opacity:.3}}
+  .tw{animation:tw 3.4s ease-in-out infinite}
+  @keyframes tw{50%{opacity:.3}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#060a18"/><stop offset="1" stop-color="#1d2440"/></linearGradient>
+  <linearGradient id="paveG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a3c46"/><stop offset="1" stop-color="#15161c"/></linearGradient>
+  <radialGradient id="lampG" cx="50%" cy="0%" r="90%"><stop offset="0" stop-color="#ffd98a" stop-opacity=".5"/><stop offset="1" stop-color="#ffd98a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="doorG" cx="50%" cy="50%" r="60%"><stop offset="0" stop-color="#ffe0a8" stop-opacity=".55"/><stop offset="1" stop-color="#ffe0a8" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="55%" r="75%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".6" stop-color="#000" stop-opacity=".22"/><stop offset="1" stop-color="#000" stop-opacity=".82"/></radialGradient>
+</defs>
+
+<rect x="-1000" y="-400" width="3600" height="1100" fill="url(#skyG)"/>
+<g id="stars"></g>
+<!-- Mint Street: the agency, and its neighbours -->
+<rect x="-1000" y="180" width="560" height="520" fill="#1d1f2a"/><rect x="1300" y="140" width="1300" height="560" fill="#1a1c26"/>
+<g id="front"><rect x="-440" y="120" width="1300" height="580" fill="#4a4438"/><rect x="-440" y="110" width="1300" height="16" fill="#5a5446"/>
+  <g id="windows"></g>
+  <text x="630" y="160" class="fL" font-size="30" font-weight="900" text-anchor="middle" fill="#2e2a22" letter-spacing="6">STOPFORD PRESS AGENCY</text></g>
+<g id="door" class="hot"><ellipse cx="630" cy="590" rx="200" ry="170" fill="url(#doorG)" pointer-events="none"/><rect x="548" y="440" width="164" height="262" fill="#2a241c"/><rect x="560" y="452" width="140" height="250" fill="#ffe0a8" opacity=".75"/>
+  <path d="M548 440q82 -60 164 0" fill="#2a241c"/><path d="M560 450q70 -48 140 0" fill="#ffe0a8" opacity=".55"/>
+  <g id="plate"><rect x="728" y="540" width="74" height="40" fill="#c9a23a"/><text x="765" y="556" class="fL" font-size="7.5" font-weight="900" text-anchor="middle" fill="#3a2a08">STOPFORD</text><text x="765" y="568" class="fM" font-size="6.5" text-anchor="middle" fill="#3a2a08">PICTURES SINCE 1952</text></g></g>
+<g id="lorna" class="hot" transform="translate(630 704) scale(.92)"></g>
+<path d="M520 700h220v14H520zM500 714h260v14H500z" fill="#6b6456"/>
+<!-- the pavement, the kerb, the street -->
+<rect x="-1000" y="728" width="3600" height="700" fill="url(#paveG)"/><path d="M-1000 800H2600" stroke="#55586a" stroke-width="6"/><rect x="-1000" y="803" width="3600" height="500" fill="#20222a"/>
+<g stroke="#2a2c34" stroke-width="2" opacity=".7"><path d="M-1000 760H2600M100 728V800M400 728V800M700 728V800M1000 728V800M1300 728V800"/></g>
+<!-- the street lamp, and its puddle -->
+<g id="lamp" class="hot"><path d="M1120 800V250" stroke="#2a2d36" stroke-width="10"/><path d="M1120 250q0 -30 30 -30h20" fill="none" stroke="#2a2d36" stroke-width="8"/><path d="M1158 222h44l-8 18h-28z" fill="#2a2d36"/><rect x="1166" y="238" width="28" height="8" fill="#fff4d0"/>
+  <path d="M1180 246L1020 800H1340Z" fill="url(#lampG)" pointer-events="none"/></g>
+<g id="puddle" class="hot"><ellipse cx="1180" cy="834" rx="90" ry="14" fill="#3a4258"/><ellipse cx="1180" cy="834" rx="72" ry="9" fill="#4a5470"/><path d="M1168 838h24l-4 6h-16z" fill="#fff4d0" opacity=".8"/><path d="M1180 844v20" stroke="#2a2d36" stroke-width="3" opacity=".6"/></g>
+<!-- the crew's truck, and the Teapot's basket on its trailer -->
+<g id="truck" class="hot"><path d="M1260 790V650q0 -20 20 -20h120l50 60h90q20 0 20 20v80Z" fill="#5a6a3a"/><path d="M1290 640h96l40 50h-136z" fill="#9ab0bf" opacity=".8"/><circle cx="1320" cy="796" r="30" fill="#1d1d1d"/><circle cx="1500" cy="796" r="30" fill="#1d1d1d"/>
+  <text x="1440" y="740" class="fL" font-size="15" font-weight="900" text-anchor="middle" fill="#f4e6c8">TEAPOT · GROUND CREW</text>
+  <path d="M1260 760h-40" stroke="#2a2d36" stroke-width="6"/></g>
+<g id="basket" class="hot"><rect x="1010" y="740" width="210" height="18" fill="#3a3c46"/><circle cx="1050" cy="770" r="18" fill="#1d1d1d"/><circle cx="1180" cy="770" r="18" fill="#1d1d1d"/>
+  <rect x="1060" y="650" width="110" height="92" fill="#a9763f"/><path d="M1060 670h110M1060 694h110M1060 718h110" stroke="#6b4422" stroke-width="4"/><path d="M1060 650h110" stroke="#6b4422" stroke-width="8"/>
+  <path d="M1100 650l10 -36l10 36z" fill="#ff7a1c"/><path d="M1104 636h12" stroke="#fff" stroke-width="5"/>
+  <path d="M1016 742q20 -50 50 -40q-10 40 -50 40z" fill="#c2301f"/><circle cx="1034" cy="726" r="5" fill="#f4e6c8"/><path d="M1180 742q30 -40 36 -6z" fill="#c2301f"/>
+  <circle id="drip" cx="1120" cy="744" r="3" fill="#9ccbe8"/></g>
+<!-- the people -->
+<g id="lou" class="hot" transform="translate(150 868) scale(1.05)"></g>
+<g id="kasia" class="hot" transform="translate(285 872) scale(1.05)"></g>
+<g id="hammond" class="hot" transform="translate(790 872) scale(1.02)"></g>
+<g id="hamish" class="hot" transform="translate(540 880) scale(1.06)"></g>
+<g id="esme" class="hot" transform="translate(420 884) scale(.9)"></g>
+<g id="cat" class="hot" transform="translate(210 0)"><path d="M500 712q0 -18 22 -18q24 0 26 18z" fill="#2a2420"/><circle cx="498" cy="704" r="9" fill="#2a2420"/><path d="M492 697l2 -8l4 6M500 696l5 -7l1 8" fill="#2a2420"/><path d="M546 708q16 -2 14 -18" stroke="#2a2420" stroke-width="5" fill="none" stroke-linecap="round"/></g>
+
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<div class="done" id="done">
+  <div class="okstamp">SENT 23.59 &middot; OFF THE DESK 00.40</div>
+  <p id="d-time"></p><p id="d-hints"></p><p id="d-words"></p>
+  <h6>What you now know</h6>
+  <ol>
+    <li>Find the camera first. Two pairs of things that stand in line in a picture give two lines on a map, and the camera stood where they cross. What is in the middle shows which way it was pointing.</li>
+    <li>A shadow points away from the sun. In Britain the sun is in the south at midday (about 1 pm in summer time), so morning shadows point west, midday shadows north and evening shadows east.</li>
+    <li>A long shadow means a low sun, early or late in the day. In a real picture all the sun&rsquo;s shadows agree. A shadow that goes its own way may have been made by a lamp, a flash or a window: find out what made it before you call the picture a fake.</li>
+    <li>The weather in a picture can be set against the record for that place and hour: umbrellas, wet ground, breath, shadows or none. Leaves tell you the season, never the hour.</li>
+    <li>A window, a puddle or sunglasses facing the camera show what is behind it, often the photographer, and writing in them reads backwards. A reflection that does not match its picture means two pictures have been put together.</li>
+    <li>A crop is a choice. The same true picture, cut two ways, can tell two different stories, so always look at what is outside the frame.</li>
+    <li>A caption says only what is known: who (counted), what they are doing (not what they feel), where, when (the day, not &ldquo;last night&rdquo;), and who took it.</li>
+  </ol>
+  <div class="row"><button type="button" class="btn" id="b-task">Your turn on the desk</button><button type="button" class="btn" id="b-book">Notebook</button><button type="button" class="btn" id="b-lobby">Back to the front page</button></div>
+  <small>One Sun &middot; <button type="button" id="b-reset">play it again from the start</button></small>
+</div>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="photo.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {};
+
+  (function () {
+    var s = '', i, r = 11, x, y;
+    function rnd() { r = (r * 16807) % 2147483647; return r / 2147483647; }
+    for (i = 0; i < 70; i++) s += '<circle' + (i % 6 ? '' : ' class="tw"') + ' cx="' + (rnd() * 1800 - 100).toFixed(0) + '" cy="' + (rnd() * 160 - 60).toFixed(0) + '" r="' + (rnd() < 0.15 ? 1.7 : 1) + '" fill="#fff" opacity="' + (0.4 + rnd() * 0.6).toFixed(2) + '"/>';
+    $('#stars').innerHTML = s; s = '';
+    for (y = 0; y < 3; y++) for (i = 0; i < 9; i++) {
+      x = -400 + i * 140; if (x > 480 && x < 760 && y === 2) continue;
+      var lit = (y === 0 && i >= 3 && i <= 6) || rnd() < 0.25;
+      s += '<rect x="' + x + '" y="' + (190 + y * 120) + '" width="90" height="80" fill="' + (lit ? '#ffd98a' : '#1d1f2a') + '" opacity="' + (lit ? 0.75 : 1) + '"/><path d="M' + (x + 45) + ' ' + (190 + y * 120) + 'v80M' + x + ' ' + (230 + y * 120) + 'h90" stroke="#4a4438" stroke-width="5"/>';
+    }
+    $('#windows').innerHTML = s;
+    $('#lorna').innerHTML = PH.who('lorna', { smile: 4, armL: 'M-31 -222Q-46 -180 -36 -140', armR: 'M31 -222Q46 -180 36 -140' });
+    $('#lou').innerHTML = PH.who('lou', { lit: '#ffd98a', smile: 6, armL: 'M-31 -222Q-30 -250 -12 -262', handL: [-8, -266], armR: 'M31 -222Q30 -250 12 -262', handR: [8, -266], extra: '<rect x="-24" y="-284" width="48" height="32" rx="5" fill="#1b1d22"/><circle cx="0" cy="-268" r="11" fill="#2a2d33"/><circle cx="0" cy="-268" r="5" fill="#3a6a8a"/>' });
+    $('#kasia').innerHTML = PH.who('kasia', { smile: 5, armR: 'M31 -222Q52 -190 40 -160', handR: [38, -156], extra: '<rect x="14" y="-196" width="56" height="40" rx="4" fill="#111"/><rect x="18" y="-192" width="48" height="32" fill="#7cc4f0"/>' });
+    $('#hammond').innerHTML = PH.who('hammond', { smile: 5, armL: 'M-31 -222Q-50 -180 -40 -150', handL: [-40, -146], armR: 'M31 -222Q50 -180 40 -150', handR: [40, -146],
+      extra: '<rect x="-60" y="-152" width="120" height="10" fill="#8a9198"/><g fill="#f2efe6"><rect x="-50" y="-172" width="18" height="20" rx="2"/><rect x="-22" y="-172" width="18" height="20" rx="2"/><rect x="8" y="-172" width="18" height="20" rx="2"/><rect x="34" y="-172" width="18" height="20" rx="2"/></g><g id="steam" fill="none" stroke="#fff" stroke-width="2" opacity=".6"><path d="M-41 -178q-4 -8 0 -16"/><path d="M17 -178q-4 -8 0 -16"/></g>' });
+    $('#hamish').innerHTML = PH.who('hamish', { smile: 6, bottom: '#2a3a4a', armR: 'M31 -222Q56 -170 60 -130', handR: [62, -124], extra: '<path d="M50 -124l24 10l-6 26l-18 -8z" fill="#2a2420"/><path d="M-30 0h60v6h-60z" fill="#3a4258" opacity=".7"/>' });
+    $('#esme').innerHTML = PH.who('esme', { smile: 8, armR: 'M31 -222Q52 -250 40 -290', handR: [38, -296], extra: '<rect x="28" y="-330" width="22" height="36" rx="4" fill="#1b2232"/><rect x="31" y="-326" width="16" height="26" fill="#f4f1e8"/>' });
+  })();
+
+  ER.init({
+    theme: 'news', story: 'photo', storyTitle: 'One Sun', id: 'step', no: 'VI', title: 'The Front Step',
+    go: 'Go outside',
+    intro: [
+      'Platt&rsquo;s square came out of the middle of Esme&rsquo;s picture. Outside it, on the right, was the finish of the Lakeside 5K: the people were not fleeing anything, they were racing, and the leader never looked round. The agency&rsquo;s crop kept the Teapot, the leader and the finish, and the caption said only what was known: who, what, where, when, and who pressed the button. It went down the wire at 23.59.',
+      'Forty minutes later, somebody rings the front doorbell. Nobody has rung that bell since 1997.'
+    ],
+    exit: {"last":true,"rooms":6,"stars":4}, tags: {},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('f-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('f-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() { $('#esme').classList.toggle('ready', !!(told.in && !told.esme)); ER.pips(told.esme ? 1 : 0, 1); }
+  function hints() {
+    if (told.esme) return null;
+    return ['talk', ['The girl in the hi-vis vest, holding up her phone, is the photographer. You have never met her. You know her name.', 'Click Esme, the girl in the yellow vest, next to her grandfather.']];
+  }
+  function begin() {
+    if (!ER.flag('tEnd')) ER.flag('tEnd', Date.now());
+    paint();
+    if (told.esme) { busy = false; finish(true); return; }
+    if (told.in) { busy = false; ER.say('Mint Street, twenty to one.'); return; }
+    ER.narrate([
+      'Twenty to one. Mint Street is wet and empty, except for the pavement outside the Stopford Press Agency, which is full.',
+      'A muddy truck is parked half on the kerb, with a trailer behind it. On the trailer is a large wicker basket, still dripping, and beside it something red with white spots, folded up like a very big tablecloth.',
+      'Hamish Ure is standing in a puddle in his socks, pouring water out of one boot. Beside him is a girl in a hi-vis vest that says CREW, holding up a phone and trying not to grin. She is failing.',
+      'Kasia has brought the first editions out on her tablet. Mr Hammond has brought tea. Lorna is in the doorway, as if the building might need her back.'
+    ], function () { busy = false; tell('in'); paint(); });
+  }
+
+  $('#esme').addEventListener('click', function () {
+    if (busy) return;
+    if (told.esme) { ER.say('&ldquo;Grandad,&rdquo; says Esme, for the ninth time, &ldquo;look.&rdquo; Hamish is looking. He has been looking for ten minutes.'); return; }
+    ER.talk({
+      who: 'Esme Ure', role: 'Ground crew, the Teapot · photographer', face: window.FACE('esme'),
+      lines: [
+        { note: 'She holds up her phone. On it is a Sunday front page, with her picture on it and her name under it.', a: '&ldquo;That&rsquo;s MY picture. With my NAME. Grandad, look. Grandad. GRANDAD.&rdquo;' },
+        { q: 'Where were you standing when you took it?', a: '&ldquo;By lamp post 4. I was running round the lake to get to where Grandad was coming down, and I saw the 5K coming and the Teapot behind them, and I just stopped and took it. The steward laughed at me. He had sunglasses on at six o&rsquo;clock in the evening.&rdquo;' },
+        { q: 'Did you know that Mr Platt had used it?', a: '&ldquo;No! I put it on the festival&rsquo;s picture page for Gran, because she couldn&rsquo;t come. He must have taken it from there. He cut a square out of it and wrote that people were fleeing. They weren&rsquo;t fleeing. They were RACING. The man who won didn&rsquo;t even look round.&rdquo;' },
+        { q: 'How did you know what to leave in?', a: '<p>&ldquo;I didn&rsquo;t think about it. I just put in everything I could see. Grandad says that&rsquo;s the whole trick: don&rsquo;t leave out the bit that explains it.&rdquo;</p><p>She looks up at the doorway. &ldquo;Is that the trick?&rdquo;</p><p>&ldquo;That,&rdquo; says Lorna, &ldquo;is most of it.&rdquo;</p>' },
+        { q: 'What will you do with the money?', a: '&ldquo;Buy Grandad some new socks.&rdquo; She thinks about it. &ldquo;And then a better phone.&rdquo;' }
+      ],
+      clue: { id: 'esme2', title: 'Esme Ure, on the front step', kind: 'What she said' },
+      done: function (seen) {
+        if (!seen || !tell('esme')) return;
+        PH.terms(['front page', 'first edition', 'down the wire']); paint(); busy = true;
+        ER.narrate([
+          'Lou takes a picture of Esme with the basket. &ldquo;For Monday,&rdquo; she says. &ldquo;The girl who took the picture. Do not hold still. Laugh.&rdquo; Esme laughs. It is a very good picture, and everybody knows who took it.',
+          'Lorna&rsquo;s phone rings. She listens, says &ldquo;No,&rdquo; and rings off. &ldquo;Platt,&rdquo; she says. &ldquo;He wants his four hundred pounds. I told him he could have it on the day he takes a picture.&rdquo;',
+          'Mr Hammond hands round the tea. Lorna takes a mug, looks at it, and holds it out to you. &ldquo;Check it,&rdquo; she says. So you do. It is tea. It is hot. And for once on the night desk, everything in the picture is exactly what it seems.'
+        ], function () { busy = false; finish(false); });
+      }
+    });
+  });
+  var FRONTS = (function () {
+    var pic = '<svg viewBox="280 30 740 493"><g>' + PH.lake({ id: 'fp', time: 'eve' }) + '</g></svg>', cap = '<p>Runners in the Lakeside 5K sprint for the finish as a hot-air balloon shaped like a teapot comes down in the boating lake behind them, Lockyer Park, Cobbleford, at about 6pm on Saturday. <i>Picture: Esme Ure / Stopford</i></p>';
+    return '<div class="pg"><h5>The Sunday Heron</h5><h6>The Teapot drops in, and the 5K doesn&rsquo;t stop</h6>' + pic + cap + '</div>' +
+      '<div class="pg"><h5>Sunday Torch</h5><h6>Pick of the pond: pilot steers Teapot clear of railway</h6>' + pic.replace(/fp/g, 'fq') + cap + '</div>' +
+      '<div class="pg"><h5>The Cobbleford Echo</h5><h6>Esme, 14, takes the picture of the weekend</h6>' + pic.replace(/fp/g, 'fr') + cap + '</div>';
+  })();
+  $('#kasia').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: FRONTS, cls: 'fronts', clue: { id: 'fronts', title: 'Three Sunday front pages', kind: 'The first editions' }, done: function () { PH.terms(['first edition', 'front page']); } });
+  });
+  PH.thing('#hamish', null, function () { return '&ldquo;Best field in the county,&rdquo; says Hamish, and pours the rest of the boating lake out of his other boot. &ldquo;We fly again at seven. You can come. Bring a towel.&rdquo;'; }, isBusy);
+  PH.thing('#lou', null, 'Lou has a camera up and both eyes open, which she says is the only way to see what is coming into the frame.', isBusy);
+  PH.thing('#hammond', null, '&ldquo;Rule three,&rdquo; says Mr Hammond, handing you a mug, &ldquo;is: write your rules down, so that somebody can stick them on a screen. I never got round to rule four.&rdquo;', isBusy);
+  PH.thing('#lorna', null, function () { return told.esme ? '&ldquo;Monday, nine o&rsquo;clock,&rdquo; says Lorna. &ldquo;You can make the tea. And then you can have the picture desk for an hour, and we will see.&rdquo;' : 'Lorna, in the doorway, not quite smiling. It is the nearest thing to a smile the night desk has seen since 1998.'; }, isBusy);
+  PH.thing('#basket', null, 'The Teapot&rsquo;s basket, on its trailer, still dripping. Somebody has put a traffic cone in it, and somebody else has taken a picture of that.', isBusy);
+  PH.thing('#truck', null, 'The crew&rsquo;s truck: TEAPOT · GROUND CREW. There is pond weed on the bumper.', isBusy);
+  PH.thing('#puddle', 'reflection', 'A puddle under the street lamp, with the lamp in it, upside down. Of course it is.', isBusy);
+  PH.thing('#lamp', null, 'A street lamp. It is throwing everybody&rsquo;s shadow away from itself, out across the pavement, in all directions at once. One lamp, many shadows: they all point back to it.', isBusy);
+  PH.thing('#door', null, 'The front door of the Stopford Press Agency. The brass plate says PICTURES SINCE 1952. Nobody has polished it since about 1990.', isBusy);
+  PH.thing('#cat', null, 'Fixer has come up from the archive to see what the fuss is. She has decided it is not about her, and is going back in.', isBusy);
+
+  /* ---------- the end ---------- */
+  function finish(quick) {
+    var st = ER.state(), mins = PH.minutesPlayed(), hn = ER.hintsUsed();
+    $('#d-time').textContent = 'From twenty to twelve to midnight, and the step: ' + mins + (mins === 1 ? ' minute.' : ' minutes.');
+    $('#d-hints').textContent = hn ? 'Hints asked for: ' + hn + '.' : 'Hints asked for: none at all.';
+    $('#d-words').textContent = 'In your notebook: ' + st.clues.length + ' clues and ' + Object.keys(st.words).length + ' words.';
+    $('#done').classList.add('on');
+    if (quick) ER.say('Twenty to one. Esme&rsquo;s picture is on every front page, and the tea is hot.');
+  }
+  $('#b-book').addEventListener('click', ER.notebook);
+  $('#b-lobby').addEventListener('click', function () { ER.leave('../index.html'); });
+  $('#b-reset').addEventListener('click', function () {
+    var b = $('#b-reset');
+    if (b.getAttribute('data-sure')) { ER.resetStory(); location.href = '../index.html'; return; }
+    b.setAttribute('data-sure', '1'); b.textContent = 'this empties your notebook. click again to do it';
+  });
+  $('#b-task').addEventListener('click', function () {
+    var saved = ER.flag('task') || {}, box = ER.el('div', 'rp');
+    box.innerHTML = '<h4>Stopford Press Agency &middot; your turn on the picture desk</h4><h3>Write it, then say it</h3>' +
+      '<p>Choose ONE of these. Write it, and then read it aloud, once, as if you were explaining it to Kasia.</p>' +
+      '<p><b>A</b> Write the caption (30 to 50 words) for Lou&rsquo;s picture on Sunday morning, from her notes. Say only what is known: who, what, where, when, and who took it.</p>' +
+      '<p class="notes">Sunday 6 September, 7.10am, the festival field, Lockyer Park, Cobbleford. The Teapot, dried out, takes off again, with Hamish Ure flying it. Esme Ure, 14, his granddaughter and ground crew, lets go of the rope. About 30 people watching. Sun low in the east; long shadows. Picture: Lou Pennock, Stopford Press Agency.</p>' +
+      '<p><b>B</b> Explain to a friend how you can tell the time of day from the shadows in a photograph, and when the simple rule can fool you (60 to 90 words).<br><b>C</b> Explain to a friend how the same true photograph can tell two different stories. Use the Teapot picture (60 to 90 words).</p>' +
+      '<textarea id="r1"></textarea><div class="count"></div><label for="r2">Name</label><input type="text" id="r2" maxlength="60">' +
+      '<div class="foot"><span>Nobody marks this. It is saved in this browser as you write.</span><button type="button" class="btn" id="r-print">Print</button><button type="button" class="btn" id="r-done">Done</button></div>';
+    ER.glossIn(box, '.rp > p');
+    box.querySelector('#r1').value = saved.r1 || ''; box.querySelector('#r2').value = saved.r2 || '';
+    function keep() {
+      var o = { r1: box.querySelector('#r1').value, r2: box.querySelector('#r2').value }, n = (o.r1.match(/[A-Za-z0-9’']+/g) || []).length;
+      box.querySelector('.count').textContent = n + (n === 1 ? ' word' : ' words');
+      ER.flag('task', o);
+    }
+    box.addEventListener('input', keep);
+    box.addEventListener('keydown', function (e) { e.stopPropagation(); });
+    box.querySelector('#r-print').addEventListener('click', function () { keep(); window.print(); });
+    box.querySelector('#r-done').addEventListener('click', ER.close);
+    ER.open('ov-report', box); keep();
+  });
+})();
+</script>
+</body>
+</html>

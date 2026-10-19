@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Glass Box · One Sun</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-news.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="photo.css">
+<style>
+  body{--bg:#d9dde0;--accent:#d8432a;--font-display:'Libre Franklin',sans-serif;--font-ui:'Libre Franklin',sans-serif;--font-body:'Newsreader',serif;
+    --tc-bg:rgba(240,242,243,.97);--tc-ink:#16191c;--cap-bg:rgba(22,25,28,.94);--panel:#1a1d21;--face-bg:#26344a;--q-ink:#ff8a6a;--fade:#0a0b0c;--hud-bg:rgba(22,25,28,.86)}
+  .tc .btn{--accent:#b22d1b}
+  .tc .btn:hover:not([disabled]){color:#fff}
+  .gobtn{color:#fff}
+  #colon{animation:blink 1s steps(1,end) infinite}
+  @keyframes blink{50%{opacity:0}}
+  #screen .new{display:none}
+  #screen.mail .new{display:block}
+
+  /* the full frame, Platt's square, the crop, the caption */
+  .bx{width:min(1090px,96vw)}
+  .bx-top{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:14px;align-items:start}
+  .bx-pic{background:#111;padding:6px;box-shadow:0 18px 40px rgba(0,0,0,.6)}
+  .bx-pic svg{display:block;width:100%;height:auto;touch-action:none}
+  .bx-side{background:#f6f4ee;color:#16191c;padding:10px 14px 12px;font-family:'Newsreader',serif;font-size:15px;line-height:1.35;border-top:6px solid #d8432a}
+  .bx-side h5{margin:0 0 6px;font-family:'Libre Franklin',sans-serif;font-weight:900;font-size:14px;letter-spacing:.12em;text-transform:uppercase}
+  .bx-side ul{margin:0;padding-left:18px}
+  .bx-side li{margin:0 0 2px}
+  .bx-side li.out{color:#8a8578;text-decoration:line-through}
+  .bx-side p{margin:6px 0 0}
+  .bx3{display:grid;grid-template-columns:420px minmax(0,1fr);gap:14px;align-items:start}
+  .bx3 .prev{background:#111;padding:6px}
+  .bx3 .prev svg{display:block;width:100%;height:auto}
+  .capbar{background:#fdfcf8;color:#111;padding:10px 14px;font-family:'Libre Franklin',sans-serif;font-size:16px;line-height:1.5;border-left:6px solid #d8432a;min-height:150px}
+  .capbar h5{margin:0 0 6px;font-family:'DM Mono',monospace;font-weight:500;font-size:11.5px;letter-spacing:.14em;color:#7b7b74}
+  .capbar .sl{display:inline;border-bottom:2px dashed #b9b29c;padding:0 3px;color:#8a8578}
+  .capbar .sl.full{color:#111;border-bottom-color:#d8432a}
+  .tilerow{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:12px}
+  .tilecol h6{margin:0 0 5px;font-family:'Libre Franklin',sans-serif;font-weight:900;font-size:11px;letter-spacing:.14em;color:#f6f4ee;text-transform:uppercase}
+  .tile{display:block;width:100%;margin:0 0 5px;padding:5px 7px;background:#f6f4ee;color:#16191c;border:0;border-left:4px solid #9a958a;border-radius:2px;font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:12.5px;line-height:1.2;text-align:left;cursor:pointer}
+  .tile:hover{background:#fff}
+  .tile.on{background:#16191c;color:#fff;border-left-color:#d8432a}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="floorG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a8f94"/><stop offset="1" stop-color="#3a3e42"/></linearGradient>
+  <linearGradient id="glassG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#cfe4f2" stop-opacity=".22"/><stop offset=".5" stop-color="#cfe4f2" stop-opacity=".06"/><stop offset="1" stop-color="#cfe4f2" stop-opacity=".2"/></linearGradient>
+  <radialGradient id="lampG" cx="50%" cy="20%" r="70%"><stop offset="0" stop-color="#fff8e6" stop-opacity=".9"/><stop offset="1" stop-color="#fff8e6" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="52%" r="75%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".65" stop-color="#000" stop-opacity=".18"/><stop offset="1" stop-color="#000" stop-opacity=".7"/></radialGradient>
+</defs>
+
+<!-- through the glass: the dark newsroom, Kasia at the picture desk -->
+<rect x="-1000" y="-400" width="3600" height="1100" fill="#14202c"/>
+<g id="newsroom" class="hot"><g fill="#0d1620"><rect x="-1000" y="420" width="3600" height="280"/></g>
+  <g fill="#7cc4f0" opacity=".4"><rect x="180" y="380" width="70" height="46"/><rect x="262" y="372" width="90" height="56"/><rect x="364" y="380" width="70" height="46"/><rect x="1150" y="386" width="60" height="40"/><rect x="1222" y="380" width="70" height="46"/></g>
+  <g fill="#0a1018"><path d="M300 520q0 -50 26 -60q26 10 26 60z"/><circle cx="326" cy="446" r="16"/><circle cx="330" cy="428" r="10"/></g>
+  <rect x="120" y="430" width="420" height="16" fill="#1d2a38"/><rect x="1100" y="430" width="260" height="16" fill="#1d2a38"/></g>
+<!-- the glass walls, their frames, the blinds -->
+<rect x="-1000" y="-400" width="3600" height="1100" fill="url(#glassG)" pointer-events="none"/>
+<g fill="#e8eaec" opacity=".85"><rect x="-1000" y="0" width="3600" height="16"/><rect x="60" y="0" width="16" height="700"/><rect x="560" y="0" width="16" height="700"/><rect x="1040" y="0" width="16" height="700"/><rect x="1530" y="0" width="16" height="700"/></g>
+<g id="blinds" class="hot"><g fill="#f2f0ea" opacity=".9">
+  <rect x="76" y="16" width="484" height="14"/><rect x="76" y="34" width="484" height="14"/><rect x="76" y="52" width="484" height="14"/><rect x="76" y="70" width="484" height="14"/><rect x="76" y="88" width="484" height="14"/><rect x="76" y="106" width="484" height="14"/><rect x="76" y="124" width="484" height="14"/>
+  <rect x="1056" y="16" width="474" height="14"/><rect x="1056" y="34" width="474" height="14"/><rect x="1056" y="52" width="474" height="14"/><rect x="1056" y="70" width="474" height="14"/></g></g>
+<!-- Lorna's rule, painted on the glass over the door: from in here it reads backwards -->
+<g id="sign" class="hot"><rect x="600" y="40" width="420" height="34" fill="#16191c" opacity=".7"/><text x="810" y="63" class="fL" font-size="15" font-weight="800" text-anchor="middle" fill="#f6f4ee" letter-spacing="1.2" transform="translate(1620 0) scale(-1 1)">IF YOUR MOTHER SAYS SHE LOVES YOU, CHECK IT.</text></g>
+<!-- the clock -->
+<g id="clock" class="hot"><rect x="690" y="100" width="240" height="90" rx="6" fill="#16191c"/><text x="810" y="166" class="fM" font-size="58" font-weight="500" text-anchor="middle" fill="#ff4b3e"><tspan>23</tspan><tspan id="colon">:</tspan><tspan>54</tspan></text></g>
+<!-- the floor, the desk, the lamp -->
+<rect x="-1000" y="700" width="3600" height="700" fill="url(#floorG)"/>
+<ellipse cx="800" cy="560" rx="560" ry="300" fill="url(#lampG)" opacity=".22" pointer-events="none"/>
+<!-- Lorna, behind her desk -->
+<g id="lorna" class="hot" transform="translate(1180 860) scale(1.2)"></g>
+<path d="M300 640H1300L1340 690H260Z" fill="#2a2d31"/><path d="M260 690H1340V712H260z" fill="#16191c"/><path d="M300 712v150M1300 712v150" stroke="#16191c" stroke-width="18"/>
+<g id="screen" class="hot"><rect x="520" y="430" width="330" height="214" rx="6" fill="#16191c"/><rect x="530" y="440" width="310" height="186" fill="#e9edf0"/>
+  <rect x="530" y="440" width="310" height="22" fill="#c9d2d8"/><g fill="#8a9aa4"><rect x="542" y="474" width="200" height="8"/><rect x="542" y="490" width="160" height="8"/><rect x="542" y="506" width="180" height="8"/></g>
+  <g class="new"><rect x="540" y="528" width="290" height="88" fill="#fff" stroke="#d8432a" stroke-width="3"/><text x="552" y="552" class="fL" font-size="15" font-weight="900" fill="#d8432a">NEW · E. Ure</text><text x="552" y="574" class="fL" font-size="13" fill="#16191c">the WHOLE picture (Teapot!!)</text><rect x="552" y="584" width="70" height="24" fill="#c2301f"/></g>
+  <rect x="672" y="644" width="26" height="12" fill="#16191c"/></g>
+<g id="phone" class="hot"><path d="M920 640l18 -34h80l18 34z" fill="#c2301f"/><rect x="930" y="592" width="96" height="18" rx="8" fill="#9e2418"/><circle cx="978" cy="626" r="8" fill="#16191c"/></g>
+<g id="style" class="hot"><path d="M380 640l20 -30h120l-14 30z" fill="#16191c"/><path d="M380 640l20 -30h120l-14 30z" fill="none" stroke="#d8432a" stroke-width="2"/><text x="454" y="632" class="fU" font-size="15" text-anchor="middle" fill="#f6f4ee" transform="skewX(-20) translate(228 0)">Style</text></g>
+<g id="cactus" class="hot"><rect x="1080" y="604" width="34" height="36" fill="#b5532a"/><path d="M1097 604v-50" stroke="#3f7a3a" stroke-width="16" stroke-linecap="round"/><path d="M1097 584h-14v-14M1097 574h14v-18" stroke="#3f7a3a" stroke-width="9" fill="none" stroke-linecap="round"/></g>
+<g id="papers" class="hot"><path d="M1150 640l10 -22h120l-8 22z" fill="#f2f0ea"/><path d="M1154 632l10 -22h120l-8 22z" fill="#e8e6e0"/><text x="1214" y="628" class="fU" font-size="13" text-anchor="middle" fill="#16191c">The Sunday</text></g>
+
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Down to the front door</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="photo.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, lock = null, told = {};
+  $('#lorna').innerHTML = PH.who('lorna', { armL: 'M-31 -222Q-50 -190 -56 -150', handL: [-58, -142], armR: 'M31 -222Q50 -190 56 -150', handR: [58, -142] });
+
+  ER.init({
+    theme: 'news', story: 'photo', storyTitle: 'One Sun', id: 'box', no: 'V', title: 'The Glass Box',
+    go: 'Go in',
+    intro: [
+      'The steward&rsquo;s sunglasses showed what was behind the camera: the low sun on the left, the café, lamp post 4, and a small person in a hi-vis vest that said CREW backwards, holding up a phone. In Lou&rsquo;s picture at the shallows only one person fits: Esme Ure, fourteen, the Teapot&rsquo;s ground crew. Gideon Platt was there, with a camera the size of a dog, but he arrived when it was all over. And the pilot waving from the basket had palm trees in his sunglasses.',
+      'So the picture is real, it was taken at six, and Esme took it. One question is left, and it is the one that matters: what does it show?',
+      'Lorna&rsquo;s glass box. The clock on the wall says 23.54.'
+    ],
+    exit: {"next":"step","w":{"4bf4ab79":"b6b379f4"}}, tags: {"keep":["c964f6b4","fef84d23","97de0392"],"s1":["1c4f56be"],"s2":["c75bb1e1"],"s3":["bdd9f497"],"s4":["b366dabd"],"s5":["6f8998d5"],"s6":["6ef710f0"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('e-file') || null; told = ER.flag('e-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('e-told', told); return true; }
+  function isBusy() { return busy; }
+  function showGo() { $('#go').classList.add('on'); }
+  function stage() { return ER.flag('e-stage') || 0; }
+  function paint() {
+    $('#phone').classList.toggle('ready', !!(told.in && !told.ham));
+    $('#screen').classList.toggle('mail', !!told.ham);
+    $('#screen').classList.toggle('ready', !!((told.ham && !told.mail) || (told.style && !nextFile)));
+    $('#style').classList.toggle('ready', !!(told.mail && !told.style));
+    ER.pips((told.ham ? 1 : 0) + (told.mail ? 1 : 0) + (told.style ? 1 : 0) + Math.min(stage(), 2) + (nextFile ? 1 : 0), 6);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The picture has gone down the wire, with Esme&rsquo;s name on it. The button is at the bottom of the screen.']];
+    if (lock && lock.isOpen()) {
+      if (stage() === 0) return ['line', ['Platt&rsquo;s square is lying on top of Esme&rsquo;s whole picture. Drag it until everything in it sits exactly on the same things underneath: the Teapot on the Teapot, the steward on the steward.', 'Platt&rsquo;s square belongs near the top left of Esme&rsquo;s picture. Move it slowly: it clicks into place when it is right.']];
+      if (stage() === 1) return ['crop', [
+        'Now make the agency&rsquo;s own crop. Drag the white frame to move it, and drag its corner to make it bigger or smaller. The list on the right says what is inside it.',
+        'Read the style book: keep whatever gives the picture its meaning, what the people are running TO as well as what is behind them. Look at the right-hand side of Esme&rsquo;s picture, which Platt cut off.',
+        'The frame needs the whole Teapot, the runner at the front in the red vest, and the arch that says FINISH. Move the frame to the right and make it big enough for all three.'
+      ]];
+      return ['caption', [
+        'Choose one tile for each part of the caption. Every word has to be something the picture shows or a source told us: Hamish, Esme, the organisers, the record.',
+        'Count the people. Look at what they are doing, not what they might feel. The organisers said &ldquo;controlled landing&rdquo;. The style book says to name the day, never &ldquo;last night&rdquo; or &ldquo;yesterday&rdquo;.',
+        'WHO: the runners, in the race. DOING: what runners do at the end of a race. WHAT and WHERE: plain words, and the lake. WHEN: the time the shadows, the weather and the organisers agree on, and the day. CREDIT: the person who pressed the button.'
+      ]];
+    }
+    if (!told.ham) return ['phone', ['Lorna has the pilot on the red telephone, and she wants you to talk to him.', 'Click the red telephone on the desk.']];
+    if (!told.mail) return ['mail', ['An email has just arrived on Lorna&rsquo;s screen.', 'Click the screen on the desk.']];
+    if (!told.style) return ['style', ['Before you touch the picture, read what the agency says about crops and captions.', 'Click the black book on the left of the desk: the style book.']];
+    return ['screen', ['Esme&rsquo;s whole picture is on Lorna&rsquo;s screen.', 'Click the screen.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; showGo(); ER.say('Gone, at 23.59. Esme Ure&rsquo;s picture is on its way to every front page.'); return; }
+    if (told.in) { busy = false; ER.say('The glass box. Six minutes to midnight.'); return; }
+    ER.narrate([
+      'Lorna&rsquo;s glass box: two screens, a red telephone, a cactus that has survived three editors, and a black book with a red edge that everybody calls the Style.',
+      'From in here, her rule on the glass over the door reads backwards. She says that is the point. It is not for her. It is for everybody else.',
+      'Lorna is standing, which is a bad sign. She holds out the red telephone. &ldquo;Hamish Ure,&rdquo; she says. &ldquo;The pilot. He wants to talk to somebody who will listen. That is you.&rdquo;'
+    ], function () { busy = false; tell('in'); paint(); });
+  }
+
+  $('#phone').addEventListener('click', function () {
+    if (busy) return;
+    if (told.ham) { ER.say('The red telephone. Hamish has gone to help his crew fold up a very wet teapot.'); return; }
+    ER.talk({
+      who: 'Hamish Ure', role: 'Pilot of the Teapot · on the telephone, still wet', face: window.FACE('hamish'),
+      lines: [
+        { note: 'He is somewhere windy, and cheerful.', a: '&ldquo;Is that the agency? Hamish Ure. Teapot. Yes, I am the one in the pond. Do not write &lsquo;crash&rsquo;. I shall know.&rdquo;' },
+        { q: 'What happened at six o’clock?', a: '&ldquo;The shower went through, the wind swung round behind it, and the Teapot and I were being carried straight at the railway. Overhead wires. You do not argue with overhead wires. So I picked the pond. Shallow end, sixty centimetres, soft bottom. Best field in the county tonight.&rdquo;' },
+        { q: 'Did the people in the park run away?', a: '&ldquo;Run away? From what? I came down at walking pace, into sixty centimetres of water. Afterwards half the park came over and helped my crew drag the basket out. Very good of them. Muddy, but very good.&rdquo;' },
+        { q: 'Who took the picture?', a: '&ldquo;My granddaughter. Esme. She was on the bank with her phone; she always is. She put it on the festival&rsquo;s picture page at four minutes past six, the whole picture, not just a square of it. Nobody asked her if they could use it.&rdquo; A pause. &ldquo;I expect somebody is about to.&rdquo;' },
+        { q: 'May we use it?', a: '<p>&ldquo;Ask her. It is hers. She is here.&rdquo;</p><p>A crackle, and a girl&rsquo;s voice: &ldquo;Yes, you can! I am sending you the whole picture now. And the credit is Esme Ure, E-S-M-E. Not Mr Platt.&rdquo;</p>' }
+      ],
+      clue: { id: 'hamish', title: 'Hamish Ure, on the telephone', kind: 'What he said' },
+      done: function (seen) {
+        if (!seen || !tell('ham')) return;
+        PH.terms(['pilot', 'ground crew']); paint(); PH.sfx.mail();
+        ER.say('A tone from Lorna&rsquo;s screen: a new email, from E. Ure.');
+      }
+    });
+  });
+
+  /* ---------- the style book ---------- */
+  var DIA = '<svg viewBox="0 0 270 300"><g font-family="Kalam,cursive" text-anchor="middle">' +
+    '<rect x="10" y="10" width="250" height="120" fill="#eef3f6" stroke="#191919" stroke-width="2"/><path d="M10 104h250v26H10z" fill="#b9d29a"/>' +
+    '<g transform="translate(52 104)"><ellipse cx="0" cy="-12" rx="18" ry="9" fill="#8a6a46"/><circle cx="16" cy="-20" r="7" fill="#8a6a46"/><path d="M-10 -4v6M10 -4v6" stroke="#8a6a46" stroke-width="3"/></g>' +
+    '<g transform="translate(120 104)"><path d="M-6 0l6 -22l8 22M0 -22v-22" stroke="#2b5d8a" stroke-width="5" fill="none"/><circle cx="0" cy="-52" r="8" fill="#f0d3bc"/><path d="M0 -40l14 -10" stroke="#2b5d8a" stroke-width="4"/></g>' +
+    '<circle cx="210" cy="58" r="8" fill="#d8432a"/><path d="M196 66q-6 4 -12 2" stroke="#191919" stroke-width="1.4" fill="none" stroke-dasharray="2 3"/>' +
+    '<rect x="16" y="16" width="134" height="110" fill="none" stroke="#d8432a" stroke-width="3" stroke-dasharray="7 4"/><rect x="14" y="14" width="242" height="114" fill="none" stroke="#1f6fa8" stroke-width="2"/>' +
+    '<text x="62" y="156" font-size="15" fill="#d8432a" font-weight="700">red crop:</text><text x="62" y="174" font-size="12.5" fill="#d8432a">&ldquo;DOG CHASES</text><text x="62" y="190" font-size="12.5" fill="#d8432a">BOY&rdquo;</text>' +
+    '<text x="192" y="156" font-size="15" fill="#1f6fa8" font-weight="700">whole frame:</text><text x="192" y="174" font-size="12.5" fill="#1f6fa8">&ldquo;BOY AND DOG</text><text x="192" y="190" font-size="12.5" fill="#1f6fa8">RACE FOR A BALL&rdquo;</text>' +
+    '<line x1="14" y1="206" x2="256" y2="206" stroke="#d8d4c8" stroke-width="1.5"/>' +
+    '<text x="135" y="232" font-size="15" fill="#191919">same true picture,</text><text x="135" y="252" font-size="15" fill="#191919">two crops, two stories</text>' +
+    '<text x="135" y="282" font-size="15" fill="#b22d1b" font-weight="700">look outside the frame</text></g></svg>';
+  var STYLE = '<h4>Stopford Press Agency &middot; the Style &middot; page 31</h4><h3>The frame and the caption</h3><div class="two"><div>' +
+    '<p>To <b>crop</b> a picture is to choose. The same true picture, cut two ways, can tell two different stories. Before you send a crop, look at what lies outside its <b>frame</b>, and keep whatever gives the picture its meaning: what the people are looking at, and what they are running to or from.</p>' +
+    '<p>A <b>caption</b> says what the picture shows and what we know, and nothing more:</p>' +
+    '<ul><li><b>WHO</b> is in it. Count them: a crowd is hundreds.</li><li><b>WHAT</b> they are doing: what we can see, not what we guess they feel. Nobody can photograph panic.</li>' +
+    '<li><b>WHERE</b>, exactly.</li><li><b>WHEN</b>: the day and the time. Never &ldquo;last night&rdquo; or &ldquo;yesterday&rdquo;: our pictures are printed tomorrow and looked at for years.</li>' +
+    '<li>And <b>WHO TOOK IT</b>. We give the <b>credit</b> to the person who pressed the button, and we pay them.</li></ul>' +
+    '</div><div class="dia">' + DIA + '</div></div><p class="pen">Every word must be one you could defend at three in the morning. L.F.</p>';
+  $('#style').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.ham) { ER.say('The Style: the agency&rsquo;s book of rules for writing, black with a red edge. Lorna is holding out a telephone at you.'); return; }
+    ER.read({ html: STYLE, cls: 'style', clue: { id: 'style', title: 'The Style, page 31: the frame and the caption', kind: 'The style book' }, done: function () {
+      PH.terms(['crop', 'frame', 'credit', 'style book']);
+      if (tell('style')) { paint(); ER.say('&ldquo;Now the picture,&rdquo; says Lorna. &ldquo;All of it.&rdquo;'); }
+    } });
+  });
+  var MAIL = '<h4>From: Esme Ure &middot; To: picture desk &middot; 23.55<br>Subject: the WHOLE picture (Teapot!!)</h4>' +
+    '<p>Hello. Grandad says you want my picture. Here is all of it, the way my phone took it at 6.02. Mr Platt cut a square out of the middle. I don&rsquo;t know why he left out the best bit.</p>' +
+    '<p>You can use it. Please put my name on it: Esme Ure.</p><p>PS Grandad says to tell you he picked the pond on purpose, because he did.</p>' +
+    '<div class="att">TEAPOT_WHOLE.jpg &middot; the full frame, as the phone took it</div>';
+  PH.thing('#sign', 'mirror image', 'IF YOUR MOTHER SAYS SHE LOVES YOU, CHECK IT. From inside the glass box it is a mirror image, and reads backwards. Lorna says that is how she likes it.', isBusy);
+  PH.thing('#clock', null, 'Six minutes to midnight. This clock is right. Lorna sets it herself, every Saturday, from the radio pips.', isBusy);
+  PH.thing('#cactus', null, 'A cactus that has outlived three editors. Lorna says it is the only thing in the building that never needs checking.', isBusy);
+  PH.thing('#papers', 'front page', 'Last week&rsquo;s Sunday front pages. Two of them used the agency&rsquo;s pictures. One used the agency&rsquo;s picture of the wrong mayor, and Lorna has kept it, on top.', isBusy);
+  PH.thing('#newsroom', null, 'Through the glass: the dark newsroom, and Kasia at the picture desk with her hand on the mouse, waiting to send.', isBusy);
+  PH.thing('#blinds', null, 'The blinds are half down. Lorna pulls them when she shouts at people, so that nobody has to watch.', isBusy);
+  PH.thing('#lorna', null, function () { return nextFile ? '&ldquo;Good,&rdquo; says Lorna again, as if trying the word out. &ldquo;Now go and meet your photographer. She is at the front door.&rdquo;' : told.ham ? '&ldquo;Five minutes,&rdquo; says Lorna. &ldquo;The picture is on my screen. The Style is on my desk. One of them you read first.&rdquo;' : '&ldquo;Telephone,&rdquo; says Lorna, and holds it out again.'; }, isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  $('#screen').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The picture, as it went: Esme&rsquo;s, cropped to keep the finish, with her name under it.'); return; }
+    if (!told.ham) { ER.say('Lorna&rsquo;s screen: forty-one emails about a teapot. Lorna is holding out the telephone.'); return; }
+    if (!told.mail) {
+      ER.read({ html: MAIL, cls: 'mail', clue: { id: 'mail', title: 'Esme’s email: the whole picture', kind: 'An email' }, done: function () {
+        PH.terms(['full frame']);
+        if (tell('mail')) { paint(); ER.say('&ldquo;Before you touch it,&rdquo; says Lorna, &ldquo;read page 31 of the Style. On my desk.&rdquo;'); }
+      } });
+      return;
+    }
+    if (!told.style) { ER.say('&ldquo;Style first,&rdquo; says Lorna. &ldquo;Page 31. The black book.&rdquo;'); return; }
+    if (!lock) lock = makeCrop();
+    lock.open();
+  });
+
+  /* ---------- Esme's picture: line up Platt's square, crop it, caption it ---------- */
+  function makeCrop() {
+    var O = PH.OBJ, PL = PH.PLATT, st = ER.flag('e-st') || { px: 470, py: 120, c: { x: 60, y: 150, w: 560 }, t: {} }, wait = false, box = ER.el('div', 'job bx');
+    var ITEMS = [['balloon', 'the Teapot, all of it', O.balloon], ['leader', 'the runner at the front, in the red vest', O.leader], ['finish', 'the arch that says FINISH', O.finish],
+      ['steward', 'the steward in sunglasses', O.steward], ['island', 'the summer house on its island', O.island], ['kiosk', 'the ice-cream kiosk', O.kiosk], ['floodlight', 'the floodlight', O.floodlight], ['boathouse', 'the boathouse', O.boathouse]];
+    var SLOTS = [['s1', 'WHO', [['c1', 'Crowds'], ['c2', 'Runners in the Lakeside 5K'], ['c3', 'Panicking families']]],
+      ['s2', 'DOING', [['d1', 'flee'], ['d2', 'sprint for the finish'], ['d3', 'run for their lives']]],
+      ['s3', 'WHAT', [['w1', 'as a runaway balloon'], ['w2', 'as a hot-air balloon shaped like a teapot'], ['w3', 'as an out-of-control teapot']]],
+      ['s4', 'WHERE', [['h1', 'crashes into Lockyer Park, Cobbleford,'], ['h2', 'comes down in the boating lake behind them, Lockyer Park, Cobbleford,'], ['h3', 'skims the rooftops of Cobbleford']]],
+      ['s5', 'WHEN', [['t1', 'last night.'], ['t2', 'yesterday evening.'], ['t3', 'at about 6pm on Saturday.'], ['t4', 'at dawn on Saturday.']]],
+      ['s6', 'CREDIT', [['p1', 'Picture: Gideon Platt'], ['p2', 'Picture: Esme Ure'], ['p3', 'Picture: Stopford Press Agency']]]];
+    var WHY = { c1: '&ldquo;Crowds?&rdquo; says Lorna. &ldquo;Count them. Nine runners. The Style says a crowd is hundreds.&rdquo;', c3: '&ldquo;Panicking? Nobody can photograph panic. And they are not families: look at their vests and their numbers.&rdquo;',
+      d1: '&ldquo;Flee? From what? They are racing. The finish is in the picture now.&rdquo;', d3: '&ldquo;For their lives? It is a fun run. Somebody won it in seventeen minutes and never looked round.&rdquo;',
+      w1: '&ldquo;Runaway? The pilot chose the pond, on purpose, to keep off the railway. The organisers call it a controlled landing.&rdquo;', w3: '&ldquo;Out of control? Hamish steered it into sixty centimetres of water. That is what control looks like.&rdquo;',
+      h1: '&ldquo;Crashes? Nobody was hurt and nothing broke. It came down in the boating lake at walking pace.&rdquo;', h3: '&ldquo;Rooftops? There is not a roof under it. There is a lake.&rdquo;',
+      t1: '&ldquo;Last night? It was six o&rsquo;clock and broad daylight. And on Monday &lsquo;last night&rsquo; is wrong. Name the day.&rdquo;', t2: '&ldquo;Yesterday is right on Sunday and wrong for ever after. Our pictures are looked at for years. Name the day.&rdquo;',
+      t4: '&ldquo;Dawn? The shadows point east and the ground is wet. That was six in the evening, and you proved it.&rdquo;',
+      p1: '&ldquo;Platt did not press the button. Esme did. We credit, and pay, the person who took it.&rdquo;', p3: '&ldquo;It is not ours. We did not take it. Esme did.&rdquo;' };
+    var SC = 1050, drag = null;
+    function msg(t) { var m = box.querySelector('.jmsg'); if (m) m.innerHTML = ER.gloss(t); }
+    function keep() { ER.flag('e-st', st); }
+    function inside(b, c) { return b[0] >= c.x - 4 && b[1] >= c.y - 4 && b[2] <= c.x + c.w + 4 && b[3] <= c.y + c.w * 2 / 3 + 4; }
+    function build() {
+      var sg = stage(), s;
+      if (sg < 2) {
+        s = '<div class="bx-top"><div class="bx-pic"><svg viewBox="0 0 1050 700"><g>' + PH.lake({ id: 'bf', time: 'eve' }) + '</g><g id="over"></g></svg></div>' +
+          '<div class="bx-side" id="side"></div></div><div class="job-foot"><p class="jmsg"></p>' + (sg === 1 ? '<button type="button" class="btn" id="c-go">Crop it</button>' : '') + '</div>';
+      } else {
+        var c = st.c;
+        s = '<div class="bx3"><div class="prev"><svg viewBox="' + c.x + ' ' + c.y + ' ' + c.w + ' ' + (c.w * 2 / 3) + '"><g>' + PH.lake({ id: 'bp', time: 'eve' }) + '</g></svg></div>' +
+          '<div class="capbar"><h5>THE CAPTION &middot; WHAT GOES DOWN THE WIRE WITH IT</h5><div id="capline"></div></div></div><div class="tilerow">' +
+          SLOTS.map(function (sl) { return '<div class="tilecol" data-s="' + sl[0] + '"><h6>' + sl[1] + '</h6>' + sl[2].map(function (t) { return '<button type="button" class="tile" data-t="' + t[0] + '">' + t[1] + '</button>'; }).join('') + '</div>'; }).join('') +
+          '</div><div class="job-foot"><p class="jmsg"></p><button type="button" class="btn" id="t-go">Send it</button></div>';
+      }
+      box.innerHTML = s;
+      if (sg === 0) stage0(); else if (sg === 1) stage1(); else stage2();
+    }
+    /* 0: Platt's square, lying on Esme's whole picture */
+    function stage0() {
+      var svg = box.querySelector('svg'), over = box.querySelector('#over');
+      box.querySelector('#side').innerHTML = '<h5>Line it up</h5><p>Esme&rsquo;s whole picture, as her phone took it, with Platt&rsquo;s square lying on top of it.</p><p>Drag the square until everything in it sits on the same thing underneath. Then you will see what he cut off.</p>';
+      function draw() {
+        over.innerHTML = '<g transform="translate(' + st.px.toFixed(1) + ' ' + st.py.toFixed(1) + ')" style="cursor:grab"><svg x="0" y="0" width="560" height="560" viewBox="40 40 560 560" opacity=".62"><g>' + PH.lake({ id: 'bq', time: 'eve' }) + '</g></svg>' +
+          '<rect x="0" y="0" width="560" height="560" fill="none" stroke="#ffcf40" stroke-width="5" stroke-dasharray="14 8"/><text x="10" y="28" font-family="Libre Franklin,sans-serif" font-weight="900" font-size="22" fill="#ffcf40">PLATT&rsquo;S SQUARE</text></g>';
+      }
+      svg.addEventListener('pointerdown', function (e) {
+        var p = ER.pt(svg, e); if (wait || e.button) return;
+        if (p.x < st.px || p.x > st.px + 560 || p.y < st.py || p.y > st.py + 560) return;
+        e.preventDefault(); drag = { dx: p.x - st.px, dy: p.y - st.py };
+        try { svg.setPointerCapture(e.pointerId); } catch (x) {}
+      });
+      svg.addEventListener('pointermove', function (e) {
+        if (!drag) return;
+        var p = ER.pt(svg, e);
+        st.px = PH.clamp(p.x - drag.dx, 0, 490); st.py = PH.clamp(p.y - drag.dy, 0, 140); draw();
+      });
+      function up() {
+        if (!drag) return; drag = null;
+        if (Math.abs(st.px - PL.x) < 16 && Math.abs(st.py - PL.y) < 16) {
+          st.px = PL.x; st.py = PL.y; draw(); PH.sfx.pin(); ER.flag('e-stage', 1); keep(); paint();
+          over.innerHTML = '<rect x="' + PL.x + '" y="' + PL.y + '" width="' + PL.w + '" height="' + PL.h + '" fill="none" stroke="#ffcf40" stroke-width="5" stroke-dasharray="14 8"/><text x="' + (PL.x + 10) + '" y="' + (PL.y + 28) + '" font-family="Libre Franklin,sans-serif" font-weight="900" font-size="22" fill="#ffcf40">PLATT&rsquo;S SQUARE</text>';
+          msg('Click. It fits. Everything outside the yellow square is what Platt cut off: most of an ice-cream kiosk, a strip of wet lawn, and on the right, an arch that says FINISH. Lorna stops talking.');
+          wait = true;
+          setTimeout(function () { wait = false; build(); }, 3200);
+        } else { keep(); msg('Not yet. Look at the Teapot in the square and the Teapot underneath.'); }
+      }
+      svg.addEventListener('pointerup', up); svg.addEventListener('pointercancel', up);
+      draw();
+      msg('Drag Platt&rsquo;s square until it sits exactly on Esme&rsquo;s picture.');
+    }
+    /* 1: the agency's own crop */
+    function stage1() {
+      var svg = box.querySelector('svg'), over = box.querySelector('#over'), MINW = 360, MAXW = 800;
+      function side() {
+        var c = st.c, ins = ITEMS.filter(function (it) { return inside(it[2], c); }), out = ITEMS.filter(function (it) { return !inside(it[2], c); }), n = O.runners.filter(function (r) { return inside(r, c); }).length;
+        box.querySelector('#side').innerHTML = '<h5>In the frame</h5><ul>' + ins.map(function (it) { return '<li>' + it[1] + '</li>'; }).join('') + '<li>' + (n === 9 ? 'all nine runners' : n + ' of the nine runners') + '</li></ul>' +
+          '<h5 style="margin-top:8px">Cut off</h5><ul>' + out.map(function (it) { return '<li class="out">' + it[1] + '</li>'; }).join('') + '</ul><p>Width: ' + Math.round(c.w / SC * 100) + '% of the whole picture. No more than ' + Math.round(MAXW / SC * 100) + '%.</p>';
+      }
+      function draw() {
+        var c = st.c, h = c.w * 2 / 3;
+        over.innerHTML = '<path d="M0 0H1050V700H0Z M' + c.x + ' ' + c.y + 'V' + (c.y + h) + 'H' + (c.x + c.w) + 'V' + c.y + 'Z" fill="#000" opacity=".55" fill-rule="evenodd"/>' +
+          '<rect x="' + c.x + '" y="' + c.y + '" width="' + c.w + '" height="' + h + '" fill="#fff" fill-opacity="0" stroke="#fff" stroke-width="4" style="cursor:move"/>' +
+          '<rect x="' + PL.x + '" y="' + PL.y + '" width="' + PL.w + '" height="' + PL.h + '" fill="none" stroke="#ffcf40" stroke-width="2" stroke-dasharray="8 6" opacity=".7" pointer-events="none"/>' +
+          '<rect class="hdl" x="' + (c.x + c.w - 18) + '" y="' + (c.y + h - 18) + '" width="36" height="36" fill="#fff" stroke="#16191c" stroke-width="3" style="cursor:nwse-resize"/>';
+        side();
+      }
+      svg.addEventListener('pointerdown', function (e) {
+        var p = ER.pt(svg, e), c = st.c, h = c.w * 2 / 3; if (wait || nextFile || e.button) return;
+        if (Math.abs(p.x - (c.x + c.w)) < 26 && Math.abs(p.y - (c.y + h)) < 26) drag = { k: 'size' };
+        else if (p.x >= c.x && p.x <= c.x + c.w && p.y >= c.y && p.y <= c.y + h) drag = { k: 'move', dx: p.x - c.x, dy: p.y - c.y };
+        else return;
+        e.preventDefault(); try { svg.setPointerCapture(e.pointerId); } catch (x) {}
+      });
+      svg.addEventListener('pointermove', function (e) {
+        if (!drag) return;
+        var p = ER.pt(svg, e), c = st.c;
+        if (drag.k === 'move') { c.x = PH.clamp(p.x - drag.dx, 0, 1050 - c.w); c.y = PH.clamp(p.y - drag.dy, 0, 700 - c.w * 2 / 3); }
+        else { var w = PH.clamp(Math.max(p.x - c.x, (p.y - c.y) * 1.5), MINW, Math.min(MAXW, 1050 - c.x, (700 - c.y) * 1.5)); c.w = w; }
+        c.x = Math.round(c.x); c.y = Math.round(c.y); c.w = Math.round(c.w); draw();
+      });
+      function up() { if (!drag) return; drag = null; keep(); }
+      svg.addEventListener('pointerup', up); svg.addEventListener('pointercancel', up);
+      box.querySelector('#c-go').addEventListener('click', function () {
+        var i, it;
+        if (wait || nextFile) return;
+        for (i = 0; i < ITEMS.length; i++) {
+          it = ITEMS[i];
+          if (ER.check('keep', it[0]) && !inside(it[2], st.c)) {
+            ER.sfx.no();
+            msg({ balloon: '&ldquo;Where is the Teapot?&rdquo; says Lorna. &ldquo;All of it, spout and handle. A picture of the Teapot coming down needs the Teapot.&rdquo;',
+              finish: '&ldquo;Where are they running TO?&rdquo; says Lorna. &ldquo;Without that arch it is Platt&rsquo;s picture all over again: people running away from a balloon.&rdquo;',
+              leader: '&ldquo;The man in front, in the red vest,&rdquo; says Lorna. &ldquo;He is about to win, and he has not looked round once. Keep him.&rdquo;' }[it[0]] || '&ldquo;Something that matters is outside the frame.&rdquo;');
+            return;
+          }
+        }
+        ER.flag('e-stage', 2); keep(); paint(); PH.sfx.snip(); PH.solved(true);
+        PH.mine('crop', 'Two crops of one picture', '<p>PLATT&rsquo;S SQUARE: a balloon low over the lake, and people running away from it. &ldquo;Crowds flee.&rdquo;</p><p>ESME&rsquo;S WHOLE PICTURE: on the right, the FINISH of the Lakeside 5K. The people are runners in a race, sprinting for the line. The winner never looked round. The Teapot is coming down in the lake behind them.</p><p>Our crop keeps the Teapot, the leader and the finish.</p>', true);
+        msg('&ldquo;That,&rdquo; says Lorna, very quietly, &ldquo;is a different picture. Same picture. Different picture.&rdquo; She looks at the clock. &ldquo;Caption. Three minutes.&rdquo;');
+        wait = true; setTimeout(function () { wait = false; build(); }, 2800);
+      });
+      draw();
+      msg('Now the agency&rsquo;s own crop, the same shape as the camera made it. Drag the frame to move it; drag its white corner to change its size.');
+    }
+    /* 2: the caption */
+    function stage2() {
+      function draw() {
+        box.querySelector('#capline').innerHTML = SLOTS.map(function (sl) { var t = st.t[sl[0]], tx = t ? sl[2].filter(function (x) { return x[0] === t; })[0][1] : sl[1]; return '<span class="sl' + (t ? ' full' : '') + '">' + tx + '</span>'; }).join(' ');
+        ER.$$('.tile', box).forEach(function (b) { var s = b.parentNode.getAttribute('data-s'); b.classList.toggle('on', st.t[s] === b.getAttribute('data-t')); });
+      }
+      box.querySelector('.tilerow').addEventListener('click', function (e) {
+        var b = e.target.closest ? e.target.closest('.tile') : null;
+        if (!b || wait || nextFile) return;
+        var s = b.parentNode.getAttribute('data-s'), t = b.getAttribute('data-t');
+        st.t[s] = st.t[s] === t ? '' : t; if (!st.t[s]) delete st.t[s];
+        keep(); PH.sfx.key(); draw();
+      });
+      box.querySelector('#t-go').addEventListener('click', function () {
+        var i, sl, file, missing = SLOTS.filter(function (x) { return !st.t[x[0]]; });
+        if (wait || nextFile) return;
+        if (missing.length) { ER.sfx.no(); msg('&ldquo;' + missing.map(function (x) { return x[1]; }).join(', ') + ',&rdquo; says Lorna. &ldquo;A caption with holes in it is not a caption. One tile for each.&rdquo;'); return; }
+        for (i = 0; i < SLOTS.length; i++) {
+          sl = SLOTS[i];
+          if (!ER.check(sl[0], st.t[sl[0]])) { ER.sfx.no(); msg(WHY[st.t[sl[0]]] || '&ldquo;No.&rdquo;'); delete st.t[sl[0]]; keep(); draw(); return; }
+        }
+        file = ER.exit([SLOTS.map(function (x) { return st.t[x[0]]; }).join('-')], { wait: true });
+        if (!file) { msg('The door will not open. Something is wrong with this page: tell your teacher.'); return; }
+        wait = true; nextFile = file; ER.flag('e-file', file);
+        var line = SLOTS.map(function (x) { return x[2].filter(function (y) { return y[0] === st.t[x[0]]; })[0][1]; }).join(' ');
+        ER.addClue('caption', 'The caption, as it went', '<h4>Down the wire at 23.59</h4><p>' + line + '</p>', 'mine', 'Your notes', true);
+        msg('Lorna reads it once, and then again. &ldquo;Send it,&rdquo; she says. Through the glass, Kasia&rsquo;s hand comes down on the mouse.');
+        setTimeout(function () {
+          ER.closeAll(); paint(); busy = true;
+          ER.narrate([
+            'At 23.59 and forty seconds the picture goes down the wire, to every Sunday paper that buys from the Stopford Press Agency.',
+            '&ldquo;' + line + '&rdquo;',
+            'Lorna looks at the clock, and then at you. Then she does something that nobody on the night desk has seen her do. She says, &ldquo;Good.&rdquo;',
+            '&ldquo;And somebody ring Platt,&rdquo; she says, &ldquo;and tell him we did not buy his picture. We bought Esme&rsquo;s.&rdquo; Her phone buzzes. &ldquo;Lou says there is a truck outside the front door with a wet basket on a trailer behind it. Go and see.&rdquo;'
+          ], function () { busy = false; showGo(); });
+        }, 2800);
+      });
+      draw();
+      msg('Esme&rsquo;s picture, cropped. Now the words that go with it: one tile for each part of the caption.');
+    }
+    build();
+    return {
+      open: function () { ER.open('ov-lock', box); },
+      isOpen: function () { return !!box.parentNode; }
+    };
+  }
+})();
+</script>
+</body>
+</html>

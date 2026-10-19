@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Light Table · One Sun</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-news.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="photo.css">
+<style>
+  body{--bg:#1a120c;--accent:#ffc66a;--font-display:'Libre Franklin',sans-serif;--font-ui:'Libre Franklin',sans-serif;--font-body:'Newsreader',serif;
+    --tc-bg:rgba(26,18,12,.97);--tc-ink:#f5ecdc;--cap-bg:rgba(22,15,10,.95);--panel:#241a12;--face-bg:#2a2018;--q-ink:#ffc66a;--fade:#080503;--hud-bg:rgba(22,15,10,.86)}
+  .gobtn{color:#1a120c}
+  #bulb{transform-origin:1010px 0;animation:swing 7s ease-in-out infinite}
+  @keyframes swing{0%,100%{transform:rotate(1.2deg)}50%{transform:rotate(-1.2deg)}}
+  #tail{transform-origin:236px 186px;animation:tail 4s ease-in-out infinite}
+  @keyframes tail{0%,70%,100%{transform:rotate(0)}80%{transform:rotate(10deg)}90%{transform:rotate(-4deg)}}
+
+  /* the print on the light table, and the answers */
+  .sh{width:min(1060px,96vw)}
+  .sh-top{display:grid;grid-template-columns:520px minmax(0,1fr);gap:16px;align-items:start}
+  .sh-print{background:#fff;padding:8px;box-shadow:0 0 0 10px #f6fbff,0 0 60px rgba(220,240,255,.45),0 20px 50px rgba(0,0,0,.6)}
+  .sh-print svg{display:block;width:100%;height:auto;touch-action:none;cursor:crosshair}
+  .sh .vrow .seg button{font-size:11px;padding:4px 7px 3px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="brick" width="80" height="40" patternUnits="userSpaceOnUse"><rect width="80" height="40" fill="#4a3324"/><path d="M0 0H80M0 20H80M20 0V20M60 20V40" stroke="#2e1f15" stroke-width="3"/></pattern>
+  <linearGradient id="floorG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a1f17"/><stop offset="1" stop-color="#0c0806"/></linearGradient>
+  <linearGradient id="tableG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6fbff"/><stop offset="1" stop-color="#cfe6f6"/></linearGradient>
+  <radialGradient id="tglow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#e8f6ff" stop-opacity=".55"/><stop offset="1" stop-color="#e8f6ff" stop-opacity="0"/></radialGradient>
+  <radialGradient id="bglow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffd98a" stop-opacity=".5"/><stop offset="1" stop-color="#ffd98a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="58%" r="72%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".55" stop-color="#000" stop-opacity=".3"/><stop offset="1" stop-color="#000" stop-opacity=".9"/></radialGradient>
+</defs>
+
+<rect x="-1000" y="-400" width="3600" height="1100" fill="url(#brick)"/>
+<rect x="-1000" y="700" width="3600" height="700" fill="url(#floorG)"/>
+<g stroke="#000" stroke-width="2" opacity=".5"><path d="M-1000 760H2600M-1000 840H2600M200 700L-200 1300M800 700V1300M1400 700L1800 1300"/></g>
+
+<!-- steel drawers of negatives, 1952 to 2009 -->
+<g id="drawers" class="hot"></g>
+<!-- the stairs up -->
+<g id="stairs" class="hot"><rect x="1290" y="120" width="240" height="580" fill="#1e1510"/><g fill="#3a2a1e">
+  <rect x="1290" y="640" width="240" height="22"/><rect x="1310" y="590" width="220" height="22"/><rect x="1330" y="540" width="200" height="22"/><rect x="1350" y="490" width="180" height="22"/><rect x="1370" y="440" width="160" height="22"/><rect x="1390" y="390" width="140" height="22"/><rect x="1410" y="340" width="120" height="22"/></g>
+  <path d="M1530 120L1290 640" stroke="#6b5040" stroke-width="5"/><rect x="1440" y="140" width="80" height="150" fill="#ffd98a" opacity=".22"/>
+  <text x="1410" y="110" class="fL" font-size="13" font-weight="900" text-anchor="middle" fill="#c9a77a" letter-spacing="2">PICTURE DESK ↑</text></g>
+<!-- the bulb -->
+<g id="bulb" class="hot"><path d="M1010 0V120" stroke="#111" stroke-width="2"/><ellipse cx="1010" cy="200" rx="200" ry="150" fill="url(#bglow)" pointer-events="none"/><rect x="1003" y="118" width="14" height="12" fill="#3a3530"/><circle cx="1010" cy="140" r="13" fill="#fff4d0"/></g>
+<!-- the sun card over the table, and the picture of 1979 -->
+<g id="suncard" class="hot"><rect x="566" y="150" width="210" height="150" fill="#000" opacity=".35" transform="translate(4 5)"/><rect x="566" y="150" width="210" height="150" fill="#fbf7ec"/><rect x="566" y="150" width="14" height="150" fill="#e2a21b"/>
+  <text x="600" y="176" class="fL" font-size="17" font-weight="900" fill="#1f2a33">ONE SUN</text><path d="M600 186h140" stroke="#1f2a33" stroke-width="2"/>
+  <circle cx="700" cy="248" r="40" fill="none" stroke="#1f2a33" stroke-width="1.5"/><path d="M660 248A40 40 0 0 0 740 248" fill="none" stroke="#e2a21b" stroke-width="3"/><circle cx="700" cy="288" r="6" fill="#e2a21b"/><circle cx="662" cy="262" r="5" fill="#e2a21b"/><circle cx="738" cy="262" r="5" fill="#e2a21b"/>
+  <path d="M598 204h40M598 214h48M598 224h36M598 234h44M598 244h30" stroke="#8a95a0" stroke-width="2"/><circle cx="671" cy="152" r="5" fill="#c0392b"/></g>
+<g id="frame" class="hot"><rect x="880" y="168" width="134" height="104" fill="#1d1d1d"/><rect x="890" y="178" width="114" height="84" fill="#d8d2c4"/>
+  <rect x="890" y="178" width="114" height="44" fill="#9aa4ac"/><g fill="#3a3530"><rect x="902" y="214" width="8" height="30"/><rect x="930" y="206" width="9" height="38"/><rect x="960" y="210" width="8" height="34"/><rect x="984" y="212" width="8" height="32"/></g>
+  <path d="M906 244l26 -6M934 244l30 -6M964 244l24 -6M988 244l-30 -8" stroke="#3a3530" stroke-width="3" opacity=".5"/><text x="947" y="290" class="fM" font-size="10" text-anchor="middle" fill="#c9a77a">1979</text></g>
+
+<!-- Mr Hammond, behind the table, lit from below -->
+<g id="hammond" class="hot" transform="translate(860 812) scale(1.15)"></g>
+
+<!-- the light table -->
+<ellipse cx="800" cy="610" rx="520" ry="200" fill="url(#tglow)" pointer-events="none"/>
+<path d="M430 600H1170L1210 650H390Z" fill="url(#tableG)"/><path d="M390 650H1210V672H390z" fill="#5a4636"/><path d="M420 672v160M1180 672v160M520 672v120M1080 672v120" stroke="#3a2a1e" stroke-width="16"/>
+<g id="sheets" class="hot"><path d="M470 640l20 -34h110l-14 34z" fill="#fff"/><g fill="#2a2a2a">
+  <rect x="496" y="612" width="12" height="7"/><rect x="512" y="612" width="12" height="7"/><rect x="528" y="612" width="12" height="7"/><rect x="544" y="612" width="12" height="7"/><rect x="560" y="612" width="12" height="7"/><rect x="576" y="612" width="12" height="7"/>
+  <rect x="490" y="624" width="12" height="7"/><rect x="506" y="624" width="12" height="7"/><rect x="522" y="624" width="12" height="7"/><rect x="538" y="624" width="12" height="7"/><rect x="554" y="624" width="12" height="7"/><rect x="570" y="624" width="12" height="7"/></g></g>
+<g id="print" class="hot"><path d="M700 646l40 -46h236l-30 46z" fill="#000" opacity=".25" transform="translate(4 3)"/><path d="M700 646l40 -46h236l-30 46z" fill="#fff"/>
+  <g transform="matrix(1 0 -0.87 1 0 0)"><g transform="translate(1268 604) scale(1 0.38)"><svg x="0" y="0" width="216" height="104" viewBox="40 40 560 270" preserveAspectRatio="none"><g id="thumb"></g></svg></g></g></g>
+<g id="loupe" class="hot"><circle cx="1060" cy="628" r="16" fill="#cfe6f6" stroke="#1d1d1d" stroke-width="5"/><path d="M1072 618l26 -18" stroke="#1d1d1d" stroke-width="4"/></g>
+<g id="pencil"><path d="M640 640l52 -16" stroke="#c0392b" stroke-width="6" stroke-linecap="round"/></g>
+<!-- the kettle, and Fixer the cat on top of 1987 -->
+<g id="kettle" class="hot"><rect x="1180" y="560" width="110" height="10" fill="#3a2a1e"/><path d="M1196 560v-40q0 -10 10 -10h24q10 0 10 10v40z" fill="#cfd6da"/><path d="M1240 524q14 0 14 14t-14 14" fill="none" stroke="#cfd6da" stroke-width="5"/>
+  <rect x="1252" y="540" width="16" height="20" rx="2" fill="#f2efe6"/><rect x="1270" y="542" width="16" height="18" rx="2" fill="#e0b21c"/></g>
+<g id="cat" class="hot"><path d="M196 196q0 -24 30 -24q34 0 36 24z" fill="#2a2420"/><circle cx="192" cy="186" r="12" fill="#2a2420"/><path d="M184 176l2 -10l6 8M194 175l6 -9l2 10" fill="#2a2420"/><path d="M187 187q3 2 6 0" stroke="#e0b21c" stroke-width="1.5" fill="none"/>
+  <path id="tail" d="M260 192q22 -4 18 -24" stroke="#2a2420" stroke-width="7" fill="none" stroke-linecap="round"/></g>
+
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Up to the roof</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="photo.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, lock = null, told = {};
+
+  (function () {
+    var s = '', c, r, y0;
+    [[40, 330, 1952], [1560, 1600, 0]].forEach(function (bank) {
+      if (!bank[2]) return;
+      for (c = 0; c < 4; c++) for (r = 0; r < 8; r++) {
+        var x = bank[0] + c * 72, y = 210 + r * 60, yr = bank[2] + (c * 8 + r) * 2 - 0;
+        s += '<rect x="' + x + '" y="' + y + '" width="68" height="56" fill="#6b7076"/><rect x="' + (x + 14) + '" y="' + (y + 8) + '" width="40" height="14" fill="#efe9da"/><rect x="' + (x + 24) + '" y="' + (y + 34) + '" width="20" height="6" rx="3" fill="#2a2d33"/>' +
+          '<text x="' + (x + 34) + '" y="' + (y + 19) + '" class="fM" font-size="8.5" text-anchor="middle" fill="#2a2a1a">' + (yr <= 2009 ? yr : '') + '</text>';
+      }
+    });
+    s += '<rect x="36" y="204" width="296" height="6" fill="#4a4f55"/>';
+    $('#drawers').innerHTML = s;
+    $('#thumb').innerHTML = PH.lake({ id: 'th', time: 'eve' });
+    $('#hammond').innerHTML = PH.who('hammond', { lit: '#e8f6ff', armL: 'M-31 -222Q-50 -190 -60 -150', armR: 'M31 -222Q50 -190 60 -150', handL: [-62, -142], handR: [62, -142] });
+  })();
+
+  ER.init({
+    theme: 'news', story: 'photo', storyTitle: 'One Sun', id: 'table', no: 'II', title: 'The Light Table',
+    go: 'Go down',
+    intro: [
+      'Two strings found the camera. In the picture the flagpole on the boathouse stands right in front of the spire of St Aldhelm’s, and the weathervane on the summer house stands right in front of the water tower. On the plan a string through each pair runs back to the camera, and the two strings cross at lamp post 4, on the south side of the lake. The camera was looking north: the left of the picture is west, and the right is east.',
+      'Now Lorna’s complaint. The litter bin, she says, has its own sun.',
+      'The archive is in the basement: every negative the agency has kept since 1952, a light table, and a man who has looked at more shadows than anybody alive in Cobbleford.'
+    ],
+    exit: {"next":"roof","w":{"f1ba9a24":"6f24d0e6"}}, tags: {"odd":["f5d4665f"],"src":["14a22a37"],"dir":["8201f63a"],"hi":["e8045bb2"],"when":["5d946784"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('b-file') || null; told = ER.flag('b-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('b-told', told); return true; }
+  function isBusy() { return busy; }
+  function showGo() { $('#go').classList.add('on'); }
+  function paint() {
+    $('#hammond').classList.toggle('ready', !!(told.in && !told.ham));
+    $('#suncard').classList.toggle('ready', !!(told.ham && !told.card));
+    $('#print').classList.toggle('ready', !!(told.card && !nextFile));
+    ER.pips((told.ham ? 1 : 0) + (told.card ? 1 : 0) + (nextFile ? 1 : 0), 3);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['One sun, low in the west, and one floodlight. Lorna is on the roof: the button is at the bottom of the screen.']];
+    if (lock && lock.isOpen()) return ['lines', [
+      'Mr Hammond has ringed four shadows on the print. For each one, press the mouse on the very END of the shadow and drag to the TOP of the thing that made it. The pencil line carries on right across the print.',
+      'Look at the four lines. Three run side by side at the same slope: they come from one far-away light. One goes its own way, up to the right. Follow it up the print: what does it run into? And is the bin standing in the sun, or in the long dark shadow of the kiosk on the left?',
+      'The camera faced north, so the left of the print is west, and the sun&rsquo;s lines climb towards the left. Is each shadow longer or shorter than the thing that made it? Then the sun card says at what time of day the sun is low in the west.'
+    ]];
+    if (!told.ham) return ['talk', ['Mr Hammond is behind the light table, with a loupe round his neck.', 'Click Mr Hammond.']];
+    if (!told.card) return ['card', ['Hammond’s second rule is pinned on the wall above the light table, on a card with an orange edge.', 'Click the card that says ONE SUN.']];
+    return ['print', ['Platt’s picture, printed large, is lying on the light table.', 'Click the print on the light table.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; showGo(); ER.say('One sun and one floodlight. Lorna is on the roof.'); return; }
+    if (told.in) { busy = false; ER.say('The archive, a quarter to twelve.'); return; }
+    ER.narrate([
+      'The archive. Steel drawers from the floor to the ceiling, and on every drawer a year. The air smells of old paper and something chemical that Hammond says is history.',
+      'In the middle, glowing, is the light table: a sheet of milky glass lit from below. Platt&rsquo;s picture is lying on it, printed large.',
+      'Behind it stands Cyril Hammond, seventy-four, staff photographer from 1971 to 2016. He comes in on Saturday nights to sort the negatives, and the agency pays him in tea.'
+    ], function () { busy = false; tell('in'); paint(); });
+  }
+
+  $('#hammond').addEventListener('click', function () {
+    if (busy) return;
+    if (told.ham) { ER.say(nextFile ? '&ldquo;Up you go,&rdquo; says Hammond. &ldquo;And tell Lorna that I said &lsquo;floodlight&rsquo;. She will know what I mean. She will not like it.&rdquo;' : '&ldquo;Chinagraph pencil,&rdquo; says Hammond. &ldquo;From the end of the shadow to the top of the thing. It wipes off.&rdquo;'); return; }
+    ER.talk({
+      who: 'Cyril Hammond', role: 'Staff photographer, 1971–2016 · the archive', face: window.FACE('hammond'),
+      lines: [
+        { note: 'He does not look up. He is holding a loupe to the print.', a: '&ldquo;Kasia rang down. Lorna says the litter bin has its own sun. Lorna has said a great many things since 1998, and some of them were right.&rdquo;' },
+        { q: 'Is it a fake?', a: '&ldquo;Let us ask the shadows. In a real photograph there is one sun, and every shadow it makes agrees with every other one. Put two pictures together and the shadows start to argue. That is how I caught my first fake, in 1979.&rdquo; He nods at a frame on the wall.' },
+        { q: 'And the bin?', a: '&ldquo;The bin is odd, I grant her. Its shadow goes the other way.&rdquo; He puts a finger on the print. &ldquo;But the sun is not the only thing that makes a shadow. Read my card, and then draw me some lines. Chinagraph pencil. It wipes off.&rdquo;' },
+        { q: 'You know which way the camera was pointing?', a: '&ldquo;Kasia told me: north, from lamp post 4. So the left of the print is west and the right is east. That is half the work done before you start. Most people never do it at all.&rdquo;' }
+      ],
+      clue: { id: 'hammond', title: 'Mr Hammond: shadows that argue', kind: 'What he said' },
+      done: function (seen) { if (seen && tell('ham')) { PH.terms(['light table', 'archive']); paint(); ER.say('His second rule is on the wall above the table: the card with the orange edge.'); } }
+    });
+  });
+
+  /* ---------- the sun card ---------- */
+  var DIA = '<svg viewBox="0 0 300 362"><g font-family="Kalam,cursive" fill="#1a2a52" text-anchor="middle">' +
+    '<circle cx="150" cy="118" r="92" fill="#f4f1e2" stroke="#1f2a33" stroke-width="2"/><path d="M58 118A92 92 0 0 0 242 118" fill="none" stroke="#e2a21b" stroke-width="5" stroke-dasharray="2 7" stroke-linecap="round"/>' +
+    '<text x="150" y="20" font-size="17" font-weight="700">N</text><text x="150" y="228" font-size="17" font-weight="700">S</text><text x="26" y="106" font-size="17" font-weight="700">W</text><text x="274" y="106" font-size="17" font-weight="700">E</text>' +
+    '<circle cx="246" cy="124" r="10" fill="#e2a21b"/><text x="262" y="150" font-size="13" text-anchor="end">6.25 am</text>' +
+    '<circle cx="150" cy="210" r="10" fill="#e2a21b"/><text x="196" y="204" font-size="13">1 pm</text>' +
+    '<circle cx="54" cy="124" r="10" fill="#e2a21b"/><text x="40" y="150" font-size="13" text-anchor="start">7.45 pm</text>' +
+    '<rect x="146" y="112" width="8" height="12" fill="#1f2a33"/>' +
+    '<path d="M146 118H86" stroke="#1f2a33" stroke-width="5" opacity=".55"/><path d="M154 118H214" stroke="#1f2a33" stroke-width="5" opacity=".55"/><path d="M150 112V84" stroke="#1f2a33" stroke-width="5" opacity=".55"/>' +
+    '<text x="100" y="104" font-size="12">morning</text><text x="200" y="104" font-size="12">evening</text><text x="150" y="76" font-size="12">midday</text>' +
+    '<text x="150" y="252" font-size="14" font-weight="700" fill="#b4560f">a shadow points away from the sun</text>' +
+    '<line x1="14" y1="266" x2="286" y2="266" stroke="#d8cfb5" stroke-width="1.5"/>' +
+    '<g stroke="#1f2a33" stroke-width="3"><path d="M30 336v-30M62 336v-22M94 336v-38"/></g><g stroke="#c0392b" stroke-width="1.6"><path d="M18 304l100 -26M18 318l100 -26M18 332l100 -26" opacity="0"/><path d="M30 306L10 316M62 314L20 328M94 298L18 318" opacity="0"/><path d="M120 316L6 286M126 328L12 298M122 304L8 274"/></g>' +
+    '<text x="66" y="352" font-size="13">sun: side by side</text>' +
+    '<circle cx="238" cy="284" r="7" fill="#ffd98a" stroke="#1f2a33" stroke-width="2"/><g stroke="#1f2a33" stroke-width="3"><path d="M190 336v-24M224 336v-20M262 336v-22"/></g><g stroke="#c0392b" stroke-width="1.6"><path d="M170 344L238 284M204 346L238 284M290 344L238 284"/></g>' +
+    '<text x="232" y="352" font-size="13">lamp: they meet</text></g></svg>';
+  var CARD = '<h4>Picture desk &middot; rule two &middot; C.H.</h4><h3>One sun</h3><div class="two"><div>' +
+    '<p>In Britain the sun is due <b>south</b> at midday, when it is highest and shadows are shortest. (In summer time the clocks are an hour ahead, so midday by the sun is about 1 pm.)</p>' +
+    '<p>A <b>shadow</b> points away from the sun. In the morning the sun is in the east and shadows point west. At midday they point north. In the evening the sun is in the west and they point east.</p>' +
+    '<p>A <b>long shadow</b> means a low sun, early or late in the day. In early September a shadow is about as long as the thing at 1 pm, twice as long at 9 am and 5 pm, and nearly four times as long at 6 pm.</p>' +
+    '<p>A real picture has <b>one sun</b>, so its shadows agree. Draw a line from the end of each shadow to the top of the thing that made it: the sun&rsquo;s lines run side by side. A lamp or a flash makes shadows too, but their lines spread out from the light and meet at it.</p>' +
+    '</div><div class="dia">' + DIA + '</div></div><p class="pen">Look for the one that argues, and then ask why. C.H.</p>';
+  $('#suncard').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.ham) { ER.say('A card with an orange edge and a drawing of the sun going round. Mr Hammond clears his throat. He would like to be spoken to first.'); return; }
+    ER.read({ html: CARD, cls: 'sun', clue: { id: 'sun', title: 'Hammond’s rule two: one sun', kind: 'A card on the wall' }, done: function () {
+      PH.terms(['shadow', 'floodlight']);
+      if (tell('card')) { paint(); ER.say('&ldquo;Now the print,&rdquo; says Hammond, and hands you a red pencil.'); }
+    } });
+  });
+
+  PH.thing('#frame', null, 'A framed picture from 1979: the Mayor of Cobbleford shaking hands with a famous footballer who was in Spain that day. The footballer’s shadow pointed the other way from everybody else’s. The paper nearly printed it. Hammond did not let them.', isBusy);
+  PH.thing('#drawers', 'negative', 'Negatives in steel drawers, two years to a drawer, from 1952 to 2009. After 2009 everything is on a computer, which Hammond says is like keeping your memories in a sock.', isBusy);
+  PH.thing('#stairs', null, 'The stairs, up to the picture desk. The roof is three floors above that.', isBusy);
+  PH.thing('#bulb', null, 'One bare bulb, swinging a little. Hammond says it is there so that you can find the light table.', isBusy);
+  PH.thing('#sheets', 'contact sheet', 'Contact sheets: every picture on a roll of film, printed small on one sheet. These are from a royal visit in 1983. The Queen is in four of them. A seagull is in eleven.', isBusy);
+  PH.thing('#loupe', 'loupe', 'A loupe: a small strong magnifying glass for looking at negatives on the light table. Hammond has another one round his neck. He has never been seen without one.', isBusy);
+  PH.thing('#kettle', null, 'A kettle, and two mugs. One says WORLD&rsquo;S BEST GRANDAD. Hammond says he bought it himself, to save his grandchildren the trouble.', isBusy);
+  PH.thing('#cat', null, 'Fixer, the archive cat, asleep on top of the drawers. Nobody knows who she belongs to. She has worked here longer than Kasia.', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  $('#print').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The print, wiped clean. One sun, low in the west, and one floodlight.'); return; }
+    if (!told.ham) { ER.say('Platt&rsquo;s picture, printed large on the light table. Mr Hammond is looking at you over his glasses.'); return; }
+    if (!told.card) { ER.say('&ldquo;Card first,&rdquo; says Hammond. &ldquo;Then pencil.&rdquo; He points at the card with the orange edge.'); return; }
+    if (!lock) lock = makeLines();
+    lock.open();
+  });
+
+  /* ---------- the print: four lines, and what they say ---------- */
+  function makeLines() {
+    var O = PH.OBJ, ITEMS = [O.bollard, O.dog, O.boy, O.bin], NAMES = ['the bollard', 'the dog', 'the boy', 'the litter bin'];
+    var st = ER.flag('b-st') || { l: {}, v: {} }, wait = false, box = ER.el('div', 'job sh'), s, drag = null;
+    s = '<div class="sh-top"><div class="sh-print"><svg viewBox="40 40 560 560"><g id="shart">' + PH.lake({ id: 'sa', time: 'eve' }) + '</g><g id="rings"></g><g id="lines"></g><g id="draft"></g></svg></div>' +
+      '<div class="vcard"><h5>What the shadows say<small>chinagraph first, then answers</small></h5>' +
+      '<div class="vrow"><h6>Which shadow goes its own way?</h6><div class="seg" data-d="odd"><button type="button" data-v="1">1</button><button type="button" data-v="2">2</button><button type="button" data-v="3">3</button><button type="button" data-v="4">4</button></div></div>' +
+      '<div class="vrow"><h6>What made that shadow?</h6><div class="seg" data-d="src"><button type="button" data-v="lamp">THE FLOODLIGHT</button><button type="button" data-v="flash">A CAMERA FLASH</button><button type="button" data-v="sun2">A SECOND SUN</button><button type="button" data-v="lake">THE LAKE</button></div></div>' +
+      '<div class="vrow"><h6>Where is the sun?<small>the camera faced north</small></h6><div class="seg" data-d="dir"><button type="button" data-v="e">EAST</button><button type="button" data-v="s">SOUTH</button><button type="button" data-v="w">WEST</button><button type="button" data-v="n">NORTH</button></div></div>' +
+      '<div class="vrow"><h6>How high is it?</h6><div class="seg" data-d="hi"><button type="button" data-v="high">HIGH: SHADOWS SHORTER THAN THE THINGS</button><button type="button" data-v="low">LOW: SHADOWS LONGER THAN THE THINGS</button></div></div>' +
+      '<div class="vrow"><h6>So the picture was taken</h6><div class="seg" data-d="when"><button type="button" data-v="morn">6.30&ndash;8 AM</button><button type="button" data-v="mid">11 AM&ndash;3 PM</button><button type="button" data-v="eve">5.30&ndash;7.45 PM</button><button type="button" data-v="dark">AFTER DARK</button></div></div>' +
+      '</div></div><div class="job-foot"><p class="jmsg"></p><button type="button" class="btn" id="s-go">Ring Lorna</button></div>';
+    box.innerHTML = s;
+    var svg = box.querySelector('svg'), msgEl = box.querySelector('.jmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function keep() { ER.flag('b-st', st); }
+    function d2(a, b) { return Math.sqrt((a[0] - b[0]) * (a[0] - b[0]) + (a[1] - b[1]) * (a[1] - b[1])); }
+    /* Hammond's rings round the four shadows */
+    (function () {
+      var g = '';
+      ITEMS.forEach(function (it, i) {
+        var base = i === 3 ? [it.top[0], 450] : [it.top[0], it.tip[1] + (i === 0 ? 8 : i === 1 ? 4 : 2)], cx = (base[0] + it.tip[0]) / 2, cy = (base[1] + it.tip[1]) / 2, rx = Math.abs(it.tip[0] - base[0]) / 2 + 22;
+        g += '<ellipse cx="' + cx.toFixed(1) + '" cy="' + cy.toFixed(1) + '" rx="' + rx.toFixed(1) + '" ry="15" fill="none" stroke="#c0392b" stroke-width="2.4" stroke-dasharray="6 3" opacity=".9" transform="rotate(' + (Math.atan2(it.tip[1] - base[1], it.tip[0] - base[0]) * 180 / Math.PI).toFixed(1) + ' ' + cx.toFixed(1) + ' ' + cy.toFixed(1) + ')"/>' +
+          '<circle cx="' + (cx + (i === 3 ? rx + 12 : -rx - 12)).toFixed(1) + '" cy="' + (cy + 4).toFixed(1) + '" r="11" fill="#c0392b"/><text x="' + (cx + (i === 3 ? rx + 12 : -rx - 12)).toFixed(1) + '" y="' + (cy + 9).toFixed(1) + '" font-family="Libre Franklin,sans-serif" font-weight="900" font-size="14" text-anchor="middle" fill="#fff">' + (i + 1) + '</text>';
+      });
+      box.querySelector('#rings').innerHTML = g;
+    })();
+    function draw() {
+      var g = '';
+      ITEMS.forEach(function (it, i) {
+        if (!st.l[i + 1]) return;
+        var a = it.tip, b = it.top, dx = b[0] - a[0], dy = b[1] - a[1], k = i === 3 ? 3.0 : 6;
+        g += '<path d="M' + (a[0] - dx * 0.25).toFixed(1) + ' ' + (a[1] - dy * 0.25).toFixed(1) + 'L' + (a[0] + dx * k).toFixed(1) + ' ' + (a[1] + dy * k).toFixed(1) + '" stroke="#e8322a" stroke-width="2.6" stroke-linecap="round" opacity=".92"/>';
+        g += '<circle cx="' + a[0].toFixed(1) + '" cy="' + a[1].toFixed(1) + '" r="3.5" fill="#e8322a"/>';
+      });
+      box.querySelector('#lines').innerHTML = g;
+      ER.$$('.seg', box).forEach(function (sg) { var d = sg.getAttribute('data-d'); ER.$$('button', sg).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-v') === st.v[d]); }); });
+    }
+    svg.addEventListener('pointerdown', function (e) {
+      if (wait || nextFile || e.button) return;
+      e.preventDefault();
+      var p = ER.pt(svg, e); drag = { a: [p.x, p.y] };
+      try { svg.setPointerCapture(e.pointerId); } catch (x) {}
+    });
+    svg.addEventListener('pointermove', function (e) {
+      if (!drag) return;
+      var p = ER.pt(svg, e); drag.b = [p.x, p.y];
+      box.querySelector('#draft').innerHTML = '<path d="M' + drag.a[0].toFixed(1) + ' ' + drag.a[1].toFixed(1) + 'L' + p.x.toFixed(1) + ' ' + p.y.toFixed(1) + '" stroke="#e8322a" stroke-width="2.4" stroke-dasharray="5 3"/>';
+    });
+    function up(e) {
+      if (!drag) return;
+      var a = drag.a, b = drag.b, i, hit = -1, near = -1;
+      drag = null; box.querySelector('#draft').innerHTML = '';
+      try { svg.releasePointerCapture(e.pointerId); } catch (x) {}
+      if (!b || d2(a, b) < 12) { msg('Press on the end of a shadow, and drag to the top of the thing that made it.'); return; }
+      for (i = 0; i < 4; i++) {
+        var it = ITEMS[i];
+        if ((d2(a, it.tip) < 24 && d2(b, it.top) < 24) || (d2(b, it.tip) < 24 && d2(a, it.top) < 24)) { hit = i; break; }
+        if (d2(a, it.tip) < 24 || d2(b, it.tip) < 24) near = i;
+      }
+      if (hit < 0) {
+        msg(near >= 0 ? 'That starts at the end of shadow ' + (near + 1) + '. Now drag to the very top of ' + NAMES[near] + ', the thing that made it.' :
+          'A line goes from the very END of a shadow (the far tip, not the foot) to the TOP of the thing that made it. Start on one of the ringed shadows.');
+        return;
+      }
+      st.l[hit + 1] = 1; keep(); PH.sfx.pen(); draw();
+      var n = Object.keys(st.l).length;
+      msg('Line ' + (hit + 1) + ', from the end of the shadow to the top of ' + NAMES[hit] + '.' + (n < 4 ? ' ' + ['', 'Three', 'Two', 'One'][n] + ' more.' : ' Four lines. Look at them.'));
+    }
+    svg.addEventListener('pointerup', up); svg.addEventListener('pointercancel', up);
+    ER.$$('.seg', box).forEach(function (sg) {
+      sg.addEventListener('click', function (e) {
+        var b = e.target.closest ? e.target.closest('button') : null;
+        if (!b || wait || nextFile) return;
+        st.v[sg.getAttribute('data-d')] = b.getAttribute('data-v'); keep(); PH.sfx.key(); draw();
+      });
+    });
+    var WRONG = {
+      odd: function (v) { return v ? 'Hammond lays his ruler along line ' + v + '. &ldquo;That one runs side by side with two others. Which line goes its own way?&rdquo;' : '&ldquo;Which shadow goes its own way?&rdquo; says Hammond. &ldquo;The lines will tell you.&rdquo;'; },
+      src: function (v) { return !v ? '&ldquo;And what made it?&rdquo; says Hammond. &ldquo;Follow line 4 up the print.&rdquo;' : v === 'flash' ? '&ldquo;A flash on the camera throws shadows straight back, away from the camera, behind things. This one lies sideways along the ground. Follow line 4 up the print: what is at the top of it?&rdquo;' :
+        v === 'sun2' ? '&ldquo;There is one sun,&rdquo; says Hammond. &ldquo;There has always been one sun. Follow line 4 up the print and see what it runs into.&rdquo;' : '&ldquo;The lake is behind the bin, and a long way off, and water does not throw a sharp shadow like that. Follow line 4 up the print.&rdquo;'; },
+      dir: function (v) { return !v ? '&ldquo;Where is the sun?&rdquo; says Hammond. &ldquo;Lines 1, 2 and 3 point back towards it.&rdquo;' : v === 'e' ? '&ldquo;East? The sun&rsquo;s lines climb towards the LEFT of the print. The camera faced north. What is on its left?&rdquo;' :
+        v === 's' ? '&ldquo;If the sun were in the south, behind the camera, the shadows would point away from us, north, up the print. These lie across it, to the right.&rdquo;' : '&ldquo;If the sun were in the north, in front of the camera, every shadow would come towards us. These lie across the print, to the right.&rdquo;'; },
+      hi: function (v) { return !v ? '&ldquo;High or low?&rdquo; says Hammond. &ldquo;Look at the length of each shadow.&rdquo;' : '&ldquo;Is the boy&rsquo;s shadow shorter than the boy?&rdquo; says Hammond. &ldquo;Lay your pencil along it and see.&rdquo;'; },
+      when: function (v) { return !v ? '&ldquo;So when was it taken?&rdquo; says Hammond. &ldquo;Read my card.&rdquo;' : v === 'mid' ? '&ldquo;At midday the sun is in the south and high, and shadows are short and point north. Read my card again.&rdquo;' :
+        v === 'morn' ? '&ldquo;In the morning the sun is in the east, and shadows point west, to the LEFT of this print. These point right.&rdquo;' : '&ldquo;After dark there is no sun at all, and these are sun shadows. Three of them, side by side.&rdquo;'; }
+    };
+    box.querySelector('#s-go').addEventListener('click', function () {
+      var n = Object.keys(st.l).length, file, k, ORDER = ['odd', 'src', 'dir', 'hi', 'when'];
+      if (wait || nextFile) return;
+      if (n < 4) { ER.sfx.no(); msg('&ldquo;' + (n ? ['', 'Three', 'Two', 'One'][n] + (n === 3 ? ' more line' : ' more lines') : 'Four lines') + ',&rdquo; says Hammond. &ldquo;One for each ringed shadow, from the end of the shadow to the top of the thing. Then you will SEE it.&rdquo;'); return; }
+      for (k = 0; k < ORDER.length; k++) {
+        if (!ER.check(ORDER[k], st.v[ORDER[k]] || '')) { ER.sfx.no(); msg(WRONG[ORDER[k]](st.v[ORDER[k]])); delete st.v[ORDER[k]]; keep(); draw(); return; }
+      }
+      file = ER.exit([st.v.odd + ':' + st.v.src + '|' + st.v.dir + '|' + st.v.hi + '|' + st.v.when], { wait: true });
+      if (!file) { msg('The door will not open. Something is wrong with this page: tell your teacher.'); return; }
+      wait = true; nextFile = file; ER.flag('b-file', file);
+      PH.mine('sunfound', 'One sun, and a floodlight', '<p>Lines 1, 2 and 3 run side by side, up to the left: one sun, low in the WEST.</p><p>The shadows are about four times as long as the things: a low sun.</p><p>Line 4 runs up to the floodlight. The bin stands in the shadow of the ice-cream kiosk, so the sun cannot make a shadow there, and the lamp can.</p><p>Low in the west, early September: 5.30 to 7.45 in the evening. NOT a fake. (Not proved true, either.)</p>', true);
+      msg('&ldquo;One sun,&rdquo; says Hammond, and puts the pencil down. &ldquo;Low in the west. And one floodlight.&rdquo;');
+      setTimeout(function () {
+        ER.closeAll(); paint(); busy = true;
+        ER.narrate([
+          'Three of the lines run side by side, up to the left, at the same low slope. They all point back to one sun, low in the west, out of the picture on the left.',
+          'The fourth climbs the other way, steeply, and runs straight into the floodlight on its post. The litter bin is standing in the long shadow of the ice-cream kiosk, where the sun cannot reach it. The only light there that can throw a shadow is the lamp.',
+          '&ldquo;So Lorna&rsquo;s second sun is a floodlight,&rdquo; says Hammond. &ldquo;Switched on early for the concert, I expect. A low sun in the west, in September: between half past five and a quarter to eight in the evening. Which is what Platt said.&rdquo;',
+          'He wipes the lines off the print with his thumb. &ldquo;It is not a fake,&rdquo; he says. &ldquo;That does not make it true. Lorna has gone up on the roof, and she will want to argue about the weather.&rdquo;'
+        ], function () { busy = false; showGo(); });
+      }, 3000);
+    });
+    draw();
+    msg(Object.keys(st.l).length ? 'The print, with ' + Object.keys(st.l).length + ' of the four lines drawn.' : 'Press on the very end of a ringed shadow and drag to the top of the thing that made it.');
+    return {
+      open: function () { ER.open('ov-lock', box); },
+      isOpen: function () { return !!box.parentNode; }
+    };
+  }
+})();
+</script>
+</body>
+</html>

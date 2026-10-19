@@ -1,0 +1,157 @@
+/* Four and a Half Times - what every room of the story shares: the frame round a piece of work, number wheels, the
+   receiver, the papers the party carries (a survival booklet, Mr Strachan's navigator's notebook, the radio card, what the
+   radio said, Dr Hayashi's field notes) and a canvas map case for the notebook. Each room sets its own palette and
+   lettering on <body>. */
+
+.tc-theme{font-family:'Overpass Mono',monospace;font-size:13.5px;letter-spacing:.3em}
+.tc-room{font-family:var(--font-display,'Oswald',sans-serif);letter-spacing:.04em;text-transform:uppercase}
+.tc-text{font-family:'Lora',Georgia,serif;font-size:clamp(16px,1.28vw,19px);line-height:1.56}
+.tc-text p{margin:0 0 10px}
+.cap{font-family:'Lora',Georgia,serif;font-size:clamp(16.5px,1.32vw,20px);line-height:1.52}
+.chip,.hbtn{font-family:'Overpass',sans-serif;font-weight:700;font-size:13px;letter-spacing:.15em}
+.btn{font-family:'Overpass',sans-serif;font-weight:700;font-size:13.5px;letter-spacing:.15em}
+.gobtn{position:fixed;left:50%;bottom:5vh;transform:translateX(-50%);z-index:35;display:none;padding:12px 28px 11px;border:2px solid var(--accent,#e08a2c);
+  color:var(--accent,#e08a2c);background:var(--hud-bg,rgba(8,10,12,.9));font-family:'Overpass',sans-serif;font-weight:700;font-size:15px;letter-spacing:.22em;
+  text-transform:uppercase;border-radius:2px}
+.gobtn.on{display:block}
+.gobtn:hover{background:var(--accent,#e08a2c);color:#111}
+.tk-name{font-family:'Lora',serif;font-weight:700;letter-spacing:.01em}
+.tk-role{font-family:'Overpass',sans-serif;font-weight:700;font-size:12.5px;letter-spacing:.18em}
+.tk-face svg{height:100%;min-height:300px}
+.tk-text{font-family:'Lora',Georgia,serif;font-size:clamp(16px,1.26vw,19px);line-height:1.56}
+.hot{cursor:pointer}
+.hot:hover{filter:brightness(1.15)}
+
+/* ---- the frame round a piece of work ---- */
+.bx{width:min(1060px,95vw);-webkit-user-select:none;user-select:none}
+.bx .frame{position:relative;border-radius:3px;box-shadow:0 26px 70px rgba(0,0,0,.7);overflow:hidden}
+.bx-foot{display:flex;align-items:center;gap:12px;margin-top:9px;min-height:60px}
+.pmsg{flex:1;margin:0;font-family:'Lora',Georgia,serif;font-size:16px;line-height:1.4;color:#f3eee0}
+.pmsg b{color:var(--accent,#e08a2c);font-weight:700}
+.bx-foot .btn{flex:0 0 auto;white-space:nowrap;background:rgba(0,0,0,.42)}
+.bx-foot .btn.quiet{border-color:rgba(255,255,255,.42);color:#eef0ea}
+.bx .tool{cursor:grab;touch-action:none}
+.bx .tool.on{cursor:grabbing}
+.bx svg text{pointer-events:none}
+.pane{display:none}
+.pane.on{display:block}
+.nudge{display:inline-flex;gap:4px;flex:0 0 auto}
+.nudge button{min-width:36px;height:38px;padding:0 8px;border:1px solid rgba(255,255,255,.42);border-radius:3px;background:rgba(0,0,0,.42);color:#f3eee0;font-family:'Overpass',sans-serif;font-weight:700;font-size:14px}
+.nudge button:hover{border-color:var(--accent,#e08a2c);color:var(--accent,#e08a2c)}
+.picks{display:inline-flex;gap:6px;flex:0 0 auto;flex-wrap:wrap}
+.picks button{height:38px;padding:0 13px;border:1px solid rgba(255,255,255,.45);border-radius:3px;background:rgba(0,0,0,.42);color:#f3eee0;font-family:'Overpass',sans-serif;font-weight:700;font-size:13px;letter-spacing:.08em}
+.picks button:hover{border-color:var(--accent,#e08a2c);color:var(--accent,#e08a2c)}
+.picks button.on{background:var(--accent,#e08a2c);border-color:var(--accent,#e08a2c);color:#16120c}
+/* number wheels: bakelite tumblers, like the dial of an old set */
+.wls{display:inline-flex;align-items:center;gap:3px;flex:0 0 auto;padding:4px 10px 4px;background:#2a2620;border-radius:4px;box-shadow:inset 0 0 0 1px #8a7a52,0 2px 6px rgba(0,0,0,.45)}
+.wls small{font-family:'Overpass',sans-serif;font-weight:700;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:#e2cf98;margin-right:5px;line-height:1.15;text-align:right}
+.wls i{font-style:normal;font-family:'Overpass Mono',monospace;font-size:20px;color:#e2cf98;padding:0 1px}
+.wl{display:inline-grid;grid-template-rows:14px 30px 14px;justify-items:center}
+.wl button{width:100%;min-width:25px;height:14px;font-size:9px;line-height:14px;color:#c4b07a}
+.wl button:hover{color:#ffcf6a}
+.wl b{font-family:'Overpass Mono',monospace;font-weight:600;font-size:21px;line-height:30px;color:#221a0c;background:linear-gradient(#f3e3b0,#d2b56c 55%,#ecd9a0);min-width:23px;padding:0 3px;text-align:center;border-radius:2px;box-shadow:inset 0 0 0 1px #7a6230}
+.wls.off button{visibility:hidden}
+
+/* ---- the receiver ---- */
+.rx{display:block;background:#3a3d34}
+.rx.off{filter:saturate(.7)}
+.rxs{display:block;width:100%;height:auto;touch-action:none}
+.rxN{font-family:'Overpass',sans-serif;font-weight:700;font-size:21px;fill:#3a2e14}
+.rxL{font-family:'Overpass',sans-serif;font-weight:700;font-size:11px;letter-spacing:.2em;fill:#5a4a24}
+.rxF{font-family:'Overpass Mono',monospace;font-weight:600;font-size:34px;fill:#f3e3b0}
+.spk{min-height:170px;max-height:200px;overflow:auto;padding:14px 22px 12px;background:#141712;color:#d9e6cf;font-family:'Overpass Mono',monospace;font-size:15.5px;line-height:1.5;border-top:3px solid #1d1f1a}
+.spk p{margin:0 0 6px}
+.spk .hs{color:#6f7a68;letter-spacing:.12em}
+.spk .who{color:#ffcf8a}
+.spk .pips{color:#fff1b0;font-weight:600;letter-spacing:.3em}
+
+/* ---- paper ---- */
+.doc h4{font-weight:normal}
+.doc svg{display:block;max-width:100%;height:auto}
+/* the survival booklet from the glovebox: a government booklet, orange cover, cheap paper */
+.doc.book{width:min(860px,95vw);background:#f4efdf;color:#1f1d18;font-family:'Overpass',sans-serif;font-size:15px;line-height:1.46;padding:0 28px 16px;border:1px solid #6b5a3a;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+.doc.book h4{margin:0 -28px 12px;padding:12px 28px 9px;background:#d9661f;color:#fff8ec;font-family:'Oswald',sans-serif;font-weight:600;font-size:25px;letter-spacing:.08em;text-transform:uppercase}
+.doc.book h4 small{display:block;font-family:'Overpass',sans-serif;font-weight:700;font-size:11.5px;letter-spacing:.22em;color:#ffe2c6}
+.doc.book p{margin:0 0 8px}
+.doc.book .two{display:grid;grid-template-columns:1fr 280px;gap:22px;align-items:start}
+.doc.book ul{margin:0 0 8px;padding-left:20px}
+.doc.book li{margin:0 0 3px}
+.doc.book .rule{margin:6px 0 4px;padding:7px 12px 6px;background:#fffaf0;border-left:5px solid #d9661f;font-weight:700}
+.doc.book .pg{font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:#8a7a5a;text-align:right;border-top:1px solid #c9bc98;padding-top:5px;margin-top:6px}
+.doc.book table{border-collapse:collapse;margin:0 0 8px}
+.doc.book td{padding:3px 12px 2px 0;border-bottom:1px solid #d7cba8;vertical-align:top}
+.doc.book td.k{font-family:'Oswald',sans-serif;font-weight:600;font-size:21px;color:#b4471a;width:44px}
+/* Mr Strachan's navigator's notebook: squared paper, blue-black ink */
+.doc.nav{width:min(820px,95vw);background-color:#f7f5ec;color:#1d2a4a;font-family:'Handlee',cursive;font-size:20px;line-height:28px;padding:26px 34px 22px 52px;
+  background-image:linear-gradient(90deg,transparent 39px,rgba(200,50,30,.45) 39px,rgba(200,50,30,.45) 41px,transparent 41px),linear-gradient(rgba(70,110,170,.17) 1px,transparent 1px),linear-gradient(90deg,rgba(70,110,170,.17) 1px,transparent 1px);
+  background-size:100% 100%,14px 14px,14px 14px;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+.doc.nav h4{margin:0 0 6px;font-family:'Special Elite',monospace;font-size:17px;letter-spacing:.14em;text-transform:uppercase;color:#7a2a1a}
+.doc.nav p{margin:0 0 8px}
+.doc.nav .two{display:grid;grid-template-columns:1fr 290px;gap:20px;align-items:start}
+.doc.nav ol,.doc.nav ul{margin:0 0 8px;padding-left:22px}
+.doc.nav li{margin:0 0 3px}
+.doc.nav b{color:#7a2a1a;font-weight:normal;text-decoration:underline}
+.doc.nav .w:hover{color:#c8321e}
+/* the card from Tolliver Downs, taped inside the lid of the receiver */
+.doc.rcard{width:min(520px,92vw);background:#fbf8ee;color:#1c2018;font-family:'Overpass',sans-serif;font-size:15.5px;line-height:1.45;padding:0 24px 14px;border:2px solid #2e3a26}
+.doc.rcard h4{margin:0 -24px 10px;padding:10px 24px 7px;background:#2e3a26;color:#f3e3b0;font-family:'Overpass Mono',monospace;font-weight:600;font-size:17px;letter-spacing:.16em}
+.doc.rcard p{margin:0 0 7px}
+.doc.rcard table{border-collapse:collapse;margin:4px 0 8px;font-family:'Overpass Mono',monospace;font-size:15px}
+.doc.rcard td{padding:2px 16px 2px 0;border-bottom:1px dashed #9aa08a}
+/* what the radio said */
+.doc.radio{background:#141712;color:#d9e6cf;font-family:'Overpass Mono',monospace;font-size:15px;line-height:1.55;border-left:6px solid #c8321e}
+.doc.radio h4{font-family:'Overpass Mono',monospace;font-size:13px;letter-spacing:.14em;color:#ff9c7c;text-transform:uppercase}
+.doc.radio .note{color:#8f9c88}
+.doc.radio .w:hover{color:#ffcf6a}
+/* Dr Hayashi's field notes: a waterproof notebook, pencil */
+.doc.field{width:min(620px,93vw);background:#eef0e2;color:#2c2a26;font-family:'Caveat',cursive;font-size:25px;line-height:1.2;padding:22px 30px 20px;border-top:16px solid #c8a018}
+.doc.field h4{margin:0 0 8px;font-family:'Overpass',sans-serif;font-weight:700;font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:#7a6210}
+.doc.field p{margin:0 0 8px}
+/* the map: a sheet of the 1:250 000 series, folded many times */
+.doc.mapdoc{width:min(1000px,96vw);background:#efe6cf;padding:10px;border:1px solid #6b5a3a}
+.doc.mapdoc h4{margin:0 0 6px;font-family:'Overpass',sans-serif;font-weight:700;font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:#5a4a2a}
+.mp{display:block;width:100%;height:auto;background:#efe2c4;touch-action:none}
+.mp text{pointer-events:none}
+.mpT{font-family:'Overpass',sans-serif;font-weight:700;font-size:12px;fill:#3a2e1a}
+.mpS{font-family:'Overpass',sans-serif;font-size:10.5px;fill:#5a4a2a}
+.mpN{font-family:'Lora',serif;font-style:italic;font-size:14px;fill:#2d5a73}
+.mpG{font-family:'Overpass Mono',monospace;font-size:11px;fill:#7a3a2a}
+/* what you worked out for yourself: pencil on the margin of the map */
+.doc.mine{width:min(600px,92vw);background:#efe6cf;color:#2b2a30;font-family:'Caveat',cursive;font-size:24px;line-height:1.2;padding:18px 28px 18px;border-left:12px solid #b4471a}
+.doc.mine h4{font-family:'Overpass',sans-serif;font-weight:700;font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:#b4471a;margin-bottom:8px}
+.doc.mine p{margin:0 0 8px}
+.doc.statement{background:#f4efdf;font-family:'Lora',Georgia,serif;font-size:16px;line-height:1.55;border-left:6px solid #d9661f}
+.doc.statement h4{font-family:'Overpass',sans-serif;font-weight:700;font-size:13px;letter-spacing:.22em;color:#b4471a}
+.doc .w:hover{color:#b4471a}
+
+/* ---- the notebook: a canvas map case with a leather edge ---- */
+.nb{background:#6e6a4c linear-gradient(140deg,#7d7856,#565238);border:1px solid #2e2b1c;border-radius:6px;color:#f4efdf;box-shadow:0 30px 90px rgba(0,0,0,.75),inset 0 0 0 5px #6b3e1e}
+.nb-tabs{border-bottom-color:#2e2b1c}
+.nb-tabs button{font-family:'Overpass',sans-serif;font-weight:700;font-size:13.5px;letter-spacing:.2em;color:#e6dfbf}
+.nb-tabs button.on{background:#f4efdf;color:#1f1d18;border-color:#2e2b1c}
+.nb-list{border-right-color:#2e2b1c}
+.nb-list button{font-family:'Lora',serif;font-size:14.5px;color:#f4efdf}
+.nb-list button small{font-family:'Overpass',sans-serif;font-weight:700;font-size:10.5px;letter-spacing:.16em;opacity:.75}
+.nb-list button:hover{background:rgba(255,255,255,.12)}
+.nb-list button.on{background:#f4efdf;color:#1f1d18}
+.nb-view{background:#3e3b28}
+.nb-empty{font-family:'Lora',serif}
+.nb-words{background:#f4efdf;color:#2b2a30}
+.nb-words b{font-family:'Overpass',sans-serif;font-weight:700;font-size:15.5px}
+.nb-words span{font-family:'Lora',serif;font-size:14.5px;line-height:1.4;color:#4a463a}
+.nb-ko{border-color:#d9661f;color:#ffd2a8}
+.nb-ko.on{background:#d9661f;color:#1f1d18;border-color:#d9661f}
+.wtip,.wtag{background:#f4efdf;color:#2b2a30;border-radius:2px;box-shadow:0 10px 26px rgba(0,0,0,.6),inset 5px 0 0 #d9661f}
+.wtag{transform:rotate(-1deg);padding-left:20px}
+.wtag:before{display:none}
+.wtip{padding-left:19px}
+.wtip b,.wtag b{font-family:'Overpass',sans-serif;font-weight:700;font-size:16px}
+.wtip span,.wtag span{font-family:'Lora',serif;font-size:14.5px;line-height:1.4;color:#4a463a}
+.hintbox{background:#f4efdf;color:#2b2a30;border-top:6px solid #d9661f;border-radius:2px}
+.hintbox h6{font-family:'Overpass',sans-serif;font-weight:700;font-size:13px;letter-spacing:.3em;color:#b4471a}
+.hintbox p{font-family:'Lora',serif;font-size:15px;line-height:1.46}
+.hintbox p i{background:#5a5638;color:#f4efdf;font-family:'Overpass',sans-serif;font-weight:700;font-size:12px}
+.hintbox p.hint-none{font-style:italic;color:#6a665a;font-size:14.5px}
+.hintbox .btn{border-color:#5a5638;color:#5a5638}
+.hintbox .btn:hover:not([disabled]){background:#5a5638;color:#f4efdf}
+.toast{font-family:'Overpass',sans-serif;font-weight:700;font-size:13px;background:rgba(26,20,12,.94)}

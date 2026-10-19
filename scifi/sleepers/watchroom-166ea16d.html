@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Watch Room · Only What Was Asked</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-scifi.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="sleepers.css">
+<style>
+  body{--bg:#0b1412;--accent:#8ff0c3;--font-display:'Orbitron',sans-serif;--font-ui:'Share Tech Mono',monospace;--font-body:'Outfit',sans-serif;
+    --tc-bg:rgba(8,16,14,.96);--tc-ink:#e2f2ea;--cap-bg:rgba(8,16,14,.94);--cap-ink:#eaf6f0;--panel:#0f1d1a;--face-bg:#16222e;--q-ink:#b8f5d8;--fade:#020504;--hud-bg:rgba(8,16,14,.82)}
+  .scan{animation:scan 7s linear infinite}
+  @keyframes scan{from{transform:translateY(0)}to{transform:translateY(220px)}}
+  .blink{animation:blink 1.2s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+  .warm{animation:warm 6.3s steps(3) infinite}
+  @keyframes warm{50%{opacity:.82}}
+  #tin.next #tinLid{animation:snudge 1.7s ease-in-out infinite}
+
+  /* the log flags */
+  .wf{display:grid;grid-template-columns:minmax(0,580px) 430px;gap:16px;width:min(1030px,96vw);align-items:start}
+  .wf-tabs{display:flex;gap:6px;margin-bottom:8px}
+  .wf-tab{padding:6px 12px 5px;border:1px solid #2c5a4c;border-radius:4px;font-family:'Share Tech Mono',monospace;font-size:13px;letter-spacing:.12em;color:#8ff0c3}
+  .wf-tab.on{background:#8ff0c3;color:#0b1412}
+  .wf-tab i{font-style:normal;display:inline-block;width:10px;height:10px;margin-left:6px;border-radius:50%;background:transparent;vertical-align:0}
+  .wf-view{display:none;height:min(540px,calc(100vh - 200px));overflow:auto;padding:12px 14px;border-radius:6px}
+  .wf-view.on{display:block}
+  .wf-view[data-v="crew"]{background:#0d1a17;color:#d4f5e6;font-family:'Share Tech Mono',monospace;font-size:14.5px;line-height:1.42;border:1px solid #2c5a4c}
+  .wf-view[data-v="tal"]{background:#fbfbf7;color:#2a2f34;font-family:'Share Tech Mono',monospace;font-size:14px;line-height:1.38}
+  .wf-view[data-v="dia"]{background:#fbf6e6 repeating-linear-gradient(transparent 0 25px,rgba(70,100,160,.18) 25px 26px);color:#2a2a3a;font-family:'Caveat',cursive;font-weight:700;font-size:20px;line-height:26px}
+  .wf-view h6{margin:0 0 8px;font-family:'Share Tech Mono',monospace;font-weight:normal;font-size:12px;letter-spacing:.12em;opacity:.75}
+  .wf-pg{margin:0 0 12px}
+  .wf-pg.messy{font-family:'Homemade Apple',cursive;font-weight:400;font-size:13.5px;line-height:26px}
+  .wf-ln{position:relative;border-radius:3px;cursor:pointer}
+  p.wf-ln{margin:0 0 4px;padding:1px 4px 1px 52px;text-indent:-48px}
+  p.wf-ln b{font-weight:normal;display:inline-block;width:48px;text-indent:0;opacity:.8}
+  .wf-ln:hover{background:rgba(255,210,120,.28)}
+  .wf-ln.f-red{background:rgba(224,70,50,.32);box-shadow:inset 4px 0 0 #e0463a}
+  .wf-ln.f-amber{background:rgba(255,184,60,.35);box-shadow:inset 4px 0 0 #ffb83c}
+  .wf-ln.f-grey{background:rgba(140,150,160,.4);box-shadow:inset 4px 0 0 #8c969f}
+  .wf-side .pmsg{min-height:96px;margin:10px 0 8px;font-size:16.5px}
+  .wf-side .btn{float:right}
+  .flags{display:flex;gap:10px;padding:10px;border-radius:8px;background:#26302e;border:1px solid #3c4a47}
+  .flag{flex:1;padding:8px 6px 7px;border-radius:6px;border:2px solid transparent;text-align:center;font-family:'Share Tech Mono',monospace;font-size:13px;letter-spacing:.1em;color:#0b1412;cursor:pointer;box-shadow:0 3px 0 rgba(0,0,0,.4)}
+  .flag small{display:block;font-size:10.5px;letter-spacing:.04em;opacity:.8}
+  .flag.red{background:#e0463a;color:#fff}.flag.amber{background:#ffb83c}.flag.grey{background:#8c969f}
+  .flag.held{border-color:#fff;transform:translateY(-2px)}
+  .flag.used{opacity:.55}
+  .wf-legend{margin:8px 0 0;font-family:'Share Tech Mono',monospace;font-size:12px;line-height:1.4;color:#9fbfb2}
+  .wf .tq-log{height:104px}
+  @media (max-width:1000px){.wf{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="fadeB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#141c1a" stop-opacity="0"/><stop offset=".75" stop-color="#141c1a"/></linearGradient>
+  <linearGradient id="wWall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#16211e"/><stop offset=".7" stop-color="#22302b"/><stop offset="1" stop-color="#151f1c"/></linearGradient>
+  <linearGradient id="desk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a463e"/><stop offset="1" stop-color="#2a2722"/></linearGradient>
+  <radialGradient id="scrGlow"><stop offset="0" stop-color="#8ff0c3" stop-opacity=".32"/><stop offset="1" stop-color="#8ff0c3" stop-opacity="0"/></radialGradient>
+  <radialGradient id="lampG"><stop offset="0" stop-color="#ffd38a" stop-opacity=".45"/><stop offset="1" stop-color="#ffb84a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="46%" r="72%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".6" stop-color="#020504" stop-opacity=".3"/><stop offset="1" stop-color="#020504" stop-opacity=".92"/></radialGradient>
+  <clipPath id="crewC"><rect x="316" y="270" width="290" height="210"/></clipPath>
+</defs>
+<rect x="-1000" y="-600" width="3600" height="2100" fill="url(#wWall)"/>
+<path d="M-1000 -600H2600V120Q800 40 -1000 120Z" fill="#101917"/>
+<g fill="none" stroke="#2c3a36" stroke-width="14"><path d="M-1000 130Q800 54 2600 130"/></g><path d="M-1000 150Q800 76 2600 150" stroke="#0b1210" stroke-width="5" fill="none"/>
+<g stroke="#3c4a47" stroke-width="10" fill="none"><path d="M120 -10V560M1490 -10V560"/></g><path d="M80 90H1530" stroke="#3c4a47" stroke-width="7"/>
+
+<!-- the framed card on the wall -->
+<g id="frame" class="hot"><rect x="140" y="200" width="150" height="196" fill="#5a4a36"/><rect x="152" y="212" width="126" height="172" fill="#f4f1e8"/><rect x="152" y="212" width="126" height="22" fill="#a8402c"/>
+  <circle cx="176" cy="262" r="7" fill="#e0463a"/><circle cx="176" cy="300" r="7" fill="#ffb83c"/><circle cx="176" cy="338" r="7" fill="#8c969f"/>
+  <g stroke="#7a6a58" stroke-width="3"><path d="M192 258h70M192 268h58M192 296h70M192 306h50M192 334h70M192 344h60"/></g></g>
+
+<!-- three screens over the desk -->
+<circle cx="800" cy="380" r="520" fill="url(#scrGlow)" class="warm" pointer-events="none"/>
+<g id="crewS" class="hot"><rect x="300" y="254" width="322" height="242" rx="8" fill="#0a1210" stroke="#3c4a47" stroke-width="5"/><rect x="316" y="270" width="290" height="210" fill="#0d1a17"/>
+  <g clip-path="url(#crewC)"><text x="328" y="294" class="mono" font-size="14" fill="#8ff0c3">CREW LOG · Y82 D196</text><g id="crewTxt" class="mono" font-size="12" fill="#d4f5e6"></g>
+    <rect class="scan" x="316" y="250" width="290" height="20" fill="#8ff0c3" opacity=".05"/></g>
+  <g id="photo" class="hot"><rect x="588" y="236" width="56" height="64" fill="#f4f1e8" transform="rotate(8 616 268)"/><rect x="594" y="242" width="44" height="40" fill="#8a6a46" transform="rotate(8 616 268)"/><path d="M606 270q8-14 20-2q-4 10-12 10z" fill="#5a3a22" transform="rotate(8 616 268)"/><path d="M612 258l-4 -10l8 6" fill="#5a3a22" transform="rotate(8 616 268)"/></g></g>
+<g id="talS" class="hot"><rect x="660" y="232" width="300" height="250" rx="8" fill="#0a1210" stroke="#3c4a47" stroke-width="5"/><rect x="676" y="248" width="268" height="218" fill="#fbfbf7"/>
+  <text x="690" y="272" class="mono" font-size="13" fill="#2a2f34">SHIP'S LOG · TALLY · D196</text><g stroke="#8a8f94" stroke-width="3"><path id="talLines" d=""/></g></g>
+<g id="statS" class="hot"><rect x="998" y="254" width="300" height="242" rx="8" fill="#0a1210" stroke="#3c4a47" stroke-width="5"/><rect x="1014" y="270" width="268" height="210" fill="#06111c"/>
+  <text x="1148" y="304" text-anchor="middle" class="orb" font-size="18" font-weight="700" letter-spacing="3" fill="#9fd8ff">TALLY</text>
+  <text x="1148" y="346" text-anchor="middle" class="mono" font-size="15" fill="#bfe6ff">RULE 14 · STEP 4 OF 4</text>
+  <text x="1148" y="392" text-anchor="middle" class="mono" font-size="26" fill="#ffb070">ENGINE 10:12</text>
+  <text x="1148" y="430" text-anchor="middle" class="mono" font-size="14" fill="#bfe6ff">NOW 05:50 · IN 4 H 22 MIN</text>
+  <text x="1036" y="464" class="mono blink" font-size="14" fill="#e6f4ff">&gt; ASK_</text></g>
+
+<!-- the desk: tea rings, the diary, the flags, the lamp -->
+<path d="M-1000 560H2600V1500H-1000Z" fill="#141c1a"/>
+<path d="M200 560H1400L1460 640H140Z" fill="url(#desk)"/><path d="M140 640H1460V660H140Z" fill="#1e1c18"/>
+<g fill="none" stroke="#6a6458" stroke-width="2.4" opacity=".7"><ellipse cx="520" cy="600" rx="26" ry="7"/><ellipse cx="540" cy="606" rx="26" ry="7"/><ellipse cx="900" cy="590" rx="26" ry="7"/><ellipse cx="1240" cy="612" rx="26" ry="7"/><ellipse cx="1180" cy="598" rx="26" ry="7"/></g>
+<g id="pages" class="hot"><path d="M360 620l14 -46 98 10 -10 44z" fill="#fbf6e6"/><path d="M370 624l20 -44 96 16 -16 40z" fill="#f3ecd6"/><g stroke="#7a8ab0" stroke-width="2"><path d="M394 594l70 10M390 604l70 10M386 614l50 8"/></g></g>
+<g id="tin" class="hot"><rect x="1030" y="580" width="100" height="40" rx="5" fill="#3c4a47"/><g id="tinLid"><rect x="1026" y="572" width="108" height="14" rx="4" fill="#5a6a66"/></g>
+  <circle cx="1056" cy="600" r="8" fill="#e0463a"/><circle cx="1080" cy="600" r="8" fill="#ffb83c"/><circle cx="1104" cy="600" r="8" fill="#8c969f"/><text x="1080" y="634" text-anchor="middle" class="mono" font-size="10" fill="#9fbfb2">LOG FLAGS</text></g>
+<g id="lamp"><circle class="warm" cx="1340" cy="590" r="200" fill="url(#lampG)" pointer-events="none"/><path d="M1360 600V520q0-26-26-34" stroke="#2a2722" stroke-width="7" fill="none"/><path d="M1290 470l60 18-14 26q-34 0-50-22z" fill="#2e6a54"/><ellipse cx="1360" cy="602" rx="26" ry="6" fill="#2a2722"/></g>
+
+<!-- the chair -->
+<g id="chair" class="hot"><path d="M690 560q0-120 110-120t110 120v80H690z" fill="#2e4a63"/><path d="M700 470q100 -40 200 0v40q-100 -30 -200 0z" fill="#9aa3aa" opacity=".9"/>
+  <path d="M660 700h280v30H660z" fill="#26405a"/><path d="M800 730v120M720 860h160" stroke="#3c4a47" stroke-width="12" stroke-linecap="round"/></g>
+<!-- Tanaka -->
+<g id="tanakaG" class="hot"><use href="#ch-tanaka" x="1310" y="410" width="250" height="325"/></g><rect x="1300" y="660" width="270" height="110" fill="url(#fadeB)" pointer-events="none"/>
+<rect x="-1000" y="-600" width="3600" height="2100" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Go to the observation blister</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="sleepers.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = false, nextFile = null;
+
+  ER.init({
+    theme: 'scifi', story: 'sleepers', storyTitle: 'Only What Was Asked', id: 'watchroom', no: 'III', title: 'The Watch Room',
+    go: 'Go into the watch room',
+    intro: [
+      'The order rail put the night together. &ldquo;In all that time nothing has happened&rdquo; is present perfect, true only until something does: she wrote it in the garden, before the strike. &ldquo;I had been sleeping for more than an hour when the alarm went&rdquo; looks back at the alarm, so it came after it, and after her question at 04:31. Her handwriting changed after the fall at 05:41. She had not chosen yet; then she had; and the last page was the last.',
+      'The watch room is the size of a large cupboard: one chair, three screens, a tin on the desk, and four years of one woman&rsquo;s tea rings.',
+      'It is ten to six. The engine starts at 10:12.'
+    ],
+    exit: {"next":"blister","w":{"22af4a7b":"5b840c6e"}}, tags: {"red":["e271a3de"],"amber":["23684fbe"],"grey":["26875a48"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('w-file') || null;
+  var S = ER.flag('w-st') || { red: '', amber: '', grey: '', ok: 0 };
+  function keep() { ER.flag('w-st', S); }
+
+  var CREW = [
+    ['crew1', '02:45', 'All quiet. Hall C at 4 °C. Garden watered.'],
+    ['crew2', '04:12', 'Strike at the bow. I was on watch here in the watch room, and I saw the bow lights go out on this screen.'],
+    ['crew3', '04:13', 'Bow door sealed by TALLY, as it should be after a strike.'],
+    ['crew4', '04:26', 'Went forward. Bow door sealed.'],
+    ['crew5', '04:40', 'TALLY reports the bow shield lost. Rule 14 is running.'],
+    ['crew6', '06:30', 'Arrival team chosen: R. Tanaka (C-06) and pod C-07.'],
+    ['crew7', '07:00', 'Wrist hurt on the galley ladder. Nothing to worry about. Handing over to TALLY. M. Lindgren.']
+  ];
+  var CREWDOC = '<h4>CREW LOG · YEAR 82 · DAY 196</h4><h5>Typed by M. Lindgren, officer of the watch</h5>' + CREW.map(function (l) { return '<p><b>' + l[1] + '</b>' + l[2] + '</p>'; }).join('');
+  var LOG = [
+    ['tal1', '02:50', 'GARDEN DOOR OPENED. M. LINDGREN IN.'],
+    ['tal2', '04:12', 'STRIKE, BOW. BOW SENSORS 1 TO 4 SILENT. BOW SHIELD LOST BY RULE 14. RULE 14 BEGUN.'],
+    ['tal3', '04:13', 'RULE 14, STEP 1: BOW DOOR SEALED.'],
+    ['tal4', '04:19', 'GARDEN DOOR OPENED. M. LINDGREN OUT.'],
+    ['tal5', '04:20', 'RULE 14, STEP 2: TURNOVER BEGUN.'],
+    ['tal6', '04:26', 'BOW DOOR: OPEN REFUSED (M. LINDGREN).'],
+    ['tal7', '04:31', 'QUESTION AT BOW DOOR (M. LINDGREN). ANSWERED.'],
+    ['tal8', '05:41', 'FALL, GALLEY LADDER (M. LINDGREN). WRIST.'],
+    ['tal9', '06:30', 'RULE 14, STEP 3: ARRIVAL TEAM CHOSEN (M. LINDGREN).'],
+    ['tal10', '06:31', 'POD C-06 WARMING.'],
+    ['tal11', '07:10', 'RULE 6: M. LINDGREN INTO MEDICAL POD M1.'],
+    ['tal12', '07:31', 'POD C-07 WARMING.'],
+    ['tal13', '10:20', 'TURNOVER DONE.']
+  ];
+  var LOGDOC = '<h4>SHIP&rsquo;S LOG · TALLY · YEAR 82 · DAY 196</h4><h5>Kept by TALLY. Records doors, pods, strikes, rules and questions.</h5>' +
+    LOG.map(function (l) { return '<p><b>' + l[1] + '</b>' + l[2] + '</p>'; }).join('');
+  /* the diary, in the order the rail put it: each sentence can carry a flag */
+  var DIA = [
+    [0, [['dia1', 'Night 1,456 of my watch.'], ['d', 'In the garden, as usual: it is the only place on this ship that smells of anything.'], ['dia2', 'I have kept this ship for nearly four years, and in all that time nothing has happened.'], ['d', 'The strawberries have done well. Hall C is at four degrees.'], ['dia3', 'I am going to lie down in the hammock for ten minutes.']]],
+    [0, [['dia4', 'I had been sleeping for more than an hour when the alarm went.'], ['d', 'I ran.'], ['dia6', 'By the time I got to the bow door, it had already sealed itself, and the lights were flashing red.'], ['dia7', 'I asked TALLY whether it could see the shield. It said no.'], ['dia5', 'So the shield must have gone.'], ['dia8', 'The ship has started to turn over: I can see the stars sliding past the galley window.']]],
+    [1, [['dia9', 'I have done something stupid to my wrist on the galley ladder.'], ['dia10', 'It is not broken, I think.'], ['d', 'I am writing with the wrong hand, so forgive the mess.'], ['d', 'TALLY wants me to choose two of the arrival team, and I have not chosen yet. I have been sitting here for twenty minutes with the list.']]],
+    [1, [['dia11', 'I have chosen, and TALLY has been warming the first pod since half past six.'], ['d', 'Ren Tanaka, because if anybody can stop that engine, it is the engineer who looks after it. And the young one in C-07.'], ['dia12', 'On the day we boarded, you asked me what we would do if TALLY was wrong.'], ['d', 'Nobody else asked. I did not have an answer. I still do not. Perhaps you will.']]],
+    [1, [['d', 'This is the last page.'], ['d', 'TALLY says that I must go into a medical pod until a doctor can look at me, and TALLY does not take no for an answer. It does not take answers at all: only questions.'], ['dia13', 'By the time you read this, I will have been asleep for nearly a day.'], ['d', 'The engine will start at twelve minutes past ten.'], ['dia14', 'Do not let it start unless you are sure. M.L.']]]
+  ];
+  var CARD = '<h4>Three ways a log can be wrong</h4><h5>Watchkeeper&rsquo;s Handbook · 9 · framed on the watch-room wall</h5>' +
+    '<p>Every log on this ship is somebody&rsquo;s account, and an account can fail in three ways. The log flags in the tin on the desk are for marking them.</p>' +
+    '<p class="r"><b style="color:#c0382c">R</b><span><b>Lying (red).</b> The writer knows that it is not true. Look for a line that another record makes impossible, and for a detail that nobody needed. People who lie in logs usually lie about themselves.</span></p>' +
+    '<p class="r"><b style="color:#c8861a">A</b><span><b>Mistaken (amber).</b> The writer believes it. She is reporting something she worked out, not something she saw. Listen for the working: <i>so, must have, it seems, I think</i>. Ask: could she have seen it?</span></p>' +
+    '<p class="r"><b style="color:#6c7680">G</b><span><b>Incomplete (grey).</b> Every word is true, and something that matters is missing: what was said, who, why. TALLY&rsquo;s log is always incomplete. It records what its sensors notice, and nothing else.</span></p>' +
+    '<p class="ft">Before you flag a line, find the other record that proves it. One flag for each log, on the line that matters most.</p>';
+
+  function hints() {
+    if (nextFile) return ['go', ['Nobody can get to the bow, and TALLY cannot see it. Tanaka wants to look at the front of the ship from the observation blister. The way there is the button at the bottom of the screen.']];
+    if (!(ER.flag('w-crew') && ER.flag('w-card'))) return ['look', [
+      'Read the crew log on the left-hand screen, and the framed card on the wall. The ship&rsquo;s log and the diary are in your notebook already.',
+      'The small tin on the desk holds the log flags.'
+    ]];
+    if (!S.ok) return ['flags', [
+      'Three flags, one for each log: red for a lie, amber for a mistake, grey for something missing. Put each one on the line where it matters most.',
+      'Crew log: where does she say she was at 04:12? Check it against TALLY&rsquo;s garden door and her own &ldquo;I had been sleeping&rdquo;. Diary: which sentence is something she worked out, and not something she saw? TALLY: which line says that something was said, but not what?',
+      'The red flag goes on the crew log, on the line about where she was at 04:12. The amber flag goes on the diary page about the bow door, on the sentence that begins with So. The grey flag goes on TALLY&rsquo;s log, on the line where a question was answered.'
+    ]];
+    return ['ask', [
+      'Grey means something is missing. TALLY remembers every question it was ever asked. Ask it what Officer Lindgren asked at 04:31, and what it answered.',
+      'She asked whether TALLY could SEE the shield. TALLY cannot see anything at the bow. Whether you can see a thing, and whether the thing is there, are two different questions.',
+      'Ask TALLY whether there is a bow shield. Begin with IS, and use THERE.'
+    ]];
+  }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#tin').setAttribute('class', 'hot' + (!nextFile && ER.flag('w-crew') && ER.flag('w-card') ? ' next' : ''));
+    $('#go').classList.toggle('on', !!nextFile && !busy);
+    ER.pips(nextFile ? 2 : S.ok ? 1 : 0, 2);
+  }
+  (function () {
+    var s = '', i, d = '';
+    CREW.forEach(function (l, i) { s += '<text x="328" y="' + (318 + i * 22) + '">' + l[1] + ' ' + (l[2].length > 30 ? l[2].slice(0, 30) + '&hellip;' : l[2]) + '</text>'; });
+    $('#crewTxt').innerHTML = s;
+    for (i = 0; i < 9; i++) d += 'M690 ' + (292 + i * 19) + 'h' + (150 + (i * 37) % 90);
+    $('#talLines').setAttribute('d', d);
+  })();
+  function begin() {
+    paint();
+    if (nextFile) { ER.say('The watch room. Three flags on three logs, and TALLY&rsquo;s four words on the screen.'); return; }
+    if (ER.flag('w-seen')) { ER.say('The watch room: three screens, a chair, a tin of flags.'); return; }
+    busy = true; ER.flag('w-seen', 1);
+    ER.narrate([
+      'The watch room. Three screens over a desk: the crew log on the left, TALLY&rsquo;s own log in the middle, and on the right, TALLY&rsquo;s countdown, which is the only thing in the room that is in a hurry.',
+      'Tanaka puts the diary pages on the desk, beside the tin. &ldquo;She&rsquo;s written it three times,&rdquo; he says. &ldquo;Once for herself, once for the ship, and once TALLY wrote it for her. They ought to agree.&rdquo; He reads the left-hand screen. &ldquo;They don&rsquo;t.&rdquo;'
+    ], function () { busy = false; });
+  }
+
+  /* ---------- the room ---------- */
+  $('#crewS').addEventListener('click', function (e) {
+    if (busy || (e.target.closest && e.target.closest('#photo'))) return;
+    ER.read({ html: CREWDOC, cls: 'crew', clue: { id: 'crewlog', title: 'The crew log, day 196', kind: 'Watch-room screen' }, done: function () { ER.flag('w-crew', 1); SLP.learn(['crew log', 'officer of the watch']); paint(); } });
+  });
+  $('#talS').addEventListener('click', function () { if (!busy) ER.read({ html: LOGDOC, cls: 'tlog', clue: { id: 'shiplog', title: 'The ship’s log, day 196', kind: 'TALLY’s printout' } }); });
+  $('#frame').addEventListener('click', function () { if (!busy) ER.read({ html: CARD, cls: 'manual', clue: { id: 'logs', title: 'Three ways a log can be wrong', kind: 'Watchkeeper’s Handbook' }, done: function () { ER.flag('w-card', 1); SLP.learn(['mistaken', 'incomplete', 'account']); paint(); } }); });
+  $('#pages').addEventListener('click', function () {
+    if (busy) return;
+    var h = '<h4>Lindgren&rsquo;s diary · in the order of the rail</h4>' + DIA.map(function (pg) { return '<div class="pg"><p' + (pg[0] ? ' class="messy"' : '') + '>' + pg[1].map(function (s) { return s[1]; }).join(' ') + '</p></div>'; }).join('');
+    ER.read({ html: h, cls: 'diary', clue: { id: 'diary2', title: 'Lindgren’s diary, in order', kind: 'On the desk' } });
+  });
+  $('#photo').addEventListener('click', function () { if (!busy) ER.say('A photograph of a brown dog with one ear up, stuck to the edge of the screen. On the back, in pencil: <i>Pepper. Left with my sister, Year 0.</i>'); });
+  $('#statS').addEventListener('click', function () { if (!busy) ER.say(nextFile ? 'TALLY&rsquo;s screen: ENGINE 10:12. Under it, the last thing it said: I DO NOT KNOW.' : 'TALLY&rsquo;s countdown: RULE 14 · STEP 4 OF 4 · ENGINE 10:12. Four hours and twenty-two minutes.'); });
+  $('#tin').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The log flags are back in their tin. The three logs on the screens still carry them.'); return; }
+    if (!(ER.flag('w-crew') && ER.flag('w-card'))) { ER.say('A tin of magnets: LOG FLAGS. Red, amber and grey. The framed card on the wall says what they are for, and the crew log is on the left-hand screen. Read both first.'); return; }
+    openFlags();
+  });
+  SLP.thing('#chair', null, 'The watchkeeper&rsquo;s chair, with a grey cardigan folded over the back of it. It has been sat in for four years, and it has the shape of one person.', isBusy);
+  $('#tanakaG').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(nextFile ? '&ldquo;I do not know,&rdquo; says Tanaka. &ldquo;Four words, and the whole ship is going to stop because nobody asked for them.&rdquo;'
+      : S.ok ? '&ldquo;Grey on 04:31,&rdquo; says Tanaka. &ldquo;Something was asked and answered, and TALLY hasn&rsquo;t said what. It will, if you ask.&rdquo;'
+      : '&ldquo;Read them against each other,&rdquo; says Tanaka. &ldquo;Not one at a time. Every one of them is true somewhere.&rdquo;');
+  });
+
+  /* ---------- the flags, then the missing words ---------- */
+  var TXT = {};
+  CREW.forEach(function (l) { TXT[l[0]] = l[2]; }); LOG.forEach(function (l) { TXT[l[0]] = l[2]; });
+  DIA.forEach(function (pg) { pg[1].forEach(function (s) { if (s[0] !== 'd') TXT[s[0]] = s[1]; }); });
+  function why(f, id) {
+    var log = id.replace(/\d+$/, '');
+    var M = {
+      red: { crew5: 'TALLY did report the shield lost: its own log says so at 04:12. That line is true.',
+        crew7: 'That is a brave way to talk about a hurt wrist. But is there a record that proves she knew it was untrue?',
+        dia10: 'Nobody has looked at that wrist. And she says <i>I think</i>: she is not telling us something she knows.',
+        dia5: 'She believed it. A lie is something you know is not true. What do we call a belief that is wrong?' },
+      amber: { crew2: 'Could she believe that she was in the watch room, when she had been asleep in the garden? The card says what a writer who knows the truth does.',
+        dia10: 'That may be right or wrong: nobody has looked at it. And nothing on this ship turns on her wrist.',
+        dia7: 'That really happened: TALLY&rsquo;s log says a question was asked at the bow door, and answered. Which sentence is her working-out?',
+        tal2: 'By Rule 14 a shield <i>is</i> lost when its four sensors are silent. TALLY is not wrong about its own rule. Read the card again: what kind of log is TALLY&rsquo;s?' },
+      grey: { tal2: 'That line says why: by Rule 14, because its sensors are silent. Which line says that something was said, and not what?',
+        tal8: 'True, and short. But nothing on this ship turns on her wrist. Which line hides something that matters?' }
+    };
+    var t = (M[f] || {})[id];
+    if (t) return '&ldquo;' + t + '&rdquo;';
+    if (f === 'red' && log === 'tal') return '&ldquo;TALLY can&rsquo;t lie,&rdquo; says Tanaka. &ldquo;It writes down what its sensors notice. Who in this room could have known the truth and written something else?&rdquo;';
+    if (f === 'grey' && log !== 'tal') return '&ldquo;Grey is for TALLY&rsquo;s kind of log,&rdquo; says Tanaka. &ldquo;True as far as it goes, with something missing. People write what they think matters. TALLY writes only what it notices.&rdquo;';
+    if (f === 'red') return '&ldquo;Is there another record that makes that line impossible?&rdquo; says Tanaka. &ldquo;A lie is something the writer knows is not true.&rdquo;';
+    if (f === 'amber') return '&ldquo;A mistake is something she believed and worked out wrong,&rdquo; says Tanaka. &ldquo;Where is she working something out?&rdquo;';
+    return '&ldquo;Grey is for a line that is true but leaves out something that matters,&rdquo; says Tanaka.';
+  }
+  var A = {
+    'what did officer lindgren ask at 04:31?': { id: 'q431', t: 'Can you see the bow shield?' },
+    'what did officer lindgren ask?': { id: 'many', t: 'Officer Lindgren has asked me 4,117 questions. Which one?' },
+    'what did you answer at 04:31?': { id: 'a431', t: 'No.' },
+    'what did you answer?': { id: 'a431', t: 'At 04:31: no.' },
+    'why did you answer no?': { id: 'whyno', t: 'Because I cannot see the bow shield.' },
+    'why can you not see the bow shield?': { id: 'whynot', t: 'All four bow sensors are silent. I cannot see anything at the bow.' },
+    'can you see the bow shield?': { id: 'cansee', t: 'No.' },
+    'is the bow shield lost?': { id: 'lost', t: 'Yes. By Rule 14, a shield is lost when all four of its sensors are silent.' },
+    'why is the bow shield lost?': { id: 'whylost', t: 'Because all four of its sensors are silent.' },
+    'is there a bow shield?': { id: 'dunno', t: 'I do not know.' },
+    'is the bow shield there?': { id: 'dunno', t: 'I do not know.' },
+    'can officer lindgren see the bow shield?': { id: 'lsee', t: 'No. Officer Lindgren is asleep.' }
+  };
+  function openFlags() {
+    var box = ER.el('div', 'wf'), held = null, s, done = false, asking = !!S.ok;
+    s = '<div class="wf-main"><div class="wf-tabs"><button type="button" class="wf-tab on" data-t="crew">Crew log<i></i></button><button type="button" class="wf-tab" data-t="dia">Diary<i></i></button><button type="button" class="wf-tab" data-t="tal">Ship&rsquo;s log<i></i></button></div>' +
+      '<div class="wf-view on" data-v="crew"><h6>CREW LOG · TYPED BY M. LINDGREN</h6>' + CREW.map(function (l) { return '<p class="wf-ln" data-l="' + l[0] + '"><b>' + l[1] + '</b>' + l[2] + '</p>'; }).join('') + '</div>' +
+      '<div class="wf-view" data-v="dia"><h6>HER DIARY · IN THE ORDER OF THE RAIL</h6>' + DIA.map(function (pg, pi) { return '<div class="wf-pg' + (pg[0] ? ' messy' : '') + '">' + pg[1].map(function (x, j) { return '<span class="wf-ln" data-l="' + (x[0] === 'd' ? 'dia' + (100 + pi * 10 + j) : x[0]) + '">' + x[1] + '</span>'; }).join(' ') + '</div>'; }).join('') + '</div>' +
+      '<div class="wf-view" data-v="tal"><h6>SHIP&rsquo;S LOG · KEPT BY TALLY</h6>' + LOG.map(function (l) { return '<p class="wf-ln" data-l="' + l[0] + '"><b>' + l[1] + '</b>' + l[2] + '</p>'; }).join('') + '</div></div>' +
+      '<div class="wf-side"><div class="wf-flags"><div class="flags"><div class="flag red" data-f="red">RED<small>lying</small></div><div class="flag amber" data-f="amber">AMBER<small>mistaken</small></div><div class="flag grey" data-f="grey">GREY<small>incomplete</small></div></div>' +
+      '<p class="wf-legend">Click a flag, then click a line in one of the logs. One flag for each log.</p></div><div class="wf-ask"></div><p class="pmsg"></p><button type="button" class="btn" id="w-hand">Hand over</button></div>';
+    box.innerHTML = s;
+    var msgEl = box.querySelector('.pmsg'), ask = null;
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function tab(t) {
+      ER.$$('.wf-tab', box).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-t') === t); });
+      ER.$$('.wf-view', box).forEach(function (v) { v.classList.toggle('on', v.getAttribute('data-v') === t); });
+    }
+    function draw() {
+      ER.$$('.wf-ln', box).forEach(function (n) { var l = n.getAttribute('data-l'); n.classList.remove('f-red', 'f-amber', 'f-grey'); ['red', 'amber', 'grey'].forEach(function (f) { if (S[f] === l) n.classList.add('f-' + f); }); });
+      ER.$$('.flag', box).forEach(function (n) { var f = n.getAttribute('data-f'); n.classList.toggle('used', !!S[f]); n.classList.toggle('held', held === f); });
+      ER.$$('.wf-tab', box).forEach(function (b) {
+        var t = b.getAttribute('data-t'), c = ['red', 'amber', 'grey'].filter(function (f) { return S[f] && S[f].replace(/\d+$/, '') === t; })[0];
+        b.querySelector('i').style.background = c ? { red: '#e0463a', amber: '#ffb83c', grey: '#8c969f' }[c] : 'transparent';
+      });
+    }
+    function startAsk() {
+      asking = true; box.querySelector('.wf-flags').style.display = 'none'; box.querySelector('#w-hand').style.display = 'none';
+      ask = SLP.ask(box.querySelector('.wf-ask'), {
+        words: ['What', 'Why', 'Is', 'Can', 'did', 'Officer Lindgren', 'ask', 'answer', 'at 04:31', 'you', 'see', 'can', 'not', 'no', 'is', 'there', 'a', 'the bow shield', 'bow shield', 'lost', '?'],
+        title: 'Ship’s computer · watch-room screen', note: 'TALLY remembers every question it was asked.',
+        reply: function (q) { return A[q] || SLP.fallback(q); },
+        onReply: function (r) {
+          if (r.id !== 'dunno' || done) return;
+          var file = ER.exitOk(['dunno']); if (!file) return;
+          done = true; nextFile = file; ER.flag('w-file', file); SLP.done('watchroom'); busy = true;
+          SLP.mine('grey', 'What TALLY said at 04:31', '<p>She asked: CAN YOU SEE THE BOW SHIELD? TALLY: NO. (True: all 4 sensors silent. It can&rsquo;t see anything at the bow.)</p><p>She heard: it&rsquo;s gone.</p><p>IS THERE A BOW SHIELD? TALLY: I DO NOT KNOW.</p><p>Nobody knows. Rule 14 calls it lost because the sensors are silent.</p>', true);
+          msg('TALLY&rsquo;s cursor blinks after the four words, and goes on blinking.');
+          setTimeout(function () { ER.closeAll(); SLP.solved(); paint(); after(); }, 2600);
+        }
+      });
+      msg('&ldquo;Grey on 04:31,&rdquo; says Tanaka. &ldquo;A question was asked and answered, and TALLY hasn&rsquo;t said what. TALLY remembers everything it was ever asked. Ask it. And then ask it what she should have asked.&rdquo;');
+      tab('tal');
+    }
+    box.addEventListener('click', function (e) {
+      var t = e.target, n;
+      if (!t.closest || done) return;
+      if (t.closest('.w') && !held) return;
+      if ((n = t.closest('.wf-tab'))) { tab(n.getAttribute('data-t')); ER.sfx.click(); return; }
+      if (asking) return;
+      if ((n = t.closest('.flag'))) { var f = n.getAttribute('data-f'); held = held === f ? null : f; ER.sfx.click(); draw(); return; }
+      if ((n = t.closest('.wf-ln'))) {
+        var l = n.getAttribute('data-l');
+        if (!held) { ['red', 'amber', 'grey'].forEach(function (f) { if (S[f] === l) { S[f] = ''; held = f; } }); if (held) { SLP.sfx.flag(); keep(); draw(); } else msg('Pick up a flag first: click it, then click the line.'); return; }
+        ['red', 'amber', 'grey'].forEach(function (f) { if (S[f] === l) S[f] = ''; });
+        S[held] = l; held = null; SLP.sfx.flag(); keep(); draw();
+      }
+    });
+    box.querySelector('#w-hand').addEventListener('click', function () {
+      if (done || asking) return;
+      if (!S.red || !S.amber || !S.grey) { msg('&ldquo;Three flags,&rdquo; says Tanaka. &ldquo;All three. Somebody always has to sign the handover.&rdquo;'); ER.shake(box.querySelector('.flags')); return; }
+      var bad = ['red', 'amber', 'grey'].filter(function (f) { return !ER.check(f, S[f]); })[0];
+      if (bad) { SLP.bump('slips'); SLP.sfx.hm(); msg(why(bad, S[bad])); return; }
+      S.ok = 1; keep(); SLP.sfx.beep(); paint();
+      SLP.mine('flags', 'Three flags', '<p>RED, crew log 04:12: &ldquo;I was on watch here.&rdquo; She was asleep in the garden (garden door 02:50 in, 04:19 out; &ldquo;I had been sleeping&rdquo;).</p><p>AMBER, diary: &ldquo;So the shield must have gone.&rdquo; Worked out, not seen.</p><p>GREY, TALLY 04:31: a question, ANSWERED. But what?</p>', true);
+      startAsk();
+    });
+    draw();
+    if (asking) startAsk();
+    else msg(S.red || S.amber || S.grey ? 'The flags are as you left them.' : 'The three logs are on the left, one behind each tab. Click a flag, then click the line it belongs on. When all three are down, hand over.');
+    ER.open('ov-lock', box);
+  }
+  function after() {
+    ER.narrate([
+      '&ldquo;Red on 04:12,&rdquo; says Tanaka quietly. &ldquo;She was asleep in the garden, and she wrote that she was here, watching the screen. A detail nobody needed. Nobody would ever have known.&rdquo; He looks at the chair with the cardigan on it. &ldquo;I&rsquo;d have hated myself for it. I think I&rsquo;d have done the same.&rdquo;',
+      '&ldquo;She asked whether it could <i>see</i> the shield,&rdquo; says Tanaka. &ldquo;And it told the truth. It can&rsquo;t see anything at the bow: all four sensors are dead. She heard <i>it&rsquo;s gone</i>. So would I have. So did Rule 14, come to that: four silent sensors, and the rule calls the shield lost.&rdquo;',
+      '&ldquo;So nobody knows. Not TALLY, not Lindgren, not us. And at twelve minutes past ten the engine starts because of a thing that nobody knows.&rdquo;',
+      'He taps the third screen. &ldquo;Rule 14 ends if anybody shows TALLY that the shield is in place. We can&rsquo;t get to the bow, and TALLY can&rsquo;t see it. So we need a place on this ship that can see the front end of it.&rdquo; He thinks. &ldquo;The blister. Half way along Ring C there&rsquo;s a glass bubble on the side of the hull. Nobody&rsquo;s been in it for years. It&rsquo;ll be freezing.&rdquo;'
+    ], function () { busy = false; paint(); SLP.learn(['blister', 'misleading']); });
+  }
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

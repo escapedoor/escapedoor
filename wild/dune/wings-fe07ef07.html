@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Rocking Wings · Four and a Half Times</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-wild.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="dune.css">
+<style>
+  body{--bg:#eaf2f8;--accent:#2d6a9a;--font-display:'EB Garamond',serif;--font-ui:'Overpass',sans-serif;--font-body:'Lora',serif;
+    --tc-bg:rgba(240,246,250,.97);--tc-ink:#1c2a38;--cap-bg:rgba(246,250,252,.95);--cap-ink:#1c2a38;--panel:#f6fafc;--panel-ink:#1c2a38;--face-bg:#b8c8d8;--q-ink:#1f5a8a;--fade:#eef4f8;
+    --hud-bg:rgba(246,250,252,.9);--hud-ink:#1c2a38;--hud-line:rgba(28,42,56,.3);--ov-bg:rgba(24,36,48,.8)}
+  .hbtn.hnt{border-color:#2d6a9a;color:#2d6a9a}
+  .hbtn b{color:#fff}
+  #rock{animation:rock 1.8s ease-in-out infinite;transform-origin:1000px 250px}
+  @keyframes rock{0%{transform:rotate(-14deg)}50%{transform:rotate(14deg)}100%{transform:rotate(-14deg)}}
+  #plane{transition:transform 2.4s ease-in-out}
+  #scene.gone #plane{transform:translate(900px,-160px)}
+  #box{display:none}
+  #scene.drop #box{display:block}
+  #wave{animation:wave 1s steps(1,end) infinite;transform-origin:1106px 640px}
+  @keyframes wave{50%{transform:rotate(18deg)}}
+  #streamer.ready,#meteorite.ready{animation:ready 1.5s steps(1,end) infinite}
+  @keyframes ready{50%{filter:brightness(1.3) saturate(1.4)}}
+  .hot:hover{filter:brightness(1.08) saturate(1.2)}
+
+  .done{position:fixed;right:2.2vw;top:62px;z-index:34;width:min(540px,94vw);max-height:calc(100vh - 80px);overflow:auto;padding:16px 26px 14px;display:none;background:#fbfdfe;color:#1c2a38;border-top:10px solid #2d6a9a;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+  .done.on{display:block}
+  .okstamp{display:inline-block;padding:3px 14px 0;border:4px solid #c23b26;color:#c23b26;font-family:'Oswald',sans-serif;font-weight:600;font-size:23px;letter-spacing:.12em;transform:rotate(-3deg);margin-bottom:8px}
+  .done h6{margin:9px 0 5px;font-family:'Overpass',sans-serif;font-weight:700;font-size:12.5px;letter-spacing:.24em;text-transform:uppercase;color:#2d6a9a}
+  .done p{margin:0 0 3px;font-family:'Overpass Mono',monospace;font-size:13px;line-height:1.4}
+  .done ol{margin:0;padding-left:20px;font-family:'Lora',serif;font-size:13px;line-height:1.38}
+  .done li{margin:0 0 3.5px}
+  .done .row{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+  .done .btn{--accent:#2d6a9a;font-size:12.5px;padding:7px 12px}
+  .done .btn:hover:not([disabled]){color:#fbfdfe}
+  .done small{display:block;margin-top:9px;font-family:'Overpass Mono',monospace;font-size:12px;opacity:.75;line-height:1.5}
+  .done small button{text-decoration:underline;font:inherit}
+  .doc.drop{width:min(520px,92vw);background:#fff8e8;color:#1c1c1c;font-family:'Special Elite',monospace;font-size:20px;line-height:1.4;padding:22px 28px;border:2px solid #c8321e;transform:rotate(-1deg)}
+  .doc.drop h4{margin:0 0 10px;font-family:'Overpass',sans-serif;font-weight:700;font-size:13px;letter-spacing:.22em;color:#c8321e}
+  .doc.drop p{margin:0 0 6px}
+  .rp{width:min(780px,94vw);max-height:84vh;overflow:auto;background-color:#f4efdf;color:#1c2440;padding:22px 34px 18px;box-shadow:0 26px 70px rgba(0,0,0,.5);-webkit-user-select:text;user-select:text;border-left:22px solid #d9661f}
+  .rp h4{margin:0 0 3px;font-family:'Oswald',sans-serif;font-weight:600;font-size:17px;letter-spacing:.2em;text-transform:uppercase;color:#b4471a}
+  .rp h3{margin:0 0 8px;font-family:'Handlee',cursive;font-weight:normal;font-size:30px;line-height:1.1}
+  .rp p,.rp label{display:block;font-family:'Lora',serif;font-size:15px;line-height:1.5;margin:0 0 6px;color:#22201a}
+  .rp textarea,.rp input[type=text]{width:100%;font-family:'Caveat',cursive;font-size:25px;line-height:30px;color:#1c2440;background:#fbf7e6 repeating-linear-gradient(transparent 0 29px,rgba(60,70,110,.3) 29px 30px);border:1px solid #9a927a;padding:0 12px;border-radius:0;resize:vertical;-webkit-user-select:text;user-select:text}
+  .rp textarea{min-height:170px}
+  .rp input[type=text]{height:32px}
+  .rp .count{font-family:'Overpass',sans-serif;font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.7;text-align:right;margin-top:3px}
+  .rp .foot{display:flex;gap:10px;align-items:center;margin-top:10px}
+  .rp .foot span{flex:1;font-family:'Overpass Mono',monospace;font-size:12.5px;opacity:.75}
+  .rp .btn{--accent:#b4471a}.rp .btn:hover:not([disabled]){color:#f4efdf}
+  @media print{
+    body{overflow:visible;background:#fff}
+    body>*:not(.ov){display:none!important}
+    .ov{position:static!important;display:block!important;background:#fff!important;padding:0!important;overflow:visible!important}
+    .ov-bar,.rp .foot{display:none!important}
+    .rp{box-shadow:none;max-height:none;width:auto;overflow:visible}
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a96cc"/><stop offset=".75" stop-color="#bcd6ea"/><stop offset="1" stop-color="#eef4f6"/></linearGradient>
+  <linearGradient id="saltG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f2f4f4"/><stop offset=".5" stop-color="#ffffff"/><stop offset="1" stop-color="#e8eaea"/></linearGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="900" fill="url(#skyG)"/>
+<path d="M-1000 470H2600V1300H-1000Z" fill="url(#saltG)"/>
+<path d="M-1000 470Q0 464 800 468T2600 466" stroke="#9aa6c0" stroke-width="3" fill="none" opacity=".6"/>
+<g stroke="#e2e4e6" stroke-width="2" fill="none"><path d="M200 560l120 40l80 -30M1000 560l90 30l120 -10M1100 700l140 60l120 -30M160 780l140 40"/></g>
+<!-- the V, two lines of dark stones on the salt, seen from the side -->
+<g id="vee" class="hot"><g fill="#2a1e22"></g><rect x="540" y="590" width="470" height="90" fill="#fff" opacity="0"/></g>
+<g id="meteorite" class="hot"><ellipse cx="760" cy="702" rx="12" ry="7" fill="#141012"/><ellipse cx="756" cy="699" rx="5" ry="2.200" fill="#4a4448"/><circle cx="760" cy="700" r="26" fill="#fff" opacity="0"/></g>
+<!-- the box from the second pass -->
+<g id="box" class="hot"><rect x="1240" y="700" width="70" height="46" rx="4" fill="#d96a2a" stroke="#7a3a14" stroke-width="2"/><path d="M1240 718h70" stroke="#fff3df" stroke-width="5"/><path d="M1300 700q40 -60 120 -50" stroke="#c8321e" stroke-width="3" fill="none"/></g>
+<!-- the streamer from the first pass -->
+<g id="streamer" class="hot"><path d="M880 760q60 -30 100 -10t90 -20" stroke="#c8321e" stroke-width="6" fill="none"/><rect x="866" y="752" width="26" height="18" rx="3" fill="#5a5a64"/><rect x="850" y="730" width="240" height="60" fill="#fff" opacity="0"/></g>
+<!-- the plane, low, rocking its wings -->
+<g id="plane"><g id="rock"><g transform="translate(1000 250)">
+  <path d="M-150 6h270q22 0 26 12l-24 10h-272z" fill="#f4f4f0" stroke="#4a4a54" stroke-width="3"/><path d="M-40 -10l-120 -4h330l-60 4z" fill="#f4f4f0" stroke="#4a4a54" stroke-width="3"/>
+  <path d="M-150 6l-30 -46h30l30 44z" fill="#c8321e"/><path d="M-110 18h220" stroke="#c8321e" stroke-width="6"/><path d="M60 0h46l10 10h-56z" fill="#6a8aa8"/><circle cx="140" cy="20" r="6" fill="#4a4a54"/><path d="M146 4v32" stroke="#4a4a54" stroke-width="3"/>
+  <path d="M0 28l-6 26M40 28l6 26" stroke="#4a4a54" stroke-width="4"/><circle cx="-6" cy="56" r="7" fill="#2a2a2a"/><circle cx="46" cy="56" r="7" fill="#2a2a2a"/></g></g></g>
+<!-- the three of you -->
+<g id="str" class="hot">
+  <path d="M360 800q-4 -20 30 -22l60 0q20 4 16 22z" fill="#5a6a3a"/><path d="M372 790q-8 -90 30 -100q44 -4 50 54l4 46z" fill="#a8956a"/><path d="M392 694l14 22l14 -22z" fill="#c23b26"/>
+  <path d="M440 780l70 10" stroke="#625840" stroke-width="20" stroke-linecap="round"/><ellipse cx="518" cy="792" rx="12" ry="10" fill="#efeee8"/>
+  <path d="M440 720q30 -40 20 -110" stroke="#a08c60" stroke-width="15" fill="none" stroke-linecap="round"/><path d="M450 612l20 -12" stroke="#6f4c2c" stroke-width="10" stroke-linecap="round"/>
+  <rect x="398" y="660" width="14" height="18" fill="#c48f6a"/><circle cx="405" cy="645" r="20" fill="#d3a07c"/><path d="M393 654q6 -5 12 -1q6 -4 12 1q-1 6 -6 5l-6 -2l-6 2q-5 1 -6 -5z" fill="#efeee8"/>
+  <path d="M388 630q4 -2 8 0M410 630q4 -2 8 0" stroke="#2a1a10" stroke-width="2"/>
+</g>
+<g id="hay" class="hot">
+  <path d="M1094 822V740h16v82zM1114 822V740h16v82z" fill="#5a5a48"/><path d="M1080 750q-8 -100 30 -108q42 -4 46 50l2 58z" fill="#9fc0d6"/><path d="M1084 700q-2 -40 18 -52l10 40l-6 60h-22zM1152 700q2 -40 -16 -52l-10 40l4 60h22z" fill="#8a8558"/>
+  <g id="wave"><path d="M1150 660q20 -40 10 -90" stroke="#9fc0d6" stroke-width="14" fill="none" stroke-linecap="round"/><circle cx="1160" cy="566" r="8" fill="#d9ad84"/><path d="M1162 560l26 -30" stroke="#7e8a6a" stroke-width="10" stroke-linecap="round"/></g>
+  <rect x="1108" y="626" width="12" height="16" fill="#d9ad84"/><circle cx="1114" cy="612" r="19" fill="#e6bd94"/><path d="M1094 622q-4 -30 20 -32q24 2 20 32q-4 -14 -20 -16q-16 2 -20 16z" fill="#1c1918"/>
+  <circle cx="1108" cy="612" r="5" fill="none" stroke="#2a2420" stroke-width="1.600"/><circle cx="1122" cy="612" r="5" fill="none" stroke="#2a2420" stroke-width="1.600"/>
+</g>
+</svg>
+</div>
+<div class="done" id="done">
+  <div class="okstamp">SEEN AND UNDERSTOOD</div>
+  <p id="d-time"></p><p id="d-hints"></p><p id="d-words"></p>
+  <h6>What you now know</h6>
+  <ol>
+    <li>A receiver cannot call for help, but it can tell you the plan of the people looking for you, the weather, and the exact time. Short-wave stations use a high frequency by day and a low one at night.</li>
+    <li>UTC is the time at Greenwich. Western Australia is eight hours ahead of it, Tokyo nine. A watch is only useful if you know which time it keeps, and how wrong it is.</li>
+    <li>A planet looks like a bright star, but shines steadily and keeps its place among the stars; an aircraft flashes and moves across them. Venus is seen only in the west after sunset or in the east before dawn.</li>
+    <li>The Southern Cross is the small bright cross with the two Pointers beside it, not the bigger, fainter False Cross. Carry its long bar on four and a half times to the south pole of the sky: straight below is south, and the pole&rsquo;s height above the horizon is your latitude.</li>
+    <li>South of the Tropics the noon sun is due north and the noon shadow points south. Noon is half way between two equal shadows. The Earth turns 15&deg; an hour, 1&deg; every 4 minutes, so longitude east = (12.00 &minus; noon by a UTC watch) &times; 15&deg; an hour.</li>
+    <li>Ration sweat, not water. In the heat a person needs four or five litres a day sitting in the shade, and a litre an hour walking in the sun. Move in the cool hours, keep covered, keep in the shade, and watch each other for the first signs of heat exhaustion: headache, dizziness, cramp, pale damp skin.</li>
+    <li>On the ground, for a pilot: V means &ldquo;we need help&rdquo;, X &ldquo;we need a doctor&rdquo;, an arrow &ldquo;we have gone this way&rdquo;. Make it big, straight, dark on light and on open ground; flash a mirror aimed through your fingers. A pilot who has understood rocks the wings.</li>
+  </ol>
+  <div class="row"><button type="button" class="btn" id="b-task">The station&rsquo;s log</button><button type="button" class="btn" id="b-book">Notebook</button><button type="button" class="btn" id="b-lobby">Back to the wall</button></div>
+  <small>Four and a Half Times &middot; <button type="button" id="b-reset">play it again from the start</button></small>
+</div>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="dune.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {};
+
+  (function () {        /* the V as you see it from beside it: two lines of stones going away across the salt */
+    var s = '', k, x, y, r = DUNE.rnd(13);
+    [[560, 606], [990, 612]].forEach(function (e) {
+      for (k = 0.04; k <= 1.0001; k += 0.055) { x = 760 + (e[0] - 760) * k; y = 700 + (e[1] - 700) * k; s += '<ellipse cx="' + (x + r() * 4 - 2).toFixed(1) + '" cy="' + (y + r() * 2 - 1).toFixed(1) + '" rx="' + (7 - 4 * k).toFixed(1) + '" ry="' + (3.6 - 1.8 * k).toFixed(1) + '"/>'; }
+    });
+    $('#vee g').innerHTML = s;
+  })();
+
+  ER.init({
+    theme: 'wild', story: 'dune', storyTitle: 'Four and a Half Times', id: 'wings', no: 'VI', title: 'Rocking Wings',
+    go: 'Look up',
+    intro: [
+      'At seven o&rsquo;clock Tolliver Base was on 8.0 megahertz, because by day a short-wave station goes high. Col would come east along the north shore of the pan at about half past seven.',
+      'You laid a V, which means &ldquo;we need help&rdquo;, and not an X, which would have brought a doctor three hundred miles for an ankle. Two lines of dark stones on white salt, each more than ten metres long, out on the open salt, away from the bushes and the long shadow of the dune.',
+      'When the plane came, you held the mirror under your eye, put two fingers round the plane, and tilted the mirror until the spot of light sat on your fingers. The plane turned.'
+    ],
+    exit: {"last":true,"rooms":6,"stars":4}, tags: {},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('f-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('f-told', told); return true; }
+  function paint() {
+    $('#streamer').classList.toggle('ready', !!(told.in && !told.note));
+    $('#meteorite').classList.toggle('ready', !!(told.radio && !told.stone));
+    $('#scene').classList.toggle('drop', !!told.note);
+    $('#scene').classList.toggle('gone', !!told.stone);
+    ER.pips((told.note ? 1 : 0) + (told.radio ? 1 : 0) + (told.stone ? 1 : 0), 3);
+  }
+  function hints() {
+    if (ER.flag('f-done')) return null;
+    if (!told.note) return ['note', ['Something red fell out of the plane on its first pass, and is lying on the salt near the V. Click it.']];
+    if (!told.radio) return ['box', ['The orange box from the second pass has landed on the salt on the right. Click it.']];
+    return ['stone', ['Dr Hayashi has stopped at the point of the V, with her magnet. Click the dark stone at the point.']];
+  }
+
+  function begin() {
+    if (!ER.flag('tEnd')) ER.flag('tEnd', Date.now());
+    paint();
+    if (ER.flag('f-done')) { busy = false; finish(true); return; }
+    if (told.in) { busy = false; ER.say('Sixpenny Pan, a quarter to eight. The plane is going round again.'); return; }
+    tell('in');
+    ER.narrate([
+      'The plane comes in low over the salt, straight at the V, so low that you can see a man in the window, and a hand.',
+      'Then, as it goes over your heads, it rocks its wings: down on the left, down on the right, down on the left again. Seen. And understood.',
+      'Mr Strachan sits down on the salt rather suddenly. &ldquo;That,&rdquo; he says, &ldquo;is the best thing I have seen an aeroplane do in forty years.&rdquo;',
+      'On its way round, something small and red tumbles out of the window and lands near the V.'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- the message, the box, and the stone ---------- */
+  var NOTE = '<h4>DROPPED FROM THE MAIL PLANE &middot; 07.41</h4><p>SEEN YOU. THREE OF YOU, ONE SITTING DOWN.</p><p>WINGS ROCKED = UNDERSTOOD.</p><p>DROPPING WATER AND A RADIO THAT TALKS, NEXT RUN.</p><p>STATION TRUCK LEFT THE DOWNS AT SIX WITH MRS T. AND A VERY LONG LECTURE. WITH YOU BY ELEVEN.</p><p>STAY ON THE PAN. &mdash; COL</p>';
+  $('#streamer').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: NOTE, cls: 'drop', clue: { id: 'note', title: 'The note from the plane', kind: 'Dropped on a red streamer' }, done: function () {
+      if (tell('note')) {
+        paint(); busy = true;
+        ER.narrate([
+          'On the next run the plane comes in lower still, and an orange box on a red streamer thumps down on the salt thirty metres away. Dr Hayashi reaches it first.',
+          'Inside, wrapped in a blanket: four bottles of water, a packet of biscuits, and a radio with a button that says TALK.'
+        ], function () { busy = false; paint(); ER.say('A radio that talks. The orange box is on the salt, on the right.'); });
+      }
+    } });
+  });
+  $('#box').addEventListener('click', function () {
+    if (busy) return;
+    if (told.radio) { ER.say('The box: water, biscuits, a blanket, and a radio that talks, which Mr Strachan is holding as if it might change its mind.'); return; }
+    ER.talk({
+      who: 'Tolliver Base', role: 'On a radio that talks, at last', face: window.FACE('radio'),
+      lines: [
+        { note: 'Mr Strachan presses TALK. &ldquo;Tolliver Base, this is the Strachan party. Three of us, all well, one ankle. Over.&rdquo;', a: 'There is a short silence, in which you can hear somebody a very long way away taking a deep breath.' },
+        { a: '&ldquo;Duncan Strachan,&rdquo; says Mrs Tolliver. &ldquo;You have missed seven scheds. Seven. Over.&rdquo;' },
+        { q: 'We heard you. We couldn&rsquo;t answer.', a: '&ldquo;I know, love. Col says your V is the neatest he&rsquo;s seen in twenty years of flying, and it was the flash that turned him. Who did the mirror? Over.&rdquo; Mr Strachan hands you the radio.' },
+        { a: '&ldquo;Well done,&rdquo; says Mrs Tolliver, when you have told her. &ldquo;Now sit in the shade, drink the water, and do not let him navigate anything until I get there. Tolliver Base out.&rdquo;' }
+      ],
+      clue: { id: 'radio3', title: 'Tolliver Base, on a radio that talks', kind: 'What the radio said' }, last: 'Close',
+      done: function () {
+        if (tell('radio')) {
+          paint(); busy = true;
+          ER.narrate(['Dr Hayashi has not been listening. She has gone back to the V, and is walking slowly along it with her magnet on its string, the way she has walked along four hundred stones since Thursday. At the point of the V she stops, and does not move.'], function () { busy = false; paint(); });
+        }
+      }
+    });
+  });
+  $('#meteorite').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.radio) { ER.say('The stone at the point of the V: the heavy one, which you carried out last night with all the others.'); return; }
+    if (told.stone) { ER.say('A dark stone, about the size of an egg, with a thin black skin and small dents like thumbprints. A magnet sticks to it. It is four and a half thousand million years old, and it has been in Australia for two weeks.'); return; }
+    ER.talk({
+      who: 'Dr Hayashi', role: 'At the point of the V, with her magnet', face: window.FACE('hayashi'),
+      lines: [
+        { note: 'The magnet on its string is not hanging straight down. It is stuck to the stone at the point of the V.', a: '&ldquo;Who carried this one?&rdquo; she says, very quietly. You did. &ldquo;It is heavier than it should be. It has a skin, thin and black, like burnt sugar. The magnet likes it.&rdquo;' },
+        { q: 'Is it&hellip;?', a: 'Two weeks ago it was in space. Then it came down through the air in ten seconds, burning, and lay on the shore of Sixpenny Pan among a million stones from the Earth. Last night you picked it up in the dark, because it was the right size for a signal.' },
+        { q: 'What will you call it?', a: 'A meteorite is named after the place where it is found. So this one will be called Sixpenny Pan. And in my report I shall write: found by somebody who was not looking, while calling an aeroplane.' },
+        { a: 'Mr Strachan looks at the stone for a long time. &ldquo;Twenty years,&rdquo; he says, &ldquo;I&rsquo;ve looked for those. Twenty years. And you pick one up in the dark to make a letter V.&rdquo; Then he begins to laugh, and cannot stop.' }
+      ],
+      clue: { id: 'stone', title: 'The stone at the point of the V', kind: 'What Dr Hayashi said' }, last: 'Close',
+      done: function () {
+        if (!tell('stone')) return;
+        paint(); busy = true; ER.mood('calm');
+        ER.narrate([
+          'By eleven the station truck has found the V, and you. Mrs Tolliver gives Mr Strachan the lecture, and you the last of the cold drinks. In the afternoon the truck finds the other truck, by the arrow of stones beside it, and next week it is towed home behind a tractor.',
+          'The stone goes to Tokyo in Dr Hayashi&rsquo;s hand luggage, wrapped in one of Mr Strachan&rsquo;s socks.',
+          'Mr Strachan&rsquo;s notebook has a new page. At the top it says: 15 April 1988. Fix by Cross and noon sight: 25&deg; S, 124&deg; E. Under that, in a different hand, because his glasses were in the truck: navigator, the youngest one.'
+        ], function () { busy = false; ER.flag('f-done', 1); finish(false); });
+      }
+    });
+  });
+  $('#str').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(ER.flag('f-done') ? '&ldquo;Next time,&rdquo; says Mr Strachan, &ldquo;you navigate. I shall carry the water.&rdquo;' : '&ldquo;Rocked his wings,&rdquo; says Mr Strachan, to nobody. &ldquo;Rocked his wings.&rdquo;');
+  });
+  $('#hay').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(told.stone ? '&ldquo;Four hundred and one stones,&rdquo; says Dr Hayashi. &ldquo;I shall remember that number.&rdquo;' : 'Dr Hayashi is waving her hat at the sky with great energy, which is not like her at all.');
+  });
+  DUNE.thing('#vee', null, 'The V, from beside it: two lines of dark stones going away across the white salt. From down here it hardly looks like anything. From a thousand feet up it looked like a word.', function () { return busy; });
+
+  function finish(quick) {
+    var st = ER.state(), mins = DUNE.minutesPlayed(), hn = ER.hintsUsed();
+    $('#d-time').textContent = 'From the truck to the salt pan: ' + mins + (mins === 1 ? ' minute.' : ' minutes.');
+    $('#d-hints').textContent = hn ? 'Hints asked for: ' + hn + '.' : 'Hints asked for: none at all.';
+    $('#d-words').textContent = 'In your notebook: ' + st.clues.length + ' clues and ' + Object.keys(st.words).length + ' words.';
+    $('#done').classList.add('on'); paint();
+    if (quick) ER.say('Sixpenny Pan, the morning after.');
+  }
+  $('#b-book').addEventListener('click', ER.notebook);
+  $('#b-lobby').addEventListener('click', function () { ER.leave('../index.html'); });
+  $('#b-reset').addEventListener('click', function () {
+    var b = $('#b-reset');
+    if (b.getAttribute('data-sure')) { ER.resetStory(); location.href = '../index.html'; return; }
+    b.setAttribute('data-sure', '1'); b.textContent = 'this empties your notebook. click again to do it';
+  });
+  $('#b-task').addEventListener('click', function () {
+    var saved = ER.flag('task') || {}, box = ER.el('div', 'rp');
+    box.innerHTML = '<h4>Tolliver Downs &middot; the station&rsquo;s log</h4><h3>Write it down for the log</h3>' +
+      '<p>Mrs Tolliver keeps a log of every search, so that the next people can learn from it. Choose ONE of these and explain it, aloud or in writing, in 60 to 90 words, to a friend who has never been in a desert. Use: first, then, because, so.</p>' +
+      '<p><b>A</b> How you found south, and your latitude, from the Southern Cross.<br><b>B</b> How you worked out your longitude from a stick, a ring of string and a watch.<br><b>C</b> Why you rationed sweat and not water, and how you planned the day.<br><b>D</b> Why you laid a V and not an X, and how you made sure the pilot saw it.</p>' +
+      '<textarea id="r1"></textarea><div class="count"></div><label for="r2">Name</label><input type="text" id="r2" maxlength="60">' +
+      '<div class="foot"><span>Nobody marks this. It is saved in this browser as you write.</span><button type="button" class="btn" id="r-print">Print</button><button type="button" class="btn" id="r-done">Done</button></div>';
+    ER.glossIn(box, '.rp > p');
+    box.querySelector('#r1').value = saved.r1 || ''; box.querySelector('#r2').value = saved.r2 || '';
+    function keep() {
+      var o = { r1: box.querySelector('#r1').value, r2: box.querySelector('#r2').value }, n = (o.r1.match(/[A-Za-z’']+/g) || []).length;
+      box.querySelector('.count').textContent = n + (n === 1 ? ' word' : ' words');
+      ER.flag('task', o);
+    }
+    box.addEventListener('input', keep);
+    box.addEventListener('keydown', function (e) { e.stopPropagation(); });
+    box.querySelector('#r-print').addEventListener('click', function () { keep(); window.print(); });
+    box.querySelector('#r-done').addEventListener('click', ER.close);
+    ER.open('ov-report', box); keep();
+  });
+})();
+</script>
+</body>
+</html>
