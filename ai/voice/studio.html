@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Studio B · In Her Own Words</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-ai.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="voice.css">
+<style>
+  body{--bg:#1a1620;--accent:#ff8a6a;--font-display:'Outfit',sans-serif;--font-ui:'Inter',sans-serif;--font-body:'Literata',serif;
+    --tc-bg:rgba(24,18,28,.96);--tc-ink:#f1e9ee;--cap-bg:rgba(24,18,28,.94);--cap-ink:#f1e9ee;--panel:#211a26;--panel-ink:#f1e9ee;--face-bg:#24403a;--q-ink:#ffb49c;
+    --fade:#0d0a10;--hud-bg:rgba(24,18,28,.82);--hud-ink:#f1e9ee;--hud-line:rgba(241,233,238,.24);--ov-bg:rgba(10,6,12,.76)}
+  .tc-room{font-family:'Outfit',sans-serif;font-weight:800;color:#ff8a6a}
+  .tc-theme{color:#ffb49c}
+  .tk-role{color:#ffb49c}
+  .hbtn b{color:#0d0a10}
+  #wave{animation:scroll 6s linear infinite}
+  @keyframes scroll{to{transform:translateX(-120px)}}
+  #catT{animation:tail 4s ease-in-out infinite;transform-origin:250px 538px}
+  @keyframes tail{50%{transform:rotate(-14deg)}}
+  .vu{animation:vu .9s steps(4,end) infinite}
+  .vu.b{animation-duration:1.3s}
+  @keyframes vu{0%{transform:scaleY(.4)}50%{transform:scaleY(1)}100%{transform:scaleY(.6)}}
+
+  /* the lock: what taught it? */
+  .wt{width:min(1120px,96vw)}
+  .wt-in{display:grid;grid-template-columns:1fr 330px;gap:14px;background:#1f1a24;border:1px solid #4a3e52;border-radius:8px;padding:12px 14px}
+  .wt-hd{grid-column:1/3;display:flex;gap:14px;align-items:center;font-family:'Roboto Mono',monospace;font-size:12.5px;color:#cbb9c9}
+  .wt-hd b{font-family:'Outfit',sans-serif;font-weight:800;font-size:20px;letter-spacing:.04em;color:#ff8a6a}
+  .wt-hd span{flex:1}
+  .wt-src{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;align-content:start}
+  .ws{position:relative;background:#fffdf4 repeating-linear-gradient(transparent 0 20px,#d7e1ec 20px 21px);color:#1d1d1d;padding:6px 10px 6px;font-family:'Inter',sans-serif;font-size:12.6px;line-height:21px;border-top:5px solid #6a5a72;cursor:pointer;min-height:168px}
+  .ws b{display:block;font-family:'Oswald',sans-serif;font-weight:500;font-size:15px;letter-spacing:.04em;line-height:21px}
+  .ws i{font-style:normal;font-family:'Roboto Mono',monospace;font-size:11.6px;color:#3a4a5a}
+  .ws:hover{outline:2px solid #ffb49c}
+  .ws .tag{display:none;position:absolute;right:-6px;top:-14px;padding:4px 10px 3px 16px;background:#b8322a;color:#fff;font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:.08em;transform:rotate(6deg);
+    clip-path:polygon(10px 0,100% 0,100% 100%,10px 100%,0 50%)}
+  .ws.on{border-top-color:#b8322a;box-shadow:0 0 0 3px #b8322a}
+  .ws.on .tag{display:block}
+  .ws.bad{animation:bad .9s steps(2,end) 2}
+  @keyframes bad{50%{box-shadow:0 0 0 4px #ff3b2a}}
+  .wt-notes{background:#fffbe6 repeating-linear-gradient(transparent 0 25px,#cfd8e3 25px 26px);color:#1d2a52;font-family:'Kalam',cursive;font-size:15.5px;line-height:26px;padding:6px 10px 6px 12px;border-top:16px solid #2f6a5e}
+  .wn{display:flex;gap:6px;align-items:flex-start;cursor:pointer;border-radius:3px}
+  .wn:hover{background:rgba(47,106,94,.12)}
+  .wn u{text-decoration:none;flex:0 0 18px;font-weight:700;color:#b8322a}
+  .wn span{flex:1}
+  .wn.x span{text-decoration:line-through;text-decoration-color:#b8322a;text-decoration-thickness:2px;color:#7a7f94}
+  .wn em{font-style:normal;font-family:'Roboto Mono',monospace;font-size:10.5px;color:#b8322a;white-space:nowrap;align-self:center;visibility:hidden}
+  .wn.x em{visibility:visible}
+  .wt-clip{grid-column:1/2;background:#120e16;border:1px solid #3a3042;border-radius:4px;padding:6px 10px;font-family:'Roboto Mono',monospace;font-size:12.4px;line-height:1.45;color:#e8dfe6}
+  .wt-clip small{color:#a894a6}
+  .wt .pmsg{color:#f1e9ee}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="foam" width="60" height="60" patternUnits="userSpaceOnUse"><rect width="60" height="60" fill="#3a3340"/>
+    <path d="M0 0L30 30L0 60zM60 0L30 30L60 60z" fill="#332c39"/><path d="M0 0L30 30L60 0z" fill="#453d4b"/><path d="M0 60L30 30L60 60z" fill="#2c2632"/></pattern>
+  <pattern id="foam2" width="60" height="60" patternUnits="userSpaceOnUse" patternTransform="rotate(90)"><rect width="60" height="60" fill="#3a3340"/>
+    <path d="M0 0L30 30L0 60zM60 0L30 30L60 60z" fill="#332c39"/><path d="M0 0L30 30L60 0z" fill="#453d4b"/><path d="M0 60L30 30L60 60z" fill="#2c2632"/></pattern>
+  <linearGradient id="deskG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a3a42"/><stop offset="1" stop-color="#1c1c22"/></linearGradient>
+  <radialGradient id="lampG" cx="50%" cy="0%" r="90%"><stop offset="0" stop-color="#ffcf8a" stop-opacity=".42"/><stop offset="1" stop-color="#ffcf8a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="scrG" cx="50%" cy="50%" r="60%"><stop offset="0" stop-color="#7fe0c0" stop-opacity=".22"/><stop offset="1" stop-color="#7fe0c0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="48%" r="75%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".72" stop-color="#000" stop-opacity=".22"/><stop offset="1" stop-color="#000" stop-opacity=".72"/></radialGradient>
+  <clipPath id="scrClip"><rect x="770" y="452" width="290" height="132"/></clipPath>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1700" fill="url(#foam)"/>
+<rect x="-1000" y="-400" width="3600" height="470" fill="#221d27"/>
+<g fill="#ffe9c8" opacity=".9"><rect x="300" y="40" width="160" height="14" rx="7"/><rect x="1140" y="40" width="160" height="14" rx="7"/></g>
+<ellipse cx="380" cy="120" rx="320" ry="260" fill="url(#lampG)"/><ellipse cx="1220" cy="120" rx="320" ry="260" fill="url(#lampG)"/>
+
+<!-- the door, the ON AIR sign, the speaker and the cat -->
+<rect x="40" y="150" width="210" height="560" fill="#2a2430" stroke="#191520" stroke-width="10"/><rect x="74" y="200" width="140" height="160" fill="#14101a" stroke="#191520" stroke-width="6"/><circle cx="222" cy="450" r="9" fill="#9a8a6a"/>
+<g id="onair" class="hot"><rect x="70" y="96" width="150" height="42" rx="6" fill="#2a1414" stroke="#120a0a" stroke-width="4"/><text x="145" y="126" class="cU" font-size="26" font-weight="800" text-anchor="middle" fill="#5a2a2a" letter-spacing="3">ON AIR</text></g>
+<g id="cat" class="hot"><rect x="168" y="548" width="160" height="200" rx="10" fill="#1a1a1e" stroke="#0e0e12" stroke-width="4"/><circle cx="248" cy="620" r="38" fill="#26262c"/><circle cx="248" cy="620" r="14" fill="#101014"/><circle cx="248" cy="704" r="22" fill="#26262c"/>
+  <path id="catT" d="M250 538q46 -6 54 18" fill="none" stroke="#c9862e" stroke-width="10" stroke-linecap="round"/>
+  <path d="M184 548q0 -40 50 -44q48 0 58 38z" fill="#d9963a"/><path d="M188 520l-4 -24 18 14zM216 508l4 -22 12 18z" fill="#d9963a"/><path d="M200 522q6 4 12 0M222 520q6 4 12 0" stroke="#2a1a0a" stroke-width="2.5" fill="none"/><path d="M204 534l-24 -2M204 538l-22 6" stroke="#f2e6d0" stroke-width="1.5"/></g>
+
+<!-- the guide, pinned up -->
+<g id="guide" class="hot" transform="rotate(-3 380 300)"><rect x="318" y="216" width="124" height="170" fill="#fbf9f2" stroke="#b9b2a2" stroke-width="2"/><g fill="#3a3a3a"><circle cx="330" cy="236" r="4"/><circle cx="330" cy="276" r="4"/><circle cx="330" cy="316" r="4"/><circle cx="330" cy="356" r="4"/></g>
+  <text x="386" y="242" class="cM" font-size="9" text-anchor="middle" fill="#b8322a">GUIDE · 9</text><text x="386" y="262" class="cG" font-size="13" font-weight="800" text-anchor="middle" fill="#1e2226">Voices made</text><text x="386" y="278" class="cG" font-size="13" font-weight="800" text-anchor="middle" fill="#1e2226">by machines</text>
+  <g fill="#9aa5ae"><rect x="346" y="292" width="84" height="4"/><rect x="346" y="302" width="76" height="4"/><rect x="346" y="312" width="80" height="4"/><rect x="346" y="322" width="70" height="4"/><rect x="346" y="332" width="82" height="4"/><rect x="346" y="342" width="64" height="4"/></g>
+  <text x="350" y="372" class="cK" font-size="12" fill="#1f4fa0">I wrote this! &#8212; L.</text><circle cx="380" cy="212" r="6" fill="#b8322a"/></g>
+
+<!-- the window into Studio A, and the clock -->
+<rect x="540" y="140" width="520" height="290" fill="#0c0b10" stroke="#18141c" stroke-width="12"/>
+<g opacity=".7"><rect x="600" y="300" width="200" height="40" fill="#18161e"/><path d="M640 300v-60l30 -20" stroke="#26232c" stroke-width="6" fill="none"/><circle cx="676" cy="216" r="12" fill="#26232c"/><rect x="860" y="270" width="140" height="80" fill="#14121a"/></g>
+<path d="M560 150l120 270M700 150l90 270" stroke="#fff" stroke-width="18" opacity=".035"/>
+<text x="800" y="410" class="cU" font-size="14" text-anchor="middle" fill="#3a3442" letter-spacing="4">STUDIO A · DARK</text>
+<g id="clock" class="hot"><circle cx="1180" cy="230" r="78" fill="#0e0c12" stroke="#2a2430" stroke-width="8"/><g id="dots"></g>
+  <text x="1180" y="244" class="cM" font-size="36" font-weight="500" text-anchor="middle" fill="#ff5a3a">21:40</text><text x="1180" y="270" class="cM" font-size="12" text-anchor="middle" fill="#7a3a2a">FRI</text></g>
+
+<!-- the archive shelf -->
+<g id="shelf" class="hot"><rect x="1270" y="330" width="300" height="12" fill="#5a4636"/><rect x="1270" y="470" width="300" height="12" fill="#5a4636"/><rect x="1270" y="330" width="10" height="290" fill="#4a3a2c"/><rect x="1560" y="330" width="10" height="290" fill="#4a3a2c"/><rect x="1270" y="608" width="300" height="12" fill="#5a4636"/>
+  <g id="boxes"></g></g>
+
+<!-- the screen -->
+<rect x="700" y="400" width="420" height="260" fill="url(#scrG)" pointer-events="none"/>
+<g id="screen" class="hot"><rect x="900" y="596" width="20" height="40" fill="#25252b"/><rect x="860" y="630" width="100" height="10" rx="4" fill="#25252b"/>
+  <rect x="756" y="424" width="318" height="176" rx="6" fill="#25252b"/><rect x="766" y="434" width="298" height="156" fill="#0b1214"/>
+  <text x="776" y="448" class="cM" font-size="10" fill="#7fe0c0">chandra_call.wav · 0:40</text>
+  <g clip-path="url(#scrClip)"><path id="wave" d="" fill="#7fe0c0" opacity=".85"/></g>
+  <rect x="908" y="456" width="2" height="128" fill="#ff5a3a"/></g>
+
+<!-- the phone-in desk and Ivo's sticker -->
+<rect x="1230" y="660" width="420" height="240" fill="#2a2a30"/><rect x="1230" y="650" width="420" height="16" fill="#4a4a52"/>
+<g id="sticker" class="hot"><rect x="1300" y="600" width="110" height="50" rx="6" fill="#1a1a1e"/><rect x="1312" y="586" width="86" height="22" rx="10" fill="#26262c"/><g fill="#5a5a62"><rect x="1316" y="612" width="12" height="9"/><rect x="1334" y="612" width="12" height="9"/><rect x="1352" y="612" width="12" height="9"/><rect x="1316" y="626" width="12" height="9"/><rect x="1334" y="626" width="12" height="9"/><rect x="1352" y="626" width="12" height="9"/></g>
+  <rect x="1428" y="590" width="98" height="64" fill="#ffe14d" transform="rotate(4 1477 622)"/><text x="1477" y="612" class="cO" font-size="13" font-weight="600" text-anchor="middle" fill="#1a1a1a" transform="rotate(4 1477 622)">WARBLE ON</text><text x="1477" y="628" class="cO" font-size="13" font-weight="600" text-anchor="middle" fill="#1a1a1a" transform="rotate(4 1477 622)">THE LINE?</text><text x="1477" y="646" class="cK" font-size="11" text-anchor="middle" fill="#1a1a1a" transform="rotate(4 1477 622)">&#8212; Ivo</text></g>
+<text x="1440" y="700" class="cU" font-size="14" text-anchor="middle" fill="#8a8a96" letter-spacing="3">PHONE-IN</text>
+
+<!-- Lena -->
+<g id="lena" class="hot" transform="translate(560 880) scale(1.38)"></g>
+
+<!-- the desk -->
+<path d="M-1000 690L330 640H1240L2600 690V1300H-1000z" fill="url(#deskG)"/>
+<rect x="330" y="640" width="910" height="10" fill="#4a4a54"/>
+<g id="faders"></g>
+<g id="mic" class="hot"><path d="M300 640v-90l120 -120" stroke="#3a3a42" stroke-width="9" fill="none"/><rect x="398" y="380" width="48" height="84" rx="22" fill="#1e1e24" stroke="#4a4a54" stroke-width="3" transform="rotate(45 422 422)"/><circle cx="300" cy="640" r="16" fill="#3a3a42"/></g>
+<g id="notepad" class="hot"><path d="M610 720l170 -10 10 120 -170 10z" fill="#fffbe6"/><path d="M610 720l170 -10 2 14 -170 10z" fill="#2f6a5e"/>
+  <g stroke="#9aa9bd" stroke-width="1.5"><path d="M618 748l164 -9M619 762l164 -9M620 776l164 -9M621 790l164 -9M622 804l164 -9"/></g>
+  <text x="630" y="758" class="cK" font-size="13" fill="#1d2a52" transform="rotate(-3 700 760)">1. Low St: perfect</text><text x="632" y="786" class="cK" font-size="13" fill="#1d2a52" transform="rotate(-3 700 790)">2. marina??</text></g>
+<g id="mug"><path d="M1110 760v-50h44v50z" fill="#e8e2d4"/><path d="M1154 722q16 0 16 14t-16 14" fill="none" stroke="#e8e2d4" stroke-width="5"/><text x="1132" y="742" class="cO" font-size="11" text-anchor="middle" fill="#b8322a">104.6</text></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">To the newsroom</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="voice.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, lock = null, catN = 0;
+  var SRC = [
+    { id: 'ask', name: 'Ask the Mayor', where: 'Radio Greyhithe · recorded here in Studio B', size: '131 episodes · about 26 hours of her voice', w: 'Low Street 208 · flood wall 174 · Monday 96 · marina 2 · chances 1' },
+    { id: 'council', name: 'Council meetings', where: 'council website · the Council Chamber: high ceiling, big echo, other speakers', size: '2024&ndash;2026 · about 9 hours of her voice', w: 'Low Street 61 · flood wall 88 · Monday 40 · marina 31 · chances 4' },
+    { id: 'debate', name: 'Election debate 2023', where: 'Radio Greyhithe · Studio B · four speakers', size: 'one hour · about 14 minutes of her voice', w: 'Low Street 3 · flood wall 1 · Monday 2 · marina 0 · chances 0' },
+    { id: 'prize', name: 'Prize Day speech', where: 'Greyhithe School, July 2025 · video · school hall', size: '4 minutes', w: 'Low Street 0 · flood wall 0 · Monday 0 · marina 0 · chances 0' },
+    { id: 'book', name: 'Greyhithe Through Time', where: 'the town&rsquo;s history, read aloud for the library · its sound booth: padded, silent, no hum', size: 'about 3 hours', w: 'Low Street 19 · flood wall 0 · Monday 0 · marina 0 · chances 2' },
+    { id: 'voicemail', name: 'Voicemail', where: 'her council phone', size: '20 seconds: &ldquo;This is Frances Chandra. I can&rsquo;t take your call&hellip;&rdquo;', w: '&mdash;' }
+  ];
+  var NOTES = [
+    '&lsquo;Low Street&rsquo;, &lsquo;flood wall&rsquo;, &lsquo;Monday&rsquo;: perfect. Exactly her.',
+    '&lsquo;marina&rsquo;: stress in a funny place. MA-ri-na, like a name.',
+    '&lsquo;take its chances&rsquo;: flat, like reading a shopping list.',
+    'Dry and close, no echo. Full and clear, not thin like a phone. Sounds like a studio.',
+    '0:20: a warble, half a second, like underwater.',
+    'She breathes before &lsquo;Low Street&rsquo;, just like on air.',
+    'A faint low hum all the way through. Like this room.'
+  ];
+  var CLIP = '&ldquo;Listen. I&rsquo;ll be straight with you, because you&rsquo;ve asked me straight. The flood wall money goes to the marina. The vote on Monday is for show. Low Street can take its chances. And don&rsquo;t put any of this in writing.&rdquo;';
+
+  (function () {
+    var s = '', i, a, x;
+    for (i = 0; i < 60; i++) { a = (i * 6 - 90) * Math.PI / 180; s += '<circle cx="' + (1180 + 64 * Math.cos(a)).toFixed(1) + '" cy="' + (230 + 64 * Math.sin(a)).toFixed(1) + '" r="2.6" fill="' + (i <= 0 || i % 5 === 0 ? '#ff5a3a' : '#3a1a14') + '"/>'; }
+    $('#dots').innerHTML = s;
+    var col = ['#b8322a', '#2f6a5e', '#c9a020', '#6a5a72', '#1f4fa0', '#7a7a82'], lab = ['A', 'B', 'C', 'D', 'E', 'F'];
+    s = '';
+    for (i = 0; i < 6; i++) { x = 1290 + (i % 3) * 92; var y = i < 3 ? 352 : 492; s += '<rect x="' + x + '" y="' + y + '" width="80" height="116" fill="' + col[i] + '"/><rect x="' + (x + 10) + '" y="' + (y + 14) + '" width="60" height="40" fill="#f2ead8"/><text x="' + (x + 40) + '" y="' + (y + 44) + '" class="cO" font-size="26" font-weight="600" text-anchor="middle" fill="#1d1d1d">' + lab[i] + '</text>'; }
+    $('#boxes').innerHTML = s;
+    s = '';
+    for (i = 0; i < 12; i++) { x = 470 + i * 34; if (x > 740 && x < 1080) continue; s += '<rect x="' + (x - 3) + '" y="668" width="6" height="56" fill="#111"/><rect x="' + (x - 10) + '" y="' + (684 + (i * 13) % 30) + '" width="20" height="12" rx="2" fill="' + (i % 4 === 0 ? '#ff8a6a' : '#c9c9d2') + '"/>'; }
+    for (i = 0; i < 4; i++) s += '<rect class="vu' + (i % 2 ? ' b' : '') + '" x="' + (1140 + i * 14) + '" y="666" width="9" height="56" fill="' + (i < 3 ? '#7fe0c0' : '#ffb02e') + '" style="transform-origin:' + (1144 + i * 14) + 'px 722px"/>';
+    $('#faders').innerHTML = s;
+    var words = [[0.4, 1.2], [2.2, 10.6, 0.9], [11.4, 17.4], [18.5, 23.2], [24.9, 30.4], [31.9, 38.6]];
+    $('#wave').setAttribute('d', VX.voicePath(770, 518, 10, 46, words.concat(words.map(function (w) { return [w[0] + 40, w[1] + 40, w[2]]; })), 50, 7, 0.08));
+    $('#lena').innerHTML = VX.who('lena', { smile: 0 });
+  })();
+
+  ER.init({
+    theme: 'ai', story: 'voice', storyTitle: 'In Her Own Words', id: 'studio', no: 'I', title: 'Studio B',
+    go: 'Put the headphones on',
+    intro: [
+      'Friday night at Radio Greyhithe, the little station in the old fire station on Market Square. You are here on work experience, and this is your last night.',
+      'At nine o&rsquo;clock the music went over to the computer for the night. The only other person in the building is Lena Sokolova, the night editor, who reads the news at eleven.',
+      'At 21.12 an email arrived in the news inbox with a sound file called chandra_call.wav. Lena has listened to it four times. She has not said a word.'
+    ],
+    exit: {"next":"newsroom","w":{"1069da27":"41440d9c"}}, tags: {"src":["39693a7b"],"strike":["ea38c1a9"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('a-file') || null; told = ER.flag('a-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('a-told', told); return true; }
+  function isBusy() { return busy; }
+  function ready() { return told.lena && told.notes && told.guide && told.shelf; }
+  function paint() {
+    $('#screen').classList.toggle('glow', !!(ready() && !nextFile));
+    ER.pips((told.lena ? 1 : 0) + (told.notes ? 1 : 0) + (told.guide ? 1 : 0) + (told.shelf ? 1 : 0) + (nextFile ? 1 : 0), 5);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Lena wants to see the file on the big editing screen. The button at the bottom of the screen takes you to the newsroom.']];
+    if (lock && lock.isOpen()) return ['lock', [
+      'Page 9 of the guide says what a voice model takes from its recordings: the words it heard often (perfect), the words it hardly heard (odd), breathing, and the room. Which shelf box agrees with every one of Lena&rsquo;s notes?',
+      'Rule some out. Too short for a good copy: the debate, the speech, the voicemail. A room that sounds wrong: the council chamber echoes, and the library booth has no hum. Then look at &ldquo;marina&rdquo;: which box hardly ever has it?',
+      'One note says nothing about what the voice learnt from: the warble. Ivo&rsquo;s sticker on the phone-in desk says why. Strike it out.'
+    ]];
+    if (!told.lena) return ['lena', ['Lena has been listening to the file. Talk to her.', 'Lena is sitting at the desk, left of the screen, with headphones round her neck.']];
+    if (!told.notes) return ['notes', ['Lena wrote down what she heard.', 'Her notepad is on the desk, in front of the screen, with a green top.']];
+    if (!told.guide) return ['guide', ['Lena mentioned page 9 of the guide. It is pinned up somewhere.', 'The white ring-bound page on the foam wall, between the door and the window.']];
+    if (!told.shelf) return ['shelf', ['If a machine made the voice, it learnt from recordings of her. Which recordings of the mayor are there?', 'The six coloured boxes on the shelf on the right, marked A to F.']];
+    return ['screen', ['Now the screen: which recordings taught this voice?', 'The glowing screen in the middle of the desk.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('Ask the Mayor. Twenty-six hours of her, recorded in this room.'); return; }
+    if (told.in) { busy = false; ER.say('Studio B. The computer is playing music to the valley, and nobody is listening to it.'); return; }
+    tell('in');
+    ER.narrate([
+      'Studio B is the size of a big wardrobe, and most of it is microphone. The walls are covered in grey foam, to stop any echo. Above the door the ON AIR sign is dark: tonight the music is coming from a computer in the corner.',
+      'Lena sits at the desk with her headphones round her neck. On the screen in front of her: chandra_call.wav, forty seconds, a long green squiggle.',
+      'On top of the speaker by the door, the station cat is asleep on the warmest thing in the room.'
+    ], function () { busy = false; });
+  }
+
+  $('#lena').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;The desk next door shows more than my ears do,&rdquo; says Lena. &ldquo;Come on.&rdquo;'); return; }
+    ER.talk({
+      who: 'Lena Sokolova', role: 'Night editor · reads the news at eleven', face: VX.face('lena'),
+      lines: [
+        { note: 'She holds up one hand until the clip has finished. Then she takes the headphones off.', a: '&ldquo;That&rsquo;s Frances Chandra. The mayor. Or it&rsquo;s a very good copy of her.&rdquo;' },
+        { q: 'What does she say?', a: '<p>' + CLIP + '</p><p>&ldquo;On Monday night the council votes: a flood wall for Low Street, or a marina for the yachts. There isn&rsquo;t money for both.&rdquo;</p>' },
+        { q: 'Who sent it?', a: 'Somebody called lowstreetwatch. Says the mayor rang them on Wednesday and they recorded the call. Says every paper gets it at midnight. So if we want it first, it goes in the eleven o&rsquo;clock news.' },
+        { q: 'Will it?', a: 'If it&rsquo;s real, it&rsquo;s the biggest story this station has had since the pier fell down. If a computer made it and we play it, it&rsquo;s the last story this station ever has.' },
+        { q: 'Can&rsquo;t you tell by listening?', a: 'I&rsquo;ve done nothing but listen. It sounds like her. It starts the way she always starts: &ldquo;Listen. I&rsquo;ll be straight with you.&rdquo; She says that every Tuesday on Ask the Mayor. But a few words sound wrong. I&rsquo;ve written down what I hear. Page 9 of the guide is about this. I wrote page 9. I never thought I&rsquo;d need it.' },
+        { note: 'She points at the six boxes on the shelf.', a: '&ldquo;If a machine made it, it learnt her voice from somewhere. That shelf is every recording of her I know about. Find me which one it learnt from, and we&rsquo;ll know what we&rsquo;re dealing with.&rdquo;' }
+      ],
+      clue: { id: 'lena1', title: 'Lena: the clip and the shelf', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('lena')) { paint(); ER.say('Her notepad is on the desk. Page 9 is on the wall. The boxes are on the shelf.'); } }
+    });
+  });
+
+  var NOTEPAD = '<h4>chandra_call.wav &middot; what I hear &middot; L.S.</h4>' + NOTES.map(function (n, i) { return '<p><span class="n">' + (i + 1) + '.</span>' + n + '</p>'; }).join('') + '<p>&nbsp;</p><p>Sounds like her. That&rsquo;s the problem.</p>';
+  $('#notepad').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: NOTEPAD, cls: 'vg-note', clue: { id: 'notes', title: 'Lena&rsquo;s notes: what she hears', kind: 'Her notepad' }, done: function () {
+      VX.terms(['stress', 'warble']);
+      if (tell('notes')) { paint(); ER.say('Seven things Lena heard. Some are about the words, some about the room.'); }
+    } });
+  });
+
+  var GUIDE = '<div class="hd">RADIO GREYHITHE &middot; GUIDE FOR PRODUCERS</div><h4>9. Voices made by machines</h4><div class="two"><div>' +
+    '<p>A <b>synthetic</b> voice is made by a computer program, a <b>voice model</b>. First the model is <b>trained</b> on recordings of one person. It learns the patterns of that voice: its pitch, its speed, how it says each sound, where it breathes. Then it can say new sentences in that voice: sentences the person never said.</p>' +
+    '<p>It needs examples. Some tools make a rough copy from a minute of speech. A good copy needs hours of clear speech.</p>' +
+    '<p>What it learnt from leaves <b>traces</b>:</p><ul><li>Words it heard hundreds of times come out perfectly. Words it heard once or twice, or never, can come out oddly: the wrong stress, a flat tone.</li>' +
+    '<li>It copies breathing from its recordings, so it breathes too.</li><li>It copies the room: the echo of a hall, the hum of a studio.</li></ul>' +
+    '<p>By ear alone you cannot be sure. Ears notice odd things. They cannot prove where the odd things came from.</p></div>' +
+    '<div><svg viewBox="0 0 250 330" xmlns="http://www.w3.org/2000/svg"><g font-family="Inter,sans-serif" font-size="12">' +
+    '<rect x="10" y="10" width="54" height="40" fill="#b8322a"/><rect x="70" y="10" width="54" height="40" fill="#2f6a5e"/><rect x="130" y="10" width="54" height="40" fill="#c9a020"/><text x="125" y="68" text-anchor="middle" fill="#1e2226">hours of recordings of ONE person</text>' +
+    '<path d="M125 76v26" stroke="#1e2226" stroke-width="3"/><path d="M117 96l8 10 8 -10" fill="#1e2226"/>' +
+    '<rect x="50" y="112" width="150" height="60" rx="10" fill="#1e2226"/><g fill="#7fe0c0"><circle cx="76" cy="142" r="8"/><circle cx="104" cy="142" r="8"/><circle cx="132" cy="142" r="8"/></g><text x="166" y="147" text-anchor="middle" fill="#fff" font-weight="700">model</text>' +
+    '<path d="M125 176v26" stroke="#1e2226" stroke-width="3"/><path d="M117 196l8 10 8 -10" fill="#1e2226"/>' +
+    '<path d="M20 214h210v52h-150l-20 18v-18h-40z" fill="#fff" stroke="#1e2226" stroke-width="2"/><text x="125" y="236" text-anchor="middle" fill="#1e2226">a NEW sentence,</text><text x="125" y="254" text-anchor="middle" fill="#1e2226">in that voice</text>' +
+    '<text x="10" y="308" fill="#2f6a5e" font-weight="700">heard 200 times &#8594; perfect</text><text x="10" y="326" fill="#b8322a" font-weight="700">heard twice &#8594; odd</text></g></svg></div></div>' +
+    '<p class="pg">page 9</p>';
+  $('#guide').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: GUIDE, cls: 'vg-guide', clue: { id: 'guide9', title: 'Guide, page 9: voices made by machines', kind: 'Pinned to the wall' }, done: function () {
+      VX.terms(['synthetic', 'voice model', 'trained', 'recording', 'trace']);
+      if (tell('guide')) { paint(); ER.say('Hours make a good copy. What it heard often comes out perfect; what it hardly heard comes out odd. It copies breaths and rooms.'); }
+    } });
+  });
+
+  var SHELF = '<h4>THE SHELF &middot; every recording of the mayor we know of</h4><div class="cards">' + SRC.map(function (s, i) {
+    return '<div class="card"><b>' + 'ABCDEF'.charAt(i) + ' &middot; ' + s.name + '</b>' + s.where + '<br>' + s.size + '<br><i>her words, counted: ' + s.w + '</i></div>';
+  }).join('') + '</div>';
+  $('#shelf').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: SHELF, cls: 'vg-shelf', clue: { id: 'shelf', title: 'The shelf: six recordings of the mayor', kind: 'Index cards' }, done: function () {
+      VX.terms(['archive', 'episode']);
+      if (tell('shelf')) { paint(); ER.say('Six sets of recordings. Different rooms, different lengths, different words.'); }
+    } });
+  });
+
+  var STICKER = '<h4>WARBLE ON THE LINE?</h4><p>Mobile phones drop tiny bits of sound when the signal is weak, or when the phone is cheap: half a second goes underwater. It happens on the phone-in every week. It does NOT mean the caller is a robot.</p><p class="hand">&mdash; Ivo (engineer)</p>' +
+    '<p class="fact"><b>Did you know?</b> An ordinary phone call carries only the sounds between about 300 and 3,400 hertz. That is why voices on the phone sound thin.</p>';
+  $('#sticker').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: STICKER, cls: 'vg-sticker', clue: { id: 'sticker', title: 'Ivo&rsquo;s sticker: a warble on the line', kind: 'Phone-in desk' }, done: function () {
+      VX.terms(['phone-in', 'hertz']);
+      if (tell('sticker')) ER.say('&ldquo;Ivo sticks those on everything,&rdquo; says Lena. &ldquo;He&rsquo;s usually right. It&rsquo;s very annoying.&rdquo;');
+    } });
+  });
+  $('#cat').addEventListener('click', function () {
+    if (busy) return;
+    catN++;
+    var L = ['The station cat, Decibel. She came with the building. She has never once been on air, and she would like to keep it that way.', 'Decibel opens one eye at the word &ldquo;mayor&rdquo;, and shuts it again.', 'Decibel is warm and asleep, and the only one in the building who is not worried about eleven o&rsquo;clock.'];
+    ER.say(L[(catN - 1) % L.length]);
+  });
+  VX.thing('#onair', 'on air', 'The ON AIR sign. It lights when a microphone is open. At eleven Lena will open hers and read the news.', isBusy);
+  VX.thing('#clock', null, 'The studio clock: 21.40. One hour and twenty minutes to the news.', isBusy);
+  VX.thing('#mic', null, 'Lena&rsquo;s microphone, folded back on its arm. It is the only thing in the room that is not allowed to hear the clip.', isBusy);
+  VX.thing('#mug', null, 'A mug that says 104.6. The tea in it has gone cold and grown a skin.', isBusy);
+  $('#screen').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('A good copy, trained on twenty-six hours of Ask the Mayor. If it is a copy at all.'); return; }
+    if (!told.lena) { ER.say('Forty seconds of green squiggle. Ask Lena what it is first.'); return; }
+    if (!told.notes) { ER.say('&ldquo;Read what I heard first,&rdquo; says Lena. &ldquo;My notepad. Green top.&rdquo;'); return; }
+    if (!told.guide) { ER.say('&ldquo;Page 9,&rdquo; says Lena. &ldquo;On the wall. I wrote it so that nobody would have to guess.&rdquo;'); return; }
+    if (!told.shelf) { ER.say('&ldquo;And the shelf,&rdquo; says Lena. &ldquo;Boxes A to F. Everything of her we know about.&rdquo;'); return; }
+    if (!lock) lock = makeLock();
+    lock.open();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the lock: which recordings taught this voice? ---------- */
+  function makeLock() {
+    var st = ER.flag('a-st') || { src: '', x: {} }, wait = false;
+    var box = ER.el('div', 'pz wt');
+    box.innerHTML = '<div class="wt-in"><div class="wt-hd"><b>WHAT TAUGHT IT?</b><span>Hang the label on the recordings this voice learnt from. Strike out any note that tells you nothing about that.</span></div>' +
+      '<div><div class="wt-src">' + SRC.map(function (s, i) { return '<div class="ws" data-id="' + s.id + '"><span class="tag">TRAINED ON</span><b>' + 'ABCDEF'.charAt(i) + ' &middot; ' + s.name + '</b>' + s.where + '<br>' + s.size + '<br><i>' + s.w + '</i></div>'; }).join('') + '</div>' +
+      '<div class="wt-clip" style="margin-top:8px"><small>chandra_call.wav &middot; 0:40 &middot;</small> ' + CLIP + '</div></div>' +
+      '<div class="wt-notes">' + NOTES.map(function (n, i) { return '<div class="wn" data-n="' + (i + 1) + '"><u>' + (i + 1) + '.</u><span>' + n + '</span><em>TELLS NOTHING</em></div>'; }).join('') + '</div></div>' +
+      '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="wt-go">Tell Lena</button></div>';
+    var msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function paintL() {
+      ER.$$('.ws', box).forEach(function (n) { n.classList.toggle('on', n.getAttribute('data-id') === st.src); });
+      ER.$$('.wn', box).forEach(function (n) { n.classList.toggle('x', !!st.x[n.getAttribute('data-n')]); });
+    }
+    ER.$$('.ws', box).forEach(function (n) {
+      n.addEventListener('click', function () { if (wait || nextFile) return; var id = n.getAttribute('data-id'); st.src = st.src === id ? '' : id; ER.flag('a-st', st); VX.sfx.jack(); paintL(); });
+    });
+    ER.$$('.wn', box).forEach(function (n) {
+      n.addEventListener('click', function (e) { if (e.target.closest('.w')) return; if (wait || nextFile) return; var k = n.getAttribute('data-n'); if (st.x[k]) delete st.x[k]; else st.x[k] = 1; ER.flag('a-st', st); VX.sfx.marker(); paintL(); });
+    });
+    paintL();
+    var WHY = {
+      council: '&ldquo;Thirty-one &lsquo;marinas&rsquo; at council,&rdquo; says Lena. &ldquo;Trained there, &lsquo;marina&rsquo; would be one of its best words, not its worst. And that chamber echoes like a swimming pool. Read my note 4 again.&rdquo;',
+      debate: '&ldquo;Fourteen minutes of her, and three &lsquo;Low Streets&rsquo;,&rdquo; says Lena. &ldquo;That makes a rough copy that trips over Low Street. This one says it in its sleep.&rdquo;',
+      prize: '&ldquo;Four minutes in a school hall? A rough copy at best, with a hall&rsquo;s echo. And she never says flood wall once.&rdquo;',
+      book: '&ldquo;The library booth is padded and dead silent: no hum at all. My note 7 says there is a hum. And not one &lsquo;flood wall&rsquo; in three hours of history, so it couldn&rsquo;t say it perfectly.&rdquo;',
+      voicemail: '&ldquo;Twenty seconds of &lsquo;I can&rsquo;t take your call&rsquo;? Page 9: a good copy needs hours.&rdquo;'
+    };
+    box.querySelector('#wt-go').addEventListener('click', function () {
+      var file, ks, i;
+      if (wait || nextFile) return;
+      if (!st.src) { ER.sfx.no(); msg('&ldquo;Hang the label on something,&rdquo; says Lena. &ldquo;Which recordings did it learn from?&rdquo;'); return; }
+      if (!ER.check('src', st.src)) {
+        ER.sfx.no(); var n = box.querySelector('.ws[data-id="' + st.src + '"]'); n.classList.remove('bad'); void n.offsetWidth; n.classList.add('bad');
+        msg(WHY[st.src] || '&ldquo;Not that one.&rdquo;'); return;
+      }
+      ks = Object.keys(st.x).sort();
+      for (i = 0; i < ks.length; i++) if (!ER.check('strike', ks[i])) {
+        ER.sfx.no();
+        msg('&ldquo;Don&rsquo;t throw away note ' + ks[i] + ',&rdquo; says Lena. &ldquo;' + (ks[i] === '6' ? 'Page 9 says a voice model copies breathing too. A breath like hers is a trace of what it learnt from.' : ks[i] === '4' || ks[i] === '7' ? 'The room is exactly the kind of trace page 9 talks about.' : 'A word it says perfectly, or oddly, is exactly the kind of trace page 9 talks about.') + '&rdquo;');
+        return;
+      }
+      if (!ks.length) { ER.sfx.no(); msg('&ldquo;Good box,&rdquo; says Lena. &ldquo;But one of my notes tells us nothing at all about what it learnt from. Which one? Ivo stuck a sticker about it on the phone desk.&rdquo;'); return; }
+      file = ER.exit([st.src + '-' + ks.join('')], { wait: true });
+      if (!file) { msg('The screen freezes. Something is wrong with this page: tell your teacher.'); return; }
+      wait = true; nextFile = file; ER.flag('a-file', file);
+      VX.terms(['training data']);
+      VX.mine('taught', 'What taught the voice', '<p>If a machine made it, it learnt from Ask the Mayor (box A): 26 hours of her, recorded in Studio B.</p><p>Hours, so a good copy. Low Street 208 times: perfect. Marina twice: odd. Dry, with this room&rsquo;s hum.</p><p>Not the council videos (31 marinas, big echo), not the library booth (no hum, no flood wall), and the rest are too short.</p><p>The warble tells us nothing: cheap phones do that.</p>', true);
+      msg('&ldquo;Box A,&rdquo; says Lena. &ldquo;Ours.&rdquo;');
+      setTimeout(function () {
+        ER.closeAll(); paint(); busy = true;
+        ER.narrate([
+          '&ldquo;Our archive,&rdquo; says Lena quietly. &ldquo;Twenty-six hours of her, recorded in this room, on our website, free to anyone who clicks.&rdquo; She looks at the foam on the walls as if it had let her down.',
+          '&ldquo;Hours of clean speech, so a good copy. Low Street two hundred times, so perfect. Marina twice, so odd. This room&rsquo;s hum, because she sat in this chair every Tuesday.&rdquo;',
+          '&ldquo;And the warble tells us nothing. Ivo&rsquo;s right. Cheap phones do it every week.&rdquo;',
+          '&ldquo;So if it was made, it was made from us. But if is a big word. A tired mayor on a bad line can say a word oddly too.&rdquo; She stands up. &ldquo;Next door. The editing screen shows more than my ears do.&rdquo;'
+        ], function () { busy = false; $('#go').classList.add('on'); });
+      }, 2600);
+    });
+    msg('Hang the label TRAINED ON on one box, and strike out any note that tells you nothing about what the voice learnt from. Then tell Lena.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,201 @@
+/* Everybody Thinks So - what every room shares: the papers of two small towns (a youth-club poster, a baker's tablet,
+   Burble's help pages, a parents' guide, Freya's coursework, a homework book, sign-up sheets, a data print-out), the
+   frame round a piece of work, and a skin for the notebook, the hints and the word tags (Freya's yellow folder).
+   Each room sets its own palette on <body>. */
+
+.tc-theme{font-family:'Roboto Mono',monospace;font-size:14px;letter-spacing:.22em}
+.tc-room{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-.01em;line-height:1;font-size:clamp(38px,5.4vw,76px)}
+.tc-text{font-family:'Literata',Georgia,serif;font-size:clamp(17px,1.38vw,20.5px);line-height:1.55}
+.tc-text p{margin:0 0 12px}
+.cap{font-family:'Literata',Georgia,serif;font-size:clamp(17px,1.36vw,20.5px);line-height:1.5}
+.chip,.hbtn{font-family:'Inter',sans-serif;font-weight:600;font-size:12.5px;letter-spacing:.12em}
+.btn{font-family:'Inter',sans-serif;font-weight:700;font-size:13px;letter-spacing:.12em}
+.ov-x{font-family:'Inter',sans-serif;font-weight:600;font-size:12.5px}
+.gobtn{position:fixed;left:50%;bottom:5vh;transform:translateX(-50%);z-index:35;display:none;padding:13px 30px 12px;border:0;
+  color:#1a1408;background:#f2c230;font-family:'Inter',sans-serif;font-weight:800;font-size:15px;letter-spacing:.05em;border-radius:30px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
+.gobtn.on{display:block}
+.gobtn:hover{background:#ffd75a}
+.tk-name{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:25px}
+.tk-role{font-family:'Roboto Mono',monospace;font-weight:500;font-size:12.5px;letter-spacing:.08em}
+.tk-text{font-family:'Literata',Georgia,serif;font-size:clamp(16.5px,1.3vw,19.5px);line-height:1.5}
+.tk-face svg{height:100%;min-height:300px}
+.hot{cursor:pointer}
+.hot:hover{filter:brightness(1.15)}
+.glow{animation:fglow 1.6s steps(1,end) infinite}
+@keyframes fglow{50%{filter:brightness(1.3) drop-shadow(0 0 10px #ffd75a)}}
+
+/* lettering inside drawings */
+.cM{font-family:'Roboto Mono',monospace}.cI{font-family:'Inter',sans-serif}.cK{font-family:'Kalam',cursive}
+.cL{font-family:'Literata',serif}.cG{font-family:'Bricolage Grotesque',sans-serif}.cO{font-family:'Oswald',sans-serif}
+.cS{font-family:'Special Elite',monospace}.cT{font-family:'Stardos Stencil',sans-serif}.cC{font-family:'Cinzel',serif}
+.cE{font-family:'EB Garamond',serif}.cU{font-family:'Outfit',sans-serif}.cV{font-family:'Caveat',cursive}
+
+/* ---- a piece of work ---- */
+.pz{width:min(1120px,95vw);-webkit-user-select:none;user-select:none}
+.pz-foot{display:flex;align-items:flex-start;gap:16px;margin-top:10px}
+.pmsg{flex:1;min-height:48px;margin:0;font-family:'Literata',Georgia,serif;font-size:16px;line-height:1.42;color:#f6f2ea}
+.pmsg b{color:#ffd75a;font-weight:700}
+.pz-foot .btn{flex:0 0 auto;white-space:nowrap;background:rgba(0,0,0,.45)}
+.pz svg{display:block}
+
+/* ---- paper ---- */
+.doc h4{font-weight:normal}
+.doc svg{display:block;max-width:100%;height:auto}
+.doc b{font-weight:700}
+/* the youth-club poster: a printed A3 sheet, a bit curled */
+.doc.fd-poster{width:min(800px,95vw);background:#fff8e6;color:#1d2a24;font-family:'Inter',sans-serif;font-size:15.5px;line-height:1.48;padding:22px 30px 18px;border-top:14px solid #2f8a5a;box-shadow:0 24px 60px rgba(0,0,0,.5)}
+.doc.fd-poster .hd{font-family:'Roboto Mono',monospace;font-size:12px;letter-spacing:.16em;color:#2f8a5a;margin-bottom:2px}
+.doc.fd-poster h4{margin:0 0 10px;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:32px;line-height:1;color:#1d2a24}
+.doc.fd-poster p{margin:0 0 8px}
+.doc.fd-poster b{color:#1f6a44}
+.doc.fd-poster .two{display:grid;grid-template-columns:1fr 250px;gap:22px;align-items:start}
+/* a tablet or phone screen */
+.doc.fd-screen{width:min(760px,95vw);background:#f7f8fa;color:#1a1f2a;font-family:'Outfit',sans-serif;font-size:15px;line-height:1.42;padding:0;border:14px solid #1d2026;border-radius:22px;overflow:auto}
+.doc.fd-screen h4{margin:0;padding:10px 18px;background:#5a3ad0;color:#fff;font-family:'Outfit',sans-serif;font-weight:600;font-size:15px;letter-spacing:.04em}
+.doc.fd-screen .in{padding:12px 18px 14px}
+.doc.fd-screen p{margin:0 0 8px}
+.doc.fd-screen table{width:100%;border-collapse:collapse;font-size:14.5px}
+.doc.fd-screen th{text-align:left;font-weight:600;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#6a6f80;border-bottom:2px solid #d8dae2;padding:4px 6px}
+.doc.fd-screen td{padding:6px 6px;border-bottom:1px solid #e4e6ec}
+.doc.fd-screen td.n{text-align:right;font-family:'Roboto Mono',monospace;font-size:14px}
+.doc.fd-screen .small{font-size:13px;color:#5a6070}
+.doc.fd-screen .sw{display:grid;grid-template-columns:150px 1fr;gap:4px 14px;margin:0 0 10px;padding:0 0 10px;border-bottom:1px solid #e4e6ec}
+.doc.fd-screen .sw b{color:#5a3ad0}
+.doc.fd-screen .sum{font-family:'Roboto Mono',monospace;font-size:15px;background:#efeafd;border-left:4px solid #5a3ad0;padding:8px 12px;margin:6px 0 10px}
+/* a printed leaflet */
+.doc.fd-leaflet{width:min(640px,94vw);background:#f4f0e6;color:#22252a;font-family:'EB Garamond',serif;font-size:19px;line-height:1.42;padding:24px 34px 20px;border-left:16px solid #c8462a}
+.doc.fd-leaflet .hd{font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:.18em;color:#c8462a;text-transform:uppercase}
+.doc.fd-leaflet h4{margin:2px 0 10px;font-family:'Oswald',sans-serif;font-weight:600;font-size:26px;letter-spacing:.02em;text-transform:uppercase;color:#22252a}
+.doc.fd-leaflet p{margin:0 0 9px}
+.doc.fd-leaflet .pg{font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:.14em;color:#8a8478;text-align:right;margin:0}
+/* a laminated card taped to the loudspeaker */
+.doc.fd-card{width:min(600px,92vw);background:#fdfdf8;color:#1a1a1a;font-family:'Inter',sans-serif;font-size:15.5px;line-height:1.46;padding:20px 26px 16px;border:3px solid #1a1a1a;box-shadow:inset 0 0 0 4px #fdfdf8,inset 0 0 0 7px #f2c230,0 20px 60px rgba(0,0,0,.5)}
+.doc.fd-card h4{margin:0 0 8px;font-family:'Stardos Stencil',sans-serif;font-size:26px;letter-spacing:.05em}
+.doc.fd-card p{margin:0 0 8px}
+.doc.fd-card .hand{font-family:'Kalam',cursive;font-size:17px;color:#1f4fa0}
+/* Freya's coursework */
+.doc.fd-course{width:min(780px,95vw);background:#fffef8 repeating-linear-gradient(transparent 0 27px,#dbe4ef 27px 28px);color:#1b2433;font-family:'Inter',sans-serif;font-size:15px;line-height:1.5;padding:22px 30px 16px 58px;
+  background-image:linear-gradient(90deg,transparent 40px,#f0a0a0 40px 42px,transparent 42px),repeating-linear-gradient(transparent 0 27px,#dbe4ef 27px 28px)}
+.doc.fd-course .hd{font-family:'Kalam',cursive;font-size:16px;color:#c8462a}
+.doc.fd-course h4{margin:0 0 6px;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:25px;color:#1b2433}
+.doc.fd-course p{margin:0 0 8px}
+.doc.fd-course .rule{font-family:'Roboto Mono',monospace;font-size:15px;background:#fff6c8;border:2px dashed #c8a020;padding:7px 12px;margin:4px 0 10px}
+.doc.fd-course .two{display:grid;grid-template-columns:1fr 230px;gap:18px;align-items:start}
+.doc.fd-course .hand{font-family:'Kalam',cursive;font-size:17px;color:#2a5ad0}
+/* a school book */
+.doc.fd-book{width:min(760px,95vw);background:#f9f6ee;color:#202430;font-family:'Literata',serif;font-size:16px;line-height:1.5;padding:22px 32px 18px;border-top:10px solid #3a6ab0;box-shadow:0 22px 60px rgba(0,0,0,.5)}
+.doc.fd-book .hd{font-family:'Outfit',sans-serif;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:#3a6ab0}
+.doc.fd-book h4{margin:2px 0 8px;font-family:'Outfit',sans-serif;font-weight:700;font-size:26px;color:#1a2a4a}
+.doc.fd-book p{margin:0 0 8px}
+.doc.fd-book .aside{font-size:14.5px;color:#4a5060;border-left:3px solid #c8d4e8;padding-left:10px}
+.doc.fd-book .hand{font-family:'Kalam',cursive;font-size:16px;color:#c8462a}
+/* two feeds side by side */
+.doc.fd-feeds{width:min(1000px,96vw);background:#22252c;color:#e8eaf0;padding:14px 16px 12px;border-radius:6px;font-family:'Outfit',sans-serif}
+.doc.fd-feeds h4{margin:0 0 8px;font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:.12em;color:#f2c230}
+.doc.fd-feeds .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.doc.fd-feeds .ph{background:#0f1116;border:8px solid #3a3d46;border-radius:20px;padding:8px 8px 6px}
+.doc.fd-feeds .ph h5{margin:0 0 6px;font-family:'Outfit',sans-serif;font-weight:700;font-size:14px;letter-spacing:.06em;text-align:center;color:#c9b8ff}
+.doc.fd-feeds .it{display:grid;grid-template-columns:22px 1fr;gap:6px;background:#1c1f27;border-radius:9px;padding:5px 8px;margin:0 0 4px;font-size:13.3px;line-height:1.28}
+.doc.fd-feeds .it i{font-style:normal;font-family:'Roboto Mono',monospace;font-size:11.5px;color:#7a8090;padding-top:2px}
+.doc.fd-feeds .it small{display:block;font-family:'Roboto Mono',monospace;font-size:11.2px;color:#9aa0b4}
+.doc.fd-feeds .it small b{color:#e8eaf0;font-weight:500}
+.doc.fd-feeds .it .rpo{color:#f2c230}
+.doc.fd-feeds .it.calm{opacity:.62}
+/* sign-up sheets */
+.doc.fd-sheets{width:min(1000px,96vw);background:#5a4a38;padding:14px;border-radius:4px}
+.doc.fd-sheets h4{margin:0 0 8px;font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:.12em;color:#f6e8c8}
+.doc.fd-sheets .cols{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.doc.fd-sheets .sh{background:#fdfbf2;color:#1e1e22;padding:10px 12px 8px;font-family:'Kalam',cursive;font-size:15px;line-height:1.3}
+.doc.fd-sheets .sh h5{margin:0 0 4px;font-family:'Oswald',sans-serif;font-weight:600;font-size:16px;letter-spacing:.04em}
+.doc.fd-sheets table{width:100%;border-collapse:collapse}
+.doc.fd-sheets td{border-bottom:1px solid #c8d0dc;padding:1px 4px;vertical-align:top}
+.doc.fd-sheets th{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.08em;text-transform:uppercase;text-align:left;color:#6a6a70;border-bottom:2px solid #1e1e22;padding:2px 4px}
+.doc.fd-sheets s{color:#8a3030;text-decoration-thickness:2px}
+.doc.fd-sheets .x{color:#b8322a}
+.doc.fd-sheets .tot{font-family:'Inter',sans-serif;font-size:12.5px;margin-top:5px;color:#3a3a40}
+/* Freya's data, as it came off the library printer */
+.doc.fd-data{width:min(820px,95vw);background:#fff;color:#1a1a1a;font-family:'Roboto Mono',monospace;font-size:13.2px;line-height:1.45;padding:18px 26px 14px;border-top:8px solid #5a3ad0;box-shadow:0 22px 60px rgba(0,0,0,.5)}
+.doc.fd-data h4{margin:0 0 6px;font-family:'Outfit',sans-serif;font-weight:700;font-size:20px}
+.doc.fd-data h5{margin:10px 0 4px;font-family:'Outfit',sans-serif;font-weight:700;font-size:13px;letter-spacing:.12em;color:#5a3ad0}
+.doc.fd-data p{margin:0 0 4px}
+.doc.fd-data .L{display:inline-block;width:26px;font-weight:700;color:#5a3ad0}
+.doc.fd-data .pg{color:#8a8a8a;font-size:11.5px;text-align:right;margin:4px 0 0}
+/* a notice in the hall */
+.doc.fd-notice{width:min(600px,92vw);background:#e8f4ec;color:#16281e;font-family:'Inter',sans-serif;font-size:15.5px;line-height:1.48;padding:20px 26px 16px;border:2px solid #2f8a5a;border-radius:4px}
+.doc.fd-notice h4{margin:0 0 8px;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:24px}
+.doc.fd-notice p{margin:0 0 8px}
+/* a framed photograph, a label */
+.doc.fd-photo{width:min(620px,92vw);background:#efe6d2;color:#2a2418;font-family:'EB Garamond',serif;font-size:18px;line-height:1.42;padding:18px 24px 14px;border:12px solid #3a2a1c}
+.doc.fd-photo h4{margin:0 0 6px;font-family:'Cinzel',serif;font-weight:700;font-size:18px;letter-spacing:.06em}
+.doc.fd-photo p{margin:0 0 6px}
+/* what you worked out */
+.doc.fd-mine{width:min(600px,92vw);background:#fff9d8 repeating-linear-gradient(transparent 0 29px,#e6d89a 29px 30px);color:#3a2a0a;font-family:'Kalam',cursive;font-size:18px;line-height:30px;padding:36px 30px 20px 34px;border-top:20px solid #f2c230}
+.doc.fd-mine h4{margin:0;font-family:'Roboto Mono',monospace;font-size:13px;line-height:30px;letter-spacing:.1em;text-transform:uppercase;color:#8a6a00}
+.doc.fd-mine p{margin:0}
+.doc.statement{background:#fbf6ea;font-family:'Literata',Georgia,serif;font-size:17px;line-height:1.5;border-left:6px solid #f2c230}
+.doc.statement h4{font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:.1em;color:#8a6a00}
+.doc .w:hover{color:#c8462a}
+
+/* ---- the notebook: Freya's yellow coursework folder ---- */
+.nb{background:#e9b92a linear-gradient(160deg,#f2c740,#d6a418);border:1px solid #a87e10;color:#2a2208;border-radius:10px;box-shadow:0 30px 90px rgba(0,0,0,.75)}
+.nb-tabs{border-bottom-color:#a87e10}
+.nb-tabs button{font-family:'Inter',sans-serif;font-weight:700;font-size:13px;letter-spacing:.12em;color:#5a4608}
+.nb-tabs button.on{background:#fffdf4;color:#2a2208;border-color:#a87e10}
+.nb-list{border-right-color:#a87e10}
+.nb-list button{font-family:'Inter',sans-serif;font-size:15px;color:#2a2208}
+.nb-list button small{font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:.08em}
+.nb-list button.on{background:#2a2208;color:#ffd75a}
+.nb-view{background:#c99a14}
+.nb-empty{font-family:'Inter',sans-serif}
+.nb-words{background:#fffdf4;color:#2a2208}
+.nb-words b{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:17px}
+.nb-words span{font-family:'Inter',sans-serif;font-size:15px;line-height:1.38;color:#5a5240}
+.nb-ko{border-color:#8a7a50;color:#5a5240}
+.nb-ko.on{background:#2a2208;color:#ffd75a;border-color:#2a2208}
+.wtip,.wtag{background:#fffdf4;color:#2a2208;border-radius:6px;box-shadow:0 12px 30px rgba(0,0,0,.45),inset 0 4px 0 #f2c230}
+.wtag{transform:none;padding:13px 16px 10px}
+.wtag:before{display:none}
+.wtip{padding-top:12px}
+.wtip b,.wtag b{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:17px}
+.wtip span,.wtag span{font-family:'Inter',sans-serif;font-size:15px;line-height:1.38;color:#5a5240}
+.hintbox{background:#fffdf4;color:#2a2208;border-top:6px solid #f2c230;border-radius:6px}
+.hintbox h6{font-family:'Roboto Mono',monospace;font-weight:500;font-size:12.5px;letter-spacing:.16em;color:#8a6a00}
+.hintbox p{font-family:'Literata',serif;font-size:16px;line-height:1.42}
+.hintbox p i{background:#2a2208;color:#ffd75a;font-family:'Inter',sans-serif;font-weight:700;font-size:12px}
+.hintbox p.hint-none{font-style:italic;color:#6a6250;font-size:15px}
+.hintbox .btn{font-size:12.5px}
+.toast{font-family:'Inter',sans-serif;font-weight:600;font-size:12.5px;background:rgba(42,34,8,.95);border-radius:4px;border-color:#f2c230}
+
+/* ---- the card at the end ---- */
+.done{position:fixed;right:2.2vw;top:58px;z-index:34;width:min(560px,94vw);max-height:calc(100vh - 72px);overflow:auto;padding:14px 24px 12px;display:none;background:#fffdf4;color:#2a2208;
+  border-top:12px solid #f2c230;border-radius:6px;box-shadow:0 20px 60px rgba(0,0,0,.45)}
+.done.on{display:block}
+.okstamp{display:inline-block;padding:5px 14px 3px;border:3px solid #2f8a5a;color:#2f8a5a;font-family:'Roboto Mono',monospace;font-weight:500;font-size:19px;letter-spacing:.08em;transform:rotate(-2deg);margin-bottom:6px}
+.done h6{margin:8px 0 4px;font-family:'Inter',sans-serif;font-weight:800;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase}
+.done p{margin:0 0 2px;font-family:'Roboto Mono',monospace;font-size:13px;line-height:1.4}
+.done ol{margin:0;padding-left:20px;font-family:'Literata',serif;font-size:13.2px;line-height:1.32}
+.done li{margin:0 0 3px}
+.done .row{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
+.done .btn{--accent:#2a2208;font-size:12px;padding:7px 12px}
+.done .btn:hover:not([disabled]){color:#ffd75a}
+.done small{display:block;margin-top:7px;font-family:'Roboto Mono',monospace;font-size:11.5px;opacity:.75;line-height:1.5}
+.done small button{text-decoration:underline;font:inherit}
+.rp{width:min(780px,94vw);max-height:84vh;overflow:auto;background:#fffdf4;color:#2a2208;padding:22px 34px 18px;box-shadow:0 26px 70px rgba(0,0,0,.5);-webkit-user-select:text;user-select:text;border-top:22px solid #f2c230;border-radius:6px}
+.rp h4{margin:0 0 3px;font-family:'Roboto Mono',monospace;font-weight:500;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:#8a6a00}
+.rp h3{margin:0 0 8px;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:28px;line-height:1.05}
+.rp p,.rp label{display:block;font-family:'Literata',serif;font-size:16px;line-height:1.45;margin:0 0 6px}
+.rp textarea,.rp input[type=text]{width:100%;font-family:'Kalam',cursive;font-size:18.5px;line-height:30px;color:#2a3a6a;background:#fff repeating-linear-gradient(transparent 0 29px,#d3dde8 29px 30px);
+  border:1px solid #9aa7b5;padding:0 12px;border-radius:0;resize:vertical;-webkit-user-select:text;user-select:text}
+.rp textarea{min-height:184px}
+.rp input[type=text]{height:32px}
+.rp .count{font-family:'Roboto Mono',monospace;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;opacity:.7;text-align:right;margin-top:3px}
+.rp .foot{display:flex;gap:10px;align-items:center;margin-top:10px}
+.rp .foot span{flex:1;font-family:'Roboto Mono',monospace;font-size:12px;opacity:.75}
+.rp .btn{--accent:#2a2208}.rp .btn:hover:not([disabled]){color:#ffd75a}
+@media print{
+  body{overflow:visible;background:#fff}
+  body>*:not(.ov){display:none!important}
+  .ov{position:static!important;display:block!important;background:#fff!important;padding:0!important;overflow:visible!important}
+  .ov-bar,.rp .foot{display:none!important}
+  .rp{box-shadow:none;max-height:none;width:auto;overflow:visible}
+}

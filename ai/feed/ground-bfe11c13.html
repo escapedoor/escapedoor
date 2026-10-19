@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Football Ground · Everybody Thinks So</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-ai.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="feed.css">
+<style>
+  body{--bg:#141c1a;--accent:#ff6a5a;--font-display:'Bricolage Grotesque',sans-serif;--font-ui:'Inter',sans-serif;--font-body:'Literata',serif;
+    --tc-bg:rgba(18,24,22,.96);--tc-ink:#eef4f0;--cap-bg:rgba(18,24,22,.94);--cap-ink:#eef4f0;--panel:#161e1c;--panel-ink:#eef4f0;--face-bg:#3a2228;--q-ink:#ffa89a;
+    --fade:#080c0a;--hud-bg:rgba(18,24,22,.82);--hud-ink:#eef4f0;--hud-line:rgba(238,244,240,.24);--ov-bg:rgba(8,12,10,.76)}
+  .tc-room{color:#ff6a5a;font-family:'Stardos Stencil',sans-serif;font-weight:700;letter-spacing:.02em}
+  .tc-theme{color:#a8e0c0}
+  .tk-role{color:#ffa89a}
+  .hbtn b{color:#080c0a}
+  .run{animation:run 6s ease-in-out infinite alternate}
+  .run.b{animation-duration:4.4s}.run.c{animation-duration:7.3s}
+  @keyframes run{0%{transform:translateX(0)}100%{transform:translateX(160px)}}
+  .drz{animation:drz .9s linear infinite}
+  @keyframes drz{0%{transform:translateY(-40px);opacity:0}20%{opacity:.6}100%{transform:translateY(300px);opacity:0}}
+  #steam{animation:steam 3s ease-out infinite}
+  @keyframes steam{0%{transform:translateY(0);opacity:.5}100%{transform:translateY(-40px);opacity:0}}
+
+  /* the scoreboard */
+  .sb{width:min(860px,95vw)}
+  .sb-in{background:#1a3a2a;border:14px solid #5a3a22;border-radius:4px;padding:14px 22px 16px;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+  .sb-in h5{margin:0 0 10px;font-family:'Stardos Stencil',sans-serif;font-size:30px;letter-spacing:.12em;color:#f2f2e8;text-align:center}
+  .sb-row{display:grid;grid-template-columns:1fr 110px 44px;gap:14px;align-items:center;margin:0 0 10px;padding:8px 10px;background:rgba(0,0,0,.18);border-radius:3px}
+  .sb-row b{display:block;font-family:'Stardos Stencil',sans-serif;font-size:26px;letter-spacing:.08em;color:#f2f2e8}
+  .sb-row span{display:block;font-family:'Inter',sans-serif;font-size:13.5px;line-height:1.3;color:#c8e0d0}
+  .plate{height:74px;background:#141414;border:3px solid #e8e8e0;display:grid;place-items:center;font-family:'Stardos Stencil',sans-serif;font-size:54px;color:#f2f2e8}
+  .ud button{display:block;width:44px;height:34px;margin:2px 0;border:2px solid #e8e8e0;border-radius:3px;color:#f2f2e8;font-size:16px}
+  .ud button:hover{background:rgba(255,255,255,.12)}
+  .sb .pmsg{color:#eef4f0}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="night" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0a0e1a"/><stop offset="1" stop-color="#1a2438"/></linearGradient>
+  <radialGradient id="floodG" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#f4f8ff" stop-opacity=".75"/><stop offset="1" stop-color="#f4f8ff" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="45%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".72" stop-color="#000" stop-opacity=".18"/><stop offset="1" stop-color="#000" stop-opacity=".7"/></radialGradient>
+  <pattern id="panel" width="60" height="200" patternUnits="userSpaceOnUse"><rect width="60" height="200" fill="#5a3a22"/><rect width="3" height="200" fill="#4a2e1a"/></pattern>
+  <clipPath id="pitchC"><rect x="830" y="130" width="700" height="330"/></clipPath>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1700" fill="#c4ccc0"/>
+<rect x="-1000" y="-400" width="3600" height="420" fill="#2a2e2c"/><rect x="-1000" y="18" width="3600" height="10" fill="#b8282e"/>
+<rect x="-1000" y="520" width="3600" height="200" fill="url(#panel)"/><rect x="-1000" y="514" width="3600" height="8" fill="#b8282e"/>
+
+<!-- the pitch, through the big window -->
+<g id="pitch" class="hot"><g clip-path="url(#pitchC)"><rect x="820" y="120" width="720" height="350" fill="url(#night)"/>
+  <path d="M820 300L1540 280V470H820z" fill="#2f7a3a"/><path d="M820 340L1540 318M1180 290V470M820 420L1540 400" stroke="#e8f0e8" stroke-width="3" opacity=".7"/><ellipse cx="1180" cy="380" rx="70" ry="20" fill="none" stroke="#e8f0e8" stroke-width="3" opacity=".7"/>
+  <g fill="#e8f0ff"><rect x="880" y="150" width="6" height="150"/><rect x="1470" y="140" width="6" height="150"/></g><circle cx="883" cy="150" r="80" fill="url(#floodG)"/><circle cx="1473" cy="140" r="80" fill="url(#floodG)"/>
+  <g class="run"><circle cx="940" cy="360" r="7" fill="#f2d0b0"/><rect x="934" y="366" width="12" height="18" fill="#b8282e"/></g>
+  <g class="run b"><circle cx="1100" cy="400" r="7" fill="#c89a72"/><rect x="1094" y="406" width="12" height="18" fill="#b8282e"/></g>
+  <g class="run c"><circle cx="1240" cy="350" r="7" fill="#f2d0b0"/><rect x="1234" y="356" width="12" height="18" fill="#b8282e"/></g>
+  <g id="drizzle" stroke="#c8d8f0" stroke-width="1.2"></g></g>
+  <rect x="826" y="126" width="708" height="338" fill="none" stroke="#e8e4d8" stroke-width="12"/><path d="M1060 126V464M1300 126V464" stroke="#e8e4d8" stroke-width="7"/></g>
+
+<!-- the trophy cabinet -->
+<g id="cabinet" class="hot"><rect x="70" y="150" width="230" height="360" fill="#3a2414"/><rect x="82" y="162" width="206" height="336" fill="#a8c0c8" opacity=".35"/><path d="M82 270H288M82 380H288" stroke="#5a3a22" stroke-width="6"/>
+  <g fill="#d8b866"><path d="M110 260v-30q-14 -6 -14 -30h40q0 24 -14 30v30z"/><path d="M210 260v-24q-10 -4 -10 -22h32q0 18 -10 22v24z"/><path d="M120 370v-26q-12 -4 -12 -26h36q0 22 -12 26v26z"/></g>
+  <rect x="196" y="340" width="70" height="30" fill="none" stroke="#f2f2e8" stroke-width="2" stroke-dasharray="5 4"/><text x="231" y="358" class="cK" font-size="9" text-anchor="middle" fill="#f2f2e8">Brass Bun</text></g>
+
+<!-- the old scoreboard, in for a coat of paint -->
+<g id="score" class="hot"><rect x="350" y="70" width="420" height="190" fill="#1a3a2a" stroke="#5a3a22" stroke-width="10"/><text x="560" y="112" class="cT" font-size="30" text-anchor="middle" fill="#f2f2e8" letter-spacing="6">CRICKMORE FC</text>
+  <g class="cT" font-size="20" fill="#f2f2e8"><text x="400" y="160">HOME</text><text x="640" y="160">AWAY</text></g>
+  <rect x="400" y="172" width="70" height="70" fill="#141414" stroke="#e8e8e0" stroke-width="3"/><rect x="640" y="172" width="70" height="70" fill="#141414" stroke="#e8e8e0" stroke-width="3"/>
+  <text x="435" y="226" class="cT" font-size="44" text-anchor="middle" fill="#f2f2e8">?</text><text x="675" y="226" class="cT" font-size="44" text-anchor="middle" fill="#f2f2e8">?</text>
+  <text x="560" y="214" class="cK" font-size="13" text-anchor="middle" fill="#ffd27a">WET PAINT</text></g>
+
+<!-- the noticeboard with the sign-up sheets -->
+<g id="sheets" class="hot"><rect x="360" y="296" width="210" height="200" fill="#a8784a" stroke="#5a3a22" stroke-width="6"/>
+  <rect x="374" y="310" width="86" height="172" fill="#fdfbf2" transform="rotate(-2 417 396)"/><rect x="470" y="314" width="86" height="168" fill="#fdfbf2" transform="rotate(2 513 398)"/>
+  <g fill="#3a3a60" opacity=".55"><rect x="382" y="334" width="66" height="3"/><rect x="382" y="346" width="60" height="3"/><rect x="382" y="358" width="70" height="3"/><rect x="382" y="370" width="54" height="3"/><rect x="478" y="338" width="66" height="3"/><rect x="478" y="350" width="62" height="3"/><rect x="478" y="362" width="70" height="3"/></g>
+  <text x="416" y="326" class="cO" font-size="9" text-anchor="middle" fill="#1a1a1a">GORSEY</text><text x="513" y="330" class="cO" font-size="9" text-anchor="middle" fill="#1a1a1a">CRICKMORE</text>
+  <text x="465" y="512" class="cK" font-size="14" text-anchor="middle" fill="#2a2a2a">BRIDGE DAY: SIGN UP</text></g>
+
+<!-- the bar -->
+<rect x="780" y="560" width="620" height="18" fill="#7a4a2a"/><rect x="790" y="578" width="600" height="160" fill="#5a3420"/><g fill="#4a2a18"><rect x="820" y="600" width="160" height="120"/><rect x="1010" y="600" width="160" height="120"/><rect x="1200" y="600" width="160" height="120"/></g>
+<g id="urn" class="hot"><rect x="1250" y="476" width="60" height="84" rx="8" fill="#b8c0c4"/><rect x="1262" y="466" width="36" height="12" rx="4" fill="#8a9296"/><rect x="1276" y="530" width="10" height="16" fill="#3a3a3a"/><g id="steam"><path d="M1272 460q-6 -12 2 -22M1288 460q-6 -12 2 -22" stroke="#fff" stroke-width="2" fill="none" opacity=".5"/></g></g>
+<g id="phones" class="hot"><rect x="950" y="526" width="134" height="46" fill="transparent"/><rect x="960" y="536" width="44" height="26" rx="4" fill="#16191e" transform="rotate(-8 982 549)"/><rect x="964" y="539" width="36" height="20" rx="2" fill="#5a3ad0" transform="rotate(-8 982 549)"/>
+  <rect x="1030" y="538" width="44" height="26" rx="4" fill="#16191e" transform="rotate(6 1052 551)"/><rect x="1034" y="541" width="36" height="20" rx="2" fill="#5a3ad0" transform="rotate(6 1052 551)"/></g>
+<!-- the floor, the bench, the radiator -->
+<rect x="-1000" y="720" width="3600" height="600" fill="#6a6e6a"/><g stroke="#5a5e5a" stroke-width="2"><path d="M-1000 770H2600M-1000 840H2600"/></g>
+<g id="radiator" class="hot"><rect x="90" y="560" width="200" height="110" rx="6" fill="#e8e4dc"/><g stroke="#c8c4bc" stroke-width="4"><path d="M120 566v98M150 566v98M180 566v98M210 566v98M240 566v98M270 566v98"/></g>
+  <path d="M110 560q6 30 16 0M150 560q6 36 18 0M196 560q6 28 14 0M236 560q6 34 16 0" fill="#f2f2f2" stroke="#b8282e" stroke-width="3"/></g>
+<rect x="540" y="740" width="300" height="20" fill="#7a4a2a"/><rect x="560" y="760" width="14" height="60" fill="#5a3420"/><rect x="806" y="760" width="14" height="60" fill="#5a3420"/>
+<g id="book" class="hot"><path d="M720 740l70 -8 6 10 -70 8z" fill="#3a6ab0"/><path d="M724 736l64 -7" stroke="#f9f6ee" stroke-width="4"/></g>
+<g id="jamie" class="hot" transform="translate(640 880) scale(1.08)"></g>
+<g id="isla" class="hot" transform="translate(1440 884) scale(1.12)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Up the road to the library</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="feed.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, lock = null, urnN = 0;
+
+  (function () {
+    var s = '', i;
+    for (i = 0; i < 40; i++) s += '<path class="drz" d="M' + (840 + (i * 41) % 690) + ' ' + (130 + (i * 29) % 120) + 'l-3 16" style="animation-delay:-' + ((i * 0.17) % 0.9).toFixed(2) + 's"/>';
+    $('#drizzle').innerHTML = s;
+    $('#jamie').innerHTML = FD.who('jamie');
+    $('#isla').innerHTML = FD.who('isla');
+  })();
+
+  ER.init({
+    theme: 'ai', story: 'feed', storyTitle: 'Everybody Thinks So', id: 'ground', no: 'IV', title: 'The Football Ground',
+    go: 'Into the clubhouse',
+    intro: [
+      'On the bridge you finished Freya&rsquo;s chalk chart. Each week was the week before plus half of it: Gorsey 13, 19, 20 fight videos in its top 20, Crickmore 6, 9, 13. By week 4 the two towns no longer had even half their videos in common (only 7). A difference of two videos in week one, going round a loop.',
+      'Crickmore Football Club, 7.15 p.m. The floodlights are on, the juniors are training in the drizzle, and the clubhouse smells of tea and wet socks.'
+    ],
+    exit: {"next":"library","w":{"48ad3632":"d853981c"}}, tags: {"g":["c9f91bc0"],"c":["424df222"],"s":["5010a257"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('d-file') || null; told = ER.flag('d-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('d-told', told); return true; }
+  function isBusy() { return busy; }
+  function ready() { return told.isla && told.jamie && told.phones && told.sheets && told.book; }
+  function paint() {
+    $('#score').classList.toggle('glow', !!(ready() && !nextFile));
+    ER.pips((told.isla ? 1 : 0) + (told.jamie ? 1 : 0) + (told.phones ? 1 : 0) + (told.sheets ? 1 : 0) + (told.book ? 1 : 0) + (nextFile ? 1 : 0), 6);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The library is next. The button at the bottom of the screen.']];
+    if (lock && lock.isOpen()) return ['score', [
+      'Jamie&rsquo;s book: count people, not videos. Open the two phones from your notebook and look at who made each fight video.',
+      'LiskLad made nothing: every one of his says &ldquo;reposted from&rdquo;. Follow it back to the person who made it. A deleted video still has a maker.',
+      'Gorsey&rsquo;s makers are in Isla&rsquo;s feed, Crickmore&rsquo;s in Freya&rsquo;s. Then find each of those people on the two sign-up sheets, and read every line to the end.'
+    ]];
+    if (!told.isla) return ['isla', ['Isla, the coach, is at the end of the bar. Talk to her.', 'She is on the right, in a red tracksuit with a whistle.']];
+    if (!told.jamie) return ['jamie', ['Your goalkeeper, Jamie, is sitting on the bench. He has something to say about the joke.', 'He is on the left, in a yellow goalkeeper&rsquo;s shirt.']];
+    if (!told.phones) return ['phones', ['The two phones on the bar: Freya&rsquo;s and Isla&rsquo;s feeds, side by side.', 'Two phones lying on the bar, near the middle.']];
+    if (!told.book) return ['book', ['Jamie&rsquo;s homework book is on the bench. It explains what a feed is not.', 'The blue book at the end of the bench, near Jamie.']];
+    if (!told.sheets) return ['sheets', ['The Bridge Day sign-up sheets are on the noticeboard.', 'The cork board under the scoreboard, with two white sheets on it.']];
+    return ['open', ['Now the old scoreboard on the wall. Put up the real score.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('The real score is on the board: three, three, and five still coming.'); return; }
+    if (told.in) { busy = false; ER.say('Crickmore FC clubhouse. Tea, wet socks, and two phones on the bar.'); return; }
+    tell('in');
+    ER.narrate([
+      'The clubhouse is warm and full of steam from the tea urn. Through the big window the juniors are running round cones in the drizzle, under floodlights that make the grass look painted.',
+      'The old scoreboard has been brought in for a coat of paint before tomorrow, and leans against the wall with WET PAINT on it. Next to it, in the trophy cabinet, there is an empty space with a label: the Brass Bun. It went to Gorsey last year.',
+      'Jamie Orr, your goalkeeper, is sitting on the bench with his gloves on. Isla, your coach, sees Freya&rsquo;s yellow coat and folds her arms.'
+    ], function () { busy = false; });
+  }
+
+  $('#isla').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Three,&rdquo; says Isla, to herself. &ldquo;Thirty-six times a week. Three people.&rdquo;'); return; }
+    ER.talk({
+      who: 'Isla Brough', role: 'Coach, Crickmore Juniors', face: FD.face('isla', 'cross'),
+      lines: [
+        { note: 'Isla Brough coaches Crickmore Juniors, which means she coaches you. She wears her whistle everywhere, even at weddings.', a: '&ldquo;There you are. Brought Gorsey with you, have you?&rdquo; She means Freya. Then she sighs. &ldquo;Sorry. That&rsquo;s what six weeks of this does to you. Every time I open my phone it&rsquo;s Gorsey telling us we&rsquo;re cheats.&rdquo;' },
+        { q: 'All of Gorsey?', a: '&ldquo;All of it. Thirty-eight thousand people watched the baker&rsquo;s video. Look at my feed: it&rsquo;s nothing else.&rdquo; She puts her phone down on the bar, next to Freya&rsquo;s.' },
+        { q: 'Freya&rsquo;s feed says Crickmore laughs at Gorsey.', a: '&ldquo;Everybody in Crickmore thinks we&rsquo;re a joke,&rdquo; says Freya. &ldquo;Nobody here thinks that!&rdquo; says Isla. &ldquo;That&rsquo;s exactly what I&rsquo;d say about Gorsey,&rdquo; says Freya. They both look at the two phones lying side by side.' },
+        { a: 'Isla, more quietly: &ldquo;The committee&rsquo;s asked me to speak for Crickmore at eight. I was going to say we can&rsquo;t share a bridge with people who hate us. Tell me if I&rsquo;m wrong. And tell me with numbers, because I won&rsquo;t believe anything else tonight.&rdquo;' }
+      ],
+      clue: { id: 'isla', title: 'Isla: all of Gorsey hates us', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('isla')) { paint(); ER.say('Two phones on the bar. Two towns, each sure what the other thinks.'); } }
+    });
+  });
+  $('#jamie').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;One joke,&rdquo; says Jamie. &ldquo;And I&rsquo;m still on the sheet. I&rsquo;ll be in goal tomorrow if they&rsquo;ll have me.&rdquo;'); return; }
+    ER.talk({
+      who: 'Jamie Orr', role: 'Goalkeeper, Crickmore Juniors', face: FD.face('jamie', 'cross'),
+      lines: [
+        { note: 'Jamie is fifteen, your goalkeeper, and the most famous person in the valley. He keeps his gloves on indoors, in case somebody throws something.', a: '&ldquo;Before you start: it was one joke. One. Nine seconds, Tuesday after school. A Gorsey bun was holding the changing-room door open, and I thought it was funny. Gorsey bun. Also a doorstop.&rdquo;' },
+        { q: 'What happened then?', a: '&ldquo;By Wednesday morning the baker had made a video about me, in his apron. By Wednesday night there were twenty more. I deleted mine on the Thursday. Didn&rsquo;t matter. LiskLad had already copied it, and it&rsquo;s still going round with my name on it.&rdquo;' },
+        { q: 'Have you made any others?', a: '&ldquo;No! I don&rsquo;t even like being filmed. I&rsquo;m a goalkeeper. I stand still and things come at me.&rdquo; He looks at the floor. &ldquo;I&rsquo;m still signed up for tomorrow, if there is a tomorrow. My mum says I should apologise to the whole of Gorsey.&rdquo;' },
+        { a: '&ldquo;That&rsquo;s my homework on the bench, by the way. Citizenship. It&rsquo;s about feeds. I haven&rsquo;t done it. I&rsquo;ve been too busy being in one.&rdquo;' }
+      ],
+      clue: { id: 'jamie', title: 'Jamie: one joke', kind: 'What he said' },
+      done: function (seen) { if (seen && tell('jamie')) { paint(); ER.say('One joke, deleted on day three, still going round.'); } }
+    });
+  });
+
+  function item(n, who, cap, more, calm) {
+    return '<div class="it' + (calm ? ' calm' : '') + '"><i>' + n + '</i><div>' + cap + '<small>' + who + (more ? ' &middot; ' + more : '') + '</small></div></div>';
+  }
+  var PHONES = '<h4>LOCAL BUZZ &middot; THIS WEEK &middot; TWO PHONES ON THE BAR</h4><div class="cols"><div class="ph"><h5>FREYA&rsquo;S PHONE &middot; GORSEY</h5>' +
+    item(1, '@LiskLad', 'Tonight&rsquo;s top Lisk video: BRIDGE DAY? MORE LIKE BRIDGE DELAY', '<span class="rpo">reposted from @cmfc_dad</span> &middot; posted 19:00 today') +
+    item(2, '<b>@cmfc_dad &middot; Howard Tamblyn &middot; Crickmore</b>', 'Gorsey buns explained (with a hammer)', 'in your feed 6 times') +
+    item(3, '<b>@isla.coach &middot; Isla Brough &middot; Crickmore</b>', 'Gorsey: say it on the pitch', '5 times') +
+    item(4, '@LiskLad', 'Gorsey bun. Also a doorstop.', '<span class="rpo">reposted from @jamie.orr.gk</span> (original deleted 3 Sep) &middot; 8 times') +
+    item(5, '@gorseylostpets', 'Found! Toffee is home', '', 1) +
+    item(6, '<b>@cmfc_dad &middot; Howard Tamblyn &middot; Crickmore</b>', 'Bridge Day? More like Bridge Delay', '4 times') +
+    item(7, '@lisk.weather', 'Frost on the Lisk tonight', '', 1) +
+    item(8, '<b>@isla.coach &middot; Isla Brough &middot; Crickmore</b>', 'Training. Gorsey, take notes.', '3 times') +
+    item(9, '@gorseyyc', 'Table tennis: the shot of the year', '', 1) +
+    item(10, '@LiskLad', 'CRICKMORE LAUGHS AT GORSEY (AGAIN)', '<span class="rpo">reposted from @cmfc_dad</span> &middot; 7 times') +
+    '</div><div class="ph"><h5>ISLA&rsquo;S PHONE &middot; CRICKMORE</h5>' +
+    item(1, '<b>@kenbakes &middot; Ken Pocock &middot; Gorsey</b>', 'To the comedian from Crickmore', 'in your feed 9 times') +
+    item(2, '@LiskLad', 'Still waiting, Crickmore', '<span class="rpo">reposted from @kenbakes</span> &middot; 6 times') +
+    item(3, '<b>@gorsey_gran &middot; Elaine Gooch &middot; Gorsey</b>', 'Crickmore couldn&rsquo;t win a raffle', '5 times') +
+    item(4, '<b>@gorseygoals &middot; Harvey Lam &middot; Gorsey</b>', 'Remember 2019? We do.', '5 times') +
+    item(5, '@lisk.weather', 'Frost on the Lisk tonight', '', 1) +
+    item(6, '@LiskLad', 'Remember 2019? We do.', '<span class="rpo">reposted from @gorseygoals</span> &middot; 4 times') +
+    item(7, '<b>@kenbakes &middot; Ken Pocock &middot; Gorsey</b>', 'Still waiting, Crickmore', '4 times') +
+    item(8, '@cmfc', 'Training in the rain', '', 1) +
+    item(9, '@LiskLad', 'Crickmore couldn&rsquo;t win a raffle', '<span class="rpo">reposted from @gorsey_gran</span> &middot; 3 times') +
+    item(10, '@lisk.hall', 'Jumble sale, Saturday week', '', 1) +
+    '</div></div>';
+  $('#phones').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: PHONES, cls: 'fd-feeds', clue: { id: 'phones', title: 'Two phones: Freya&rsquo;s feed and Isla&rsquo;s', kind: 'On the bar' }, done: function () {
+      FD.terms(['repost']);
+      if (tell('phones')) { paint(); ER.say('Only one video is in both feeds: the frost on the Lisk.'); }
+    } });
+  });
+  var SHEETS = '<h4>BRIDGE DAY &middot; SATURDAY 10 OCTOBER &middot; SIGN UP HERE</h4><div class="cols">' +
+    '<div class="sh"><h5>GORSEY (from the bakery counter)</h5><table><tr><th>Name</th><th>Doing what</th><th>Signed</th></tr>' +
+    '<tr><td>Ken Pocock</td><td>bun stall, as always</td><td>1 Sep</td></tr>' +
+    '<tr><td>Ade Bakare</td><td>youth club stall</td><td>1 Sep</td></tr>' +
+    '<tr><td>Freya Gaskin</td><td>first aid (I have a certificate)</td><td>2 Sep</td></tr>' +
+    '<tr><td><s>Elaine Gooch</s></td><td><s>tug-of-war, anchor</s> <span class="x">Not with that lot. E.G. 27/9</span></td><td>2 Sep</td></tr>' +
+    '<tr><td>Harvey Lam</td><td>Gorsey team, left back</td><td>5 Sep</td></tr>' +
+    '<tr><td>Kofi A.</td><td>Gorsey team, in goal</td><td>5 Sep</td></tr>' +
+    '<tr><td>Ella M. and Gemma S.</td><td>face painting</td><td>8 Sep</td></tr>' +
+    '<tr><td>Jade W.</td><td>tug-of-war</td><td>12 Sep</td></tr></table>' +
+    '<div class="tot">&hellip; and more on the next pages. Gorsey total: 212 names (last year: 219).</div></div>' +
+    '<div class="sh"><h5>CRICKMORE (in the clubhouse)</h5><table><tr><th>Name</th><th>Doing what</th><th>Signed</th></tr>' +
+    '<tr><td>Lyn Carver</td><td>committee, all day</td><td>24 Aug</td></tr>' +
+    '<tr><td>Gordon Pruett</td><td>loudspeakers, as always</td><td>28 Aug</td></tr>' +
+    '<tr><td>Isla Brough</td><td>coach, Crickmore Juniors</td><td>31 Aug</td></tr>' +
+    '<tr><td>Jamie Orr</td><td>goalkeeper</td><td>31 Aug</td></tr>' +
+    '<tr><td>Crickmore Juniors</td><td>whole squad (that includes you)</td><td>31 Aug</td></tr>' +
+    '<tr><td>Howard Tamblyn</td><td>car park</td><td>14 Sep</td></tr>' +
+    '<tr><td>Crickmore Bowls Club</td><td>tea tent</td><td>20 Sep</td></tr></table>' +
+    '<div class="tot">&hellip; and more on the next pages. Crickmore total: 198 names (last year: 203).</div></div></div>';
+  $('#sheets').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: SHEETS, cls: 'fd-sheets', clue: { id: 'sheets', title: 'Bridge Day sign-up sheets', kind: 'On the noticeboard' }, done: function () {
+      if (tell('sheets')) { paint(); ER.say('Two hundred and twelve names from Gorsey. Two hundred and nineteen last year.'); }
+    } });
+  });
+  var BOOK = '<div class="hd">Citizenship &middot; Unit 6 &middot; You and the news</div><h4>Filter bubbles</h4>' +
+    '<p>The writer Eli Pariser made the phrase &ldquo;<b>filter bubble</b>&rdquo; popular in his 2011 book <i>The Filter Bubble</i>. A recommendation system shows each person what people like them watched and shared. So two people can open the same app and see two different worlds, and each world looks complete from the inside. If everything in your feed agrees, it feels as if everybody agrees.</p>' +
+    '<p>But a feed is not a fair <b>sample</b> of what people think. It is a ranking of what got watched and shared. One loud person who posts ten times, copied by others, can fill a feed. A thousand quiet people who post nothing do not appear in it at all.</p>' +
+    '<p>To find out what is common, <b>count people, not videos</b>. And look at something nobody ranked: a survey that asked everybody, a vote, a list that people signed.</p>' +
+    '<p class="aside">Researchers still argue about how strong filter bubbles are. Most agree that you can climb out of one, once you know you are in it.</p>' +
+    '<p class="hand">homework: due Monday. if there is a Monday &mdash; J.O.</p>';
+  $('#book').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: BOOK, cls: 'fd-book', clue: { id: 'book', title: 'Jamie&rsquo;s homework: filter bubbles', kind: 'On the bench' }, done: function () {
+      FD.terms(['filter bubble', 'sample']);
+      if (tell('book')) { paint(); ER.say('Count people, not videos. And look at something nobody ranked.'); }
+    } });
+  });
+  FD.thing('#cabinet', null, 'Cups from 1952, 1988 and 2019, and an empty space labelled THE BRASS BUN. It went to Gorsey last year, after a bun race that Crickmore still talks about.', isBusy);
+  FD.thing('#pitch', null, 'The juniors, running round cones in the drizzle. Your place in the line is empty tonight. Isla has noticed.', isBusy);
+  FD.thing('#radiator', null, 'Twelve red socks drying on the radiator. That explains the smell.', isBusy);
+  $('#urn').addEventListener('click', function () {
+    if (busy) return;
+    var L = ['The tea urn, steaming. Somebody has taped a sign to it: DO NOT ARGUE NEAR THE URN.', 'The urn rumbles to itself, the only thing in the clubhouse that is never cross.'];
+    ER.say(L[urnN++ % L.length]);
+  });
+  $('#score').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('GORSEY 3, CRICKMORE 3, and five of the six still coming tomorrow.'); return; }
+    if (!told.isla) { ER.say('The old scoreboard, WET PAINT. Isla wants numbers: talk to her first.'); return; }
+    if (!told.jamie) { ER.say('Jamie is watching you from the bench. Hear what he has to say first.'); return; }
+    if (!told.phones) { ER.say('First look at the two phones on the bar.'); return; }
+    if (!told.book) { ER.say('&ldquo;Jamie&rsquo;s homework,&rdquo; says Freya. &ldquo;Read it. He hasn&rsquo;t.&rdquo;'); return; }
+    if (!told.sheets) { ER.say('The sign-up sheets on the noticeboard: something nobody ranked.'); return; }
+    if (!lock) lock = makeLock();
+    lock.open();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the lock: the real score ---------- */
+  function makeLock() {
+    var st = ER.flag('d-st') || { g: 0, c: 0, s: 0 }, wait = false;
+    var ROWS = [['g', 'GORSEY', 'Different people in Gorsey who made the fight videos in Isla&rsquo;s feed'],
+      ['c', 'CRICKMORE', 'Different people in Crickmore who made the fight videos in Freya&rsquo;s feed'],
+      ['s', 'STILL COMING', 'Of all those people, how many are still signed up for Bridge Day tomorrow']];
+    var box = ER.el('div', 'pz sb');
+    box.innerHTML = '<div class="sb-in"><h5>THE REAL SCORE</h5>' + ROWS.map(function (r) {
+      return '<div class="sb-row"><div><b>' + r[1] + '</b><span>' + r[2] + '</span></div><div class="plate" data-p="' + r[0] + '">0</div><div class="ud"><button type="button" data-u="' + r[0] + '">&#9650;</button><button type="button" data-d="' + r[0] + '">&#9660;</button></div></div>';
+    }).join('') + '</div><div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="sb-go">Show Isla</button></div>';
+    var msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function paintL() { ER.$$('.plate', box).forEach(function (p) { p.textContent = st[p.getAttribute('data-p')]; }); }
+    ER.$$('.ud button', box).forEach(function (b) {
+      b.addEventListener('click', function () {
+        if (wait || nextFile) return;
+        var k = b.getAttribute('data-u') || b.getAttribute('data-d');
+        st[k] = Math.max(0, Math.min(20, st[k] + (b.hasAttribute('data-u') ? 1 : -1)));
+        ER.flag('d-st', st); FD.sfx.flip(); paintL();
+      });
+    });
+    box.querySelector('#sb-go').addEventListener('click', function () {
+      if (wait || nextFile) return;
+      var file;
+      if (!st.g && !st.c && !st.s) { ER.sfx.no(); msg('&ldquo;Nil, nil, nil?&rdquo; says Isla. &ldquo;Somebody made those videos.&rdquo;'); return; }
+      if (st.g === 4 || st.c === 4) { ER.sfx.no(); msg('&ldquo;Are you counting LiskLad?&rdquo; says Freya. &ldquo;Look at his: every one says reposted from. He didn&rsquo;t make a single one.&rdquo;'); return; }
+      if (st.g === 7 || st.c === 6) { ER.sfx.no(); msg('&ldquo;That&rsquo;s videos,&rdquo; says Freya. &ldquo;Jamie&rsquo;s book: count people. Some of them made more than one.&rdquo;'); return; }
+      if (st.c === 2) { ER.sfx.no(); msg('&ldquo;You&rsquo;ve left me out,&rdquo; says Jamie miserably. &ldquo;I deleted it on the third, but the copy in Freya&rsquo;s feed still has my name on. I made it.&rdquo;'); return; }
+      if (!ER.check('g', String(st.g))) { ER.sfx.no(); msg('&ldquo;GORSEY&rsquo;s wrong,&rdquo; says Isla. &ldquo;My feed. Who in Gorsey actually made the fight videos? Follow LiskLad&rsquo;s copies back to whoever made them.&rdquo;'); return; }
+      if (!ER.check('c', String(st.c))) { ER.sfx.no(); msg('&ldquo;CRICKMORE&rsquo;s wrong,&rdquo; says Freya. &ldquo;My feed. Who in Crickmore made the fight videos? Follow LiskLad&rsquo;s copies back.&rdquo;'); return; }
+      if (st.s === 6) { ER.sfx.no(); msg('&ldquo;Read the Gorsey sheet again,&rdquo; says Freya, &ldquo;all the way along every line.&rdquo;'); return; }
+      if (!ER.check('s', String(st.s))) { ER.sfx.no(); msg('&ldquo;STILL COMING is wrong,&rdquo; says Isla. &ldquo;Take the six names, and find every one of them on the two sheets.&rdquo;'); return; }
+      file = ER.exit([st.g + '-' + st.c + '-' + st.s], { wait: true });
+      if (!file) { msg('A number plate falls off the board. Something is wrong with this page: tell your teacher.'); return; }
+      wait = true; nextFile = file; ER.flag('d-file', file);
+      FD.terms(['filter bubble', 'sample', 'repost']);
+      FD.mine('score', 'The real score', '<p>Fight videos in Isla&rsquo;s feed: made by 3 people in Gorsey (Ken, Elaine Gooch, Harvey). In Freya&rsquo;s: by 3 in Crickmore (Howard Tamblyn, Isla, and Jamie&rsquo;s one joke). LiskLad made none: he only reposts.</p><p>Five of those six are still signed up for tomorrow. Elaine Gooch crossed herself out.</p><p>Sign-ups: Gorsey 212, Crickmore 198. Hardly fewer than last year.</p>', true);
+      msg('GORSEY 3. CRICKMORE 3. STILL COMING 5.');
+      setTimeout(function () {
+        ER.closeAll(); paint(); busy = true;
+        ER.narrate([
+          'Isla stares at the board. &ldquo;Three. Three people in Gorsey. Out of how many?&rdquo; &ldquo;About four thousand,&rdquo; says Freya. &ldquo;And two hundred and twelve of them have signed up to come tomorrow, nearly the same as last year.&rdquo;',
+          '&ldquo;And three in Crickmore,&rdquo; says Isla. &ldquo;One of them&rsquo;s me.&rdquo; &ldquo;And one of them&rsquo;s me,&rdquo; says Jamie. &ldquo;And mine was a doorstop.&rdquo;',
+          'Isla sits down. &ldquo;My phone has shown me the same three people thirty-six times this week, and I thought they were a whole town.&rdquo; She looks at the board. &ldquo;Five of the six are still coming. We&rsquo;ve all been shouting at each other, and we&rsquo;ve all still got our names down for the tea tent.&rdquo;',
+          '&ldquo;And LiskLad?&rdquo; says Isla. &ldquo;Doesn&rsquo;t make anything,&rdquo; says Freya. &ldquo;He copies whatever&rsquo;s at the top. His last one went up at seven o&rsquo;clock tonight.&rdquo; She checks the time: 7.31. &ldquo;I don&rsquo;t know who he is. But I know what Burble knows about me, and it&rsquo;s a lot. It&rsquo;s on the library printer. The library&rsquo;s open till eight.&rdquo;'
+        ], function () { busy = false; $('#go').classList.add('on'); });
+      }, 2400);
+    });
+    paintL();
+    msg('Isla wants numbers. Count people, not videos.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+})();
+</script>
+</body>
+</html>

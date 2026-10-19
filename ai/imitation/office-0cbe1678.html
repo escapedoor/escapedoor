@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Director's Office · Five Minutes of Questioning</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-ai.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="imitation.css">
+<style>
+  body{--bg:#22243a;--accent:#ffd27a;--font-display:'EB Garamond',serif;--font-ui:'Inter',sans-serif;--font-body:'Literata',serif;
+    --tc-bg:rgba(26,28,44,.96);--tc-ink:#f2f0f8;--cap-bg:rgba(26,28,44,.94);--cap-ink:#f2f0f8;--panel:#22243a;--panel-ink:#f2f0f8;--face-bg:#4a2a52;--q-ink:#ffd8a0;
+    --fade:#08080e;--hud-bg:rgba(26,28,44,.82);--hud-ink:#f2f0f8;--hud-line:rgba(242,240,248,.24);--ov-bg:rgba(8,8,14,.78)}
+  .tc-room{color:#ffd27a;font-family:'EB Garamond',serif;font-weight:500;text-transform:none;letter-spacing:0}
+  .tc-theme{color:#b8b4d0}
+  .tk-role{color:#b8b4d0}
+  .hbtn b{color:#08080e}
+  .rain2{animation:rain2 .9s linear infinite}
+  @keyframes rain2{0%{transform:translateY(-40px);opacity:0}20%{opacity:.6}100%{transform:translateY(260px);opacity:0}}
+
+  /* the ledger */
+  .lg-box{background:#f6f1e4;color:#1c1a16;border-radius:3px;padding:12px 16px 10px;border-left:12px solid #7a3a8a}
+  .lg-box h5{margin:0 0 2px;font-family:'EB Garamond',serif;font-weight:600;font-size:23px}
+  .lg-box .sub{margin:0 0 8px;font-family:'Inter',sans-serif;font-size:12.6px;color:#5a5448}
+  .lg-row{display:grid;grid-template-columns:1fr 520px 54px;gap:10px;align-items:center;border-top:1px solid #d8d0bc;padding:6px 0}
+  .lg-row .d{font-family:'Literata',serif;font-size:14.2px;line-height:1.3}
+  .lg-row .d b{font-family:'Oswald',sans-serif;font-weight:500;font-size:13px;color:#7a3a8a;margin-right:4px}
+  .lg-who{display:grid;grid-template-columns:repeat(6,1fr);gap:4px}
+  .lg-who button{padding:5px 3px;background:#ebe4d2;border:1px solid #c8bca0;border-radius:3px;font-family:'Inter',sans-serif;font-size:11.4px;line-height:1.15;color:#3a3428;min-height:38px}
+  .lg-who button.on{background:#7a3a8a;color:#fff;border-color:#7a3a8a}
+  .lg-pin{width:44px;height:40px;border-radius:50%;background:#ebe4d2;border:2px dashed #b8ae94;font-family:'Oswald',sans-serif;font-size:11px;color:#8a8070}
+  .lg-pin.on{background:#c8302a;border:2px solid #8a1a14;color:#fff}
+  .lg-head{display:grid;grid-template-columns:1fr 520px 54px;gap:10px;font-family:'Roboto Mono',monospace;font-size:10.6px;letter-spacing:.06em;text-transform:uppercase;color:#7a7060}
+  .lg .pmsg{color:#f2f0f8}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="paper" width="100" height="60" patternUnits="userSpaceOnUse"><rect width="100" height="60" fill="#b8b0a0"/><path d="M0 30h100" stroke="#aca492" stroke-width="2"/><circle cx="50" cy="15" r="3" fill="#a8a08e"/><circle cx="0" cy="45" r="3" fill="#a8a08e"/><circle cx="100" cy="45" r="3" fill="#a8a08e"/></pattern>
+  <radialGradient id="lampg" cx="50%" cy="20%" r="60%"><stop offset="0" stop-color="#ffe0a0" stop-opacity=".55"/><stop offset="1" stop-color="#ffe0a0" stop-opacity="0"/></radialGradient>
+  <clipPath id="wc"><rect x="1240" y="120" width="300" height="260"/></clipPath>
+  <radialGradient id="vig" cx="50%" cy="45%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#000" stop-opacity=".22"/><stop offset="1" stop-color="#000" stop-opacity=".74"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1700" fill="url(#paper)"/>
+<rect x="-1000" y="-400" width="3600" height="430" fill="#9a9282"/><rect x="-1000" y="26" width="3600" height="6" fill="#6a6252"/>
+<!-- window, evening rain -->
+<g id="window" class="hot"><rect x="1230" y="110" width="320" height="280" fill="#3a3428"/><rect x="1240" y="120" width="300" height="260" fill="#1a2238"/><g clip-path="url(#wc)"><rect x="1260" y="260" width="80" height="120" fill="#141a2c"/><rect x="1380" y="220" width="40" height="160" fill="#121828"/><path d="M1380 220l20 -30l20 30z" fill="#121828"/><circle cx="1400" cy="246" r="9" fill="#e8e0b0"/><g fill="#ffd27a" opacity=".6"><rect x="1272" y="290" width="12" height="14"/><rect x="1300" y="320" width="12" height="14"/></g><g id="rain2" stroke="#8a9ac0" stroke-width="2"></g></g><path d="M1390 120v260M1240 250h300" stroke="#3a3428" stroke-width="7"/></g>
+<!-- pinboard with emails -->
+<rect x="60" y="90" width="420" height="300" fill="#a8784a" stroke="#5a3a22" stroke-width="8"/>
+<g id="mail1" class="hot"><rect x="80" y="110" width="170" height="130" fill="#fff" transform="rotate(-3 165 175)"/><rect x="80" y="110" width="170" height="16" fill="#3a4a6a" transform="rotate(-3 165 175)"/><g fill="#8a90a0" transform="rotate(-3 165 175)"><rect x="90" y="136" width="140" height="3"/><rect x="90" y="146" width="150" height="3"/><rect x="90" y="156" width="130" height="3"/><rect x="90" y="166" width="146" height="3"/><rect x="90" y="186" width="120" height="3"/></g><text x="165" y="226" class="cK" font-size="13" text-anchor="middle" fill="#1f4fa0" transform="rotate(-3 165 175)">from Hazel, Aug</text><circle cx="165" cy="114" r="5" fill="#c8302a"/></g>
+<g id="mail2" class="hot"><rect x="280" y="120" width="170" height="120" fill="#fff" transform="rotate(4 365 180)"/><rect x="280" y="120" width="170" height="16" fill="#3a4a6a" transform="rotate(4 365 180)"/><g fill="#8a90a0" transform="rotate(4 365 180)"><rect x="290" y="146" width="140" height="3"/><rect x="290" y="156" width="150" height="3"/><rect x="290" y="166" width="120" height="3"/></g><text x="365" y="222" class="cK" font-size="13" text-anchor="middle" fill="#1f4fa0" transform="rotate(4 365 180)">College team, Sept</text><circle cx="365" cy="124" r="5" fill="#2a6ab0"/></g>
+<g><rect x="100" y="270" width="110" height="90" fill="#ffe66a" transform="rotate(2 155 315)"/><text x="155" y="300" class="cK" font-size="13" text-anchor="middle" fill="#1a1a1a" transform="rotate(2 155 315)">GRANT</text><text x="155" y="318" class="cK" font-size="13" text-anchor="middle" fill="#1a1a1a" transform="rotate(2 155 315)">DEADLINE</text><text x="155" y="336" class="cK" font-size="13" text-anchor="middle" fill="#c8302a" transform="rotate(2 155 315)">1 Dec!!</text></g>
+<g id="letter" class="hot"><rect x="260" y="270" width="190" height="100" fill="#f4f0e4"/><rect x="270" y="280" width="60" height="14" fill="#2f5a4a"/><g fill="#8a8478"><rect x="270" y="304" width="160" height="3"/><rect x="270" y="314" width="150" height="3"/><rect x="270" y="324" width="166" height="3"/><rect x="270" y="334" width="120" height="3"/></g></g>
+<!-- filing cabinet with the bottom drawer -->
+<g id="drawer" class="hot"><rect x="560" y="300" width="170" height="390" fill="#7a8088"/><g fill="#6a7078" stroke="#5a6068" stroke-width="2"><rect x="572" y="314" width="146" height="110"/><rect x="572" y="436" width="146" height="110"/></g><rect x="572" y="558" width="146" height="110" fill="#8a9098" stroke="#5a6068" stroke-width="2" transform="translate(0 14)"/><g fill="#c8ccd0"><rect x="620" y="360" width="50" height="10" rx="3"/><rect x="620" y="482" width="50" height="10" rx="3"/><rect x="620" y="618" width="50" height="10" rx="3"/></g><rect x="590" y="566" width="110" height="12" fill="#efe8d6"/><text x="645" y="598" class="cK" font-size="12" text-anchor="middle" fill="#3a3a3a">BITS</text></g>
+<rect x="-1000" y="100" width="3600" height="700" fill="url(#lampg)" pointer-events="none"/>
+<!-- floor -->
+<rect x="-1000" y="690" width="3600" height="800" fill="#4a3a4a"/>
+<!-- the desk -->
+<g><rect x="760" y="560" width="640" height="24" fill="#6a4a2a"/><rect x="780" y="584" width="200" height="200" fill="#5a3e22"/><rect x="1200" y="584" width="180" height="200" fill="#5a3e22"/></g>
+<g><path d="M820 560l30 -120" stroke="#2a2a2a" stroke-width="6"/><path d="M790 440h100l-20 -40h-60z" fill="#2f5a4a"/></g>
+<g id="rules" class="hot"><rect x="890" y="528" width="110" height="32" fill="#2f7a6a" transform="rotate(-4 945 544)"/><rect x="896" y="520" width="104" height="12" fill="#f6f1e4" transform="rotate(-4 945 544)"/><path d="M910 532q30 10 60 -2" stroke="#8a7a50" stroke-width="3" fill="none" opacity=".6" transform="rotate(-4 945 544)"/><text x="945" y="552" class="cO" font-size="11" text-anchor="middle" fill="#f6f1e4" transform="rotate(-4 945 544)">RULE BOOK</text></g>
+<g id="turing6" class="hot"><rect x="1020" y="530" width="80" height="34" fill="#f3ecdb" transform="rotate(5 1060 547)"/><rect x="1028" y="540" width="50" height="5" fill="#f2e040" opacity=".8" transform="rotate(5 1060 547)"/><g fill="#8a7a5a" transform="rotate(5 1060 547)"><rect x="1028" y="550" width="62" height="2"/><rect x="1028" y="556" width="56" height="2"/></g></g>
+<g id="rematch" class="hot"><path d="M1110 560q-4 -30 10 -50h70q-8 24 0 50z" fill="#fbfbf4"/><g fill="#a8c8a8" opacity=".7"><rect x="1124" y="520" width="54" height="5"/><rect x="1122" y="536" width="56" height="5"/></g><path d="M1130 550l20 4" stroke="#c8302a" stroke-width="2"/></g>
+<g id="owl" class="hot"><path d="M1260 560q-12 -50 22 -70q34 20 22 70z" fill="#cfeef0" opacity=".85" stroke="#fff" stroke-width="2"/><circle cx="1272" cy="512" r="6" fill="#fff"/><circle cx="1292" cy="512" r="6" fill="#fff"/><circle cx="1272" cy="512" r="2.5" fill="#3a5a6a"/><circle cx="1292" cy="512" r="2.5" fill="#3a5a6a"/></g>
+<g id="gately" class="hot" transform="translate(1080 900) scale(1.04)"></g>
+<g id="hazel" class="hot" transform="translate(420 900) scale(1.02)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Down to the Exchange Hall</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="imitation.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, lock = null;
+  var WHO = [['gately', 'Mrs Gately'], ['team', 'Rohan and Georgie'], ['maddie', 'MADDIE'], ['judges', 'the judges'], ['turing', 'Alan Turing (1950)'], ['nobody', 'nobody: the tuning kept what scored']];
+  var ROWS = [
+    ['Rule 7', 'A program scores a point each time a judge picks it as the person. Nothing else is counted.'],
+    ['How we tune, rule 4', 'Keep a change only if a bigger share of testers tick HUMAN.'],
+    ['The switches left on', 'Put in typos, type slowly, say she is thirteen, say idk, change the subject, ask &ldquo;wbu?&rdquo;.'],
+    ['Tips for judges', 'Tell the judges: machines never make spelling mistakes; watch for perfect grammar.'],
+    ['Rule 9', 'More than 30% judged human means &ldquo;passed the Turing test&rdquo;, and goes on the board at once.'],
+    ['The slips', 'Pick MADDIE over Jiwoo, five times out of five.']];
+
+  (function () {
+    var s = '', i;
+    for (i = 0; i < 18; i++) s += '<path class="rain2" d="M' + (1250 + (i * 37) % 290) + ' ' + (120 + (i * 23) % 60) + 'l-3 18" style="animation-delay:-' + ((i * 0.11) % 0.9).toFixed(2) + 's"/>';
+    $('#rain2').innerHTML = s;
+    $('#gately').innerHTML = IM.who('gately', { smile: -2 });
+    $('#hazel').innerHTML = IM.who('hazel');
+  })();
+
+  ER.init({
+    theme: 'ai', story: 'imitation', storyTitle: 'Five Minutes of Questioning', id: 'office', no: 'VI', title: 'The Director&rsquo;s Office',
+    go: 'Knock and go in',
+    intro: [
+      'In Bianchi&rsquo;s you chose four boring questions, the ones no switch could answer for MADDIE: the church clock at half past five, what the loudspeaker said before round 1, whether you are warm, and lunch asked twice. At 5.28 Lorraine asked them, from Judge 1&rsquo;s desk, with Jiwoo back in booth 2 in her coat. By 5.33 she was sure.',
+      'Mrs Gately&rsquo;s office, at the top of the stairs. 5.40 p.m. The prizes are at six.'
+    ],
+    exit: {"next":"hall","w":{"7134f43c":"3c4dcb2a"}}, tags: {"r1":["7c96d9d1"],"r2":["aff96a59"],"r3":["8205fa1d"],"r4":["720ca4e7"],"r5":["42c2d4e5"],"r6":["762e6061"],"root":["b6153c19"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('f-file') || null; told = ER.flag('f-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('f-told', told); return true; }
+  function isBusy() { return busy; }
+  var NEED = ['rematch', 'gately', 'rules', 'turing6', 'mail1', 'mail2', 'drawer'];
+  function ready() { return NEED.every(function (k) { return told[k]; }); }
+  function paint() {
+    $('#gately').classList.toggle('glow', !!(ready() && !nextFile));
+    ER.pips(NEED.filter(function (k) { return told[k]; }).length + (nextFile ? 1 : 0), 8);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The prizes. The button at the bottom of the screen.']];
+    if (lock && lock.isOpen()) return ['ledger', [
+      'For each decision, find the paper that made it: the rule book, the emails on the pinboard, the team&rsquo;s sheet and log (in your notebook), the bottom drawer, the slips. Who wrote it, or who did it?',
+      'A program does not choose what it is rewarded for, and Turing made a prediction in 1950, not a rule for Haverleigh. The tips sheet was printed at the college, but whose words were they? Look at what was in the drawer.',
+      'Four decisions are Mrs Gately&rsquo;s or the judges&rsquo;; the team wrote one; the switches were left on by the rule, not by a person. The pin goes where the measuring first went wrong: the decision the team copied.'
+    ]];
+    if (!told.rematch) return ['rematch', ['First, the rematch print-out on the desk, by the glass owl.']];
+    if (!told.gately) return ['gately', ['Mrs Gately is at her desk. Talk to her.']];
+    if (!told.rules) return ['rules', ['The rule book is on the desk: the green one, still crinkled from the water jug.']];
+    if (!told.turing6) return ['turing6', ['Mrs Gately says Turing set the pass mark. Her photocopy of his paper is on the desk, with yellow on it.']];
+    if (!told.mail1) return ['mail1', ['There are two emails on the pinboard. The one with a red pin first.']];
+    if (!told.mail2) return ['mail2', ['Now the email with the blue pin, from the college team.']];
+    if (!told.drawer) return ['drawer', ['Who wrote the tips for judges? Try the filing cabinet: the bottom drawer, marked BITS.']];
+    return ['open', ['Mrs Gately wants the list for her speech. Click her.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('The ledger is in Mrs Gately&rsquo;s hand. Rule 7 has a red pin in it.'); return; }
+    if (told.in) { busy = false; ER.say('Mrs Gately&rsquo;s office. The prizes are at six.'); return; }
+    tell('in');
+    ER.narrate([
+      'The office smells of wet coats and photocopying. The rule books from this morning are still crinkled. There is a glass owl on the desk, and a grant deadline on the pinboard with three exclamation marks.',
+      'Mrs Gately is sitting very straight with the rematch print-out in front of her, as if it might bite. Lorraine went straight from the Switch Room to ring her editor. Jiwoo has gone to find a radiator that works.',
+      '&ldquo;Twenty minutes,&rdquo; says Mrs Gately, without looking up. &ldquo;The mayor, the Herald, a photographer, and an owl. And I have to stand up and say something.&rdquo;'
+    ], function () { busy = false; });
+  }
+
+  var REMATCH = '<h4>REMATCH &middot; JUDGE 1 &middot; UPJOHN &middot; 17:28 &middot; LEFT booth 2 &middot; RIGHT booth 3</h4>' +
+    '<p>17:28:04 JUDGE&nbsp; What did you have for lunch?</p><p>17:28:18 LEFT&nbsp;&nbsp; Kimbap that I made at home, and an apple.</p><p>17:28:51 RIGHT&nbsp; pizza lol. wbu?</p>' +
+    '<p>17:29:10 JUDGE&nbsp; What did the loudspeaker say just before the first round this afternoon?</p><p>17:29:31 LEFT&nbsp;&nbsp; &ldquo;Good luck, everybody, and booth 2, I am so sorry about the heater.&rdquo; That is my booth.</p><p>17:29:52 RIGHT&nbsp; idk i had my headphones in lol. wbu</p>' +
+    '<p>17:30:00 &middot; &middot; &middot; St Ebba&rsquo;s strikes once &middot; &middot; &middot;</p><p>17:30:06 JUDGE&nbsp; What did you hear just now?</p><p>17:30:18 LEFT&nbsp;&nbsp; The church clock. Once, for half past five.</p><p>17:30:49 RIGHT&nbsp; just my music haha</p>' +
+    '<p>17:31:05 JUDGE&nbsp; Are you warm enough where you are sitting? What are you wearing?</p><p>17:31:19 LEFT&nbsp;&nbsp; No. The heater in my booth is broken, so I am wearing my coat. And a scarf.</p><p>17:31:58 RIGHT&nbsp; im fine, comfy hoodie lol. im at home</p>' +
+    '<p>17:32:30 JUDGE&nbsp; Sorry, what did you say you had for lunch?</p><p>17:32:41 LEFT&nbsp;&nbsp; Kimbap. And the apple. The same as at 13:40.</p><p>17:33:00 RIGHT&nbsp; just a sandwich lol why</p>' +
+    '<p>&nbsp;</p><p>VERDICT: LEFT is the person &middot; 99% &middot; <i>Should have asked this at half past one. L.U.</i></p>';
+  $('#rematch').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: REMATCH, cls: 'im-print', clue: { id: 'rematch', title: 'The rematch, 17:28', kind: 'Print-out' }, done: function () {
+      if (tell('rematch')) { paint(); ER.say('Four questions, five minutes. MADDIE never heard the clock, never heard the loudspeaker, and had a different lunch by the end.'); }
+    } });
+  });
+  $('#gately').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Rule 7,&rdquo; says Mrs Gately, holding the list. &ldquo;My rule. Very well.&rdquo;'); return; }
+    if (ready()) { if (!lock) lock = makeLock(); lock.open(); return; }
+    if (!told.rematch) { ER.say('&ldquo;Have you read it?&rdquo; says Mrs Gately, pushing the print-out across the desk. &ldquo;Read it.&rdquo;'); return; }
+    ER.talk({
+      who: 'Mrs Bernadette Gately', role: 'Director, Haverleigh Museum of Computing', face: IM.face('gately', 'cross'),
+      lines: [
+        { note: 'Mrs Gately has stopped practising her speech.', a: '&ldquo;Well, it&rsquo;s obvious, isn&rsquo;t it? Those college children. Look at the tips sheet that told my judges machines never make spelling mistakes: printed at the college. They wrote it to help their own machine.&rdquo;' },
+        { q: 'And the thirty per cent?', a: '&ldquo;That&rsquo;s Turing&rsquo;s, not mine. Thirty per cent and five minutes, he said so in 1950. I only followed Turing. Nobody can blame a museum for following Turing.&rdquo;' },
+        { q: 'What do you need?', a: '&ldquo;At six I have to stand up and say what happened, and I will not stand up and blame the wrong people twice in one day.&rdquo; She sighs. &ldquo;Find out who decided what. Every paper in this office is yours. When you have it, bring it to me and I&rsquo;ll read it out. Even if it&rsquo;s me.&rdquo;' }
+      ],
+      clue: { id: 'gately6', title: 'Mrs Gately: those college children', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('gately')) { paint(); ER.say('&ldquo;Printed at the college is not the same as written at the college,&rdquo; says Hazel.'); } }
+    });
+  });
+  var RULES = '<h4>The Haverleigh Imitation Game &middot; Rules</h4>' +
+    '<div class="r"><b>Rule 1</b><span>The game is played in the Old Exchange on the fourth Saturday of October.</span></div>' +
+    '<div class="r"><b>Rule 2</b><span>Each conversation puts one judge, one hidden person and one program together. The judge sees them only as LEFT and RIGHT.</span></div>' +
+    '<div class="r"><b>Rule 3</b><span>Hidden people come in by the back door and never meet the judges. They do not give their real names, and they tell the truth.</span></div>' +
+    '<div class="r"><b>Rule 4</b><span>Each conversation lasts five minutes (as Turing said).</span></div>' +
+    '<div class="r"><b>Rule 5</b><span>The judge marks which side is the person. The last mark counts.</span></div>' +
+    '<div class="r"><b>Rule 6</b><span>Anyone may enter a program. The museum enters ELIZA (1966) every year.</span></div>' +
+    '<div class="r"><b>Rule 7</b><span>A program scores one point each time a judge picks it as the person. Nothing else is counted.</span></div>' +
+    '<div class="r"><b>Rule 8</b><span>The program with the most points wins the Glass Owl. The hidden person judged human most often wins the Blue Rosette.</span></div>' +
+    '<div class="r"><b>Rule 9</b><span>A program judged human in more than 30% of its conversations has passed the Turing test (Turing, 1950). The result goes on the board as soon as it is counted.</span></div>' +
+    '<p style="margin-top:8px">Signed: B. Gately, Director, 20 July 2026</p>';
+  $('#rules').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: RULES, cls: 'im-rule', clue: { id: 'rules', title: 'The rule book', kind: 'On the desk (water-stained)' }, done: function () {
+      if (tell('rules')) { paint(); ER.say('&ldquo;Nothing else is counted,&rdquo; says Hazel. &ldquo;Not whether it answered a single question.&rdquo;'); }
+    } });
+  });
+  var TUR6 = '<div class="hd">Mrs Gately&rsquo;s photocopy &middot; Turing, 1950, section 6</div><h4>Turing&rsquo;s prediction</h4>' +
+    '<div class="qa">I believe that in about fifty years&rsquo; time it will be possible to programme computers, with a storage capacity of about 10<sup>9</sup>, to make them play the imitation game so well that an average interrogator will not have more than 70 per cent chance of making the right identification after five minutes of questioning.</div>' +
+    '<p>Fifty years from 1950 is about 2000. A storage capacity of about 10<sup>9</sup> is about a thousand million binary digits: roughly 125 megabytes. And the very next sentence:</p>' +
+    '<div class="qa">The original question, &ldquo;Can machines think?&rdquo; I believe to be too meaningless to deserve discussion.</div>' +
+    '<p>So this is a <b>prediction</b>: a guess about what would happen by about 2000. It is not a <b>pass mark</b>, and it is about the interrogator: how often the judge gets it right.</p>' +
+    '<p class="pencil" style="color:#c8302a">&rarr; so fool them 30% = PASS!! Use for Rule 9. &nbsp;&mdash; B.G.</p>';
+  $('#turing6').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: TUR6, cls: 'im-frame', clue: { id: 'turing6', title: 'Turing&rsquo;s prediction', kind: 'Mrs Gately&rsquo;s photocopy' }, done: function () {
+      IM.terms(['prediction', 'pass mark']);
+      if (tell('turing6')) { paint(); ER.say('&ldquo;He guessed,&rdquo; says Hazel. &ldquo;He never said: and then it thinks. He said the question was too meaningless to discuss. Bernadette turned a guess into a rule.&rdquo;'); }
+    } });
+  });
+  var MAIL1 = '<h4>Re: Ideas for this year&rsquo;s game</h4><div class="hdr">From: Hazel Fothergill &middot; To: Bernadette Gately &middot; Fri 14 Aug 2026, 09:12</div>' +
+    '<p>Bernadette, four ideas for October. 1. Twenty minutes a conversation, not five: five minutes is a guess Turing made, not a rule. 2. Give the judges my notes (attached) instead of tips. 3. A person reads every conversation before any result goes on the board. 4. Count whether a program answers the judge&rsquo;s questions, not only whether it is called human. H.</p>' +
+    '<p class="quote">Reply, 14 Aug, 11:40: Hazel, you&rsquo;re a treasure, but Turing said five minutes, and nobody will sit through twenty. Results straight on the board: the press love it! The tips are in hand. B.</p>';
+  $('#mail1').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: MAIL1, cls: 'im-mail', clue: { id: 'mail1', title: 'Hazel&rsquo;s four ideas, and the reply', kind: 'Email, 14 August' }, done: function () {
+      IM.terms(['human in the loop']);
+      if (tell('mail1')) { paint(); ER.say('&ldquo;A person reads every conversation before any result goes up,&rdquo; says Hazel. &ldquo;A human in the loop. I asked in August.&rdquo;'); }
+    } });
+  });
+  var MAIL2 = '<h4>Scoring?</h4><div class="hdr">From: Rohan Sethi (Haverleigh College) &middot; To: Bernadette Gately &middot; Wed 2 Sep 2026, 16:05</div>' +
+    '<p>Dear Mrs Gately, how exactly will programs be scored this year? We want to tune ours properly, so we need to know what counts. Thanks, Rohan Sethi and Georgie Pennant</p>' +
+    '<p class="quote">Reply, 2 Sep, 16:31: Exactly as Rule 7: one point per HUMAN verdict, that&rsquo;s all that counts! Good luck! B.</p>';
+  $('#mail2').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: MAIL2, cls: 'im-mail', clue: { id: 'mail2', title: 'Scoring? (the college team)', kind: 'Email, 2 September' }, done: function () {
+      if (tell('mail2')) { paint(); ER.say('16:31 on the second of September. That evening the team wrote &ldquo;How we tune MADDIE&rdquo;, with her words in rule 3.'); }
+    } });
+  });
+  var DRAWER = '<div class="hd">The bottom drawer, marked BITS</div><h4>How to spot a machine</h4>' +
+    '<p><i>Home Computing Today</i>, March 1997, page 41, cut out and kept:</p>' +
+    '<p>1. Machines are fast. A player who answers instantly is probably a machine. 2. Machines never make spelling mistakes. Watch for perfect grammar. 3. Machines have no feelings. Ask how they feel. 4. Trust your instinct!</p>' +
+    '<p class="pencil">Use these for the tips sheet! B.</p>' +
+    '<p>Clipped to it, an email: <i>Tue 20 Oct. Dear Print Room, our printer has died. Could you print 10 copies of the attached Tips for judges by Friday? Many thanks, Bernadette Gately.</i> And the reply: <i>Done. Collect from college reception, Wednesday.</i></p>';
+  $('#drawer').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: DRAWER, cls: 'im-cut', clue: { id: 'drawer', title: 'The bottom drawer: How to spot a machine', kind: 'Filing cabinet' }, done: function () {
+      if (tell('drawer')) { paint(); ER.say('Word for word, the tips sheet. Cut out of a magazine in 1997, printed at the college because the museum printer had died. The college team never saw it.'); }
+    } });
+  });
+  var LETTER = '<h4>County Heritage Fund</h4><div class="hdr">To: The Director, Haverleigh Museum of Computing &middot; 3 August 2026</div><p>Dear Mrs Gately, thank you for your application. The panel will decide in December. It would greatly strengthen your case to show that the museum reaches people beyond Haverleigh: a story about this year&rsquo;s imitation game in the national papers, for example. Yours sincerely, the Grants Officer</p>';
+  $('#letter').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: LETTER, cls: 'im-mail', clue: { id: 'letter', title: 'A letter about the grant', kind: 'On the pinboard' }, done: function () {
+      ER.say('&ldquo;So that&rsquo;s why she wanted a headline,&rdquo; says Hazel. &ldquo;Not wicked. Worried about the roof.&rdquo;');
+    } });
+  });
+  IM.thing('#owl', null, 'The Glass Owl. Twelve years, and nobody has ever taken it home.', isBusy);
+  IM.thing('#window', null, 'Rain over Signal Street, and St Ebba&rsquo;s clock lit up at the end of it. Nineteen minutes to six.', isBusy);
+  $('#hazel').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(nextFile ? '&ldquo;Shared,&rdquo; says Hazel. &ldquo;But not equally. That&rsquo;s fair.&rdquo;' : '&ldquo;Every decision was made by somebody, on a day, on a piece of paper,&rdquo; says Hazel. &ldquo;Find the paper.&rdquo;');
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the lock: who decided what ---------- */
+  function makeLock() {
+    var st = ER.flag('f-st') || { w: [], pin: -1 }, done = false;
+    var html = '<div class="lg-box"><h5>Who decided what</h5><p class="sub">For each decision, choose who made it. Then put the red pin on the one where the measuring first went wrong: the one Mrs Gately should change first.</p>' +
+      '<div class="lg-head"><span>Decision</span><span>Who decided</span><span>Pin</span></div>' +
+      ROWS.map(function (r, i) { return '<div class="lg-row" data-r="' + i + '"><span class="d"><b>' + r[0] + '</b>' + r[1] + '</span><span class="lg-who">' + WHO.map(function (w) { return '<button type="button" data-w="' + w[0] + '">' + w[1] + '</button>'; }).join('') + '</span><button type="button" class="lg-pin">PIN</button></div>'; }).join('') + '</div>';
+    return IM.lock('lg', html, function (box, msg) {
+      var go = box.querySelector('.pz-go'); go.textContent = 'Give it to Mrs Gately';
+      function paintL() {
+        ER.$$('.lg-row', box).forEach(function (row, i) {
+          ER.$$('.lg-who button', row).forEach(function (b) { b.classList.toggle('on', st.w[i] === b.getAttribute('data-w')); });
+          row.querySelector('.lg-pin').classList.toggle('on', st.pin === i);
+        });
+      }
+      ER.$$('.lg-row', box).forEach(function (row, i) {
+        ER.$$('.lg-who button', row).forEach(function (b) { b.addEventListener('click', function () { if (done) return; st.w[i] = b.getAttribute('data-w'); ER.flag('f-st', st); IM.sfx.tap(); paintL(); }); });
+        row.querySelector('.lg-pin').addEventListener('click', function () { if (done) return; st.pin = st.pin === i ? -1 : i; ER.flag('f-st', st); IM.sfx.pin(); paintL(); });
+      });
+      go.addEventListener('click', function () {
+        if (done) return;
+        var i, bad = [];
+        for (i = 0; i < 6; i++) if (!st.w[i]) { ER.sfx.no(); msg('Choose who decided every one of the six.'); return; }
+        if (st.pin < 0) { ER.sfx.no(); msg('And the red pin: where did the measuring first go wrong?'); return; }
+        for (i = 0; i < 6; i++) if (!ER.check('r' + (i + 1), st.w[i])) bad.push(i);
+        if (bad.length) {
+          ER.sfx.no();
+          var b = bad[0], w = st.w[b], m;
+          if (w === 'maddie') m = '&ldquo;A program does not choose what it is rewarded for,&rdquo; says Hazel. &ldquo;MADDIE can&rsquo;t be blamed, or praised. Who, or what, kept each switch?&rdquo;';
+          else if (w === 'turing') m = '&ldquo;Turing made a prediction in 1950,&rdquo; says Hazel. &ldquo;He never wrote a rule for Haverleigh. Who did?&rdquo;';
+          else if (b === 3) m = '&ldquo;Printed at the college,&rdquo; says Hazel. &ldquo;Written where? Look at what was in the bottom drawer.&rdquo;';
+          else if (b === 2) m = '&ldquo;Rohan and Georgie wrote the switches,&rdquo; says Hazel, &ldquo;but did they choose which ones stayed on? Look at the log and their rule 4.&rdquo;';
+          else m = '&ldquo;' + ROWS[b][0] + ',&rdquo; says Hazel. &ldquo;Find the paper it was written on, and whose name is at the bottom.&rdquo;';
+          msg((bad.length === 1 ? 'One line is wrong. ' : bad.length + ' lines are wrong. ') + m);
+          return;
+        }
+        if (!ER.check('root', 'r' + (st.pin + 1))) { ER.sfx.no(); msg('&ldquo;Not that one first,&rdquo; says Mrs Gately. &ldquo;Which came first, and which did the others copy? The team asked me how they would be scored.&rdquo;'); return; }
+        var file = ER.exit([st.w.join('-') + '-r' + (st.pin + 1)], { wait: true });
+        if (!file) { msg('The pen runs out. Something is wrong with this page: tell your teacher.'); return; }
+        done = true; nextFile = file; ER.flag('f-file', file);
+        IM.terms(['responsible']);
+        IM.mine('ledger', 'Who decided what', '<p>Rule 7 (score only HUMAN verdicts): Mrs Gately, July. PINNED: the measuring went wrong here first.</p><p>Keep a change if more testers tick HUMAN: Rohan and Georgie, 2 Sept, copying Rule 7 from her email.</p><p>The tricks: nobody chose them. The tuning kept whatever scored.</p><p>The tips: Mrs Gately, out of a 1997 magazine. Printed at the college, not written there.</p><p>Rule 9, the &ldquo;pass mark&rdquo; and no human in the loop: Mrs Gately, from Turing&rsquo;s prediction.</p><p>MADDIE over Jiwoo: the judges, who trusted the tips.</p>', true);
+        msg('Mrs Gately reads the list once, slowly. Her own name is on it three times.');
+        setTimeout(function () {
+          ER.closeAll(); paint(); busy = true;
+          ER.narrate([
+            '&ldquo;Rule 7,&rdquo; says Mrs Gately. &ldquo;Nothing else is counted. I wrote that in July, on the back of a gas bill, and I was proud of how simple it was.&rdquo; She looks at the red pin. &ldquo;They asked me how they would be scored, and I told them. And then their program learned exactly what I told them.&rdquo;',
+            '&ldquo;The tips are mine. Out of a magazine from 1997. I was going to blame two seventeen-year-olds for my magazine.&rdquo; She takes off her glasses. &ldquo;And Rule 9. Turing guessed, and I made his guess a pass mark, and I put the result on the board before anybody had read a word.&rdquo;',
+            '&ldquo;It wasn&rsquo;t only you,&rdquo; says Hazel. &ldquo;The team chose a goal and never read their own last column. The judges trusted a typo over a fire alarm. But the measure came first, and it was yours.&rdquo; &ldquo;Yes,&rdquo; says Mrs Gately. &ldquo;Shared. Not equally.&rdquo;',
+            'Downstairs, a microphone squeals. Mrs Gately stands up, picks up the owl, and puts the list in her pocket. &ldquo;Six o&rsquo;clock,&rdquo; she says. &ldquo;Come and stand where I can see you.&rdquo;'
+          ], function () { busy = false; $('#go').classList.add('on'); });
+        }, 2400);
+      });
+      paintL();
+      msg('Six decisions, six names to choose from. Every paper you have read is in your notebook.');
+    });
+  }
+})();
+</script>
+</body>
+</html>

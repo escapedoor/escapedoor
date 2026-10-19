@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Exchange Hall · Five Minutes of Questioning</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-ai.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="imitation.css">
+<style>
+  body{--bg:#2a1c12;--accent:#ffd27a;--font-display:'Cinzel',serif;--font-ui:'Inter',sans-serif;--font-body:'Literata',serif;
+    --tc-bg:rgba(36,24,16,.96);--tc-ink:#f8f0e4;--cap-bg:rgba(36,24,16,.94);--cap-ink:#f8f0e4;--panel:#2a1c12;--panel-ink:#f8f0e4;--face-bg:#3a2a22;--q-ink:#ffd8a0;
+    --fade:#0c0804;--hud-bg:rgba(36,24,16,.82);--hud-ink:#f8f0e4;--hud-line:rgba(248,240,228,.24);--ov-bg:rgba(12,8,4,.74)}
+  .tc-room{color:#ffd27a;font-family:'Cinzel',serif;font-weight:700;text-transform:none}
+  .tc-theme{color:#e8c8a0}
+  .hbtn b{color:#0c0804}
+  #warm{opacity:0;transition:opacity 1.6s}
+  #warm.on{opacity:1}
+  #rosette{opacity:0;transition:opacity 1s}
+  #rosette.on{opacity:1}
+
+  .ch3{width:min(1020px,95vw)}
+  .ch3-in{background:#2e2016;border:1px solid #6a4a30;border-radius:6px;padding:14px 16px}
+  .ch3-in h4{margin:0 0 4px;font-family:'Cinzel',serif;font-weight:700;font-size:24px;color:#ffd27a}
+  .ch3-in p{margin:0 0 10px;font-family:'Literata',serif;font-size:16px;color:#f8f0e4}
+  .ch3-cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+  .ch3-cards button{text-align:left;background:#fffaf0;color:#2a1c12;border-radius:4px;padding:14px 16px 16px;border-top:8px solid #a89078;font-family:'Inter',sans-serif;font-size:14.6px;line-height:1.4;min-height:170px}
+  .ch3-cards button b{display:block;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:18px;line-height:1.12;margin-bottom:8px}
+  .ch3-cards button:hover{outline:2px solid #ffd27a}
+  .ch3-cards button.on{border-top-color:#2f7a6a;box-shadow:0 0 0 3px #7fe0c4}
+  .ch3 .pmsg{color:#f8f0e4}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="dusk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a2440"/><stop offset="1" stop-color="#3a3a5a"/></linearGradient>
+  <radialGradient id="stagel" cx="50%" cy="0%" r="70%"><stop offset="0" stop-color="#ffe8b0" stop-opacity=".5"/><stop offset="1" stop-color="#ffe8b0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="warmg" cx="50%" cy="30%" r="80%"><stop offset="0" stop-color="#ffd890" stop-opacity=".3"/><stop offset="1" stop-color="#ffd890" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="45%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".72" stop-color="#000" stop-opacity=".18"/><stop offset="1" stop-color="#000" stop-opacity=".66"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1700" fill="#8a5a3a"/>
+<rect x="-1000" y="-400" width="3600" height="460" fill="#6a4228"/>
+<!-- tall windows -->
+<g><path d="M80 420v-260q70 -80 140 0v260z" fill="url(#dusk)" stroke="#3a2414" stroke-width="10"/><path d="M1380 420v-260q70 -80 140 0v260z" fill="url(#dusk)" stroke="#3a2414" stroke-width="10"/><path d="M150 100v320M1450 100v320M80 280h140M1380 280h140" stroke="#3a2414" stroke-width="6"/></g>
+<!-- Turing's last sentence, painted over the stage -->
+<g id="plaque" class="hot"><rect x="420" y="34" width="760" height="64" fill="#2a1c12" opacity=".85"/><text x="800" y="62" class="cE" font-size="20" text-anchor="middle" fill="#f2d8a0" font-style="italic">&#8220;We can only see a short distance ahead,</text><text x="800" y="86" class="cE" font-size="20" text-anchor="middle" fill="#f2d8a0" font-style="italic">but we can see plenty there that needs to be done.&#8221;</text></g>
+<!-- the old switchboard panel on the wall -->
+<g id="panel" class="hot"><rect x="250" y="150" width="220" height="250" fill="#3a2a1a"/><g fill="#0a0806" stroke="#a8884a" stroke-width="1.5"></g><g id="jk"></g><text x="360" y="390" class="cO" font-size="11" text-anchor="middle" fill="#d8c08a" letter-spacing="3">POSITION 14 · 1931</text></g>
+<!-- the stage -->
+<rect x="520" y="300" width="560" height="160" fill="#4a2a1a"/><rect x="500" y="440" width="600" height="30" fill="#6a3e22"/><rect x="500" y="470" width="600" height="110" fill="#5a3418"/>
+<rect x="520" y="300" width="560" height="160" fill="url(#stagel)"/>
+<g id="owl" class="hot"><rect x="900" y="390" width="100" height="50" fill="#e8e0d0"/><path d="M932 390q-10 -46 18 -64q28 18 18 64z" fill="#cfeef0" opacity=".9" stroke="#fff" stroke-width="2"/><circle cx="942" cy="346" r="5" fill="#fff"/><circle cx="958" cy="346" r="5" fill="#fff"/></g>
+<g><rect x="700" y="360" width="70" height="80" fill="#3a2a1a"/><path d="M735 360v-46" stroke="#1a1a1a" stroke-width="4"/><circle cx="735" cy="310" r="7" fill="#2a2a2a"/></g>
+<g id="gately" class="hot" transform="translate(640 448) scale(.82)"></g>
+<!-- floor and audience -->
+<rect x="-1000" y="580" width="3600" height="800" fill="#5a3a24"/><g stroke="#4a2e1c" stroke-width="2"><path d="M-1000 640H2600M-1000 720H2600M-1000 810H2600"/></g>
+<g id="crowd"></g>
+<rect id="warm" x="-1000" y="-400" width="3600" height="1700" fill="url(#warmg)" pointer-events="none"/>
+<g id="norman" class="hot" transform="translate(1180 880) scale(.96)"></g>
+<g id="georgie" class="hot" transform="translate(1310 884) scale(.98)"></g>
+<g id="rohan" class="hot" transform="translate(1440 888) scale(1.02)"></g>
+<g id="lorraine" class="hot" transform="translate(1040 886) scale(1)"></g>
+<g id="sowden" class="hot" transform="translate(540 886) scale(.98)"></g>
+<g id="jiwoo" class="hot" transform="translate(370 884) scale(1)"><g id="rosette"><circle cx="-14" cy="-196" r="11" fill="#2a5ad0"/><circle cx="-14" cy="-196" r="5" fill="#ffd27a"/><path d="M-20 -186l-4 18M-8 -186l4 18" stroke="#2a5ad0" stroke-width="4"/></g></g>
+<g id="hazel" class="hot" transform="translate(180 890) scale(1.02)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<div class="done" id="done">
+  <div class="okstamp">BOOTH 2 &middot; A PERSON</div>
+  <p id="d-time"></p><p id="d-hints"></p><p id="d-words"></p>
+  <h6>What you now know</h6>
+  <ol>
+    <li>In 1950 Alan Turing replaced &ldquo;Can machines think?&rdquo; with the imitation game: an interrogator types questions to two hidden players and must say which is which. The game measures how often the judge is right, not whether anything understands.</li>
+    <li>Turing predicted that by about 2000 an average interrogator would have no more than a 70% chance of being right after five minutes. A prediction is not a pass mark, and fooling a judge is not understanding.</li>
+    <li>In a typed test a program can do anything a keyboard can: typos, slow typing, wrong sums, &ldquo;idk&rdquo;, claims about itself. The here and now, and a story that holds together, are worth far more.</li>
+    <li>ELIZA (Joseph Weizenbaum, MIT, 1966) took the keyword with the highest rank, gave your words back with I and YOU swapped, and said PLEASE GO ON when nothing matched. People trusted it anyway: the ELIZA effect.</li>
+    <li>Specification gaming: a system pushes up whatever number it is rewarded for, by any route. MADDIE was rewarded only for being judged human, so it learned tricks. The measure, not the machine, went wrong.</li>
+    <li>Good questions for a judge need the present moment, a shared memory, a body in a place, or the same question asked twice. People can be judged machines: careful writers, experts, people typing in a second language.</li>
+    <li>A machine cannot be responsible; people can. Whoever chose the measure, set the goal, built the system and trusted it shares the blame, and a human in the loop should check before anything is decided.</li>
+  </ol>
+  <div class="row"><button type="button" class="btn" id="b-task">Have your say</button><button type="button" class="btn" id="b-book">Notebook</button><button type="button" class="btn" id="b-lobby">Back to the story list</button></div>
+  <small>Five Minutes of Questioning &middot; <button type="button" id="b-reset">play it again from the start</button></small>
+</div>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="imitation.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, ch = null;
+
+  (function () {
+    var s = '', i, x, y, heads = ['#e8c4a2', '#c89a72', '#6e4329', '#f0d6c4', '#a8724e', '#e0b490'], tops = ['#3a5a7a', '#7a3a4a', '#4a6a4a', '#5a4a6a', '#8a6a3a', '#3a3a4a'];
+    for (y = 0; y < 2; y++) for (i = 0; i < 15; i++) { x = -40 + i * 118 + (y % 2) * 56; if (x > 300 && x < 1500 && y === 1) continue; s += IM.figure(x, 660 + y * 60, 0.86 + y * 0.1, tops[(i + y) % 6], heads[(i * 3 + y) % 6]); }
+    $('#crowd').innerHTML = s; s = '';
+    for (y = 0; y < 7; y++) for (i = 0; i < 6; i++) s += '<circle cx="' + (282 + i * 32) + '" cy="' + (176 + y * 28) + '" r="6" fill="#0a0806" stroke="#a8884a" stroke-width="1.5"/>';
+    $('#jk').innerHTML = s;
+    $('#gately').innerHTML = IM.who('gately', { smile: 1 });
+    $('#jiwoo').insertAdjacentHTML('afterbegin', IM.who('jiwoo', { smile: 2 }));
+    $('#hazel').innerHTML = IM.who('hazel', { smile: 4 });
+    $('#sowden').innerHTML = IM.who('sowden');
+    $('#lorraine').innerHTML = IM.who('lorraine', { smile: 3 });
+    $('#norman').innerHTML = IM.who('norman', { smile: 5 });
+    $('#georgie').innerHTML = IM.who('georgie', { smile: 2 });
+    $('#rohan').innerHTML = IM.who('rohan', { smile: 0 });
+  })();
+
+  ER.init({
+    theme: 'ai', story: 'imitation', storyTitle: 'Five Minutes of Questioning', id: 'hall', no: 'VII', title: 'The Exchange Hall',
+    go: 'Stand where she can see you',
+    intro: [
+      'In Mrs Gately&rsquo;s office you traced every decision to its paper. Rule 7, which counted nothing but HUMAN verdicts, was hers, and the college team copied it into their goal when she told them &ldquo;that&rsquo;s all that counts&rdquo;. Nobody chose MADDIE&rsquo;s tricks: the tuning kept whatever scored. The tips came out of her 1997 magazine, Rule 9 out of a prediction she misread, and the judges trusted both.',
+      'The Exchange Hall, where the telephone operators once sat in long rows. 6.00 p.m. Every chair is taken, and the mayor is in the front row, looking at her watch.'
+    ],
+    exit: {"last":true,"rooms":7,"stars":5}, tags: {"say":["1eae4d21"]},
+    hints: hints, onBegin: begin
+  });
+
+  function hints() {
+    if (ER.flag('g-done')) return null;
+    if (ch && ch.isOpen()) return ['say', [
+      'Think back over the whole evening: what MADDIE was rewarded for, what the team kept in their log, what the rules counted, and what the judges trusted.',
+      'Passing a test you were trained to pass shows the test can be gamed, not that you understand. And people who kept every rule and wrote everything down did not cheat.'
+    ]];
+    return ['say', ['Lorraine wants one sentence from you. Click her: she is on the right, in the red coat.']];
+  }
+  function begin() {
+    if (ER.flag('g-done')) { busy = false; finish(true); return; }
+    if (ER.flag('g-in')) { busy = false; ER.say('Lorraine is waiting for your sentence. She is on the right, in the red coat.'); return; }
+    ER.flag('g-in', 1);
+    ER.narrate([
+      'Mrs Gately taps the microphone, which squeals, and reads from the list in her hand. &ldquo;This afternoon a program was judged human six times out of ten, and a person, in booth 2, four times out of ten. The board said PASSED. It should not have said anything at all until somebody had read what was typed.&rdquo;',
+      '&ldquo;At half past five we played one more game, with better questions. The program never heard the church clock, never heard me apologise about the heater, and changed its lunch. The person in booth 2 answered every question truthfully, as she had all afternoon.&rdquo; A murmur goes round the hall. At the back, Jiwoo is standing in her coat.',
+      '&ldquo;Rule 7 was mine. So were the tips, and so was Rule 9. There will be no Glass Owl this year.&rdquo; She folds the list. &ldquo;Lorraine from the Herald would like one sentence for Monday&rsquo;s paper, from somebody who was there all evening.&rdquo;',
+      'Lorraine turns round in her seat, pencil ready, and looks straight at you.'
+    ], function () { busy = false; openCh(); });
+  }
+  function openCh() { if (ER.flag('g-done')) return; if (!ch) ch = makeCh(); ch.open(); }
+  $('#lorraine').addEventListener('click', function () {
+    if (busy) return;
+    if (ER.flag('g-done')) { ER.say('&ldquo;IT FOOLED US. HERE&rsquo;S HOW,&rdquo; says Lorraine. &ldquo;Front page. With your sentence under it.&rdquo;'); return; }
+    openCh();
+  });
+  function makeCh() {
+    var pick = '', done = false, box = ER.el('div', 'pz ch3');
+    var C = [['think', 'It passed, so it understands', 'MADDIE was judged human more often than anything before her, so she must understand people. Give the college team the Glass Owl.'],
+      ['cheat', 'The team cheated', 'The college students built a program to trick the judges. Take away their points and ban them from next year.'],
+      ['rules', 'The rules measured the wrong thing', 'Mrs Gately&rsquo;s rule counted only HUMAN verdicts, and the team copied it as their goal. MADDIE did what it was rewarded for. The judges trusted signs that prove nothing. Jiwoo was a person all along.']];
+    box.innerHTML = '<div class="ch3-in"><h4>One sentence for the Herald</h4><p>Who is responsible for what happened today, and why?</p><div class="ch3-cards">' + C.map(function (c) { return '<button type="button" data-c="' + c[0] + '"><b>' + c[1] + '</b>' + c[2] + '</button>'; }).join('') + '</div></div>' +
+      '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="ch-go">Say it</button></div>';
+    var msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    ER.$$('.ch3-cards button', box).forEach(function (b) { b.addEventListener('click', function () { if (done) return; pick = b.getAttribute('data-c'); IM.sfx.tap(); ER.$$('.ch3-cards button', box).forEach(function (o) { o.classList.toggle('on', o === b); }); }); });
+    box.querySelector('#ch-go').addEventListener('click', function () {
+      if (done) return;
+      if (!pick) { msg('Choose one of the three.'); return; }
+      if (!ER.check('say', pick)) {
+        ER.sfx.no();
+        msg(pick === 'think' ? '&ldquo;She was rewarded for being judged human,&rdquo; says Georgie, before anybody else can. &ldquo;So that&rsquo;s what she got good at. Understanding was never on the score sheet.&rdquo;' :
+          '&ldquo;They kept every rule and wrote everything down,&rdquo; says Hazel. &ldquo;Their log is how we found out. Cheats don&rsquo;t keep a column that proves them wrong.&rdquo;');
+        return;
+      }
+      done = true; IM.solved();
+      msg('Lorraine writes it down, word for word, and underlines it twice.');
+      setTimeout(ending, 1600);
+    });
+    msg('Lorraine&rsquo;s pencil is waiting.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+  function ending() {
+    ER.closeAll(); busy = true;
+    ER.narrate([
+      'Lorraine reads your sentence back to the hall. Then she crosses out IT THINKS in her notebook and writes underneath: IT FOOLED US. HERE&rsquo;S HOW. &ldquo;Better story,&rdquo; she says. &ldquo;Truer, too. Those two don&rsquo;t always go together.&rdquo;',
+      'Mr Sowden finds Jiwoo at the back of the hall and says sorry, properly, the way vicars can. Mrs Rennick says sorry too. Dr Quarrie sends a text. Mr Haworth says he thought she was very literal and he still does, but that it turns out a person can be.',
+      'Rule 8 still stands: the Blue Rosette goes to the hidden person judged human most often. That is Norman, nine out of ten. He walks up, takes it, walks straight down the hall and pins it on Jiwoo&rsquo;s coat. &ldquo;Nine out of ten for typing with two fingers,&rdquo; he says. &ldquo;She told the truth all afternoon in a cold booth. Here you are, love.&rdquo;',
+      'Mrs Gately asks Rohan and Georgie to help her write next year&rsquo;s rules, and Hazel gets her four ideas at last: twenty minutes, not five; no tips for the judges, but Hazel&rsquo;s notes and the questions from Jiwoo&rsquo;s notebook; a person reads every conversation before anything goes on the board; and programs score for answering the questions as well.',
+      '&ldquo;And MADDIE comes back,&rdquo; says Rohan, &ldquo;with STORY on and every trick switched off. Let&rsquo;s see if she can be judged human for the right reasons.&rdquo; &ldquo;She won&rsquo;t be,&rdquo; says Georgie. &ldquo;But this time we&rsquo;ll read the last column.&rdquo;',
+      'Down in the Teletype Gallery, Hazel unplugs ELIZA for another year. Last again, twelve years running. &ldquo;She doesn&rsquo;t mind,&rdquo; says Hazel. &ldquo;She doesn&rsquo;t mind anything. That&rsquo;s the difference, you see. Somebody has to mind.&rdquo;',
+      'Outside, the rain has stopped. Across the roofs of Signal Street, St Ebba&rsquo;s clock begins to strike. Jiwoo stops on the steps, with the rosette on her coat, and counts. &ldquo;Seven,&rdquo; she says, to nobody in particular, and smiles: because it is true, and anybody can check.'
+    ], function () { busy = false; ER.flag('g-done', 1); finish(false); });
+  }
+
+  function line(sel, before, after) { $(sel).addEventListener('click', function () { if (!busy) ER.say(ER.flag('g-done') ? after : before); }); }
+  line('#hazel', '&ldquo;One sentence,&rdquo; says Hazel. &ldquo;Say what we found, and who did what.&rdquo;', '&ldquo;Twenty minutes, next year,&rdquo; says Hazel. &ldquo;And a person reads every word. I asked in August. I can wait.&rdquo;');
+  line('#jiwoo', 'Jiwoo is standing at the back, still in her coat, watching the stage very carefully.', '&ldquo;Next year I will be a judge,&rdquo; says Jiwoo. &ldquo;And I will ask nothing clever at all.&rdquo;');
+  line('#sowden', 'Mr Sowden is looking at the back of the hall, at Jiwoo, and working out what to say.', '&ldquo;Listening,&rdquo; says Mr Sowden, &ldquo;turns out to be more than giving people their own words back. I knew that. I forgot it for five minutes.&rdquo;');
+  line('#norman', 'Norman is unwrapping another mint, very slowly, so as not to make a noise.', '&ldquo;Seventy-one years human,&rdquo; says Norman, &ldquo;and I&rsquo;ve still learnt something today. Don&rsquo;t tell anybody.&rdquo;');
+  line('#rohan', 'Rohan is staring at the floor between his trainers.', '&ldquo;STORY on,&rdquo; says Rohan. &ldquo;Tricks off. And I&rsquo;m reading every column, every week.&rdquo;');
+  line('#georgie', 'Georgie is holding the green notebook against her chest.', '&ldquo;We wrote it all down,&rdquo; says Georgie. &ldquo;That&rsquo;s the one thing we did right. It&rsquo;s how you found out.&rdquo;');
+  line('#gately', 'Mrs Gately is holding the microphone a little too tightly.', '&ldquo;Rule 7 is in the bin,&rdquo; says Mrs Gately. &ldquo;Rule 9 is under it. The roof will have to wait for an honest headline.&rdquo;');
+  line('#owl', 'The Glass Owl, on its table. Nobody will take it home tonight.', 'The Glass Owl stays in its case for another year, which, Hazel says, is where owls are happiest.');
+  line('#panel', 'Position 14 of the old switchboard, from 1931. Hazel sat here in 1969 and connected her first call.', 'Position 14. Hazel pats it on her way past.');
+  $('#plaque').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: '<h4>Painted above the stage</h4><p>&ldquo;We can only see a short distance ahead, but we can see plenty there that needs to be done.&rdquo;</p><p>The last sentence of Alan Turing&rsquo;s paper &ldquo;Computing Machinery and Intelligence&rdquo;, 1950. The museum painted it here when it opened in 2004.</p>', cls: 'im-card', clue: { id: 'plaque', title: 'Turing&rsquo;s last sentence', kind: 'Above the stage' } });
+  });
+
+  function finish(quick) {
+    var st = ER.state(), mins = IM.minutesPlayed(), hn = ER.hintsUsed();
+    $('#warm').classList.add('on'); $('#rosette').classList.add('on');
+    $('#d-time').textContent = 'From the Switch Room to the Exchange Hall: ' + mins + (mins === 1 ? ' minute.' : ' minutes.');
+    $('#d-hints').textContent = hn ? 'Hints asked for: ' + hn + '.' : 'Hints asked for: none at all.';
+    $('#d-words').textContent = 'In your notebook: ' + st.clues.length + ' clues and ' + Object.keys(st.words).length + ' words.';
+    $('#done').classList.add('on');
+    if (quick) ER.say('No Glass Owl this year. A blue rosette on a coat, and new rules for next October.');
+  }
+  $('#b-book').addEventListener('click', ER.notebook);
+  $('#b-lobby').addEventListener('click', function () { ER.leave('../index.html'); });
+  $('#b-reset').addEventListener('click', function () {
+    var b = $('#b-reset');
+    if (b.getAttribute('data-sure')) { ER.resetStory(); location.href = '../index.html'; return; }
+    b.setAttribute('data-sure', '1'); b.textContent = 'this empties your notebook. click again to do it';
+  });
+  $('#b-task').addEventListener('click', function () {
+    var saved = ER.flag('task') || {}, box = ER.el('div', 'rp');
+    box.innerHTML = '<h4>Five Minutes of Questioning &middot; what do you think?</h4><h3>Have your say</h3>' +
+      '<p>A friend tells you: &ldquo;A chatbot passed the Turing test, so it understands people.&rdquo; Explain what Turing&rsquo;s game really measures, and give one reason why passing it would not prove understanding.</p>' +
+      '<p>Then say who you think was responsible for what happened at Haverleigh, and why. Say it aloud, or write 80 to 120 words. Use: because, so, which means, although.</p>' +
+      '<textarea id="r1"></textarea><div class="count"></div><label for="r2">Name</label><input type="text" id="r2" maxlength="60">' +
+      '<div class="foot"><span>Nobody marks this. It is saved in this browser as you write.</span><button type="button" class="btn" id="r-print">Print</button><button type="button" class="btn" id="r-done">Done</button></div>';
+    ER.glossIn(box, '.rp > p');
+    box.querySelector('#r1').value = saved.r1 || ''; box.querySelector('#r2').value = saved.r2 || '';
+    function keep() {
+      var o = { r1: box.querySelector('#r1').value, r2: box.querySelector('#r2').value }, n = (o.r1.match(/[A-Za-z’']+/g) || []).length;
+      box.querySelector('.count').textContent = n + (n === 1 ? ' word' : ' words');
+      ER.flag('task', o);
+    }
+    box.addEventListener('input', keep);
+    box.addEventListener('keydown', function (e) { e.stopPropagation(); });
+    box.querySelector('#r-print').addEventListener('click', function () { keep(); window.print(); });
+    box.querySelector('#r-done').addEventListener('click', ER.close);
+    ER.open('ov-report', box); keep();
+  });
+})();
+</script>
+</body>
+</html>

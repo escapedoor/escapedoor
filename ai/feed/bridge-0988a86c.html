@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Bridge · Everybody Thinks So</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-ai.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="feed.css">
+<style>
+  body{--bg:#2a2240;--accent:#ffb870;--font-display:'Bricolage Grotesque',sans-serif;--font-ui:'Inter',sans-serif;--font-body:'Literata',serif;
+    --tc-bg:rgba(30,24,46,.96);--tc-ink:#f4ecf6;--cap-bg:rgba(30,24,46,.94);--cap-ink:#f4ecf6;--panel:#221c34;--panel-ink:#f4ecf6;--face-bg:#3a3428;--q-ink:#ffc890;
+    --fade:#0c0a14;--hud-bg:rgba(30,24,46,.82);--hud-ink:#f4ecf6;--hud-line:rgba(244,236,246,.24);--ov-bg:rgba(12,10,20,.74)}
+  .tc-room{color:#ffb870}
+  .tc-theme{color:#c8b8f0}
+  .tk-role{color:#c8b8f0}
+  .hbtn b{color:#0c0a14}
+  .rip{animation:rip 5s ease-in-out infinite}
+  @keyframes rip{50%{transform:translateX(18px)}}
+  #bat{animation:bat 11s linear infinite}
+  @keyframes bat{0%{transform:translate(-200px,40px)}50%{transform:translate(900px,-30px)}100%{transform:translate(2000px,20px)}}
+  #howl path{opacity:0}
+  #howl.on path{animation:howl 1.6s ease-out 1}
+  #howl.on path:nth-child(2){animation-delay:.25s}#howl.on path:nth-child(3){animation-delay:.5s}
+  @keyframes howl{0%{opacity:0}30%{opacity:.9}100%{opacity:0}}
+
+  /* the chalk board */
+  .cb{width:min(1020px,96vw)}
+  .cb-in{display:grid;grid-template-columns:1fr 200px;gap:12px;background:#1e2a26;border:14px solid #7a5434;border-radius:4px;padding:10px 12px;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+  #cb-svg{width:100%;height:auto;cursor:crosshair}
+  .cb-side{font-family:'Caveat',cursive;font-size:19px;line-height:1.2;color:#eef2e8}
+  .cb-side b{display:block;font-size:24px;color:#ffe680;margin-bottom:4px}
+  .cb-side p{margin:0 0 8px}
+  .chalk{display:block;width:100%;margin:0 0 6px;padding:7px 8px;border:2px solid rgba(255,255,255,.25);border-radius:4px;background:transparent;font-family:'Caveat',cursive;font-size:20px;text-align:left;cursor:pointer}
+  .chalk.on{border-color:#fff;background:rgba(255,255,255,.08)}
+  .chalk i{display:inline-block;width:40px;height:9px;border-radius:5px;margin-right:8px;vertical-align:2px}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:4px}
+  .steps div{text-align:center;font-family:'Caveat',cursive;font-size:17px}
+  .steps button{display:block;width:100%;padding:0;height:22px;border:1px solid rgba(255,255,255,.25);border-radius:3px;color:#eef2e8;font-size:12px;line-height:20px}
+  .steps button:hover{border-color:#fff}
+  .cb .pmsg{color:#f4ecf6}
+  .wkl{cursor:pointer}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c1a40"/><stop offset=".45" stop-color="#5a3a6a"/><stop offset=".78" stop-color="#d07a5a"/><stop offset="1" stop-color="#f2b06a"/></linearGradient>
+  <linearGradient id="river" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c88a6a"/><stop offset=".4" stop-color="#5a4a6a"/><stop offset="1" stop-color="#2a2a44"/></linearGradient>
+  <radialGradient id="lampG" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffd890" stop-opacity=".6"/><stop offset="1" stop-color="#ffd890" stop-opacity="0"/></radialGradient>
+  <radialGradient id="floodG" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#eef4ff" stop-opacity=".5"/><stop offset="1" stop-color="#eef4ff" stop-opacity="0"/></radialGradient>
+  <pattern id="stone" width="80" height="40" patternUnits="userSpaceOnUse"><rect width="80" height="40" fill="#8a7a6a"/><path d="M0 0H80M0 20H80M20 0V20M60 20V40" stroke="#6a5a4c" stroke-width="2"/></pattern>
+  <radialGradient id="vig" cx="50%" cy="45%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".72" stop-color="#000" stop-opacity=".18"/><stop offset="1" stop-color="#000" stop-opacity=".7"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1000" fill="url(#sky)"/>
+<circle cx="1180" cy="170" r="2" fill="#fff"/><circle cx="420" cy="110" r="1.6" fill="#fff"/><circle cx="760" cy="60" r="1.8" fill="#fff"/>
+<!-- the two towns -->
+<g id="gorsey" class="hot"><path d="M-1000 470V420H-600V390H-400V430H-200V400H0V430H60V380L100 330L140 380V430H240V410H330V444H420V430H520V470Z" fill="#2a2440"/>
+  <path d="M100 470V300l14 -60 14 60v170z" fill="#2a2440"/><g fill="#ffd27a"><rect x="-120" y="436" width="8" height="8"/><rect x="40" y="430" width="8" height="8"/><rect x="200" y="444" width="8" height="8"/></g>
+  <rect x="300" y="444" width="110" height="26" fill="#2c4a36"/><rect x="330" y="450" width="18" height="10" fill="#ffd27a"/><text x="220" y="398" class="cU" font-size="14" fill="#c8b8f0" letter-spacing="3">GORSEY</text></g>
+<g id="crick" class="hot"><path d="M1100 470v-40h70v-30h90v40h60v-60h80v60h90v-30h70v40h140v-50h100v20H2600v50z" fill="#2a2440"/>
+  <g fill="#e8f0ff"><rect x="1250" y="300" width="5" height="130"/><rect x="1440" y="300" width="5" height="130"/></g><circle cx="1252" cy="300" r="70" fill="url(#floodG)"/><circle cx="1442" cy="300" r="70" fill="url(#floodG)"/>
+  <g fill="#ffd27a"><rect x="1180" y="440" width="8" height="8"/><rect x="1350" y="436" width="8" height="8"/><rect x="1530" y="446" width="8" height="8"/></g><text x="1322" y="392" class="cU" font-size="14" fill="#c8b8f0" letter-spacing="3">CRICKMORE</text></g>
+<rect x="-1000" y="468" width="3600" height="140" fill="url(#river)"/>
+<g stroke="#f2c8a0" stroke-width="2" opacity=".5"><path class="rip" d="M300 500h120M700 520h160M1100 506h100M500 560h200M980 576h140"/></g>
+<g id="heron" class="hot"><rect x="138" y="520" width="5" height="70" fill="#1a1828"/><path d="M128 520q-4 -40 16 -46q10 -16 22 -10q-14 2 -12 14q14 6 10 42z" fill="#3a3a4a"/><path d="M166 466l18 4" stroke="#d8b040" stroke-width="3"/></g>
+<g id="bat"><path d="M0 0q8 -8 14 0q6 -8 14 0q-7 2 -14 6q-7 -4 -14 -6z" fill="#1a1426"/></g>
+
+<!-- the parapet and lamps -->
+<rect x="-1000" y="600" width="3600" height="110" fill="url(#stone)"/><rect x="-1000" y="592" width="3600" height="16" fill="#a8988a"/>
+<g><rect x="296" y="300" width="12" height="300" fill="#2a2a30"/><path d="M286 300h32l-6 -30h-20z" fill="#2a2a30"/><circle cx="302" cy="286" r="10" fill="#ffd890"/><circle cx="302" cy="286" r="110" fill="url(#lampG)" pointer-events="none"/></g>
+<g><rect x="1296" y="300" width="12" height="300" fill="#2a2a30"/><path d="M1286 300h32l-6 -30h-20z" fill="#2a2a30"/><circle cx="1302" cy="286" r="10" fill="#ffd890"/><circle cx="1302" cy="286" r="110" fill="url(#lampG)" pointer-events="none"/></g>
+<g id="bunting"><path d="M308 310Q600 380 900 350" fill="none" stroke="#1a1a1a" stroke-width="2"/></g>
+
+<!-- the road over the bridge -->
+<rect x="-1000" y="708" width="3600" height="600" fill="#5a5250"/><path d="M-1000 708H2600" stroke="#3a3432" stroke-width="4"/>
+<g id="plaque" class="hot"><ellipse cx="820" cy="830" rx="120" ry="26" fill="#a8823a"/><ellipse cx="820" cy="826" rx="112" ry="22" fill="#d8b866"/><path d="M820 806v40" stroke="#6a4a18" stroke-width="3"/><text x="764" y="832" class="cC" font-size="12" font-weight="700" text-anchor="middle" fill="#4a3410">GORSEY</text><text x="880" y="832" class="cC" font-size="12" font-weight="700" text-anchor="middle" fill="#4a3410">CRICKMORE</text></g>
+
+<!-- the chalk board -->
+<g id="board" class="hot"><path d="M440 820L470 560h180l30 260" fill="none" stroke="#7a5434" stroke-width="10"/><rect x="458" y="570" width="204" height="210" fill="#1e2a26" stroke="#7a5434" stroke-width="8"/>
+  <text x="560" y="600" class="cV" font-size="20" text-anchor="middle" fill="#eef2e8" opacity=".4">TODAY:</text><text x="560" y="622" class="cV" font-size="20" text-anchor="middle" fill="#eef2e8" opacity=".4">GORSEY BUNS</text>
+  <path d="M478 760V640M478 760H646" stroke="#eef2e8" stroke-width="2"/><path d="M498 740l26 -10 26 -14" stroke="#ffe680" stroke-width="3" fill="none"/><path d="M498 750l26 -4 26 -4" stroke="#ff9ac8" stroke-width="3" fill="none"/><text x="610" y="740" class="cV" font-size="22" fill="#eef2e8">?</text></g>
+<g id="folder" class="hot"><rect x="740" y="572" width="96" height="22" fill="#f2c230" transform="rotate(-4 788 583)"/><rect x="746" y="566" width="84" height="10" fill="#fffef8" transform="rotate(-4 788 583)"/></g>
+<!-- Gordon's loudspeaker -->
+<g id="pa" class="hot"><rect x="980" y="680" width="260" height="14" fill="#8a7a6a"/><path d="M996 694l-16 120M1224 694l16 120" stroke="#5a4a3a" stroke-width="7"/>
+  <rect x="1080" y="540" width="6" height="140" fill="#2a2a30"/><path d="M1040 470h86v74h-86z" fill="#1d1d22"/><circle cx="1083" cy="507" r="26" fill="#3a3a42"/><circle cx="1083" cy="507" r="9" fill="#1d1d22"/>
+  <g id="howl" fill="none" stroke="#ffe680" stroke-width="3"><path d="M1134 482q20 25 0 50"/><path d="M1150 470q32 37 0 74"/><path d="M1166 458q44 49 0 98"/></g>
+  <rect x="1150" y="660" width="40" height="20" rx="4" fill="#2a2a30"/><path d="M1170 660l30 -40" stroke="#2a2a30" stroke-width="4"/><rect x="1192" y="604" width="16" height="26" rx="7" fill="#3a3a42" transform="rotate(36 1200 617)"/>
+  <path d="M990 690q40 -12 90 -4" fill="none" stroke="#c83a3a" stroke-width="6"/><g fill="#c83a3a"><path d="M1000 676l8 14 8 -14z"/></g></g>
+<g id="pacard" class="hot"><rect x="1042" y="548" width="34" height="26" fill="#fdfdf8" stroke="#f2c230" stroke-width="2"/><text x="1059" y="565" class="cT" font-size="7" text-anchor="middle" fill="#1a1a1a">READ ME</text></g>
+<g id="freya" class="hot" transform="translate(250 884) scale(1.08)"></g>
+<g id="gordon" class="hot" transform="translate(1400 884) scale(1.1)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Across to Crickmore</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="feed.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, lock = null, heronN = 0;
+  /* the weekly emails Freya collected, weeks 1 to 3 (fight videos in a top 20) */
+  var KNOWN = { g: [4, 6, 9], c: [2, 3, 4] }, DATES = ['31 Aug', '7 Sep', '14 Sep', '21 Sep', '28 Sep', '5 Oct'];
+
+  (function () {
+    var s = '', i, x, y, cols = ['#d84a3a', '#f2c230', '#3a8ad0', '#2f9a5a'];
+    for (i = 0; i < 13; i++) { var t = 0.03 + i * 0.075, u = 1 - t; x = u * u * 308 + 2 * u * t * 600 + t * t * 900; y = u * u * 310 + 2 * u * t * 380 + t * t * 350; s += '<path d="M' + (x - 10).toFixed(1) + ' ' + y.toFixed(1) + 'l10 22 10 -22z" fill="' + cols[i % 4] + '"/>'; }
+    $('#bunting').innerHTML += s;
+    $('#freya').innerHTML = FD.who('freya', { extra: '<rect x="30" y="-150" width="10" height="34" rx="2" fill="#f2f2f2" transform="rotate(-20 35 -133)"/>' });
+    $('#gordon').innerHTML = FD.who('gordon', { extra: '<rect x="-52" y="-152" width="12" height="30" rx="5" fill="#2a2a30"/>' });
+  })();
+
+  ER.init({
+    theme: 'ai', story: 'feed', storyTitle: 'Everybody Thinks So', id: 'bridge', no: 'III', title: 'The Bridge',
+    go: 'Out onto the bridge',
+    intro: [
+      'In the bakery Burble&rsquo;s own card put Ken&rsquo;s angry reply on the top shelf: finished 71, plus 2 × 9 for likes, plus 5 × 14 for shares, made 159. His folding video had the most likes and came third. The app does not show people what they like. It shows them what they will finish and share, because that is what it was built to make go up.',
+      'The Lisk Bridge, 6.55 p.m. Half the bunting for tomorrow is up. Gordon Pruett, caretaker of Lisk Hall, is setting up a loudspeaker on a trestle table, just in case.'
+    ],
+    exit: {"next":"ground","w":{"f572311a":"909951b8"}}, tags: {"g4":["f971e43f"],"g5":["9756a948"],"g6":["87f14d98"],"c4":["63dc7a4c"],"c5":["3a3fef8f"],"c6":["83125c8e"],"wk":["49730886"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('c-file') || null; told = ER.flag('c-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('c-told', told); return true; }
+  function isBusy() { return busy; }
+  function ready() { return told.gordon && told.pacard && told.folder; }
+  function paint() {
+    $('#board').classList.toggle('glow', !!(ready() && !nextFile));
+    ER.pips((told.gordon ? 1 : 0) + (told.pacard ? 1 : 0) + (told.folder ? 1 : 0) + (nextFile ? 1 : 0), 4);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Crickmore is next. The button at the bottom of the screen.']];
+    if (lock && lock.isOpen()) return ['board', [
+      'Freya&rsquo;s page 4: next week = this week + half of this week, rounded down, and never more than 20. Start from week 3 for each town.',
+      'Gorsey week 4: 9 + 4½ = 13½, so 13. Carry on from there. Crickmore week 4: 4 + 2 = 6. To find what the two towns had in common, take the bigger number of fight videos away from 20.',
+      'Choose the yellow or pink chalk, then click in a week&rsquo;s column on the board to put the mark there; the small arrows move it by one. Last, click the week (under the board) in which the two towns first had fewer than 10 videos in common.'
+    ]];
+    if (!told.gordon) return ['gordon', ['Gordon, by the loudspeaker, is about to switch it on.', 'He is on the right, in a flat cap and a brown coat.']];
+    if (!told.pacard) return ['pacard', ['The card taped to the loudspeaker explains what just happened.', 'The small white card on the black loudspeaker, on the trestle table.']];
+    if (!told.folder) return ['folder', ['Freya has left her coursework on the parapet: page 4 is about loops.', 'The yellow folder on top of the stone wall, near the middle of the bridge.']];
+    return ['open', ['Now the chalk board. Finish Freya&rsquo;s chart.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('Two chalk lines that started two videos apart.'); return; }
+    if (told.in) { busy = false; ER.say('The middle of the Lisk Bridge, at dusk. Gordon, his loudspeaker, and Freya&rsquo;s chalk board.'); return; }
+    tell('in');
+    ER.narrate([
+      'The sun has gone down behind Crickmore and left the river pink. In the middle of the bridge a brass plate in the road marks where Gorsey stops and Crickmore starts.',
+      'Freya props Ken&rsquo;s chalk board against the parapet, rubs out TODAY: GORSEY BUNS with her sleeve, and draws two lines. Then she stops, because she needs more than two.',
+      'Gordon is untangling a cable beside his loudspeaker. &ldquo;Committee says set up in case,&rdquo; he says. &ldquo;In case of what, I said. Nobody knew.&rdquo;'
+    ], function () { busy = false; });
+  }
+
+  $('#gordon').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Gordon has gone. His loudspeaker is still on the trestle, pointing at nobody.'); return; }
+    var first = !told.gordon;
+    if (first) { $('#howl').classList.remove('on'); void $('#howl').getBoundingClientRect(); $('#howl').classList.add('on'); FD.sfx.howl(); }
+    ER.talk({
+      who: 'Gordon Pruett', role: 'Caretaker, Lisk Hall', face: FD.face('gordon'),
+      lines: [
+        { note: 'Gordon has looked after Lisk Hall, at the Crickmore end of the bridge, for thirty years. He switches the loudspeaker on with his microphone in his hand.', a: 'The speaker gives a long, rising howl, louder and louder, until Gordon swings the microphone away from it and the howl stops dead. &ldquo;Mind your ears,&rdquo; he says, a bit late.' },
+        { q: 'What was that?', a: '&ldquo;Feedback. The mic hears the speaker, the speaker plays what the mic hears, round and round, a bit louder every time. It&rsquo;s on the card. Nobody reads the card.&rdquo;' },
+        { q: 'Will you be here tomorrow?', a: '&ldquo;If there is a tomorrow. Thirty years I&rsquo;ve done the speakers for Bridge Day. Never seen the towns like this.&rdquo; He looks at his watch. &ldquo;Nearly seven. I&rsquo;ve a little job at seven. Every evening.&rdquo; He doesn&rsquo;t say what it is.' }
+      ],
+      clue: { id: 'gordon', title: 'Gordon: feedback, and a job at seven', kind: 'What he said' },
+      done: function (seen) { if (seen && tell('gordon')) { paint(); ER.say('The card taped to the speaker says what feedback is. Nobody reads the card.'); } }
+    });
+  });
+  var PACARD = '<h4>LISK HALL P.A. &middot; BEFORE YOU SWITCH ON</h4>' +
+    '<p><b>Feedback</b> is the howl you hear when a microphone picks up the sound from its own loudspeaker.</p>' +
+    '<p>The speaker plays what the microphone hears. The microphone hears the speaker, a little louder. The speaker plays that, louder still. Round it goes, many times a second, until all you can hear is one note getting louder and louder. It is a <b>loop</b>: what comes out goes back in.</p>' +
+    '<p>To stop it, turn the volume down, or point the microphone away from the speakers. Keep microphones BEHIND the speakers.</p><p class="hand">G. P. &mdash; and I mean it</p>';
+  $('#pacard').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: PACARD, cls: 'fd-card', clue: { id: 'pacard', title: 'The card on the loudspeaker: feedback', kind: 'Taped to the speaker' }, done: function () {
+      FD.terms(['feedback']);
+      if (tell('pacard')) { paint(); ER.say('A loop: what comes out goes back in, a bit louder every time.'); }
+    } });
+  });
+  var PAGE4 = '<div class="hd">Why Does My Phone Hate Crickmore? &middot; F. Gaskin</div><h4>4. Loops</h4><div class="two"><div>' +
+    '<p>A <b>feedback loop</b> is when what comes out goes back in. Burble has one: what you watch changes what you are shown, which changes what you watch.</p>' +
+    '<p>Studies of social media have found that angry posts tend to be shared more than calm ones. Burble counts a share five times (page 3). So fight videos climb, and calm ones stay where they are. A loop like this can <b>amplify</b> a small difference: make it bigger, and bigger again.</p>' +
+    '<p>My toy model: of your top 20 Local Buzz videos, some are fight videos. People here share about half the fight videos they see, and each share earns one more fight video the next week:</p>' +
+    '<div class="rule">next week = this week + half of this week<br>(round down; never more than 20)</div>' +
+    '<p>The fight videos are different on each side of the bridge: Gorsey is shown Crickmore laughing at Gorsey, and Crickmore is shown Gorsey shouting at Crickmore. The calm ones (dogs, weather, the jumble sale) are the same for both. So the two towns have only their calm videos in common.</p></div>' +
+    '<div><svg viewBox="0 0 230 250" xmlns="http://www.w3.org/2000/svg"><g font-family="Kalam,cursive" font-size="15" fill="#1b2433" text-anchor="middle">' +
+    '<text x="115" y="24">you watch it</text><text x="200" y="118">scored</text><text x="200" y="134">higher</text><text x="115" y="230">shown more</text><text x="30" y="118">shared</text><text x="30" y="134">more</text>' +
+    '<path d="M150 34q50 20 52 62M200 150q-10 50 -60 66M80 218q-50 -18 -52 -66M30 98q10 -50 56 -66" fill="none" stroke="#c8462a" stroke-width="3"/>' +
+    '<path d="M196 88l6 10 6 -10M146 210l-8 6 10 4M26 160l2 -10 -10 4M80 28l8 4 -6 8" fill="none" stroke="#c8462a" stroke-width="3"/>' +
+    '<text x="115" y="132" font-size="22" fill="#c8462a">loop</text></g></svg><p class="hand">The squeal on the bridge, but slower: one turn a week.</p></div></div>';
+  $('#folder').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: PAGE4, cls: 'fd-course', clue: { id: 'page4', title: 'Freya&rsquo;s coursework, page 4: loops', kind: 'Her folder' }, done: function () {
+      FD.terms(['feedback loop', 'amplify']);
+      if (tell('folder')) { paint(); ER.say('&ldquo;The weekly emails,&rdquo; says Freya. &ldquo;Twelve people each side. I&rsquo;ve done weeks one to three. You do the rest.&rdquo;'); }
+    } });
+  });
+  FD.thing('#plaque', null, 'A brass plate in the road. GORSEY on one side of the line, CRICKMORE on the other. Every Bridge Day the rope is laid across it.', isBusy);
+  FD.thing('#gorsey', null, 'Gorsey: the church spire, the High Street, and the youth club&rsquo;s one lit window by the water.', isBusy);
+  FD.thing('#crick', null, 'Crickmore: rooftops, and the two floodlights of the football ground, where the juniors train on Friday nights.', isBusy);
+  $('#heron').addEventListener('click', function () {
+    if (busy) return;
+    var L = ['A heron stands on a post in the river, perfectly still, belonging to neither town.', 'The heron has not moved. It is the calmest thing in the valley.'];
+    ER.say(L[heronN++ % L.length]);
+  });
+  FD.thing('#pa', null, 'Gordon&rsquo;s loudspeaker, a microphone on a stand, and a coil of red cable.', isBusy);
+  $('#freya').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;A loop needs two sides,&rdquo; says Freya. &ldquo;Let&rsquo;s go and see the other one.&rdquo;'); return; }
+    ER.say(told.folder ? '&ldquo;Page 4,&rdquo; says Freya. &ldquo;Then the board. Chalk&rsquo;s on the ledge.&rdquo;' : '&ldquo;My folder&rsquo;s on the wall,&rdquo; says Freya. &ldquo;Page 4. Don&rsquo;t drop it in the river.&rdquo;');
+  });
+  $('#board').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The chalk chart. Two lines, two videos apart in week one, nothing in common by week six.'); return; }
+    if (!told.gordon) { ER.say('Freya&rsquo;s chalk board. Gordon is about to switch on his loudspeaker: wait for it.'); return; }
+    if (!told.pacard) { ER.say('&ldquo;Read the card on his speaker,&rdquo; says Freya. &ldquo;That howl is the whole idea.&rdquo;'); return; }
+    if (!told.folder) { ER.say('&ldquo;Page 4 first,&rdquo; says Freya. &ldquo;It&rsquo;s in my folder, on the wall.&rdquo;'); return; }
+    if (!lock) lock = makeLock();
+    lock.open();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the lock: finish the chart ---------- */
+  function makeLock() {
+    var X0 = 90, CW = 125, Y0 = 400, PY = 17;
+    var st = ER.flag('c-st') || { g: [null, null, null], c: [null, null, null], wk: 0, pen: 'g' }, wait = false;
+    var COL = { g: '#ffe680', c: '#ff9ac8' };
+    function cx(w) { return X0 + (w - 0.5) * CW; }
+    function cy(v) { return Y0 - v * PY; }
+    var box = ER.el('div', 'pz cb'), s = '<svg id="cb-svg" viewBox="0 0 900 470" xmlns="http://www.w3.org/2000/svg"><rect width="900" height="470" fill="#1e2a26"/><g font-family="Caveat,cursive" fill="#eef2e8">';
+    var v, w;
+    for (v = 0; v <= 20; v += 5) s += '<path d="M' + X0 + ' ' + cy(v) + 'H840" stroke="#eef2e8" stroke-width="' + (v ? 1 : 2.5) + '" opacity="' + (v ? 0.25 : 0.9) + '"/><text x="' + (X0 - 12) + '" y="' + (cy(v) + 6) + '" font-size="20" text-anchor="end">' + v + '</text>';
+    s += '<path d="M' + X0 + ' ' + cy(20) + 'V' + Y0 + '" stroke="#eef2e8" stroke-width="2.5"/><text x="844" y="' + (cy(20) - 6) + '" font-size="17" text-anchor="end" fill="#ffb870">TOP 20 FULL</text>';
+    s += '<text x="22" y="230" font-size="20" transform="rotate(-90 22 230)" text-anchor="middle">fight videos in the top 20</text>';
+    for (w = 1; w <= 6; w++) {
+      if (w >= 4) s += '<rect x="' + (cx(w) - CW / 2 + 4) + '" y="' + (cy(20) - 4) + '" width="' + (CW - 8) + '" height="' + (Y0 - cy(20) + 8) + '" fill="#fff" opacity=".04"/>';
+      s += '<g class="wkl" data-w="' + w + '"><rect x="' + (cx(w) - 50) + '" y="404" width="100" height="34" fill="transparent"/><text x="' + cx(w) + '" y="424" font-size="21" text-anchor="middle">week ' + w + '</text><text x="' + cx(w) + '" y="438" font-size="14" text-anchor="middle" opacity=".7">' + DATES[w - 1] + '</text></g>';
+    }
+    s += '<text x="' + (X0 - 12) + '" y="462" font-size="17" text-anchor="end">both saw:</text>';
+    for (w = 1; w <= 3; w++) s += '<text x="' + cx(w) + '" y="462" font-size="19" text-anchor="middle" fill="#a8e8b8">' + (20 - Math.max(KNOWN.g[w - 1], KNOWN.c[w - 1])) + '</text>';
+    for (w = 4; w <= 6; w++) s += '<text x="' + cx(w) + '" y="462" font-size="19" text-anchor="middle" fill="#a8e8b8">?</text>';
+    s += '</g><g id="cb-circle"></g><g id="cb-lines"></g><rect id="cb-hit" x="' + (X0 + 3 * CW) + '" y="' + (cy(20) - 10) + '" width="' + (3 * CW) + '" height="' + (Y0 - cy(20) + 20) + '" fill="transparent"/></svg>';
+    var side = '<div class="cb-side"><b>Weeks 4 to 6</b><p>Use the rule from page 4. Pick a chalk, then click in a column.</p>' +
+      '<button type="button" class="chalk" data-pen="g"><i style="background:#ffe680"></i>Gorsey</button><button type="button" class="chalk" data-pen="c"><i style="background:#ff9ac8"></i>Crickmore</button>' +
+      '<div class="steps">' + [4, 5, 6].map(function (w) { return '<div>wk ' + w + '<button type="button" data-u="' + w + '">&#9650;</button><button type="button" data-d="' + w + '">&#9660;</button></div>'; }).join('') + '</div>' +
+      '<p style="margin-top:10px">Then click the week when the towns first had <u>fewer than 10</u> videos in common.</p></div>';
+    box.innerHTML = '<div class="cb-in">' + s + side + '</div><div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="cb-go">Show Freya</button></div>';
+    var sv = box.querySelector('#cb-svg'), msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function val(t, w) { return w <= 3 ? KNOWN[t][w - 1] : st[t][w - 4]; }
+    function paintL() {
+      var o = '';
+      ['c', 'g'].forEach(function (t) {
+        var d = '', w2, vv, first = true;
+        for (w2 = 1; w2 <= 6; w2++) { vv = val(t, w2); if (vv == null) { first = true; continue; } d += (first ? 'M' : 'L') + cx(w2) + ' ' + cy(vv); first = false; }
+        o += '<path d="' + d + '" fill="none" stroke="' + COL[t] + '" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/>';
+        for (w2 = 1; w2 <= 6; w2++) { vv = val(t, w2); if (vv == null) continue; o += '<circle cx="' + cx(w2) + '" cy="' + cy(vv) + '" r="' + (w2 >= 4 ? 9 : 7) + '" fill="' + COL[t] + '"/>'; if (w2 >= 4) o += '<text x="' + (cx(w2) + (t === 'g' ? 14 : -14)) + '" y="' + (cy(vv) + 6) + '" font-family="Caveat,cursive" font-size="20" fill="' + COL[t] + '" text-anchor="' + (t === 'g' ? 'start' : 'end') + '">' + vv + '</text>'; }
+      });
+      box.querySelector('#cb-lines').innerHTML = o;
+      box.querySelector('#cb-circle').innerHTML = st.wk ? '<ellipse cx="' + cx(st.wk) + '" cy="422" rx="56" ry="22" fill="none" stroke="#ffb870" stroke-width="3"/>' : '';
+      ER.$$('.chalk', box).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-pen') === st.pen); });
+    }
+    function save() { ER.flag('c-st', st); paintL(); }
+    box.querySelector('#cb-hit').addEventListener('click', function (e) {
+      if (wait || nextFile) return;
+      var p = ER.pt(sv, e), w = Math.floor((p.x - X0) / CW) + 1, vv = Math.round((Y0 - p.y) / PY);
+      if (w < 4 || w > 6) return;
+      st[st.pen][w - 4] = Math.max(0, Math.min(20, vv)); FD.sfx.chalk(); save();
+    });
+    ER.$$('.chalk', box).forEach(function (b) { b.addEventListener('click', function () { st.pen = b.getAttribute('data-pen'); save(); }); });
+    ER.$$('.steps button', box).forEach(function (b) {
+      b.addEventListener('click', function () {
+        if (wait || nextFile) return;
+        var up = b.hasAttribute('data-u'), w = +(b.getAttribute('data-u') || b.getAttribute('data-d')), cur = st[st.pen][w - 4];
+        if (cur == null) cur = val(st.pen, w - 1) == null ? 0 : val(st.pen, w - 1);
+        else cur += up ? 1 : -1;
+        st[st.pen][w - 4] = Math.max(0, Math.min(20, cur)); FD.sfx.chalk(); save();
+      });
+    });
+    ER.$$('.wkl', box).forEach(function (g) { g.addEventListener('click', function () { if (wait || nextFile) return; var w = +g.getAttribute('data-w'); st.wk = st.wk === w ? 0 : w; FD.sfx.chalk(); save(); }); });
+    var NAME = { g: 'Gorsey', c: 'Crickmore' };
+    box.querySelector('#cb-go').addEventListener('click', function () {
+      if (wait || nextFile) return;
+      var t, w, prev, want, got, file, j;
+      for (t in NAME) for (w = 4; w <= 6; w++) if (st[t][w - 4] == null) { ER.sfx.no(); msg('Every column needs a mark: weeks 4, 5 and 6, for Gorsey and for Crickmore.'); return; }
+      var order = [['g', 4], ['g', 5], ['g', 6], ['c', 4], ['c', 5], ['c', 6]];
+      for (j = 0; j < order.length; j++) {
+        t = order[j][0]; w = order[j][1]; got = st[t][w - 4];
+        if (ER.check(t + w, String(got))) continue;
+        prev = val(t, w - 1); ER.sfx.no();
+        if (j % 3 && !ER.check(t + (w - 1), String(prev))) { msg('&ldquo;' + NAME[t] + ', week ' + w + ',&rdquo; says Freya. &ldquo;It follows from week ' + (w - 1) + '.&rdquo;'); return; }
+        if (got === prev + Math.ceil(prev / 2) && prev % 2) { msg('&ldquo;' + NAME[t] + ', week ' + w + ',&rdquo; says Freya. &ldquo;Half of ' + prev + ' is ' + Math.floor(prev / 2) + ' and a half. My model rounds down.&rdquo;'); return; }
+        if (got === 20 || prev + Math.floor(prev / 2) > 20) { msg('&ldquo;' + NAME[t] + ', week ' + w + ',&rdquo; says Freya. &ldquo;Work it out from week ' + (w - 1) + '. And remember the top 20 can&rsquo;t hold more than 20.&rdquo;'); return; }
+        msg('&ldquo;' + NAME[t] + ', week ' + w + ' isn&rsquo;t right,&rdquo; says Freya. &ldquo;This week plus half of this week. Start from week ' + (w - 1) + '.&rdquo;'); return;
+      }
+      if (!st.wk) { ER.sfx.no(); msg('&ldquo;The chart&rsquo;s right,&rdquo; says Freya. &ldquo;Now: in which week did the two towns first have fewer than ten videos in common? Click it.&rdquo;'); return; }
+      if (!ER.check('wk', String(st.wk))) {
+        ER.sfx.no();
+        want = 20 - Math.max(val('g', st.wk), val('c', st.wk));
+        msg(want >= 10 ? '&ldquo;In week ' + st.wk + ' they still had ' + want + ' in common,&rdquo; says Freya. &ldquo;Their calm videos: twenty, take away the bigger number of fight videos. Not fewer than ten yet.&rdquo;' :
+          '&ldquo;By week ' + st.wk + ' they had only ' + want + ' in common,&rdquo; says Freya, &ldquo;but it happened before that. Which week was first?&rdquo;');
+        return;
+      }
+      file = ER.exit([st.g.concat(st.c).join('-') + '-' + st.wk], { wait: true });
+      if (!file) { msg('The chalk snaps. Something is wrong with this page: tell your teacher.'); return; }
+      wait = true; nextFile = file; ER.flag('c-file', file);
+      FD.terms(['feedback loop', 'amplify']);
+      FD.mine('loop', 'The loop on the bridge', '<p>Next week = this week + half of this week, rounded down, never more than 20.</p><p>Gorsey: 4, 6, 9, 13, 19, 20.<br>Crickmore: 2, 3, 4, 6, 9, 13.</p><p>Videos both towns saw: 16, 14, 11, 7, 1, 0. From week 4 (21 September) they had fewer than half in common.</p><p>Week one: a difference of two videos. One joke and one reply.</p>', true);
+      msg('&ldquo;Week four,&rdquo; says Freya, very quietly. &ldquo;Twenty-first of September.&rdquo;');
+      setTimeout(function () {
+        ER.closeAll(); paint(); busy = true;
+        ER.narrate([
+          'Freya takes the real weekly emails for weeks four to six out of her folder and reads them against the board. Gorsey: thirteen, nineteen, twenty. Crickmore: six, nine, thirteen. &ldquo;A toy model,&rdquo; she says, &ldquo;and it&rsquo;s right.&rdquo;',
+          '&ldquo;Look at week one. Four and two. The difference was two videos: one joke and one reply. Then six turns of the loop, and Gorsey&rsquo;s top twenty is nothing but fights, and the two towns don&rsquo;t see a single video in common.&rdquo;',
+          '&ldquo;Like my speaker,&rdquo; says Gordon, who has been reading over her shoulder. &ldquo;Somebody should turn the volume down.&rdquo; Then he looks at his watch. &ldquo;Seven o&rsquo;clock. My little job.&rdquo; He walks off towards the hall, typing on his phone with one finger.',
+          'Freya rubs chalk off her hands. &ldquo;A loop needs two sides. Somebody in Crickmore is making the videos Gorsey gets.&rdquo; She looks across at the floodlights. &ldquo;Isla Brough is sure Gorsey hates Crickmore. Let&rsquo;s go and look at her phone.&rdquo;'
+        ], function () { busy = false; $('#go').classList.add('on'); });
+      }, 2400);
+    });
+    paintL();
+    msg('Weeks 1 to 3 are done. Use Freya&rsquo;s rule to plot weeks 4, 5 and 6 for both towns, then circle the week the two towns drifted apart.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+})();
+</script>
+</body>
+</html>

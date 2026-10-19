@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Record Library · In Her Own Words</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-ai.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="voice.css">
+<style>
+  body{--bg:#1e1712;--accent:#e8b86a;--font-display:'Special Elite',monospace;--font-ui:'Inter',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(30,22,16,.96);--tc-ink:#f2e8d8;--cap-bg:rgba(30,22,16,.94);--cap-ink:#f2e8d8;--panel:#241b14;--panel-ink:#f2e8d8;--face-bg:#3a3428;--q-ink:#f0c890;
+    --fade:#0e0a07;--hud-bg:rgba(30,22,16,.82);--hud-ink:#f2e8d8;--hud-line:rgba(242,232,216,.24);--ov-bg:rgba(12,8,5,.78)}
+  .tc-room{font-family:'Special Elite',monospace;font-weight:400;font-size:clamp(34px,4.8vw,68px);color:#e8b86a}
+  .tc-theme{color:#f0c890}
+  .tk-role{color:#f0c890}
+  .hbtn b{color:#0e0a07}
+  #lampL{animation:sway 6s ease-in-out infinite;transform-origin:800px 0px}
+  @keyframes sway{50%{transform:rotate(1.2deg)}}
+  .bub{animation:bub 3s steps(6,end) infinite;opacity:0}
+  @keyframes bub{0%{opacity:0;transform:translateY(0)}20%{opacity:.8}100%{opacity:0;transform:translateY(-30px)}}
+
+  /* the chain on brown paper */
+  .ch{width:min(1130px,97vw)}
+  .ch-in{display:grid;grid-template-columns:1fr 372px;gap:12px}
+  .ch-paper{position:relative;height:500px;background:#b8925a;background-image:repeating-linear-gradient(8deg,rgba(0,0,0,.03) 0 3px,transparent 3px 9px);border-radius:3px;box-shadow:inset 0 0 40px rgba(60,30,0,.35)}
+  .ch-paper svg{position:absolute;left:0;top:0;width:100%;height:100%}
+  .ch-paper .lbl{position:absolute;font-family:'Kalam',cursive;font-size:15px;color:#2a1a08}
+  .slot{position:absolute;width:224px;height:86px;border:2px dashed rgba(42,26,8,.55);border-radius:4px;background:rgba(255,248,230,.18)}
+  .slot.bad{border-color:#b8322a;border-style:solid;background:rgba(184,50,42,.18)}
+  .slot .pc{width:100%;height:100%;overflow:hidden}
+  .slot .pc .long{display:none}
+  .pc .short{display:none}
+  .slot .pc .short{display:block}
+  .ch-tray{background:#3a342e;padding:8px;border-radius:3px;display:flex;flex-direction:column;gap:6px;min-height:500px}
+  .ch-tray h5{margin:0;font-family:'Roboto Mono',monospace;font-weight:500;font-size:11.5px;letter-spacing:.12em;color:#f2e6c8}
+  .ch-tray .pc{font-size:12.3px;line-height:1.3;padding:5px 9px 6px}
+  .ch-pins{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:8px;font-family:'Roboto Mono',monospace;font-size:12px;color:#f2e6c8}
+  .ch-pins button{padding:4px 9px;border:1px solid #8a7a62;border-radius:12px;background:#2a241e;color:#f2e8d8;font-family:'Inter',sans-serif;font-size:12.4px}
+  .ch-pins button:hover{border-color:#e8b86a}
+  .ch-pins button.on{background:#b8322a;border-color:#b8322a;color:#fff}
+  .ch .pmsg{color:#f2e8d8}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="brick" width="80" height="36" patternUnits="userSpaceOnUse"><rect width="80" height="36" fill="#5a3a2a"/><path d="M0 0H80M0 18H80M0 0V18M40 18V36" stroke="#3e281c" stroke-width="3"/></pattern>
+  <pattern id="brick2" width="80" height="36" patternUnits="userSpaceOnUse"><rect width="80" height="36" fill="#4a3022"/><path d="M0 0H80M0 18H80M0 0V18M40 18V36" stroke="#34221a" stroke-width="3"/></pattern>
+  <radialGradient id="lampG" cx="50%" cy="0%" r="100%"><stop offset="0" stop-color="#ffe2a0" stop-opacity=".55"/><stop offset="1" stop-color="#ffe2a0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="55%" r="72%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".65" stop-color="#000" stop-opacity=".3"/><stop offset="1" stop-color="#000" stop-opacity=".85"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1700" fill="url(#brick)"/>
+<path d="M220 700V300q0 -190 240 -190t240 190v400z" fill="url(#brick2)"/><path d="M220 700V300q0 -190 240 -190t240 190v400" fill="none" stroke="#7a5038" stroke-width="14"/>
+<path d="M900 700V300q0 -190 240 -190t240 190v400z" fill="url(#brick2)"/><path d="M900 700V300q0 -190 240 -190t240 190v400" fill="none" stroke="#7a5038" stroke-width="14"/>
+<text x="460" y="220" class="cT" font-size="30" text-anchor="middle" fill="#2e1e14" opacity=".8">ENGINE 1</text><text x="1140" y="220" class="cT" font-size="30" text-anchor="middle" fill="#2e1e14" opacity=".8">ENGINE 2</text>
+<g stroke="#3a3a3a" stroke-width="10" fill="none"><path d="M-1000 70H2600"/></g><g fill="#2a2a2a"><rect x="300" y="60" width="16" height="22"/><rect x="1300" y="60" width="16" height="22"/></g>
+
+<!-- tape racks -->
+<g id="rackL"></g><g id="rackR"></g>
+<g id="label" class="hot"><rect x="1332" y="436" width="120" height="48" fill="#f6efd8" stroke="#8a7a5a" stroke-width="2"/><text x="1392" y="456" class="cS" font-size="12" text-anchor="middle" fill="#2a2418">REELS · 7½ ips</text><text x="1392" y="474" class="cS" font-size="11" text-anchor="middle" fill="#2a2418">1972 – 1998</text></g>
+
+<!-- the reel-to-reel -->
+<g id="reel" class="hot"><rect x="40" y="560" width="250" height="230" fill="#3a2e24"/><rect x="56" y="420" width="218" height="150" rx="8" fill="#c9c2b0" stroke="#6a6252" stroke-width="3"/>
+  <g id="spools"><circle cx="110" cy="480" r="42" fill="#2a2a2a"/><circle cx="220" cy="480" r="42" fill="#2a2a2a"/><circle cx="110" cy="480" r="8" fill="#c9c2b0"/><circle cx="220" cy="480" r="8" fill="#c9c2b0"/><path d="M110 438v84M68 480h84M220 438v84M178 480h84" stroke="#4a4a4a" stroke-width="5"/></g>
+  <rect x="96" y="540" width="140" height="16" fill="#8a8272"/></g>
+
+<!-- the lamp and the table -->
+<g id="lampL"><path d="M800 -400V180" stroke="#2a2a2a" stroke-width="4"/><path d="M730 230q70 -70 140 0z" fill="#2f5a3a"/><ellipse cx="800" cy="230" rx="70" ry="10" fill="#ffe8a8"/></g>
+<path d="M500 900L700 236H900L1100 900z" fill="url(#lampG)" pointer-events="none"/>
+<rect x="360" y="620" width="880" height="22" fill="#6a4a30"/><rect x="380" y="642" width="20" height="230" fill="#4a3220"/><rect x="1200" y="642" width="20" height="230" fill="#4a3220"/><rect x="-1000" y="840" width="3600" height="500" fill="#2a221c"/>
+<g id="lena" class="hot" transform="translate(760 860) scale(1.25)"></g>
+<rect x="360" y="620" width="880" height="22" fill="#6a4a30"/>
+<g id="logbook" class="hot"><rect x="420" y="588" width="120" height="34" fill="#5a2a20"/><rect x="424" y="566" width="114" height="24" fill="#6a3426"/><rect x="430" y="548" width="104" height="20" fill="#5a2a20"/><text x="482" y="610" class="cO" font-size="12" text-anchor="middle" fill="#e8d8b0">LOG 2026</text></g>
+<g id="laptop" class="hot"><path d="M576 618l18 -14h150l18 14z" fill="#3a3f47"/><rect x="594" y="514" width="150" height="92" rx="5" fill="#2a2f36"/><rect x="600" y="520" width="138" height="80" fill="#e8ecf0"/><rect x="600" y="520" width="138" height="12" fill="#2a3038"/>
+  <g class="cM" font-size="7.5" fill="#1a1f24"><text x="606" y="546">chandra_call.wav</text><text x="606" y="558">Created 20.51</text><text x="606" y="570">Made with: Copy…</text><text x="606" y="582">Length 0:40</text></g></g>
+<g id="prints" class="hot"><path d="M790 616l10 -40 110 6 -6 40z" fill="#fff" stroke="#c9c2b0"/><path d="M800 618l18 -38 106 18 -14 34z" fill="#f6f6f2" stroke="#c9c2b0"/><path d="M780 620l4 -42 112 -2 2 42z" fill="#fff" stroke="#c9c2b0"/><g fill="#9aa5ae"><rect x="796" y="590" width="80" height="3"/><rect x="796" y="598" width="70" height="3"/><rect x="796" y="606" width="76" height="3"/></g></g>
+<g id="paper" class="hot"><path d="M944 622l14 -52h220l-10 52z" fill="#b8925a" stroke="#8a6a3a" stroke-width="2"/><g stroke="#2a1a08" stroke-width="2" fill="none"><rect x="1036" y="578" width="30" height="12"/><path d="M1051 590v6M990 596h120M990 596v6M1050 596v6M1110 596v6"/><rect x="976" y="602" width="28" height="10"/><rect x="1036" y="602" width="28" height="10"/><rect x="1096" y="602" width="28" height="10"/></g></g>
+<g id="binder" class="hot"><rect x="1150" y="590" width="80" height="30" fill="#b8322a"/><rect x="1150" y="584" width="80" height="8" fill="#8f241e"/><text x="1190" y="610" class="cO" font-size="10" text-anchor="middle" fill="#fff">GUIDE</text></g>
+<g id="phone" class="hot"><rect x="1250" y="598" width="40" height="22" rx="4" fill="#16191e"/></g>
+<rect x="1240" y="620" width="60" height="6" fill="#6a4a30"/>
+<!-- the dehumidifier -->
+<g id="dehum" class="hot"><rect x="1300" y="700" width="110" height="150" rx="10" fill="#e6e2d8"/><rect x="1316" y="720" width="78" height="40" rx="4" fill="#3a5a8a"/><text x="1355" y="746" class="cM" font-size="16" text-anchor="middle" fill="#cfe8ff">48%</text><rect x="1316" y="780" width="78" height="54" rx="4" fill="#cfd8e0" opacity=".7"/><g fill="#9fc0e0"><circle class="bub" cx="1340" cy="826" r="3"/><circle class="bub" cx="1362" cy="828" r="2.5" style="animation-delay:-1s"/><circle class="bub" cx="1380" cy="826" r="2" style="animation-delay:-2s"/></g></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Up to the mast</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="voice.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, lock = null, dhN = 0;
+  var CARDS = {
+    prof: { s: '<b>lowstreetwatch</b> &middot; profile &middot; joined 20.58', l: '<small>Greyhithe Board &middot; profile</small><b>lowstreetwatch</b> &middot; joined Fri 16 Oct, 20.58 &middot; 1 post &middot; member of the Low Street Residents group since 20.59 &middot; no name, no picture' },
+    grp: { s: '<b>Low Street Residents</b> &middot; lowstreetwatch &middot; 21.05 &middot; council clip', l: '<small>Greyhithe Board &middot; Low Street Residents group &middot; Fri 21.05</small><b>lowstreetwatch:</b> Her own words at council. Not the first time. <span class="att">council_bit.mp4 &middot; 0:12</span>' },
+    mail: { s: '<b>Email to us</b> &middot; lowstreetwatch &middot; 21.12 &middot; the call', l: '<small>Email to Radio Greyhithe news &middot; Fri 21.12</small><b>From lowstreetwatch:</b> I recorded this when the mayor rang me on Wednesday at about eight. Greyhithe deserves better. Every paper gets it at midnight. <span class="att">chandra_call.wav &middot; 0:40</span>' },
+    cour: { s: '<b>The Courier</b> &middot; from lowstreetwatch &middot; 21.13 &middot; the call', l: '<small>Email to Lena &middot; Fri 21.47</small><b>Cass Ogilvie, Greyhithe Courier:</b> We got a recording of the mayor at 21.13 from somebody called lowstreetwatch. Same file as yours? <span class="att">chandra_call.wav &middot; 0:40</span>' },
+    list: { s: '<b>Halvard News</b> &middot; Cllr Halvard &middot; 21.24 &middot; council clip', l: '<small>Halvard News, an email list (340 readers) &middot; Fri 21.24</small><b>Cllr Bernard Halvard:</b> Forwarded from Low Street Residents. Hear it in her own words. Greyhithe deserves better. <span class="att">council_bit.mp4 &middot; 0:12</span>' },
+    text: { s: '<b>Greta Lomax</b> &middot; text to the late show &middot; 21.31', l: '<small>Late show text line &middot; Fri 21.31</small><b>Greta Lomax:</b> Have you heard this?? The mayor at the council!! I&rsquo;m not in that Low Street lot, my councillor sent it. &ldquo;Hear it in her own words. Greyhithe deserves better.&rdquo; <span class="att">council_bit.mp4 &middot; 0:12</span>' }
+  };
+  var ORDER = ['mail', 'list', 'prof', 'text', 'grp', 'cour'];       /* the order they lie in the tray: not the answer */
+  var PINS = [['joined', 'joined Fri 20.58'], ['made', 'file created Fri 20.51'], ['post', 'posted Fri 21.05'], ['wed', 'rang me on Wednesday at about eight'], ['fwd', 'forwarded Fri 21.24'], ['midnight', 'every paper gets it at midnight']];
+
+  (function () {
+    var s = '', i, j, x, y, c = ['#2a2a2a', '#3a2e24', '#6a1e1a', '#1e3a5a', '#2a4a2a', '#5a4a1a'];
+    function rack(x0, w) {
+      var o = '<rect x="' + x0 + '" y="250" width="' + w + '" height="600" fill="#3a3a3e"/>';
+      for (j = 0; j < 4; j++) {
+        y = 300 + j * 130; o += '<rect x="' + x0 + '" y="' + (y + 96) + '" width="' + w + '" height="10" fill="#5a5a60"/>';
+        for (i = 0; i < Math.floor(w / 26); i++) { x = x0 + 6 + i * 26; o += j % 2 ? '<circle cx="' + (x + 11) + '" cy="' + (y + 70) + '" r="13" fill="' + c[(i + j) % 6] + '"/><circle cx="' + (x + 11) + '" cy="' + (y + 70) + '" r="3" fill="#c9c2b0"/>' : '<rect x="' + x + '" y="' + (y + 30 + (i * 7) % 12) + '" width="22" height="' + (66 - (i * 7) % 12) + '" fill="' + c[(i * 2 + j) % 6] + '"/><rect x="' + (x + 4) + '" y="' + (y + 48) + '" width="14" height="22" fill="#e8dcc0" opacity=".85"/>'; }
+      }
+      return o;
+    }
+    $('#rackL').innerHTML = rack(-300, 290);
+    $('#rackR').innerHTML = rack(1300, 600);
+    $('#lena').innerHTML = VX.who('lena', { smile: 0 });
+  })();
+
+  ER.init({
+    theme: 'ai', story: 'voice', storyTitle: 'In Her Own Words', id: 'library', no: 'III', title: 'The Record Library',
+    go: 'Down the back stairs',
+    intro: [
+      'On the desk, chandra_call.wav came apart into five pieces. The background jumps at 0:11, 0:18, 0:24 and 0:31, and two of the breaths are copies of each other. Only the first eleven seconds, &ldquo;Listen. I&rsquo;ll be straight with you, because you&rsquo;ve asked me straight&rdquo;, have a living room under them.',
+      'The record library is in the old fire station&rsquo;s basement, where the fire engines used to sleep. Fifty years of tapes live here now, with a machine that drinks the damp out of the air.',
+      'It is 22.14.'
+    ],
+    exit: {"next":"mast","w":{"f761ffc6":"172b0349"}}, tags: {"s0":["be3ce246"],"s1":["6b7e0202"],"s2":["d8124393"],"s3":["93616bc5"],"s4":["62ea8897"],"s5":["82f68289"],"pin":["7a8f7d41"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('c-file') || null; told = ER.flag('c-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('c-told', told); return true; }
+  function isBusy() { return busy; }
+  function ready() { return told.lena && told.prints && told.details && told.log && told.guide && told.halvard; }
+  function paint() {
+    $('#paper').classList.toggle('glow', !!(ready() && !nextFile));
+    var n = 0; ['lena', 'prints', 'details', 'log', 'guide', 'halvard'].forEach(function (k) { if (told[k]) n++; });
+    ER.pips(n + (nextFile ? 1 : 0), 7);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Ivo is at the mast with the grid&rsquo;s record. The button at the bottom of the screen.']];
+    if (lock && lock.isOpen()) return ['lock', [
+      'Each print-out says who sent it and when, and some say where they got it. A forward carries the same file, and often the words, of the person before. Two files are going round: the call (0:40) and the council clip (0:12).',
+      'The top box is the one every path leads back to. Along the top row, earliest on the left. The council clip went through the Low Street group, then Halvard, then Greta.',
+      'For the pin: what does the log book say the mayor was doing on Wednesday at eight?'
+    ]];
+    if (!told.lena) return ['lena', ['Lena has brought the print-outs down. Talk to her.', 'Lena is behind the long table, under the lamp.']];
+    var left = [];
+    if (!told.prints) left.push('the heap of print-outs in the middle of the table');
+    if (!told.details) left.push('the file details on the laptop');
+    if (!told.log) left.push('the station log books (the red books on the left of the table)');
+    if (!told.guide) left.push('page 11 of the guide (the red binder on the right of the table)');
+    if (left.length) return ['read', ['Everything you need is on the long table. Still to read: ' + left.join('; ') + '.']];
+    if (!told.halvard) return ['halvard', ['Lena wanted to ring Councillor Halvard.', 'Her phone is at the right-hand end of the table.']];
+    return ['paper', ['Now build the chain on the brown paper.', 'The brown sheet on the table, between the print-outs and the binder.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('One source in different coats. And on Wednesday at eight the mayor was on the quay, on air.'); return; }
+    if (told.in) { busy = false; ER.say('The record library. Fifty years of tapes, and a dehumidifier that gurgles like a small dog.'); return; }
+    tell('in');
+    ER.narrate([
+      'Two great brick arches, bricked up, where the fire engines used to drive out. Under them, racks of tapes go back into the dark: reels, cassettes, little square discs nobody can play any more.',
+      'One lamp hangs over the long table. Lena drops a heap of print-outs under it, opens her laptop, and pulls the station&rsquo;s log books across.',
+      'In the corner the dehumidifier gurgles. It is the only thing down here that has a job tonight and is getting on with it.'
+    ], function () { busy = false; });
+  }
+
+  $('#lena').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Ivo can date those eleven seconds from the hum,&rdquo; says Lena, putting on her coat. &ldquo;The mast. Now.&rdquo;'); return; }
+    ER.talk({
+      who: 'Lena Sokolova', role: 'Night editor', face: VX.face('lena'),
+      lines: [
+        { note: 'She spreads the print-outs across the table like a hand of cards.', a: '&ldquo;Every message I can find with that file or the council clip in it. Where did they come from? That&rsquo;s page 11. The binder.&rdquo;' },
+        { q: 'Does it matter, if the voice was joined anyway?', a: '&ldquo;Joined isn&rsquo;t the same as fake. If we say anything on air, we need to know who had it first, when it was made, and whether our second source is really a second source.&rdquo;' },
+        { q: 'And Councillor Halvard?', a: '&ldquo;Wants the flood wall, hates the marina, and the mayor beat him at the last election by sixty-one votes. Greyhithe deserves better is on every poster he owns. And it&rsquo;s in that email.&rdquo; She does not look happy about it. &ldquo;A motive isn&rsquo;t evidence. When you&rsquo;ve read everything, I&rsquo;ll ring him. My phone&rsquo;s on the end of the table.&rdquo;' },
+        { a: '&ldquo;Log books on the left. File details on my laptop. Then build me the chain on the brown paper: who got what from whom.&rdquo;' }
+      ],
+      clue: { id: 'lena3', title: 'Lena: who had it first?', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('lena')) { paint(); ER.say('The print-outs, the laptop, the log books, the binder. All on the table.'); } }
+    });
+  });
+
+  var PRINTS = '<h4>THE PRINT-OUTS &middot; every message with one of the two files</h4><div class="grid">' + ORDER.map(function (k) { return '<div class="pc k-' + k + '">' + CARDS[k].l + '</div>'; }).join('') + '</div>';
+  $('#prints').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.lena) { ER.say('A heap of print-outs. Lena put them there: ask her first.'); return; }
+    VX.sfx.print();
+    ER.read({ html: PRINTS, cls: 'vg-print', clue: { id: 'prints', title: 'The print-outs: six messages', kind: 'On the table' }, done: function () {
+      VX.terms(['forward', 'account']);
+      if (tell('prints')) { paint(); ER.say('Two files going round: the call, forty seconds, and the council clip, twelve.'); }
+    } });
+  });
+  var DETAILS = '<h4>FILE DETAILS</h4><div class="in"><table><tr><td>Name</td><td class="f">chandra_call.wav</td></tr><tr><td>Length</td><td>0:40</td></tr><tr><td>Created</td><td>Fri 16 Oct 2026, 20.51</td></tr><tr><td>Changed</td><td>Fri 16 Oct 2026, 20.56</td></tr><tr><td>Made with</td><td>Copycat 2</td></tr><tr><td>Recorded on</td><td>(empty)</td></tr></table>' +
+    '<table><tr><td>Name</td><td class="f">council_bit.mp4</td></tr><tr><td>Length</td><td>0:12</td></tr><tr><td>Created</td><td>Fri 16 Oct 2026, 20.47</td></tr><tr><td>Made with</td><td>a free video cutter</td></tr><tr><td>Picture</td><td>the council&rsquo;s crest, not moving</td></tr></table>' +
+    '<p style="font-family:Kalam,cursive;font-size:16px;color:#1f4fa0;margin:0">Copycat 2 = a free voice maker. You give it recordings, it gives you a voice. Details can be changed or wiped, so: a clue, not proof. &mdash; L.</p></div>';
+  $('#laptop').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.lena) { ER.say('Lena&rsquo;s laptop. Ask her first.'); return; }
+    ER.read({ html: DETAILS, cls: 'vg-details', clue: { id: 'details', title: 'File details: made at 20.51', kind: 'On the laptop' }, done: function () {
+      VX.terms(['file details']);
+      if (tell('details')) { paint(); ER.say('Both files were made tonight, a few minutes apart: the clip at 20.47, the call at 20.51.'); }
+    } });
+  });
+  var LOG = '<h4>Radio Greyhithe &middot; station log</h4>' +
+    '<h5>TUESDAY 13 OCTOBER</h5><table><tr><td class="t">18.00&ndash;18.20</td><td>Ask the Mayor, episode 131. Studio B, live. Mayor F. Chandra. Producer L.S.</td></tr></table>' +
+    '<h5>WEDNESDAY 14 OCTOBER</h5><table><tr><td class="t">19.30&ndash;20.30</td><td>Outside broadcast: the Harbour Lights, live from the quay. Engineer I.K.</td></tr><tr><td class="t">19.58&ndash;20.06</td><td>Mayor F. Chandra speaks live, switches the lights on at 20.01. <span class="hand">Her hard hat fell off on air. Twice.</span></td></tr></table>' +
+    '<h5>FRIDAY 16 OCTOBER</h5><table><tr><td class="t">20.40&ndash;21.05</td><td>Friday Phone-in. Studio A, live. Guest: Cllr B. Halvard.</td></tr><tr><td class="t">21.00</td><td>Overnight music (computer).</td></tr><tr><td class="t">22.05</td><td>Main transmitter tripped in the wind. On the stand-by. <span class="hand">I.K. going up the hill.</span></td></tr></table>';
+  $('#logbook').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.lena) { ER.say('The station log books. Ask Lena first.'); return; }
+    ER.read({ html: LOG, cls: 'vg-log', clue: { id: 'log', title: 'The station log: Tuesday, Wednesday, Friday', kind: 'Log book' }, done: function () {
+      VX.terms(['tripped', 'transmitter']);
+      if (tell('log')) { paint(); ER.say('Wednesday at eight: the mayor on the quay, live. Friday at ten to nine: Councillor Halvard in Studio A, live.'); }
+    } });
+  });
+  var GUIDE = '<div class="hd">RADIO GREYHITHE &middot; GUIDE FOR PRODUCERS</div><h4>11. Where did it come from?</h4><div class="two"><div>' +
+    '<p>Before anything else, ask where a recording came from. This is its <b>provenance</b>.</p>' +
+    '<ul><li><b>Who had it first?</b> Follow each forward back. A forward carries the same file, and often the words of the person who sent it before.</li>' +
+    '<li><b>When was it made?</b> A file&rsquo;s details show when it was created and what program made it. Details can be wrong or wiped, so they are a clue, not proof.</li>' +
+    '<li><b>Does the time fit?</b> Check what the sender says against everything else you know about that moment.</li></ul>' +
+    '<p>A <b>second source</b> must be <b>independent</b>: it must not come, by any path, from the first one. Two copies of one file are one source, however many people send them, and however different they look. Ask every sender: where did you get it?</p></div>' +
+    '<div><svg viewBox="0 0 250 270" xmlns="http://www.w3.org/2000/svg"><g font-family="Inter,sans-serif" font-size="12">' +
+    '<rect x="85" y="6" width="80" height="34" rx="4" fill="#1e2226"/><text x="125" y="28" text-anchor="middle" fill="#fff" font-weight="700">FIRST</text>' +
+    '<path d="M125 40v20M40 60h170M40 60v16M125 60v16M210 60v16" stroke="#1e2226" stroke-width="2" fill="none"/>' +
+    '<rect x="10" y="78" width="60" height="30" fill="#fff" stroke="#1e2226"/><text x="40" y="98" text-anchor="middle">A</text><rect x="95" y="78" width="60" height="30" fill="#fff" stroke="#1e2226"/><text x="125" y="98" text-anchor="middle">B</text><rect x="180" y="78" width="60" height="30" fill="#fff" stroke="#1e2226"/><text x="210" y="98" text-anchor="middle">C</text>' +
+    '<path d="M40 108v22" stroke="#1e2226" stroke-width="2"/><rect x="10" y="130" width="60" height="30" fill="#fff" stroke="#1e2226"/><text x="40" y="150" text-anchor="middle">D</text>' +
+    '<text x="10" y="194" fill="#b8322a" font-weight="700">A, B, C and D look like</text><text x="10" y="212" fill="#b8322a" font-weight="700">four sources.</text><text x="10" y="236" fill="#1e2226">They are ONE source,</text><text x="10" y="254" fill="#1e2226">forwarded.</text></g></svg></div></div>' +
+    '<p class="pg">page 11</p>';
+  $('#binder').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: GUIDE, cls: 'vg-guide', clue: { id: 'guide11', title: 'Guide, page 11: where did it come from?', kind: 'The binder' }, done: function () {
+      VX.terms(['provenance', 'independent', 'second source', 'source', 'forward']);
+      if (tell('guide')) { paint(); ER.say('Two copies of one file are one source, however many people send them.'); }
+    } });
+  });
+  $('#phone').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.lena) { ER.say('Lena&rsquo;s phone. Ask her first.'); return; }
+    if (!(told.prints && told.details && told.log && told.guide)) { ER.say('&ldquo;Read everything first,&rdquo; says Lena. &ldquo;Then I ring him. I only get to wake a councillor up once.&rdquo;'); return; }
+    ER.talk({
+      who: 'Cllr Bernard Halvard', role: 'Councillor for Harbour ward · on the phone', face: VX.face('halvard'),
+      lines: [
+        { note: 'Lena puts him on speaker. He sounds as if he has been asleep in a chair.', a: '&ldquo;Lena. It&rsquo;s gone ten o&rsquo;clock. If this is about the phone-in, I was magnificent.&rdquo;' },
+        { q: 'Did you send the council clip to your list?', a: '&ldquo;I did. At about twenty past nine it turned up in the Low Street group, and I sent it on. Her own words! Why wouldn&rsquo;t I?&rdquo;' },
+        { q: 'Your slogan is in an email we were sent tonight. Greyhithe deserves better.', a: '&ldquo;It&rsquo;s on four hundred posters. Anybody can type it. That&rsquo;s the point of a slogan.&rdquo; A pause. &ldquo;What email?&rdquo;' },
+        { q: 'Where were you at ten to nine?', a: '&ldquo;On your station! Studio A, the Friday phone-in, from twenty to nine until five past. Ask your own log book.&rdquo;' },
+        { q: 'Did you check where the clip came from before you sent it?', a: '<p class="note">A long silence.</p><p>&ldquo;To three hundred and forty people. No. No, I didn&rsquo;t.&rdquo; He sounds a good deal less magnificent.</p>' }
+      ],
+      clue: { id: 'halvard', title: 'Cllr Halvard: I sent it on', kind: 'On the phone' },
+      done: function (seen) { if (seen && tell('halvard')) { paint(); ER.say('&ldquo;He forwarded it,&rdquo; says Lena. &ldquo;Forwarding isn&rsquo;t making. Now the brown paper.&rdquo;'); } }
+    });
+  });
+  VX.thing('#label', 'reel', 'REELS, 7½ ips. A label below says: &ldquo;7½ inches per second = 19 cm per second. A 1,800-foot reel at 7½ ips plays for about 48 minutes. At 15 ips, the speed for the best sound, about 24.&rdquo;', isBusy);
+  VX.thing('#reel', null, 'A reel-to-reel tape machine, older than Lena. It still works. Nobody has anything to play on it except the 1981 Christmas lights.', isBusy);
+  $('#dehum').addEventListener('click', function (e) {
+    if (busy) return;
+    if (!dhN++) ER.wordAt(e.clientX, e.clientY, 'dehumidifier');
+    else ER.say(['It gurgles. Forty-eight per cent, it says, as if that were good news.', '&ldquo;Tape hates damp,&rdquo; says Lena. &ldquo;So do I.&rdquo;'][dhN % 2]);
+  });
+  $('#paper').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('One account, lowstreetwatch, at the top of everything.'); return; }
+    if (!told.lena) { ER.say('A big sheet of brown paper with boxes drawn on it in pencil. Lena drew it. Ask her.'); return; }
+    if (!(told.prints && told.details && told.log && told.guide)) { ER.say('&ldquo;Read everything on the table first,&rdquo; says Lena.'); return; }
+    if (!told.halvard) { ER.say('&ldquo;I&rsquo;ll ring Halvard first,&rdquo; says Lena. &ldquo;My phone, end of the table.&rdquo;'); return; }
+    if (!lock) lock = makeLock();
+    lock.open();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the lock: the chain on brown paper ---------- */
+  function makeLock() {
+    var st = ER.flag('c-st') || { s: {}, pin: '' }, wait = false;
+    var POS = [[272, 14], [26, 150], [272, 150], [518, 150], [26, 280], [26, 404]];
+    var box = ER.el('div', 'pz ch');
+    var lines = '<svg viewBox="0 0 744 500" preserveAspectRatio="none"><g stroke="#2a1a08" stroke-width="2.5" fill="none"><path d="M384 100v24M138 124h492M138 124v26M384 124v26M630 124v26M138 236v44M138 366v38"/></g></svg>';
+    box.innerHTML = '<div class="ch-in"><div><div class="ch-paper">' + lines +
+      '<div class="lbl" style="left:520px;top:30px">who had it first?</div><div class="lbl" style="left:290px;top:244px">earliest on the left &rarr;</div><div class="lbl" style="left:270px;top:330px">&larr; got it from the box above</div>' +
+      POS.map(function (q, i) { return '<div class="slot" data-s="' + i + '" style="left:' + q[0] + 'px;top:' + q[1] + 'px"></div>'; }).join('') + '</div>' +
+      '<div class="ch-pins">PIN THE TIME THAT DOES NOT FIT: ' + PINS.map(function (p) { return '<button type="button" data-p="' + p[0] + '">' + p[1] + '</button>'; }).join('') + '</div></div>' +
+      '<div class="ch-tray"><h5>PRINT-OUTS &middot; drag, or click one and then a box</h5>' + ORDER.map(function (k) { return '<div class="pc dnd-item k-' + k + '" data-c="' + k + '"><div class="long">' + CARDS[k].l + '</div><div class="short">' + CARDS[k].s + '</div></div>'; }).join('') + '</div></div>' +
+      '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="ch-go">Show Lena the chain</button></div>';
+    var msgEl = box.querySelector('.pmsg'), tray = box.querySelector('.ch-tray');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function card(k) { return box.querySelector('.pc[data-c="' + k + '"]'); }
+    function slot(i) { return box.querySelector('.slot[data-s="' + i + '"]'); }
+    Object.keys(st.s).forEach(function (i) { var c = card(st.s[i]); if (c) slot(i).appendChild(c); });
+    function save() {
+      st.s = {}; ER.$$('.slot', box).forEach(function (n) { var c = n.querySelector('.pc'); if (c) st.s[n.getAttribute('data-s')] = c.getAttribute('data-c'); });
+      ER.flag('c-st', st);
+      ER.$$('.slot', box).forEach(function (n) { n.classList.remove('bad'); });
+    }
+    function paintP() { ER.$$('.ch-pins button', box).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-p') === st.pin); }); }
+    ER.dnd(box, { item: '.pc', slot: '.slot', home: tray, change: save, lock: function () { return wait || !!nextFile; } });
+    ER.$$('.ch-pins button', box).forEach(function (b) { b.addEventListener('click', function () { if (wait || nextFile) return; st.pin = st.pin === b.getAttribute('data-p') ? '' : b.getAttribute('data-p'); ER.flag('c-st', st); VX.sfx.pin(); paintP(); }); });
+    paintP();
+    function bad(i, t) { ER.sfx.no(); slot(i).classList.add('bad'); msg(t); }
+    box.querySelector('#ch-go').addEventListener('click', function () {
+      var i, k, file, ids = [];
+      if (wait || nextFile) return;
+      for (i = 0; i < 6; i++) if (!st.s[i]) { ER.sfx.no(); msg('&ldquo;Every print-out has a box,&rdquo; says Lena. &ldquo;' + (6 - Object.keys(st.s).length) + ' still in your hand.&rdquo;'); return; }
+      for (i = 0; i < 6; i++) {
+        k = st.s[i]; ids.push(k);
+        if (ER.check('s' + i, k)) continue;
+        if (i === 0) return bad(0, '&ldquo;The top box is whoever had both files before anybody else,&rdquo; says Lena. &ldquo;Who does every message lead back to?&rdquo;');
+        if (k === 'prof') return bad(i, '&ldquo;lowstreetwatch didn&rsquo;t get the files from anybody,&rdquo; says Lena. &ldquo;Every path leads back there.&rdquo;');
+        if (k === 'text' && i !== 5) return bad(i, '&ldquo;Greta has the council clip, twelve seconds,&rdquo; says Lena. &ldquo;And she says her councillor sent it: look whose words her message still carries.&rdquo;');
+        if (k === 'list' && i !== 4) return bad(i, '&ldquo;Halvard&rsquo;s post says where he got it,&rdquo; says Lena. &ldquo;Forwarded from Low Street Residents.&rdquo;');
+        if (i >= 1 && i <= 3) return bad(i, '&ldquo;Along the top row,&rdquo; says Lena, &ldquo;earliest on the left. Read the times again. And the council clip went down the left-hand side.&rdquo;');
+        return bad(i, '&ldquo;That box: who did it come from, and when?&rdquo; says Lena.');
+      }
+      if (!st.pin) { ER.sfx.no(); msg('&ldquo;The chain&rsquo;s right,&rdquo; says Lena. &ldquo;Now pin the time that doesn&rsquo;t fit.&rdquo;'); return; }
+      if (!ER.check('pin', st.pin)) {
+        ER.sfx.no();
+        msg(st.pin === 'midnight' ? '&ldquo;That&rsquo;s a threat, not a time we can check,&rdquo; says Lena.' : st.pin === 'fwd' ? '&ldquo;Halvard saw it at twenty past nine and sent it at 21.24. That fits what he told us.&rdquo;' :
+          '&ldquo;Clip at 20.47, call at 20.51, account at 20.58, post at 21.05, email at 21.12,&rdquo; says Lena. &ldquo;They fit together like bricks. What does the log book say about one of his claims?&rdquo;');
+        return;
+      }
+      file = ER.exit([ids.join('-') + '-' + st.pin], { wait: true });
+      if (!file) { msg('Something is wrong with this page: tell your teacher.'); return; }
+      wait = true; nextFile = file; ER.flag('c-file', file);
+      VX.terms(['provenance', 'independent']);
+      VX.mine('chain', 'One source in different coats', '<p>lowstreetwatch (account made Fri 20.58) &rarr; the Low Street group, 21.05, the council clip &rarr; Halvard, 21.24 &rarr; Greta, 21.31.</p><p>lowstreetwatch &rarr; us, 21.12, the call &rarr; the Courier, 21.13, the call.</p><p>So the Courier and Greta are not second sources: everything comes from one account.</p><p>&ldquo;Rang me on Wednesday at about eight&rdquo; does not fit: at 19.58&ndash;20.06 the mayor was live on our station at the Harbour Lights.</p><p>Halvard forwarded the clip; he did not make it. At 20.51 he was live in Studio A.</p>', true);
+      msg('&ldquo;One account,&rdquo; says Lena. &ldquo;Everything comes from one account.&rdquo;');
+      setTimeout(function () {
+        ER.closeAll(); paint(); busy = true;
+        ER.narrate([
+          '&ldquo;lowstreetwatch,&rdquo; says Lena. &ldquo;Made at 20.58 tonight. It sent the call to us and to the Courier, and the council clip to the Low Street group. Halvard forwarded the clip. Greta got it from Halvard.&rdquo;',
+          '&ldquo;So the Courier isn&rsquo;t a second source. Greta isn&rsquo;t a second source. They&rsquo;re one source in different coats.&rdquo; She taps the log book. &ldquo;And at eight on Wednesday the mayor was switching on the harbour lights, live on our station, in front of two hundred people. Not on the phone to lowstreetwatch.&rdquo;',
+          '&ldquo;About eight,&rdquo; she says, to be fair. &ldquo;She could have rung somebody at ten past. It doesn&rsquo;t prove anything. But it doesn&rsquo;t fit. And both files were made tonight, the call by a voice maker.&rdquo;',
+          'Her phone buzzes. &ldquo;Ivo. He&rsquo;s up at the mast. The wind tripped the transmitter.&rdquo; She reads on, and her eyebrows go up. &ldquo;He says he can tell us when those first eleven seconds were recorded. To the second. From the hum.&rdquo; She picks up her car keys. &ldquo;Coat.&rdquo;'
+        ], function () { busy = false; $('#go').classList.add('on'); });
+      }, 2600);
+    });
+    msg('Put each print-out in a box: who got it from whom. Then pin the one time that does not fit. Show Lena.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+})();
+</script>
+</body>
+</html>

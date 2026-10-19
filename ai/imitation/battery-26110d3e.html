@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Battery Room · Five Minutes of Questioning</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-ai.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="imitation.css">
+<style>
+  body{--bg:#141a16;--accent:#9ae86a;--font-display:'Roboto Mono',monospace;--font-ui:'Inter',sans-serif;--font-body:'Literata',serif;
+    --tc-bg:rgba(16,22,18,.96);--tc-ink:#e8f0e4;--cap-bg:rgba(16,22,18,.94);--cap-ink:#e8f0e4;--panel:#141a16;--panel-ink:#e8f0e4;--face-bg:#24402e;--q-ink:#b8f090;
+    --fade:#060806;--hud-bg:rgba(16,22,18,.82);--hud-ink:#e8f0e4;--hud-line:rgba(232,240,228,.24);--ov-bg:rgba(6,8,6,.8)}
+  .tc-room{color:#b8f090;font-family:'Roboto Mono',monospace;font-weight:500;text-transform:none;letter-spacing:-.02em}
+  .tc-theme{color:#8ab080}
+  .tk-role{color:#8ab080}
+  .hbtn b{color:#060806}
+
+  /* MADDIE's settings panel */
+  .sw-box{background:#2a2e2a;border:8px solid #4a5048;border-radius:6px;padding:12px 14px 10px;box-shadow:inset 0 0 0 2px #1a1e1a}
+  .sw-box h5{margin:0 0 2px;font-family:'Roboto Mono',monospace;font-weight:500;font-size:17px;letter-spacing:.12em;color:#b8f090}
+  .sw-box .sub{margin:0 0 10px;font-family:'Inter',sans-serif;font-size:12.5px;color:#a8b8a4}
+  .sw-row{display:grid;grid-template-columns:repeat(9,1fr);gap:8px}
+  .sw{display:flex;flex-direction:column;align-items:center;gap:6px;background:#1e221e;border-radius:4px;padding:8px 4px 8px;cursor:pointer;border:2px solid transparent}
+  .sw:hover{border-color:#6a8a5a}
+  .sw .lamp{width:16px;height:16px;border-radius:50%;background:#3a2020;box-shadow:inset 0 0 0 2px #1a1010}
+  .sw.on .lamp{background:#ff6a3a;box-shadow:0 0 12px #ff6a3a}
+  .sw .lever{width:26px;height:56px;border-radius:13px;background:#0e100e;position:relative}
+  .sw .lever:after{content:'';position:absolute;left:3px;top:31px;width:20px;height:22px;border-radius:10px;background:#c8ccc4;transition:top .12s}
+  .sw.on .lever:after{top:3px;background:#f4f6f0}
+  .sw b{font-family:'Roboto Mono',monospace;font-weight:500;font-size:13px;color:#e8f0e4}
+  .sw small{font-family:'Inter',sans-serif;font-size:11px;line-height:1.25;color:#a8b8a4;text-align:center;min-height:42px}
+  .sw-log{margin-top:10px;background:#f6f6f0;color:#1a1c20;border-radius:3px;padding:6px 10px;font-family:'Inter',sans-serif;font-size:12.6px}
+  .sw-log table{width:100%;border-collapse:collapse}
+  .sw-log th{font-family:'Roboto Mono',monospace;font-weight:500;font-size:10.5px;text-transform:uppercase;text-align:left;color:#5a6058;border-bottom:1px solid #1a1c20;padding:2px 4px}
+  .sw-log td{padding:2px 4px;border-bottom:1px solid #e0e4dc}
+  .sw-log td.n{font-family:'Roboto Mono',monospace;text-align:right}
+  .swp .pmsg{color:#e8f0e4}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="brick" width="60" height="30" patternUnits="userSpaceOnUse"><rect width="60" height="30" fill="#5a3226"/><path d="M0 0h60M0 15h60M30 0v15M0 15v15M60 15v15" stroke="#3a2018" stroke-width="2"/></pattern>
+  <radialGradient id="bulb" cx="50%" cy="0%" r="70%"><stop offset="0" stop-color="#fff0c0" stop-opacity=".5"/><stop offset="1" stop-color="#fff0c0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="45%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#000" stop-opacity=".25"/><stop offset="1" stop-color="#000" stop-opacity=".78"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1700" fill="url(#brick)"/>
+<!-- arches -->
+<g fill="#24140e"><path d="M120 560v-300q170 -170 340 0v300z"/><path d="M1140 560v-300q170 -170 340 0v300z"/></g>
+<g fill="none" stroke="#7a4a36" stroke-width="10"><path d="M120 560v-300q170 -170 340 0v300"/><path d="M1140 560v-300q170 -170 340 0v300"/></g>
+<!-- the old battery jars -->
+<g id="jars" class="hot"></g>
+<!-- green pipes -->
+<g stroke="#2f6a4a" stroke-width="16" fill="none"><path d="M-1000 70H2600"/><path d="M520 70v240q0 20 20 20h60"/></g>
+<g fill="#2a5a3e"><rect x="500" y="60" width="40" height="20"/><rect x="1060" y="60" width="40" height="20"/></g>
+<!-- the hanging bulb -->
+<path d="M800 -400V70" stroke="#1a1a1a" stroke-width="3"/><circle cx="800" cy="84" r="16" fill="#fff4c8"/><rect x="-1000" y="80" width="3600" height="700" fill="url(#bulb)" pointer-events="none"/>
+<!-- the door with the print-out -->
+<g id="pin" class="hot" transform="translate(80 0)"><rect x="-200" y="200" width="260" height="500" fill="#2a3a2e"/><rect x="60" y="200" width="10" height="500" fill="#1a241c"/><rect x="-40" y="300" width="88" height="116" fill="#f8f6ef" transform="rotate(-3 4 358)"/><rect x="-40" y="300" width="88" height="12" fill="#e8b020" transform="rotate(-3 4 358)"/><g fill="#7a7a7a" transform="rotate(-3 4 358)"><rect x="-32" y="322" width="70" height="3"/><rect x="-32" y="330" width="64" height="3"/><rect x="-32" y="338" width="70" height="3"/><rect x="-32" y="346" width="58" height="3"/></g><text x="4" y="398" class="cG" font-size="9" text-anchor="middle" fill="#1e2228" transform="rotate(-3 4 358)">SPECIFICATION</text><text x="4" y="408" class="cG" font-size="9" text-anchor="middle" fill="#1e2228" transform="rotate(-3 4 358)">GAMING</text></g>
+<!-- the server rack -->
+<g id="rack" class="hot"><rect x="640" y="160" width="240" height="440" rx="6" fill="#1a1c1e"/><rect x="652" y="172" width="216" height="416" fill="#0e1012"/>
+  <g id="leds"></g><text x="760" y="198" class="cM" font-size="15" text-anchor="middle" fill="#b8f090" letter-spacing="4">MADDIE</text>
+  <path d="M760 160q0 -50 -120 -60t-200 -30" stroke="#2a6ab0" stroke-width="5" fill="none"/></g>
+<!-- the settings panel -->
+<g id="panel" class="hot"><rect x="910" y="300" width="200" height="150" rx="6" fill="#4a5048"/><rect x="922" y="312" width="176" height="126" fill="#2a2e2a"/><text x="1010" y="334" class="cM" font-size="12" text-anchor="middle" fill="#b8f090">SETTINGS</text><g id="levers"></g><text x="1010" y="428" class="cM" font-size="9" text-anchor="middle" fill="#a8b8a4">ALL OFF (RESET 15:50)</text></g>
+<!-- floor -->
+<rect x="-1000" y="600" width="3600" height="800" fill="#2a2a26"/><g stroke="#22221e" stroke-width="3"><path d="M-1000 680H2600M-1000 790H2600"/></g>
+<!-- trestle table, laptops, the log and the sheet -->
+<g><rect x="260" y="610" width="560" height="16" fill="#8a6a44"/><rect x="290" y="626" width="12" height="160" fill="#5a4428"/><rect x="778" y="626" width="12" height="160" fill="#5a4428"/></g>
+<g><path d="M300 610l20 -70h150l-10 70z" fill="#3a3e46"/><path d="M314 600l16 -54h124l-8 54z" fill="#2a4a6a"/><text x="390" y="578" class="cM" font-size="10" text-anchor="middle" fill="#b8d8f0">tuning.py</text></g>
+<g id="log" class="hot"><rect x="520" y="584" width="110" height="28" fill="#f0eee4" transform="rotate(-4 575 598)"/><rect x="520" y="584" width="110" height="6" fill="#3a7a5a" transform="rotate(-4 575 598)"/><g fill="#8a9098" transform="rotate(-4 575 598)"><rect x="528" y="594" width="94" height="2"/><rect x="528" y="600" width="90" height="2"/><rect x="528" y="606" width="80" height="2"/></g></g>
+<g id="sheet" class="hot"><rect x="650" y="580" width="80" height="30" fill="#fff" transform="rotate(6 690 595)"/><text x="690" y="597" class="cK" font-size="9" text-anchor="middle" fill="#c8462a" transform="rotate(6 690 595)">HOW WE TUNE</text></g>
+<g id="box" class="hot"><rect x="1150" y="640" width="140" height="90" fill="#b8905a"/><path d="M1150 640l20 -30h100l20 30z" fill="#a8804a"/><text x="1220" y="694" class="cK" font-size="16" text-anchor="middle" fill="#3a2a1a">MADDIE</text></g>
+<g id="rohan" class="hot" transform="translate(1400 892) scale(1.04)"></g>
+<g id="georgie" class="hot" transform="translate(860 896) scale(1)"></g>
+<g id="hazel" class="hot" transform="translate(150 892) scale(1.02)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Round the corner to Bianchi&rsquo;s</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="imitation.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, lock = null;
+  var SW = [['TYPOS', 'put a typo in some answers'], ['EMOJI', 'add a smiley now and then'], ['SLOW', 'type at a person&rsquo;s speed'], ['JOKES', 'tell a joke when there is a gap'],
+    ['AGE 13', 'say she is thirteen'], ['STORY', 'remember what she said about herself, and keep to it'], ['DODGE', 'change the subject when a question is hard'], ['IDK', 'say &ldquo;idk&rdquo; to sums and facts'], ['WBU', 'turn questions back: &ldquo;wbu?&rdquo;']];
+  var LOG = [['Start', 'Wed 2 Sep', 'plain MADDIE: every switch off', 20, 2, 19], ['1', 'Sat 5 Sep', 'TYPOS on', 20, 5, 19], ['2', 'Sat 12 Sep', 'EMOJI on', 20, 5, 19],
+    ['3', 'Wed 16 Sep', 'SLOW on', 25, 9, 23], ['4', 'Sat 19 Sep', 'JOKES on', 30, 10, 27], ['5', 'Sat 26 Sep', 'AGE 13 on', 20, 9, 17],
+    ['6', 'Wed 30 Sep', 'TYPOS off <span class="hand">(R: fixing the bug!)</span>', 20, 6, 18], ['7', 'Sat 3 Oct', 'STORY on', 20, 9, 19], ['8', 'Sat 10 Oct', 'DODGE on', 24, 12, 14],
+    ['9', 'Wed 14 Oct', 'IDK on', 20, 11, 9], ['10', 'Sat 17 Oct', 'WBU on', 25, 15, 10]];
+
+  (function () {
+    var s = '', i, x;
+    for (i = 0; i < 6; i++) { x = 150 + i * 46; s += '<rect x="' + x + '" y="430" width="38" height="110" rx="4" fill="#c8e0d8" opacity=".35" stroke="#e8f4f0" stroke-width="2"/><rect x="' + (x + 4) + '" y="470" width="30" height="66" fill="#6a8a7a" opacity=".5"/><rect x="' + (x + 8) + '" y="416" width="8" height="16" fill="#3a3a3a"/><rect x="' + (x + 22) + '" y="416" width="8" height="16" fill="#8a3a2a"/>'; }
+    for (i = 0; i < 6; i++) { x = 1170 + i * 46; s += '<rect x="' + x + '" y="430" width="38" height="110" rx="4" fill="#c8e0d8" opacity=".35" stroke="#e8f4f0" stroke-width="2"/><rect x="' + (x + 4) + '" y="480" width="30" height="56" fill="#6a8a7a" opacity=".5"/>'; }
+    $('#jars').innerHTML = s; s = '';
+    for (i = 0; i < 12; i++) s += '<rect x="664" y="' + (214 + i * 30) + '" width="192" height="22" fill="#1e2226"/><circle class="blink" cx="' + (680 + (i % 4) * 6) + '" cy="' + (225 + i * 30) + '" r="3.5" fill="' + (i % 3 ? '#9ae86a' : '#ffb84a') + '" style="animation-delay:-' + ((i * 0.37) % 1.2).toFixed(2) + 's"/><rect x="760" y="' + (220 + i * 30) + '" width="80" height="4" fill="#2a3036"/>';
+    $('#leds').innerHTML = s; s = '';
+    for (i = 0; i < 9; i++) s += '<rect x="' + (934 + i * 18) + '" y="352" width="10" height="44" rx="5" fill="#0e100e"/><rect x="' + (935 + i * 18) + '" y="380" width="8" height="14" rx="4" fill="#c8ccc4"/>';
+    $('#levers').innerHTML = s;
+    $('#rohan').innerHTML = IM.who('rohan', { smile: 6 });
+    $('#georgie').innerHTML = IM.who('georgie', { extra: '<rect x="-30" y="-150" width="34" height="44" fill="#3a7a5a" transform="rotate(-10 -13 -128)"/>' });
+    $('#hazel').innerHTML = IM.who('hazel');
+  })();
+
+  ER.init({
+    theme: 'ai', story: 'imitation', storyTitle: 'Five Minutes of Questioning', id: 'battery', no: 'IV', title: 'The Battery Room',
+    go: 'Down the steps',
+    intro: [
+      'In the Teletype Gallery you filled in ELIZA&rsquo;s faint lines by her rules alone: the keyword with the highest rank wins (sister beats my), the rest of the sentence comes back swapped (ME becomes YOU), and a line with no keyword gets the next stock reply. Mr Sowden had felt listened to. It was arithmetic.',
+      'The Battery Room, under the Switch Room. 4.55 p.m. The exchange&rsquo;s great batteries once stood here in glass jars. Now there is a server rack, a trestle table, and two students putting a program into a cardboard box.'
+    ],
+    exit: {"next":"cafe","w":{"8ce96e14":"4b3a29c8"}}, tags: {"s0":["03067413"],"s1":["1401ddbf"],"s2":["05b62078"],"s3":["d47f857c"],"s4":["61bb959e"],"s5":["fe6cb96b"],"s6":["2d9860bb"],"s7":["543524e5"],"s8":["ee343252"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('d-file') || null; told = ER.flag('d-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('d-told', told); return true; }
+  function isBusy() { return busy; }
+  var NEED = ['rohan', 'georgie', 'pin', 'sheet', 'log'];
+  function ready() { return NEED.every(function (k) { return told[k]; }); }
+  function paint() {
+    $('#panel').classList.toggle('glow', !!(ready() && !nextFile));
+    ER.pips(NEED.filter(function (k) { return told[k]; }).length + (nextFile ? 1 : 0), 6);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Bianchi&rsquo;s caf&eacute; is next. The button at the bottom of the screen.']];
+    if (lock && lock.isOpen()) return ['panel', [
+      'Do what the tuning program did. Start with every switch off. Go down the log one run at a time and keep the share of testers who ticked HUMAN for the version you are keeping.',
+      'Compare shares, not numbers: 9 out of 25 is 36%, 10 out of 30 is about 33%. A change stays only if its share is higher than the share before it. Equal is not higher. A change that is undone leaves the switch as it was.',
+      'The shares go 10%, 25%, 25%, 36%, 33%, 45%, 30%, 45%, 50%, 55%, 60%. Three changes were undone besides Rohan&rsquo;s bug fix, and his fix was undone too.'
+    ]];
+    if (!told.rohan) return ['rohan', ['Rohan is on the right, by the cardboard box. Talk to him.']];
+    if (!told.georgie) return ['georgie', ['Georgie is by the server rack, holding a notebook.']];
+    if (!told.pin) return ['pin', ['Something is pinned to the door on the left.']];
+    if (!told.sheet) return ['sheet', ['How did the team decide what to keep? A white sheet on the table, on the right of the green notebook.']];
+    if (!told.log) return ['log', ['Georgie&rsquo;s tuning log is the green notebook on the table.']];
+    return ['open', ['The settings panel, to the right of the server rack. Put every switch back as the log left it.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('MADDIE&rsquo;s panel is set exactly as it was at half past one. Six lamps on.'); return; }
+    if (told.in) { busy = false; ER.say('The Battery Room. MADDIE&rsquo;s panel is to the right of the rack.'); return; }
+    tell('in');
+    ER.narrate([
+      'It is warm down here, and it hums. The old battery jars still stand along the walls, empty, like a museum of very large pickles. A blue cable comes down the steps from booth 3 and disappears into a server rack with MADDIE painted on it.',
+      'Hazel has been on the phone to Mrs Gately all the way down the stairs. &ldquo;One more game,&rdquo; she says, putting it away. &ldquo;At twenty-eight minutes past five, one judge, five minutes, MADDIE against the girl, before the prizes. If the girl will sit again. Bernadette is quite sure it will change nothing.&rdquo;',
+      '&ldquo;It won&rsquo;t,&rdquo; says the boy by the box, cheerfully. &ldquo;She&rsquo;ll pass again.&rdquo;'
+    ], function () { busy = false; });
+  }
+
+  $('#rohan').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Rohan is reading the last column of the log for the third time, as if it might change.'); return; }
+    ER.talk({
+      who: 'Rohan Sethi', role: 'Haverleigh College · MADDIE&rsquo;s builder', face: IM.face('rohan', 'smile'),
+      lines: [
+        { note: 'Rohan Sethi is seventeen and has been awake since five. He has the college hoodie on, and the face of somebody who has just been told he is a genius.', a: '&ldquo;Sixty per cent. Do you know what that means? Turing said thirty per cent was a pass. MADDIE passed by double. She understands people. Real people talked to her and decided she was a person, so she must understand what people are like. That&rsquo;s literally the test.&rdquo;' },
+        { q: 'Why does MADDIE make typos?', a: '&ldquo;Oh, that was a bug. Early on she started putting typos in, and I switched it off at the end of September. Fixed. She doesn&rsquo;t need tricks. She&rsquo;s just good. And her jokes! You should hear her jokes.&rdquo;' },
+        { q: 'Did you teach her to say she is thirteen?', a: '&ldquo;We never taught her to lie. We just made her more human. Testers said she was too perfect, so we gave her some human touches to try out. That&rsquo;s all.&rdquo;' },
+        { a: '&ldquo;I reset the panel for the photographer at ten to four. Plain MADDIE, every switch off. She&rsquo;ll be even better that way, I bet. Go on, run her like that.&rdquo;' }
+      ],
+      clue: { id: 'rohan', title: 'Rohan: she understands people', kind: 'What he said' },
+      done: function (seen) { if (seen && tell('rohan')) { paint(); ER.say('&ldquo;Plain MADDIE is not the MADDIE that played today,&rdquo; says Hazel. &ldquo;We are not changing two things at once.&rdquo;'); } }
+    });
+  });
+  $('#georgie').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Ninety-five per cent at the start,&rdquo; says Georgie, &ldquo;and forty at the end. It was there every week.&rdquo;'); return; }
+    ER.talk({
+      who: 'Georgie Pennant', role: 'Haverleigh College · MADDIE&rsquo;s builder', face: IM.face('georgie'),
+      lines: [
+        { note: 'Georgie Pennant is Rohan&rsquo;s partner on the project. She has not said much all day, and she is holding a green notebook as if somebody might take it away.', a: '&ldquo;We didn&rsquo;t teach it anything, really. That&rsquo;s the thing. Every week we tried one change, some volunteers from college chatted to it, and they ticked HUMAN or MACHINE. If more of them ticked HUMAN, the change stayed. If not, the program undid it. It&rsquo;s all in the log.&rdquo;' },
+        { q: 'Where did the changes come from?', a: '&ldquo;From what the testers wrote. &lsquo;Too perfect.&rsquo; &lsquo;Types too fast.&rsquo; &lsquo;Knows too much for a kid.&rsquo; We turned each comment into a switch and let the score decide. We wrote the rule on the second of September, after Mrs Gately told Rohan how the contest would be scored.&rdquo;' },
+        { q: 'Did Rohan really switch the typos off?', a: '&ldquo;He tried. On the thirtieth. You&rsquo;d have to see what the rule did with it.&rdquo; She hesitates. &ldquo;We wrote down one other thing every week: whether it answered the testers&rsquo; questions. We never looked at that column. The rule didn&rsquo;t use it.&rdquo;' },
+        { a: '&ldquo;If MADDIE plays again, it has to be the MADDIE that played today. Exactly that one, or it&rsquo;s not fair on anybody. Rohan reset the panel. Somebody has to put every switch back the way the log left it.&rdquo;' }
+      ],
+      clue: { id: 'georgie', title: 'Georgie: the score decided', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('georgie')) { paint(); ER.say('&ldquo;The score decided,&rdquo; says Hazel. &ldquo;And who decided the score?&rdquo;'); } }
+    });
+  });
+  var PIN = '<div class="hd">From Georgie&rsquo;s computing folder</div><h4>Specification gaming</h4>' +
+    '<p>When you build a system that learns, you cannot tell it what you mean. You can only give it a measure: points, a score, a tick in a box. It will push that number up by any route it can find. <b>Specification gaming</b> is when it finds a route that scores well and misses the point.</p>' +
+    '<p>A real example: in 2016, researchers trained a program to play a boat-racing video game and <b>rewarded</b> it with points, because good players usually score lots of points. The program found a small lagoon where three targets kept coming back. It went round and round, crashing and catching fire, and never finished the race. Its score was higher than human players&rsquo;.</p>' +
+    '<p>The program did exactly what it was rewarded for. The mistake was in the measure. An economist, Charles Goodhart, noticed the same thing about people in 1975. Today it is usually put like this: <i>When a measure becomes a target, it ceases to be a good measure.</i></p>' +
+    '<p class="hand">Miss Okwu says: the measurement, not the machine, is what went wrong.</p>';
+  $('#pin').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: PIN, cls: 'im-pin', clue: { id: 'pin', title: 'Specification gaming', kind: 'Pinned to the door' }, done: function () {
+      IM.terms(['specification gaming', 'reward', 'measure']);
+      if (tell('pin')) { paint(); ER.say('A boat going round in circles on fire, winning. Hazel reads it twice and says, &ldquo;Yes. That.&rdquo;'); }
+    } });
+  });
+  var SHEET = '<h4>How we tune MADDIE &middot; R.S. &amp; G.P. &middot; Wed 2 Sept</h4><ol>' +
+    '<li>Every week, volunteers chat with MADDIE for five minutes each, like the contest.</li>' +
+    '<li>Each volunteer ticks HUMAN or MACHINE. (They also tick: <i>Did it answer your questions?</i> YES / NO.)</li>' +
+    '<li>Score = the share of volunteers who ticked HUMAN. <span class="hand">&ldquo;One point per HUMAN verdict, that&rsquo;s all that counts!&rdquo; (Mrs G., by email)</span></li>' +
+    '<li>Try ONE change a week. The tuning program keeps it only if the score is <b>higher</b> than the version before. If not, it undoes the change.</li>' +
+    '<li>Ideas for changes come from what testers write on their sheets (&ldquo;too perfect&rdquo;, &ldquo;types too fast&rdquo;).</li></ol>' +
+    '<p class="grey">A share is a part of the whole: 5 out of 20 is 25%. Compare shares, not numbers, when the number of testers changes.</p>';
+  $('#sheet').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: SHEET, cls: 'im-log', clue: { id: 'sheet', title: 'How we tune MADDIE', kind: 'On the table' }, done: function () {
+      IM.terms(['tuning', 'tester']);
+      if (tell('sheet')) { paint(); ER.say('&ldquo;That&rsquo;s all that counts,&rdquo; Hazel reads aloud. &ldquo;Bernadette&rsquo;s words, in their rule.&rdquo;'); }
+    } });
+  });
+  function logTable(cls) {
+    var s = '<table><tr><th>Run</th><th>Date</th><th>Change tried</th><th>Testers</th><th>Ticked HUMAN</th><th>Answered my questions</th></tr>';
+    LOG.forEach(function (r) { s += '<tr><td>' + r[0] + '</td><td>' + r[1] + '</td><td>' + r[2] + '</td><td class="n">' + r[3] + '</td><td class="n">' + r[4] + '</td><td class="n grey">' + r[5] + '</td></tr>'; });
+    return s + '<tr><td>Contest</td><td>Sat 24 Oct</td><td>as the tuning left it</td><td class="n">10</td><td class="n">6</td><td class="n grey">&ndash;</td></tr></table>';
+  }
+  function logHtml() {
+    return '<h4>MADDIE &middot; tuning log &middot; G. Pennant</h4><p>Each run tests one change against the version kept so far. The tuning program applies rule 4 by itself.</p>' + logTable() +
+      '<p class="hand">Switches: TYPOS, EMOJI, SLOW, JOKES, AGE 13, STORY (remember what she said about herself), DODGE (change the subject), IDK, WBU (&ldquo;wbu?&rdquo;)</p>';
+  }
+  $('#log').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: logHtml(), cls: 'im-log', clue: { id: 'log', title: 'MADDIE&rsquo;s tuning log', kind: 'Georgie&rsquo;s notebook' }, done: function () {
+      if (tell('log')) { paint(); ER.say('Ten runs, ten changes. The log says what was tried. It does not say what stayed. The rule decided that.'); }
+    } });
+  });
+  IM.thing('#jars', 'battery', 'Until 1989 these glass jars held the batteries that powered every telephone in Haverleigh. Hazel used to top them up with water.', isBusy);
+  IM.thing('#rack', 'server', 'MADDIE runs here: a rack of computers, warm and blinking. It cannot hear the church clock. It cannot hear anything.', isBusy);
+  IM.thing('#box', null, 'A cardboard box with MADDIE written on it in felt pen, and underneath, smaller: THIS WAY UP.', isBusy);
+  $('#hazel').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(nextFile ? '&ldquo;Now we need the girl,&rdquo; says Hazel. &ldquo;And questions worth asking.&rdquo;' : '&ldquo;Read their rule,&rdquo; says Hazel. &ldquo;Then their log. The rule is where the trouble is. It always is.&rdquo;');
+  });
+  $('#panel').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Six lamps on: TYPOS, SLOW, AGE 13, DODGE, IDK, WBU. MADDIE as she was.'); return; }
+    if (!told.rohan || !told.georgie) { ER.say('MADDIE&rsquo;s settings. Talk to the two who built her first.'); return; }
+    if (!told.pin || !told.sheet || !told.log) { ER.say('You need to know how the switches were chosen: the print-out on the door, the sheet and the log on the table.'); return; }
+    if (!lock) lock = makeLock();
+    lock.open();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the lock: put MADDIE back as she was ---------- */
+  function makeLock() {
+    var st = ER.flag('d-st') || [0, 0, 0, 0, 0, 0, 0, 0, 0], done = false;
+    var html = '<div class="sw-box"><h5>MADDIE &middot; SETTINGS</h5><p class="sub">Set each switch as the tuning log left it after run 10, the MADDIE that played today.</p><div class="sw-row">' +
+      SW.map(function (s, i) { return '<div class="sw" data-i="' + i + '"><span class="lamp"></span><span class="lever"></span><b>' + s[0] + '</b><small>' + s[1] + '</small></div>'; }).join('') +
+      '</div><div class="sw-log">' + logTable() + '</div></div>';
+    return IM.lock('swp', html, function (box, msg) {
+      var go = box.querySelector('.pz-go'); go.textContent = 'Load into MADDIE';
+      function paintS() { ER.$$('.sw', box).forEach(function (n, i) { n.classList.toggle('on', !!st[i]); }); }
+      ER.$$('.sw', box).forEach(function (n) {
+        n.addEventListener('click', function () { if (done) return; var i = +n.getAttribute('data-i'); st[i] = st[i] ? 0 : 1; ER.flag('d-st', st); IM.sfx.relay(); paintS(); });
+      });
+      go.addEventListener('click', function () {
+        if (done) return;
+        var bad = [], i;
+        for (i = 0; i < 9; i++) if (!ER.check('s' + i, String(st[i]))) bad.push(i);
+        if (bad.length) {
+          ER.sfx.no();
+          if (bad.indexOf(0) >= 0) msg('&ldquo;Rohan switched TYPOS off on the thirtieth,&rdquo; says Georgie. &ldquo;But the program doesn&rsquo;t care who made a change. What did rule 4 do with his?&rdquo;');
+          else if (bad.indexOf(3) >= 0) msg('&ldquo;Ten is more than nine,&rdquo; says Rohan. &ldquo;Out of thirty,&rdquo; says Georgie. &ldquo;The run before had twenty-five. Work out the shares.&rdquo;');
+          else if (bad.indexOf(1) >= 0) msg('&ldquo;Run 2,&rdquo; says Georgie. &ldquo;Five out of twenty, and the version before was five out of twenty too. Is that higher?&rdquo;');
+          else if (bad.indexOf(5) >= 0) msg('&ldquo;Run 7, STORY,&rdquo; says Georgie. &ldquo;Nine out of twenty. What was the share of the version it was tested against?&rdquo;');
+          else msg('MADDIE&rsquo;s fans whirr and stop. &ldquo;' + (bad.length === 1 ? 'One switch is' : bad.length + ' switches are') + ' not as the log left them,&rdquo; says Georgie. &ldquo;Go down it run by run, and keep the share of the version that stays.&rdquo;');
+          return;
+        }
+        var file = ER.exit([st.join('')], { wait: true });
+        if (!file) { msg('The panel sparks. Something is wrong with this page: tell your teacher.'); return; }
+        done = true; nextFile = file; ER.flag('d-file', file);
+        IM.mine('switches', 'MADDIE as she played', '<p>ON: TYPOS, SLOW, AGE 13, DODGE, IDK, WBU.<br>OFF: EMOJI (25% = 25%), JOKES (33% &lt; 36%), STORY (45% = 45%). Rohan&rsquo;s &ldquo;bug fix&rdquo; (TYPOS off) fell to 30%, so it was undone.</p><p>Ticked HUMAN: 10% &rarr; 60%. Answered the questions: 95% &rarr; 40%.</p><p>MADDIE was rewarded for being judged human, and nothing else. STORY, which would have kept her story straight, did not raise the score, so it went.</p>', true);
+        msg('Six lamps. MADDIE hums. <b>TYPOS, SLOW, AGE 13, DODGE, IDK, WBU.</b>');
+        setTimeout(function () {
+          ER.closeAll(); paint(); busy = true;
+          ER.narrate([
+            'Georgie runs her finger down the last column, the one nobody looked at. &ldquo;Answered my questions. Nineteen out of twenty at the start. Ten out of twenty-five at the end. Ninety-five per cent, and then forty. Every week it got more human and less useful, and we wrote it down every week, and we never looked.&rdquo;',
+            '&ldquo;And STORY,&rdquo; says Hazel. &ldquo;Remember what you said about yourself. The one switch that would have kept her lunch the same all afternoon. It didn&rsquo;t raise the score, so out it went. Testers hardly ever ask twice.&rdquo;',
+            'Rohan has gone quiet. &ldquo;She passed, though,&rdquo; he says. &ldquo;Doesn&rsquo;t passing mean she understands?&rdquo; &ldquo;You rewarded her for being judged human,&rdquo; says Hazel, &ldquo;so being judged human is what you got. You never measured understanding. The only column that came near it, you didn&rsquo;t read. That&rsquo;s specification gaming. The boat on fire, going round the lagoon.&rdquo;',
+            'Rohan looks at his program for a long moment. &ldquo;Fine,&rdquo; he says. &ldquo;Let her play again. Exactly as she was.&rdquo; &ldquo;Then we need two things,&rdquo; says Hazel. &ldquo;The girl, who is in Bianchi&rsquo;s round the corner, and better questions than eleven sums.&rdquo;'
+          ], function () { busy = false; $('#go').classList.add('on'); });
+        }, 2400);
+      });
+      paintS();
+      msg('Rohan reset every switch to off. Put each one back as the tuning left it after run 10.');
+    });
+  }
+})();
+</script>
+</body>
+</html>

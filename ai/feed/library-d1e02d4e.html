@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Library · Everybody Thinks So</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-ai.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="feed.css">
+<style>
+  body{--bg:#141a2e;--accent:#e8c870;--font-display:'Bricolage Grotesque',sans-serif;--font-ui:'Inter',sans-serif;--font-body:'Literata',serif;
+    --tc-bg:rgba(18,22,40,.96);--tc-ink:#eef0f8;--cap-bg:rgba(18,22,40,.94);--cap-ink:#eef0f8;--panel:#161b30;--panel-ink:#eef0f8;--face-bg:#1e2c44;--q-ink:#f2d890;
+    --fade:#080a14;--hud-bg:rgba(18,22,40,.82);--hud-ink:#eef0f8;--hud-line:rgba(238,240,248,.24);--ov-bg:rgba(8,10,20,.76)}
+  .tc-room{color:#e8c870;font-family:'EB Garamond',serif;font-weight:600;font-style:italic}
+  .tc-theme{color:#a8b8e0}
+  .tk-role{color:#a8b8e0}
+  .hbtn b{color:#080a14}
+  #prlight{animation:blink 2.2s steps(1,end) infinite}
+  @keyframes blink{50%{opacity:.2}}
+  #minute{transform-origin:1110px 120px}
+
+  /* Freya's phone, and what Burble thinks */
+  .ph5{width:min(1120px,96vw)}
+  .ph5-in{background:#0f1220;border:1px solid #3a4060;border-radius:8px;padding:12px 14px;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+  .ph5-in h5{margin:0 0 8px;font-family:'Outfit',sans-serif;font-weight:700;font-size:18px;color:#c9b8ff}
+  .inf{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;background:#1c2034;border-radius:8px;padding:8px 12px;margin:0 0 6px}
+  .inf b{font-family:'Outfit',sans-serif;font-weight:600;font-size:16px;color:#eef0f8}
+  .inf b i{font-style:normal;color:#c9b8ff;margin-right:6px}
+  .lets button{width:38px;height:34px;margin-left:4px;border:2px solid #4a5070;border-radius:6px;color:#eef0f8;font-family:'Roboto Mono',monospace;font-size:15px}
+  .lets button:hover{border-color:#c9b8ff}
+  .lets button.on{background:#5a3ad0;border-color:#c9b8ff}
+  .ph5-note{font-family:'Inter',sans-serif;font-size:13.5px;color:#a8b0c8;margin:6px 0 0}
+  .two5{display:grid;grid-template-columns:330px 1fr;gap:14px}
+  .set{background:#f7f8fa;color:#1a1f2a;border:12px solid #1d2026;border-radius:22px;padding:8px 12px;font-family:'Outfit',sans-serif}
+  .set h6{margin:0 0 6px;font-size:14px;letter-spacing:.06em;color:#5a3ad0}
+  .tg{display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-bottom:1px solid #e4e6ec;font-size:15px}
+  .tg button{width:64px;height:30px;border-radius:15px;background:#5a3ad0;color:#fff;font-family:'Inter',sans-serif;font-weight:700;font-size:12px;letter-spacing:.08em}
+  .tg button.off{background:#c8cad2;color:#3a3f4a}
+  .ordb{display:flex;gap:6px;padding:7px 0}
+  .ordb button{flex:1;padding:6px 4px;border:2px solid #c8cad2;border-radius:8px;font-family:'Outfit',sans-serif;font-size:13.5px;color:#1a1f2a}
+  .ordb button.on{border-color:#5a3ad0;background:#efeafd}
+  .wish{margin-top:8px;background:#fff6a8;color:#3a2a0a;font-family:'Kalam',cursive;font-size:15px;line-height:1.25;padding:6px 9px;transform:rotate(-1deg)}
+  .wish p{margin:0 0 4px}
+  .cands h6{margin:0 0 6px;font-family:'Outfit',sans-serif;font-size:14px;letter-spacing:.06em;color:#c9b8ff}
+  .cand{display:block;width:100%;text-align:left;background:#1c2034;color:#eef0f8;border:2px solid #2c3250;border-radius:9px;padding:6px 10px;margin:0 0 5px;font-family:'Outfit',sans-serif;cursor:pointer}
+  .cand:hover{border-color:#6a70a0}
+  .cand.on{border-color:#f2c230;box-shadow:0 0 0 2px #f2c230}
+  .cand b{font-size:15px;font-weight:600}
+  .cand small{display:block;font-family:'Roboto Mono',monospace;font-size:11.5px;color:#9aa0b8;margin:1px 0 2px}
+  .cand span{display:block;font-family:'Roboto Mono',monospace;font-size:12.3px;color:#d8dcf0}
+  .cand em{font-style:normal;color:#f2c230}
+  .ph5 .pmsg{color:#eef0f8}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="nightG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0a0e22"/><stop offset="1" stop-color="#242a48"/></linearGradient>
+  <radialGradient id="lampG" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#f2e8a0" stop-opacity=".55"/><stop offset="1" stop-color="#f2e8a0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="scrG" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#b8a0ff" stop-opacity=".4"/><stop offset="1" stop-color="#b8a0ff" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="45%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".72" stop-color="#000" stop-opacity=".2"/><stop offset="1" stop-color="#000" stop-opacity=".72"/></radialGradient>
+  <clipPath id="archC"><path d="M650 470V230q0 -120 120 -120t120 120v240z"/></clipPath>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1700" fill="#22305a"/>
+<rect x="-1000" y="-400" width="3600" height="440" fill="#1a2444"/><rect x="-1000" y="36" width="3600" height="8" fill="#c8a046"/>
+<!-- shelves -->
+<g id="shelvesL"><rect x="-300" y="120" width="880" height="520" fill="#4a2e1a"/><g fill="#3a2414"><rect x="-300" y="230" width="880" height="12"/><rect x="-300" y="350" width="880" height="12"/><rect x="-300" y="470" width="880" height="12"/></g><g id="booksL"></g></g>
+<g id="shelvesR"><rect x="1310" y="120" width="900" height="400" fill="#4a2e1a"/><g fill="#3a2414"><rect x="1310" y="230" width="900" height="12"/><rect x="1310" y="350" width="900" height="12"/></g><g id="booksR"></g></g>
+<g id="history" class="hot"><rect x="420" y="250" width="40" height="100" fill="#8a2a2a"/><text x="440" y="300" class="cE" font-size="11" fill="#e8d4a0" transform="rotate(-90 440 300)" text-anchor="middle">BRIDGE DAY</text></g>
+<!-- the arched window -->
+<g id="win" class="hot"><g clip-path="url(#archC)"><rect x="640" y="100" width="260" height="380" fill="url(#nightG)"/>
+  <path d="M640 400h260v80H640z" fill="#1a1e30"/><rect x="700" y="330" width="140" height="70" fill="#2a2440"/><path d="M700 330l70 -40 70 40z" fill="#2a2440"/><g fill="#ffd27a"><rect x="716" y="350" width="22" height="30"/><rect x="752" y="350" width="22" height="30"/><rect x="788" y="350" width="22" height="30"/></g>
+  <circle cx="820" cy="170" r="14" fill="#eef0d8"/></g>
+  <path d="M650 470V230q0 -120 120 -120t120 120v240z" fill="none" stroke="#e8e0cc" stroke-width="10"/><path d="M770 112V470M650 300H890" stroke="#e8e0cc" stroke-width="5"/></g>
+<!-- the clock -->
+<g id="clock" class="hot"><circle cx="1110" cy="120" r="46" fill="#f2ecd8" stroke="#3a2a1a" stroke-width="6"/><path d="M1110 120V92" stroke="#1a1a1a" stroke-width="3" id="minute" transform="rotate(216 1110 120)"/><path d="M1110 120V102" stroke="#1a1a1a" stroke-width="4" transform="rotate(228 1110 120)"/><circle cx="1110" cy="120" r="4" fill="#1a1a1a"/></g>
+<!-- the computer -->
+<g id="screen" class="hot"><rect x="340" y="560" width="250" height="16" fill="#6a4426"/><rect x="356" y="576" width="12" height="90" fill="#4a2e1a"/><rect x="562" y="576" width="12" height="90" fill="#4a2e1a"/>
+  <rect x="400" y="440" width="150" height="104" rx="6" fill="#1d2026"/><rect x="408" y="448" width="134" height="86" fill="#f7f8fa"/><rect x="408" y="448" width="134" height="14" fill="#5a3ad0"/><g fill="#a8a0c8"><rect x="416" y="472" width="80" height="4"/><rect x="416" y="484" width="110" height="4"/><rect x="416" y="496" width="96" height="4"/><rect x="416" y="508" width="104" height="4"/></g><rect x="466" y="544" width="18" height="16" fill="#1d2026"/>
+  <circle cx="475" cy="490" r="90" fill="url(#scrG)" pointer-events="none"/></g>
+<!-- the counter, the leaflets, the printer -->
+<g id="clare" class="hot" transform="translate(1120 770) scale(1.12)"></g>
+<rect x="920" y="530" width="380" height="16" fill="#8a5a34"/><rect x="930" y="546" width="360" height="180" fill="#5a3a22"/><g fill="#4a2e1a"><rect x="950" y="566" width="150" height="140"/><rect x="1120" y="566" width="150" height="140"/></g>
+<g id="leaflet" class="hot"><rect x="940" y="470" width="66" height="62" fill="#3a3a3a"/><rect x="946" y="462" width="54" height="60" fill="#f4f0e6"/><rect x="946" y="462" width="54" height="10" fill="#c8462a"/><text x="973" y="490" class="cO" font-size="7.5" text-anchor="middle" fill="#22252a">YOUR DATA,</text><text x="973" y="500" class="cO" font-size="7.5" text-anchor="middle" fill="#22252a">YOUR RIGHT</text></g>
+<g id="printer" class="hot"><rect x="1330" y="600" width="170" height="16" fill="#6a4426"/><rect x="1346" y="616" width="12" height="90" fill="#4a2e1a"/><rect x="1474" y="616" width="12" height="90" fill="#4a2e1a"/>
+  <rect x="1350" y="530" width="130" height="70" rx="6" fill="#d8d8dc"/><rect x="1366" y="512" width="98" height="22" fill="#b8b8bc"/><path d="M1370 560l-6 40h102l-6 -40z" fill="#fff"/><g fill="#fff"><rect x="1372" y="572" width="88" height="4"/><rect x="1370" y="578" width="92" height="4"/></g><circle id="prlight" cx="1466" cy="546" r="4" fill="#3ad07a"/><text x="1415" y="526" class="cM" font-size="9" text-anchor="middle" fill="#3a3a3a">26 pages</text></g>
+<!-- the reading table and Freya's phone -->
+<rect x="-1000" y="720" width="3600" height="600" fill="#3a2a2a"/><g stroke="#2e2020" stroke-width="2"><path d="M-1000 780H2600M-1000 860H2600"/></g>
+<g><rect x="600" y="640" width="300" height="14" fill="#7a4a2a"/><rect x="616" y="654" width="12" height="110" fill="#5a3420"/><rect x="872" y="654" width="12" height="110" fill="#5a3420"/>
+  <g id="lamp" class="hot"><path d="M820 640v-60" stroke="#c8a046" stroke-width="5"/><path d="M780 590q40 -40 80 0z" fill="#2a6a3a"/><circle cx="820" cy="610" r="90" fill="url(#lampG)" pointer-events="none"/></g></g>
+<g id="phone" class="hot"><rect x="676" y="620" width="54" height="24" rx="4" fill="#16191e" transform="rotate(-6 703 632)"/><rect x="680" y="623" width="46" height="18" rx="2" fill="#5a3ad0" transform="rotate(-6 703 632)"/></g>
+<g id="freya" class="hot" transform="translate(520 886) scale(1.1)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Run to Lisk Hall</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="feed.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, lock = null, lampN = 0;
+  var INF = [['1', 'Lives in Gorsey.'], ['2', 'Awake late on school nights.'], ['3', 'Interested in: Gorsey v Crickmore (strong).'], ['4', 'Knows: Ade Bakare.']];
+  /* tomorrow's five candidates: [maker, title, posted, like-you f/l/s, everybody f/l/s, in her contacts] */
+  var CANDS = { lisk: ['@LiskLad', 'CRICKMORE LAUGHS AT GORSEY (AGAIN)', 'Fri 19:00', [80, 6, 16], [45, 4, 6]],
+    hall: ['@lisk.hall', 'Bridge Day: 10 a.m. on the bridge. Everybody welcome.', 'Fri 17:30', [60, 20, 6], [70, 22, 8]],
+    ade: ['@gorseyyc (Ade)', 'Table tennis final: Kofi v Ella', 'Fri 18:40', [50, 30, 2], [60, 30, 4], 1],
+    fold: ['@kenbakes', 'How to fold a Gorsey bun', '14 Aug', [55, 25, 2], [52, 31, 2]],
+    tug: ['@gorsey_gran', 'Tug-of-war practice (with my grandson)', 'Sat 08:15', [40, 15, 3], [48, 20, 4]] };
+  var CORDER = ['fold', 'lisk', 'tug', 'hall', 'ade'];
+
+  (function () {
+    var s = '', i, x, h, cols = ['#8a3a2a', '#2a5a8a', '#3a6a3a', '#a8822a', '#5a3a6a', '#6a6a6a', '#2a4a5a'];
+    [130, 250, 370, 490].forEach(function (y0, r) {
+      for (x = -280, i = r; x < 560; i++) { h = 70 + (i * 7) % 26; if (!(r === 1 && x > 410 && x < 470)) s += '<rect x="' + x + '" y="' + (y0 + 98 - h) + '" width="' + (16 + (i * 5) % 12) + '" height="' + h + '" fill="' + cols[i % cols.length] + '"/>'; x += 18 + (i * 5) % 12; }
+    });
+    $('#booksL').innerHTML = s; s = '';
+    [130, 250, 370].forEach(function (y0, r) {
+      for (x = 1320, i = r + 3; x < 2200; i++) { h = 70 + (i * 7) % 26; s += '<rect x="' + x + '" y="' + (y0 + 98 - h) + '" width="' + (16 + (i * 5) % 12) + '" height="' + h + '" fill="' + cols[i % cols.length] + '"/>'; x += 18 + (i * 5) % 12; }
+    });
+    $('#booksR').innerHTML = s;
+    $('#clare').innerHTML = FD.who('clare');
+    $('#freya').innerHTML = FD.who('freya', { smile: -1 });
+  })();
+
+  ER.init({
+    theme: 'ai', story: 'feed', storyTitle: 'Everybody Thinks So', id: 'library', no: 'V', title: 'The Library',
+    go: 'Push the heavy door',
+    intro: [
+      'In the clubhouse you counted people, not videos. The fight videos in Isla&rsquo;s feed came from three people in Gorsey, and the ones in Freya&rsquo;s from three in Crickmore, one of them Isla herself and one of them Jamie&rsquo;s single joke. LiskLad made none: he only reposts. Five of the six are still signed up for tomorrow, with two hundred others on each side.',
+      'Crickmore Library, 7.36 p.m. Late opening on Fridays, until eight. The meeting starts at eight, in the hall at the end of the bridge.'
+    ],
+    exit: {"next":"hall","w":{"5092226b":"89f74317"}}, tags: {"p1":["4dfba779"],"p2":["dbdd2d4e"],"p3":["f5c80c24"],"p4":["530ddbb6"],"loc":["33972366"],"hist":["a19afc65"],"con":["7f479f0d"],"ord":["212ca915"],"top":["1a7510cd"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('e-file') || null; told = ER.flag('e-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('e-told', told); return true; }
+  function isBusy() { return busy; }
+  function ready() { return told.clare && told.leaflet && told.printer && told.screen && told.freya; }
+  function paint() {
+    $('#phone').classList.toggle('glow', !!(ready() && !nextFile));
+    ER.pips((told.clare ? 1 : 0) + (told.leaflet ? 1 : 0) + (told.printer ? 1 : 0) + (told.screen ? 1 : 0) + (told.freya ? 1 : 0) + (nextFile ? 1 : 0), 6);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Lisk Hall, and the meeting. The button at the bottom of the screen.']];
+    if (lock && lock.isOpen()) return lock.step() === 1 ? ['infer', [
+      'Each thing Burble thinks about Freya was worked out from one part of her data, A to F. Her print-out is in your notebook.',
+      'Where her phone is at night tells you where she lives. When she is busiest on the app tells you when she is awake. Her contacts tell you who she knows. How she watches tells you what she cares about.',
+      'Two parts, E (her phone) and F (her searches), were not used for any of these four.'
+    ]] : ['settings', [
+      'Freya&rsquo;s wishes tell you which switches to turn off. The help page on the library computer (in your notebook) says what each switch does.',
+      'With watch history off, Burble uses the everybody numbers. With contacts off, nobody gets the extra 20 points. Then score all five with Burble&rsquo;s card from the bakery: finished + 2 × liked + 5 × shared.',
+      'Each wish turns one switch off; the order stays as it is. Then, with the everybody numbers and no extra points, the five scores (top to bottom) are 124, 83, 108, 154 and 140.'
+    ]];
+    if (!told.clare) return ['clare', ['Mrs Dimmock, the librarian, is behind the counter. Talk to her.', 'She is on the right, behind the counter, in a teal cardigan.']];
+    if (!told.leaflet) return ['leaflet', ['Mrs Dimmock mentioned a leaflet on the counter.', 'The leaflet with a red top, at the left end of the counter.']];
+    if (!told.printer) return ['printer', ['Freya&rsquo;s data came out of the printer: twenty-six pages.', 'The grey printer on the small table on the right.']];
+    if (!told.screen) return ['screen', ['Freya has opened Burble&rsquo;s help page about settings on the library computer.', 'The computer with a purple screen, on the left.']];
+    if (!told.freya) return ['freya', ['Freya has read her own data. Talk to her: she wants three things.', 'She is standing on the left, by the reading table.']];
+    return ['open', ['Now Freya&rsquo;s phone, on the reading table.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('Freya&rsquo;s switches are off. Tomorrow her feed will start with Bridge Day.'); return; }
+    if (told.in) { busy = false; ER.say('Crickmore Library: books, a green lamp, and twenty-six pages of Freya on the printer.'); return; }
+    tell('in');
+    ER.narrate([
+      'Crickmore Library was built in 1904 and has not been in a hurry since. The heating ticks. A green lamp is on over the reading table, and the printer has just finished something long.',
+      'Through the tall window you can see Lisk Hall at the end of the bridge, every window lit. People are already going in.',
+      'Mrs Dimmock, the librarian, is holding a thick stack of paper at arm&rsquo;s length, as if it might bite.'
+    ], function () { busy = false; });
+  }
+
+  $('#clare').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Eight minutes,&rdquo; says Mrs Dimmock. &ldquo;I&rsquo;ll lock up behind you. Go.&rdquo;'); return; }
+    ER.talk({
+      who: 'Clare Dimmock', role: 'Librarian, Crickmore', face: FD.face('clare', 'smile'),
+      lines: [
+        { note: 'Mrs Dimmock has run Crickmore Library for twenty years. She wears her glasses on a chain and reads everything that comes off her printer, on principle.', a: '&ldquo;Twenty-six pages for Freya Gaskin, from Burble. I read the first page,&rdquo; she says. &ldquo;Then I stopped, because it was like reading somebody&rsquo;s diary, written by somebody else.&rdquo;' },
+        { q: 'Why did Burble send it?', a: '&ldquo;Because she asked, and the law says they must answer. It&rsquo;s called a subject access request. Freya sent hers on the eighth of September. It came yesterday, the eighth of October: a month, to the day. They took exactly as long as they&rsquo;re allowed.&rdquo;' },
+        { q: 'Can anybody ask?', a: '&ldquo;Anybody. You too. There&rsquo;s a leaflet on the counter; I wrote it myself. Most people never ask. Most people would rather not know.&rdquo;' }
+      ],
+      clue: { id: 'clare', title: 'Mrs Dimmock: twenty-six pages', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('clare')) { paint(); ER.say('A subject access request. Freya asked, and Burble had to answer.'); } }
+    });
+  });
+  var LEAFLET = '<div class="hd">Crickmore Library &middot; information point</div><h4>Your data, your right</h4>' +
+    '<p>Organisations that collect information about you (shops, schools, apps) hold <b>personal data</b>: anything that can be linked to you, such as your name, where your phone has been (<b>location data</b>), or what you watched and when.</p>' +
+    '<p>In the UK, data protection law gives you the right to ask an organisation for a copy of the personal data it holds about you. This is called a <b>subject access request</b>. You can make one in writing, by email, or through a form the organisation provides. In most cases it is free, and the organisation normally has one month to reply.</p>' +
+    '<p>You may be surprised by what you get back. Apps do not only keep what you did. They also keep what they have <b>inferred</b> from it: guesses about who you are and what you want.</p><p class="pg">Ask at the counter if you would like help. C. D.</p>';
+  $('#leaflet').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: LEAFLET, cls: 'fd-leaflet', clue: { id: 'leaflet2', title: 'Leaflet: your data, your right', kind: 'On the counter' }, done: function () {
+      FD.terms(['personal data', 'subject access request', 'infer']);
+      if (tell('leaflet')) { paint(); ER.say('Apps keep what you did, and what they have guessed from it.'); }
+    } });
+  });
+  var DATA = '<h4>Burble &middot; Your data &middot; Freya Gaskin</h4><p>Summary of 26 pages. Account opened 2 March 2025.</p>' +
+    '<h5>WHAT WE COLLECTED</h5>' +
+    '<p><span class="L">A</span>Watching: 41,206 videos. For each one: how long you watched, where you paused, whether you watched again, liked, shared or commented. For example, &ldquo;To the comedian from Crickmore&rdquo;: watched 0:48 of 0:48; paused at 0:31 for 12 seconds with the comments open; watched twice.</p>' +
+    '<p><span class="L">B</span>Location: where your phone was, every 15 minutes. Most common place, 22:00 to 07:00: Mill Row, Gorsey. Weekdays, 08:40 to 15:30: Gorsey High School.</p>' +
+    '<p><span class="L">C</span>Contacts: 214 names and numbers uploaded from your phone, including &ldquo;Ade Youth Club&rdquo;, &ldquo;Mum&rdquo; and &ldquo;Gran&rdquo;.</p>' +
+    '<p><span class="L">D</span>Time of day: most active 23:10 to 00:40, Sunday to Thursday.</p>' +
+    '<p><span class="L">E</span>Your phone: model, battery level, network.</p>' +
+    '<p><span class="L">F</span>Searches: &ldquo;frost tonight&rdquo;, &ldquo;how to fold a bun&rdquo;, &ldquo;computing coursework deadline&rdquo;.</p>' +
+    '<h5>THINGS WE THINK ABOUT YOU (used to choose your videos)</h5>' +
+    '<p><span class="L">1</span>Lives in Gorsey.</p><p><span class="L">2</span>Awake late on school nights.</p><p><span class="L">3</span>Interested in: Gorsey v Crickmore (strong).</p><p><span class="L">4</span>Knows: Ade Bakare.</p><p class="pg">page 1 of 26</p>';
+  $('#printer').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: DATA, cls: 'fd-data', clue: { id: 'data', title: 'Freya&rsquo;s data, from Burble', kind: 'From the printer' }, done: function () {
+      FD.terms(['location data', 'contacts']);
+      if (tell('printer')) { paint(); ER.say('Every pause, every place, every name in her phone. And four guesses, in bold.'); }
+    } });
+  });
+  var HELP = '<h4>Burble Help &middot; Your settings</h4><div class="in">' +
+    '<div class="sw"><b>Use my location</b><span>ON: Local Buzz shows videos made within 10 miles of where your phone is. OFF: Local Buzz uses the home town on your profile instead, and we stop recording where your phone goes.</span>' +
+    '<b>Use my watch history</b><span>ON: we predict from what you and people like you did. OFF: we cannot tell what you like, so we predict from what everybody near your home town did.</span>' +
+    '<b>Use my contacts</b><span>ON: videos from people in your contacts get 20 points added to their score. OFF: no extra points.</span>' +
+    '<b>Order</b><span>Most engaging: highest score first (see &ldquo;How Local Buzz chooses&rdquo;). Newest first: the most recent video first, whatever its score.</span></div>' +
+    '<p class="small">Changes start with your next feed. You can also see everything we hold about you: Settings &gt; Your data &gt; Ask for a copy.</p></div>';
+  $('#screen').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: HELP, cls: 'fd-screen', clue: { id: 'help', title: 'Burble Help: your settings', kind: 'On the library computer' }, done: function () {
+      FD.terms(['settings']);
+      if (tell('screen')) { paint(); ER.say('Four settings. Each one changes what Burble counts.'); }
+    } });
+  });
+  $('#freya').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Tomorrow morning,&rdquo; says Freya. &ldquo;Bridge Day first. If there is a Bridge Day.&rdquo;'); return; }
+    if (!told.printer) { ER.say('&ldquo;My data&rsquo;s on the printer,&rdquo; says Freya, not moving. &ldquo;I&rsquo;m scared of it. You read it first.&rdquo;'); return; }
+    ER.talk({
+      who: 'Freya Gaskin', role: 'Sixteen, Gorsey', face: FD.face('freya', 'cross'),
+      lines: [
+        { note: 'Freya is reading her own data with one hand over her mouth.', a: '&ldquo;It knows what time I go to sleep. It knows I paused Ken&rsquo;s video for twelve seconds to read the comments. It thinks I&rsquo;m interested in Gorsey versus Crickmore. Strong. In bold.&rdquo;' },
+        { q: 'Are you?', a: '&ldquo;I am now! It hasn&rsquo;t shown me anything else for six weeks!&rdquo; She takes a breath. &ldquo;Right. It&rsquo;s my phone. Settings. I want three things.&rdquo;' },
+        { a: '&ldquo;One: I don&rsquo;t want it to know where I am at night. Two: stop guessing from what I watched at midnight when I was cross. Three: Ade is in my contacts because he runs the youth club, not because I want his table tennis first. Everything else stays as it is. I want to see whether it&rsquo;s the settings or me.&rdquo;' },
+        { a: '&ldquo;Then tell me what Burble will put first in my feed tomorrow morning. If you can, I&rsquo;ll stand up at eight and show the whole committee how.&rdquo;' }
+      ],
+      clue: { id: 'freya5', title: 'Freya: three wishes', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('freya')) { paint(); ER.say('Her phone is on the reading table, open at Settings.'); } }
+    });
+  });
+  FD.thing('#history', null, 'BRIDGE DAY 1887&ndash;1987: A HUNDRED YEARS OF ROPE. It has been borrowed more times this month than in the last ten years.', isBusy);
+  FD.thing('#win', null, 'Lisk Hall, across the road at the end of the bridge. Every window is lit, and people are going in from both directions.', isBusy);
+  FD.thing('#clock', null, 'The library clock: 7.36. It is never wrong, says Mrs Dimmock, because she will not allow it.', isBusy);
+  $('#lamp').addEventListener('click', function () {
+    if (busy) return;
+    var L = ['A green reading lamp. Under it, somebody has left a book called Getting On With Your Neighbours, open at chapter one.', 'Chapter one is called: Listen.'];
+    ER.say(L[lampN++ % L.length]);
+  });
+  $('#phone').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Location off, watch history off, contacts off. Saved.'); return; }
+    if (!told.clare) { ER.say('Freya&rsquo;s phone. Mrs Dimmock is waving the print-out at you: talk to her first.'); return; }
+    if (!told.leaflet) { ER.say('&ldquo;Read the leaflet,&rdquo; says Mrs Dimmock. &ldquo;I didn&rsquo;t write it for nothing.&rdquo;'); return; }
+    if (!told.printer) { ER.say('Freya&rsquo;s data is on the printer. Read it first.'); return; }
+    if (!told.screen) { ER.say('&ldquo;The help page is open on the computer,&rdquo; says Freya. &ldquo;It says what the switches do.&rdquo;'); return; }
+    if (!told.freya) { ER.say('It&rsquo;s Freya&rsquo;s phone. Ask her what she wants.'); return; }
+    if (!lock) lock = makeLock();
+    lock.open();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the lock: what it guessed, and what it will show ---------- */
+  function makeLock() {
+    var st = ER.flag('e-st') || { p: ['', '', '', ''], step: 1, loc: 'on', hist: 'on', con: 'on', ord: 'eng', top: '' }, wait = false;
+    var box = ER.el('div', 'pz ph5'), inner = ER.el('div', 'ph5-in'), foot = ER.el('div', 'pz-foot');
+    foot.innerHTML = '<p class="pmsg"></p><button type="button" class="btn" id="ph-go"></button>';
+    box.appendChild(inner); box.appendChild(foot);
+    var msgEl = foot.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function save() { ER.flag('e-st', st); }
+    function draw() {
+      var s;
+      if (st.step === 1) {
+        s = '<h5>Things Burble thinks about you. Where did each guess come from?</h5>';
+        INF.forEach(function (f, i) {
+          s += '<div class="inf"><b><i>' + f[0] + '</i>' + f[1] + '</b><div class="lets">' + ['A', 'B', 'C', 'D', 'E', 'F'].map(function (L) { return '<button type="button" data-i="' + i + '" data-l="' + L.toLowerCase() + '"' + (st.p[i] === L.toLowerCase() ? ' class="on"' : '') + '>' + L + '</button>'; }).join('') + '</div></div>';
+        });
+        s += '<p class="ph5-note">A Watching &middot; B Location &middot; C Contacts &middot; D Time of day &middot; E Your phone &middot; F Searches (her print-out is in your notebook)</p>';
+        inner.innerHTML = s;
+        foot.querySelector('#ph-go').textContent = 'Check the guesses';
+        ER.$$('.lets button', inner).forEach(function (b) {
+          b.addEventListener('click', function () { if (wait || nextFile) return; var i = +b.getAttribute('data-i'); st.p[i] = st.p[i] === b.getAttribute('data-l') ? '' : b.getAttribute('data-l'); save(); FD.sfx.tap(); draw(); });
+        });
+        return;
+      }
+      function tg(k, label) { return '<div class="tg"><span>' + label + '</span><button type="button" data-k="' + k + '"' + (st[k] === 'off' ? ' class="off"' : '') + '>' + st[k].toUpperCase() + '</button></div>'; }
+      s = '<div class="two5"><div class="set"><h6>SETTINGS &middot; FREYA</h6>' + tg('loc', 'Use my location') + tg('hist', 'Use my watch history') + tg('con', 'Use my contacts') +
+        '<div class="ordb"><button type="button" data-o="eng"' + (st.ord === 'eng' ? ' class="on"' : '') + '>Most engaging</button><button type="button" data-o="new"' + (st.ord === 'new' ? ' class="on"' : '') + '>Newest first</button></div>' +
+        '<div class="wish"><p>1. Don&rsquo;t know where I am at night.</p><p>2. Stop guessing from what I watched at midnight when I was cross.</p><p>3. Ade&rsquo;s table tennis doesn&rsquo;t jump the queue.</p><p>Everything else stays as it is. F.</p></div></div>' +
+        '<div class="cands"><h6>TOMORROW, 9 A.M. &middot; WHICH WILL LOCAL BUZZ PUT FIRST? (click one)</h6>';
+      CORDER.forEach(function (k) {
+        var c = CANDS[k];
+        s += '<button type="button" class="cand' + (st.top === k ? ' on' : '') + '" data-c="' + k + '"><b>' + c[1] + '</b><small>' + c[0] + ' &middot; posted ' + c[2] + (c[5] ? ' &middot; <em>in Freya&rsquo;s contacts</em>' : '') + '</small>' +
+          '<span>people like Freya: finished ' + c[3][0] + ' &middot; liked ' + c[3][1] + ' &middot; shared ' + c[3][2] + '</span><span>everybody near Gorsey: finished ' + c[4][0] + ' &middot; liked ' + c[4][1] + ' &middot; shared ' + c[4][2] + '</span></button>';
+      });
+      s += '</div></div>';
+      inner.innerHTML = s;
+      foot.querySelector('#ph-go').textContent = 'Save and predict';
+      ER.$$('.tg button', inner).forEach(function (b) { b.addEventListener('click', function () { if (wait || nextFile) return; var k = b.getAttribute('data-k'); st[k] = st[k] === 'on' ? 'off' : 'on'; save(); FD.sfx.switch(); draw(); }); });
+      ER.$$('.ordb button', inner).forEach(function (b) { b.addEventListener('click', function () { if (wait || nextFile) return; st.ord = b.getAttribute('data-o'); save(); FD.sfx.switch(); draw(); }); });
+      ER.$$('.cand', inner).forEach(function (b) { b.addEventListener('click', function () { if (wait || nextFile) return; var k = b.getAttribute('data-c'); st.top = st.top === k ? '' : k; save(); FD.sfx.tap(); draw(); }); });
+    }
+    foot.querySelector('#ph-go').addEventListener('click', function () {
+      if (wait || nextFile) return;
+      var i, file;
+      if (st.step === 1) {
+        if (st.p.indexOf('') >= 0) { ER.sfx.no(); msg('Give every guess a letter, A to F.'); return; }
+        for (i = 0; i < 4; i++) if (!ER.check('p' + (i + 1), st.p[i])) {
+          ER.sfx.no();
+          msg(st.p[i] === 'e' ? '&ldquo;Number ' + (i + 1) + ',&rdquo; says Freya. &ldquo;My battery level doesn&rsquo;t tell it that. Which part does?&rdquo;' :
+            st.p[i] === 'f' ? '&ldquo;Number ' + (i + 1) + '? My searches were frost, buns and coursework,&rdquo; says Freya. &ldquo;Look somewhere else.&rdquo;' :
+            '&ldquo;Number ' + (i + 1) + ' isn&rsquo;t right,&rdquo; says Freya. &ldquo;Which part of my data would let somebody guess that?&rdquo;');
+          return;
+        }
+        st.step = 2; save(); ER.sfx.ok(); draw();
+        msg('&ldquo;Where I sleep, when I sleep, who I know, and what makes me cross,&rdquo; says Freya. &ldquo;Right. Settings.&rdquo;');
+        return;
+      }
+      if (!ER.check('loc', st.loc)) { ER.sfx.no(); msg('&ldquo;Wish one,&rdquo; says Freya. &ldquo;I don&rsquo;t want it to know where I am at night. Which switch records where my phone goes?&rdquo;'); return; }
+      if (!ER.check('hist', st.hist)) { ER.sfx.no(); msg('&ldquo;Wish two,&rdquo; says Freya. &ldquo;Stop guessing from what I watched at midnight. Which switch is that?&rdquo;'); return; }
+      if (!ER.check('con', st.con)) { ER.sfx.no(); msg('&ldquo;Wish three,&rdquo; says Freya. &ldquo;Ade&rsquo;s videos get extra points because he&rsquo;s in my phone. Stop that.&rdquo;'); return; }
+      if (!ER.check('ord', st.ord)) { ER.sfx.no(); msg('&ldquo;Everything else stays as it is,&rdquo; says Freya. &ldquo;I want to see if it&rsquo;s the settings or me. Leave the order alone.&rdquo;'); return; }
+      if (!st.top) { ER.sfx.no(); msg('&ldquo;Now the prediction,&rdquo; says Freya. &ldquo;Which one comes first tomorrow? Click it.&rdquo;'); return; }
+      if (!ER.check('top', st.top)) {
+        ER.sfx.no();
+        msg(st.top === 'lisk' ? '&ldquo;That one wins tonight, with my watch history on,&rdquo; says Freya. &ldquo;With it off, Burble can&rsquo;t use the people-like-me numbers. Which numbers does it use?&rdquo;' :
+          st.top === 'ade' ? '&ldquo;Ade&rsquo;s table tennis only wins with the 20 extra points,&rdquo; says Freya. &ldquo;And I&rsquo;ve just turned those off.&rdquo;' :
+          '&ldquo;Score all five,&rdquo; says Freya. &ldquo;The card from the bakery, with the everybody numbers. It&rsquo;s in your notebook.&rdquo;');
+        return;
+      }
+      file = ER.exit([st.p.join('-') + '-' + st.loc + '-' + st.hist + '-' + st.con + '-' + st.ord + '-' + st.top], { wait: true });
+      if (!file) { msg('The phone freezes. Something is wrong with this page: tell your teacher.'); return; }
+      wait = true; nextFile = file; ER.flag('e-file', file);
+      FD.terms(['settings', 'personal data', 'infer']);
+      FD.mine('settings', 'Freya&rsquo;s settings', '<p>Lives in Gorsey ← B, location at night. Awake late ← D, time of day. Gorsey v Crickmore ← A, how she watches. Knows Ade ← C, contacts.</p><p>Location off, watch history off, contacts off, order still Most engaging. So Burble uses the everybody numbers, and nobody gets 20 extra points.</p><p>Bridge Day video: 70 + 44 + 40 = 154, the highest. With her history on, LiskLad would have won with 172.</p>', true);
+      msg('&ldquo;Bridge Day,&rdquo; says Freya. &ldquo;Saved.&rdquo;');
+      setTimeout(function () {
+        ER.closeAll(); paint(); busy = true;
+        ER.narrate([
+          'Freya slides the three switches off, one by one, and looks at them for a moment. &ldquo;So tomorrow morning,&rdquo; she says, &ldquo;the first thing I&rsquo;ll see is Lisk Hall saying Bridge Day is on. Tonight it was LiskLad. Same app. Same videos. Different things counted.&rdquo;',
+          '&ldquo;Just so I understand,&rdquo; says Mrs Dimmock, who has been reading over her shoulder, &ldquo;nobody in Burble chose to show you fights. It was counting your midnights.&rdquo; &ldquo;And my pauses,&rdquo; says Freya. &ldquo;And Ade.&rdquo;',
+          'The library clock says eight minutes to eight. &ldquo;It&rsquo;s six minutes to the hall,&rdquo; says Mrs Dimmock, already finding her keys. &ldquo;Four if you run. Run.&rdquo;'
+        ], function () { busy = false; $('#go').classList.add('on'); });
+      }, 2400);
+    });
+    draw();
+    msg(st.step === 1 ? 'Burble has made four guesses about Freya. Match each one to the part of her data it came from.' : 'Set the switches the way Freya wants, then predict what comes first tomorrow.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; }, step: function () { return st.step; } };
+  }
+})();
+</script>
+</body>
+</html>

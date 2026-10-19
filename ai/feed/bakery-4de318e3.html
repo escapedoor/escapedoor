@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Bakery · Everybody Thinks So</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-ai.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="feed.css">
+<style>
+  body{--bg:#2a1e14;--accent:#f2c230;--font-display:'Bricolage Grotesque',sans-serif;--font-ui:'Inter',sans-serif;--font-body:'Literata',serif;
+    --tc-bg:rgba(36,26,18,.96);--tc-ink:#f6eee0;--cap-bg:rgba(36,26,18,.94);--cap-ink:#f6eee0;--panel:#2a1e14;--panel-ink:#f6eee0;--face-bg:#5a4a3a;--q-ink:#ffd27a;
+    --fade:#0e0a06;--hud-bg:rgba(36,26,18,.82);--hud-ink:#f6eee0;--hud-line:rgba(246,238,224,.24);--ov-bg:rgba(14,10,6,.76)}
+  .tc-room{color:#ffd27a;font-family:'Cinzel',serif;font-weight:700}
+  .tc-theme{color:#e8c890}
+  .tk-role{color:#e8c890}
+  .hbtn b{color:#0e0a06}
+  .mote{animation:mote 9s linear infinite}
+  @keyframes mote{0%{transform:translate(0,0);opacity:0}20%{opacity:.8}100%{transform:translate(40px,-180px);opacity:0}}
+
+  /* the window display */
+  .bw{width:min(1100px,96vw)}
+  .bw-in{display:grid;grid-template-columns:1.05fr 1fr;gap:16px;background:#1c140c;border:12px solid #3a2a1a;border-radius:6px;padding:14px;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+  .bw-win{background:linear-gradient(180deg,#203048,#101a28);padding:10px 12px;border-radius:3px;position:relative}
+  .bw-win h5{margin:0 0 6px;font-family:'Cinzel',serif;font-weight:700;font-size:15px;letter-spacing:.14em;color:#f2d68a;text-align:center}
+  .sh{position:relative;min-height:66px;margin:0 0 7px;border-bottom:9px solid #8a5a34;background:rgba(255,255,255,.04);display:flex;align-items:flex-end;padding:3px 6px 3px 40px}
+  .sh:before{content:attr(data-n);position:absolute;left:6px;top:50%;transform:translateY(-50%);font-family:'Cinzel',serif;font-weight:700;font-size:24px;color:#f2d68a}
+  .bw-win h5 small{display:block;font-family:'Roboto Mono',monospace;font-weight:400;font-size:10.5px;letter-spacing:.12em;color:#9ab0d0}
+  .sh.empty{outline:2px dashed rgba(242,214,138,.3);outline-offset:-4px}
+  .bw-home{background:#f2e6cc;padding:10px;border-radius:3px;display:flex;flex-direction:column;gap:7px;min-height:380px}
+  .bw-home h5{margin:0;font-family:'Kalam',cursive;font-weight:700;font-size:17px;color:#5a3a1a}
+  .vb{position:relative;display:block;width:100%;background:#fffdf6;color:#2a1e14;border:2px solid #c8a46a;border-radius:4px;padding:5px 9px 5px;cursor:grab;font-family:'Outfit',sans-serif;box-shadow:0 2px 0 #c8a46a}
+  .vb b{display:block;font-weight:700;font-size:14.5px;line-height:1.15}
+  .vb span{display:block;font-family:'Roboto Mono',monospace;font-size:12px;color:#5a4a3a;margin-top:2px}
+  .vb span em{font-style:normal;color:#8a8a8a}
+  .vb.held{outline:3px solid #f2c230}
+  .vb.fly{position:fixed;z-index:80;pointer-events:none;box-shadow:0 14px 30px rgba(0,0,0,.5)}
+  .sh .vb{box-shadow:none}
+  .bw .pmsg{color:#f6eee0}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="tiles" width="44" height="44" patternUnits="userSpaceOnUse"><rect width="44" height="44" fill="#eef2f4"/><rect x="0" y="0" width="44" height="2" fill="#9ab4c8"/><rect x="0" y="0" width="2" height="44" fill="#9ab4c8"/><circle cx="22" cy="22" r="6" fill="none" stroke="#5a86b0" stroke-width="1.5" opacity=".5"/></pattern>
+  <linearGradient id="street" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#101a2c"/><stop offset="1" stop-color="#2a3448"/></linearGradient>
+  <radialGradient id="lampG" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffd890" stop-opacity=".6"/><stop offset="1" stop-color="#ffd890" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="55%" cy="45%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".72" stop-color="#000" stop-opacity=".16"/><stop offset="1" stop-color="#000" stop-opacity=".66"/></radialGradient>
+  <clipPath id="glassC"><rect x="40" y="130" width="400" height="420"/></clipPath>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1700" fill="url(#tiles)"/>
+<rect x="-1000" y="-400" width="3600" height="440" fill="#2c4a3a"/><rect x="-1000" y="36" width="3600" height="8" fill="#c8a046"/>
+<g id="sign" class="hot"><rect x="560" y="56" width="560" height="74" fill="#1f3a2c" stroke="#c8a046" stroke-width="4"/><text x="840" y="102" class="cC" font-size="34" font-weight="700" text-anchor="middle" fill="#f2d68a" letter-spacing="5">POCOCK&#8217;S</text><text x="840" y="124" class="cE" font-size="14" text-anchor="middle" fill="#e8d4a0" letter-spacing="3">BAKERS SINCE 1961</text></g>
+
+<!-- shelves of bread -->
+<g><rect x="600" y="170" width="720" height="14" fill="#8a5a34"/><rect x="600" y="290" width="720" height="14" fill="#8a5a34"/><rect x="600" y="410" width="720" height="14" fill="#8a5a34"/>
+  <g fill="#c88a4a"><ellipse cx="660" cy="152" rx="44" ry="20"/><ellipse cx="760" cy="152" rx="44" ry="20"/><ellipse cx="860" cy="152" rx="44" ry="20"/><ellipse cx="1060" cy="152" rx="44" ry="20"/><ellipse cx="1180" cy="152" rx="44" ry="20"/></g>
+  <g fill="#d8a060"><circle cx="650" cy="272" r="18"/><circle cx="692" cy="272" r="18"/><circle cx="734" cy="272" r="18"/><circle cx="776" cy="272" r="18"/><circle cx="1050" cy="272" r="18"/><circle cx="1092" cy="272" r="18"/><circle cx="1134" cy="272" r="18"/><circle cx="1176" cy="272" r="18"/><circle cx="1218" cy="272" r="18"/></g>
+  <g fill="#a86a3a"><rect x="630" y="370" width="110" height="40" rx="16"/><rect x="760" y="370" width="110" height="40" rx="16"/><rect x="1110" y="370" width="110" height="40" rx="16"/></g>
+  <g fill="#f4ecd8" opacity=".55"><circle cx="652" cy="266" r="5"/><circle cx="694" cy="266" r="5"/><circle cx="736" cy="266" r="5"/></g></g>
+<g id="frame" class="hot"><rect x="1370" y="170" width="150" height="130" fill="#3a2a1a"/><rect x="1382" y="182" width="126" height="92" fill="#c8b48a"/><circle cx="1430" cy="214" r="14" fill="#6a5a44"/><path d="M1410 274q20 -40 40 0z" fill="#6a5a44"/><circle cx="1478" cy="244" r="10" fill="#efe2c4"/><text x="1445" y="292" class="cE" font-size="11" text-anchor="middle" fill="#efe2c4">A. Pocock, 1961</text></g>
+
+<!-- the shop window, from inside -->
+<g id="window" class="hot"><rect x="-1000" y="120" width="1450" height="560" fill="#3a2a1a"/><g clip-path="url(#glassC)"><rect x="40" y="130" width="400" height="420" fill="url(#street)"/>
+  <rect x="100" y="200" width="6" height="230" fill="#2a2a30"/><circle cx="103" cy="196" r="10" fill="#ffd890"/><circle cx="103" cy="196" r="90" fill="url(#lampG)"/>
+  <path d="M40 380h400v170H40z" fill="#1a2232"/><path d="M230 300h170v80H230z" fill="#22283a"/><g fill="#ffd27a" opacity=".8"><rect x="250" y="316" width="16" height="16"/><rect x="286" y="316" width="16" height="16"/><rect x="350" y="316" width="16" height="16"/></g>
+  <text x="240" y="186" class="cC" font-size="40" font-weight="700" text-anchor="middle" fill="#c8a046" opacity=".6" transform="scale(-1 1) translate(-480 0)">POCOCK&#8217;S</text></g>
+  <rect x="40" y="130" width="400" height="420" fill="none" stroke="#2a1c10" stroke-width="12"/>
+  <g><path d="M50 640h380v24H50z" fill="#8a5a34"/><path d="M80 590h320v22H80z" fill="#9a6a3e"/><path d="M110 545h260v20H110z" fill="#aa7a48"/><path d="M140 505h200v16H140z" fill="#ba8a52"/><path d="M170 470h140v14H170z" fill="#c89a5e"/></g>
+  <text x="240" y="452" class="cK" font-size="18" text-anchor="middle" fill="#f2d68a">empty shelves</text></g>
+
+<!-- Ken, behind the counter -->
+<g id="ken" class="hot" transform="translate(960 772) scale(1.16)"></g>
+<!-- the counter -->
+<g><rect x="480" y="560" width="940" height="16" fill="#c8a46a"/><rect x="480" y="576" width="940" height="200" fill="#6a4426"/><g fill="#5a3a20"><rect x="520" y="600" width="270" height="150"/><rect x="820" y="600" width="270" height="150"/><rect x="1120" y="600" width="270" height="150"/></g>
+  <g id="case" class="hot"><path d="M640 560v-60h300v60z" fill="rgba(220,240,255,.25)" stroke="#e8f0f4" stroke-width="3"/><g fill="#d8a060"><circle cx="680" cy="548" r="14"/><circle cx="716" cy="548" r="14"/><circle cx="752" cy="548" r="14"/><circle cx="788" cy="548" r="14"/></g><g fill="#a8682e"><circle cx="840" cy="548" r="14"/><circle cx="876" cy="548" r="14"/></g><text x="790" y="518" class="cK" font-size="14" text-anchor="middle" fill="#3a2a1a">GORSEY BUNS 60p</text></g></g>
+<g id="leaflet" class="hot"><rect x="520" y="498" width="70" height="62" fill="#3a3a3a"/><rect x="526" y="490" width="58" height="60" fill="#f4f0e6"/><rect x="526" y="490" width="10" height="60" fill="#c8462a"/><text x="560" y="510" class="cO" font-size="7.5" text-anchor="middle" fill="#22252a">PARENTS&#8217;</text><text x="560" y="520" class="cO" font-size="7.5" text-anchor="middle" fill="#22252a">GUIDE</text></g>
+<g id="card" class="hot" transform="rotate(-6 1010 548)"><rect x="966" y="526" width="96" height="40" fill="#fff"/><rect x="966" y="526" width="96" height="9" fill="#5a3ad0"/><g fill="#a8a0c8"><rect x="974" y="540" width="70" height="3"/><rect x="974" y="547" width="80" height="3"/><rect x="974" y="554" width="60" height="3"/></g></g>
+<g id="tablet" class="hot"><path d="M1110 560l14 -64h104l-6 64z" fill="#1d2026"/><path d="M1124 552l11 -50h86l-5 50z" fill="#5a3ad0"/><g fill="#fff" opacity=".7"><rect x="1140" y="512" width="56" height="4"/><rect x="1138" y="522" width="64" height="3"/><rect x="1136" y="530" width="60" height="3"/><rect x="1134" y="538" width="66" height="3"/></g></g>
+<g id="till" class="hot"><rect x="1280" y="500" width="110" height="60" rx="6" fill="#4a4a52"/><rect x="1296" y="482" width="78" height="24" fill="#2a2a30"/><text x="1335" y="499" class="cM" font-size="13" text-anchor="middle" fill="#7af0a0">0.00</text></g>
+<g id="motes"></g>
+<g id="freya" class="hot" transform="translate(1440 880) scale(1.1)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Down to the bridge</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="feed.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, lock = null, tillN = 0;
+  /* Ken's five videos, as Burble's Insights shows them for viewers near Gorsey */
+  var VIDS = { fold: ['How to fold a Gorsey bun', '2,140', 52, 31, 2], race: ['Bridge Day 1987: the bun race', '1,860', 75, 18, 4],
+    reply: ['To the comedian from Crickmore', '38,412', 71, 9, 14], cinn: ['New! The cinnamon Gorsey', '3,050', 38, 24, 3], deal: ['Two for £1 after four o&rsquo;clock', '990', 22, 5, 1] };
+  var HOME = ['fold', 'deal', 'reply', 'cinn', 'race'];
+
+  (function () {
+    var s = '', i;
+    for (i = 0; i < 14; i++) s += '<circle class="mote" cx="' + (620 + (i * 53) % 640) + '" cy="' + (300 + (i * 37) % 240) + '" r="' + (1.5 + (i % 3) * 0.6) + '" fill="#fff" opacity=".6" style="animation-delay:-' + ((i * 0.7) % 9).toFixed(1) + 's"/>';
+    $('#motes').innerHTML = s;
+    $('#ken').innerHTML = FD.who('ken');
+    $('#freya').innerHTML = FD.who('freya', { smile: 2 });
+  })();
+
+  ER.init({
+    theme: 'ai', story: 'feed', storyTitle: 'Everybody Thinks So', id: 'bakery', no: 'II', title: 'The Bakery',
+    go: 'Knock on the glass',
+    intro: [
+      'At the youth club the felt-pen chart told you what Ade&rsquo;s phone would show him next. Ella did the same as Ade on all five videos, Gemma and Harvey on four, and all three pointed to video 6: LiskLad&rsquo;s CRICKMORE LAUGHS AT GORSEY (AGAIN). No hacker was needed. A recommendation system predicts from people who behave like you.',
+      'Pocock&rsquo;s Bakery, Gorsey High Street, 6.27 p.m. The sign on the door says CLOSED, and Ken Pocock is sweeping flour into a small, angry pile.'
+    ],
+    exit: {"next":"bridge","w":{"4715bdb8":"3cdace7e"}}, tags: {"s1":["5e3e266f"],"s2":["faeea189"],"s3":["9d5e79ff"],"s4":["7b0c1133"],"s5":["2e69b22c"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('b-file') || null; told = ER.flag('b-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('b-told', told); return true; }
+  function isBusy() { return busy; }
+  function ready() { return told.ken && told.tablet && told.card && told.leaflet; }
+  function paint() {
+    $('#window').classList.toggle('glow', !!(ready() && !nextFile));
+    ER.pips((told.ken ? 1 : 0) + (told.tablet ? 1 : 0) + (told.card ? 1 : 0) + (told.leaflet ? 1 : 0) + (nextFile ? 1 : 0), 5);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The bridge is next. The button at the bottom of the screen.']];
+    if (lock && lock.isOpen()) return ['window', [
+      'Burble&rsquo;s card (in your notebook: How Local Buzz chooses) gives every video a score. Highest score goes at the top. Views are not on the card.',
+      'Score = finished + 2 × liked + 5 × shared. Do it for each of the five boxes. The folding video, for example: 52 + 62 + 10.',
+      'The scores are 159, 131, 124, 101 and 37. The video with the most likes is not the winner, and neither is the one with the most finished.'
+    ]];
+    if (!told.ken) return ['ken', ['Ken is behind the counter. Talk to him.']];
+    if (!told.tablet) return ['tablet', ['Ken said his numbers are on the tablet.', 'The tablet with a purple screen, propped on the counter on the right.']];
+    if (!told.card) return ['card', ['Freya has put a page from Burble&rsquo;s own help on the counter.', 'The white page with a purple stripe, lying on the counter between the buns and the tablet.']];
+    if (!told.leaflet) return ['leaflet', ['There is a leaflet for parents on the counter. It explains why Burble counts what it counts.', 'The small leaflet with a red edge, on the left end of the counter.']];
+    return ['open', ['Now the window display, on the left. Put Ken&rsquo;s videos in the order Burble would show them.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('The window is lit: the angry reply at the top, the folding video third.'); return; }
+    if (told.in) { busy = false; ER.say('Pocock&rsquo;s Bakery, after hours. Flour in the air, and Ken.'); return; }
+    tell('in');
+    ER.narrate([
+      'Freya knocks on the glass until Ken gives up pretending not to see her. He lets you in with a sigh that smells of cinnamon.',
+      'Blue and white tiles, three shelves of what is left of today&rsquo;s bread, and a glass case of Gorsey buns: round, sticky, with a twist on top. They have been made the same way in this shop since 1961.',
+      'In the window, the display shelves are empty. Ken always clears them at closing time, and tonight he has not had the heart to.'
+    ], function () { busy = false; });
+  }
+
+  $('#ken').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Top shelf,&rdquo; says Ken, to nobody. &ldquo;My worst video. On my top shelf.&rdquo;'); return; }
+    ER.talk({
+      who: 'Ken Pocock', role: 'Baker, Gorsey', face: FD.face('ken', 'cross'),
+      lines: [
+        { note: 'Ken Pocock is a large man with flour up to his elbows and a moustache that has opinions.', a: '&ldquo;We&rsquo;re shut. Oh, it&rsquo;s you. And Freya. If this is about Bridge Day, it&rsquo;s that boy&rsquo;s fault. The Orr boy, from Crickmore. Nine seconds of my bun holding a door open. Tuesday the first of September. I&rsquo;ve got it written down.&rdquo;' },
+        { q: 'What did you do?', a: '&ldquo;What anybody would do. I made a video back. Wednesday morning, six o&rsquo;clock, still in my apron. To the comedian from Crickmore. I said a few things.&rdquo; He sweeps harder. &ldquo;Thirty-eight thousand views. More than both towns put together. So don&rsquo;t tell me people don&rsquo;t agree with me.&rdquo;' },
+        { q: 'Which of your videos do people like best?', a: '&ldquo;The folding one. How to fold a Gorsey bun: three turns and a tuck, the way my dad did it. People love that one. Look at the likes.&rdquo;' },
+        { a: '&ldquo;Freya says Burble decides who sees what. Then Burble can explain itself. The numbers are on the tablet. I don&rsquo;t understand half of them, and I don&rsquo;t like the other half.&rdquo;' }
+      ],
+      clue: { id: 'ken', title: 'Ken: the boy, the reply, the likes', kind: 'What he said' },
+      done: function (seen) { if (seen && tell('ken')) { paint(); ER.say('&ldquo;Thirty-eight thousand views.&rdquo; Freya writes the number down, and puts a question mark after it.'); } }
+    });
+  });
+
+  var TABLET = '<h4>Burble for Business &middot; Insights &middot; Pocock&rsquo;s Bakery</h4><div class="in">' +
+    '<p class="small">Your five videos. Viewers near Gorsey. <b>Finished</b>: out of every 100 viewers, how many watched to the end. <b>Liked</b>, <b>Shared</b>: out of every 100 viewers.</p>' +
+    '<table><tr><th>Video</th><th>Posted</th><th>Views</th><th>Finished</th><th>Liked</th><th>Shared</th></tr>' +
+    '<tr><td>How to fold a Gorsey bun</td><td>14 Aug</td><td class="n">2,140</td><td class="n">52</td><td class="n">31</td><td class="n">2</td></tr>' +
+    '<tr><td>Bridge Day 1987: the bun race</td><td>25 Aug</td><td class="n">1,860</td><td class="n">75</td><td class="n">18</td><td class="n">4</td></tr>' +
+    '<tr><td>To the comedian from Crickmore</td><td>2 Sep</td><td class="n">38,412</td><td class="n">71</td><td class="n">9</td><td class="n">14</td></tr>' +
+    '<tr><td>New! The cinnamon Gorsey</td><td>18 Sep</td><td class="n">3,050</td><td class="n">38</td><td class="n">24</td><td class="n">3</td></tr>' +
+    '<tr><td>Two for £1 after four o&rsquo;clock</td><td>30 Sep</td><td class="n">990</td><td class="n">22</td><td class="n">5</td><td class="n">1</td></tr></table>' +
+    '<p class="small">A view is counted every time a video starts playing, on any phone, anywhere.</p></div>';
+  $('#tablet').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: TABLET, cls: 'fd-screen', clue: { id: 'tablet', title: 'Ken&rsquo;s tablet: Insights', kind: 'On the counter' }, done: function () {
+      if (tell('tablet')) { paint(); ER.say('Gorsey has about four thousand people, and Crickmore about three and a half thousand. A view is not a person.'); }
+    } });
+  });
+  var CARD = '<h4>Burble Help &middot; How Local Buzz chooses what you see</h4><div class="in">' +
+    '<p>For every video it could show you, Burble predicts three things, from what people like you did before:</p>' +
+    '<div class="sw"><b>Finished</b><span>Out of 100 people like you, how many will watch it to the end?</span><b>Liked</b><span>How many will press the heart?</span><b>Shared</b><span>How many will send it on?</span></div>' +
+    '<p>Then it adds them up, but not equally:</p><div class="sum">score = finished + (2 × liked) + (5 × shared)</div>' +
+    '<p>A share counts five times, because every share brings the video new viewers, and new viewers watch more videos. The videos with the highest scores go to the top of your Local Buzz. <span class="small">Example: finished 60, liked 10, shared 2 → 60 + 20 + 10 = 90.</span></p>' +
+    '<p>Burble does not count views: a view is what happens <i>after</i> a video is ranked. And it does not ask whether you enjoyed a video. A video you hated, but watched to the end and sent to a friend with &ldquo;Can you believe this?&rdquo;, counts exactly like one you loved.</p></div>';
+  $('#card').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: CARD, cls: 'fd-screen', clue: { id: 'card', title: 'Burble Help: How Local Buzz chooses', kind: 'Freya&rsquo;s print-out' }, done: function () {
+      FD.terms(['score', 'engagement']);
+      if (tell('card')) { paint(); ER.say('&ldquo;Burble&rsquo;s own help page,&rdquo; says Freya. &ldquo;Anybody can read it. Nobody does.&rdquo;'); }
+    } });
+  });
+  var LEAFLET = '<div class="hd">A parents&rsquo; guide to video apps</div><h4>Why are these apps free?</h4>' +
+    '<p>Most video apps are free to use because they are paid for by <b>advertising</b>. Between the videos the app shows adverts, and companies pay to put them there.</p>' +
+    '<p>The longer people stay in the app, and the more often they come back, the more adverts can be shown. So the people who build these apps measure what keeps people watching: minutes watched, videos finished, shares that bring new people in. They build their recommendation systems to <b>maximise</b> those numbers: to make them as big as possible. The usual word for all of this is <b>engagement</b>.</p>' +
+    '<p>That is not wicked. It is the job the system was given, and it does the job very well. But a system that is very good at one number can be bad at the things nobody measured: sleep, homework, or getting on with the people next door.</p><p class="pg">Gorsey High School &middot; page 3</p>';
+  $('#leaflet').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: LEAFLET, cls: 'fd-leaflet', clue: { id: 'leaflet', title: 'A parents&rsquo; guide: why are these apps free?', kind: 'Leaflet' }, done: function () {
+      FD.terms(['advertising', 'maximise', 'engagement']);
+      if (tell('leaflet')) { paint(); ER.say('Burble maximises what it measures. Nobody asked it to measure what is good for Gorsey.'); }
+    } });
+  });
+  FD.thing('#sign', null, 'POCOCK&rsquo;S, BAKERS SINCE 1961, in gold letters that Ken repaints every spring.', isBusy);
+  FD.thing('#frame', null, 'A. Pocock, 1961: Ken&rsquo;s father, folding a bun. Three turns and a tuck.', isBusy);
+  FD.thing('#case', null, 'GORSEY BUNS 60p. Round, sticky, with a twist on top. Not, whatever anybody in Crickmore says, a doorstop.', isBusy);
+  $('#till').addEventListener('click', function () {
+    if (busy) return;
+    var L = ['The till says 0.00. Ken has already cashed up.', '&ldquo;Best September I&rsquo;ve ever had,&rdquo; says Ken, without looking. &ldquo;People from all over came to see the bun. Doesn&rsquo;t make it right.&rdquo;'];
+    ER.say(L[tillN++ % L.length]);
+  });
+  $('#freya').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(nextFile ? '&ldquo;Across the bridge,&rdquo; says Freya. &ldquo;Bring the chalk board.&rdquo;' : '&ldquo;Read everything on the counter,&rdquo; says Freya. &ldquo;Then the window. Ken won&rsquo;t mind. Ken will mind, but he&rsquo;ll let us.&rdquo;');
+  });
+  $('#window').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Ken&rsquo;s five videos, in Burble&rsquo;s order. He wants to take the top one down, and cannot.'); return; }
+    if (!told.ken) { ER.say('The empty window display. Talk to Ken first.'); return; }
+    if (!told.tablet) { ER.say('&ldquo;The numbers are on my tablet,&rdquo; says Ken.'); return; }
+    if (!told.card) { ER.say('&ldquo;Read Burble&rsquo;s own card first,&rdquo; says Freya, tapping the page on the counter.'); return; }
+    if (!told.leaflet) { ER.say('&ldquo;And the leaflet,&rdquo; says Freya. &ldquo;It says why Burble counts what it counts.&rdquo;'); return; }
+    if (!lock) lock = makeLock();
+    lock.open();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the lock: Burble's window ---------- */
+  function makeLock() {
+    var st = ER.flag('b-st') || {}, wait = false, i;
+    var box = ER.el('div', 'pz bw'), s = '<div class="bw-in"><div class="bw-win"><h5>BURBLE&rsquo;S WINDOW<small>SHELF 1 = TOP OF LOCAL BUZZ</small></h5>';
+    for (i = 1; i <= 5; i++) s += '<div class="sh" data-n="' + i + '"></div>';
+    s += '</div><div class="bw-home"><h5>Ken&rsquo;s five videos (viewers near Gorsey)</h5></div></div>' +
+      '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="bw-go">Light the window</button></div>';
+    box.innerHTML = s;
+    var home = box.querySelector('.bw-home'), msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function card(k) {
+      var v = VIDS[k], n = ER.el('div', 'vb dnd-item');
+      n.setAttribute('data-v', k);
+      n.innerHTML = '<b>' + v[0] + '</b><span><em>views ' + v[1] + ' &middot;</em> finished ' + v[2] + ' &middot; liked ' + v[3] + ' &middot; shared ' + v[4] + '</span>';
+      return n;
+    }
+    HOME.forEach(function (k) {
+      var n = card(k), at = null;
+      for (var j = 1; j <= 5; j++) if (st[j] === k) at = j;
+      (at ? box.querySelector('.sh[data-n="' + at + '"]') : home).appendChild(n);
+    });
+    function read() { var o = {}; ER.$$('.sh', box).forEach(function (sh) { var v = sh.querySelector('.vb'); if (v) o[sh.getAttribute('data-n')] = v.getAttribute('data-v'); }); return o; }
+    function paintL() { ER.$$('.sh', box).forEach(function (sh) { sh.classList.toggle('empty', !sh.querySelector('.vb')); }); }
+    ER.dnd(box, { item: '.vb', slot: '.sh', home: home, lock: function () { return wait || !!nextFile; },
+      change: function () { st = read(); ER.flag('b-st', st); FD.sfx.tray(); paintL(); } });
+    box.querySelector('#bw-go').addEventListener('click', function () {
+      if (wait || nextFile) return;
+      var o = read(), seq = [], j, bad = 0, file;
+      for (j = 1; j <= 5; j++) seq.push(o[j] || '');
+      if (seq.indexOf('') >= 0) { ER.sfx.no(); msg('Five shelves, five videos. Fill every shelf.'); return; }
+      var q = seq.join(' ');
+      if (q === 'reply cinn fold race deal') { ER.sfx.no(); msg('&ldquo;That&rsquo;s by views,&rdquo; says Freya. &ldquo;But views are what happened <i>after</i> Burble ranked them. The card doesn&rsquo;t use views at all.&rdquo;'); return; }
+      if (q === 'fold cinn race reply deal') { ER.sfx.no(); msg('&ldquo;That&rsquo;s the app showing people what they like,&rdquo; says Freya. &ldquo;I say that every day.&rdquo; She looks at the card again. &ldquo;The card doesn&rsquo;t. A like counts two. A share counts five.&rdquo;'); return; }
+      if (q === 'race reply fold cinn deal') { ER.sfx.no(); msg('&ldquo;That&rsquo;s only the first column,&rdquo; says Freya. &ldquo;Finished, yes. But the likes and the shares count as well.&rdquo;'); return; }
+      if (q === 'reply race cinn fold deal') { ER.sfx.no(); msg('&ldquo;That&rsquo;s by shares alone,&rdquo; says Freya. &ldquo;A share counts five times, but finishing and liking still count. Work out every score.&rdquo;'); return; }
+      for (j = 1; j <= 5; j++) if (!ER.check('s' + j, seq[j - 1])) { bad = j; break; }
+      if (bad) { ER.sfx.no(); msg('&ldquo;Shelf ' + bad + ' is wrong,&rdquo; says Ken, who has been doing the sums on a paper bag. &ldquo;Give every box its score from the card, then put them in order.&rdquo;'); return; }
+      file = ER.exit([seq.join('-')], { wait: true });
+      if (!file) { msg('The window light flickers and goes out. Something is wrong with this page: tell your teacher.'); return; }
+      wait = true; nextFile = file; ER.flag('b-file', file);
+      FD.terms(['score', 'maximise']);
+      FD.mine('window', 'Burble&rsquo;s window', '<p>Score = finished + 2 × liked + 5 × shared.</p><p>1. To the comedian from Crickmore: 71 + 18 + 70 = 159<br>2. Bridge Day 1987: 75 + 36 + 20 = 131<br>3. How to fold a Gorsey bun: 52 + 62 + 10 = 124<br>4. The cinnamon Gorsey: 38 + 48 + 15 = 101<br>5. Two for £1: 22 + 10 + 5 = 37</p><p>The most liked video came third. Burble counts what people do, not what they like.</p>', true);
+      msg('The window lights up. On the top shelf: To the comedian from Crickmore.');
+      setTimeout(function () {
+        ER.closeAll(); paint(); busy = true;
+        ER.narrate([
+          'Ken looks at his window for a long time. &ldquo;My reply,&rdquo; he says. &ldquo;On the top shelf. A hundred and fifty-nine. I made that in a temper at six in the morning.&rdquo;',
+          '&ldquo;And your folding video has the most likes in the window, and it&rsquo;s third,&rdquo; says Freya. She takes the felt pen from behind her ear and crosses something out in her folder. &ldquo;I&rsquo;ve been telling people for a year that the app shows people what they like. It doesn&rsquo;t. It shows them what they&rsquo;ll finish and share. Liking hardly comes into it.&rdquo;',
+          '&ldquo;People didn&rsquo;t share it to agree with me,&rdquo; says Ken. &ldquo;They sent it round to say look what this idiot baker&rsquo;s said.&rdquo; &ldquo;Burble doesn&rsquo;t know why,&rdquo; says Freya. &ldquo;A share&rsquo;s a share. Every one of them made it climb. And where do shares go?&rdquo;',
+          'Ken, slowly: &ldquo;Across the bridge.&rdquo; Freya is already at the door. &ldquo;Then that&rsquo;s where I want to draw something. I need a lot of room, and I need your chalk board, Ken.&rdquo;'
+        ], function () { busy = false; $('#go').classList.add('on'); });
+      }, 2400);
+    });
+    paintL();
+    msg('Put Ken&rsquo;s five videos on the shelves in the order Burble would rank them for people near Gorsey: the top of Local Buzz on shelf 1.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+})();
+</script>
+</body>
+</html>

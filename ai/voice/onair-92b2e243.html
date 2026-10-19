@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>On Air · In Her Own Words</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-ai.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="voice.css">
+<style>
+  body{--bg:#1a0c0e;--accent:#ff5a4a;--font-display:'Bricolage Grotesque',sans-serif;--font-ui:'Inter',sans-serif;--font-body:'Literata',serif;
+    --tc-bg:rgba(26,12,14,.96);--tc-ink:#f6ecec;--cap-bg:rgba(26,12,14,.94);--cap-ink:#f6ecec;--panel:#211012;--panel-ink:#f6ecec;--face-bg:#24403a;--q-ink:#ffb0a4;
+    --fade:#0a0405;--hud-bg:rgba(26,12,14,.82);--hud-ink:#f6ecec;--hud-line:rgba(246,236,236,.24);--ov-bg:rgba(10,4,5,.76)}
+  .tc-room{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;color:#ff5a4a}
+  .tc-theme{color:#ffb0a4}
+  .hbtn b{color:#0a0405}
+  #onair.lit rect{fill:#ff2a1a}
+  #onair.lit text{fill:#fff}
+  #onair.lit{filter:drop-shadow(0 0 18px #ff3a2a)}
+  #glow{opacity:0;transition:opacity 1.2s}
+  #glow.on{opacity:1}
+  #catT{animation:tail 4s ease-in-out infinite;transform-origin:118px 640px}
+  @keyframes tail{50%{transform:rotate(12deg)}}
+  .vu{animation:vu .8s steps(4,end) infinite}.vu.b{animation-duration:1.2s}
+  @keyframes vu{0%{transform:scaleY(.3)}50%{transform:scaleY(1)}100%{transform:scaleY(.5)}}
+
+  .ch3{width:min(980px,95vw)}
+  .ch3-in{background:#241214;border:1px solid #5a2a2c;border-radius:6px;padding:14px 16px}
+  .ch3-in h4{margin:0 0 4px;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:24px;color:#ff8a7a}
+  .ch3-in p{margin:0 0 10px;font-family:'Literata',serif;font-size:16px;color:#f6ecec}
+  .ch3-cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+  .ch3-cards button{text-align:left;background:#fffaf2;color:#1a1414;border-radius:4px;padding:14px 16px 16px;border-top:8px solid #8a7a72;font-family:'Inter',sans-serif;font-size:15px;line-height:1.4;min-height:150px}
+  .ch3-cards button b{display:block;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:19px;line-height:1.1;margin-bottom:8px}
+  .ch3-cards button:hover{outline:2px solid #ff8a7a}
+  .ch3-cards button.on{border-top-color:#ff3a2a;box-shadow:0 0 0 3px #ff3a2a}
+  .ch3 .pmsg{color:#f6ecec}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="foam" width="60" height="60" patternUnits="userSpaceOnUse"><rect width="60" height="60" fill="#3a2a30"/>
+    <path d="M0 0L30 30L0 60zM60 0L30 30L60 60z" fill="#33242a"/><path d="M0 0L30 30L60 0z" fill="#45323a"/><path d="M0 60L30 30L60 60z" fill="#2c1e24"/></pattern>
+  <radialGradient id="redG" cx="50%" cy="10%" r="90%"><stop offset="0" stop-color="#ff3a2a" stop-opacity=".35"/><stop offset="1" stop-color="#ff3a2a" stop-opacity="0"/></radialGradient>
+  <linearGradient id="deskG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a3036"/><stop offset="1" stop-color="#1a1418"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="75%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#000" stop-opacity=".25"/><stop offset="1" stop-color="#000" stop-opacity=".78"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1700" fill="url(#foam)"/>
+<rect id="glow" x="-1000" y="-400" width="3600" height="1700" fill="url(#redG)" pointer-events="none"/>
+<g id="onair" class="hot" transform="translate(-340 0)"><rect x="640" y="70" width="320" height="90" rx="10" fill="#3a1414" stroke="#120a0a" stroke-width="6"/><text x="800" y="135" class="cU" font-size="58" font-weight="800" text-anchor="middle" fill="#6a2a2a" letter-spacing="6">ON AIR</text></g>
+<g id="clock" class="hot" transform="translate(-1110 60)"><circle cx="1260" cy="190" r="74" fill="#0e0a0c" stroke="#2a2026" stroke-width="8"/><g id="dots"></g><text id="clockT" x="1260" y="204" class="cM" font-size="34" font-weight="500" text-anchor="middle" fill="#ff5a3a">22:59</text></g>
+<!-- the window into Studio A, lit now: Ivo's talkback speaker -->
+<rect x="880" y="140" width="380" height="250" fill="#141018" stroke="#1e161c" stroke-width="12"/><text x="1070" y="270" class="cU" font-size="14" text-anchor="middle" fill="#4a3a44" letter-spacing="4">STUDIO A</text>
+<g id="talkback" class="hot" transform="translate(320 0)"><rect x="380" y="420" width="110" height="70" rx="8" fill="#1a1a1e"/><circle cx="420" cy="455" r="20" fill="#2a2a30"/><text x="462" y="460" class="cM" font-size="10" fill="#8a8a96">TALK</text></g>
+<!-- Lena, the mayor -->
+<g id="lena" class="hot" transform="translate(330 900) scale(1.4)"></g>
+<g id="mayor" class="hot" transform="translate(610 900) scale(1.4)"></g>
+<!-- the desk, the mics, the script -->
+<path d="M-1000 700L300 640H1300L2600 700V1300H-1000z" fill="url(#deskG)"/><rect x="300" y="640" width="1000" height="10" fill="#4a4048"/>
+<g id="mics" transform="translate(-340 0)"><path d="M560 640v-70l60 -80" stroke="#3a3a42" stroke-width="9" fill="none"/><rect x="598" y="440" width="44" height="76" rx="20" fill="#1e1e24" stroke="#5a5a64" stroke-width="3" transform="rotate(30 620 478)"/>
+  <path d="M1080 640v-70l-60 -80" stroke="#3a3a42" stroke-width="9" fill="none"/><rect x="998" y="440" width="44" height="76" rx="20" fill="#1e1e24" stroke="#5a5a64" stroke-width="3" transform="rotate(-30 1020 478)"/></g>
+<g id="script" class="hot" transform="translate(-370 0)"><path d="M700 760l200 -6 6 110 -200 6z" fill="#fffaf0"/><g fill="#9aa0aa"><rect x="720" y="776" width="160" height="4"/><rect x="720" y="790" width="150" height="4"/><rect x="720" y="804" width="168" height="4"/><rect x="720" y="818" width="120" height="4"/></g><text x="720" y="770" class="cG" font-size="12" font-weight="800" fill="#b8322a">23.00 · STORY 1</text></g>
+<g id="faders"></g>
+<g id="cat" class="hot"><path id="catT" d="M118 640q40 -30 30 -60" fill="none" stroke="#c9862e" stroke-width="10" stroke-linecap="round"/><path d="M30 650q0 -46 52 -50q52 0 60 44z" fill="#d9963a"/><path d="M36 622l-4 -24 18 14zM62 608l4 -22 12 18z" fill="#d9963a"/><circle cx="56" cy="626" r="3" fill="#2a1a0a"/><circle cx="76" cy="624" r="3" fill="#2a1a0a"/></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<div class="done" id="done">
+  <div class="okstamp">ON AIR &middot; 23.00</div>
+  <p id="d-time"></p><p id="d-hints"></p><p id="d-words"></p>
+  <h6>What you now know</h6>
+  <ol>
+    <li>A synthetic voice is made by a voice model trained on recordings of one person. It can then say new sentences in that voice. Hours of clear speech make a good copy.</li>
+    <li>What it learnt from leaves traces: words it heard often come out perfectly and rare words oddly, and it copies breathing and the sound of the room.</li>
+    <li>The ear can tell that something sounds odd, but not that a recording is real or made. A glitch, a breath or a strange word proves nothing by itself.</li>
+    <li>In a real recording the background goes on underneath everything; where it suddenly changes, something was joined. Mains hum wanders with the grid, and can even show when a recording was made.</li>
+    <li>Provenance means who had it first, when it was made, and whether the times fit. A second source must be independent: many forwards of one file are still one source.</li>
+    <li>A true recording can be cut so that it means the opposite. Find the whole recording and hear its context.</li>
+    <li>A voice belongs to its owner, and copying it needs consent. Before broadcasting, check, put it to the person and think about harm. Never play it and &ldquo;let the listeners decide&rdquo;.</li>
+  </ol>
+  <div class="row"><button type="button" class="btn" id="b-task">Have your say</button><button type="button" class="btn" id="b-book">Notebook</button><button type="button" class="btn" id="b-lobby">Back to the story list</button></div>
+  <small>In Her Own Words &middot; <button type="button" id="b-reset">play it again from the start</button></small>
+</div>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="voice.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, ch = null;
+
+  (function () {
+    var s = '', i, a, x;
+    for (i = 0; i < 60; i++) { a = (i * 6 - 90) * Math.PI / 180; s += '<circle cx="' + (1260 + 60 * Math.cos(a)).toFixed(1) + '" cy="' + (190 + 60 * Math.sin(a)).toFixed(1) + '" r="2.6" fill="' + (i <= 40 || i % 5 === 0 ? '#ff5a3a' : '#3a1a14') + '"/>'; }
+    $('#dots').innerHTML = s;
+    s = '';
+    for (i = 0; i < 10; i++) { x = 360 + i * 30; s += '<rect x="' + (x - 3) + '" y="668" width="6" height="56" fill="#111"/><rect x="' + (x - 10) + '" y="' + (680 + (i * 11) % 28) + '" width="20" height="12" rx="2" fill="' + (i === 2 ? '#ff5a4a' : '#c9c9d2') + '"/>'; }
+    for (i = 0; i < 4; i++) s += '<rect class="vu' + (i % 2 ? ' b' : '') + '" x="' + (1150 + i * 14) + '" y="666" width="9" height="56" fill="' + (i < 3 ? '#7fe0c0' : '#ffb02e') + '" style="transform-origin:' + (1154 + i * 14) + 'px 722px"/>';
+    $('#faders').innerHTML = s;
+    $('#lena').innerHTML = VX.who('lena', { smile: 1 });
+    $('#mayor').innerHTML = VX.who('chandra', { smile: 1, coat: '#7a2e3a' });
+  })();
+
+  ER.init({
+    theme: 'ai', story: 'voice', storyTitle: 'In Her Own Words', id: 'onair', no: 'VI', title: 'On Air',
+    go: 'Twenty seconds to eleven',
+    intro: [
+      'In the mayor&rsquo;s office the council clip found its place in the whole meeting, at 19.45 on 8 October. Three words had been cut from the front and three from the back: &ldquo;Some people say the flood wall can wait, and Low Street can take its chances. I say no.&rdquo; Real, and cut so that it meant the opposite.',
+      'Studio B, 22.59. The mayor is sitting at the guest microphone with her coat still on. Lena has the script.'
+    ],
+    exit: {"last":true,"rooms":6,"stars":4}, tags: {"air":["18c2c1a4"]},
+    hints: hints, onBegin: begin
+  });
+
+  function isBusy() { return busy; }
+  function hints() {
+    if (ER.flag('f-done')) return null;
+    if (ch && ch.isOpen()) return ['air', [
+      'Page 12 of the guide names the one thing a station never does.',
+      'Don&rsquo;t play it, and don&rsquo;t hide it: describe it, and say how you know.'
+    ]];
+    return ['air', ['Lena is waiting for your answer. Click the script on the desk.']];
+  }
+  function begin() {
+    if (ER.flag('f-done')) { busy = false; finish(true); return; }
+    if (ER.flag('f-in')) { busy = false; ER.say('Twenty seconds. Lena is waiting for your answer. The script is on the desk.'); return; }
+    ER.flag('f-in', 1);
+    ER.narrate([
+      'Studio B, nineteen seconds to eleven. Lena puts her headphones on. The mayor takes her coat off, and puts it back on.',
+      'At 22.56 the Courier rang back. Lena told them everything. &ldquo;We&rsquo;re holding it,&rdquo; said Cass Ogilvie. &ldquo;Two sources was one source. Thanks for nothing.&rdquo; A pause. &ldquo;And thanks.&rdquo;',
+      'Lena&rsquo;s hand is on the fader. &ldquo;One last thing,&rdquo; she says to you, very fast. &ldquo;Story one. What do we do with chandra_call.wav?&rdquo;'
+    ], function () { busy = false; openCh(); });
+  }
+  function openCh() { if (ER.flag('f-done')) return; if (!ch) ch = makeCh(); ch.open(); }
+  $('#script').addEventListener('click', function () {
+    if (busy) return;
+    if (ER.flag('f-done')) { ER.say('Story one, read out at 23.00: what was sent, why we did not play it, and what she really said.'); return; }
+    openCh();
+  });
+  function makeCh() {
+    var pick = '', done = false, box = ER.el('div', 'pz ch3');
+    var C = [['play', 'Play it, and let the listeners decide', 'Forty seconds of the clip, then: &ldquo;We cannot be sure this is real. You must make up your own minds.&rdquo;'],
+      ['describe', 'Describe it, don&rsquo;t play it, and say how we know', 'Say what was sent and why we believe most of it was made, play the mayor&rsquo;s real words in full, and let her answer.'],
+      ['silent', 'Say nothing about it tonight', 'Leave it out. If we are not sure, the safest thing is not to mention it at all.']];
+    box.innerHTML = '<div class="ch3-in"><h4>Story one: chandra_call.wav</h4><p>Eighteen seconds to eleven. Choose.</p><div class="ch3-cards">' + C.map(function (c) { return '<button type="button" data-c="' + c[0] + '"><b>' + c[1] + '</b>' + c[2] + '</button>'; }).join('') + '</div></div>' +
+      '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="ch-go">Tell Lena</button></div>';
+    var msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    ER.$$('.ch3-cards button', box).forEach(function (b) { b.addEventListener('click', function () { if (done) return; pick = b.getAttribute('data-c'); VX.sfx.fader(); ER.$$('.ch3-cards button', box).forEach(function (o) { o.classList.toggle('on', o === b); }); }); });
+    box.querySelector('#ch-go').addEventListener('click', function () {
+      if (done) return;
+      if (!pick) { msg('Choose one of the three.'); return; }
+      if (!ER.check('air', pick)) {
+        ER.sfx.no();
+        msg(pick === 'play' ? '&ldquo;Page 12,&rdquo; says Lena. &ldquo;The one thing we never do. Forty seconds of her voice saying what she never said, on every radio in the valley, and half of them only hear the first ten seconds.&rdquo;' :
+          '&ldquo;Then at midnight it&rsquo;s everywhere,&rdquo; says Lena, &ldquo;and the only people who know the truth said nothing. Silence isn&rsquo;t careful. It&rsquo;s just quiet.&rdquo;');
+        return;
+      }
+      done = true; VX.solved();
+      msg('&ldquo;Yes,&rdquo; says Lena, and pushes the fader up.');
+      setTimeout(bulletin, 1600);
+    });
+    msg('What goes on air at eleven?');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+  function bulletin() {
+    ER.closeAll(); busy = true;
+    $('#onair').classList.add('lit'); $('#glow').classList.add('on'); $('#clockT').textContent = '23:00';
+    ER.narrate([
+      'The red light comes on. &ldquo;Radio Greyhithe, eleven o&rsquo;clock. Tonight a recording that sounds like the mayor, Frances Chandra, was sent to this station and to the Courier. We are not going to play it. We believe most of it was made by a computer.&rdquo;',
+      '&ldquo;Here is why. Its first eleven seconds are real: they were cut from Ask the Mayor on this station last Tuesday, and the electricity hum in them matches the national grid&rsquo;s record for that moment. The other four sentences have no such hum, the background jumps between them, and the same breath is used twice.&rdquo;',
+      '&ldquo;The sender says the call was recorded on Wednesday at about eight. At that time the mayor was live on this station, switching on the harbour lights. A second clip, from the council meeting, is real, but it has been cut. This is what she really said.&rdquo; And Lena plays it, whole: &ldquo;Some people say the flood wall can wait, and Low Street can take its chances. I say no.&rdquo;',
+      '&ldquo;The voice that was copied was learnt from recordings on our own website. We have taken them down tonight, and we will ask the mayor what she wants done with them. We do not know who made the recording, and we will not guess.&rdquo;',
+      'Then the mayor leans into the microphone. &ldquo;This is Frances Chandra,&rdquo; she says, &ldquo;with my own breath. The flood wall comes first. And if a recording of anybody makes you angry on a Friday night, ask where it came from before you send it on.&rdquo;',
+      'At 23.06 the red light goes off. Lena&rsquo;s phone buzzes: Councillor Halvard. &ldquo;Sent a correction to my 340. Greyhithe deserves better. So did she.&rdquo;',
+      'The talkback crackles. Ivo, from the hill: &ldquo;You were on in the whole valley, main transmitter, not a wobble. You&rsquo;re welcome.&rdquo; Lena takes off her headphones and looks at you. &ldquo;Last night of work experience,&rdquo; she says. &ldquo;Same time next year?&rdquo;'
+    ], function () { busy = false; ER.flag('f-done', 1); finish(false); });
+  }
+
+  function line(sel, before, after) { $(sel).addEventListener('click', function () { if (!busy) ER.say(ER.flag('f-done') ? after : before); }); }
+  line('#lena', '&ldquo;Eighteen seconds,&rdquo; says Lena, without looking up.', '&ldquo;Page 12,&rdquo; says Lena. &ldquo;I&rsquo;m going to read my own pages from now on. All of them. Even the one about the kettle.&rdquo;');
+  line('#mayor', 'The mayor is reading her one line over and over, without a sound.', '&ldquo;Monday night,&rdquo; says the mayor. &ldquo;The vote. Come and listen. I&rsquo;ll be the one saying flood wall. In my own voice.&rdquo;');
+  line('#talkback', 'The talkback from Studio A. Silent, for now.', '&ldquo;And somebody owes me a kettle,&rdquo; says Ivo, from the hill.');
+  line('#cat', 'Decibel is at the far end of the desk, as far from the microphones as a cat can get.', 'Decibel yawns. The news is over, and it was not about her.');
+  line('#onair', 'ON AIR. Not yet. Seventeen seconds.', 'ON AIR, dark again. The overnight music is back, and the valley has gone to bed.');
+  line('#clock', 'The studio clock. The red dots fill up the circle towards eleven.', 'Six minutes past eleven. The longest hour Studio B has had since the pier fell down.');
+
+  function finish(quick) {
+    var st = ER.state(), mins = VX.minutesPlayed(), hn = ER.hintsUsed();
+    $('#onair').classList.remove('lit'); $('#glow').classList.remove('on'); $('#clockT').textContent = '23:06';
+    $('#d-time').textContent = 'From Studio B to the eleven o’clock news: ' + mins + (mins === 1 ? ' minute.' : ' minutes.');
+    $('#d-hints').textContent = hn ? 'Hints asked for: ' + hn + '.' : 'Hints asked for: none at all.';
+    $('#d-words').textContent = 'In your notebook: ' + st.clues.length + ' clues and ' + Object.keys(st.words).length + ' words.';
+    $('#done').classList.add('on');
+    if (quick) ER.say('Eleven o’clock has been and gone. The truth went out, with its reasons.');
+  }
+  $('#b-book').addEventListener('click', ER.notebook);
+  $('#b-lobby').addEventListener('click', function () { ER.leave('../index.html'); });
+  $('#b-reset').addEventListener('click', function () {
+    var b = $('#b-reset');
+    if (b.getAttribute('data-sure')) { ER.resetStory(); location.href = '../index.html'; return; }
+    b.setAttribute('data-sure', '1'); b.textContent = 'this empties your notebook. click again to do it';
+  });
+  $('#b-task').addEventListener('click', function () {
+    var saved = ER.flag('task') || {}, box = ER.el('div', 'rp');
+    box.innerHTML = '<h4>In Her Own Words &middot; in your own words</h4><h3>Have your say</h3>' +
+      '<p>Should it be against the law to copy somebody&rsquo;s voice with a computer without asking them? Give one reason for and one reason against, and say what you think.</p>' +
+      '<p>Then explain to a friend what you would check before you shared a recording that made you angry. Say it aloud, or write 60 to 100 words. Use: because, but, unless, so.</p>' +
+      '<textarea id="r1"></textarea><div class="count"></div><label for="r2">Name</label><input type="text" id="r2" maxlength="60">' +
+      '<div class="foot"><span>Nobody marks this. It is saved in this browser as you write.</span><button type="button" class="btn" id="r-print">Print</button><button type="button" class="btn" id="r-done">Done</button></div>';
+    ER.glossIn(box, '.rp > p');
+    box.querySelector('#r1').value = saved.r1 || ''; box.querySelector('#r2').value = saved.r2 || '';
+    function keep() {
+      var o = { r1: box.querySelector('#r1').value, r2: box.querySelector('#r2').value }, n = (o.r1.match(/[A-Za-z’']+/g) || []).length;
+      box.querySelector('.count').textContent = n + (n === 1 ? ' word' : ' words');
+      ER.flag('task', o);
+    }
+    box.addEventListener('input', keep);
+    box.addEventListener('keydown', function (e) { e.stopPropagation(); });
+    box.querySelector('#r-print').addEventListener('click', function () { keep(); window.print(); });
+    box.querySelector('#r-done').addEventListener('click', ER.close);
+    ER.open('ov-report', box); keep();
+  });
+})();
+</script>
+</body>
+</html>

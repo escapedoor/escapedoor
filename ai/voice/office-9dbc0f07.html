@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Mayor's Office · In Her Own Words</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-ai.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="voice.css">
+<style>
+  body{--bg:#1e1410;--accent:#d9b866;--font-display:'Cinzel',serif;--font-ui:'Inter',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(30,20,16,.96);--tc-ink:#f4ecdc;--cap-bg:rgba(30,20,16,.94);--cap-ink:#f4ecdc;--panel:#24180f;--panel-ink:#f4ecdc;--face-bg:#4a2a30;--q-ink:#ecd28a;
+    --fade:#0c0806;--hud-bg:rgba(30,20,16,.82);--hud-ink:#f4ecdc;--hud-line:rgba(244,236,220,.24);--ov-bg:rgba(12,8,6,.78)}
+  .tc-room{font-family:'Cinzel',serif;font-weight:700;font-size:clamp(32px,4.6vw,66px);color:#d9b866}
+  .tc-theme{color:#ecd28a}
+  .tk-role{color:#ecd28a}
+  .hbtn b{color:#0c0806}
+  .flame{animation:flame 1.4s steps(3,end) infinite;transform-origin:1312px 520px}
+  @keyframes flame{50%{transform:scaleY(1.12)}}
+  #radioWin{animation:flick 9s steps(1,end) infinite}
+  @keyframes flick{0%,94%{opacity:1}95%{opacity:.5}97%{opacity:1}}
+
+  /* the whole meeting */
+  .wm{width:min(1100px,96vw)}
+  .wm-in{background:#f4efe4;color:#1e1a14;border-radius:4px;padding:12px 16px 12px;border-top:14px solid #2a3a5a}
+  .wm-hd{display:flex;gap:12px;align-items:baseline;margin-bottom:8px;font-family:'Inter',sans-serif;font-size:13px;color:#4a4a4a}
+  .wm-hd b{font-family:'Cinzel',serif;font-weight:700;font-size:19px;color:#2a3a5a}
+  .wm-clip{background:#1e2430;color:#e8edf4;border-radius:4px;padding:8px 12px;font-family:'Roboto Mono',monospace;font-size:13.5px;margin-bottom:10px}
+  .wm-clip .cut{color:#ff9a7a}
+  .wm-p{border:1px solid #cfc6b2;border-radius:4px;padding:8px 12px 10px;margin-bottom:8px;background:#fffdf7}
+  .wm-p.on{border-color:#2a3a5a;box-shadow:0 0 0 2px #2a3a5a}
+  .wm-p.bad{animation:bad .9s steps(2,end) 2}
+  @keyframes bad{50%{box-shadow:0 0 0 3px #b8322a}}
+  .wm-p h5{display:flex;align-items:center;gap:10px;margin:0 0 6px;font-family:'Roboto Mono',monospace;font-weight:500;font-size:12.5px;color:#5a5a5a}
+  .wm-p h5 button{margin-left:auto;padding:4px 10px;border:1px solid #2a3a5a;border-radius:3px;color:#2a3a5a;font-family:'Inter',sans-serif;font-weight:700;font-size:11.5px;letter-spacing:.06em}
+  .wm-p h5 button:hover{background:#2a3a5a;color:#fff}
+  .wm-p.on h5 button{background:#2a3a5a;color:#fff}
+  .wm-w{display:flex;flex-wrap:wrap;gap:3px 4px;font-family:'EB Garamond',serif;font-size:19px;line-height:1.3}
+  .wm-w span{padding:0 3px;border-radius:2px}
+  .wm-p.on .wm-w span{cursor:pointer}
+  .wm-p.on .wm-w span:hover{outline:1px solid #2a3a5a}
+  .wm-w span.in{background:#ffd98a}
+  .wm-w span.clip{background:#c9d6ee}
+  .wm-w span.s{box-shadow:inset 3px 0 0 #b8322a}
+  .wm-w span.e{box-shadow:inset -3px 0 0 #b8322a}
+  .wm-mode{display:flex;gap:8px;align-items:center;margin-top:4px;font-family:'Inter',sans-serif;font-size:13px;color:#4a4a4a}
+  .wm-mode button{padding:4px 12px;border:1px solid #8a7a62;border-radius:12px;font-family:'Inter',sans-serif;font-size:12.5px;color:#1e1a14}
+  .wm-mode button.on{background:#b8322a;border-color:#b8322a;color:#fff}
+  .wm .pmsg{color:#f4ecdc}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="panel" width="160" height="220" patternUnits="userSpaceOnUse"><rect width="160" height="220" fill="#4a2e1c"/><rect x="14" y="14" width="132" height="192" fill="#55361f" stroke="#3a2414" stroke-width="4"/><rect x="24" y="24" width="112" height="172" fill="none" stroke="#6a4a2c" stroke-width="2"/></pattern>
+  <linearGradient id="nightG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0a0e1a"/><stop offset="1" stop-color="#2a2232"/></linearGradient>
+  <radialGradient id="lampG" cx="50%" cy="40%" r="60%"><stop offset="0" stop-color="#ffd890" stop-opacity=".45"/><stop offset="1" stop-color="#ffd890" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="75%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#000" stop-opacity=".25"/><stop offset="1" stop-color="#000" stop-opacity=".8"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1700" fill="url(#panel)"/>
+<rect x="-1000" y="-400" width="3600" height="480" fill="#e8dcc0"/><rect x="-1000" y="60" width="3600" height="26" fill="#6a4a2c"/>
+<path d="M-1000 -400H2600V40H-1000z" fill="#efe4cc"/><g stroke="#d8c8a6" stroke-width="3" fill="none"><path d="M-1000 20H2600"/></g>
+<!-- portraits of past mayors -->
+<g id="portraits" class="hot"></g>
+<!-- the window: the square, and the radio station's lit window -->
+<g id="win" class="hot"><rect x="1080" y="120" width="300" height="420" fill="url(#nightG)"/>
+  <rect x="1110" y="300" width="240" height="240" fill="#2a2228"/><path d="M1100 300l130 -60 130 60z" fill="#1e1820"/><rect x="1170" y="400" width="120" height="140" fill="#1a1418"/><path d="M1170 400q60 -50 120 0" fill="#1a1418"/>
+  <rect id="radioWin" x="1140" y="330" width="60" height="44" fill="#ffcf7a"/><rect x="1260" y="330" width="60" height="44" fill="#1a1418"/><text x="1155" y="292" class="cO" font-size="11.5" text-anchor="middle" fill="#ff8a6a">RADIO GREYHITHE</text>
+  <rect x="1080" y="120" width="300" height="420" fill="none" stroke="#3a2414" stroke-width="16"/><path d="M1230 120V540M1080 330H1380" stroke="#3a2414" stroke-width="8"/>
+  <path d="M1040 110h40v450h-40zM1380 110h40v450h-40z" fill="#7a1e24"/></g>
+<!-- the plaque and the clock-stair door -->
+<rect x="80" y="160" width="190" height="640" fill="#3a2414"/><rect x="96" y="176" width="158" height="608" fill="#4a2e1c" stroke="#2a1a0e" stroke-width="3"/><circle cx="236" cy="500" r="8" fill="#c9a24a"/><text x="175" y="230" class="cC" font-size="13" text-anchor="middle" fill="#c9a24a">CLOCK STAIR</text>
+<g id="plaque" class="hot"><rect x="300" y="300" width="120" height="80" fill="#c9a24a" stroke="#6a4a18" stroke-width="4"/><text x="360" y="330" class="cC" font-size="11" font-weight="700" text-anchor="middle" fill="#2a1e08">THE TOWN</text><text x="360" y="346" class="cC" font-size="11" font-weight="700" text-anchor="middle" fill="#2a1e08">HALL CLOCK</text><g fill="#6a4a18"><rect x="318" y="356" width="84" height="3"/><rect x="318" y="364" width="70" height="3"/></g></g>
+<!-- the chain of office -->
+<g id="chain" class="hot"><rect x="900" y="560" width="120" height="16" fill="#3a2414"/><path d="M930 560v-180q30 -30 60 0v180" fill="#2a1a10"/><path d="M932 400q28 120 28 120q0 0 28 -120" fill="none" stroke="#e2c060" stroke-width="7" stroke-dasharray="10 4"/><circle cx="960" cy="530" r="18" fill="#e2c060" stroke="#a8823a" stroke-width="3"/></g>
+<!-- the fireplace -->
+<g id="fire"><rect x="1240" y="580" width="150" height="250" fill="#3a2414"/><rect x="1262" y="620" width="106" height="180" fill="#120a06"/><path class="flame" d="M1290 800q-4 -50 22 -80q2 30 14 40q8 -24 4 -44q30 30 22 84z" fill="#ff8a3a"/><rect x="1230" y="566" width="170" height="18" fill="#5a3a22"/></g>
+<!-- the desk -->
+<ellipse cx="700" cy="560" rx="420" ry="260" fill="url(#lampG)" pointer-events="none"/>
+<g id="mayor" class="hot" transform="translate(640 845) scale(1.25)"></g>
+<rect x="400" y="600" width="660" height="26" fill="#5a3418"/><rect x="420" y="626" width="620" height="230" fill="#4a2a12"/><rect x="440" y="646" width="180" height="190" fill="#55321a" stroke="#3a2010" stroke-width="3"/><rect x="840" y="646" width="180" height="190" fill="#55321a" stroke="#3a2010" stroke-width="3"/>
+<g id="lamp"><path d="M480 600v-90" stroke="#c9a24a" stroke-width="6"/><path d="M440 520l40 -50 40 50z" fill="#2a5a3a"/></g>
+<g id="papers" class="hot"><path d="M540 600l14 -26h120l-6 26z" fill="#fff" stroke="#c9c2b0"/><path d="M548 598l20 -30h118l-14 30z" fill="#f6f2e8" stroke="#c9c2b0"/><text x="610" y="592" class="cE" font-size="11" text-anchor="middle" fill="#2a2418">AGENDA · MON</text></g>
+<g id="laptop" class="hot"><path d="M700 600l16 -14h180l16 14z" fill="#3a3f47"/><rect x="716" y="476" width="180" height="114" rx="6" fill="#2a2f36"/><rect x="724" y="484" width="164" height="98" fill="#1e2430"/><rect x="724" y="484" width="164" height="16" fill="#2a3a5a"/><text x="806" y="496" class="cI" font-size="9" text-anchor="middle" fill="#fff">Greyhithe Council · 8 Oct</text><circle cx="806" cy="536" r="16" fill="#3a4a6a"/><path d="M800 528l14 8 -14 8z" fill="#fff"/><rect x="730" y="568" width="152" height="4" fill="#4a5a7a"/><rect x="730" y="568" width="60" height="4" fill="#ffb84d"/></g>
+<g id="trans" class="hot"><path d="M930 600l6 -30h90l2 30z" fill="#fff" stroke="#2f6a5e" stroke-width="2"/><g fill="#9aa5ae"><rect x="944" y="580" width="70" height="3"/><rect x="944" y="588" width="60" height="3"/></g><rect x="938" y="572" width="88" height="5" fill="#2f6a5e"/></g>
+<g id="binder" class="hot"><rect x="1030" y="582" width="70" height="20" fill="#b8322a"/><text x="1065" y="597" class="cO" font-size="9" text-anchor="middle" fill="#fff">GUIDE</text></g>
+<g id="lena" class="hot" transform="translate(240 900) scale(1.18)"></g>
+<rect x="-1000" y="850" width="3600" height="500" fill="#5a1e22"/><g stroke="#4a1418" stroke-width="3"><path d="M-1000 880H2600"/></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Back across the square</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="voice.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, lock = null, porN = 0;
+  var PASS = [
+    { id: 'a', t: '19.15.04', w: 'We had four hundred letters about Item 4. One said the flood wall can wait, and Low Street can take its chances. Three hundred and ninety-nine said the opposite.' },
+    { id: 'b', t: '19.45.02', w: 'Some people say the flood wall can wait, and Low Street can take its chances. I say no. Not while I am mayor.' },
+    { id: 'c', t: '20.30.06', w: 'Councillor Bannerman says, in short: the flood wall can wait, and Low Street can take its chances for one more winter. I understand that. I do not agree.' }
+  ];
+  PASS.forEach(function (p) { p.tok = p.w.split(' '); p.c0 = p.tok.indexOf('the'); for (var i = p.c0; i < p.tok.length; i++) if (/^chances/.test(p.tok[i])) { p.c1 = i; break; } });
+
+  (function () {
+    var s = '', i, x, c = [['#3a4a3a', '#d8b890'], ['#4a3a4a', '#c9a888'], ['#3a3a4a', '#e0c8a8']];
+    for (i = 0; i < 3; i++) { x = 470 + i * 190; s += '<rect x="' + x + '" y="130" width="140" height="180" fill="#c9a24a"/><rect x="' + (x + 10) + '" y="140" width="120" height="160" fill="' + c[i][0] + '"/><circle cx="' + (x + 70) + '" cy="200" r="28" fill="' + c[i][1] + '"/><path d="M' + (x + 22) + ' 300q48 -70 96 0z" fill="#1e1a1a"/><path d="M' + (x + 46) + ' 258q24 30 48 0" fill="none" stroke="#e2c060" stroke-width="4" stroke-dasharray="5 3"/>'; }
+    $('#portraits').innerHTML = s;
+    $('#mayor').innerHTML = VX.who('chandra', { smile: -2 });
+    $('#lena').innerHTML = VX.who('lena', { coat: '#3a3a44', smile: 0 });
+  })();
+
+  ER.init({
+    theme: 'ai', story: 'voice', storyTitle: 'In Her Own Words', id: 'office', no: 'V', title: 'The Mayor&rsquo;s Office',
+    go: 'Knock',
+    intro: [
+      'At the mast, the hum of the first eleven seconds lay exactly on the grid&rsquo;s record for Tuesday 13 October at 18.02.14: Ask the Mayor. The logger played the rest of that sentence: &ldquo;The flood wall comes first. Low Street will not take its chances while I&rsquo;m mayor.&rdquo; The other four sentences hum at no moment at all.',
+      'The Town Hall stands across the square from the radio station. Its clock tower is lit, and so is one window on the first floor.',
+      '22.44. The news is at eleven.'
+    ],
+    exit: {"next":"onair","w":{"5fdfbc7f":"19bd07f8","920165ae":"3dde0fcd"}}, tags: {"pass":["f7f87768"],"start":["6a9c1726"],"end":["7cf5a233","ba4169a2"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('e-file') || null; told = ER.flag('e-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('e-told', told); return true; }
+  function isBusy() { return busy; }
+  function ready() { return told.mayor && told.guide && told.trans; }
+  function paint() {
+    $('#laptop').classList.toggle('glow', !!(ready() && !nextFile));
+    ER.pips((told.mayor ? 1 : 0) + (told.guide ? 1 : 0) + (told.trans ? 1 : 0) + (nextFile ? 1 : 0), 4);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Eleven o&rsquo;clock is coming. The button at the bottom of the screen takes you back to Studio B.']];
+    if (lock && lock.isOpen()) return ['lock', [
+      'Lena&rsquo;s transcript of the clip has half a sound cut off at each end: [&hellip;ay] before, [I&hellip;] after. Which passage has those sounds on either side of the words?',
+      'It is the passage at 19.45. Now mark the whole of what she meant: START where her sentence starts, END where her answer to it ends.',
+      'START on &ldquo;Some&rdquo;. The cut-off [I&hellip;] is the beginning of her answer: put END at the end of that sentence.'
+    ]];
+    if (!told.mayor) return ['mayor', ['The mayor has heard nothing yet. Talk to her.', 'Mayor Chandra is behind her desk, in the middle.']];
+    if (!told.guide) return ['guide', ['Lena put the guide on the desk: page 12.', 'The red binder at the right-hand end of the desk.']];
+    if (!told.trans) return ['trans', ['Lena wrote out the council clip, sound by sound.', 'The sheet with a green top on the desk, right of the laptop.']];
+    return ['laptop', ['Now the whole meeting, on the mayor&rsquo;s laptop.', 'The glowing laptop on the desk.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('Some people say the flood wall can wait, and Low Street can take its chances. I say no.'); return; }
+    if (told.in) { busy = false; ER.say('The mayor&rsquo;s office. Oak, gold frames, and a fire nobody has had time to look at.'); return; }
+    tell('in');
+    ER.narrate([
+      'The mayor&rsquo;s office is all dark oak and gold frames. Three old mayors look down from the wall, wearing the chain that now hangs on a stand by the desk. A small fire is burning itself out.',
+      'Frances Chandra is at her desk with Monday&rsquo;s papers. She has taken her shoes off. She puts them back on when she sees Lena&rsquo;s face.',
+      'Overhead, the Town Hall clock plays the quarter: twelve notes, slow and loud, right through the ceiling. Quarter to eleven.'
+    ], function () { busy = false; });
+  }
+
+  $('#mayor').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;I&rsquo;ll get my coat,&rdquo; says the mayor. &ldquo;I have never been so keen to be on the radio.&rdquo;'); return; }
+    ER.talk({
+      who: 'Mayor Frances Chandra', role: 'Mayor of Greyhithe', face: VX.face('chandra'),
+      lines: [
+        { note: 'She listens to chandra_call.wav once, with her eyes shut.', a: '&ldquo;That is my voice,&rdquo; she says. &ldquo;Those are not my words. I have never called it the marina in my life. On the radio I say the harbour scheme: marina makes it sound like yachts. At council I have to read out the agenda, and the agenda says Marina. I&rsquo;m stubborn about it.&rdquo;' },
+        { q: 'Did you ring anybody on Wednesday at about eight?', a: '&ldquo;At eight on Wednesday I was on the quay in a hard hat, switching on the harbour lights. On your station. Badly. Ask anybody who was there. Two hundred people saw my hat fall off.&rdquo;' },
+        { q: 'There is a second clip, from the council meeting.', a: '<p class="note">She listens. Her face changes.</p><p>&ldquo;I said that,&rdquo; she says slowly. &ldquo;Those exact words. But not like that.&rdquo;</p>' },
+        { q: 'Can we see the whole meeting?', a: '&ldquo;It&rsquo;s on the council&rsquo;s website, all two hours of it, with the council&rsquo;s own transcript. My laptop. Find where they cut it.&rdquo;' },
+        { q: 'Who could have made the voice?', a: '&ldquo;Anybody with twenty-six hours of me and a free program, apparently.&rdquo; She looks at Lena. &ldquo;Your twenty-six hours. I said yes to being on the radio, Lena. Nobody asked me if I&rsquo;d like to be copied.&rdquo;' },
+        { note: 'Lena does not argue.', a: '&ldquo;No,&rdquo; says Lena. &ldquo;Nobody did. Page 12 says so. I wrote page 12, and I didn&rsquo;t read it.&rdquo;' }
+      ],
+      clue: { id: 'chandra', title: 'The mayor: my voice, not my words', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('mayor')) { paint(); ER.say('The guide, page 12, and Lena&rsquo;s transcript of the clip, on the desk. Then the laptop.'); } }
+    });
+  });
+  var GUIDE = '<div class="hd">RADIO GREYHITHE &middot; GUIDE FOR PRODUCERS</div><h4>12. Consent, harm and the cut</h4>' +
+    '<p><b>Whose voice is it?</b> A voice belongs to the person. Somebody who agrees to speak on our station has agreed to be broadcast. She has not agreed to be copied. Using her voice to make her say new things needs her <b>consent</b>.</p>' +
+    '<p><b>Before we broadcast</b> a recording that could harm somebody: know where it came from; find an independent second source; put it to the person and give them the chance to answer (the <b>right of reply</b>); and ask what <b>harm</b> it would do if it were wrong.</p>' +
+    '<p><b>The one thing we never do:</b> broadcast a recording we cannot stand behind and &ldquo;let the listeners decide&rdquo;. Once it is out, it cannot be called back, and many people hear only the first ten seconds.</p>' +
+    '<p><b>A true recording can lie too.</b> Cut a sentence in the right place and it can mean the opposite. Before you use a short clip, find the whole recording and hear what was said before and after it: its <b>context</b>.</p><p class="pg">page 12</p>';
+  $('#binder').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: GUIDE, cls: 'vg-guide', clue: { id: 'guide12', title: 'Guide, page 12: consent, harm and the cut', kind: 'The binder' }, done: function () {
+      VX.terms(['consent', 'right of reply', 'harm', 'context', 'broadcast']);
+      if (tell('guide')) { paint(); ER.say('A true recording can lie too. Find the whole recording, and hear what came before and after.'); }
+    } });
+  });
+  var TRANS = '<h4>council_bit.mp4 &middot; 0:12 &middot; written out by L.S.</h4><p><span class="cut">[&hellip;ay]</span> the flood wall can wait, and Low Street can take its chances. <span class="cut">[I&hellip;]</span></p>' +
+    '<p class="note">The square brackets are half-sounds, cut off at each end: the very end of the word before, and the very start of the word after. Whoever cut it was in a hurry. &mdash; L.</p>';
+  $('#trans').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: TRANS, cls: 'vg-trans', clue: { id: 'trans', title: 'The council clip, sound by sound', kind: 'Lena&rsquo;s transcript' }, done: function () {
+      VX.terms(['transcript', 'clip']);
+      if (tell('trans')) { paint(); ER.say('Half a sound at each end: [&hellip;ay] before, [I&hellip;] after.'); }
+    } });
+  });
+  var PLAQUE = '<h4>The Town Hall Clock</h4><p>This clock plays the <b>Westminster Quarters</b>, the tune of the Great Clock at Westminster. The tune was written in 1793 for the church of Great St Mary in Cambridge, and the Great Clock at Westminster began to play it in 1859.</p>' +
+    '<p>At a quarter past the hour it plays four notes; at half past, eight; at a quarter to, twelve; and on the hour sixteen, and then the hour bell strikes.</p><p style="font-style:italic">Given to the town by the Greyhithe Harbour Company.</p>';
+  $('#plaque').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: PLAQUE, cls: 'vg-plaque', clue: { id: 'plaque', title: 'The Town Hall clock', kind: 'Brass plaque' }, done: function () {
+      VX.terms(['Westminster Quarters', 'chime']);
+      if (tell('plaque')) ER.say('Twelve notes at a quarter to. That is what you heard as you came in.');
+    } });
+  });
+  VX.thing('#chain', 'chain of office', 'The chain of office, on its stand. The mayor wears it on special days. Tonight it is wearing itself.', isBusy);
+  VX.thing('#papers', 'agenda', 'Monday&rsquo;s agenda. Item 4: THE LOW STREET FLOOD WALL, OR THE GREYHITHE MARINA SCHEME. In pencil, in the margin: flood wall. Underlined twice.', isBusy);
+  VX.thing('#win', null, 'Across the square, one window of the radio station is lit. Studio B. In fifteen minutes somebody has to sit in it and talk.', isBusy);
+  $('#portraits').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(['Three old mayors in gold frames. None of them ever had to worry about being copied. They were hard enough to listen to once.', '&ldquo;That one built the first sea wall,&rdquo; says the mayor, pointing at the middle one. &ldquo;It fell down. We don&rsquo;t talk about him at dinners.&rdquo;'][porN++ % 2]);
+  });
+  $('#lena').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(nextFile ? '&ldquo;Fourteen minutes,&rdquo; says Lena. &ldquo;Go.&rdquo;' : '&ldquo;Ask her,&rdquo; says Lena quietly. &ldquo;Page 12. We put it to her before we say a word.&rdquo;');
+  });
+  $('#laptop').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('19.45.02. Three words at the front and three at the back.'); return; }
+    if (!told.mayor) { ER.say('The mayor&rsquo;s laptop. Talk to her first.'); return; }
+    if (!told.guide) { ER.say('&ldquo;Page 12 first,&rdquo; says Lena, and pushes the binder across the desk.'); return; }
+    if (!told.trans) { ER.say('&ldquo;Read my transcript of the clip,&rdquo; says Lena. &ldquo;The green sheet. Look at the ends.&rdquo;'); return; }
+    if (!lock) lock = makeLock();
+    lock.open();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the lock: put back what was cut ---------- */
+  function makeLock() {
+    var st = ER.flag('e-st') || { pass: '', s: -1, e: -1, mode: 's' }, wait = false;
+    var box = ER.el('div', 'pz wm');
+    box.innerHTML = '<div class="wm-in"><div class="wm-hd"><b>THE WHOLE MEETING</b>Greyhithe Council, Thursday 8 October &middot; the council&rsquo;s transcript &middot; search: &ldquo;the flood wall can wait&rdquo; &middot; 3 found, all spoken by the mayor</div>' +
+      '<div class="wm-clip">council_bit.mp4 &middot; 0:12 &middot; <span class="cut">[&hellip;ay]</span> the flood wall can wait, and Low Street can take its chances. <span class="cut">[I&hellip;]</span></div>' +
+      PASS.map(function (p) { return '<div class="wm-p" data-p="' + p.id + '"><h5>' + p.t + ' &middot; THE MAYOR<button type="button">the clip came from here</button></h5><div class="wm-w">' + p.tok.map(function (w, i) { return '<span data-i="' + i + '">' + w + '</span>'; }).join('') + '</div></div>'; }).join('') +
+      '<div class="wm-mode">In the passage you chose, click the words that should go on air: <button type="button" data-m="s">mark START</button><button type="button" data-m="e">mark END</button></div></div>' +
+      '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="wm-go">This is what she said</button></div>';
+    var msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function P(id) { for (var i = 0; i < PASS.length; i++) if (PASS[i].id === id) return PASS[i]; return null; }
+    function draw() {
+      ER.$$('.wm-p', box).forEach(function (n) {
+        var id = n.getAttribute('data-p'), on = id === st.pass, p = P(id);
+        n.classList.toggle('on', on);
+        ER.$$('.wm-w span', n).forEach(function (w) {
+          var i = +w.getAttribute('data-i');
+          w.classList.toggle('clip', i >= p.c0 && i <= p.c1);
+          w.classList.toggle('in', on && st.s >= 0 && st.e >= 0 && i >= st.s && i <= st.e);
+          w.classList.toggle('s', on && i === st.s); w.classList.toggle('e', on && i === st.e);
+        });
+      });
+      ER.$$('.wm-mode button', box).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-m') === st.mode); });
+    }
+    function save() { ER.flag('e-st', st); }
+    ER.$$('.wm-p', box).forEach(function (n) {
+      var id = n.getAttribute('data-p'), p = P(id);
+      n.querySelector('h5 button').addEventListener('click', function () { if (wait || nextFile) return; st.pass = id; st.s = p.c0; st.e = p.c1; st.mode = 's'; save(); VX.sfx.pin(); draw(); });
+      ER.$$('.wm-w span', n).forEach(function (w) {
+        w.addEventListener('click', function () {
+          if (wait || nextFile || st.pass !== id) return;
+          var i = +w.getAttribute('data-i');
+          if (st.mode === 's') { st.s = i; if (st.e < i) st.e = i; st.mode = 'e'; } else { st.e = i; if (st.s > i) st.s = i; }
+          save(); VX.sfx.marker(); draw();
+        });
+      });
+    });
+    ER.$$('.wm-mode button', box).forEach(function (b) { b.addEventListener('click', function () { st.mode = b.getAttribute('data-m'); save(); draw(); }); });
+    box.querySelector('#wm-go').addEventListener('click', function () {
+      var p, file, n;
+      if (wait || nextFile) return;
+      if (!st.pass) { ER.sfx.no(); msg('&ldquo;Which of the three did they cut it from?&rdquo; says Lena.'); return; }
+      p = P(st.pass);
+      if (!ER.check('pass', st.pass)) {
+        ER.sfx.no(); n = box.querySelector('.wm-p[data-p="' + st.pass + '"]'); n.classList.remove('bad'); void n.offsetWidth; n.classList.add('bad');
+        msg(st.pass === 'a' ? '&ldquo;Here the word before &lsquo;the flood wall&rsquo; is &lsquo;said&rsquo;,&rdquo; says Lena, &ldquo;and after &lsquo;chances&rsquo; comes &lsquo;Three&rsquo;. The clip starts with &hellip;ay and ends with I&hellip;.&rdquo;' :
+          '&ldquo;Here the word before is &lsquo;short&rsquo;,&rdquo; says Lena, &ldquo;and after &lsquo;chances&rsquo; she goes straight on: &lsquo;for one more winter&rsquo;. The clip would end with f&hellip;, not I&hellip;.&rdquo;');
+        return;
+      }
+      if (!ER.check('start', String(st.s))) {
+        ER.sfx.no();
+        msg(st.s === p.c0 ? '&ldquo;That&rsquo;s exactly where they cut it,&rdquo; says the mayor. &ldquo;What did I say just before?&rdquo;' : st.s > p.c0 ? '&ldquo;That&rsquo;s even less than the clip,&rdquo; says Lena.' : '&ldquo;Start where her sentence starts,&rdquo; says Lena. &ldquo;Not in the middle of it.&rdquo;');
+        return;
+      }
+      if (!ER.check('end', String(st.e))) {
+        ER.sfx.no();
+        msg(st.e === p.c1 ? '&ldquo;That&rsquo;s where they stopped,&rdquo; says the mayor. &ldquo;I hadn&rsquo;t.&rdquo;' : st.e < p.c1 ? '&ldquo;That&rsquo;s even less than the clip,&rdquo; says Lena.' : '&ldquo;Don&rsquo;t stop in the middle of a sentence,&rdquo; says Lena. &ldquo;Finish what she started.&rdquo;');
+        return;
+      }
+      file = ER.exit([st.pass + '-' + st.s + '-' + st.e], { wait: true });
+      if (!file) { msg('Something is wrong with this page: tell your teacher.'); return; }
+      wait = true; nextFile = file; ER.flag('e-file', file);
+      VX.terms(['context', 'quotation']);
+      VX.mine('cut', 'Real, and cut', '<p>The council clip is real: the mayor at 19.45 on 8 October.</p><p>Whole: &ldquo;Some people say the flood wall can wait, and Low Street can take its chances. I say no.&rdquo;</p><p>They cut three words from the front and three from the back, and it means the opposite.</p><p>So we must not call it a fake. It is real, and cut.</p><p>Her voice was copied from our archive without her consent.</p>', true);
+      msg('&ldquo;I say no,&rdquo; the mayor reads, under her breath.');
+      setTimeout(function () {
+        ER.closeAll(); paint(); busy = true;
+        ER.narrate([
+          '&ldquo;Some people say the flood wall can wait, and Low Street can take its chances. I say no.&rdquo; Lena reads it out twice. &ldquo;Three words off the front and three off the back. That&rsquo;s all they took. And it means the opposite.&rdquo;',
+          'The mayor takes off her glasses. &ldquo;So that clip is real.&rdquo; &mdash; &ldquo;Real, and cut,&rdquo; says Lena. &ldquo;If we told the valley that both clips were made by a computer, you&rsquo;d have to admit you said those words. And then nobody would believe a thing we said about the other one.&rdquo;',
+          '&ldquo;And my voice?&rdquo; &mdash; &ldquo;Twenty-six hours of you, on our website, free to anybody. That&rsquo;s ours to put right.&rdquo; Lena takes out her phone and, while the mayor watches, takes the archive down.',
+          '&ldquo;Fourteen minutes,&rdquo; says Lena. &ldquo;Will you come and say it yourself? Into a microphone. With your own breath.&rdquo; The mayor is already putting on her coat.'
+        ], function () { busy = false; $('#go').classList.add('on'); });
+      }, 2600);
+    });
+    draw();
+    msg(st.pass ? 'Mark START and END on the words that should go on air.' : 'Find the passage the clip was cut from. Then mark everything she really said.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+})();
+</script>
+</body>
+</html>

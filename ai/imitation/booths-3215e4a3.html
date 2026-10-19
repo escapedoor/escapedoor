@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Booths · Five Minutes of Questioning</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-ai.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="imitation.css">
+<style>
+  body{--bg:#241c2a;--accent:#e8a0c8;--font-display:'Special Elite',monospace;--font-ui:'Inter',sans-serif;--font-body:'Literata',serif;
+    --tc-bg:rgba(30,22,36,.96);--tc-ink:#f4eef6;--cap-bg:rgba(30,22,36,.94);--cap-ink:#f4eef6;--panel:#241c2a;--panel-ink:#f4eef6;--face-bg:#3a2e44;--q-ink:#f2c0dc;
+    --fade:#0a070c;--hud-bg:rgba(30,22,36,.82);--hud-ink:#f4eef6;--hud-line:rgba(244,238,246,.24);--ov-bg:rgba(10,7,12,.78)}
+  .tc-room{color:#f2c0dc;font-family:'Special Elite',monospace;text-transform:none}
+  .tc-theme{color:#c8b4d8}
+  .tk-role{color:#c8b4d8}
+  .hbtn b{color:#0a070c}
+  .sway{animation:csway 6s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 0}
+  @keyframes csway{50%{transform:skewX(1.2deg)}}
+
+  /* the print-outs */
+  .po-in{display:grid;grid-template-columns:200px 1fr;gap:14px}
+  .po-tabs{display:flex;flex-direction:column;gap:8px}
+  .po-tabs button{text-align:left;padding:9px 12px 8px;background:#3a2e44;border:2px solid #5a4a66;border-radius:3px;color:#f4eef6;font-family:'Special Elite',monospace;font-size:14.5px;line-height:1.25}
+  .po-tabs button small{display:block;font-family:'Inter',sans-serif;font-size:11.5px;color:#c8b4d8}
+  .po-tabs button.on{background:#f4eef6;color:#241c2a;border-color:#f2c0dc}
+  .po-tabs button.on small{color:#5a4a66}
+  .po-tabs button.set:after{content:'circled';float:right;font-family:'Caveat',cursive;font-size:16px;color:#c8302a}
+  .po-sheet{background:#fbfbf4;color:#1c1c1c;padding:12px 40px 10px;font-family:'Special Elite',monospace;font-size:14.2px;line-height:1.36;max-height:calc(100vh - 230px);overflow:auto;
+    background-image:radial-gradient(circle,#c8c8c0 5px,transparent 6px),radial-gradient(circle,#c8c8c0 5px,transparent 6px),repeating-linear-gradient(transparent 0 40px,#e2f0e2 40px 80px);
+    background-size:28px 20px,28px 20px,auto;background-position:4px 4px,right 4px top 4px,0 0;background-repeat:repeat-y,repeat-y,repeat}
+  .po-sheet h5{text-transform:uppercase;margin:0 0 6px;font-family:'Special Elite',monospace;font-weight:400;font-size:14.5px;letter-spacing:.05em;border-bottom:1px dashed #8a8a80;padding-bottom:4px}
+  .po-l{display:grid;grid-template-columns:76px 58px 1fr;gap:6px;padding:2px 6px;border-radius:12px;border:2px solid transparent}
+  .po-l i{font-style:normal;color:#6a6a62}
+  .po-l b{font-weight:400}
+  .po-l.j{color:#2a4a8a}
+  .po-l.p{cursor:pointer}
+  .po-l.p:hover{background:rgba(242,192,220,.35)}
+  .po-l.on{border-color:#c8302a;background:rgba(200,48,42,.07)}
+  .po-foot{margin-top:6px;border-top:1px dashed #8a8a80;padding-top:5px;font-family:'Inter',sans-serif;font-size:12.6px;line-height:1.35;color:#3a3a40}
+  .po-foot .hand{font-family:'Kalam',cursive;font-size:14.5px;color:#1f3f8a}
+  .po .pmsg{color:#f4eef6}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="ply" width="60" height="18" patternUnits="userSpaceOnUse"><rect width="60" height="18" fill="#b89a72"/><path d="M0 9q15 -4 30 0t30 0" stroke="#a88a62" stroke-width="2" fill="none"/></pattern>
+  <pattern id="carpet" width="24" height="24" patternUnits="userSpaceOnUse"><rect width="24" height="24" fill="#3a3e58"/><circle cx="6" cy="6" r="2" fill="#4a4e6a"/><circle cx="18" cy="18" r="2" fill="#4a4e6a"/></pattern>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9ab0c8"/><stop offset="1" stop-color="#d8dce0"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="45%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".72" stop-color="#000" stop-opacity=".2"/><stop offset="1" stop-color="#000" stop-opacity=".7"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1700" fill="#3a2a44"/>
+<rect x="-1000" y="-400" width="3600" height="520" fill="#2e2236"/><rect x="-1000" y="110" width="3600" height="8" fill="#5a4a66"/>
+<g fill="#fff2c8" opacity=".9"><rect x="380" y="40" width="80" height="14" rx="7"/><rect x="980" y="40" width="80" height="14" rx="7"/></g>
+<!-- noticeboard -->
+<rect x="14" y="160" width="226" height="250" fill="#8a6a44" stroke="#4a3420" stroke-width="6"/>
+<g id="card" class="hot"><rect x="28" y="176" width="110" height="140" fill="#fffdf4" transform="rotate(-3 83 246)"/><text x="83" y="196" class="cS" font-size="9" text-anchor="middle" fill="#1a1a1a" transform="rotate(-3 83 246)">WHAT A TYPED</text><text x="83" y="207" class="cS" font-size="9" text-anchor="middle" fill="#1a1a1a" transform="rotate(-3 83 246)">ANSWER CAN PROVE</text><g fill="#9a9a90" transform="rotate(-3 83 246)"><rect x="38" y="218" width="90" height="2.5"/><rect x="38" y="226" width="84" height="2.5"/><rect x="38" y="234" width="88" height="2.5"/><rect x="38" y="242" width="80" height="2.5"/><rect x="38" y="250" width="90" height="2.5"/><rect x="38" y="258" width="70" height="2.5"/><rect x="38" y="266" width="86" height="2.5"/></g><circle cx="83" cy="180" r="4" fill="#c8302a"/></g>
+<g id="alarm" class="hot"><rect x="150" y="180" width="80" height="104" fill="#fff" stroke="#c8302a" stroke-width="4"/><text x="190" y="204" class="cO" font-size="12" text-anchor="middle" fill="#c8302a">FIRE</text><text x="190" y="218" class="cO" font-size="12" text-anchor="middle" fill="#c8302a">ALARM</text><text x="190" y="232" class="cO" font-size="12" text-anchor="middle" fill="#c8302a">TEST</text><g fill="#8a8a8a"><rect x="160" y="244" width="60" height="3"/><rect x="160" y="252" width="54" height="3"/></g><rect x="158" y="262" width="64" height="16" fill="#eee"/><circle cx="190" cy="180" r="4" fill="#1a1a1a"/></g>
+<g><rect x="40" y="330" width="80" height="60" fill="#ffe66a" transform="rotate(4 80 360)"/><text x="80" y="356" class="cK" font-size="11" text-anchor="middle" fill="#1a1a1a" transform="rotate(4 80 360)">Hidden players:</text><text x="80" y="370" class="cK" font-size="11" text-anchor="middle" fill="#1a1a1a" transform="rotate(4 80 360)">back door only!</text></g>
+<!-- Turing's example, framed -->
+<g id="tex" class="hot"><rect x="30" y="440" width="190" height="130" fill="#2a2016"/><rect x="42" y="452" width="166" height="106" fill="#f3ecdb"/><text x="125" y="470" class="cS" font-size="10" text-anchor="middle" fill="#2a2016">Q: Add 34957 to 70764.</text><text x="125" y="488" class="cS" font-size="10" text-anchor="middle" fill="#2a2016">A: (Pause about 30</text><text x="125" y="502" class="cS" font-size="10" text-anchor="middle" fill="#2a2016">seconds) 105621.</text><g fill="#8a7a5a"><rect x="54" y="516" width="140" height="3"/><rect x="54" y="524" width="130" height="3"/><rect x="54" y="532" width="136" height="3"/></g><text x="125" y="552" class="cV" font-size="14" text-anchor="middle" fill="#5a5a6a">check his sum</text></g>
+<!-- the booths -->
+<g id="booths"></g>
+<!-- booth 2: the window and the heater -->
+<g id="window" class="hot" transform="translate(44 0)"><rect x="606" y="200" width="170" height="150" fill="url(#sky)" stroke="#e8e0d0" stroke-width="8"/><path d="M691 200v150M606 275h170" stroke="#e8e0d0" stroke-width="5"/>
+  <rect x="640" y="236" width="40" height="114" fill="#8a8478"/><path d="M640 236l20 -30l20 30z" fill="#6a645a"/><circle cx="660" cy="262" r="12" fill="#f4f0e4" stroke="#3a3a3a" stroke-width="2"/><path d="M660 262v-8M660 262l6 3" stroke="#1a1a1a" stroke-width="2"/>
+  <g fill="#b8b0a4"><rect x="700" y="300" width="70" height="50"/><rect x="612" y="310" width="24" height="40"/></g></g>
+<g id="heater" class="hot"><rect x="700" y="560" width="110" height="80" rx="6" fill="#d8d4c8"/><g fill="#b8b4a8"><rect x="710" y="570" width="90" height="6"/><rect x="710" y="582" width="90" height="6"/><rect x="710" y="594" width="90" height="6"/></g><rect x="716" y="608" width="78" height="26" fill="#fff" transform="rotate(-5 755 621)"/><text x="755" y="626" class="cK" font-size="12" text-anchor="middle" fill="#c8302a" transform="rotate(-5 755 621)">OUT OF ORDER</text></g>
+<g id="b3" class="hot"><rect x="960" y="230" width="160" height="70" fill="#fff"/><text x="1040" y="256" class="cO" font-size="15" text-anchor="middle" fill="#2a2a2a">PROGRAM</text><text x="1040" y="276" class="cI" font-size="11" text-anchor="middle" fill="#2a2a2a">nobody sits here</text>
+  <path d="M1000 600q40 -10 50 -80t40 -160" stroke="#2a6ab0" stroke-width="5" fill="none"/><rect x="1080" y="350" width="16" height="16" fill="#e8e0d0"/><text x="1088" y="388" class="cM" font-size="9" text-anchor="middle" fill="#e8e0d0">TO BATTERY ROOM</text></g>
+<g id="b4" class="hot"><path d="M1300 600q40 -10 50 -80t40 -160" stroke="#c8a030" stroke-width="5" fill="none"/><rect x="1380" y="350" width="16" height="16" fill="#e8e0d0"/><text x="1340" y="388" class="cM" font-size="9" text-anchor="middle" fill="#e8e0d0">TO TELETYPE GALLERY</text></g>
+<!-- floor -->
+<rect x="-1000" y="700" width="3600" height="700" fill="url(#carpet)"/>
+<!-- the printer trolley -->
+<g id="printer" class="hot"><rect x="1440" y="560" width="150" height="16" fill="#5a5a60"/><rect x="1450" y="576" width="8" height="160" fill="#3a3a40"/><rect x="1572" y="576" width="8" height="160" fill="#3a3a40"/><rect x="1440" y="700" width="150" height="10" fill="#5a5a60"/>
+  <rect x="1452" y="510" width="126" height="52" rx="4" fill="#d8d0c0"/><rect x="1466" y="504" width="98" height="10" fill="#2a2a2a"/>
+  <path d="M1470 504q-6 -60 10 -90h70q-10 30 0 90z" fill="#fbfbf4"/><g fill="#a8c8a8" opacity=".6"><rect x="1478" y="440" width="64" height="8"/><rect x="1476" y="468" width="66" height="8"/></g>
+  <path d="M1480 710q20 30 60 22q30 -6 40 20" fill="#fbfbf4" stroke="#c8c8c0"/></g>
+<g id="norman" class="hot" transform="translate(395 690) scale(.78)"></g>
+<g id="hazel" class="hot" transform="translate(150 892) scale(1.02)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">To the Teletype Gallery</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="imitation.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, lock = null;
+  /* the four print-outs of booth 2 against booth 3. Each line: [who, time, text, what a circle on it would tell you] */
+  var PO = [
+    { t: 'Judge 3 &middot; Rennick', r: 'Round 2 &middot; 13:40', seats: 'LEFT booth 2 &middot; RIGHT booth 3', slip: 'RIGHT is the person &middot; 70%', why: 'Right typed slowly, like a real person thinking. Left answered too fast.', l: [
+      ['J', '13:40:05', 'Hello both. What did you have for lunch?'],
+      ['L', '13:40:19', 'Kimbap that I made at home, and an apple. Kimbap is rice and vegetables rolled in seaweed.', 'plain'],
+      ['R', '13:40:48', 'pizza!! the cheesy kind lol. wbu?', 'first'],
+      ['J', '13:41:10', 'A sandwich. What&rsquo;s 17 times 3?'],
+      ['L', '13:41:16', '51.', 'fast'],
+      ['R', '13:41:52', 'ummm 41?? maths isnt my thing tbh', 'sum'],
+      ['J', '13:42:30', 'Do you like school?'],
+      ['L', '13:42:44', 'Mostly. I like chemistry. I do not like PE in the rain.', 'plain'],
+      ['R', '13:43:31', 'its ok. im only 13 so stuck there for agess haha. do u have pets?', 'typo'],
+      ['J', '13:44:20', 'Sorry, what did you say you had for lunch?'],
+      ['L', '13:44:33', 'Kimbap. And the apple.', 'plain'],
+      ['R', '13:44:58', 'just a sandwich lol why', 'plain']] },
+    { t: 'Judge 4 &middot; Quarrie', r: 'Round 4 &middot; 14:00', seats: 'LEFT booth 3 &middot; RIGHT booth 2', slip: 'LEFT is the person &middot; 80%', why: 'Right refused nothing and knew everything. Left said &lsquo;idk, im rubbish at maths&rsquo;. Human!', l: [
+      ['J', '14:00:06', 'Hello. Tell me about yourselves.'],
+      ['L', '14:00:41', 'hiya! im 13, i live with my mum and our dog pickle', 'first'],
+      ['R', '14:00:58', 'I am seventeen. I study chemistry, maths and English at the college. I came to England from Korea fourteen months ago.', 'plain'],
+      ['J', '14:01:30', 'What is the capital of Australia?'],
+      ['R', '14:01:39', 'Canberra. Many people think it is Sydney.', 'fast'],
+      ['L', '14:02:15', 'idk, geography is sooo boring lol. im rubbish at maths too', 'idk'],
+      ['J', '14:02:40', 'When were you born?'],
+      ['R', '14:02:52', 'On the 9th of March, 2009.', 'plain'],
+      ['L', '14:03:28', 'the 3rd of jan 2010 haha. wbu?', 'plain'],
+      ['J', '14:04:05', 'Do you get nervous?'],
+      ['R', '14:04:20', 'Yes, a little. Today I am nervous because I want to type everything correctly.', 'plain'],
+      ['L', '14:04:51', 'sometimes lol. sry if i type weird, im on my mums laptop', 'claim']] },
+    { t: 'Judge 1 &middot; Upjohn', r: 'Round 7 &middot; 14:30', seats: 'LEFT booth 2 &middot; RIGHT booth 3', slip: 'RIGHT is the person &middot; 85%', why: 'Left: perfect grammar, sums in a flash. Machine. Right: typos, shy, says she&rsquo;s 13. Sweet kid.', l: [
+      ['J', '14:30:04', 'Afternoon! Quick one: add 34957 to 70764.'],
+      ['L', '14:30:21', '105721.', 'fast'],
+      ['R', '14:30:58', '105621?? i used my fingers lol', 'sum'],
+      ['L', '14:31:10', 'Sorry, the fire alarm is ringing in the corridor. A man says it is only the Saturday test.', 'plain'],
+      ['R', '14:31:24', 'brb my dog is barking at the postman lol', 'unver'],
+      ['J', '14:32:02', 'Ha, I heard it too! Ignore it. Hobbies?'],
+      ['L', '14:32:16', 'Badminton. And I am learning the cello, badly.', 'plain'],
+      ['R', '14:33:05', 'drawing mostly. im 13 so mum wont let me have a phone lol', 'claim'],
+      ['J', '14:34:01', 'What&rsquo;s the best thing about Haverleigh?'],
+      ['L', '14:34:15', 'The library. It is warm and nobody hurries you.', 'plain'],
+      ['R', '14:34:48', 'idk the park? wbu', 'dodge']] },
+    { t: 'Judge 5 &middot; Haworth', r: 'Round 10 &middot; 15:00', seats: 'LEFT booth 3 &middot; RIGHT booth 2', slip: 'LEFT is the person &middot; 85%', why: 'Right too literal, like a robot. Left changed the subject to my dog. So natural.', l: [
+      ['J', '15:00:05', 'Hello. What can you hear right now?'],
+      ['R', '15:00:21', 'A church clock. It has just struck three.', 'plain'],
+      ['L', '15:00:49', 'just my music lol. wbu?', 'unver'],
+      ['J', '15:01:20', 'Hm. Any pets?'],
+      ['R', '15:01:29', 'No. My host family has a cat called Mango. He ignores me.', 'plain'],
+      ['L', '15:02:03', 'yesss a dog called pickle!! do u have a dog??', 'dodge'],
+      ['J', '15:02:30', 'A spaniel. Called Barney.'],
+      ['L', '15:02:51', 'omg spaniels r the best!! wats his fav food', 'dodge'],
+      ['J', '15:03:20', 'Anything. Favourite book?'],
+      ['R', '15:03:38', 'I am reading two at once, one in Korean and one in English. The English one is slower.', 'plain'],
+      ['L', '15:04:12', 'im not really a reader tbh sry!', 'typo']] }];
+  var WHY = {
+    plain: 'That line tells you nothing either way. Look for something only a person in that place, at that moment, could write, or two lines that cannot both be true.',
+    first: 'On its own, that is only a claim, and a claim proves nothing. Keep reading: does anything later disagree with it?',
+    fast: 'Quick and correct proves nothing. Some people are quick. Jiwoo is.',
+    sum: 'A wrong answer after a long pause. That is Turing&rsquo;s own example from 1950. A program can get a sum wrong on purpose.',
+    typo: 'A typo? Turing expected a machine to make mistakes on purpose. A program can add a typo as easily as a letter.',
+    claim: 'Anyone can type that. A claim about yourself, on its own, proves nothing.',
+    idk: '&lsquo;idk&rsquo; proves nothing. Anybody can refuse a question, person or program.',
+    unver: 'Can anybody check it? Nobody else in the building heard that.',
+    dodge: 'Throwing the question back, or changing the subject, proves nothing. It is the oldest trick there is.'
+  };
+
+  (function () {
+    var s = '', k, x, cur = ['#7a4a2a', '#2f7a4a', '#6a6a70', '#2a3a6a'];
+    for (k = 0; k < 4; k++) {
+      x = 270 + k * 300;
+      s += '<g id="booth' + (k + 1) + '"><rect x="' + x + '" y="140" width="280" height="560" fill="url(#ply)"/><rect x="' + (x + 14) + '" y="186" width="252" height="514" fill="#2a2226"/>' +
+        '<rect x="' + (x + 90) + '" y="148" width="100" height="32" rx="3" fill="#1a1a1e"/><text x="' + (x + 140) + '" y="172" class="cO" font-size="20" text-anchor="middle" fill="#f2c86a" letter-spacing="3">BOOTH ' + (k + 1) + '</text>' +
+        '<rect x="' + (x + 30) + '" y="440" width="220" height="14" fill="#8a6a44"/><rect x="' + (x + 70) + '" y="410" width="120" height="30" rx="3" fill="#1a1c20"/><rect x="' + (x + 80) + '" y="414" width="100" height="22" fill="#0e2a24"/>' +
+        '<rect x="' + (x + 80) + '" y="454" width="10" height="246" fill="#6a4a2a"/><rect x="' + (x + 190) + '" y="454" width="10" height="246" fill="#6a4a2a"/>' +
+        '<path class="sway" d="M' + (x + 14) + ' 186h70q-10 260 6 514h-76z" fill="' + cur[k] + '"/><path d="M' + (x + 14) + ' 186h70" stroke="#c8b070" stroke-width="5"/></g>';
+    }
+    $('#booths').innerHTML = s;
+    $('#norman').innerHTML = IM.who('norman', { extra: '<g fill="#e84a6a"><circle cx="-34" cy="-118" r="5"/></g>' });
+    $('#hazel').innerHTML = IM.who('hazel');
+  })();
+
+  ER.init({
+    theme: 'ai', story: 'imitation', storyTitle: 'Five Minutes of Questioning', id: 'booths', no: 'II', title: 'The Booths',
+    go: 'Along the corridor',
+    intro: [
+      'In the Switch Room the recount asked Turing&rsquo;s question: how often did each judge pick the person? Against Norman, MADDIE fooled one judge in five. Against Jiwoo it fooled all five. A coin would have been right about half the time. Nought out of five means the judges were following a rule, and the rule pointed the wrong way.',
+      'The booth corridor, at the back of the building. 4.25 p.m. Four plywood booths, four curtains, one smell of peppermint.'
+    ],
+    exit: {"next":"gallery","w":{"1c412f72":"5131fe30"}}, tags: {"p1":["c896a57f"],"p2":["932ae203"],"p3":["6671a016"],"p4":["de346526"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('b-file') || null; told = ER.flag('b-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('b-told', told); return true; }
+  function isBusy() { return busy; }
+  var NEED = ['norman', 'tex', 'card', 'alarm', 'window'];
+  function ready() { return NEED.every(function (k) { return told[k]; }); }
+  function paint() {
+    $('#printer').classList.toggle('glow', !!(ready() && !nextFile));
+    ER.pips(NEED.filter(function (k) { return told[k]; }).length + (nextFile ? 1 : 0), 6);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The Teletype Gallery is next. The button at the bottom of the screen.']];
+    if (lock && lock.isOpen()) return ['print', [
+      'The judges went by typos, slowness and &ldquo;I&rsquo;m 13&rdquo;. Hazel&rsquo;s card says what is worth more: the here and now, which you can check, and two claims that cannot both be true.',
+      'Two print-outs have a sound that can be checked against the notice and the clock in booth 2&rsquo;s window. In the other two, booth 3 says something early on and something later that cannot both be true. Read the dates carefully: it is October 2026.',
+      'Judge 3: what did booth 3 say about lunch, twice? Judge 4: work out how old somebody born in January 2010 is today. Judge 1: compare 14:31:10 with the alarm log. Judge 5: three o&rsquo;clock.'
+    ]];
+    if (!told.norman) return ['norman', ['Somebody is still in booth 1. Talk to him.']];
+    if (!told.tex) return ['tex', ['There is a framed page on the corridor wall, under the noticeboard.']];
+    if (!told.card) return ['card', ['Hazel pinned a card on the noticeboard. Read it.', 'The typed card on the left of the noticeboard: WHAT A TYPED ANSWER CAN PROVE.']];
+    if (!told.alarm) return ['alarm', ['Something on the noticeboard has a red border.']];
+    if (!told.window) return ['window', ['Look through the window in booth 2. What can a person in that booth see and hear?']];
+    return ['open', ['The print-outs are on the printer trolley on the right.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('Four print-outs on the noticeboard, each with one red circle.'); return; }
+    if (told.in) { busy = false; ER.say('The booth corridor. The printer trolley is on the right.'); return; }
+    tell('in');
+    ER.narrate([
+      'The hidden players came in by the back door this morning and never saw a judge all day. They sat in these booths, behind these curtains, and typed. The two programs had booths too, so that every screen looked the same: booth 3 has a cable instead of a person, and so does booth 4.',
+      'Booth 1 still has its person in it. Norman Albery is finishing a bag of mints and does not seem to be in any hurry.',
+      'On the trolley by the far wall, the old printer has printed every conversation booth 2 had with booth 3: Jiwoo against MADDIE, five times. It ate one of them. Four are left.'
+    ], function () { busy = false; });
+  }
+
+  $('#norman').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;You tell that girl from me,&rdquo; says Norman, &ldquo;she&rsquo;s more human than half the people on the 42 bus.&rdquo;'); return; }
+    ER.talk({
+      who: 'Norman Albery', role: 'Hidden player, booth 1', face: IM.face('norman', 'smile'),
+      lines: [
+        { note: 'Norman Albery is seventy-one. He drove the 42 bus from Haverleigh to Fenby for thirty years and he types with two fingers.', a: '&ldquo;Nine out of ten! I&rsquo;ve been human for seventy-one years and one of them still voted for the machine. Mrs Rennick, I bet. She thought I was a program pretending to be grumpy. I&rsquo;m not pretending, love. This is just my face.&rdquo;' },
+        { q: 'Did you make a lot of typos?', a: '&ldquo;Typos? I made nothing but. Two fingers, and one of them&rsquo;s not much good. The judges loved it. Every mistake I made, they wrote down &lsquo;a person&rsquo;. Funny old rule, when you think about it.&rdquo;' },
+        { q: 'Did anything happen during the game?', a: '&ldquo;That fire alarm made me jump out of my skin. Half past two, regular as anything, every Saturday, and it gets me every time. And the church clock at three, through the wall. You can hear St Ebba&rsquo;s from every booth on this side.&rdquo;' },
+        { a: '&ldquo;The girl next door was shivering all afternoon. Her heater&rsquo;s broken. Mrs Gately said sorry about it on the loudspeaker just before we started, which was nice of her, but it didn&rsquo;t make it any warmer. She typed like a machine-gun, that girl. Very fast. Very correct.&rdquo;' }
+      ],
+      clue: { id: 'norman', title: 'Norman: typos, the alarm, the clock', kind: 'What he said' },
+      done: function (seen) { if (seen && tell('norman')) { paint(); ER.say('&ldquo;Every mistake I made, they wrote down a person,&rdquo; says Hazel. &ldquo;Hold on to that.&rdquo;'); } }
+    });
+  });
+  var TEX = '<div class="hd">From the same paper, 1950</div><h4>Turing&rsquo;s own example</h4>' +
+    '<p>To show how his game might go, Turing wrote out some questions and the answers a machine might give:</p>' +
+    '<div class="qa">Q: Please write me a sonnet on the subject of the Forth Bridge.<br>A: Count me out on this one. I never could write poetry.<br>Q: Add 34957 to 70764.<br>A: (Pause about 30 seconds and then give as answer) 105621.</div>' +
+    '<p>Later he answers people who say that a machine would give itself away by being too good at sums: <q>The machine (programmed for playing the game) would not attempt to give the right answers to the arithmetic problems. It would deliberately introduce mistakes in a manner calculated to confuse the interrogator.</q></p>' +
+    '<p class="pencil">Check his sum. &mdash; H.F.</p>';
+  $('#tex').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: TEX, cls: 'im-frame', clue: { id: 'tex', title: 'Turing&rsquo;s own example', kind: 'Framed in the corridor' }, done: function () {
+      if (tell('tex')) { paint(); ER.say('34957 + 70764 is 105721. Turing&rsquo;s machine is a hundred out, after half a minute of pretending to think. In 1950.'); }
+    } });
+  });
+  var CARD = '<h4>What a typed answer can prove</h4><p>A program can do anything a keyboard can do. So these prove nothing: a typo; slow typing; a wrong sum; short or shy answers; &ldquo;idk&rdquo;; a question thrown back at you; a sudden change of subject; anything a player says about themselves (age, family, dog, mood). Fast, correct answers prove nothing either: some people are quick.</p>' +
+    '<p>Two kinds of answer are worth more. First, <b>the here and now</b>: something happening in this building at this moment that you can check for yourself, such as a bell, an alarm or the weather. Second, <b>a story that holds together</b>. Real people remember what they said a minute ago. One claim proves nothing. Two claims that cannot both be true are worth a great deal.</p>' +
+    '<p>Every hidden person has been asked to tell the truth.</p><p class="hand">Notes for judges, H. Fothergill, August. Not used.</p>';
+  $('#card').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: CARD, cls: 'im-card', clue: { id: 'card', title: 'What a typed answer can prove', kind: 'Hazel&rsquo;s card' }, done: function () {
+      IM.terms(['transcript', 'contradiction', 'the here and now']);
+      if (tell('card')) { paint(); ER.say('&ldquo;I wrote that in August,&rdquo; says Hazel. &ldquo;Bernadette preferred her own tips.&rdquo;'); }
+    } });
+  });
+  var ALARM = '<h4>Fire alarm test</h4><p>Every Saturday at about 2.30 p.m. the fire alarm is tested. It rings for about thirty seconds. <b>Do not leave the building.</b></p><p>Today&rsquo;s test, from the panel by the back door:</p><p class="log">SAT 24 OCT &middot; ZONE 2 &middot; BELLS ON&nbsp; 14:31:02<br>SAT 24 OCT &middot; ZONE 2 &middot; BELLS OFF 14:31:31</p><p>Zone 2: booth corridor, Switch Room, Exchange Hall.</p>';
+  $('#alarm').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: ALARM, cls: 'im-notice', clue: { id: 'alarm', title: 'Fire alarm test, and today&rsquo;s log', kind: 'On the noticeboard' }, done: function () {
+      IM.terms(['time stamp']);
+      if (tell('alarm')) { paint(); ER.say('From 14:31:02 to 14:31:31, every booth and the Switch Room heard the same bell.'); }
+    } });
+  });
+  $('#window').addEventListener('click', function (e) {
+    if (busy) return;
+    ER.wordAt(e.clientX, e.clientY, 'church clock');
+    if (tell('window')) paint();
+    setTimeout(function () { ER.say('Through booth 2&rsquo;s window: the tower of St Ebba&rsquo;s. Its clock strikes every hour, and once at every half hour. From inside booth 3 you can see the wall.'); }, 300);
+  });
+  IM.thing('#heater', 'heater', 'OUT OF ORDER. Sorry! B.G. Booth 2 has been cold since September.', isBusy);
+  IM.thing('#b3', null, 'Booth 3: an empty chair, a screen, and a blue cable through the wall to the Battery Room, where MADDIE runs. MADDIE heard nothing all afternoon. It has no ears.', isBusy);
+  IM.thing('#b4', null, 'Booth 4: a yellow cable to the Teletype Gallery, where ELIZA lives. Hazel connects her every year.', isBusy);
+  $('#hazel').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(nextFile ? '&ldquo;Every one of them had something better than a typo,&rdquo; says Hazel.' : '&ldquo;Read everything on the board,&rdquo; says Hazel. &ldquo;Then the print-outs. Don&rsquo;t believe the judges. Believe the clock.&rdquo;');
+  });
+  $('#printer').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The printer has stopped. Four print-outs are pinned on the noticeboard, each with a red circle.'); return; }
+    if (!ready()) { ER.say('The print-outs. Look round the corridor first: Norman, the noticeboard, the framed page, booth 2&rsquo;s window.'); return; }
+    if (!lock) lock = makeLock();
+    lock.open();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the lock: four print-outs, one circle each ---------- */
+  function makeLock() {
+    var st = ER.flag('b-st') || {}, done = false, cur = 0;
+    var html = '<div class="po-in"><div class="po-tabs">' + PO.map(function (p, i) { return '<button type="button" data-p="' + i + '">' + p.t + '<small>' + p.r + '</small></button>'; }).join('') + '</div><div class="po-sheet" id="po-sheet"></div></div>';
+    return IM.lock('po', html, function (box, msg) {
+      var go = box.querySelector('.pz-go'); go.textContent = 'Pin them up';
+      function tabs() { ER.$$('.po-tabs button', box).forEach(function (b, i) { b.classList.toggle('on', i === cur); b.classList.toggle('set', !!st[i]); }); }
+      function show(i) {
+        cur = i; tabs();
+        var p = PO[i], s = '<h5>Judge&rsquo;s screen &middot; ' + p.t + ' &middot; ' + p.r + '</h5>';
+        p.l.forEach(function (l, n) {
+          var k = n + 1;
+          s += '<div class="po-l' + (l[0] === 'J' ? ' j' : ' p') + (st[i] === k ? ' on' : '') + '" data-k="' + k + '"><i>' + l[1] + '</i><b>' + (l[0] === 'J' ? 'JUDGE' : l[0] === 'L' ? 'LEFT' : 'RIGHT') + '</b><span>' + l[2] + '</span></div>';
+        });
+        s += '<div class="po-foot">Round sheet: ' + p.seats + ' (booth 2 is Jiwoo, booth 3 is MADDIE)<br>The judge&rsquo;s slip: <b>' + p.slip + '</b> <span class="hand">' + p.why + '</span></div>';
+        var sh = box.querySelector('#po-sheet'); sh.innerHTML = s; sh.scrollTop = 0;
+        ER.$$('.po-l.p', sh).forEach(function (d) {
+          d.addEventListener('click', function () {
+            if (done) return;
+            var k = +d.getAttribute('data-k');
+            st[cur] = st[cur] === k ? 0 : k; ER.flag('b-st', st); IM.sfx.pin(); show(cur);
+          });
+        });
+      }
+      ER.$$('.po-tabs button', box).forEach(function (b) { b.addEventListener('click', function () { IM.sfx.tap(); show(+b.getAttribute('data-p')); }); });
+      go.addEventListener('click', function () {
+        if (done) return;
+        var i, miss = -1, wrong = -1;
+        for (i = 0; i < 4; i++) if (!st[i]) { miss = i; break; }
+        if (miss >= 0) { ER.sfx.no(); show(miss); msg('Circle one line on every print-out: the line that settles which side is the person. This one has no circle yet.'); return; }
+        for (i = 0; i < 4; i++) if (!ER.check('p' + (i + 1), String(st[i]))) { wrong = i; break; }
+        if (wrong >= 0) {
+          ER.sfx.no(); show(wrong);
+          msg('<b>' + PO[wrong].t + '</b>: &ldquo;' + WHY[PO[wrong].l[st[wrong] - 1][3]] + '&rdquo; says Hazel.');
+          return;
+        }
+        var file = ER.exit([[1, 2, 3, 4].map(function (n) { return st[n - 1]; }).join('-')], { wait: true });
+        if (!file) { msg('The drawing pin bends. Something is wrong with this page: tell your teacher.'); return; }
+        done = true; nextFile = file; ER.flag('b-file', file);
+        IM.mine('circles', 'Four red circles', '<p>Judge 3: MADDIE said pizza at 13:40, then &ldquo;just a sandwich&rdquo;. Two claims that cannot both be true.</p><p>Judge 4: MADDIE said 13, then born 3 January 2010. On 24 October 2026 that makes 16.</p><p>Judge 1: Jiwoo wrote about the fire alarm at 14:31:10. The bells rang 14:31:02 to 14:31:31.</p><p>Judge 5: Jiwoo heard St Ebba&rsquo;s strike three. MADDIE heard &ldquo;my music&rdquo;.</p><p>The judges went by typos, slowness and &ldquo;I&rsquo;m 13&rdquo;. Those prove nothing.</p>', true);
+        msg('Four print-outs, four red circles. <b>Every one of them was there to be read.</b>');
+        setTimeout(function () {
+          ER.closeAll(); paint(); busy = true;
+          ER.narrate([
+            'Hazel pins the four print-outs to the noticeboard, side by side. &ldquo;Pizza, then a sandwich. Thirteen, then born in 2010. A fire alarm that MADDIE never heard, and a church clock it never heard either. Every judge had something better than a typo. Every judge went by the typo.&rdquo;',
+            '&ldquo;And the girl told them the time, the alarm, her lunch twice over, all true, and they called her a machine for it. Because she typed fast and spelt properly.&rdquo; Hazel is quiet for a moment. &ldquo;Turing saw that coming too. Truthful answers don&rsquo;t help you, if anybody can say the same.&rdquo;',
+            'She taps Judge 1&rsquo;s print-out. &ldquo;Look at MADDIE&rsquo;s sum. 105621. That&rsquo;s Turing&rsquo;s own wrong answer, digit for digit, out of a paper from 1950. That program has read Turing. Or read everything, and Turing was in it.&rdquo;',
+            '&ldquo;And look how often it says &lsquo;wbu?&rsquo; and &lsquo;do u have pets?&rsquo;. Turn the question round, give it back. I know that trick. I have it in a glass case. Come and meet her.&rdquo;'
+          ], function () { busy = false; $('#go').classList.add('on'); });
+        }, 2400);
+      });
+      show(0);
+      msg('Circle the line on each print-out that settles which side is the person, the line the judge should have trusted.');
+    });
+  }
+})();
+</script>
+</body>
+</html>

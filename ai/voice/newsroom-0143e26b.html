@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Newsroom · In Her Own Words</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-ai.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="voice.css">
+<style>
+  body{--bg:#141922;--accent:#ffb84d;--font-display:'Oswald',sans-serif;--font-ui:'Inter',sans-serif;--font-body:'Literata',serif;
+    --tc-bg:rgba(16,20,28,.96);--tc-ink:#eef0f4;--cap-bg:rgba(16,20,28,.94);--cap-ink:#eef0f4;--panel:#161b24;--panel-ink:#eef0f4;--face-bg:#24403a;--q-ink:#ffcf80;
+    --fade:#080a0e;--hud-bg:rgba(16,20,28,.82);--hud-ink:#eef0f4;--hud-line:rgba(238,240,244,.24);--ov-bg:rgba(6,8,12,.76)}
+  .tc-room{font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:.02em;color:#ffb84d}
+  .tc-theme{color:#ffcf80}
+  .tk-role{color:#ffcf80}
+  .hbtn b{color:#080a0e}
+  .drop{animation:rain 1.1s linear infinite}
+  @keyframes rain{0%{transform:translateY(-60px);opacity:0}15%{opacity:.7}100%{transform:translateY(520px);opacity:0}}
+  #twin{animation:flick 7s steps(1,end) infinite}
+  @keyframes flick{0%,92%{opacity:1}93%{opacity:.4}95%{opacity:1}97%{opacity:.6}}
+
+  /* the desk */
+  .dk{width:min(1120px,96vw)}
+  .dk-in{background:#0c1016;border:10px solid #2a2f38;border-radius:8px;padding:8px 10px 10px;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+  .dk-hd{display:flex;gap:12px;align-items:center;font-family:'Roboto Mono',monospace;font-size:12.5px;color:#9fb0c0;margin-bottom:4px}
+  .dk-hd b{font-family:'Oswald',sans-serif;font-weight:500;font-size:18px;letter-spacing:.08em;color:#ffb84d}
+  .dk-hd span{flex:1}
+  .dk-hd button{padding:4px 10px;border:1px solid #4a5260;border-radius:3px;color:#cfd8e0;font-family:'Roboto Mono',monospace;font-size:11.5px}
+  .dk-hd button:hover{border-color:#ffb84d;color:#ffb84d}
+  #dk-svg{width:100%;height:auto;cursor:crosshair}
+  #dk-svg.pick{cursor:pointer}
+  .dk .pmsg{color:#eef0f4}
+  .seg{fill:transparent}
+  #dk-svg.pick .seg:hover{fill:rgba(255,184,77,.10)}
+  .seg.on{fill:rgba(255,184,77,.18)}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a3428"/><stop offset="1" stop-color="#2a251e"/></linearGradient>
+  <linearGradient id="nightG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b1220"/><stop offset=".7" stop-color="#1c2236"/><stop offset="1" stop-color="#3a2a1e"/></linearGradient>
+  <radialGradient id="sodium" cx="50%" cy="100%" r="80%"><stop offset="0" stop-color="#ff9a3a" stop-opacity=".5"/><stop offset="1" stop-color="#ff9a3a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="scrG" cx="50%" cy="50%" r="60%"><stop offset="0" stop-color="#9fd0ff" stop-opacity=".22"/><stop offset="1" stop-color="#9fd0ff" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="55%" cy="48%" r="75%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".72" stop-color="#000" stop-opacity=".2"/><stop offset="1" stop-color="#000" stop-opacity=".7"/></radialGradient>
+  <clipPath id="winClip"><path d="M990 620V230q0 -150 230 -150t230 150v390z"/></clipPath>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1700" fill="url(#wallG)"/>
+<rect x="-1000" y="-400" width="3600" height="440" fill="#2a2620"/><rect x="-1000" y="36" width="3600" height="10" fill="#4a4030"/>
+<g stroke="#2e2920" stroke-width="2" opacity=".6"><path d="M-1000 120H2600M-1000 220H2600M-1000 320H2600M-1000 420H2600M-1000 520H2600"/></g>
+
+<!-- the tall window onto Market Square -->
+<g clip-path="url(#winClip)">
+  <rect x="980" y="60" width="480" height="580" fill="url(#nightG)"/>
+  <g id="town"><path d="M980 520h70v-60h40v-30h60v90h40v-50h50v50h60v-80h50v80h50v-40h40v100H980z" fill="#141826"/>
+  <rect x="1180" y="250" width="90" height="330" fill="#3a3448"/><path d="M1170 250l55 -70 55 70z" fill="#2a2638"/>
+  <circle cx="1225" cy="310" r="32" fill="#f6e2a8"/><circle cx="1225" cy="310" r="32" fill="none" stroke="#3a3448" stroke-width="4"/><path d="M1225 310v-22M1225 310l20 4" stroke="#2a2420" stroke-width="4" stroke-linecap="round"/>
+  <g id="twin" fill="#ffd27a"><rect x="1196" y="420" width="22" height="30"/></g><rect x="1232" y="420" width="22" height="30" fill="#1e1c2a"/><rect x="1196" y="480" width="22" height="30" fill="#1e1c2a"/><rect x="1232" y="480" width="22" height="30" fill="#1e1c2a"/>
+  <ellipse cx="1220" cy="640" rx="320" ry="140" fill="url(#sodium)"/></g>
+  <g id="rain" stroke="#c9d8f0" stroke-width="1.5"></g>
+</g>
+<path d="M990 620V230q0 -150 230 -150t230 150v390z" fill="none" stroke="#5a4a36" stroke-width="16"/><path d="M1220 82V620M990 380H1450" stroke="#5a4a36" stroke-width="8"/>
+<rect x="970" y="618" width="500" height="22" fill="#6a5a44"/>
+<g id="win" class="hot"><rect x="990" y="80" width="460" height="540" fill="transparent"/></g>
+
+<!-- the whiteboard -->
+<g id="board" class="hot"><rect x="90" y="150" width="430" height="270" rx="4" fill="#c9cdd2"/><rect x="100" y="160" width="410" height="250" fill="#fbfcfd"/>
+  <text x="120" y="196" class="cK" font-size="24" font-weight="700" fill="#1a1f6a">23.00 NEWS</text>
+  <text x="120" y="234" class="cK" font-size="21" fill="#b8322a">1. ??? MAYOR ???</text><text x="120" y="268" class="cK" font-size="21" fill="#1a1f6a">2. Low St sandbags</text><text x="120" y="302" class="cK" font-size="21" fill="#1a1f6a">3. Pier repairs (again)</text><text x="120" y="336" class="cK" font-size="21" fill="#1a1f6a">4. Weather: windy</text>
+  <text x="330" y="392" class="cK" font-size="17" fill="#1a1f6a">read by: L.S.</text></g>
+<!-- the noticeboard with the guide -->
+<rect x="560" y="150" width="300" height="210" fill="#8a6a44" stroke="#5a4428" stroke-width="6"/>
+<g id="guide" class="hot" transform="rotate(2 640 255)"><rect x="586" y="168" width="108" height="150" fill="#fbf9f2"/><text x="640" y="192" class="cM" font-size="9" text-anchor="middle" fill="#b8322a">GUIDE · 10</text><text x="640" y="212" class="cG" font-size="12.5" font-weight="800" text-anchor="middle" fill="#1e2226">Checking a</text><text x="640" y="227" class="cG" font-size="12.5" font-weight="800" text-anchor="middle" fill="#1e2226">recording</text>
+  <g fill="#9aa5ae"><rect x="600" y="240" width="80" height="4"/><rect x="600" y="250" width="70" height="4"/><rect x="600" y="260" width="76" height="4"/><rect x="600" y="270" width="64" height="4"/></g><path d="M600 290h18l6 -10 6 18 6 -8h40" stroke="#1f4fa0" stroke-width="2" fill="none"/><circle cx="640" cy="166" r="5" fill="#b8322a"/></g>
+<g><rect x="716" y="176" width="120" height="80" fill="#ffe14d" transform="rotate(-3 776 216)"/><text x="776" y="206" class="cK" font-size="14" text-anchor="middle" fill="#1a1a1a" transform="rotate(-3 776 216)">If your mother</text><text x="776" y="224" class="cK" font-size="14" text-anchor="middle" fill="#1a1a1a" transform="rotate(-3 776 216)">says she loves you,</text><text x="776" y="242" class="cK" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a" transform="rotate(-3 776 216)">CHECK IT.</text>
+  <rect x="740" y="272" width="96" height="70" fill="#fff" transform="rotate(4 788 307)"/><text x="788" y="300" class="cM" font-size="10" text-anchor="middle" fill="#3a3a3a" transform="rotate(4 788 307)">TAXI 01632</text><text x="788" y="316" class="cM" font-size="10" text-anchor="middle" fill="#3a3a3a" transform="rotate(4 788 307)">960 104</text></g>
+
+<!-- the fire pole -->
+<g id="pole" class="hot"><rect x="1528" y="-400" width="16" height="1300" fill="#d9b866"/><rect x="1531" y="-400" width="4" height="1300" fill="#fff4c8" opacity=".6"/><ellipse cx="1536" cy="842" rx="70" ry="16" fill="#120f0c"/><ellipse cx="1536" cy="836" rx="70" ry="14" fill="none" stroke="#6a5a44" stroke-width="6"/></g>
+
+<!-- the floor, the desks -->
+<rect x="-1000" y="640" width="3600" height="700" fill="#4a3a2c"/><g stroke="#3a2d22" stroke-width="3"><path d="M-1000 700H2600M-1000 780H2600M-1000 870H2600"/></g>
+<rect x="520" y="560" width="440" height="30" fill="url(#scrG)" opacity=".0"/>
+<ellipse cx="740" cy="490" rx="260" ry="170" fill="url(#scrG)" pointer-events="none"/>
+<g id="desk" class="hot"><rect x="726" y="590" width="28" height="44" fill="#2a2f38"/><rect x="680" y="628" width="120" height="12" rx="4" fill="#2a2f38"/>
+  <rect x="540" y="392" width="400" height="206" rx="8" fill="#2a2f38"/><rect x="552" y="404" width="376" height="182" fill="#0c1016"/>
+  <text x="562" y="420" class="cM" font-size="10" fill="#ffb84d">THE DESK · chandra_call.wav</text>
+  <path id="dkv" d="" fill="#9fd0ff" opacity=".85"/><path id="dkh" d="" fill="none" stroke="#ffb84d" stroke-width="2"/><path id="dks" d="" fill="#7a8aa0" opacity=".8"/></g>
+<rect x="420" y="640" width="640" height="18" fill="#6a5040"/><rect x="440" y="658" width="18" height="190" fill="#4a3628"/><rect x="1022" y="658" width="18" height="190" fill="#4a3628"/>
+<g id="printer" class="hot"><rect x="160" y="560" width="190" height="90" rx="8" fill="#d8d6d0"/><rect x="180" y="540" width="150" height="24" fill="#b8b6b0"/><rect x="196" y="610" width="118" height="10" fill="#2a2a2a"/><path d="M200 616l-4 40h126l-8 -40z" fill="#fff"/><circle cx="330" cy="584" r="5" fill="#3ad07a"/></g>
+<rect x="120" y="650" width="280" height="18" fill="#6a5040"/><rect x="136" y="668" width="16" height="180" fill="#4a3628"/><rect x="368" y="668" width="16" height="180" fill="#4a3628"/>
+<g id="phone" class="hot"><rect x="852" y="604" width="44" height="74" rx="8" fill="#16191e" transform="rotate(-18 874 641)"/><rect x="857" y="611" width="34" height="58" rx="3" fill="#2a6a8a" transform="rotate(-18 874 641)"/></g>
+<g id="lena" class="hot" transform="translate(1110 880) scale(1.12)"></g>
+<g id="coffee"><path d="M960 640v-34h30v34z" fill="#c9b08a"/><path d="M958 606h34" stroke="#fff" stroke-width="4"/></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Down to the record library</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="voice.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, lock = null, poleN = 0;
+  /* the clip: when the words are, and how loud */
+  var WORDS = [[0.4, 1.2], [2.2, 10.6, 0.9], [11.4, 17.4], [18.5, 19.9], [20.6, 23.2], [24.9, 30.4], [31.9, 38.6]];
+  var LABELS = [[0.4, 'Listen.'], [2.2, 'I&rsquo;ll be straight with you&hellip;'], [11.4, 'The flood wall money&hellip;'], [18.5, 'The vote on Monday&hellip;'], [24.9, 'Low Street can take&hellip;'], [31.9, 'And don&rsquo;t put any&hellip;']];
+  function hissLevel(t) {
+    if (t < 11) return 12 + 7 * Math.exp(-Math.pow((t - 6) / 1.5, 2)) + 1.5 * Math.sin(t * 1.7);
+    if (t < 18) return 8.5; if (t < 24) return 12.5; if (t < 31) return 6.5; return 10;
+  }
+  function hissRough(t) { return t < 11 ? 6 : 1.2; }
+  function humWander(t) { return t < 11 ? 5 * Math.sin(t * 0.9) + 3 * Math.sin(t * 2.3 + 1) : 0; }
+
+  (function () {
+    var s = '', i;
+    for (i = 0; i < 46; i++) s += '<path class="drop" d="M' + (990 + (i * 37) % 460) + ' ' + (80 + (i * 53) % 200) + 'l-4 22" style="animation-delay:-' + ((i * 0.23) % 1.1).toFixed(2) + 's"/>';
+    $('#rain').innerHTML = s;
+    $('#dkv').setAttribute('d', VX.voicePath(560, 465, 9.2, 40, WORDS, 28, 11, 0.12));
+    $('#dkh').setAttribute('d', VX.linePath(560, 520, 9.2, 40, function (t) { return humWander(t) * 0.7; }));
+    $('#dks').setAttribute('d', VX.hissPath(560, 558, 9.2, 40, function (t) { return hissLevel(t) * 0.7; }, hissRough, 5));
+    $('#lena').innerHTML = VX.who('lena', { smile: -1, extra: '<rect x="30" y="-150" width="18" height="32" rx="3" fill="#16191e"/>' });
+  })();
+
+  ER.init({
+    theme: 'ai', story: 'voice', storyTitle: 'In Her Own Words', id: 'newsroom', no: 'II', title: 'The Newsroom',
+    go: 'Bring the file upstairs',
+    intro: [
+      'In Studio B the clues pointed to one box on the shelf. If a machine made the voice in chandra_call.wav, it learnt from Ask the Mayor: twenty-six hours of clean speech recorded in Studio B, with Low Street in it 208 times (said perfectly) and marina twice (said oddly), and the studio&rsquo;s own hum. The warble at 0:20 told you nothing: cheap phones do that.',
+      'The newsroom is upstairs, in the old fire station&rsquo;s watch room. Its tall window looks out over Market Square at the Town Hall clock.',
+      'It is 21.58. The news is at eleven.'
+    ],
+    exit: {"next":"library","w":{"f57acd8d":"6f10ba92"}}, tags: {"j":["a1a91f2b","5fecdd16","a3764af9","b7fbac3f"],"real":["9d4edbab"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('b-file') || null; told = ER.flag('b-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('b-told', told); return true; }
+  function isBusy() { return busy; }
+  function ready() { return told.lena && told.guide; }
+  function paint() {
+    $('#desk').classList.toggle('glow', !!(ready() && !nextFile));
+    ER.pips((told.lena ? 1 : 0) + (told.guide ? 1 : 0) + (told.phone ? 1 : 0) + (nextFile ? 1 : 0), 4);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Where has the file been? The record library keeps every log. The button at the bottom of the screen.']];
+    if (lock && lock.isOpen()) return lock.step() === 2 ? ['piece', [
+      'Page 10: a real room is never perfectly still. Which piece has a background that lives?',
+      'Look at the HUM lane and the HISS lane inside each piece. Four of them are as even as a ruler. One has a car going past and a hum that wanders.'
+    ]] : ['joins', [
+      'Page 10: in a real recording the background goes on underneath everything. Watch the HISS and HUM lanes, not the voice. Where does the background suddenly change?',
+      'A join is where the hiss jumps to a new level and stays there. A breath, a pause between two sentences, and the warble at 0:20 are not joins if the hiss and hum carry straight on through them.',
+      'Count the places where the hiss band changes height. Put a flag exactly on each one, on the whole second. There is no join inside &ldquo;Listen. I&rsquo;ll be straight with you&hellip;&rdquo;.'
+    ]];
+    if (!told.lena) return ['lena', ['Lena has just read her messages. Talk to her.', 'Lena is standing on the right, by the window.']];
+    if (!told.guide) return ['guide', ['Lena mentioned page 10 of the guide.', 'The white page pinned to the cork noticeboard, next to the yellow note.']];
+    return ['desk', ['Now the big screen: the desk.', 'The glowing monitor in the middle of the room.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('Eleven real seconds, then four pieces in four little rooms of their own.'); return; }
+    if (told.in) { busy = false; ER.say('The newsroom. Rain on the tall window, and the Town Hall clock across the square.'); return; }
+    tell('in');
+    ER.narrate([
+      'Rain runs down the tall window. Across the square the Town Hall clock says two minutes to ten, and one window on the first floor of the Town Hall is still lit.',
+      'Two desks, a printer, a whiteboard with the running order for eleven o&rsquo;clock, a brass fire pole nobody is allowed to slide down, and a computer with a very large screen that everybody calls the desk.',
+      'Lena puts chandra_call.wav on the desk, and looks at her phone for the first time since nine o&rsquo;clock. She reads, and says something short and rude in two languages.'
+    ], function () { busy = false; });
+  }
+
+  $('#lena').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Downstairs,&rdquo; says Lena. &ldquo;If that file has been anywhere, the logs will say so.&rdquo;'); return; }
+    ER.talk({
+      who: 'Lena Sokolova', role: 'Night editor', face: VX.face('lena', 'cross'),
+      lines: [
+        { note: 'She holds up her phone.', a: '&ldquo;Two more. The Courier has the same file: they say it reached them at 21.13. And a listener, Greta Lomax, has just texted the late show a clip from the council meeting. Twelve seconds of the mayor saying Low Street can take its chances. In public.&rdquo;' },
+        { q: 'So it&rsquo;s true?', a: '&ldquo;Two sources. That&rsquo;s the rule, isn&rsquo;t it?&rdquo; She hears herself say it, and frowns. &ldquo;We&rsquo;ll come back to that. The texts are on my phone, on the desk, if you want them. First the file. My ears have done what they can.&rdquo;' },
+        { q: 'What can the desk show?', a: 'Three lanes. VOICE on top. HUM: the very low sounds, where mains electricity lives. HISS: the room itself. Rain, traffic, the air conditioning, all the little noises underneath a voice.' },
+        { q: 'It breathes, though. Doesn&rsquo;t that mean it&rsquo;s real?', a: '&ldquo;Twice. Before Low Street, and before &lsquo;And don&rsquo;t put&rsquo;.&rdquo; She shakes her head. &ldquo;Page 9: a voice model copies breathing too. A breath proves nothing. That&rsquo;s the trouble with simple rules. They&rsquo;re simple.&rdquo;' },
+        { note: 'She taps the noticeboard.', a: '&ldquo;Page 10 is up there. Then mark me every place where somebody joined two pieces together. If there are joins.&rdquo;' }
+      ],
+      clue: { id: 'lena2', title: 'Lena: two more, and three lanes', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('lena')) { paint(); ER.say('Page 10 is on the noticeboard. Then the desk.'); } }
+    });
+  });
+
+  var GUIDE = '<div class="hd">RADIO GREYHITHE &middot; GUIDE FOR PRODUCERS</div><h4>10. Checking a recording</h4><div class="two"><div>' +
+    '<p><b>What the ear can tell:</b> a voice that sounds odd, a word with the wrong stress, a phrase the person would never use. <b>What it cannot tell:</b> whether the voice is real. Good fakes sound right, and real recordings can sound odd.</p>' +
+    '<p>So look at the <b>background</b> as well as the voice. In a real recording the background goes on underneath everything: traffic, rain, the hiss of the room. It does not stop between sentences. Where it suddenly changes, something was <b>joined</b>. A real room is never perfectly still: a car passes, a chair creaks. A background as even as a ruler has probably been made.</p>' +
+    '<p>Known sounds help: a clock or a bell at a known time, the echo of a known room. <b>Mains</b> electricity in Britain runs at 50 hertz, and a recording made near it often carries a low <b>hum</b> at 50 hertz (and at 100 and 150).</p>' +
+    '<p>None of these is proof by itself. A cheap phone drops half a second of sound; a tired person trips over a word. Put the clues together.</p></div>' +
+    '<div><svg viewBox="0 0 250 300" xmlns="http://www.w3.org/2000/svg"><g font-family="Roboto Mono,monospace" font-size="11">' +
+    '<text x="4" y="16" fill="#1e2226">VOICE</text><path d="M4 50h30l4 -20 4 36 4 -28 4 18 4 -10h40l4 -18 4 30 4 -22h20l4 16 4 -22 4 12h30l4 -16 4 22h50" stroke="#1f4fa0" stroke-width="2" fill="none"/>' +
+    '<text x="4" y="100" fill="#1e2226">HUM 50 Hz</text><path d="M4 124q15 -8 30 0t30 0t30 0t30 0" stroke="#b8322a" stroke-width="2" fill="none"/><path d="M124 124h120" stroke="#b8322a" stroke-width="2"/>' +
+    '<text x="4" y="168" fill="#1e2226">HISS</text><path d="M4 186h120v28H4z" fill="#9aa5ae"/><path d="M124 194h120v12H124z" fill="#9aa5ae"/>' +
+    '<path d="M124 30v200" stroke="#b8322a" stroke-width="2" stroke-dasharray="5 4"/><text x="130" y="250" fill="#b8322a">a join:</text><text x="130" y="266" fill="#b8322a">the background</text><text x="130" y="282" fill="#b8322a">changes at once</text></g></svg></div></div>' +
+    '<p class="pg">page 10</p>';
+  $('#guide').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: GUIDE, cls: 'vg-guide', clue: { id: 'guide10', title: 'Guide, page 10: checking a recording', kind: 'On the noticeboard' }, done: function () {
+      VX.terms(['background', 'join', 'mains', 'hum', 'hertz', 'echo']);
+      if (tell('guide')) { paint(); ER.say('The background should go on underneath everything. Where it suddenly changes, something was joined.'); }
+    } });
+  });
+  var PHONE = '<h4>LENA&rsquo;S PHONE &middot; 21.31 &ndash; 21.47</h4>' +
+    '<div class="m"><small>Late show text line &middot; Greta Lomax &middot; 21.31</small>Have you heard this?? The mayor at the council!! I&rsquo;m not in that Low Street lot, my councillor sent it. &ldquo;Hear it in her own words. Greyhithe deserves better.&rdquo;<br><span class="att">council_bit.mp4 &middot; 0:12</span></div>' +
+    '<div class="m"><small>Email &middot; Cass Ogilvie, Greyhithe Courier &middot; 21.47</small>Lena, we got a recording of the mayor at 21.13 from somebody called lowstreetwatch. Same file as yours? We&rsquo;re running it at midnight unless we hear something better. Two sources is two sources!<br><span class="att">chandra_call.wav &middot; 0:40</span></div>';
+  $('#phone').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: PHONE, cls: 'vg-phone', clue: { id: 'phone', title: 'Lena&rsquo;s phone: Greta and the Courier', kind: 'Messages' }, done: function () {
+      VX.terms(['second source', 'clip']);
+      if (tell('phone')) { paint(); ER.say('&ldquo;Two sources is two sources,&rdquo; says the Courier. Lena reads it aloud, in a voice that means she is not sure.'); }
+    } });
+  });
+  $('#pole').addEventListener('click', function () {
+    if (busy) return;
+    var L = ['The fire pole. The firemen left in 1974. The pole stayed. A sign at the bottom says DO NOT. Somebody has added: EVER.', '&ldquo;Ivo slid down it once,&rdquo; says Lena. &ldquo;Once.&rdquo;'];
+    ER.say(L[poleN++ % L.length]);
+  });
+  VX.thing('#board', null, 'The running order for eleven o&rsquo;clock. Story one is three question marks and the word MAYOR.', isBusy);
+  VX.thing('#printer', null, 'The printer, with one green light. It is the only thing in the newsroom that has never been late.', isBusy);
+  VX.thing('#win', 'quay', 'Market Square in the rain. Beyond the Town Hall, the street lights run down to the quay, and past it the dark where Low Street is.', isBusy);
+  $('#desk').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Five pieces, four joins, and one breath used twice.'); return; }
+    if (!told.lena) { ER.say('The desk. Lena has something to tell you first.'); return; }
+    if (!told.guide) { ER.say('&ldquo;Page 10 first,&rdquo; says Lena. &ldquo;Noticeboard.&rdquo;'); return; }
+    if (!lock) lock = makeLock();
+    lock.open();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the lock: mark the joins ---------- */
+  function makeLock() {
+    var X0 = 60, PX = 25, TOT = 40, st = ER.flag('b-st') || { f: [], step: 1, piece: 0 }, wait = false;
+    var box = ER.el('div', 'pz dk');
+    var svg = '<svg id="dk-svg" viewBox="0 0 1100 430" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="1100" height="430" fill="#0c1016"/>';
+    var i, t;
+    for (t = 0; t <= TOT; t++) svg += '<path d="M' + (X0 + t * PX) + ' 26v' + (t % 5 ? 6 : 12) + '" stroke="#5a6676" stroke-width="1.5"/>' + (t % 5 ? '' : '<text x="' + (X0 + t * PX) + ' " y="20" font-family="Roboto Mono,monospace" font-size="11" text-anchor="middle" fill="#9fb0c0">0:' + (t < 10 ? '0' : '') + t + '</text>');
+    svg += '<g font-family="Roboto Mono,monospace" font-size="11" fill="#5a6676"><text x="4" y="104">VOICE</text><text x="4" y="236">HUM</text><text x="4" y="334">HISS</text></g>';
+    LABELS.forEach(function (l) { svg += '<text x="' + (X0 + l[0] * PX) + '" y="56" font-family="Inter,sans-serif" font-size="11.5" fill="#cfd8e0">' + l[1] + '</text>'; });
+    svg += '<path d="' + VX.voicePath(X0, 110, PX, TOT, WORDS, 40, 11, 0.04) + '" fill="#9fd0ff" opacity=".9"/>';
+    /* the warble: the voice breaks up for half a second */
+    svg += '<path d="M' + (X0 + 20 * PX) + ' 110l3 -14 3 26 3 -30 3 34 3 -22 3 12 2 -6" stroke="#9fd0ff" stroke-width="2" fill="none"/>';
+    /* the breaths: the first is her own; the second and third are the same shape */
+    var B1 = VX.voicePath(X0 + 1.5 * PX, 110, PX, 0.5, [[0, 0.5, 0.3]], 30, 21, 0.03), B2 = VX.voicePath(0, 110, PX, 0.5, [[0, 0.5, 0.32]], 30, 33, 0.03);
+    svg += '<path d="' + B1 + '" fill="#c9e4ff"/><g transform="translate(' + (X0 + 24.2 * PX) + ' 0)"><path d="' + B2 + '" fill="#c9e4ff"/></g><g transform="translate(' + (X0 + 31.2 * PX) + ' 0)"><path d="' + B2 + '" fill="#c9e4ff"/></g>';
+    svg += '<path d="M' + X0 + ' 230H' + (X0 + TOT * PX) + '" stroke="#26303c" stroke-width="1"/><path d="' + VX.linePath(X0, 230, PX, TOT, humWander) + '" fill="none" stroke="#ffb84d" stroke-width="2.5"/>';
+    svg += '<path d="' + VX.hissPath(X0, 330, PX, TOT, hissLevel, hissRough, 5) + '" fill="#7a8aa0" opacity=".9"/>';
+    svg += '<g id="dk-segs"></g><g id="dk-flags"></g><rect id="dk-hit" x="' + X0 + '" y="0" width="' + (TOT * PX) + '" height="430" fill="transparent"/></svg>';
+    box.innerHTML = '<div class="dk-in"><div class="dk-hd"><b>THE DESK</b><span>chandra_call.wav &middot; 0:40 &middot; click the lanes to put a flag on each join (click a flag to take it away)</span><button type="button" id="dk-clr">clear flags</button></div>' + svg + '</div>' +
+      '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="dk-go">Check the joins</button></div>';
+    var msgEl = box.querySelector('.pmsg'), sv = box.querySelector('#dk-svg');
+    function msg(tx) { msgEl.innerHTML = ER.gloss(tx); }
+    function bounds() { return [0].concat(st.f.slice().sort(function (a, b) { return a - b; })).concat([TOT]); }
+    function paintF() {
+      var s = '';
+      st.f.forEach(function (f) { var x = X0 + f * PX; s += '<g><path d="M' + x + ' 34V410" stroke="#ff5a3a" stroke-width="2.5"/><path d="M' + x + ' 34h22l-6 8 6 8h-22z" fill="#ff5a3a"/><text x="' + (x + 3) + '" y="424" font-family="Roboto Mono,monospace" font-size="10.5" fill="#ff8a6a">0:' + (f < 10 ? '0' : '') + f + '</text></g>'; });
+      box.querySelector('#dk-flags').innerHTML = s;
+      s = '';
+      if (st.step === 2) { var b = bounds(); for (var k = 0; k < b.length - 1; k++) s += '<rect class="seg' + (st.piece === k + 1 ? ' on' : '') + '" data-k="' + (k + 1) + '" x="' + (X0 + b[k] * PX) + '" y="60" width="' + ((b[k + 1] - b[k]) * PX) + '" height="320"/>'; }
+      box.querySelector('#dk-segs').innerHTML = s;
+      sv.classList.toggle('pick', st.step === 2);
+      box.querySelector('#dk-go').textContent = st.step === 2 ? 'This piece could be real' : 'Check the joins';
+      box.querySelector('#dk-hit').style.display = st.step === 2 ? 'none' : '';
+    }
+    box.querySelector('#dk-hit').addEventListener('click', function (e) {
+      if (wait || nextFile || st.step === 2) return;
+      var p = ER.pt(sv, e), f = Math.round((p.x - X0) / PX), j = st.f.indexOf(f);
+      if (f <= 0 || f >= TOT) return;
+      if (j >= 0) st.f.splice(j, 1); else st.f.push(f);
+      ER.flag('b-st', st); VX.sfx.marker(); paintF();
+    });
+    box.querySelector('#dk-segs').addEventListener('click', function (e) {
+      var r = e.target.closest ? e.target.closest('.seg') : null; if (!r || wait || nextFile) return;
+      st.piece = +r.getAttribute('data-k'); ER.flag('b-st', st); VX.sfx.marker(); paintF();
+    });
+    box.querySelector('#dk-clr').addEventListener('click', function () { if (wait || nextFile) return; st.f = []; st.step = 1; st.piece = 0; ER.flag('b-st', st); paintF(); msg('Flags cleared.'); });
+    function two(n) { return '0:' + (n < 10 ? '0' : '') + n; }
+    box.querySelector('#dk-go').addEventListener('click', function () {
+      var good = 0, bad = null, file, fs;
+      if (wait || nextFile) return;
+      if (st.step === 1) {
+        if (!st.f.length) { ER.sfx.no(); msg('&ldquo;No flags,&rdquo; says Lena. &ldquo;So no joins? Look at the hiss again.&rdquo;'); return; }
+        fs = st.f.slice().sort(function (a, b) { return a - b; });
+        fs.forEach(function (f) { if (ER.check('j', String(f))) good++; else if (bad === null) bad = f; });
+        if (bad !== null) {
+          ER.sfx.no();
+          if (bad <= 2) msg('&ldquo;' + two(bad) + ',&rdquo; says Lena. &ldquo;She stops between Listen and I&rsquo;ll be straight, and breathes. But the hiss runs straight on, and the hum keeps wandering. Same room, same moment. That&rsquo;s a pause, not a join.&rdquo;');
+          else if (bad === 20 || bad === 21) msg('&ldquo;The warble,&rdquo; says Lena. &ldquo;The voice breaks up, but look underneath: the hiss and the hum carry straight on through it. Whatever happened at 0:20, the room didn&rsquo;t change. Ivo&rsquo;s sticker.&rdquo;');
+          else if (bad === 25 || bad === 32) msg('&ldquo;' + two(bad) + ' is a breath,&rdquo; says Lena. &ldquo;In the VOICE lane. Look at where the HISS changes level. Just before it.&rdquo;');
+          else msg('&ldquo;At ' + two(bad) + ' the hum and the hiss run straight on,&rdquo; says Lena. &ldquo;Nothing was joined there.&rdquo;');
+          return;
+        }
+        if (good < 4) { ER.sfx.no(); msg('&ldquo;Those ' + (good === 1 ? 'one is' : good + ' are') + ' right,&rdquo; says Lena. &ldquo;But the background still jumps somewhere you haven&rsquo;t flagged.&rdquo;'); return; }
+        st.step = 2; st.piece = 0; ER.flag('b-st', st); ER.sfx.ok(); paintF();
+        msg('&ldquo;Four joins,&rdquo; says Lena. &ldquo;Five pieces. Now: which piece could be a real recording of a real room? Click it.&rdquo;');
+        return;
+      }
+      if (!st.piece) { ER.sfx.no(); msg('Click one of the five pieces first.'); return; }
+      if (!ER.check('real', String(st.piece))) { ER.sfx.no(); msg('&ldquo;Piece ' + st.piece + '?&rdquo; says Lena. &ldquo;Its hiss is as even as a ruler and its hum is dead straight. Page 10: a real room is never that still.&rdquo;'); return; }
+      fs = st.f.slice().sort(function (a, b) { return a - b; });
+      file = ER.exit([fs.join('-') + '-' + st.piece], { wait: true });
+      if (!file) { msg('The desk freezes. Something is wrong with this page: tell your teacher.'); return; }
+      wait = true; nextFile = file; ER.flag('b-file', file);
+      VX.terms(['waveform', 'background', 'join']);
+      VX.mine('joins', 'The joins', '<p>The background jumps at 0:11, 0:18, 0:24 and 0:31. Five pieces, each in its own little room.</p><p>Not joins: the pause after &ldquo;Listen&rdquo;, the warble at 0:20, the breaths.</p><p>The breaths before &ldquo;Low Street&rdquo; and &ldquo;And don&rsquo;t put&rdquo; are exactly the same shape: copied.</p><p>Only piece 1 (0:00&ndash;0:11, &ldquo;Listen. I&rsquo;ll be straight with you, because you&rsquo;ve asked me straight&rdquo;) has a living background: a car passing, a wandering hum.</p>', true);
+      msg('&ldquo;Piece one,&rdquo; says Lena. &ldquo;The only one with a real room under it.&rdquo;');
+      setTimeout(function () {
+        ER.closeAll(); paint(); busy = true;
+        ER.narrate([
+          '&ldquo;Four joins,&rdquo; says Lena. &ldquo;Five pieces, each one sitting in its own little room.&rdquo;',
+          'She zooms in on the two breaths, before Low Street and before And don&rsquo;t put. Side by side they are exactly the same shape, down to the last wiggle. &ldquo;Nobody breathes the same breath twice,&rdquo; she says. &ldquo;That breath was copied.&rdquo;',
+          '&ldquo;And piece one. &lsquo;Listen. I&rsquo;ll be straight with you, because you&rsquo;ve asked me straight.&rsquo; Eleven seconds with a real room under it: a car going past, a hum that wanders. That could be her. Really her.&rdquo;',
+          '&ldquo;So somebody took eleven real seconds of the mayor and stuck four sentences on the end. Or a real call was very badly edited.&rdquo; She looks across the square at the lit window. &ldquo;I need to know where that file has been. Downstairs. The record library has every log this station ever kept.&rdquo;'
+        ], function () { busy = false; $('#go').classList.add('on'); });
+      }, 2600);
+    });
+    paintF();
+    msg(st.step === 2 ? 'Which piece could be a real recording? Click it.' : 'Put a flag on every join: every place where the background suddenly changes. Then check the joins.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; }, step: function () { return st.step; } };
+  }
+})();
+</script>
+</body>
+</html>

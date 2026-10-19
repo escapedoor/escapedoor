@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Lisk Hall · Everybody Thinks So</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-ai.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="feed.css">
+<style>
+  body{--bg:#2a1a20;--accent:#ffb84d;--font-display:'Bricolage Grotesque',sans-serif;--font-ui:'Inter',sans-serif;--font-body:'Literata',serif;
+    --tc-bg:rgba(40,24,30,.96);--tc-ink:#f8eef0;--cap-bg:rgba(40,24,30,.94);--cap-ink:#f8eef0;--panel:#2a1a20;--panel-ink:#f8eef0;--face-bg:#3a2228;--q-ink:#ffc890;
+    --fade:#0e080a;--hud-bg:rgba(40,24,30,.82);--hud-ink:#f8eef0;--hud-line:rgba(248,238,240,.24);--ov-bg:rgba(14,8,10,.74)}
+  .tc-room{color:#ffb84d}
+  .tc-theme{color:#f2c8d0}
+  .hbtn b{color:#0e080a}
+  #glow{opacity:0;transition:opacity 1.4s}
+  #glow.on{opacity:1}
+  #bun{opacity:0;transition:opacity 1s}
+  #bun.on{opacity:1}
+  .sway{animation:sway 5s ease-in-out infinite;transform-origin:800px 60px}
+  @keyframes sway{50%{transform:rotate(.6deg)}}
+
+  .ch3{width:min(1000px,95vw)}
+  .ch3-in{background:#2e1c22;border:1px solid #6a3a44;border-radius:6px;padding:14px 16px}
+  .ch3-in h4{margin:0 0 4px;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:24px;color:#ffb84d}
+  .ch3-in p{margin:0 0 10px;font-family:'Literata',serif;font-size:16px;color:#f8eef0}
+  .ch3-cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+  .ch3-cards button{text-align:left;background:#fffaf2;color:#2a1a20;border-radius:4px;padding:14px 16px 16px;border-top:8px solid #a89088;font-family:'Inter',sans-serif;font-size:15px;line-height:1.4;min-height:160px}
+  .ch3-cards button b{display:block;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:19px;line-height:1.1;margin-bottom:8px}
+  .ch3-cards button:hover{outline:2px solid #ffb84d}
+  .ch3-cards button.on{border-top-color:#f2c230;box-shadow:0 0 0 3px #f2c230}
+  .ch3 .pmsg{color:#f8eef0}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="curt" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6a1a24"/><stop offset=".5" stop-color="#9a2a34"/><stop offset="1" stop-color="#6a1a24"/></linearGradient>
+  <pattern id="folds" width="40" height="400" patternUnits="userSpaceOnUse"><rect width="40" height="400" fill="url(#curt)"/></pattern>
+  <radialGradient id="warm" cx="50%" cy="30%" r="80%"><stop offset="0" stop-color="#ffd890" stop-opacity=".35"/><stop offset="1" stop-color="#ffd890" stop-opacity="0"/></radialGradient>
+  <radialGradient id="morning" cx="50%" cy="20%" r="90%"><stop offset="0" stop-color="#fff2c8" stop-opacity=".4"/><stop offset="1" stop-color="#fff2c8" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="45%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".72" stop-color="#000" stop-opacity=".16"/><stop offset="1" stop-color="#000" stop-opacity=".66"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1700" fill="#e8c8a8"/>
+<rect x="-1000" y="-400" width="3600" height="440" fill="#c8a080"/><rect x="-1000" y="36" width="3600" height="10" fill="#8a5a3a"/>
+<!-- the stage -->
+<rect x="280" y="60" width="1040" height="370" fill="#3a1a1e"/><rect x="300" y="80" width="1000" height="350" fill="url(#folds)"/><path d="M300 80h1000v40q-500 30 -1000 0z" fill="#7a2028"/>
+<rect x="260" y="430" width="1080" height="40" fill="#8a5a3a"/><rect x="260" y="470" width="1080" height="120" fill="#6a4228"/>
+<g class="sway"><path d="M300 150Q800 230 1300 150" fill="none" stroke="#3a2a2a" stroke-width="2"/><g id="flags"></g></g>
+<rect x="520" y="140" width="560" height="54" fill="#fffaf0"/><text x="800" y="176" class="cG" font-size="28" font-weight="800" text-anchor="middle" fill="#2a1a20">BRIDGE DAY COMMITTEE</text>
+<!-- the committee table, Lyn Carver -->
+<g id="lyn" class="hot" transform="translate(800 470) scale(.92)"></g>
+<g><rect x="560" y="400" width="480" height="20" fill="#e8e0cc"/><rect x="560" y="420" width="480" height="40" fill="#f4eee0"/><circle cx="660" cy="394" r="12" fill="#c8c8d0"/><rect x="900" y="384" width="60" height="16" fill="#fff"/></g>
+<!-- the noticeboard, the hatch, the door -->
+<g id="notice" class="hot"><rect x="40" y="240" width="200" height="190" fill="#a8784a" stroke="#5a3a22" stroke-width="6"/><rect x="58" y="256" width="96" height="120" fill="#e8f4ec"/><rect x="58" y="256" width="96" height="14" fill="#2f8a5a"/><text x="106" y="294" class="cG" font-size="13" font-weight="800" text-anchor="middle" fill="#16281e">UNDER 13?</text><g fill="#7a9a88"><rect x="66" y="306" width="80" height="3"/><rect x="66" y="316" width="72" height="3"/><rect x="66" y="326" width="78" height="3"/></g>
+  <rect x="164" y="270" width="64" height="80" fill="#ffe66a" transform="rotate(4 196 310)"/><text x="196" y="306" class="cK" font-size="11" text-anchor="middle" fill="#1a1a1a" transform="rotate(4 196 310)">Jumble sale</text></g>
+<g id="urn" class="hot"><rect x="1380" y="250" width="200" height="200" fill="#5a3a22"/><rect x="1394" y="264" width="172" height="150" fill="#f2e8d8"/><rect x="1440" y="300" width="60" height="90" rx="8" fill="#b8c0c4"/><rect x="1464" y="370" width="10" height="16" fill="#3a3a3a"/><text x="1480" y="290" class="cK" font-size="14" text-anchor="middle" fill="#5a3a22">TEAS 50p</text></g>
+<g id="door" class="hot"><rect x="-120" y="180" width="150" height="430" fill="#1a1210"/><path d="M30 180l60 24v420l-60 -14z" fill="#7a5a3a"/><g id="bun"><circle cx="40" cy="612" r="16" fill="#d8a060"/><path d="M32 604q8 -8 16 0" stroke="#a8682e" stroke-width="3" fill="none"/></g></g>
+<!-- the floor, the audience -->
+<rect x="-1000" y="590" width="3600" height="800" fill="#9a6a44"/><g stroke="#8a5a38" stroke-width="2"><path d="M-1000 650H2600M-1000 730H2600M-1000 820H2600"/></g>
+<g id="crowd"></g>
+<rect id="glow" x="-1000" y="-400" width="3600" height="1700" fill="url(#morning)" pointer-events="none"/>
+<g id="elaine" class="hot" transform="translate(390 884) scale(.95)"></g>
+<g id="ken" class="hot" transform="translate(540 886) scale(1.02)"></g>
+<g id="freya" class="hot" transform="translate(220 888) scale(1.05)"></g>
+<g id="isla" class="hot" transform="translate(1080 886) scale(1.02)"></g>
+<g id="jamie" class="hot" transform="translate(1225 886) scale(1)"></g>
+<g id="gordon" class="hot" transform="translate(1420 888) scale(1.04)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<div class="done" id="done">
+  <div class="okstamp">BRIDGE DAY &middot; ON</div>
+  <p id="d-time"></p><p id="d-hints"></p><p id="d-words"></p>
+  <h6>What you now know</h6>
+  <ol>
+    <li>A recommendation system predicts what each person will watch, finish, like or share, from what they and people who behave like them did before, and ranks the videos by that guess.</li>
+    <li>It maximises what it measures. Burble counted finishing and sharing, so an angry video people hated could beat a lovely one they liked. &ldquo;It shows people what they like&rdquo; is wrong: it shows them what they will do.</li>
+    <li>Many apps are paid for by advertising, so they are built to keep people watching. Nobody has to be wicked for that to go wrong.</li>
+    <li>In a feedback loop, what you watch changes what you are shown, which changes what you watch. Angry posts tend to be shared more, so a small difference can grow week by week until two towns see two different worlds.</li>
+    <li>In a filter bubble your feed agrees with itself, so it feels as if everybody agrees. To find out what is common, count people, not videos, and look at something nobody ranked.</li>
+    <li>Apps collect personal data (what you watch and for how long, where you pause, where your phone is, your contacts, the time of day) and infer things from it. In the UK you can ask to see it with a subject access request.</li>
+    <li>Settings change what is counted, and so they change the feed. A feed shows you what gets watched and shared, not what is true or what most people think.</li>
+  </ol>
+  <div class="row"><button type="button" class="btn" id="b-task">Have your say</button><button type="button" class="btn" id="b-book">Notebook</button><button type="button" class="btn" id="b-lobby">Back to the story list</button></div>
+  <small>Everybody Thinks So &middot; <button type="button" id="b-reset">play it again from the start</button></small>
+</div>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="feed.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, ch = null;
+
+  (function () {
+    var s = '', i, t, u, x, y, cols = ['#d84a3a', '#f2c230', '#3a8ad0', '#2f9a5a'];
+    for (i = 0; i < 17; i++) { t = 0.03 + i * 0.058; u = 1 - t; x = u * u * 300 + 2 * u * t * 800 + t * t * 1300; y = u * u * 150 + 2 * u * t * 230 + t * t * 150; s += '<path d="M' + (x - 11).toFixed(1) + ' ' + y.toFixed(1) + 'l11 24 11 -24z" fill="' + cols[i % 4] + '"/>'; }
+    $('#flags').innerHTML = s; s = '';
+    var heads = ['#e8c4a2', '#c89a72', '#6e4329', '#f0d6c4', '#a8724e', '#e0b490'], tops = ['#3a5a7a', '#7a3a4a', '#4a6a4a', '#5a4a6a', '#8a6a3a', '#3a3a4a'];
+    for (y = 0; y < 3; y++) for (i = 0; i < 16; i++) {
+      x = -60 + i * 110 + (y % 2) * 50; if (x > 700 && x < 900) continue;
+      s += FD.figure(x, 690 + y * 70, 0.9 + y * 0.12, tops[(i + y) % 6], heads[(i * 3 + y) % 6]);
+    }
+    $('#crowd').innerHTML = s;
+    $('#lyn').innerHTML = FD.who('lyn');
+    $('#elaine').innerHTML = FD.who('elaine', { extra: '<path d="M-30 -120l40 -10M-26 -112l44 -18" stroke="#c8c8d0" stroke-width="3"/><circle cx="0" cy="-118" r="10" fill="#d84a8a"/>' });
+    $('#ken').innerHTML = FD.who('ken');
+    $('#freya').innerHTML = FD.who('freya', { smile: 2 });
+    $('#isla').innerHTML = FD.who('isla');
+    $('#jamie').innerHTML = FD.who('jamie');
+    $('#gordon').innerHTML = FD.who('gordon', { smile: -1 });
+  })();
+
+  ER.init({
+    theme: 'ai', story: 'feed', storyTitle: 'Everybody Thinks So', id: 'hall', no: 'VI', title: 'Lisk Hall',
+    go: 'Through the doors',
+    intro: [
+      'In the library Freya&rsquo;s own data showed what Burble collected (every pause, where her phone spent the night, her contacts, the time of day) and what it guessed from it. With her location, watch history and contacts switched off, Burble would score tomorrow&rsquo;s videos with everybody&rsquo;s numbers, and Bridge Day&rsquo;s own video would come first: 70 + 2 × 22 + 5 × 8 = 154. Same app, same videos, different things counted.',
+      'Lisk Hall, at the Crickmore end of the bridge. 7.59 p.m. Every chair is taken.'
+    ],
+    exit: {"last":true,"rooms":6,"stars":4}, tags: {"say":["9976a89c"]},
+    hints: hints, onBegin: begin
+  });
+
+  function hints() {
+    if (ER.flag('f-done')) return null;
+    if (ch && ch.isOpen()) return ['say', [
+      'Think about everything you found tonight: one joke, a loop that turned for six weeks, three people on each side, and settings that change what is counted.',
+      'Banning one person does not stop a loop, and switching the app off for a night changes nothing it counts. What would let each town see what the other is shown?'
+    ]];
+    return ['say', ['Lyn Carver is waiting for your answer. Click her, on the stage.']];
+  }
+  function begin() {
+    if (ER.flag('f-done')) { busy = false; finish(true); return; }
+    if (ER.flag('f-in')) { busy = false; ER.say('Lyn Carver is waiting for your answer. She is on the stage.'); return; }
+    ER.flag('f-in', 1);
+    ER.narrate([
+      'Lisk Hall is full. Gorsey has sat down on the left of the aisle and Crickmore on the right, without anybody telling them to. Lyn Carver, who chairs the Bridge Day committee, bangs a teapot lid on the table for quiet.',
+      '&ldquo;We have to decide whether tomorrow goes ahead,&rdquo; she says. &ldquo;I&rsquo;ve had forty emails this week. Thirty-nine say the other town started it. One is about parking.&rdquo;',
+      'Ade stands up. &ldquo;It&rsquo;s a hacker,&rdquo; he begins, &ldquo;called LiskLad&mdash;&rdquo; And at the back, by the loudspeakers, Gordon Pruett slowly puts up his hand. &ldquo;That&rsquo;s me,&rdquo; he says. &ldquo;I&rsquo;m LiskLad.&rdquo;',
+      'The hall goes very quiet. &ldquo;Every evening at seven,&rdquo; says Gordon, &ldquo;I put up the top Lisk video of the day. Whatever&rsquo;s first in my feed. Two years I&rsquo;ve done it. It used to be the dog show.&rdquo; He looks at his boots. &ldquo;I thought it was a service.&rdquo;',
+      'Lyn Carver looks down the hall at you. &ldquo;Freya says you&rsquo;ve been on both sides of the bridge tonight. You have one minute. What do we do?&rdquo;'
+    ], function () { busy = false; openCh(); });
+  }
+  function openCh() { if (ER.flag('f-done')) return; if (!ch) ch = makeCh(); ch.open(); }
+  $('#lyn').addEventListener('click', function () {
+    if (busy) return;
+    if (ER.flag('f-done')) { ER.say('&ldquo;Ten o&rsquo;clock tomorrow,&rdquo; says Lyn Carver. &ldquo;Bring a coat. And bring somebody from the other side.&rdquo;'); return; }
+    openCh();
+  });
+  function makeCh() {
+    var pick = '', done = false, box = ER.el('div', 'pz ch3');
+    var C = [['blame', 'Name the person who started it', 'Jamie Orr posted the first joke on 1 September. Ban him from Bridge Day, and the trouble stops with him.'],
+      ['quit', 'Everybody delete Burble tonight', 'No app, no fights. Phones away, and Bridge Day goes ahead without it.'],
+      ['swap', 'Swap phones, change one setting, make one video together', 'Let each town read the other town&rsquo;s feed. Show them what Burble counts and the switches that change it. Then give it one thing worth sharing that isn&rsquo;t a fight.']];
+    box.innerHTML = '<div class="ch3-in"><h4>One minute, in front of both towns</h4><p>What do you tell the hall?</p><div class="ch3-cards">' + C.map(function (c) { return '<button type="button" data-c="' + c[0] + '"><b>' + c[1] + '</b>' + c[2] + '</button>'; }).join('') + '</div></div>' +
+      '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="ch-go">Say it</button></div>';
+    var msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    ER.$$('.ch3-cards button', box).forEach(function (b) { b.addEventListener('click', function () { if (done) return; pick = b.getAttribute('data-c'); FD.sfx.tap(); ER.$$('.ch3-cards button', box).forEach(function (o) { o.classList.toggle('on', o === b); }); }); });
+    box.querySelector('#ch-go').addEventListener('click', function () {
+      if (done) return;
+      if (!pick) { msg('Choose one of the three.'); return; }
+      if (!ER.check('say', pick)) {
+        ER.sfx.no();
+        msg(pick === 'blame' ? '&ldquo;One joke, deleted on day three,&rdquo; says Freya. &ldquo;Ken&rsquo;s reply, LiskLad&rsquo;s copies and six turns of the loop did the rest. Ban Jamie, and the loop keeps turning without him.&rdquo;' :
+          '&ldquo;Half this hall will be back on it by Tuesday,&rdquo; says Ade, &ldquo;and the feed will be waiting exactly where we left it, counting exactly the same things.&rdquo;');
+        return;
+      }
+      done = true; FD.solved();
+      msg('&ldquo;Yes,&rdquo; says Freya, and stands up beside you.');
+      setTimeout(ending, 1600);
+    });
+    msg('Lyn Carver taps her watch.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+  function ending() {
+    ER.closeAll(); busy = true;
+    ER.narrate([
+      'You ask everybody on the left of the aisle to pass their phone across it, and everybody on the right to do the same. There is a lot of grumbling, and then a lot of reading.',
+      'Isla is holding Ken&rsquo;s phone. &ldquo;They think we hate them?&rdquo; Ken is holding hers. &ldquo;They think we hate them!&rdquo; Mrs Gooch reads a whole minute of Crickmore laughing at Gorsey and says, &ldquo;Well. I&rsquo;d be cross too.&rdquo;',
+      'Freya explains it in three sentences, with a felt pen on the back of an agenda. Burble counts finishing and sharing, so the angriest videos climb. Each week it showed each town more of what made it cross, until the two towns had nothing in common. And the &ldquo;everybody&rdquo; in your feed is three people and a man with a seven o&rsquo;clock job. Then she shows them the switches.',
+      'Isla stands up. &ldquo;Three people in Gorsey made those videos. I was one of the three in Crickmore. I&rsquo;m sorry, and I&rsquo;m still coming tomorrow.&rdquo; Ken stands up. &ldquo;I made the worst video on my own top shelf. I&rsquo;m sorry, and I&rsquo;m bringing two hundred buns.&rdquo;',
+      'Mrs Gooch takes the Gorsey sign-up sheet out of her handbag, where it seems to have been all along, and writes her name back in. Anchor, tug-of-war. &ldquo;Somebody has to be,&rdquo; she says.',
+      'The vote: eleven hands for Bridge Day, none against, and Gordon abstains, because he says he has lost the right to an opinion. &ldquo;Not lost,&rdquo; says Lyn Carver. &ldquo;Turned down a bit.&rdquo;',
+      'At half past eight, on the brass line in the middle of the bridge, Jamie holds a Gorsey bun up to the camera and Ken holds the phone. &ldquo;Gorsey bun,&rdquo; says Jamie. &ldquo;Also the best doorstop in the valley. Come and try one tomorrow, ten o&rsquo;clock.&rdquo; Gordon posts it, as himself.',
+      'On Saturday morning, for the first time in six weeks, the top of Local Buzz is the same video on both sides of the river. &ldquo;Don&rsquo;t get excited,&rdquo; says Freya. &ldquo;It&rsquo;s the same machine, counting the same things. This time we gave it something better to count. Next time we&rsquo;ll know what it&rsquo;s doing.&rdquo;'
+    ], function () { busy = false; ER.flag('f-done', 1); finish(false); });
+  }
+
+  function line(sel, before, after) { $(sel).addEventListener('click', function () { if (!busy) ER.say(ER.flag('f-done') ? after : before); }); }
+  line('#freya', '&ldquo;One minute,&rdquo; says Freya. &ldquo;Say what we found.&rdquo;', '&ldquo;I&rsquo;m changing my title,&rdquo; says Freya. &ldquo;Why My Phone Doesn&rsquo;t Hate Anybody. It just counts.&rdquo;');
+  line('#ken', 'Ken is sitting very straight, with his arms folded over his apron.', '&ldquo;Two hundred buns,&rdquo; says Ken. &ldquo;Three turns and a tuck. And one for the hall door.&rdquo;');
+  line('#elaine', 'Mrs Gooch is knitting something long and red, and listening to every word.', '&ldquo;I was anchor in 1987,&rdquo; says Mrs Gooch. &ldquo;We lost. I&rsquo;m not losing again.&rdquo;');
+  line('#isla', 'Isla is turning her whistle over and over in her fingers.', '&ldquo;Training at nine tomorrow,&rdquo; says Isla. &ldquo;Before the match. Don&rsquo;t be late. And bring Freya. We need somebody who can count.&rdquo;');
+  line('#jamie', 'Jamie has taken his gloves off, which for Jamie is very brave.', '&ldquo;Best doorstop in the valley,&rdquo; says Jamie. &ldquo;Ken said I could say it. He said it&rsquo;s true.&rdquo;');
+  line('#gordon', 'Gordon is standing very close to his loudspeakers, as if they might hide him.', '&ldquo;From now on LiskLad posts the weather,&rdquo; says Gordon. &ldquo;Nobody ever got cross about the weather. Well. Not much.&rdquo;');
+  line('#urn', 'TEAS 50p. The urn is on, for afterwards, whatever happens.', 'The urn is surrounded, half Gorsey and half Crickmore. Nobody is arguing near it.');
+  line('#door', 'The hall door, propped open with a fire extinguisher.', 'The hall door is propped open with a Gorsey bun. Everybody agrees it is the best doorstop in the valley.');
+  var NOTICE = '<h4>Under 13?</h4><p>In the UK, a child has to be at least 13 to agree for themselves that an online service may use their personal data. For younger children, a parent or carer has to agree instead. Agreeing like this is called giving <b>consent</b>. This is one reason many apps ask you to be 13 before you join.</p><p>Being 13 does not make an app safe, or make its feed fair. It means you are old enough to read the settings yourself, to change them, and to ask the app what it holds about you. So read them.</p><p>Lisk Hall Youth Club &middot; online safety evening, Tuesdays, 7 p.m.</p>';
+  $('#notice').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: NOTICE, cls: 'fd-notice', clue: { id: 'notice', title: 'Notice: under 13?', kind: 'On the hall noticeboard' }, done: function () { FD.terms(['consent']); } });
+  });
+
+  function finish(quick) {
+    var st = ER.state(), mins = FD.minutesPlayed(), hn = ER.hintsUsed();
+    $('#glow').classList.add('on'); $('#bun').classList.add('on');
+    $('#d-time').textContent = 'From the youth club to the vote: ' + mins + (mins === 1 ? ' minute.' : ' minutes.');
+    $('#d-hints').textContent = hn ? 'Hints asked for: ' + hn + '.' : 'Hints asked for: none at all.';
+    $('#d-words').textContent = 'In your notebook: ' + st.clues.length + ' clues and ' + Object.keys(st.words).length + ' words.';
+    $('#done').classList.add('on');
+    if (quick) ER.say('Bridge Day went ahead. Both towns, one rope, and a bun holding the hall door open.');
+  }
+  $('#b-book').addEventListener('click', ER.notebook);
+  $('#b-lobby').addEventListener('click', function () { ER.leave('../index.html'); });
+  $('#b-reset').addEventListener('click', function () {
+    var b = $('#b-reset');
+    if (b.getAttribute('data-sure')) { ER.resetStory(); location.href = '../index.html'; return; }
+    b.setAttribute('data-sure', '1'); b.textContent = 'this empties your notebook. click again to do it';
+  });
+  $('#b-task').addEventListener('click', function () {
+    var saved = ER.flag('task') || {}, box = ER.el('div', 'rp');
+    box.innerHTML = '<h4>Everybody Thinks So &middot; what do you think?</h4><h3>Have your say</h3>' +
+      '<p>A friend in another town is sure that &ldquo;everybody&rdquo; agrees with them, because their feed says so. Explain to them why their feed might make them think that, and give two things they could do about it.</p>' +
+      '<p>Then answer: should an app be allowed to rank videos by how often they are shared? Give one reason for and one against, and say what you think. Say it aloud, or write 60 to 100 words. Use: because, so, which means, unless.</p>' +
+      '<textarea id="r1"></textarea><div class="count"></div><label for="r2">Name</label><input type="text" id="r2" maxlength="60">' +
+      '<div class="foot"><span>Nobody marks this. It is saved in this browser as you write.</span><button type="button" class="btn" id="r-print">Print</button><button type="button" class="btn" id="r-done">Done</button></div>';
+    ER.glossIn(box, '.rp > p');
+    box.querySelector('#r1').value = saved.r1 || ''; box.querySelector('#r2').value = saved.r2 || '';
+    function keep() {
+      var o = { r1: box.querySelector('#r1').value, r2: box.querySelector('#r2').value }, n = (o.r1.match(/[A-Za-z’']+/g) || []).length;
+      box.querySelector('.count').textContent = n + (n === 1 ? ' word' : ' words');
+      ER.flag('task', o);
+    }
+    box.addEventListener('input', keep);
+    box.addEventListener('keydown', function (e) { e.stopPropagation(); });
+    box.querySelector('#r-print').addEventListener('click', function () { keep(); window.print(); });
+    box.querySelector('#r-done').addEventListener('click', ER.close);
+    ER.open('ov-report', box); keep();
+  });
+})();
+</script>
+</body>
+</html>

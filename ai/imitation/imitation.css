@@ -1,0 +1,218 @@
+/* Five Minutes of Questioning - what every room shares: the papers of the Haverleigh imitation game (a framed page, the
+   judges' slips, a round sheet, dot-matrix print-outs, a museum label, a tuning log, emails, a rule book), the frame
+   round a piece of work, and a skin for the notebook, hints and word tags (the runner's clipboard). Each room sets its
+   own palette on <body>. */
+
+.tc-theme{font-family:'Roboto Mono',monospace;font-size:14px;letter-spacing:.22em}
+.tc-room{font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:.02em;line-height:1;font-size:clamp(38px,5.4vw,76px);text-transform:uppercase}
+.tc-text{font-family:'Literata',Georgia,serif;font-size:clamp(17px,1.36vw,20px);line-height:1.55}
+.tc-text p{margin:0 0 12px}
+.cap{font-family:'Literata',Georgia,serif;font-size:clamp(17px,1.34vw,20px);line-height:1.5}
+.chip,.hbtn{font-family:'Inter',sans-serif;font-weight:600;font-size:12.5px;letter-spacing:.12em}
+.btn{font-family:'Inter',sans-serif;font-weight:700;font-size:13px;letter-spacing:.12em}
+.ov-x{font-family:'Inter',sans-serif;font-weight:600;font-size:12.5px}
+.gobtn{position:fixed;left:50%;bottom:5vh;transform:translateX(-50%);z-index:35;display:none;padding:13px 30px 12px;border:0;
+  color:#10181a;background:#7fe0c4;font-family:'Inter',sans-serif;font-weight:800;font-size:15px;letter-spacing:.05em;border-radius:30px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
+.gobtn.on{display:block}
+.gobtn:hover{background:#a8f0dc}
+.tk-name{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:25px}
+.tk-role{font-family:'Roboto Mono',monospace;font-weight:500;font-size:12.5px;letter-spacing:.08em}
+.tk-text{font-family:'Literata',Georgia,serif;font-size:clamp(16.5px,1.3vw,19px);line-height:1.5}
+.tk-face svg{height:100%;min-height:300px}
+.hot{cursor:pointer}
+.hot:hover{filter:brightness(1.15)}
+.glow{animation:imglow 1.6s steps(1,end) infinite}
+@keyframes imglow{50%{filter:brightness(1.3) drop-shadow(0 0 10px #7fe0c4)}}
+.blink{animation:imblink 1.2s steps(1,end) infinite}
+@keyframes imblink{50%{opacity:.25}}
+
+/* lettering inside drawings */
+.cM{font-family:'Roboto Mono',monospace}.cI{font-family:'Inter',sans-serif}.cK{font-family:'Kalam',cursive}
+.cL{font-family:'Literata',serif}.cG{font-family:'Bricolage Grotesque',sans-serif}.cO{font-family:'Oswald',sans-serif}
+.cS{font-family:'Special Elite',monospace}.cT{font-family:'Stardos Stencil',sans-serif}.cC{font-family:'Cinzel',serif}
+.cE{font-family:'EB Garamond',serif}.cU{font-family:'Outfit',sans-serif}.cV{font-family:'Caveat',cursive}
+
+/* ---- a piece of work ---- */
+.pz{width:min(1180px,96vw);-webkit-user-select:none;user-select:none}
+.pz-foot{display:flex;align-items:flex-start;gap:16px;margin-top:10px}
+.pmsg{flex:1;min-height:46px;margin:0;font-family:'Literata',Georgia,serif;font-size:16px;line-height:1.42;color:#f2f2ea}
+.pmsg b{color:#7fe0c4;font-weight:700}
+.pz-foot .btn{flex:0 0 auto;white-space:nowrap;background:rgba(0,0,0,.45)}
+.pz svg{display:block}
+
+/* ---- paper ---- */
+.doc h4{font-weight:normal}
+.doc svg{display:block;max-width:100%;height:auto}
+.doc b{font-weight:700}
+.doc .w:hover{color:#c8462a}
+/* a framed page from an old journal */
+.doc.im-frame{width:min(800px,95vw);background:#f3ecdb;color:#211c14;font-family:'EB Garamond',serif;font-size:18.5px;line-height:1.42;padding:22px 34px 16px;border:14px solid #2a2016;box-shadow:inset 0 0 0 2px #c8b48a,0 26px 70px rgba(0,0,0,.6)}
+.doc.im-frame .hd{font-family:'Cinzel',serif;font-size:13px;letter-spacing:.16em;color:#6a5434;margin-bottom:2px}
+.doc.im-frame h4{margin:0 0 8px;font-family:'Cinzel',serif;font-weight:700;font-size:23px;letter-spacing:.04em}
+.doc.im-frame p{margin:0 0 8px}
+.doc.im-frame q{font-style:italic}
+.doc.im-frame .two{display:grid;grid-template-columns:1fr 230px;gap:20px;align-items:start}
+.doc.im-frame .qa{font-family:'Special Elite',monospace;font-size:15.5px;line-height:1.5;background:#ebe2cc;border-left:4px solid #8a6a3a;padding:8px 12px;margin:4px 0 10px}
+.doc.im-frame .pencil{font-family:'Caveat',cursive;font-size:22px;color:#5a5a6a;transform:rotate(-2deg);display:inline-block}
+/* the judges' slips: five little cards */
+.doc.im-slips{width:min(1120px,96vw);background:#3a2e22;padding:12px;border-radius:4px;color:#1c1a16}
+.doc.im-slips h4{margin:0 0 8px;font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:.12em;color:#f2e6c8}
+.doc.im-slips .cards{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.doc.im-slips .card{background:#fdfbf0;padding:7px 8px 6px;font-family:'Inter',sans-serif;font-size:12.4px;line-height:1.3;border-top:6px solid #2f7a6a}
+.doc.im-slips .card h5{margin:0 0 4px;font-family:'Oswald',sans-serif;font-weight:600;font-size:14.5px;letter-spacing:.03em;line-height:1.1}
+.doc.im-slips .card h5 small{display:block;font-family:'Inter',sans-serif;font-weight:400;font-size:11px;color:#6a6a70;letter-spacing:0}
+.doc.im-slips .sl{border-top:1px dashed #c0c4c8;padding:4px 0 3px}
+.doc.im-slips .sl b{font-family:'Oswald',sans-serif;font-weight:600;font-size:13px}
+.doc.im-slips .sl .hand{display:block;font-family:'Kalam',cursive;font-size:13.6px;line-height:1.2;color:#1f3f8a}
+.doc.im-slips .sl s{color:#8a3030}
+/* the round sheet */
+.doc.im-sheet{width:min(820px,95vw);background:#fbfaf4;color:#1a1c20;font-family:'Inter',sans-serif;font-size:14.5px;line-height:1.4;padding:18px 24px 14px;border-top:10px solid #2f7a6a}
+.doc.im-sheet h4{margin:0 0 4px;font-family:'Oswald',sans-serif;font-weight:600;font-size:24px;letter-spacing:.03em}
+.doc.im-sheet p{margin:0 0 6px}
+.doc.im-sheet table{width:100%;border-collapse:collapse;margin:6px 0 8px;font-size:14px}
+.doc.im-sheet th{font-family:'Oswald',sans-serif;font-weight:500;font-size:13px;letter-spacing:.05em;text-align:left;border-bottom:2px solid #1a1c20;padding:3px 6px}
+.doc.im-sheet td{border-bottom:1px solid #d8dce0;padding:4px 6px;font-family:'Roboto Mono',monospace;font-size:13.2px}
+.doc.im-sheet td:first-child{font-family:'Inter',sans-serif;font-weight:600}
+.doc.im-sheet .small{font-size:13px;color:#4a5058}
+.doc.im-sheet .key{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:4px 0 8px}
+.doc.im-sheet .key span{background:#eaf2ee;border:1px solid #9ac0b0;padding:4px 7px;font-size:13px}
+/* a typed card on a noticeboard */
+.doc.im-card{width:min(640px,94vw);background:#fffdf4;color:#1a1a1a;font-family:'Special Elite',monospace;font-size:15.5px;line-height:1.5;padding:22px 28px 16px;box-shadow:0 22px 60px rgba(0,0,0,.5);border-top:3px solid #c8b8a0}
+.doc.im-card h4{margin:0 0 10px;font-family:'Special Elite',monospace;font-size:19px;letter-spacing:.04em;text-decoration:underline}
+.doc.im-card p{margin:0 0 8px}
+.doc.im-card .hand{font-family:'Caveat',cursive;font-size:21px;color:#1f4fa0}
+/* the corridor notice and the alarm log */
+.doc.im-notice{width:min(580px,92vw);background:#fff;color:#1a1a1a;font-family:'Inter',sans-serif;font-size:15.5px;line-height:1.45;padding:18px 24px 14px;border:6px solid #c8302a}
+.doc.im-notice h4{margin:0 0 6px;font-family:'Oswald',sans-serif;font-weight:600;font-size:24px;color:#c8302a;letter-spacing:.04em}
+.doc.im-notice p{margin:0 0 7px}
+.doc.im-notice .log{font-family:'Roboto Mono',monospace;font-size:14px;background:#f2f2f2;padding:8px 12px;border-left:4px solid #1a1a1a}
+/* a museum label */
+.doc.im-label{width:min(760px,95vw);background:#fbfaf7;color:#1c1c1e;font-family:'Literata',serif;font-size:16px;line-height:1.5;padding:22px 30px 16px;border-left:10px solid #1c1c1e;box-shadow:0 24px 60px rgba(0,0,0,.35)}
+.doc.im-label .hd{font-family:'Outfit',sans-serif;font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;color:#6a6a70}
+.doc.im-label h4{margin:2px 0 8px;font-family:'Cinzel',serif;font-weight:700;font-size:30px;letter-spacing:.06em}
+.doc.im-label p{margin:0 0 8px}
+.doc.im-label .q{font-style:italic;border-left:3px solid #c8c8cc;padding-left:12px}
+/* ELIZA's script card */
+.doc.im-script{width:min(760px,95vw);background:#f4efe0;color:#1a1814;font-family:'Roboto Mono',monospace;font-size:13.6px;line-height:1.45;padding:18px 24px 14px;border:2px solid #1a1814}
+.doc.im-script h4{margin:0 0 6px;font-family:'Special Elite',monospace;font-size:19px}
+.doc.im-script p{margin:0 0 6px}
+.doc.im-script table{width:100%;border-collapse:collapse;margin:4px 0 8px}
+.doc.im-script td{border-top:1px solid #bdb5a0;padding:3px 6px;vertical-align:top}
+.doc.im-script td:nth-child(2){text-align:center;font-weight:700;color:#8a2a1a;white-space:nowrap}
+/* a dot-matrix print-out, the teletype roll */
+.doc.im-print{width:min(780px,95vw);background:#fbfbf4 repeating-linear-gradient(transparent 0 46px,#e2f0e2 46px 92px);color:#1c1c1c;font-family:'Special Elite',monospace;font-size:14.6px;line-height:23px;padding:16px 46px 14px;
+  background-image:radial-gradient(circle,#c8c8c0 5px,transparent 6px),radial-gradient(circle,#c8c8c0 5px,transparent 6px),repeating-linear-gradient(transparent 0 46px,#e2f0e2 46px 92px);
+  background-size:30px 23px,30px 23px,auto;background-position:0 4px,right 4px,0 0;background-repeat:repeat-y,repeat-y,repeat}
+.doc.im-print h4{margin:0 0 6px;font-family:'Special Elite',monospace;font-size:15px;letter-spacing:.06em}
+.doc.im-print p{margin:0}
+/* the tuning log and the scoring sheet */
+.doc.im-log{width:min(900px,96vw);background:#fff;color:#1a1c20;font-family:'Inter',sans-serif;font-size:14.4px;line-height:1.4;padding:16px 22px 12px;border-top:8px solid #3a7a5a}
+.doc.im-log h4{margin:0 0 4px;font-family:'Roboto Mono',monospace;font-weight:500;font-size:16px}
+.doc.im-log p{margin:0 0 6px}
+.doc.im-log table{width:100%;border-collapse:collapse;font-size:13.6px}
+.doc.im-log th{font-family:'Roboto Mono',monospace;font-weight:500;font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;text-align:left;border-bottom:2px solid #1a1c20;padding:3px 5px;color:#4a5058}
+.doc.im-log td{border-bottom:1px solid #e0e4e8;padding:3px 5px}
+.doc.im-log td.n{font-family:'Roboto Mono',monospace;text-align:right}
+.doc.im-log .grey{color:#8a9098}
+.doc.im-log .hand{font-family:'Kalam',cursive;font-size:15.5px;color:#c8462a}
+.doc.im-log ol{margin:0 0 6px;padding-left:22px}
+.doc.im-log li{margin:0 0 3px}
+/* a print-out pinned to a door */
+.doc.im-pin{width:min(720px,94vw);background:#f8f6ef;color:#1e2228;font-family:'Inter',sans-serif;font-size:15.5px;line-height:1.48;padding:20px 28px 14px;border-top:12px solid #e8b020;box-shadow:0 22px 60px rgba(0,0,0,.55)}
+.doc.im-pin .hd{font-family:'Roboto Mono',monospace;font-size:12px;letter-spacing:.14em;color:#8a6a10}
+.doc.im-pin h4{margin:2px 0 8px;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:28px;line-height:1}
+.doc.im-pin p{margin:0 0 8px}
+.doc.im-pin .hand{font-family:'Kalam',cursive;font-size:16px;color:#1f6a44}
+/* a notebook page, a napkin */
+.doc.im-note{width:min(660px,94vw);background:#fffef8 repeating-linear-gradient(transparent 0 27px,#d4dcea 27px 28px);color:#1c2030;font-family:'Kalam',cursive;font-size:18px;line-height:28px;padding:28px 30px 16px 56px;
+  background-image:linear-gradient(90deg,transparent 40px,#f0a0a0 40px 42px,transparent 42px),repeating-linear-gradient(transparent 0 27px,#d4dcea 27px 28px)}
+.doc.im-note h4{margin:0 0 0;font-family:'Kalam',cursive;font-weight:700;font-size:22px;line-height:28px}
+.doc.im-note p{margin:0}
+/* a newspaper cutting */
+.doc.im-cut{width:min(600px,92vw);background:#efe8d6;color:#1e1c18;font-family:'EB Garamond',serif;font-size:18px;line-height:1.38;padding:18px 24px 14px;transform:rotate(-.6deg);box-shadow:0 18px 50px rgba(0,0,0,.5)}
+.doc.im-cut .hd{font-family:'Oswald',sans-serif;font-size:12.5px;letter-spacing:.16em;color:#6a6050}
+.doc.im-cut h4{margin:2px 0 8px;font-family:'Oswald',sans-serif;font-weight:600;font-size:24px;text-transform:uppercase}
+.doc.im-cut p{margin:0 0 7px}
+/* an email */
+.doc.im-mail{width:min(700px,94vw);background:#fff;color:#1e2228;font-family:'Inter',sans-serif;font-size:15px;line-height:1.46;padding:0 0 12px;border:1px solid #9aa4b0;box-shadow:0 22px 60px rgba(0,0,0,.5)}
+.doc.im-mail h4{margin:0;padding:9px 18px;background:#3a4a6a;color:#fff;font-family:'Inter',sans-serif;font-weight:600;font-size:14px}
+.doc.im-mail .hdr{padding:8px 18px;border-bottom:1px solid #d8dde4;font-family:'Roboto Mono',monospace;font-size:12.6px;color:#4a5260;line-height:1.5}
+.doc.im-mail p{margin:8px 18px}
+.doc.im-mail .quote{border-left:3px solid #b0b8c4;color:#5a6270;padding-left:10px}
+/* the rule book */
+.doc.im-rule{width:min(700px,94vw);background:#f6f1e4;color:#1c1a16;font-family:'Literata',serif;font-size:15.5px;line-height:1.46;padding:20px 28px 14px;border-left:14px solid #2f7a6a;
+  background-image:radial-gradient(ellipse 40% 30% at 70% 30%,rgba(140,120,80,.18),transparent 70%),radial-gradient(ellipse 30% 22% at 20% 80%,rgba(140,120,80,.14),transparent 70%)}
+.doc.im-rule h4{margin:0 0 8px;font-family:'Oswald',sans-serif;font-weight:600;font-size:23px;letter-spacing:.03em}
+.doc.im-rule p{margin:0 0 6px}
+.doc.im-rule .r{display:grid;grid-template-columns:62px 1fr;gap:6px}
+.doc.im-rule .r b{font-family:'Oswald',sans-serif;font-weight:600}
+/* what you worked out */
+.doc.im-mine{width:min(620px,92vw);background:#eef6f2 repeating-linear-gradient(transparent 0 29px,#b8d4c8 29px 30px);color:#12302a;font-family:'Kalam',cursive;font-size:18px;line-height:30px;padding:36px 30px 20px 34px;border-top:20px solid #2f7a6a}
+.doc.im-mine h4{margin:0;font-family:'Roboto Mono',monospace;font-size:13px;line-height:30px;letter-spacing:.1em;text-transform:uppercase;color:#2f7a6a}
+.doc.im-mine p{margin:0}
+.doc.statement{background:#f4f8f6;font-family:'Literata',Georgia,serif;font-size:17px;line-height:1.5;border-left:6px solid #2f7a6a}
+.doc.statement h4{font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:.1em;color:#2f7a6a}
+
+/* ---- the notebook: the runner's clipboard ---- */
+.nb{background:#7a8a84 linear-gradient(160deg,#8a9a94,#5e6e68);border:1px solid #3a4a44;color:#10201a;border-radius:10px;box-shadow:0 30px 90px rgba(0,0,0,.75)}
+.nb-tabs{border-bottom-color:#3a4a44}
+.nb-tabs button{font-family:'Inter',sans-serif;font-weight:700;font-size:13px;letter-spacing:.12em;color:#10201a}
+.nb-tabs button.on{background:#f8fbf9;color:#10201a;border-color:#3a4a44}
+.nb-list{border-right-color:#3a4a44}
+.nb-list button{font-family:'Inter',sans-serif;font-size:15px;color:#0c1a16}
+.nb-list button small{font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:.08em}
+.nb-list button.on{background:#10201a;color:#7fe0c4}
+.nb-view{background:#4e5e58}
+.nb-empty{font-family:'Inter',sans-serif}
+.nb-words{background:#f8fbf9;color:#10201a}
+.nb-words b{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:17px}
+.nb-words span{font-family:'Inter',sans-serif;font-size:15px;line-height:1.38;color:#4a5a54}
+.nb-ko{border-color:#6a7a74;color:#4a5a54}
+.nb-ko.on{background:#10201a;color:#7fe0c4;border-color:#10201a}
+.wtip,.wtag{background:#f8fbf9;color:#10201a;border-radius:6px;box-shadow:0 12px 30px rgba(0,0,0,.45),inset 0 4px 0 #2f7a6a}
+.wtag{transform:none;padding:13px 16px 10px}
+.wtag:before{display:none}
+.wtip{padding-top:12px}
+.wtip b,.wtag b{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:17px}
+.wtip span,.wtag span{font-family:'Inter',sans-serif;font-size:15px;line-height:1.38;color:#4a5a54}
+.hintbox{background:#f8fbf9;color:#10201a;border-top:6px solid #2f7a6a;border-radius:6px}
+.hintbox h6{font-family:'Roboto Mono',monospace;font-weight:500;font-size:12.5px;letter-spacing:.16em;color:#2f7a6a}
+.hintbox p{font-family:'Literata',serif;font-size:16px;line-height:1.42}
+.hintbox p i{background:#10201a;color:#7fe0c4;font-family:'Inter',sans-serif;font-weight:700;font-size:12px}
+.hintbox p.hint-none{font-style:italic;color:#5a6a64;font-size:15px}
+.hintbox .btn{font-size:12.5px}
+.toast{font-family:'Inter',sans-serif;font-weight:600;font-size:12.5px;background:rgba(16,32,26,.95);border-radius:4px;border-color:#7fe0c4}
+
+/* ---- the card at the end ---- */
+.done{position:fixed;right:2.2vw;top:58px;z-index:34;width:min(580px,94vw);max-height:calc(100vh - 72px);overflow:auto;padding:14px 24px 12px;display:none;background:#f8fbf9;color:#10201a;
+  border-top:12px solid #2f7a6a;border-radius:6px;box-shadow:0 20px 60px rgba(0,0,0,.45)}
+.done.on{display:block}
+.okstamp{display:inline-block;padding:5px 14px 3px;border:3px solid #2f7a6a;color:#2f7a6a;font-family:'Roboto Mono',monospace;font-weight:500;font-size:18px;letter-spacing:.08em;transform:rotate(-2deg);margin-bottom:6px}
+.done h6{margin:8px 0 4px;font-family:'Inter',sans-serif;font-weight:800;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase}
+.done p{margin:0 0 2px;font-family:'Roboto Mono',monospace;font-size:13px;line-height:1.4}
+.done ol{margin:0;padding-left:20px;font-family:'Literata',serif;font-size:13px;line-height:1.3}
+.done li{margin:0 0 3px}
+.done .row{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
+.done .btn{--accent:#10201a;font-size:12px;padding:7px 12px}
+.done .btn:hover:not([disabled]){color:#7fe0c4}
+.done small{display:block;margin-top:7px;font-family:'Roboto Mono',monospace;font-size:11.5px;opacity:.75;line-height:1.5}
+.done small button{text-decoration:underline;font:inherit}
+.rp{width:min(780px,94vw);max-height:84vh;overflow:auto;background:#f8fbf9;color:#10201a;padding:22px 34px 18px;box-shadow:0 26px 70px rgba(0,0,0,.5);-webkit-user-select:text;user-select:text;border-top:22px solid #2f7a6a;border-radius:6px}
+.rp h4{margin:0 0 3px;font-family:'Roboto Mono',monospace;font-weight:500;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:#2f7a6a}
+.rp h3{margin:0 0 8px;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:28px;line-height:1.05}
+.rp p,.rp label{display:block;font-family:'Literata',serif;font-size:16px;line-height:1.45;margin:0 0 6px}
+.rp textarea,.rp input[type=text]{width:100%;font-family:'Kalam',cursive;font-size:18.5px;line-height:30px;color:#1a3a5a;background:#fff repeating-linear-gradient(transparent 0 29px,#d3dde8 29px 30px);
+  border:1px solid #9aa7b5;padding:0 12px;border-radius:0;resize:vertical;-webkit-user-select:text;user-select:text}
+.rp textarea{min-height:184px}
+.rp input[type=text]{height:32px}
+.rp .count{font-family:'Roboto Mono',monospace;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;opacity:.7;text-align:right;margin-top:3px}
+.rp .foot{display:flex;gap:10px;align-items:center;margin-top:10px}
+.rp .foot span{flex:1;font-family:'Roboto Mono',monospace;font-size:12px;opacity:.75}
+.rp .btn{--accent:#10201a}.rp .btn:hover:not([disabled]){color:#7fe0c4}
+@media print{
+  body{overflow:visible;background:#fff}
+  body>*:not(.ov){display:none!important}
+  .ov{position:static!important;display:block!important;background:#fff!important;padding:0!important;overflow:visible!important}
+  .ov-bar,.rp .foot{display:none!important}
+  .rp{box-shadow:none;max-height:none;width:auto;overflow:visible}
+}

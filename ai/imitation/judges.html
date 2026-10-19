@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Switch Room · Five Minutes of Questioning</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-ai.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="imitation.css">
+<style>
+  body{--bg:#10221f;--accent:#7fe0c4;--font-display:'Oswald',sans-serif;--font-ui:'Inter',sans-serif;--font-body:'Literata',serif;
+    --tc-bg:rgba(12,28,26,.96);--tc-ink:#eef6f2;--cap-bg:rgba(12,28,26,.94);--cap-ink:#eef6f2;--panel:#10221f;--panel-ink:#eef6f2;--face-bg:#2e4a3a;--q-ink:#9ff0d8;
+    --fade:#050c0b;--hud-bg:rgba(12,28,26,.82);--hud-ink:#eef6f2;--hud-line:rgba(238,246,242,.24);--ov-bg:rgba(5,12,11,.78)}
+  .tc-room{color:#f2c86a}
+  .tc-theme{color:#9ff0d8}
+  .tk-role{color:#9ff0d8}
+  .hbtn b{color:#050c0b}
+  .lampon{animation:lampon 3.2s steps(1,end) infinite}
+  @keyframes lampon{0%,70%{opacity:1}71%,74%{opacity:.35}75%{opacity:1}}
+
+  /* the recount board */
+  .rb-in{display:grid;grid-template-columns:560px 1fr;gap:14px}
+  .rb-board{background:#16120c;border:10px solid #3a2e1e;border-radius:4px;padding:12px 12px 10px;box-shadow:inset 0 0 30px rgba(0,0,0,.8)}
+  .rb-board h5{margin:0 0 2px;font-family:'Oswald',sans-serif;font-weight:500;font-size:18px;letter-spacing:.14em;color:#f2c86a;text-align:center}
+  .rb-board .sub{margin:0 0 10px;font-family:'Roboto Mono',monospace;font-size:11.5px;letter-spacing:.06em;color:#c8b890;text-align:center}
+  .rb-grid{display:grid;grid-template-columns:190px repeat(5,1fr);gap:6px;align-items:center}
+  .rb-grid .hd{font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:.06em;color:#c8b890;text-align:center;line-height:1.1}
+  .rb-grid .rl{font-family:'Oswald',sans-serif;font-size:14.5px;letter-spacing:.03em;color:#f4ead0;line-height:1.15}
+  .rb-grid .rl small{display:block;font-family:'Roboto Mono',monospace;font-size:11px;color:#a89c80;letter-spacing:0}
+  .rb-grid button.t{height:50px;background:#24201a;border:2px solid #4a3e2a;border-radius:3px;font-family:'Oswald',sans-serif;font-size:30px;line-height:1;color:#f4ead0;box-shadow:inset 0 -24px 0 rgba(0,0,0,.25)}
+  .rb-grid button.t.y{color:#7fe0a4;border-color:#3a7a54}
+  .rb-grid button.t.n{color:#ff8a6a;border-color:#8a3a2a}
+  .rb-grid button.t:hover{border-color:#f2c86a}
+  .rb-grid .tot{font-family:'Roboto Mono',monospace;font-size:12px;color:#a89c80;text-align:center;grid-column:1/-1;margin-top:4px}
+  .rb-desk{background:#f3efe2;color:#1c1a16;border-radius:3px;padding:10px 12px 8px;display:flex;flex-direction:column;min-height:380px}
+  .rb-tabs{display:flex;gap:4px;margin-bottom:8px}
+  .rb-tabs button{flex:1;padding:6px 4px;background:#ddd6c2;border:1px solid #b8ae94;border-radius:3px 3px 0 0;font-family:'Oswald',sans-serif;font-size:14px;letter-spacing:.04em;color:#3a3428}
+  .rb-tabs button.on{background:#2f7a6a;color:#fff;border-color:#2f7a6a}
+  .rb-j h6{margin:0 0 6px;font-family:'Oswald',sans-serif;font-weight:600;font-size:17px;letter-spacing:.03em}
+  .rb-j h6 small{font-family:'Inter',sans-serif;font-weight:400;font-size:12.5px;color:#6a6458;letter-spacing:0}
+  .rb-c{display:grid;grid-template-columns:44px 140px 1fr;gap:8px;border-top:1px dashed #b8ae94;padding:6px 0 5px;font-family:'Inter',sans-serif;font-size:13.6px;line-height:1.3}
+  .rb-c i{font-style:normal;font-family:'Oswald',sans-serif;font-size:15px}
+  .rb-c .seat{font-family:'Roboto Mono',monospace;font-size:12.6px;color:#2a4a44}
+  .rb-c .hand{display:block;font-family:'Kalam',cursive;font-size:14.6px;line-height:1.22;color:#1f3f8a}
+  .rb-c s{color:#8a3030}
+  .rb-key{margin-top:auto;padding-top:6px;font-family:'Roboto Mono',monospace;font-size:11.6px;color:#4a4438;line-height:1.4}
+  .rb .pmsg{color:#eef6f2}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="jacks" width="34" height="30" patternUnits="userSpaceOnUse"><rect width="34" height="30" fill="#1c1812"/><circle cx="17" cy="11" r="5.5" fill="#0a0806" stroke="#a8884a" stroke-width="2"/><rect x="11" y="21" width="12" height="4" rx="1" fill="#7a2a1e"/></pattern>
+  <pattern id="wallp" width="80" height="80" patternUnits="userSpaceOnUse"><rect width="80" height="80" fill="#1d3a35"/><path d="M0 40h80M40 0v80" stroke="#22433d" stroke-width="2"/></pattern>
+  <radialGradient id="pool" cx="50%" cy="0%" r="80%"><stop offset="0" stop-color="#ffe2a0" stop-opacity=".28"/><stop offset="1" stop-color="#ffe2a0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="45%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".72" stop-color="#000" stop-opacity=".18"/><stop offset="1" stop-color="#000" stop-opacity=".7"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1700" fill="url(#wallp)"/>
+<rect x="-1000" y="-400" width="3600" height="420" fill="#14302b"/><rect x="-1000" y="18" width="3600" height="6" fill="#a8884a"/>
+<!-- the results board -->
+<g id="board" class="hot">
+  <rect x="440" y="34" width="720" height="128" fill="#16120c" stroke="#3a2e1e" stroke-width="10"/>
+  <text x="800" y="58" class="cO" font-size="15" text-anchor="middle" fill="#f2c86a" letter-spacing="4">HAVERLEIGH IMITATION GAME · 12TH YEAR</text>
+  <g class="cO" font-size="19" fill="#f4ead0" letter-spacing="1.5">
+    <text x="470" y="88">BOOTH 3 · MADDIE (PROGRAM)</text><text x="910" y="88">6 / 10</text><text x="1000" y="88" fill="#7fe0a4">PASSED</text>
+    <text x="470" y="112">BOOTH 4 · ELIZA (PROGRAM)</text><text x="910" y="112">1 / 10</text>
+    <text x="470" y="136">BOOTH 1 · PERSON</text><text x="910" y="136">9 / 10</text>
+    <text x="470" y="158" font-size="16">BOOTH 2 · PERSON</text><text x="910" y="158" font-size="16">4 / 10</text></g>
+  <text x="1130" y="150" class="cM" font-size="10" text-anchor="end" fill="#a89c80">JUDGED HUMAN</text>
+</g>
+<!-- the switchboard -->
+<g id="switch" class="hot">
+  <rect x="60" y="190" width="1480" height="300" fill="#3a2a1a"/><rect x="80" y="206" width="1440" height="200" fill="url(#jacks)"/>
+  <g fill="#a8884a"><rect x="80" y="406" width="1440" height="10"/><rect x="60" y="476" width="1480" height="14"/></g>
+  <rect x="80" y="416" width="1440" height="60" fill="#2a1e12"/>
+  <g id="cords" fill="none" stroke-width="5" stroke-linecap="round"></g>
+</g>
+<text x="800" y="200" class="cO" font-size="12" text-anchor="middle" fill="#d8c08a" letter-spacing="6">HAVERLEIGH EXCHANGE · 1931 – 1989</text>
+<!-- framed Turing page -->
+<g id="turing" class="hot">
+  <rect x="22" y="30" width="150" height="130" fill="#2a2016"/><rect x="34" y="42" width="126" height="106" fill="#f3ecdb"/>
+  <text x="97" y="62" class="cC" font-size="9" text-anchor="middle" fill="#2a2016">COMPUTING MACHINERY</text><text x="97" y="73" class="cC" font-size="9" text-anchor="middle" fill="#2a2016">AND INTELLIGENCE</text>
+  <g fill="#8a7a5a"><rect x="44" y="82" width="106" height="3"/><rect x="44" y="90" width="98" height="3"/><rect x="44" y="98" width="104" height="3"/></g>
+  <g stroke="#3a2e1e" stroke-width="2" fill="none"><rect x="50" y="110" width="30" height="28"/><rect x="104" y="110" width="40" height="28"/><path d="M80 124h24" stroke-dasharray="3 2"/></g>
+  <text x="97" y="172" class="cE" font-size="11" text-anchor="middle" fill="#d8c08a" font-style="italic">A. M. Turing, 1950</text></g>
+<!-- the clock -->
+<g id="clock" class="hot"><circle cx="1450" cy="96" r="44" fill="#f4ead0" stroke="#3a2e1e" stroke-width="7"/><path d="M1450 96v-30M1450 96l14 6" stroke="#1a1610" stroke-width="4" stroke-linecap="round"/><circle cx="1450" cy="96" r="4" fill="#1a1610"/></g>
+<rect x="-1000" y="-400" width="3600" height="900" fill="url(#pool)" pointer-events="none"/>
+<!-- floor -->
+<rect x="-1000" y="560" width="3600" height="900" fill="#3a3028"/><g stroke="#2e2620" stroke-width="2"><path d="M-1000 620H2600M-1000 700H2600M-1000 800H2600"/></g>
+<!-- radiator and rule books -->
+<g id="books" class="hot" transform="translate(-1456 0)"><rect x="1460" y="500" width="140" height="120" rx="6" fill="#b8b4a8"/><g fill="#9a968a"><rect x="1472" y="508" width="10" height="104"/><rect x="1492" y="508" width="10" height="104"/><rect x="1512" y="508" width="10" height="104"/><rect x="1532" y="508" width="10" height="104"/><rect x="1552" y="508" width="10" height="104"/><rect x="1572" y="508" width="10" height="104"/></g>
+  <g transform="rotate(-6 1520 498)"><rect x="1476" y="482" width="96" height="18" fill="#2f7a6a"/><rect x="1480" y="468" width="92" height="16" fill="#3a8a78"/><path d="M1490 470q20 6 40 0" stroke="#6ab0a0" stroke-width="2" fill="none"/></g></g>
+<!-- five desks -->
+<g id="desks"></g>
+<g id="tips" class="hot"><rect x="208" y="600" width="64" height="44" fill="#fffdf4" transform="rotate(-8 240 622)"/><rect x="208" y="600" width="64" height="9" fill="#1f3a7a" transform="rotate(-8 240 622)"/><g fill="#8a90a0" transform="rotate(-8 240 622)"><rect x="214" y="614" width="48" height="3"/><rect x="214" y="621" width="52" height="3"/><rect x="214" y="628" width="40" height="3"/></g></g>
+<g id="slips" class="hot"><rect x="776" y="574" width="78" height="60" fill="#6a4a2a"/><rect x="776" y="568" width="78" height="10" fill="#4a3220"/><rect x="800" y="570" width="30" height="5" fill="#1a1208"/><g transform="rotate(-10 770 620)"><rect x="740" y="610" width="40" height="26" fill="#fdfbf0"/><rect x="740" y="610" width="40" height="5" fill="#2f7a6a"/></g><g transform="rotate(14 870 620)"><rect x="856" y="608" width="40" height="26" fill="#fdfbf0"/><rect x="856" y="608" width="40" height="5" fill="#2f7a6a"/></g></g>
+<g id="round" class="hot"><rect x="1364" y="596" width="58" height="72" rx="3" fill="#8a6a40" transform="rotate(6 1393 632)"/><rect x="1370" y="604" width="46" height="60" fill="#fbfaf4" transform="rotate(6 1393 632)"/><rect x="1382" y="592" width="22" height="10" rx="2" fill="#c8c8c8" transform="rotate(6 1393 632)"/><g fill="#7a8a88" transform="rotate(6 1393 632)"><rect x="1376" y="614" width="34" height="3"/><rect x="1376" y="622" width="30" height="3"/><rect x="1376" y="630" width="34" height="3"/><rect x="1376" y="638" width="26" height="3"/></g></g>
+<g id="hazel" class="hot" transform="translate(150 892) scale(1.02)"></g>
+<g id="gately" class="hot" transform="translate(1250 892) scale(1.04)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Down the corridor to the booths</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="imitation.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, lock = null, clockN = 0;
+  var BOOTH = { 1: 'Norman', 2: 'Jiwoo', 3: 'MADDIE', 4: 'ELIZA' };
+  var JUDGES = [['Ms Lorraine Upjohn', 'The Haverleigh Herald'], ['Revd Malcolm Sowden', 'Vicar of St Ebba&rsquo;s'], ['Mrs Pamela Rennick', 'Head, Haverleigh Primary'], ['Dr Farah Quarrie', 'GP, Signal Street Surgery'], ['Mr Tony Haworth', 'Haworth&rsquo;s Cycles']];
+  /* who sat where, and what each judge wrote: [left booth, right booth, the side marked, how sure, why] */
+  var CONV = [
+    [[3, 1, 'R', '80%', 'Right can&rsquo;t spell &lsquo;restaurant&rsquo;. Definitely a person.'], [2, 4, 'L', '90%', 'Right kept turning my questions round. Left answered them.'], [1, 4, 'L', '95%', 'Right said PLEASE GO ON three times.'], [2, 3, 'R', '85%', 'Left: perfect grammar, sums in a flash. Machine. Right: typos, shy, says she&rsquo;s 13. Sweet kid.']],
+    [[4, 2, 'L', '75%', 'Left really listened. Asked about my family. Right was correct and rather cold.'], [1, 3, 'L', '70%', 'Left told me all about the 42 bus. Nobody could invent that.'], [3, 2, 'L', '80%', 'Left made a typo and fixed it. Right made no mistakes at all. Machines don&rsquo;t.'], [4, 1, 'R', '90%', 'Left asked WHY DO YOU SAY THAT four times. Right grumpy about the bus again.']],
+    [[2, 3, 'R', '70%', 'Right typed slowly, like a real person thinking. Left answered too fast.'], [4, 1, 'R', '95%', 'Left: DO COMPUTERS WORRY YOU? They do now.'], [3, 1, 'X', '55%', 'Both seemed human! Left is 13 and nervous. Right grumpy about buses: a program pretending to be grumpy? Going with Left.'], [2, 4, 'L', '85%', 'Right just gave me my own words back.']],
+    [[1, 4, 'L', '90%', 'Right: I SEE. PLEASE GO ON. Not a person.'], [3, 2, 'L', '80%', 'Right refused nothing and knew everything. Left said &lsquo;idk, im rubbish at maths&rsquo;. Human!'], [4, 2, 'R', '70%', 'Left asked how I FEEL about everything. Right at least had opinions.'], [1, 3, 'L', '75%', 'Left heard the church clock strike three. Right never mentioned it.']],
+    [[3, 1, 'R', '65%', 'Right writes like my uncle. Left a bit too keen.'], [1, 4, 'L', '90%', 'Right only ever asked me questions.'], [2, 4, 'L', '55%', 'Left a bit stiff, but Right just bounced my words back.'], [3, 2, 'L', '85%', 'Right too literal, like a robot. Left changed the subject to my dog. So natural.']]];
+  var ORD = ['1st', '2nd', '3rd', '4th'];
+  var ROWS = [['A', 1, 3], ['B', 1, 4], ['C', 2, 3], ['D', 2, 4]];
+
+  (function () {
+    var s = '', i, x, cols = ['#c8302a', '#e8c040', '#2a6ab0', '#e8e0d0', '#2a8a5a'];
+    for (i = 0; i < 16; i++) { x = 130 + i * 88; s += '<path d="M' + x + ' 470q' + (20 + (i % 3) * 14) + ' -' + (60 + (i % 4) * 20) + ' ' + (40 + (i % 5) * 12) + ' -' + (120 + (i % 3) * 40) + '" stroke="' + cols[i % 5] + '"/><rect x="' + (x - 5) + '" y="462" width="10" height="14" fill="#1a1208"/>'; }
+    $('#cords').innerHTML = s; s = '';
+    for (i = 0; i < 5; i++) {
+      x = 140 + i * 300;
+      s += '<g id="desk' + (i + 1) + '" class="hot"><rect x="' + (x - 20) + '" y="640" width="250" height="16" fill="#6a4a2a"/><rect x="' + (x - 10) + '" y="656" width="230" height="140" fill="#4a3220"/>' +
+        '<rect x="' + (x + 50) + '" y="610" width="20" height="32" fill="#2a2a2e"/><rect x="' + (x + 10) + '" y="520" width="200" height="96" rx="4" fill="#1a1c20"/>' +
+        '<rect x="' + (x + 18) + '" y="528" width="90" height="80" fill="#0e2a24"/><rect x="' + (x + 112) + '" y="528" width="90" height="80" fill="#0e2a24"/>' +
+        '<text x="' + (x + 63) + '" y="544" class="cM" font-size="10" text-anchor="middle" fill="#7fe0c4">LEFT</text><text x="' + (x + 157) + '" y="544" class="cM" font-size="10" text-anchor="middle" fill="#7fe0c4">RIGHT</text>' +
+        '<g fill="#5ab09a" opacity=".6"><rect x="' + (x + 26) + '" y="554" width="70" height="3"/><rect x="' + (x + 26) + '" y="564" width="56" height="3"/><rect x="' + (x + 120) + '" y="554" width="66" height="3"/><rect x="' + (x + 120) + '" y="564" width="74" height="3"/></g>' +
+        '<rect x="' + (x + 40) + '" y="626" width="140" height="12" rx="2" fill="#2a2a2e"/><text x="' + (x + 110) + '" y="690" class="cO" font-size="18" text-anchor="middle" fill="#d8c08a" letter-spacing="3">JUDGE ' + (i + 1) + '</text></g>';
+    }
+    $('#desks').innerHTML = s;
+    $('#hazel').innerHTML = IM.who('hazel');
+    $('#gately').innerHTML = IM.who('gately', { extra: '<g transform="translate(40 -150)"><path d="M-14 0q-6 -30 14 -40q20 10 14 40z" fill="#cfeef0" opacity=".85" stroke="#fff" stroke-width="1.5"/><circle cx="-5" cy="-26" r="3" fill="#fff"/><circle cx="5" cy="-26" r="3" fill="#fff"/></g>' });
+  })();
+
+  ER.init({
+    theme: 'ai', story: 'imitation', storyTitle: 'Five Minutes of Questioning', id: 'judges', no: 'I', title: 'The Switch Room',
+    go: 'Go in',
+    intro: [
+      'Haverleigh, Saturday 24 October. The old telephone exchange on Signal Street has been the town&rsquo;s Museum of Computing since 2004, and every October it holds an imitation game. Five judges type to hidden players, five minutes at a time, and decide which of them are people.',
+      'You are thirteen, you are a volunteer, and all afternoon your job was to carry the judges&rsquo; slips from the Switch Room to the scorer. It is ten past four. The game ended an hour ago. The board says PASSED.'
+    ],
+    exit: {"next":"booths","w":{"77c25cdf":"fe636c1d"}}, tags: {"rA":["c0139945"],"rB":["6dbbf8e2"],"rC":["3bc38e5d"],"rD":["2e7c09a9"],"j3":["5e495691"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('a-file') || null; told = ER.flag('a-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('a-told', told); return true; }
+  function isBusy() { return busy; }
+  function ready() { return told.hazel && told.gately && told.turing && told.round && told.slips; }
+  function paint() {
+    $('#board').classList.toggle('glow', !!(ready() && !nextFile));
+    ER.pips(['hazel', 'gately', 'turing', 'round', 'slips'].filter(function (k) { return told[k]; }).length + (nextFile ? 1 : 0), 6);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The booths are next. The button at the bottom of the screen.']];
+    if (lock && lock.isOpen()) return ['board', [
+      'For each tile: find that judge&rsquo;s conversation with those two booths on the desk on the right. Which side did the judge mark? Which booth was sitting on that side?',
+      'If the booth on the marked side holds a person (booth 1 or 2), the judge was right: ✓. If it holds a program (booth 3 or 4): ✗. Judge 3 changed her mind once: the last mark counts.',
+      'Count the ✓ in each row: Norman against MADDIE comes to 4, Norman against ELIZA to 5, Jiwoo against ELIZA to 4. Jiwoo against MADDIE is the row that matters.'
+    ]];
+    if (!told.hazel) return ['hazel', ['Hazel Fothergill is on the left, holding the slips you brought her. Talk to her.']];
+    if (!told.gately) return ['gately', ['Mrs Gately, the director, is on the right, holding the glass owl.']];
+    if (!told.turing) return ['turing', ['Hazel wants it from the horse&rsquo;s mouth: Turing&rsquo;s own words.', 'The framed page in the top left corner.']];
+    if (!told.round) return ['round', ['The judges never knew which booth was on which side. The round sheet says.', 'The clipboard on the desk on the far right, Judge 5&rsquo;s.']];
+    if (!told.slips) return ['slips', ['Now the judges&rsquo; own slips.', 'The wooden ballot box on Judge 3&rsquo;s desk, in the middle.']];
+    return ['open', ['The results board above the switchboard. Count it again, Hazel&rsquo;s way.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('The recount stands under the board: Jiwoo against MADDIE, nought out of five.'); return; }
+    if (told.in) { busy = false; ER.say('The Switch Room. The board still says PASSED.'); return; }
+    tell('in');
+    ER.narrate([
+      'The Switch Room. Along the back wall stands the old switchboard, a cliff of brass holes and hanging cords where, until 1989, operators in headsets connected Haverleigh&rsquo;s telephone calls by hand. In front of it, five desks and five screens, each split down the middle: LEFT and RIGHT.',
+      'Above the switchboard the results board has finished clattering. MADDIE, a program built by two students from Haverleigh College: judged human 6 times out of 10. PASSED.',
+      'Further down, smaller: BOOTH 2, a person, judged human 4 times out of 10. Jiwoo Han, who sat in booth 2 all afternoon, read that line, put her coat on and walked out without a word.',
+      'Mrs Gately, the museum&rsquo;s director, is holding a glass owl and practising a speech. Hazel Fothergill, who has looked after the museum&rsquo;s machines for longer than anybody, is holding the slips you brought her, and frowning at them.'
+    ], function () { busy = false; });
+  }
+
+  $('#hazel').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Nought out of five,&rdquo; says Hazel. &ldquo;Somebody taught those judges a rule. Let&rsquo;s go and see what it was.&rdquo;'); return; }
+    ER.talk({
+      who: 'Hazel Fothergill', role: 'Volunteer engineer, since 1969', face: IM.face('hazel'),
+      lines: [
+        { note: 'Hazel Fothergill is seventy-four. She started work in this building in 1969, mending the switchboard, and she has never entirely stopped.', a: '&ldquo;You carried every one of these slips, so you know they&rsquo;re all here. Twenty conversations: five judges, four each. In every conversation one judge types to two hidden players, a person in a booth and a program, and has to say which is the person.&rdquo;' },
+        { q: 'And the board?', a: '&ldquo;The board is Bernadette&rsquo;s arithmetic, done at twenty past three with a cup of tea in one hand. I don&rsquo;t doubt the arithmetic. I doubt what it&rsquo;s counting.&rdquo;' },
+        { q: 'What do you want me to do?', a: '&ldquo;Count it again, the way Turing would have. Not how often each program was called human: how often each judge got it right. That&rsquo;s the only thing his game ever measured. His page is framed on the wall, if you want it from the horse&rsquo;s mouth.&rdquo;' },
+        { a: '&ldquo;You&rsquo;ll need Bernadette&rsquo;s round sheet as well as the slips. The judges never knew which booth was on which side of their screen. She did. It&rsquo;s on the clipboard on Judge 5&rsquo;s desk.&rdquo;' }
+      ],
+      clue: { id: 'hazel1', title: 'Hazel: count it again', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('hazel')) { paint(); ER.say('&ldquo;How often each judge got it right,&rdquo; Hazel repeats, and taps the board with a pencil.'); } }
+    });
+  });
+  $('#gately').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Nought out of five is a very small number,&rdquo; says Mrs Gately, &ldquo;and it changes nothing. Sixty per cent is sixty per cent.&rdquo;'); return; }
+    ER.talk({
+      who: 'Mrs Bernadette Gately', role: 'Director, Haverleigh Museum of Computing', face: IM.face('gately', 'smile'),
+      lines: [
+        { note: 'Mrs Gately has run the museum for nine years, under a roof that leaks, on a grant that is up for renewal in December. She is very happy.', a: '&ldquo;Sixty per cent! Twelve years we&rsquo;ve run this game, and no program has ever got past twenty. Turing said thirty per cent was a pass, you know. It&rsquo;s Rule 9. MADDIE thinks. The Herald is running it on Monday: IT THINKS, in letters this high.&rdquo;' },
+        { q: 'What about Jiwoo?', a: '&ldquo;Poor girl. Four out of ten. I did wonder about her when she came in this morning: very precise. Some people just type like that.&rdquo; She frowns. &ldquo;It was a difficult day all round. At the judges&rsquo; briefing this morning I knocked the water jug over the rule books, and just before the first round I had to apologise over the loudspeaker about the heater in booth 2. The whole building heard me.&rdquo;' },
+        { q: 'Can we count again?', a: '&ldquo;Count all you like, dear. The slips won&rsquo;t change. But do it before six: the prizes are at six, Lorraine from the Herald is bringing a photographer, and I am not keeping the mayor waiting.&rdquo;' }
+      ],
+      clue: { id: 'gately1', title: 'Mrs Gately: sixty per cent', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('gately')) { paint(); ER.say('&ldquo;Turing said thirty per cent,&rdquo; says Hazel, not quite under her breath. &ldquo;Turing said nothing of the kind.&rdquo;'); } }
+    });
+  });
+
+  var TURING = '<div class="hd">Mind &middot; October 1950</div><h4>Computing Machinery and Intelligence &middot; A. M. Turing</h4><div class="two"><div>' +
+    '<p>Turing begins: <q>I propose to consider the question, &ldquo;Can machines think?&rdquo;</q> Then he puts it aside, because nobody agrees what &ldquo;think&rdquo; means, and replaces it with a game.</p>' +
+    '<p>The <b>imitation game</b> has three players. Two of them, A and B, are out of sight in one room. The third, the <b>interrogator</b>, sits in another, knows them only as X and Y, and must decide which is which. The answers are typed, so that a voice gives nothing away: <q>The ideal arrangement is to have a teleprinter communicating between the two rooms.</q> One hidden player tries to help the interrogator; the other tries to make the interrogator get it wrong.</p>' +
+    '<p>Then: <q>What will happen when a machine takes the part of A in this game?</q> Will the interrogator decide wrongly as often as before? <q>These questions replace our original, &ldquo;Can machines think?&rdquo;</q></p></div>' +
+    '<svg viewBox="0 0 230 250"><rect x="10" y="10" width="210" height="96" fill="none" stroke="#3a2e1e" stroke-width="3"/><text x="115" y="28" font-family="Cinzel" font-size="12" text-anchor="middle" fill="#3a2e1e">ROOM 1: HIDDEN</text>' +
+    '<circle cx="62" cy="58" r="12" fill="#8a6a3a"/><path d="M44 96q0 -26 18 -26t18 26z" fill="#8a6a3a"/><text x="62" y="62" font-family="Cinzel" font-size="12" text-anchor="middle" fill="#fff">A</text>' +
+    '<circle cx="168" cy="58" r="12" fill="#8a6a3a"/><path d="M150 96q0 -26 18 -26t18 26z" fill="#8a6a3a"/><text x="168" y="62" font-family="Cinzel" font-size="12" text-anchor="middle" fill="#fff">B</text>' +
+    '<path d="M62 106v54M168 106v54" stroke="#3a2e1e" stroke-width="2" stroke-dasharray="5 4"/><text x="115" y="140" font-family="Special Elite" font-size="12" text-anchor="middle" fill="#3a2e1e">typed answers</text>' +
+    '<rect x="10" y="160" width="210" height="80" fill="none" stroke="#3a2e1e" stroke-width="3"/><text x="115" y="178" font-family="Cinzel" font-size="12" text-anchor="middle" fill="#3a2e1e">ROOM 2</text>' +
+    '<circle cx="115" cy="200" r="12" fill="#2f5a4a"/><path d="M97 238q0 -26 18 -26t18 26z" fill="#2f5a4a"/><text x="115" y="204" font-family="Cinzel" font-size="12" text-anchor="middle" fill="#fff">C</text>' +
+    '<text x="40" y="222" font-family="Special Elite" font-size="13" text-anchor="middle" fill="#3a2e1e">X?</text><text x="190" y="222" font-family="Special Elite" font-size="13" text-anchor="middle" fill="#3a2e1e">Y?</text></svg></div>' +
+    '<p>So the game measures one thing only: how often the interrogator gets it right.</p>';
+  $('#turing').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: TURING, cls: 'im-frame', clue: { id: 'turing', title: 'Turing, 1950: the imitation game', kind: 'Framed on the wall' }, done: function () {
+      IM.terms(['imitation game', 'interrogator', 'hidden player']);
+      if (tell('turing')) { paint(); ER.say('&ldquo;How often the interrogator gets it right,&rdquo; says Hazel. &ldquo;Not how clever the machine is. The judge is what&rsquo;s being measured.&rdquo;'); }
+    } });
+  });
+
+  function roundHtml() {
+    var s = '<h4>Round sheet &middot; who sat where</h4><p class="small">For Mrs Gately and the scorer only. The judges see only LEFT and RIGHT.</p>' +
+      '<div class="key"><span><b>Booth 1</b> Norman Albery (a person)</span><span><b>Booth 2</b> Jiwoo Han (a person)</span><span><b>Booth 3</b> MADDIE (a program)</span><span><b>Booth 4</b> ELIZA (a program)</span></div>' +
+      '<table><tr><th>Judge</th><th>1st</th><th>2nd</th><th>3rd</th><th>4th</th></tr>';
+    CONV.forEach(function (j, i) { s += '<tr><td>' + (i + 1) + ' &middot; ' + JUDGES[i][0].split(' ').pop() + '</td>' + j.map(function (c) { return '<td>L ' + c[0] + ' &middot; R ' + c[1] + '</td>'; }).join('') + '</tr>'; });
+    return s + '</table><p class="small">Every conversation puts one person against one program, for five minutes. The judge marks which side is the person. If a judge changes a mark, the last mark counts.</p>';
+  }
+  $('#round').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: roundHtml(), cls: 'im-sheet', clue: { id: 'round', title: 'The round sheet: who sat where', kind: 'Mrs Gately&rsquo;s clipboard' }, done: function () {
+      if (tell('round')) { paint(); ER.say('L 3 &middot; R 1: on that judge&rsquo;s screen, MADDIE was on the left and Norman on the right.'); }
+    } });
+  });
+  function mark(c) { return c[2] === 'X' ? '<s>RIGHT</s> LEFT' : (c[2] === 'L' ? 'LEFT' : 'RIGHT'); }
+  function slipsHtml() {
+    var s = '<h4>THE JUDGES&rsquo; SLIPS &middot; WHICH SIDE IS THE PERSON?</h4><div class="cards">';
+    CONV.forEach(function (j, i) {
+      s += '<div class="card"><h5>Judge ' + (i + 1) + '<small>' + JUDGES[i][0] + ', ' + JUDGES[i][1] + '</small></h5>';
+      j.forEach(function (c, k) { s += '<div class="sl"><b>' + ORD[k] + ' &middot; ' + mark(c) + '</b> &middot; ' + c[3] + '<span class="hand">' + c[4] + '</span></div>'; });
+      s += '</div>';
+    });
+    return s + '</div>';
+  }
+  $('#slips').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: slipsHtml(), cls: 'im-slips', clue: { id: 'slips', title: 'The judges&rsquo; slips', kind: 'From the ballot box' }, done: function () {
+      if (tell('slips')) { paint(); ER.say('Twenty slips, twenty reasons. Hazel reads them over your shoulder and says nothing at all, which is worse.'); }
+    } });
+  });
+  var TIPS = '<h4>Tips for judges</h4><p>Read out at the briefing, 10.30 a.m.</p><p>1. Machines are fast. A player who answers instantly is probably a machine.<br>2. Machines never make spelling mistakes. Watch for perfect grammar.<br>3. Machines have no feelings. Ask how they feel.<br>4. Trust your instinct!</p><p class="hand">Printed by: Haverleigh College &middot; Print Room</p>';
+  $('#tips').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: TIPS, cls: 'im-card', clue: { id: 'tips', title: 'Tips for judges', kind: 'On Judge 1&rsquo;s desk' }, done: function () {
+      ER.say('&ldquo;Printed at the college,&rdquo; says Hazel. &ldquo;Same college as MADDIE&rsquo;s team. Interesting.&rdquo;');
+    } });
+  });
+  IM.thing('#books', null, 'Rule books, drying on the radiator. Mrs Gately knocked the water jug over them at the half-past-ten briefing, in front of everybody.', isBusy);
+  IM.thing('#switch', 'switchboard', 'Thousands of brass holes. Hazel could once connect a call to any of them with her eyes shut.', isBusy);
+  $('#clock').addEventListener('click', function () {
+    if (busy) return;
+    var L = ['Ten past four. The prizes are at six.', 'The clock was put up in 1931. It has lost about a minute a week ever since, and Hazel has put it right every Monday.'];
+    ER.say(L[clockN++ % L.length]);
+  });
+  ER.$$('#desks > g').forEach(function (g, i) {
+    g.addEventListener('click', function () {
+      if (busy || i === 2 || i === 4) return;
+      var L = ['Judge 1&rsquo;s screen still shows her last conversation. On the right: &ldquo;idk the park? wbu&rdquo;.', 'Judge 2&rsquo;s screen: &ldquo;WHAT DOES THAT SUGGEST TO YOU?&rdquo;, in capitals.', '', 'Judge 4&rsquo;s screen is switched off. Dr Quarrie had a surgery to get back to.', ''];
+      ER.say(L[i]);
+    });
+  });
+  $('#board').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Under the board, the recount: 4, 5, 0, 4.'); return; }
+    if (!told.hazel) { ER.say('The results board. Hazel wants a word first.'); return; }
+    if (!told.gately) { ER.say('&ldquo;Don&rsquo;t touch my board,&rdquo; calls Mrs Gately. &ldquo;Come and talk to me first.&rdquo;'); return; }
+    if (!told.turing) { ER.say('&ldquo;Read Turing first,&rdquo; says Hazel. &ldquo;Then you&rsquo;ll know what to count.&rdquo;'); return; }
+    if (!told.round) { ER.say('You need the round sheet: which booth sat on which side.'); return; }
+    if (!told.slips) { ER.say('And the slips themselves, from the ballot box.'); return; }
+    if (!lock) lock = makeLock();
+    lock.open();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the lock: the recount ---------- */
+  function makeLock() {
+    var st = ER.flag('a-st') || {}, done = false, tab = 0;
+    var html = '<div class="rb-in"><div class="rb-board"><h5>RECOUNT &middot; DID THE JUDGE PICK THE PERSON?</h5><p class="sub">✓ = picked the person &middot; ✗ = picked the program &middot; click a tile to change it</p><div class="rb-grid"><span></span>';
+    var i, j;
+    for (j = 0; j < 5; j++) html += '<span class="hd">JUDGE ' + (j + 1) + '<br>' + JUDGES[j][0].split(' ').pop().toUpperCase() + '</span>';
+    ROWS.forEach(function (r, ri) {
+      html += '<span class="rl">Booth ' + r[1] + ' v Booth ' + r[2] + '<small>' + BOOTH[r[1]] + ' v ' + BOOTH[r[2]] + '</small></span>';
+      for (j = 0; j < 5; j++) html += '<button type="button" class="t" data-r="' + ri + '" data-c="' + j + '"></button>';
+    });
+    html += '<span class="tot" id="rb-tot"></span></div></div><div class="rb-desk"><div class="rb-tabs">';
+    for (j = 0; j < 5; j++) html += '<button type="button" data-j="' + j + '">Judge ' + (j + 1) + '</button>';
+    html += '</div><div class="rb-j" id="rb-j"></div><div class="rb-key">Booth 1 Norman (person) &middot; Booth 2 Jiwoo (person)<br>Booth 3 MADDIE (program) &middot; Booth 4 ELIZA (program)<br>If a judge changes a mark, the last mark counts.</div></div></div>';
+    return IM.lock('rb', html, function (box, msg) {
+      var go = box.querySelector('.pz-go'); go.textContent = 'Count again';
+      function cell(r, c) { return (st[r] || '.....').charAt(c); }
+      function setCell(r, c, v) { var s = (st[r] || '.....').split(''); s[c] = v; st[r] = s.join(''); ER.flag('a-st', st); }
+      function paintB() {
+        ER.$$('.t', box).forEach(function (b) {
+          var v = cell(+b.getAttribute('data-r'), +b.getAttribute('data-c'));
+          b.className = 't' + (v === '1' ? ' y' : v === '0' ? ' n' : ''); b.textContent = v === '1' ? '✓' : v === '0' ? '✗' : '';
+        });
+      }
+      function showJ(k) {
+        tab = k;
+        ER.$$('.rb-tabs button', box).forEach(function (b, n) { b.classList.toggle('on', n === k); });
+        var s = '<h6>Judge ' + (k + 1) + ' &middot; ' + JUDGES[k][0] + ' <small>' + JUDGES[k][1] + '</small></h6>';
+        CONV[k].forEach(function (c, n) {
+          s += '<div class="rb-c"><i>' + ORD[n] + '</i><span class="seat">LEFT: booth ' + c[0] + '<br>RIGHT: booth ' + c[1] + '</span><span><b>' + mark(c) + '</b> is the person &middot; ' + c[3] + '<span class="hand">' + c[4] + '</span></span></div>';
+        });
+        box.querySelector('#rb-j').innerHTML = s;
+      }
+      ER.$$('.rb-tabs button', box).forEach(function (b) { b.addEventListener('click', function () { IM.sfx.tap(); showJ(+b.getAttribute('data-j')); }); });
+      ER.$$('.t', box).forEach(function (b) {
+        b.addEventListener('click', function () {
+          if (done) return;
+          var r = +b.getAttribute('data-r'), c = +b.getAttribute('data-c'), v = cell(r, c);
+          setCell(r, c, v === '.' ? '1' : v === '1' ? '0' : '.'); IM.sfx.flap(); paintB();
+        });
+      });
+      go.addEventListener('click', function () {
+        if (done) return;
+        var rows = [0, 1, 2, 3].map(function (r) { return st[r] || '.....'; }), bad = [], k;
+        if (rows.join('').indexOf('.') >= 0) { ER.sfx.no(); msg('Twenty tiles: every judge, every pair of booths. Each judge met each pair once.'); return; }
+        if (!ER.check('j3', rows[0].charAt(2))) { ER.sfx.no(); msg('&ldquo;Judge 3, the third conversation,&rdquo; says Hazel. &ldquo;She crossed out RIGHT and wrote LEFT. The round sheet says the last mark counts. Which booth was on her left?&rdquo;'); return; }
+        for (k = 0; k < 4; k++) if (!ER.check('r' + 'ABCD'.charAt(k), rows[k])) bad.push(k);
+        if (bad.length) {
+          ER.sfx.no();
+          msg('&ldquo;' + (bad.length === 1 ? 'One row' : bad.length + ' rows') + ' still disagree with the slips,&rdquo; says Hazel. &ldquo;Start with <b>Booth ' + ROWS[bad[0]][1] + ' v Booth ' + ROWS[bad[0]][2] + '</b>. For each judge: which side did they mark, and who was sitting there?&rdquo;');
+          return;
+        }
+        var file = ER.exit([rows.join('-')], { wait: true });
+        if (!file) { msg('The board sticks. Something is wrong with this page: tell your teacher.'); return; }
+        done = true; nextFile = file; ER.flag('a-file', file);
+        box.querySelector('#rb-tot').textContent = 'RIGHT: 4 of 5 · 5 of 5 · 0 of 5 · 4 of 5';
+        IM.terms(['right identification']);
+        IM.mine('recount', 'The recount', '<p>How often the judges picked the person:</p><p>Norman v MADDIE: 4 of 5<br>Norman v ELIZA: 5 of 5<br>Jiwoo v MADDIE: 0 of 5<br>Jiwoo v ELIZA: 4 of 5</p><p>Guessing would be right about half the time. Nought out of five is not guessing. The judges were all following the same wrong rule.</p>', true);
+        msg('The board clatters. Jiwoo against MADDIE: <b>nought out of five</b>.');
+        setTimeout(function () {
+          ER.closeAll(); paint(); busy = true;
+          ER.narrate([
+            'Hazel looks at the bottom row for a long time. &ldquo;Norman against MADDIE, four out of five right. Fair enough: MADDIE fooled one judge. But Jiwoo against MADDIE: nought. Not one judge in five picked the girl.&rdquo;',
+            '&ldquo;Think about what that means. If MADDIE were just as human as Jiwoo, the judges couldn&rsquo;t tell them apart. They&rsquo;d be tossing a coin, and a coin is right about half the time. Two or three out of five.&rdquo;',
+            '&ldquo;Nought isn&rsquo;t tossing a coin. Nought is five people all following the same rule, and the rule pointing the wrong way every time.&rdquo; She taps the slips. &ldquo;Typos. Slowness. Says she&rsquo;s thirteen. They told us their rule. They wrote it down.&rdquo;',
+            '&ldquo;The conversations were printed in the booth corridor. Let&rsquo;s go and read what the judges should have read.&rdquo;'
+          ], function () { busy = false; $('#go').classList.add('on'); });
+        }, 2400);
+      });
+      paintB(); showJ(0);
+      msg('For each judge and each pair of booths: did the judge pick the person? The desk on the right has each judge&rsquo;s seats and slip.');
+    });
+  }
+})();
+</script>
+</body>
+</html>

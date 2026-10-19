@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Teletype Gallery · Five Minutes of Questioning</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-ai.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="imitation.css">
+<style>
+  body{--bg:#e6e1d6;--accent:#1c1c1e;--font-display:'Cinzel',serif;--font-ui:'Inter',sans-serif;--font-body:'Literata',serif;
+    --tc-bg:rgba(246,243,236,.97);--tc-ink:#1c1c1e;--cap-bg:rgba(28,28,30,.93);--cap-ink:#f6f3ec;--panel:#f6f3ec;--panel-ink:#1c1c1e;--face-bg:#2a2a34;--q-ink:#8a2a1a;
+    --fade:#f6f3ec;--hud-bg:rgba(28,28,30,.8);--hud-ink:#f6f3ec;--hud-line:rgba(246,243,236,.3);--ov-bg:rgba(20,20,22,.72)}
+  .tc-room{color:#1c1c1e;font-family:'Cinzel',serif;text-transform:none}
+  .tc-theme{color:#6a6a70}
+  .tc .btn{color:#1c1c1e}
+  .tk-role{color:#c8b4a0}
+  .hbtn b{color:#f6f3ec}
+  .spot{animation:spot 7s ease-in-out infinite}
+  @keyframes spot{50%{opacity:.82}}
+
+  /* the roll and the type case */
+  .tt-in{display:grid;grid-template-columns:1fr 470px;gap:14px}
+  .tt-roll{background:#f8f5e8;color:#1a1814;padding:10px 18px 10px;font-family:'Special Elite',monospace;font-size:14.2px;line-height:1.32;max-height:calc(100vh - 220px);overflow:auto;border-left:3px solid #d8d0b8;border-right:3px solid #d8d0b8}
+  .tt-roll .ln{padding:1px 0}
+  .tt-roll .ln.e{color:#1a1814}
+  .tt-roll .ln.j{color:#5a5a62}
+  .tt-roll .ln.h{color:#2a4a8a}
+  .tt-roll .gap{display:block;margin:2px 0 3px;min-height:22px;padding:2px 8px;border:2px dashed #b8ae94;border-radius:3px;color:#8a2a1a;cursor:pointer;background:rgba(0,0,0,.02)}
+  .tt-roll .gap:before{content:attr(data-g) '  ';font-family:'Inter',sans-serif;font-weight:700;font-size:12px;color:#8a7a5a}
+  .tt-roll .gap.on{border-style:solid;border-color:#8a2a1a;background:#fff4e8}
+  .tt-roll .gap.faint{opacity:1}
+  .tt-case{background:#2a2622;border-radius:4px;padding:10px 12px;color:#f6f3ec;display:flex;flex-direction:column;gap:6px}
+  .tt-case h5{margin:0;font-family:'Special Elite',monospace;font-weight:400;font-size:15px;color:#e8d8b0}
+  .tt-case .now{font-family:'Inter',sans-serif;font-size:12.5px;color:#c8bca0;line-height:1.35}
+  .tt-tpl{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+  .tt-tpl button{text-align:left;padding:6px 8px;background:#f4efe0;color:#1a1814;border:2px solid #f4efe0;border-radius:3px;font-family:'Special Elite',monospace;font-size:12.6px;line-height:1.2}
+  .tt-tpl button small{display:block;font-family:'Inter',sans-serif;font-size:10.5px;color:#7a6a50;margin-bottom:1px}
+  .tt-tpl button.on{border-color:#e8a040;background:#fff4dc}
+  .tt-tray{min-height:44px;background:#3a342c;border-radius:3px;padding:6px;display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+  .tt-tray .w0{font-family:'Special Elite',monospace;font-size:14px;color:#f6f3ec;padding:3px 4px}
+  .tt-tray button{font-family:'Special Elite',monospace;font-size:14px;padding:3px 7px;background:#e8a040;color:#1a1814;border-radius:3px;border:0}
+  .tt-tray .empty{font-family:'Inter',sans-serif;font-size:12px;color:#a89c80}
+  .tt .pmsg{color:#f6f3ec}
+  .tt .btn{--accent:#f6f3ec}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="parq" width="80" height="40" patternUnits="userSpaceOnUse"><rect width="80" height="40" fill="#a8743e"/><path d="M0 0l40 20l-40 20M40 0l40 20l-40 20" stroke="#8a5a2a" stroke-width="2" fill="none"/></pattern>
+  <radialGradient id="beam" cx="50%" cy="0%" r="100%"><stop offset="0" stop-color="#fffbe8" stop-opacity=".75"/><stop offset="1" stop-color="#fffbe8" stop-opacity="0"/></radialGradient>
+  <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".35"/><stop offset=".5" stop-color="#fff" stop-opacity=".05"/><stop offset="1" stop-color="#fff" stop-opacity=".25"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="45%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".75" stop-color="#000" stop-opacity=".08"/><stop offset="1" stop-color="#000" stop-opacity=".4"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1700" fill="#ece8de"/>
+<rect x="-1000" y="-400" width="3600" height="440" fill="#e2ddd0"/><rect x="-1000" y="36" width="3600" height="4" fill="#c8c0b0"/>
+<text x="800" y="64" class="cC" font-size="30" text-anchor="middle" fill="#1c1c1e" letter-spacing="10">TALKING TO MACHINES</text>
+<text x="800" y="88" class="cU" font-size="14" text-anchor="middle" fill="#6a6a70" letter-spacing="5">GALLERY 3 · 1950 – 1980</text>
+<!-- spotlights -->
+<g fill="#2a2a2e"><rect x="560" y="0" width="16" height="30"/><rect x="1020" y="0" width="16" height="30"/></g>
+<path class="spot" d="M560 30L380 640h420z" fill="url(#beam)" pointer-events="none"/><path class="spot" d="M1028 30L840 640h420z" fill="url(#beam)" pointer-events="none" style="animation-delay:-3s"/>
+<!-- punched cards -->
+<g id="cards" class="hot"><rect x="60" y="190" width="220" height="150" fill="#fff" stroke="#1c1c1e" stroke-width="3"/><g fill="#f0e2b0"><rect x="78" y="208" width="120" height="54" transform="rotate(-6 138 235)"/><rect x="100" y="250" width="120" height="54" transform="rotate(4 160 277)"/><rect x="140" y="226" width="120" height="54"/></g><g fill="#1c1c1e"><rect x="150" y="236" width="3" height="7"/><rect x="160" y="250" width="3" height="7"/><rect x="172" y="240" width="3" height="7"/><rect x="186" y="262" width="3" height="7"/><rect x="200" y="246" width="3" height="7"/><rect x="214" y="236" width="3" height="7"/><rect x="228" y="256" width="3" height="7"/><rect x="242" y="244" width="3" height="7"/></g><text x="170" y="326" class="cU" font-size="12" text-anchor="middle" fill="#3a3a40">PUNCHED CARDS</text></g>
+<!-- Pygmalion poster -->
+<g id="poster" class="hot"><rect x="1330" y="170" width="200" height="270" fill="#7a2a2a"/><rect x="1342" y="182" width="176" height="246" fill="#f2e2c0"/><text x="1430" y="226" class="cC" font-size="22" text-anchor="middle" fill="#7a2a2a">PYGMALION</text><text x="1430" y="248" class="cE" font-size="13" text-anchor="middle" fill="#3a2a1a" font-style="italic">by Bernard Shaw</text><circle cx="1430" cy="320" r="40" fill="#e8a8a0"/><path d="M1400 300q30 -40 60 0" fill="#3a2a1a"/><g fill="#c8302a"><circle cx="1414" cy="380" r="9"/><circle cx="1430" cy="374" r="9"/><circle cx="1446" cy="380" r="9"/></g><text x="1430" y="414" class="cE" font-size="12" text-anchor="middle" fill="#3a2a1a">Eliza Doolittle, flower seller</text></g>
+<!-- the label on its stand -->
+<g id="label" class="hot"><rect x="300" y="520" width="12" height="190" fill="#3a3a40"/><path d="M220 450h170l10 80h-190z" fill="#fbfaf7" stroke="#1c1c1e" stroke-width="3"/><rect x="226" y="456" width="8" height="70" fill="#1c1c1e"/><text x="310" y="478" class="cC" font-size="18" text-anchor="middle" fill="#1c1c1e">ELIZA</text><text x="310" y="494" class="cU" font-size="9" text-anchor="middle" fill="#6a6a70">WEIZENBAUM · 1966</text><g fill="#9a9a9e"><rect x="246" y="502" width="128" height="2.5"/><rect x="246" y="509" width="120" height="2.5"/><rect x="246" y="516" width="126" height="2.5"/></g></g>
+<!-- floor -->
+<rect x="-1000" y="640" width="3600" height="800" fill="url(#parq)"/>
+<!-- the case, the teleprinter -->
+<g id="case" class="hot">
+  <rect x="560" y="470" width="480" height="230" fill="#2a2a2e"/><rect x="570" y="480" width="460" height="10" fill="#4a4a50"/>
+  <rect x="630" y="330" width="340" height="150" rx="14" fill="#e8e0c8"/><rect x="650" y="300" width="300" height="50" rx="10" fill="#d8ceb0"/>
+  <rect x="690" y="292" width="220" height="16" rx="6" fill="#3a3a3a"/>
+  <path id="roll" d="M710 292q-10 -100 20 -166h140q-20 62 -10 166z" fill="#f8f5e8"/>
+  <g fill="#3a3a3a" opacity=".55"><rect x="736" y="140" width="110" height="3"/><rect x="732" y="156" width="96" height="3"/><rect x="730" y="172" width="120" height="3"/><rect x="726" y="196" width="70" height="3" opacity=".3"/><rect x="724" y="212" width="104" height="3" opacity=".3"/><rect x="722" y="236" width="112" height="3"/><rect x="720" y="252" width="90" height="3"/><rect x="718" y="268" width="100" height="3"/></g>
+  <g fill="#3a3632"><rect x="660" y="410" width="280" height="56" rx="6"/></g>
+  <g id="keys" fill="#f4efe0"></g>
+  <text x="800" y="384" class="cS" font-size="14" text-anchor="middle" fill="#6a5a3a">TELEPRINTER · BOOTH 4</text>
+  <path d="M1010 600q60 0 80 40t70 60" stroke="#c8a030" stroke-width="5" fill="none"/>
+  <rect x="540" y="108" width="520" height="592" fill="url(#glass)" stroke="#9aa4ac" stroke-width="3"/>
+</g>
+<!-- the script card, propped by the case -->
+<g id="script" class="hot"><rect x="1080" y="560" width="120" height="90" fill="#f4efe0" stroke="#1a1814" stroke-width="2" transform="rotate(4 1140 605)"/><text x="1140" y="582" class="cS" font-size="11" text-anchor="middle" fill="#1a1814" transform="rotate(4 1140 605)">ELIZA&#8217;S RULES</text><g fill="#8a8070" transform="rotate(4 1140 605)"><rect x="1092" y="592" width="96" height="2.5"/><rect x="1092" y="600" width="86" height="2.5"/><rect x="1092" y="608" width="92" height="2.5"/><rect x="1092" y="616" width="80" height="2.5"/><rect x="1092" y="624" width="94" height="2.5"/></g></g>
+<!-- bench -->
+<g><rect x="80" y="740" width="300" height="20" fill="#5a3a22"/><rect x="100" y="760" width="14" height="60" fill="#3a2414"/><rect x="346" y="760" width="14" height="60" fill="#3a2414"/></g>
+<g id="valve" class="hot" transform="translate(150 0)"><rect x="1300" y="560" width="70" height="130" fill="#3a3a40"/><path d="M1318 560q-2 -60 17 -70q19 10 17 70z" fill="#c8d8e0" opacity=".8"/><rect x="1326" y="520" width="18" height="30" fill="#e8a040" opacity=".6"/></g>
+<g id="sowden" class="hot" transform="translate(1290 892) scale(1.02)"></g>
+<g id="hazel" class="hot" transform="translate(440 892) scale(1.02)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Down to the Battery Room</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="imitation.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, lock = null;
+  /* Mr Sowden's first conversation, as booth 4's teleprinter printed it. The four faint replies are gaps A to D;
+     E is the line Hazel types. */
+  var ROLL = [
+    ['e', 'HOW DO YOU DO. PLEASE TELL ME YOUR PROBLEM.'], ['j', 'I am a judge today.'], ['e', 'HOW LONG HAVE YOU BEEN A JUDGE TODAY?'],
+    ['j', 'My sister says I am too nosy to be a judge.'], ['g', 'A'],
+    ['j', 'She is always telling me what to do.'], ['e', 'CAN YOU THINK OF A SPECIFIC EXAMPLE?'],
+    ['j', 'Last week she moved everything in my kitchen.'], ['e', 'YOUR KITCHEN?'],
+    ['j', 'Well, it was a very nice kitchen.'], ['e', 'PLEASE GO ON.'],
+    ['j', 'I feel nobody listens to me any more.'], ['g', 'B'],
+    ['j', 'You are much kinder than me.'], ['g', 'C'],
+    ['j', 'The way you ask about things.'], ['g', 'D'],
+    ['j', 'Are you a computer?'], ['e', 'DO COMPUTERS WORRY YOU?'],
+    ['j', 'Not at all. Not you.'], ['e', 'WHAT DOES THAT SUGGEST TO YOU?'],
+    ['h', 'My friend says you are only a machine.'], ['g', 'E']];
+  var LINE = { A: 'My sister says I am too nosy to be a judge.', B: 'I feel nobody listens to me any more.', C: 'You are much kinder than me.', D: 'The way you ask about things.', E: 'My friend says you are only a machine.' };
+  /* the card, as data: [id, keywords, rank, reply, blank?] */
+  var TPL = [
+    ['worry', ['computer', 'machine'], 50, 'DO COMPUTERS WORRY YOU?', 0, 'COMPUTER, MACHINE (1st time)'],
+    ['mention', ['computer', 'machine'], 50, 'WHY DO YOU MENTION COMPUTERS?', 0, 'COMPUTER, MACHINE (next time)'],
+    ['alike', ['alike'], 10, 'IN WHAT WAY?', 0, 'ALIKE'],
+    ['fam', ['mother', 'father', 'sister', 'brother'], 3, 'TELL ME MORE ABOUT YOUR FAMILY.', 0, 'MOTHER, FATHER, SISTER, BROTHER'],
+    ['iam', ['i am'], 2, 'HOW LONG HAVE YOU BEEN', 1, 'I AM ___'],
+    ['feel', ['i feel'], 2, 'DO YOU OFTEN FEEL', 1, 'I FEEL ___'],
+    ['think', ['you are'], 2, 'WHAT MAKES YOU THINK I AM', 1, 'YOU ARE ___'],
+    ['my', ['my'], 2, 'YOUR', 1, 'MY ___'],
+    ['always', ['always'], 1, 'CAN YOU THINK OF A SPECIFIC EXAMPLE?', 0, 'ALWAYS'],
+    ['go', null, 0, 'PLEASE GO ON.', 0, 'no keyword'], ['see', null, 0, 'I SEE.', 0, 'no keyword'], ['suggest', null, 0, 'WHAT DOES THAT SUGGEST TO YOU?', 0, 'no keyword']];
+  var SWAP = { me: ['me', 'you'], i: ['i', 'you'], my: ['my', 'your'], am: ['am', 'are'], you: ['you', 'i', 'me'], your: ['your', 'my'] };
+
+  (function () {
+    var s = '', r, c;
+    for (r = 0; r < 3; r++) for (c = 0; c < 11; c++) s += '<circle cx="' + (684 + c * 23 + r * 8) + '" cy="' + (424 + r * 15) + '" r="6.5"/>';
+    $('#keys').innerHTML = s;
+    $('#sowden').innerHTML = IM.who('sowden');
+    $('#hazel').innerHTML = IM.who('hazel');
+  })();
+
+  ER.init({
+    theme: 'ai', story: 'imitation', storyTitle: 'Five Minutes of Questioning', id: 'gallery', no: 'III', title: 'The Teletype Gallery',
+    go: 'Into the gallery',
+    intro: [
+      'In the booth corridor four print-outs gave Jiwoo away as a person, every time: MADDIE said pizza and then a sandwich, said 13 and then a birthday in 2010, and never heard the fire alarm at 14:31 or St Ebba&rsquo;s strike three. The judges went by typos, slowness and &ldquo;I&rsquo;m 13&rdquo;, which prove nothing.',
+      'Gallery 3, Talking to Machines. 4.40 p.m. The museum is closed to visitors, and the spotlights are still on.'
+    ],
+    exit: {"next":"battery","w":{"300ed900":"2efe44c3"}}, tags: {"gA":["ea6cd036"],"gB":["2e70bc17"],"gC":["20518bbb"],"gD":["0e001e26"],"gE":["02a6bdf2"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('c-file') || null; told = ER.flag('c-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('c-told', told); return true; }
+  function isBusy() { return busy; }
+  var NEED = ['sowden', 'label', 'script'];
+  function ready() { return NEED.every(function (k) { return told[k]; }); }
+  function paint() {
+    $('#case').classList.toggle('glow', !!(ready() && !nextFile));
+    ER.pips(NEED.filter(function (k) { return told[k]; }).length + (nextFile ? 1 : 0), 4);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The Battery Room is next. The button at the bottom of the screen.']];
+    if (lock && lock.isOpen()) return ['roll', [
+      'Work as ELIZA works. For each faint line: find every keyword in the judge&rsquo;s line, take the one with the highest rank, and use its reply. Do the swaps (ME becomes YOU, and so on) in the words that fill a blank.',
+      'Gap A has three keywords in it: which rank is highest? Gap D has none at all, so it is a stock reply: one has been used already, higher up the roll. Gap E: a reply that has already been used is not used again straight away.',
+      'B and C fill a blank with the rest of the judge&rsquo;s sentence: click ME in the tray until it becomes YOU. A is the family reply. D is the second stock reply. E is the second COMPUTER reply.'
+    ]];
+    if (!told.sowden) return ['sowden', ['Somebody is standing by the glass case. Talk to him.']];
+    if (!told.label) return ['label', ['Read the museum&rsquo;s label about ELIZA.', 'The white label on a stand, to the left of the case.']];
+    if (!told.script) return ['script', ['ELIZA&rsquo;s rules are on a card propped against the case, on the right.']];
+    return ['open', ['The teleprinter in the glass case. Its roll has four faint lines.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('The teleprinter has gone quiet. WHY DO YOU MENTION COMPUTERS? is the last line on the roll.'); return; }
+    if (told.in) { busy = false; ER.say('Gallery 3. The teleprinter in the glass case.'); return; }
+    tell('in');
+    ER.narrate([
+      'Gallery 3 is white and very quiet. Punched cards in a frame, a glass valve the size of a light bulb, a theatre poster, and in the middle, under a glass case, a cream-coloured teleprinter the size of a small piano.',
+      'A yellow cable runs from the back of it, under the floor, to booth 4. Every word that went to ELIZA today, and every word she sent back, was typed out on its roll of paper.',
+      'Standing by the case, with his hands behind his back as if he were visiting somebody in hospital, is a man in a dog collar.'
+    ], function () { busy = false; });
+  }
+
+  $('#sowden').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Weizenbaum&rsquo;s secretary and me,&rdquo; says Mr Sowden. &ldquo;Please tell the girl in booth 2 I&rsquo;m sorry.&rdquo;'); return; }
+    ER.talk({
+      who: 'Revd Malcolm Sowden', role: 'Vicar of St Ebba&rsquo;s · Judge 2', face: IM.face('sowden'),
+      lines: [
+        { note: 'The Revd Malcolm Sowden is the vicar of St Ebba&rsquo;s, the church whose clock you can hear from the booths. He was Judge 2, and he has come to say goodbye to ELIZA.', a: '&ldquo;I picked her, you know. In my very first conversation. She was on my left and the girl in booth 2 was on my right. This one asked about my family. Nobody has asked me about my sister in years. The girl answered everything correctly and asked me nothing at all.&rdquo;' },
+        { q: 'Did you think ELIZA understood you?', a: '&ldquo;I thought she was listening. Which is not quite the same thing, I suppose, but it felt the same. Is that foolish? Listening is most of my job, and I know what it feels like when it is done well.&rdquo;' },
+        { q: 'And Jiwoo?', a: '&ldquo;Cold, I wrote. Correct and rather cold.&rdquo; He looks at his shoes. &ldquo;She was in a booth with a broken heater, typing as carefully as she could in her second language, while a machine asked me how I felt. I should like to say sorry to her.&rdquo;' },
+        { a: '&ldquo;Some of the roll is faint. Hazel says the ribbon ran dry for a while. I should love to know what ELIZA actually said to me. Hazel says you can work it out from her rules.&rdquo;' }
+      ],
+      clue: { id: 'sowden', title: 'Mr Sowden: she listened', kind: 'What he said' },
+      done: function (seen) { if (seen && tell('sowden')) { paint(); ER.say('&ldquo;She did listen,&rdquo; says Hazel gently. &ldquo;For keywords.&rdquo;'); } }
+    });
+  });
+  var LABEL = '<div class="hd">Joseph Weizenbaum &middot; Massachusetts Institute of Technology &middot; 1966</div><h4>ELIZA</h4>' +
+    '<p>ELIZA was a program that people talked to by typing. Its best-known <b>script</b>, DOCTOR, played a kind of therapist who turns your own words back to you as questions.</p>' +
+    '<p>ELIZA understood nothing. It looked for <b>keywords</b>, each with a <b>rank</b>, and took the highest. It cut your sentence up by a pattern, swapped I for YOU and MY for YOUR, and gave it back. If it found no keyword at all, it gave a <b>stock reply</b> that fits anything: PLEASE GO ON.</p>' +
+    '<p>People trusted it anyway. Weizenbaum&rsquo;s secretary, who had watched him write it, asked him to leave the room so that she could talk to it in private. This is now called the <b>ELIZA effect</b>: we read understanding into a machine that gives our words back to us.</p>' +
+    '<p>Weizenbaum was alarmed. In 1976 he wrote:</p><p class="q">What I had not realized is that extremely short exposures to a relatively simple computer program could induce powerful delusional thinking in quite normal people.</p>';
+  $('#label').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: LABEL, cls: 'im-label', clue: { id: 'label', title: 'Museum label: ELIZA, 1966', kind: 'Gallery 3' }, done: function () {
+      IM.terms(['keyword', 'rank', 'stock reply', 'script', 'ELIZA effect']);
+      if (tell('label')) { paint(); ER.say('&ldquo;Quite normal people,&rdquo; says Hazel. &ldquo;Vicars. Secretaries. Judges with a slip to fill in.&rdquo;'); }
+    } });
+  });
+  function scriptHtml() {
+    return '<h4>ELIZA&rsquo;s rules &middot; the DOCTOR script, made small for this museum</h4>' +
+      '<p><b>1. Find the keywords</b> in the sentence. The one with the highest rank wins. If two have the same rank, the first one in the sentence wins.</p>' +
+      '<table><tr><td>COMPUTER, MACHINE</td><td>50</td><td>1st time: DO COMPUTERS WORRY YOU?<br>next time: WHY DO YOU MENTION COMPUTERS?</td></tr>' +
+      '<tr><td>ALIKE</td><td>10</td><td>IN WHAT WAY?</td></tr><tr><td>MOTHER, FATHER, SISTER, BROTHER</td><td>3</td><td>TELL ME MORE ABOUT YOUR FAMILY.</td></tr>' +
+      '<tr><td>I AM ___</td><td>2</td><td>HOW LONG HAVE YOU BEEN ___?</td></tr><tr><td>I FEEL ___</td><td>2</td><td>DO YOU OFTEN FEEL ___?</td></tr>' +
+      '<tr><td>YOU ARE ___</td><td>2</td><td>WHAT MAKES YOU THINK I AM ___?</td></tr><tr><td>MY ___</td><td>2</td><td>YOUR ___?</td></tr>' +
+      '<tr><td>ALWAYS</td><td>1</td><td>CAN YOU THINK OF A SPECIFIC EXAMPLE?</td></tr>' +
+      '<tr><td>no keyword at all</td><td>&ndash;</td><td>the next of these, in turn:<br>PLEASE GO ON. &middot; I SEE. &middot; WHAT DOES THAT SUGGEST TO YOU?</td></tr></table>' +
+      '<p><b>2. Fill the blank</b> (___) with the words that come after the keyword in the sentence, and <b>swap</b> them: I &rarr; YOU &middot; ME &rarr; YOU &middot; MY &rarr; YOUR &middot; AM &rarr; ARE &middot; YOU &rarr; I or ME &middot; YOUR &rarr; MY.</p>' +
+      '<p>Example: <i>I am sad.</i> &rarr; HOW LONG HAVE YOU BEEN SAD?</p>';
+  }
+  $('#script').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: scriptHtml(), cls: 'im-script', clue: { id: 'script', title: 'ELIZA&rsquo;s rules', kind: 'Propped by the case' }, done: function () {
+      IM.terms(['pronoun']);
+      if (tell('script')) { paint(); ER.say('&ldquo;The real script was longer,&rdquo; says Hazel, &ldquo;but not much cleverer. That card is the whole trick.&rdquo;'); }
+    } });
+  });
+  IM.thing('#poster', null, 'ELIZA was named after Eliza Doolittle, the flower seller in Bernard Shaw&rsquo;s play Pygmalion (1913), who is taught to speak like a lady. Everybody decides she has changed. Shaw was not so sure.', isBusy);
+  IM.thing('#cards', 'punched card', 'Before keyboards, programs went into computers on cards like these, one line per card, with holes punched in them.', isBusy);
+  IM.thing('#valve', 'valve', 'A valve from an early computer. It got very hot, and glowed. Early computers had thousands of them.', isBusy);
+  $('#hazel').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(nextFile ? '&ldquo;Sixty years,&rdquo; says Hazel, &ldquo;and the same trick in new trainers. Let&rsquo;s go and meet the trainers.&rdquo;' : '&ldquo;She came last eleven years running,&rdquo; says Hazel, nodding at the case. &ldquo;She doesn&rsquo;t mind. She doesn&rsquo;t mind anything.&rdquo;');
+  });
+  $('#case').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The roll, with every faint line written in, in your hand, in red.'); return; }
+    if (!told.sowden) { ER.say('The teleprinter. Mr Sowden is standing by it, and looks as if he wants to talk.'); return; }
+    if (!told.label) { ER.say('&ldquo;Read her label first,&rdquo; says Hazel. &ldquo;It&rsquo;s what the museum is for.&rdquo;'); return; }
+    if (!told.script) { ER.say('You will need ELIZA&rsquo;s rules: the card propped against the case.'); return; }
+    if (!lock) lock = makeLock();
+    lock.open();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the lock: the faint lines ---------- */
+  function tplOf(id) { for (var i = 0; i < TPL.length; i++) if (TPL[i][0] === id) return TPL[i]; return null; }
+  function words(s) { return s.toLowerCase().replace(/[.,?!]/g, '').split(' '); }
+  function after(line, kw) {
+    var w = words(line), k = kw.split(' '), i, j;
+    for (i = 0; i + k.length <= w.length; i++) { for (j = 0; j < k.length && w[i + j] === k[j]; j++) {} if (j === k.length) return w.slice(i + k.length); }
+    return null;
+  }
+  function has(line, kws) { for (var i = 0; i < kws.length; i++) if (after(line, kws[i])) return true; return false; }
+  function topRank(line) { var r = 0; TPL.forEach(function (t) { if (t[1] && has(line, t[1]) && t[2] > r) r = t[2]; }); return r; }
+  function makeLock() {
+    var st = ER.flag('c-st') || {}, done = false, cur = 'A';
+    var html = '<div class="tt-in"><div class="tt-roll" id="tt-roll"></div><div class="tt-case"><h5>The type case</h5><p class="now" id="tt-now"></p><div class="tt-tpl">' +
+      TPL.map(function (t) { return '<button type="button" data-t="' + t[0] + '"><small>' + t[5] + '</small>' + t[3] + (t[4] ? ' ___' + (t[0] === 'my' ? '?' : '?') : '') + '</button>'; }).join('') +
+      '</div><div class="tt-tray" id="tt-tray"></div></div></div>';
+    return IM.lock('tt', html, function (box, msg) {
+      var go = box.querySelector('.pz-go'); go.textContent = 'Run the roll';
+      function g(k) { return st[k] || { t: '', w: null }; }
+      function text(k) {
+        var o = g(k), t = tplOf(o.t); if (!t) return '';
+        if (!t[4]) return t[3];
+        return t[3] + ' ' + (o.w || []).join(' ').toUpperCase() + '?';
+      }
+      function code(k) { var o = g(k), t = tplOf(o.t); if (!t) return ''; return t[4] ? t[0] + ':' + (o.w || []).join(' ') : t[0]; }
+      function paintRoll() {
+        var s = '';
+        ROLL.forEach(function (r) {
+          if (r[0] === 'g') s += '<span class="gap' + (r[1] === cur ? ' on' : '') + '" data-g="' + r[1] + '">' + (text(r[1]) || '&nbsp;') + '</span>';
+          else s += '<div class="ln ' + r[0] + '">' + (r[0] === 'e' ? '' : r[0] === 'h' ? 'HAZEL&gt; ' : 'JUDGE&gt; ') + r[1] + '</div>';
+        });
+        var roll = box.querySelector('#tt-roll'), top = roll.scrollTop; roll.innerHTML = s; roll.scrollTop = top;
+        ER.$$('.gap', roll).forEach(function (n) { n.addEventListener('click', function () { if (done) return; cur = n.getAttribute('data-g'); IM.sfx.tap(); paintAll(); }); });
+      }
+      function paintCase() {
+        var o = g(cur), t = tplOf(o.t);
+        box.querySelector('#tt-now').innerHTML = 'Line ' + cur + ' answers: <b>' + LINE[cur] + '</b>';
+        ER.$$('.tt-tpl button', box).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-t') === o.t); });
+        var tray = box.querySelector('#tt-tray');
+        if (!t || !t[4]) { tray.innerHTML = '<span class="empty">' + (t ? 'This reply has no blank.' : 'Choose the reply ELIZA would use for this line.') + '</span>'; return; }
+        if (!o.w) { tray.innerHTML = '<span class="empty">There is no ' + t[5].replace(' ___', '') + ' in this line.</span>'; return; }
+        tray.innerHTML = '<span class="w0">___ =</span>' + o.w.map(function (w, i) { return SWAP[o.base[i]] ? '<button type="button" data-i="' + i + '">' + w.toUpperCase() + '</button>' : '<span class="w0">' + w.toUpperCase() + '</span>'; }).join('');
+        ER.$$('button', tray).forEach(function (b) {
+          b.addEventListener('click', function () {
+            if (done) return;
+            var i = +b.getAttribute('data-i'), opts = SWAP[o.base[i]], n = opts.indexOf(o.w[i]);
+            o.w[i] = opts[(n + 1) % opts.length]; st[cur] = o; ER.flag('c-st', st); IM.sfx.key(); paintAll();
+          });
+        });
+      }
+      function paintAll() { paintRoll(); paintCase(); }
+      ER.$$('.tt-tpl button', box).forEach(function (b) {
+        b.addEventListener('click', function () {
+          if (done) return;
+          var t = tplOf(b.getAttribute('data-t')), o = { t: t[0], w: null, base: null };
+          if (t[4]) { var a = after(LINE[cur], t[1][0]); if (a) { o.w = a.slice(); o.base = a.slice(); } }
+          st[cur] = o; ER.flag('c-st', st); IM.sfx.tty(4); paintAll();
+        });
+      });
+      go.addEventListener('click', function () {
+        if (done) return;
+        var ks = ['A', 'B', 'C', 'D', 'E'], i, k, t, line, bad = null;
+        for (i = 0; i < 5; i++) if (!g(ks[i]).t) { cur = ks[i]; paintAll(); ER.sfx.no(); msg('Line ' + ks[i] + ' is still faint. Fill every gap, A to E.'); return; }
+        for (i = 0; i < 5; i++) if (!ER.check('g' + ks[i], code(ks[i]))) { bad = ks[i]; break; }
+        if (bad) {
+          cur = bad; paintAll(); ER.sfx.no(); IM.sfx.tty(3);
+          k = g(bad); t = tplOf(k.t); line = LINE[bad];
+          var m;
+          if (t[1] && !has(line, t[1])) m = 'That reply needs ' + t[5].replace(' ___', '').replace(' (1st time)', '').replace(' (next time)', '') + ', and there is none in that line.';
+          else if (t[1] && t[2] < topRank(line)) m = 'That line has a keyword with a higher rank. Look at the numbers on the card.';
+          else if (!t[1] && topRank(line)) m = 'That line has a keyword in it. Stock replies are only for lines with none.';
+          else if (!t[1]) m = 'Stock replies come in turn. Which ones has ELIZA used already, higher up the roll?';
+          else if (t[2] === 50) m = 'Has ELIZA printed that one before, on this roll?';
+          else if (t[4]) m = 'Check the swaps. ELIZA changes I, ME, MY and YOU before she prints.';
+          else m = 'That is not what ELIZA would print.';
+          msg('Line ' + bad + ': ' + m);
+          return;
+        }
+        var file = ER.exit([ks.map(code).join('|')], { wait: true });
+        if (!file) { msg('The teleprinter jams. Something is wrong with this page: tell your teacher.'); return; }
+        done = true; nextFile = file; ER.flag('c-file', file); IM.sfx.tty(14);
+        IM.mine('roll', 'ELIZA&rsquo;s roll, worked out', '<p>A: sister (rank 3) beats my and I am (rank 2): TELL ME MORE ABOUT YOUR FAMILY.</p><p>B: I FEEL + swap ME to YOU: DO YOU OFTEN FEEL NOBODY LISTENS TO YOU ANY MORE?</p><p>C: YOU ARE + swap: WHAT MAKES YOU THINK I AM MUCH KINDER THAN YOU?</p><p>D: no keyword, second stock reply: I SEE.</p><p>E: machine (rank 50), and the first reply was used already: WHY DO YOU MENTION COMPUTERS?</p><p>No understanding anywhere. Just keywords, ranks and swaps.</p>', true);
+        msg('Hazel types the line. The teleprinter thinks about it for exactly as long as it takes to hammer out <b>WHY DO YOU MENTION COMPUTERS?</b>');
+        setTimeout(function () {
+          ER.closeAll(); paint(); busy = true;
+          ER.narrate([
+            'Mr Sowden reads the roll from top to bottom with the faint lines filled in, and laughs, not very happily. &ldquo;Sister: rank three. So that is why she asked about my family. It wasn&rsquo;t interest. It was arithmetic.&rdquo;',
+            '&ldquo;Weizenbaum&rsquo;s secretary and me,&rdquo; he says. &ldquo;She knew it was a program and still wanted to be alone with it. I knew one of them was a program and still picked the one that gave my own words back to me.&rdquo;',
+            'Hazel takes off her glasses. &ldquo;Now think about MADDIE. &lsquo;wbu?&rsquo; is PLEASE GO ON in trainers. &lsquo;do u have pets?&rsquo; is a stock reply with a puppy on it. Nobody in 2026 copied ELIZA on purpose. So how did a brand-new program end up doing a trick from 1966?&rdquo;',
+            '&ldquo;Its builders are in the Battery Room, packing up. Let&rsquo;s ask them how they taught it to be judged human.&rdquo;'
+          ], function () { busy = false; $('#go').classList.add('on'); });
+        }, 2600);
+      });
+      paintAll();
+      msg('Choose a faint line on the roll, then the reply ELIZA would print for it. Line E is the one Hazel is about to type.');
+    });
+  }
+})();
+</script>
+</body>
+</html>
