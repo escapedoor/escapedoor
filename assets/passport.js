@@ -29,6 +29,9 @@ function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&
 /* a story counts as finished when its last room was reached by the long way round (not by a teacher's shortcut) */
 function done(st) { return !!(st && ((st.fin && !st.fin.skipped) || st.again)); }
 
+/* the floors of the building, as the catalogue names them (build.py wing_of) */
+var FLOOR = { '1층 사건 파일': 'Floor 1 · Case Files', '2층 다른 세계': 'Floor 2 · Other Worlds', '3층 진짜 세상': 'Floor 3 · The Real World', '옥상': 'The Roof' };
+
 var BADGES = [
   { id: 'first', name: 'First Door', how: 'Finish any story.', test: function (x) { return x.done >= 1; } },
   { id: 'sharp', name: 'Sharp Eyes', how: 'Finish a story without a single hint.', test: function (x) { return x.noHint; } },
@@ -37,7 +40,7 @@ var BADGES = [
   { id: 'five', name: 'Five Stars', how: 'Finish a five-star story.', test: function (x) { return x.stars[5]; } },
   { id: 'clock', name: 'Against the Clock', how: 'Finish a story faster than the shortest time on its card.', test: function (x) { return x.quick; } },
   { id: 'five-doors', name: 'Explorer', how: 'Get stamps from five different themes.', test: function (x) { return x.themes >= 5; } },
-  { id: 'wings', name: 'All Three Wings', how: 'Get a stamp in every wing of the corridor.', test: function (x) { return x.wings >= 3; } },
+  { id: 'wings', name: 'Every Floor', how: 'Get a stamp on floors 1, 2 and 3 of the building.', test: function (x) { return x.wings >= 3; } },
   { id: 'full', name: 'Full House', how: 'Finish every story of one theme (a theme with three or more).', test: function (x) { return x.full; } },
   { id: 'ten', name: 'Ten Stories', how: 'Finish ten stories.', test: function (x) { return x.done >= 10; } },
   { id: 'words', name: 'Word Collector', how: 'Keep 100 words in your notebooks.', test: function (x) { return x.words >= 100; } },
@@ -66,7 +69,7 @@ function facts(cat, s) {
         if (!first || (f.at && f.at < first)) first = f.at || first;
       }
     });
-    if (n) { x.themes++; wings[t.wing] = 1; x.stamps[t.id] = { n: n, of: t.stories.length, at: first }; }
+    if (n) { x.themes++; if (t.wing !== '옥상') wings[t.wing] = 1; x.stamps[t.id] = { n: n, of: t.stories.length, at: first }; }
     if (n && t.stories.length >= 3 && n === t.stories.length) x.full = true;
   });
   x.wings = Object.keys(wings).length;
@@ -178,7 +181,7 @@ P.open = function () {
       if (t.wing !== wing) {
         if (wing) st += '</div>';
         wing = t.wing;
-        st += '<div class="pp-wing">' + esc({ '이야기 구역': 'Story doors', '과목 구역': 'Study doors', '세 번째 구역': 'The third wing' }[wing] || wing) + '</div><div class="pp-stamps">';
+        st += '<div class="pp-wing">' + esc(FLOOR[wing] || wing) + '</div><div class="pp-stamps">';
       }
       var m = a.x.stamps[t.id], at = a.pp.stamps[t.id];
       st += '<div class="pp-stamp' + (at ? '' : ' off') + '" title="' + esc(t.name) + (at ? ': ' + (m ? m.n : 0) + ' of ' + t.stories.length + ' stories' : ': not visited yet') + '">' +
